@@ -1,0 +1,324 @@
+setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..., force=FALSE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'cells':
+  if (!is.matrix(cells)) {
+    throw("Argument 'cells' must be a matrix: ", class(cells)[1]);
+  }
+  dim <- dim(cells);
+  if (!any(dim == 2)) {
+    throw("Argument 'cells' must have either two rows or two columns: ", paste(dim, collapse="x"));
+  }
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Identifying SNP positions of cell allele pairs");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Check for cached results?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  chipType <- getChipType(this);
+  key <- list(method="getSnpPositions", class=class(this)[1], 
+              chipType=chipType, tags=getTags(this), cells=cells, ...);
+  dirs <- c("aroma.affymetrix", chipType);
+  if (!force) {
+    verbose && enter(verbose, "Checking for cached results");
+    res <- loadCache(key=key, dirs=dirs);
+    if (!is.null(res)) {
+      verbose && cat(verbose, "Found cached results");
+      verbose && exit(verbose);
+      verbose && exit(verbose);
+      return(res);
+    }
+    verbose && exit(verbose);
+  }
+
+  byRow <- (dim[2] == 2);
+  if (byRow) {
+    cells <- t(cells);
+    dim <- dim(cells);
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Read probe sequences
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Reading sequences matrix");
+  seqs <- readSequenceMatrix(this, cells=cells, what="raw");
+  map <- attr(seqs, "map");
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Identify SNP positions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Searching for mismatch position in pairs");
+  probeLength <- dim(seqs)[2];
+  dim(seqs) <- c(dim, probeLength);
+  seqsA <- seqs[1,,,drop=FALSE];
+  seqsB <- seqs[2,,,drop=FALSE];
+  dim(seqsA) <- dim(seqsB) <- c(dim[2], probeLength);
+  rm(seqs);
+
+  # Identify the *last* difference
+  naValue <- as.integer(NA);
+  pos <- rep(naValue, nrow(cells));
+  for (pp in seq(length=probeLength)) {
+    idxs <- whichVector(seqsA[,pp] != seqsB[,pp]);
+    pos[idxs] <- pp;
+  }
+  rm(idxs, pp);
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Save to cache
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Caching result");
+  saveCache(pos, key=key, dirs=dirs);
+  verbose && exit(verbose);
+
+  verbose && exit(verbose);
+
+  pos;
+}) # getSnpPositions()
+ 
+
+setMethodS3("getSnpShifts", "AromaCellSequenceFile", function(this, ...) {
+  pos <- getSnpPositions(this, ...);
+  pos <- pos - ((getProbeLength(this) %/% 2) + 1L);
+  pos;
+}) # getSnpShifts()
+
+
+
+setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, shifts=0, ..., verbose=FALSE) {
+  # For rowCollapse()
+  require("matrixStats") || throw("Package not loaded: matrixStats");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'cells':
+  if (!is.matrix(cells)) {
+    throw("Argument 'cells' must be a matrix: ", class(cells)[1]);
+  }
+  dim <- dim(cells);
+  if (!any(dim == 2)) {
+    throw("Argument 'cells' must have either two rows or two columns: ", paste(dim, collapse="x"));
+  }
+
+  # Argument 'shifts':
+  shifts <- Arguments$getIntegers(shifts, range=c(-5,5));
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  byRow <- (dim[2] == 2);
+  if (byRow) {
+    cells <- t(cells);
+    dim <- dim(cells);
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Identify SNP positions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  pos <- getSnpPositions(this, cells=cells, verbose=less(verbose, 1));
+  verbose && print(verbose, table(pos));
+  uPos <- sort(unique(pos));
+  verbose && cat(verbose, "Unique SNP positions:");
+  verbose && print(verbose, uPos);
+  
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Read probe sequences
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  naValue <- as.character(NA);
+  seqs <- rep(naValue, length(cells));
+  dim(seqs) <- dim(cells);
+  for (pp in seq(along=uPos)) {
+    snpPosition <- uPos[pp];
+
+    # Cells to read
+    idxs <- whichVector(pos == snpPosition);
+    cellsPP <- cells[,idxs,drop=FALSE];
+
+    # Sequence positions to read
+    positions <- snpPosition + shifts;
+
+    seqsPP <- readSequences(this, cells=cellsPP, positions=positions);
+    seqs[,idxs] <- seqsPP;
+  }
+  rm(idxs, seqsPP, positions, cellsPP, snpPosition, cells, pos);
+
+  if (byRow)
+    seqs <- t(seqs);
+
+  seqs;
+}) # getAlleleNucleotidePairs()
+ 
+
+
+setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cells, ignoreOrder=TRUE, ..., force=FALSE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'ignoreOrder':
+  ignoreOrder <- Arguments$getLogical(ignoreOrder);
+
+  # Argument 'force':
+  force <- Arguments$getLogical(force);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Identifying groups of SNP nucleotide sequence pairs");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Check for cached results?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  chipType <- getChipType(this);
+  key <- list(method="groupBySnpNucleotides", class=class(this)[1], 
+              chipType=chipType, tags=getTags(this), 
+              cells=cells, ignoreOrder=ignoreOrder, 
+              version="2008-12-04", ...);
+  dirs <- c("aroma.affymetrix", chipType);
+  if (!force) {
+    verbose && enter(verbose, "Checking for cached results");
+    res <- loadCache(key=key, dirs=dirs);
+    if (!is.null(res)) {
+      verbose && cat(verbose, "Found cached results");
+      verbose && exit(verbose);
+      verbose && exit(verbose);
+      return(res);
+    }
+    verbose && exit(verbose);
+  }
+
+
+  verbose && enter(verbose, "Get SNP nucleotide sequence pairs");
+  pairs <- getSnpNucleotides(this, cells=cells, ..., verbose=verbose);
+  verbose && str(verbose, pairs);
+  verbose && exit(verbose);
+
+  dim <- dim(pairs);
+
+  byRow <- (dim[2] == 2);
+  if (byRow) {
+    verbose && enter(verbose, "Transposing matrices");
+    cells <- t(cells);
+    pairs <- t(pairs);
+    dim <- dim(cells);
+    verbose && exit(verbose);
+  }
+
+  verbose && enter(verbose, "Generating names of pairs");
+  pairNames <- paste(pairs[1,], pairs[2,], sep="/");
+  pairNames[is.na(pairs[1,])] <- NA;
+  uniquePairs <- sort(unique(pairNames));
+  verbose && cat(verbose, "uniquePairs:");
+  verbose && str(verbose, uniquePairs);
+  verbose && exit(verbose);
+
+  verbose && enter(verbose, "Identifying names of pairs to map to");
+  pairsToBuild <- uniquePairs;
+  if (ignoreOrder) {
+    pairsToBuild <- strsplit(pairsToBuild, split="/", fixed=TRUE);
+    pairsToBuild <- lapply(pairsToBuild, FUN=sort);
+    pairsToBuild <- sapply(pairsToBuild, FUN=paste, collapse="/");
+    pairsToBuild <- unique(pairsToBuild);
+    pairsToBuild <- sort(pairsToBuild);
+  }
+  verbose && cat(verbose, "pairsToBuild:");
+  verbose && str(verbose, pairsToBuild);
+  verbose && exit(verbose);
+
+  res <- vector("list", length(pairsToBuild)+1);
+  names(res) <- c(pairsToBuild, "missing");
+  for (kk in seq(along=uniquePairs)) {
+    pair <- uniquePairs[kk];
+    verbose && enter(verbose, sprintf("Pair %d ('%s') of %d", 
+                                          kk, pair, length(uniquePairs)));
+
+    idxs <- whichVector(pairNames == pair);
+    verbose && cat(verbose, "Matching pairs:");
+    verbose && str(verbose, idxs);
+    cellsKK <- cells[,idxs,drop=FALSE];
+
+    # Swap?
+    if (ignoreOrder) {
+      verbose && enter(verbose, "Order pair");
+      pair <- strsplit(pair, split="/", fixed=TRUE)[[1]];
+      if (pair[1] > pair[2]) {
+        cellsKK <- cellsKK[2:1,,drop=FALSE];
+        pair <- rev(pair);
+      }
+      pair <- paste(pair, collapse="/");
+      verbose && exit(verbose);
+    }
+
+    res[[pair]] <- cbind(res[[pair]], cellsKK);
+
+    verbose && exit(verbose);
+  } # for (kk ...)
+
+  idxs <- whichVector(is.na(pairNames));
+  cellsKK <- cells[,idxs,drop=FALSE];
+  if (length(cellsKK) > 0)
+    res[["missing"]] <- cellsKK;
+  rm(idxs, cellsKK);
+
+  for (kk in seq(along=res)) {
+    cells <- res[[kk]];
+    pair <- names(res)[kk];
+    if (pair == "missing") {
+      dimnames(cells) <- NULL;
+    } else {
+      pair <- strsplit(pair, split="/", fixed=TRUE)[[1]];
+      rownames(cells) <- pair;
+    }
+    if (byRow)
+      cells <- t(cells);
+    res[[kk]] <- cells;
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Save to cache
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Caching result");
+  saveCache(res, key=key, dirs=dirs);
+  verbose && exit(verbose);
+
+  verbose && exit(verbose);
+
+  res;
+}) # groupBySnpNucleotides()
+
+
+############################################################################
+# HISTORY:
+# 2008-12-04
+# o BUG FIX: groupBySnpNucleotides() of AromaCellSequenceFile would return
+#   an empty element 'missing' for some chip types, e.g. Mapping10K_Xba142.
+#   Now that empty elements are dropped.
+# 2008-09-02
+# o Added getSnpShifts().
+# o Added groupBySnpNucleotides().
+# o Added getSnpPositions() and getSnpNucleotides().
+# o Created.
+############################################################################

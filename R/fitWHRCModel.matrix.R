@@ -1,0 +1,127 @@
+# Fit the log-additive model assuming *homoscedastic* error terms.
+# Each data element can be given a weight.  Moreover, if there
+# are missing values, these will be given zero weights.
+setMethodS3("fitWRCModel", "matrix", function(y, ...) {
+  # Explicit call to avoid method dispatching overheads.
+  fitWHRCModel.matrix(y, ..., maxIterations=1);
+})
+
+
+
+
+# Fit the log-additive model assuming *heteroscedastic* error terms
+# such that *each probe* may have a different standard deviation.
+# Each data element can be given a weight.  Moreover, if there
+# are missing values, these will be given zero weights.
+# 'tau' is an optional penalty term to avoid zero variance estimates.
+setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0, psiK=1.345, tau=1e-3, eps=1e-3, maxIterations=100, .checkArgs=TRUE, ...) {
+  I <- ncol(y);  # Number of arrays
+  K <- nrow(y);  # Number of probes
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (.checkArgs) {
+    # Argument 'w':
+    if (!is.null(w)) {
+      if (!identical(dim(w), c(I,K)))
+        stop(sprintf("The dimension of argument 'w' does not match that of 'y': %dx%d != %dx%d", nrow(w), ncol(w), I, K));
+    }
+  }
+
+
+  # Scan for NAs?
+  if (hasNAs) {
+    isNA <- is.na(y);
+  } else if (is.na(hasNAs)) {
+    isNA <- is.na(y);
+    hasNAs <- any(isNA);
+  }
+
+  if (hasNAs) {
+    # Weight matrix where missing values gets zero weight.
+    wNA <- matrix(1, nrow=K, ncol=I);
+    wNA[isNA] <- 0;
+    y[isNA] <- 0; # preprocessCore() only takes real values.
+
+    badCells <- apply(isNA, MARGIN=2, FUN=all);
+    if (any(badCells)) {
+      return(list(Estimates=rep(NA, I+K),
+                  StdErrors=rep(NA, I+K),
+                  Weights=matrix(NA, nrow=K, ncol=I),
+                  Residuals=matrix(NA, nrow=K, ncol=I)
+                 )
+            );
+    }
+
+    # Update prior weights?
+    if (is.null(w)) {
+      w <- wNA;
+    } else {
+      w <- w * wNA;
+    }
+  } else {
+    w <- matrix(1, nrow=K, ncol=I);
+  }
+
+  thetaIdxs <- seq(length=I);
+  phiIdxs <- I+seq(length=K);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Iterative re-weighted fit
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  w0 <- w;
+  dParams <- NA;
+  lastParams <- NULL;
+
+  nbrOfIterations <- 0;
+  ready <- FALSE;
+  while (!ready) {
+    fit <- .Call("R_wrlm_rma_default_model", y, psiCode, psiK, w, PACKAGE="preprocessCore");
+
+
+    nbrOfIterations <- nbrOfIterations + as.integer(1);
+
+    params <- fit$Estimates;
+
+    if (is.null(lastParams)) {
+      hasConverged <- FALSE;
+    } else {
+      dParams <- mean(abs(params-lastParams), na.rm=TRUE);
+      hasConverged <- (dParams < eps);
+    }
+    ready <- (hasConverged || nbrOfIterations >= maxIterations);
+
+    if (!ready) {
+      # Estimate probe standard deviations robustly
+      phi <- params[phiIdxs];
+      res <- fit$Residuals;
+      res[isNA] <- NA;  # Missing values were set to zero.
+      phiSd <- rowMads(res, centers=0, na.rm=TRUE);
+  
+      # Downweights by variance (with a small penalty term)
+      wV <- 1/(phiSd^2 + tau);
+#      wV <- wV / sum(wV, na.rm=TRUE);
+
+      # Update the weights
+      w <- wV * w0;
+    }
+
+    lastParams <- params;
+  } # while(!ready)
+
+  if (maxIterations > 1) {
+    fit$hasConverged <- hasConverged;
+    fit$dParams <- dParams;
+    fit$nbrOfIterations <- nbrOfIterations;
+  }
+
+  fit;
+}) # fitWHRCModel()
+
+
+############################################################################
+# HISTORY:
+# 2007-10-05
+# o Created.
+############################################################################

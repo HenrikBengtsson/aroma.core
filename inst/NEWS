@@ -1,0 +1,354 @@
+Package: aroma.core
+===================
+
+Version: 1.0.8 [2009-05-25]
+o GENERALIZATION: The AromaTransforms class was generalized further
+  to handle cases where the number of output files does not map
+  one to one to the input files.
+
+
+Version: 1.0.7 [2009-05-18]
+o Added extractRawAlleleBFractions() for AromaUnitFracBCnBinaryFile.
+o Added exportFracBDiffSet() for AromaUnitFracBCnBinarySet.
+o Moved the Explorer class and its support files under inst/ from
+  aroma.affymetrix to aroma.core.
+o Moved the AromaCellPositionFile class from aroma.affymetrix 
+  to aroma.core.
+o ADDED: Now all segmentByNnn() for RawGenomicSignals also returns
+  so called 'aromaEstimates', which are additional parameter 
+  estimates, e.g. robust estimates of the standard deviation of
+  all full-resolution CNs as well as per identified region.
+o CLEAN UP: Moved all file set specific classes and methods to
+  the new R.filesets package.
+o MEMORY OPTIMIZATION: Where ever possible/applicable, we now use
+  Arguments$getNumerics(), which, in R utils v1.1.5 and new, corces
+  to doubles only if the input is not already doubles.  This will 
+  lower the memory usage in some cases since an integers use 4 bytes
+  and doubles 8 bytes.  This also save disk space if object is saved
+  to disk, e.g. a DNAcopy fit object with integer genomic positions 
+  instead of double ones, save approx 5-7% disk space.
+o ROBUSTNESS: Now allocate() for AromaTabularBinaryFile first allocates
+  a temporary file which is then renamed.  This makes the file allocation
+  more atomic, and therefore less error prone to interrupts etc.
+o ROBUSTNESS: Now indexOf() for UnitNamesFile assert that exactly one
+  of the 'pattern' and 'names' arguments is given.  It also gives an 
+  informative error message if 'pattern' is a vector.
+o ROBUSTNESS: Now all arguments that are expected to be exactly one
+  character string (not an empty vector or a vector of length two)
+  are asserted to be that too.  This closes some potential bugs.
+o EXCEPTION HANDLING: All methods that modifies an existing file, are 
+  now asserting that the file permissions allow modifying it, and if not
+  gives a clear error message that this is the case.
+o BUG FIX: allocateFromUnitNamesFile() for AromaUnitSignalBinaryFile
+  would not call generic allocate() but the one for this class.
+o BUG FIX: extractMergedRawCopyNumbers(..., unshift=TRUE) would estimate
+  the relative shifts between platforms using smoothed CNs over the
+  genomic region defined by the first data set.  Now it is done over the
+  region defined by the union of all data sets.  The impact of this
+  bug should be neglectable or zero.
+
+
+Version: 1.0.6 [2009-05-14]
+o Now binnedSmoothing() of RawGenomicSignals uses weighted estimates
+  (by default) if weights exists.
+o Added RawAlleleBFractions() extending RawGenomicSignals.
+o Added extractCopyNumberRegions() for profileCGH, DNAcopy, and 
+  HaarSeg segmentation object. Before they were in aroma.affymetrix.
+o Added segmentByCBS(), segmentByGLAD(), and segmentByHarSeeg() 
+  to RawGenomicSignals, which all support weights if the underlying
+  segmentation method does.  To date, it is only CBS and HaarSeg
+  that supports weights.  These methods also support memoization.
+o Added extractRegion() to RawGenomicSignals.
+o Added getWeights() and hasWeights() to RawGenomicSignals.
+o Added {add,subtract,multiply,divide}By() for RawGenomicSignals all
+  utilizing support method applyBinaryOperator().
+o ALPHA: Added classes GenericDataFile{Set}List.
+o ALPHA: Added class AromaUnitTotalCnBinaryFileList with methods 
+  extractRawCopyNumbers() and extractMergedRawCopyNumbers().
+o SPEED UP: Now TextUnitNamesFile caches all unit names in memory.
+o BUG FIX: Now aroma.core works with the IRanges and grid packages,
+  regardless on the order they were loaded.
+o BUG FIX: getPlatform() of TextUnitNamesFile would sometimes return
+  a list of length one, instead of an single character string.
+o BUG FIX: extractSubset() of RawGenomicSignals did not recognize all
+  locus fields.
+
+
+Version: 1.0.5 [2009-05-10]
+o Now getOutputDataSet() of AromaTransform returns a data set with files
+  ordered such that the fullnames are ordered the same way as the input
+  data set.  Suggested by Xin (Victoria) Wang at UC Berkeley.
+o Now getOutputDataSet() of AromaTransform scans for the output data 
+  files with fullnames matching those of the input data set.  This is
+  one step closer to being able to batch process subsets of data sets
+  when the method is, say, a single-array method.
+o Now static fromFiles() of GenericDataFileSet supports empty data sets.
+o Now readDataFrame() of AromaUgpFile and AromaUnitTabularBinaryFile
+  accepts rows=integer(0).
+o Added abstract class AromaUnitChromosomeTabularBinaryFile to make it
+  easier to setup up new annotation file formats based on chromosomes.
+  AromaUgpFile is now inheriting from this class.
+  getUnitsOnChromosomes() now returns a list stratified by chromosome.
+o Added extractByChromosomes() for AromaUgpFile.
+o Added argument 'translate' to getColumnNames() of TabularTextFile.
+o UPDATE: Replace argument 'robust' of colBinnedSmoothing()
+  with a more generic 'FUN' argument.  The default arguments
+  give identical results.
+o BUG FIX: Our internal interleave() for Image (defined by EBImage) gave
+  'Error in z[idxOdd,, ] : incorrect number of dimensions'. This was
+  because internal image structure of the Image class changed (back) to
+  being a 2-dim array. Now interleave() handles both 2d and 3d arrays.
+o BUG FIX: lines() of RawGenomicSignals did not recognize x/yScale.
+o BUG FIX: as.character() of GenericDataFile would throw 
+  'Error in sprintf("%d", getFileSize(db, "numeric")) : use 
+  format %f, %e, %g or %a for numeric objects' whenever the
+  file size is returned as a double, which happens for very
+  large files (> 2^31-1 bytes).
+o BUG FIX: as.character() of GenericDataFileSet would throw an error if
+  the data set was empty, because then there was no path.
+o Package passes R CMD check on R v2.9.0.
+
+
+Version: 1.0.4 [2009-04-07]
+o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would 
+  make the object believe there are zero units in the file. 
+  Thanks Shermane Teo at the National University of Singapore 
+  for reporting this.
+o BUG FIX: binnedSmoothing(..., byCount=TRUE) of RawGenomicSignals 
+  would give error "[...] object "ys" not found".
+o BUG FIX: When passing a single data points to colBinnedSmoothing(),
+  it would throw the exception: "Range of argument 'by' is out 
+  of range [0,0]: [<by>,<by>]".
+
+
+Version: 1.0.3 [2009-03-23]
+o Added the TextUnitNamesFile class.
+
+
+Version: 1.0.2 [2009-02-26]
+o Added argument 'units' to extractRawCopyNumbers() of
+  AromaUnitSignalBinaryFile.
+o Added RawGenomicSignals which RawCopyNumbers now inherits from.
+o Added readDataFrame(..., units=NULL) to AromaUnitSignalBinaryFile.
+o Added optional argument/field 'name' to RawCopyNumbers, which
+  is also used by SegmentedCopyNumbers when querying the "truth"
+  function(s) for the copy-number state.  This makes it possible
+  to use one (conditional) truth functions for all samples.
+o Added hasBeenModified() to GenericDataFile.
+o Now hasTags(..., tags) of GenericData{File|Set} splits the
+  'tags' argument.
+o Now RawCopyNumbers() takes RawCopyNumbers objects as input.
+o Now getChecksum() of GenericDataFile caches results unless the 
+  file has been modified since last time.
+o Now as.character() of GenericDataFile also reports the exact file 
+  size in case the file size is reported in kB, MB, etc.  It also 
+  tries to report the relative pathname rather than the absolute.
+
+
+
+Version: 1.0.1 [2009-02-12]
+o Now byName() of AromaUnit(FracB|Total)CnBinarySet searches 
+  rawCnData/ then cnData/.
+o Added SegmentedCopyNumbers class.
+o Added various smoothing methods to RawCopyNumbers.
+o Added colBinnedSmoothing() and colKernelSmoothing().
+o Added getAromaUgpFile() to UnitNamesFile.
+o Added shakyText().
+o Added static byChipType() to UnitNamesFile.
+o Added argument 'fullname' to getChipType() of AromaUnitSignalBinaryFile.
+o Now argument 'files' in extract() of GenericDataFileSet can 
+  also be a vector of string.
+o ROBUSTNESS: Added support for optional validation/selection by the
+  number of units/cells to all static byChipType() methods.  This is
+  done by specifying argument nbrOfUnits/nbrOfCells.  This is intend
+  for internal use only.
+o ROBUSTNESS: Added a sanity check to getAromaUgpFile() of
+  UnitNamesFile and AromaUnitSignalBinaryFile, which asserts that 
+  the number of units in the located UGP file match that the number
+  of units in the data file.
+o ROBUSTNESS: Now findAnnotationData() always returns pathnames 
+  ordered by the length of their fullnames. Before this was only 
+  done if 'firstOnly=TRUE'.
+o ALPHA: Added support for "smart" (e.g. "*") subdirectories in static 
+  findByName() of GenericDataFileSet.
+
+
+Version: 1.0.0 [2009-01-12]
+o Added getMaxLengthRepeats() to AromaCellSequenceFile.
+o Added AromaUnitSignalBinary{File|Set}, AromaUnitTotalCnBinary{File|Set},
+  AromaUnitFracBCnFinary{File|Set}, AromaUnitCall{File|Set}, and
+  AromaUnitGenotypeCall{File|Set}.
+o BUG FIX: readFooter() of AromaTabularBinaryFile did not return the
+  correct list for nested structures.
+o BUG FIX: groupBySnpNucleotides() of AromaCellSequenceFile would return
+  an empty element 'missing' for some chip types, e.g. Mapping10K_Xba142.
+  Now that empty elements are dropped.
+o BUG FIX: getAttributes() for GenericDataFile:s would give an error
+  if there were no attributes.
+
+
+Version: 0.9.6 [2008-12-04]
+o SPEED UP: Now predict() of ProbePositionEffects is 6-7 times faster.
+o SPEED UP: Now the result of isMissing() for AromaCellSequenceFile 
+  can be cached.
+o ALPHA: Added the BinnedScatter class with methods.
+o CLEAN UP: readDataFrame() of AromaTabularBinaryFile would forget to
+  close the connection if verbose output was activated.  When R later
+  would close such connections, a warning would be generated.
+
+
+Version: 0.9.5 [2008-10-17]
+o Package passes R CMD check on R v2.7.2 and R v2.8.0rc.
+
+
+Version: 0.9.4.5 [2008-10-16]
+o BUG FIX: Tried to turn a function passed to as.GrayscaleImage()
+  in argument 'transforms' to a list using as.list() and not list().
+
+
+Version: 0.9.4.4 [2008-09-18]
+o Added argument 'skip' to writeChecksum() of GenericDataFile.
+
+
+Version: 0.9.4.3 [2008-09-03]
+o Added getSnpPositions(), getSnpShifts(), getSnpNucleotides() and
+  groupBySnpNucleotides() to AromaCellSequenceFile.
+
+
+Version: 0.9.4.2 [2008-08-31]
+o Update fitGenotypeCone() to support both flavors 'sfit' (old)
+  and 'expectile' (new).
+
+
+Version: 0.9.4.1 [2008-08-12]
+o Added support for argument 'positions' to countBases() for
+  AromaCellSequenceFile.
+o ALPHA: Added fitMultiDimensionalCone().
+o BUG FIX: readSequences() for AromaCellSequenceFile translated
+  raw values to incorrect nucleotides.
+o TESTING: Added redundancy tests to aroma.core.
+
+
+Version: 0.9.4 [2008-08-02]
+o Public release.  Package passes R CMD check on R v2.7.1
+  and R v2.8.0 devel on WinXP.
+
+
+Version: 0.9.3.4 [2008-07-24]
+o SPEED UP: Added patch for base::serialize() on Windows, 
+  which in turn will speed up digest::digest() and all
+  methods that use the latter to generate hashcodes.
+o SPEED UP: Now as.character() for GenericTabularFile:s
+  and TabularTextFile:s reports the number of data rows
+  and the number of text lines as NA if the files are too
+  large and cached results are not already available.
+o SPEED UP: Replaced all which() with faster whichVector().
+o Added getCreatedOn(), getLastModifiedOn(), and
+  getLastAccessedOn() to GenericDataFile.  These a just
+  wrapper accessing file.info() fields.
+
+
+Version: 0.9.3.3 [2008-07-21]
+o Now countBases() of AromaCellSequenceFile returns "raw" 
+  counts if argument 'mode="raw"'.
+o Now updateDataColumn() coerce values to doubles before 
+  censoring them for raw and integer columns.
+o Now findByName() assert that the data set name is not empty.
+o ALPHA: Added setFullName() and setName() to GenericDataFile
+  and GenericDataFileSet. The plan is to have these replace
+  what getAlias() and setAlias() do today.
+o BETA: Added setFullNameTranslator() to GenericDataFileSet.
+
+
+Version: 0.9.3.2 [2008-07-16]
+o BETA: Added setFullNamesTranslator() (for the files) 
+  to AromaGenericFileSet.
+o ALPHA: Added protected update2() to GenericDataFileSet.
+o ALPHA: Added private ProbePositionEffects et al.
+
+
+Version: 0.9.3.1 [2008-07-12]
+o SPEED UP: Now all AromaTabularBinaryFile:s, such as AromaUgpFile,
+  read data much faster after two modifications to readDataFrame():
+  (i) rownames are no longer generate, if not asked for explicitly,
+  and (ii) garbage collection is no longer done after each column.
+o Added a general importFrom() for AromaTabularBinaryFile, which
+  calls matching importFrom<ClassName>(), if found.
+o Added support for 'raw' data columns in AromaTabularBinaryFile.
+o BETA: Added readTableHeader().
+o BETA: Added AromaCellSequenceFile.
+o BETA: Added classes AromaMicroarrayTabularBinaryFile and 
+  AromaCellTabularBinaryFile.
+
+
+Version: 0.9.3 [2008-06-08]
+o Package passes R CMD check on R v2.7.0 patched.
+
+
+Version: 0.9.2.6 [2008-06-07]
+o Update filename pattern for getOutputFiles() of AromaTransform.
+
+
+Version: 0.9.2.5 [2008-05-25]
+o Added AromaTransform (extracted from aroma.affymetrix::Transform).
+o Added nbrOfArrays() to AromaMicroarrayDataSet.
+o Now private xmlToList() handles more complex XML strings.
+
+
+Version: 0.9.2.4 [2008-05-22]
+o Added member 'chromosome' to RawCopyNumbers.
+o Added gaussianSmoothing() to RawCopyNumbers.
+o Added argument 'xOut' to gaussianSmoothing() in order to specify
+  at what loci the smoothed signals should be calculated.
+
+
+Version: 0.9.2.3 [2008-05-21]
+o Now findPngDevice() search for a working PNG device in the following
+  order: png(..., type="cairo"), png(..., type="cairo1"), 
+  Cairo::CairoPNG(), R.utils::png2(), and finally plain png().
+o Added gzip()/gunzip() to GenericDataFile.
+o Added static findByName() and byName() to GenericDataFileSet.
+o Added static getFileClass() to GenericDataFileSet.  This makes it
+  possible to remove most fromFiles() from subclasses but also
+  the validation of argument 'files' of their constructors.
+o Added validate() to GenericDataFileSet, which is called at the
+  end of fromFiles(..., .validate=TRUE).
+o Added extractMatrix to GenericTabular(File|Set) and 
+  AromaTabularBinary(File|Set).
+o Added equals() and hasFile() to GenericDataFileSet.
+o Added classes GenericTabularFileSet and AromaTabularBinarySet.
+o Added stextChipType() for strings.
+o CLEAN UP: Moved more classes and methods from aroma.affymetrix to 
+  aroma.core: RawCopyNumbers, CopyNumberRegions, CopyNumberOutliers.
+  Moved attribute methods from AffymetrixCel{File|Set} to 
+  AromaMicroarrayDataSet.  Moved stextNnn() methods from AffymetrixFile
+  to AffymetrixMicroarrayDataSet.
+  Created superclass AromaMicroarrayDataSetTuple of AffymetrixCelSetTuple.
+o BUG FIX: readDataFrame() did not read the first data row if there 
+  was no column header; it was eaten up by a preceeding readHeader().
+o BUG FIX: findAnnotationDataByChipType(chipType="GenomeWideSNP_6", 
+  pattern="^GenomeWideSNP_6.*[.]ugp$") would find file 
+  'GenomeWideSNP_6,Full,na24.ugp' before 'GenomeWideSNP_6,na24.ugp'.
+  Now we return the one with the shortest full name.
+o ALPHA: Now equals() for GenericDataFile:s uses the class, 
+  pathname, file size and file-contents checksum to do the 
+  comparison.  Similarly, for GenericDataFileSet:s, the class, 
+  path, number of files, pathnames, and finally equals() for 
+  each file pair is used for the comparison.  
+o ALPHA: Added full name translation for GenericDataFile:s.
+o ALPHA: Added UnitNamesFile.
+o Package passes R CMD check on R v2.7.0 patched.
+
+
+Version: 0.9.2 [2008-05-10]
+o Took all core classes and core methods in aroma.affymetrix that
+  are independent of the Affymetrix platform and placed the here.
+o The version is numbered starting from the current version of
+  aroma.affymetrix.
+o BUG FIX: interleave() for Image gave 'Error in z[idxOdd, ] : 
+  incorrect number of dimensions'.  The internal image structure
+  is a 3-dim array.
+o BUG FIX: When searching with 'firstOnly=FALSE', findAnnotationData() 
+  was identifying files that are in "private" directory.  This is how
+  affxparser::findFiles() works.  Such files are now filtered out.
+o Created.

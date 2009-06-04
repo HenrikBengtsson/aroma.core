@@ -1,0 +1,229 @@
+###########################################################################/**
+# @RdocClass AromaUnitTabularBinaryFile
+#
+# @title "The AromaUnitTabularBinaryFile class"
+#
+# \description{
+#  @classhierarchy
+#
+#  A AromaUnitTabularBinaryFile is an @see "AromaTabularBinaryFile" with
+#  the constraint that the rows map one-to-one to, and in the same order as,
+#  the units in a annotation chip type file (e.g. CDF file).  
+#  The (full) chip type of the annotation chip type file is given by the
+#  mandatory file footer \code{chipType}.
+# }
+# 
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Arguments passed to @see "AromaTabularBinaryFile".}
+# }
+#
+# \section{Fields and Methods}{
+#  @allmethods "public"
+# }
+# 
+# @author
+#
+# %\seealso{
+# % @see "AromaCellTabularBinaryFile".
+# %}
+#*/########################################################################### 
+setConstructorS3("AromaUnitTabularBinaryFile", function(...) {
+  extend(AromaMicroarrayTabularBinaryFile(...), "AromaUnitTabularBinaryFile");
+})
+
+
+setMethodS3("clearCache", "AromaUnitTabularBinaryFile", function(this, ...) {
+  # Clear all cached values.
+  for (ff in c(".unf")) {
+    this[[ff]] <- NULL;
+  }
+
+  # Then for this object
+  NextMethod(generic="clearCache", object=this, ...); 
+}, private=TRUE)
+
+
+
+setMethodS3("nbrOfUnits", "AromaUnitTabularBinaryFile", function(this, ...) {
+  nbrOfRows(this, ...);
+})
+
+
+setMethodS3("byChipType", "AromaUnitTabularBinaryFile", function(static, chipType, tags=NULL, nbrOfUnits=NULL, validate=TRUE, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'chipType':
+  chipType <- Arguments$getCharacter(chipType, length=c(1,1));
+
+  # Argument 'nbrOfUnits':
+  if (!is.null(nbrOfUnits)) {
+    nbrOfUnits <- Arguments$getInteger(nbrOfUnits, range=c(0,Inf));
+  }
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  } 
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Scan for all possible matches
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  pathnames <- findByChipType(static, chipType=chipType, tags=tags, 
+                                                     firstOnly=FALSE, ...);
+  if (is.null(pathnames)) {
+    throw("Could not locate a file for this chip type: ", 
+                                   paste(c(chipType, tags), collapse=","));
+  }
+
+  verbose && cat(verbose, "Number of tabular binary files located: ", 
+                                                        length(pathnames));
+  verbose && print(verbose, pathnames);
+
+
+  verbose && enter(verbose, "Scanning for a valid file");
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Look for first possible valid match
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  for (kk in seq(along=pathnames)) {
+    pathname <- pathnames[kk];
+    verbose && enter(verbose, "File #", kk, " (", pathname, ")");
+
+    # Create object
+    res <- newInstance(static, pathname);
+
+    # Correct number of units?
+    if (!is.null(nbrOfUnits)) {
+      if (nbrOfUnits(res) != nbrOfUnits) {
+        res <- NULL;
+      }
+    }
+
+    if (!is.null(res)) {
+      verbose && cat(verbose, "Found a valid tabular binary file");
+      verbose && exit(verbose);
+      break;
+    }
+
+    verbose && exit(verbose);
+  } # for (kk ...)
+
+  if (is.null(res)) {
+    queryStr <- paste(c(chipType, tags), collapse=",");
+    throw("Failed to located a (valid) tabular binary file: ", queryStr);
+  }
+
+  verbose && print(verbose, res);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Final validation
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (!is.null(nbrOfUnits)) {
+    if (nbrOfUnits(res) != nbrOfUnits) {
+      throw("The number of units in the loaded ", class(static)[1], " does not match the expected number: ", nbrOfUnits(res), " != ", nbrOfUnits);
+    }
+  }
+
+  verbose && exit(verbose);
+
+  res;
+}, static=TRUE)
+
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# BEGIN: UnitNamesFile
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+setMethodS3("indexOfUnits", "AromaUnitTabularBinaryFile", function(this, names, ...) {
+  # Map the unit names to the ones in the unit names file
+  unf <- getUnitNamesFile(this);
+  unitNames <- getUnitNames(unf);
+  idxs <- match(names, unitNames);
+  idxs;
+}, protected=TRUE)
+
+
+
+setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(static, unf, path=getPath(unf), tags=NULL, footer=list(), ...) {
+  # Argument 'unf':
+  if (!inherits(unf, "UnitNamesFile")) {
+    throw("Argument 'unf' is not an UnitNamesFile: ", class(unf)[1]);
+  }
+
+  # Generate filename: <chipType>(,tags)*.<ext>
+  chipType <- getChipType(unf);
+
+  # Exclude 'monocell' tags (AD HOC)
+  chipType <- gsub(",monocell", "", chipType);
+
+  # Get platform
+  platform <- getPlatform(unf);
+
+  # Number of units
+  nbrOfUnits <- nbrOfUnits(unf);
+
+  fullname <- paste(c(chipType, tags), collapse=",");
+  ext <- getFilenameExtension(static);
+  filename <- sprintf("%s.%s", fullname, ext);
+
+  # Create microarray tabular binary file
+  allocate(static, filename=filename, path=path, nbrOfRows=nbrOfUnits, 
+                                platform=platform, chipType=chipType, ...);
+}, static=TRUE)
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# END: UnitNamesFile
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+############################################################################
+# HISTORY:
+# 2009-05-12
+# o Removed getUnitNamesFile() from AromaUnitTabularBinaryFile.
+# 2009-02-10
+# o Added byChipType() to AromaUnitTabularBinaryFile with option to 
+#   validate/select by the number of units.
+# 2008-07-09
+# o Now AromaUnitTabularBinaryFile extends AromaMicroarrayTabularBinaryFile,
+#   which contains a lot of the methods previously in this class.
+# 2008-05-19
+# o Added getPlatform().
+# o Added platform-independent allocateFromUnitNamesFile() which now also
+#   writes footer attribute 'platform'.
+# 2008-02-13
+# o Added and updated Rdoc comments.
+# 2008-01-19
+# o Now AromaUnitTabularBinaryFile gets the chip type from the file footer.
+# o ROBUSTNESS: Now fromChipType() of AromaUnitTabularBinaryFile validates
+#   that the number of units in the located file match the number of units
+#   in the CDF located using the same search parameters.
+# 2007-12-10
+# o Currently a AromaUnitTabularBinaryFile (e.g. AromaUgpFile) does not
+#   contain information about the "fullname" chip type, but only the basic
+#   chip-type name, e.g. we cannot infer the full chip-type name from 
+#   'GenomeWideSNP_5,Full,r2.ugp', but only 'GenomeWideSNP_5'. The fullname
+#   should be the same as the full chip-type name of the CDF used to define
+#   the the unit map, e.g. 'GenomeWideSNP_5,Full.CDF'.
+#   We should add a header (or footer) field in the file format that 
+#   indicates the full chip type.  
+#   However, until that is done, the best we can do is to turn to the ad
+#   hoc solution of scanning for the CDF with the longest matching fullname,
+#   if both 'GenomeWideSNP_5,Full.CDF' and 'GenomeWideSNP_5.CDF' exists,
+#   the we match the former to 'GenomeWideSNP_5,Full,r2.ugp'.  The fullname
+#   chip type of the UGP is then full chip-type name of the CDF.  NOTE,
+#   there is major drawback with this.  If the user deletes the "full" CDF,
+#   the above approach would all of a sudden return a different full name!
+# o Added clearCache().
+# 2007-09-14
+# o Renames createFromCdf() to allocateFromCdf().
+# 2007-09-13
+# o Created from AromaUflFile.R.
+############################################################################
