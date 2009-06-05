@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.1.0 [2009-05-29]
+o New public release. No updates.
+o Package passes R CMD check on R v2.9.0 and all redundancy tests.
+
+
 Version: 1.0.8 [2009-05-25]
 o GENERALIZATION: The AromaTransforms class was generalized further
   to handle cases where the number of output files does not map

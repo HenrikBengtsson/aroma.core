@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+<head>
+<title>Array Explorer</title>
+<link rel="icon" type="image/ico" href="../../favicon.ico">
+<link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/R.css">
+<link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/rsp.css">
+<link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/figures.css"> 
+<link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/ArrayExplorer.css"> 
+<script type="text/javascript" src="../../includes/js/ArrayExplorer/include.js" language="JavaScript1.2"></script>
+<script type="text/javascript" src="../../includes/js/ArrayExplorer/main.js" language="JavaScript1.2"></script>
+</head>
+
+<body onLoad="onLoad();">
+<table width="100%" border="0" cellpadding="2" cellspacing="0" style="margin: 0px; border: none; border-bottom: 2px solid black;">
+<tr>
+<td align="left">
+<big>Array Explorer</big>
+<small><small>(&copy; 2006-2008 Henrik Bengtsson)</small></small>
+</td>
+<td align="right">
+ <span style="float:right; font-size:smaller;">
+ <a href="../../includes/html/help.html">Help</a> |
+ <a href="../../includes/html/about.html">About</a>
+ </span>
+</td>
+<td align="right" width="20px">
+<div id="statusImage" style="float: right;">
+ <img src="../../includes/images/indicator.gif" alt="Wait..." title="indicator">
+</div>
+</td>
+</tr>
+</table>
+<table width="100%" border="0" cellpadding="1" cellspacing="0">
+<tr valign="top">
+<td align="left">
+Sample:
+<span id="sampleLabel">?</span><br>
+<small>
+Tags: <span id="sampleTags"></span><br>
+<span id="chipTypeLabel"></span>
+<span id="samplesLabel">?</span>
+</small>
+</td>
+<td align="right">
+ <table border="0" cellpadding="0" cellspacing="0">
+ <tr valign="top">
+ <td align="right">
+  <div id="nav2d">
+   <img id="nav2dImage" src="../../includes/images/indicator.gif" alt="Navigator" title="Move">
+   <div id="nav2dMarker" title="Drag"></div>
+  </div>
+ </td>
+ <td style="width:0.5em;">
+ </td>
+ <td align="left">
+ <small>
+ <span id="zoomLabel">?</span>
+ <span id="colorMapLabel"></span>
+ </small>
+ </td>
+ </tr>
+ </table>
+</td>
+</tr>
+</table>
+<div style="border: solid 1px #000000; padding: 1px;">
+<div id="image2dInfoTL">(0,0)</div>
+<div id="image2dInfoBR">(1,1)</div>
+<div id="image2d" style="border: solid 1px #000000;">
+<img id="image2dImage" src="../../includes/images/indicator.gif" alt="Panel" title="Drag">
+</div>
+</div>
+</body>
+</html>

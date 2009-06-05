@@ -1,0 +1,98 @@
+body { 
+  margin: 0px;
+  padding: 1em;
+  padding-top: 0em;
+}
+
+#statusImage { 
+  visibility: visible;
+}
+
+#navigator {
+  float: left;
+  margin: 0px;
+  padding: 0px; 
+  border: none;
+  width: 100%;
+  height: 105px;
+  cursor: crosshair;
+}
+
+#navigatorImage {
+  float: left;
+  margin: 0px;
+  padding: 0px; 
+  border: none;
+  width: 99%;
+  height: 96px;
+  filter: alpha(opacity=50);
+  opacity: 0.50;
+  cursor: crosshair;
+}
+
+#navigatorArea {
+  position: absolute;
+  border: none;
+  background: #000066;
+  width: 1px;
+  height: 96px;
+  cursor: default;
+  left: 0px;
+  margin: 2px;
+  padding: 0px; 
+  filter: alpha(opacity=20);
+  opacity: 0.20;
+}
+
+#panel {
+  padding: 0px; 
+  border: none;
+  height: 400px; 
+  width: 100%; 
+  overflow: hidden;
+  cursor: default;
+}
+
+#panelImage {
+  padding: 0px; 
+  border: none;
+  cursor: default;
+  filter: alpha(opacity=50);
+  opacity: 0.50;
+}
+
+#panelLocator { 
+  position: absolute;
+  left: 50%;
+  width: 1px; 
+  height: 400px; 
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  border-left: 1px solid #000066;
+  filter: alpha(opacity=50);
+  opacity: 0.50;
+  cursor: move;
+}
+
+#panelLocatorTag { 
+  position: relative;
+  top: 0;
+  left: 0.3em;
+  width: 8em;
+  height: 2ex; 
+  margin: 0px;
+  padding: 0px;
+  cursor: move;
+  font-size: 70%;
+  color: #000066;
+  visibility: hidden; 
+}
+
+#sampleLabel {
+  font-size: 200%;
+}
+
+#chromosomeLabel {
+  font-size: 200%;
+}

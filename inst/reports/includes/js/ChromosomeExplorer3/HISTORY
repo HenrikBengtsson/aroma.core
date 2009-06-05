@@ -1,0 +1,13 @@
+ChromosomeExplorer
+==================
+
+2007-01-07
+o Added link to regions.xls file in the browser.
+
+2006-11-06
+o BUG FIX: Drag of navigator and panel did not work on Firefox on *nix.
+  Forgot to retrieve mouse position in onmousemove(). For some reason
+  it worked on Windows.
+o Added support for multiple chip types too.  This requires that the
+  sample image files have equal names for the different chip types.
+o Now the current chip type, sample, chromsome and zoom is highlighted.
