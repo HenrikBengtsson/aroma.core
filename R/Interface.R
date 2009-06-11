@@ -72,8 +72,15 @@ setMethodS3("print", "Interface", function(x, ...) {
 })
 
 
+setMethodS3("getFields", "Interface", function(...) { NULL })
+
+
 ############################################################################
 # HISTORY:
+# 2009-06-10
+# o Added getFields() to Interface as an ad hoc solutions to avoid
+#   print(<Interface>) throwing 'Error in UseMethod("getFields") : no 
+#   applicable method for "getFields"'.
 # 2008-05-09
 # o Added uses() for a character string.
 # 2006-09-11

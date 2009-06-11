@@ -20,7 +20,7 @@
 \code{+--}\code{Interface}\cr
 
 \bold{Directly known subclasses:}\cr
-\emph{\link[aroma.core]{AromaPlatformInterface}}, \emph{\link[aroma.core]{UnitNamesFile}}\cr
+\emph{\link[aroma.core]{AromaPlatformInterface}}, \link[aroma.core]{SegmentedGenomicSignalsInterface}, \emph{\link[aroma.core]{UnitNamesFile}}\cr
 
 public class \bold{Interface}\cr
 
@@ -41,6 +41,7 @@ public class \bold{Interface}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{extend} \tab  -\cr
+ \tab \code{getFields} \tab  -\cr
  \tab \code{print} \tab  -\cr
  \tab \code{uses} \tab  -\cr
 }

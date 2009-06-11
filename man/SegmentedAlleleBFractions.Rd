@@ -1,50 +1,59 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  RawAlleleBFractions.R
+%  SegmentedAlleleBFracions.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{RawAlleleBFractions}
+ \name{SegmentedAlleleBFractions}
 \docType{class}
-\alias{RawAlleleBFractions}
+\alias{SegmentedAlleleBFractions}
 
 
- \title{The RawAlleleBFractions class}
+ \title{The SegmentedAlleleBFractions class}
 
  \description{
   Package:  aroma.core \cr
-\bold{Class RawAlleleBFractions}\cr
+\bold{Class SegmentedAlleleBFractions}\cr
 
 \code{\link[R.oo]{Object}}\cr
 \code{~~|}\cr
 \code{~~+--}\code{\link[aroma.core]{RawGenomicSignals}}\cr
 \code{~~~~~~~|}\cr
-\code{~~~~~~~+--}\code{RawAlleleBFractions}\cr
+\code{~~~~~~~+--}\code{\link[aroma.core]{RawAlleleBFractions}}\cr
+\code{~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~+--}\code{\link[aroma.core]{SegmentedGenomicSignalsInterface}}\cr
+\code{~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~+--}\code{SegmentedAlleleBFractions}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{RawMirroredAlleleBFractions}, \link[aroma.core]{SegmentedAlleleBFractions}\cr
+\cr
 
-public static class \bold{RawAlleleBFractions}\cr
-extends \link[aroma.core]{RawGenomicSignals}\cr
+public static class \bold{SegmentedAlleleBFractions}\cr
+extends \link[aroma.core]{SegmentedGenomicSignalsInterface}\cr
 
 
  }
 
- \usage{RawAlleleBFractions(...)}
+ \usage{SegmentedAlleleBFractions(..., states=NULL)}
 
  \arguments{
-   \item{...}{Arguments passed to \code{\link{RawGenomicSignals}}.}
+   \item{...}{Arguments passed to \code{\link{RawAlleleBFractions}}.}
+   \item{states}{A \code{\link[base]{function}} returning the copy-number states given a
+     \code{\link[base]{vector}} of locus positions.}
  }
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
-\tabular{rll}{
- \tab \code{extractRawMirroredAlleleBFractions} \tab  -\cr
- \tab \code{plot} \tab  -\cr
-}
+\emph{No methods defined}.
 
+
+ \bold{Methods inherited from SegmentedGenomicSignalsInterface}:\cr
+as.data.frame, binnedSmoothingByState, extractSubsetByState, getStateColors, getStates, getUniqueStates, kernelSmoothingByState, plot, points, setStates
+
+ \bold{Methods inherited from RawAlleleBFractions}:\cr
+extractRawMirroredAlleleBFractions, plot
 
  \bold{Methods inherited from RawGenomicSignals}:\cr
 addBy, addLocusFields, append, applyBinaryOperator, as.data.frame, binnedSmoothing, divideBy, estimateStandardDeviation, extractDataForSegmentation, extractRegion, extractSubset, gaussianSmoothing, getChromosome, getLocusFields, getName, getPositions, getSigma, getSignals, getWeights, getXScale, getXY, getYScale, hasWeights, kernelSmoothing, lines, multiplyBy, nbrOfLoci, plot, points, setLocusFields, setSigma, setWeights, setXScale, setYScale, signalRange, sort, subtractBy, summary, xMax, xMin, xRange, xSeq

@@ -23,13 +23,15 @@
 \code{~~~~~~~|}\cr
 \code{~~~~~~~+--}\code{\link[aroma.core]{RawCopyNumbers}}\cr
 \code{~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~+--}\code{SegmentedCopyNumbers}\cr
+\code{~~~~~~~~~~~~+--}\code{\link[aroma.core]{SegmentedGenomicSignalsInterface}}\cr
+\code{~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~+--}\code{SegmentedCopyNumbers}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
 public static class \bold{SegmentedCopyNumbers}\cr
-extends \link[aroma.core]{RawCopyNumbers}\cr
+extends \link[aroma.core]{SegmentedGenomicSignalsInterface}\cr
 
 
  }
@@ -44,18 +46,11 @@ extends \link[aroma.core]{RawCopyNumbers}\cr
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
-\tabular{rll}{
- \tab \code{as.data.frame} \tab  -\cr
- \tab \code{binnedSmoothingByState} \tab  -\cr
- \tab \code{extractSubsetByState} \tab  -\cr
- \tab \code{getStateColors} \tab  -\cr
- \tab \code{getStates} \tab  -\cr
- \tab \code{getUniqueStates} \tab  -\cr
- \tab \code{kernelSmoothingByState} \tab  -\cr
- \tab \code{plot} \tab  -\cr
- \tab \code{points} \tab  -\cr
-}
+\emph{No methods defined}.
 
+
+ \bold{Methods inherited from SegmentedGenomicSignalsInterface}:\cr
+as.data.frame, binnedSmoothingByState, extractSubsetByState, getStateColors, getStates, getUniqueStates, kernelSmoothingByState, plot, points, setStates
 
  \bold{Methods inherited from RawCopyNumbers}:\cr
 as.data.frame, cnRange, getCn, getCNs, plot

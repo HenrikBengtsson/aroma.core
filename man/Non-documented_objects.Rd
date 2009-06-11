@@ -63,7 +63,7 @@
 \alias{as.data.frame.CopyNumberRegions}
 \alias{as.data.frame.RawCopyNumbers}
 \alias{as.data.frame.RawGenomicSignals}
-\alias{as.data.frame.SegmentedCopyNumbers}
+\alias{as.data.frame.SegmentedGenomicSignalsInterface}
 \alias{as.GrayscaleImage}
 \alias{as.TrueColorImage}
 \alias{as.TrueColorImage.Image}
@@ -81,7 +81,7 @@
 \alias{barSequence.ProbePositionEffects}
 \alias{binnedSmoothing.RawGenomicSignals}
 \alias{binnedSmoothingByState}
-\alias{binnedSmoothingByState.SegmentedCopyNumbers}
+\alias{binnedSmoothingByState.SegmentedGenomicSignalsInterface}
 \alias{binScatter}
 \alias{binScatter.matrix}
 \alias{byChipType}
@@ -191,7 +191,7 @@
 \alias{extractSubset}
 \alias{extractSubset.RawGenomicSignals}
 \alias{extractSubsetByState}
-\alias{extractSubsetByState.SegmentedCopyNumbers}
+\alias{extractSubsetByState.SegmentedGenomicSignalsInterface}
 \alias{findByChipType}
 \alias{findByChipType.AromaMicroarrayTabularBinaryFile}
 \alias{findByChipType.TextUnitNamesFile}
@@ -366,13 +366,14 @@
 \alias{getSnpShifts}
 \alias{getSnpShifts.AromaCellSequenceFile}
 \alias{getStateColors}
-\alias{getStateColors.SegmentedCopyNumbers}
+\alias{getStateColors.SegmentedGenomicSignalsInterface}
 \alias{getStates}
-\alias{getStates.SegmentedCopyNumbers}
+\alias{setStates.SegmentedGenomicSignalsInterface}
+\alias{getStates.SegmentedGenomicSignalsInterface}
 \alias{getTableOfArrays}
 \alias{getTags.AromaMicroarrayDataSetTuple}
 \alias{getUniqueStates}
-\alias{getUniqueStates.SegmentedCopyNumbers}
+\alias{getUniqueStates.SegmentedGenomicSignalsInterface}
 \alias{getUnitNames}
 \alias{getUnitNames.TextUnitNamesFile}
 \alias{getUnitNames.UnitNamesFile}
@@ -422,7 +423,7 @@
 \alias{isMissing.AromaCellSequenceFile}
 \alias{kernelSmoothing.RawGenomicSignals}
 \alias{kernelSmoothingByState}
-\alias{kernelSmoothingByState.SegmentedCopyNumbers}
+\alias{kernelSmoothingByState.SegmentedGenomicSignalsInterface}
 \alias{lapply.AromaTabularBinaryFile}
 \alias{library}
 \alias{lines.CopyNumberOutliers}
@@ -471,10 +472,10 @@
 \alias{plot.RawAlleleBFractions}
 \alias{plot.RawCopyNumbers}
 \alias{plot.RawGenomicSignals}
-\alias{plot.SegmentedCopyNumbers}
+\alias{plot.SegmentedGenomicSignalsInterface}
 \alias{points.BinnedScatter}
 \alias{points.RawGenomicSignals}
-\alias{points.SegmentedCopyNumbers}
+\alias{points.SegmentedGenomicSignalsInterface}
 \alias{pointsSequence}
 \alias{pointsSequence.ProbePositionEffects}
 \alias{predict.ProbePositionEffects}
@@ -696,6 +697,14 @@
 \alias{getExpectedOutputFiles.AromaTransform}
 \alias{getOutputDataSet0}
 \alias{getOutputDataSet0.AromaTransform}
+\alias{getExpectedOutputFullnames}
+\alias{getExpectedOutputFullnames.AromaTransform}
+\alias{getFields.Interface}
+\alias{isHeterozygous}
+\alias{isHeterozygous.AromaUnitGenotypeCallFile}
+\alias{isHomozygous}
+\alias{isHomozygous.AromaUnitGenotypeCallFile}
+\alias{setStates}
 
 \description{
   This page contains aliases for all "non-documented" objects that

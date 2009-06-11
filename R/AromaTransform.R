@@ -416,15 +416,15 @@ setMethodS3("isDone", "AromaTransform", function(this, ..., verbose=FALSE) {
 
   verbose && enter(verbose, "Checking if data set is \"done\"");
 
-  # Get expected output data files
-  filenames <- getExpectedOutputFiles(this, verbose=less(verbose, 25));
+  # Get the fullnames of the expected output data files
+  fullnames <- getExpectedOutputFullnames(this, verbose=less(verbose, 25));
 
   # Scan for matching output files
   dsOut <- getOutputDataSet(this, incomplete=TRUE, ..., 
-                                                    verbose=less(verbose,5));
+                                                  verbose=less(verbose,5));
   verbose && exit(verbose);
 
-  (nbrOfFiles(dsOut) == length(filenames));
+  (nbrOfFiles(dsOut) == length(fullnames));
 })
 
 
@@ -432,6 +432,12 @@ setMethodS3("getExpectedOutputFiles", "AromaTransform", function(this, ...) {
   ds <- getInputDataSet(this);
   pathnames <- getPathnames(ds);
   basename(pathnames);
+}, protected=TRUE)
+
+
+setMethodS3("getExpectedOutputFullnames", "AromaTransform", function(this, ...) {
+  ds <- getInputDataSet(this);
+  getFullNames(ds);
 }, protected=TRUE)
 
 
@@ -578,8 +584,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete
   }
 
   verbose && enter(verbose, "Retrieving expected set of output files");
-  filenames <- getExpectedOutputFiles(this);
-  fullnames <- gsub("[.][^.]*$", "", filenames);
+  fullnames <- getExpectedOutputFullnames(this);
   nbrOfFiles <- length(fullnames);
   verbose && exit(verbose);
 
@@ -682,6 +687,12 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-06-08
+# o BUG FIX: getOutputDataSet() of AromaTransform failed to identify the
+#   output files if (and only if) a filename translator was applied to
+#   the input data set.
+# o Added getExpectedOutputFullnames() to AromaTransform.  This should 
+#   (eventually) replace etExpectedOutputFiles().
 # 2009-05-25
 # o Added new getExpectedOutputFiles() and getOutputDataSet0() for 
 #   AromaTransform.

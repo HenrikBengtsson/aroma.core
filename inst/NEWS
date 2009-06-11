@@ -1,6 +1,23 @@
 Package: aroma.core
 ===================
 
+Version: 1.1.1 [2009-06-10]
+o ADDED: Added support for "birdseed" encoding in extractGenotypes() 
+  and updateGenotypes() of AromaUnitGenotypeCallFile.
+o SPEED UP: updateGenotypes() of AromaUnitGenotypeCallFile is now much
+  faster in counting A:s and B:s.
+o Added SegmentedGenomicSignalsInterface, which implements all the 
+  methods for SegmentedCopyNumbers and the new SegmentedAlleleBFractions.
+o Added getFields() to Interface as an ad hoc solutions to avoid
+  print(<Interface>) throwing 'Error in UseMethod("getFields") : no 
+  applicable method for "getFields"'.
+o GRAMMAR FIX: is(Homo|Hetero)zygous(), not is(Homo|Hetero)zygote().
+o BUG FIX: isHomozygote() of AromaUnitGenotypeCallFile was not correct.
+o BUG FIX: getOutputDataSet() of AromaTransform failed to identify the
+  output files if (and only if) a filename translator was applied to
+  the input data set.
+
+
 Version: 1.1.0 [2009-05-29]
 o New public release. No updates.
 o Package passes R CMD check on R v2.9.0 and all redundancy tests.

@@ -24,7 +24,7 @@
   as.character.Interface as.character.RawGenomicSignals
   as.character.TextUnitNamesFile as.data.frame.CopyNumberOutliers
   as.data.frame.CopyNumberRegions as.data.frame.RawCopyNumbers
-  as.data.frame.RawGenomicSignals as.data.frame.SegmentedCopyNumbers
+  as.data.frame.RawGenomicSignals as.data.frame.SegmentedGenomicSignalsInterface
   as.GrayscaleImage as.TrueColorImage as.TrueColorImage.Image
   as.TrueColorImage.matrix asMatrixOfFiles
   asMatrixOfFiles.AromaMicroarrayDataSetTuple asThis asThis.BasicObject
@@ -32,7 +32,7 @@
   backtransformGenotypeCone.matrix backtransformMultiDimensionalCone
   backtransformMultiDimensionalCone.matrix barSequence
   barSequence.ProbePositionEffects binnedSmoothing.RawGenomicSignals
-  binnedSmoothingByState binnedSmoothingByState.SegmentedCopyNumbers
+  binnedSmoothingByState binnedSmoothingByState.SegmentedGenomicSignalsInterface
   binScatter binScatter.matrix byChipType
   byChipType.AromaMicroarrayTabularBinaryFile
   byChipType.AromaUnitTabularBinaryFile byChipType.UnitNamesFile
@@ -86,7 +86,7 @@
   extractRawGenomicSignals.default extractRegion
   extractRegion.RawGenomicSignals extractSubset
   extractSubset.RawGenomicSignals extractSubsetByState
-  extractSubsetByState.SegmentedCopyNumbers findByChipType
+  extractSubsetByState.SegmentedGenomicSignalsInterface findByChipType
   findByChipType.AromaMicroarrayTabularBinaryFile
   findByChipType.TextUnitNamesFile findByName.AromaUnitCallSet
   findByName.AromaUnitSignalBinarySet findPngDevice
@@ -174,10 +174,11 @@
   getSnpNucleotides getSnpNucleotides.AromaCellSequenceFile
   getSnpPositions getSnpPositions.AromaCellSequenceFile getSnpShifts
   getSnpShifts.AromaCellSequenceFile getStateColors
-  getStateColors.SegmentedCopyNumbers getStates
-  getStates.SegmentedCopyNumbers getTableOfArrays
+  getStateColors.SegmentedGenomicSignalsInterface getStates
+  setStates.SegmentedGenomicSignalsInterface
+  getStates.SegmentedGenomicSignalsInterface getTableOfArrays
   getTags.AromaMicroarrayDataSetTuple getUniqueStates
-  getUniqueStates.SegmentedCopyNumbers getUnitNames
+  getUniqueStates.SegmentedGenomicSignalsInterface getUnitNames
   getUnitNames.TextUnitNamesFile getUnitNames.UnitNamesFile
   getUnitNamesFile getUnitNamesFile.AromaPlatform
   getUnitNamesFile.AromaPlatformInterface getUnitsAt
@@ -200,7 +201,7 @@
   isHeterozygote isHeterozygote.AromaUnitGenotypeCallFile isHomozygote
   isHomozygote.AromaUnitGenotypeCallFile isMissing
   isMissing.AromaCellSequenceFile kernelSmoothing.RawGenomicSignals
-  kernelSmoothingByState kernelSmoothingByState.SegmentedCopyNumbers
+  kernelSmoothingByState kernelSmoothingByState.SegmentedGenomicSignalsInterface
   lapply.AromaTabularBinaryFile library lines.CopyNumberOutliers
   lines.CopyNumberRegions lines.RawGenomicSignals listToXml
   listToXml.list locallyUnique locallyUnique.default log2abs log2center
@@ -218,9 +219,9 @@
   nbrOfUnits.UnitNamesFile norm2d norm2d.matrix normalizeGenotypeCone
   normalizeGenotypeCone.matrix patch patch.AromaPackage
   plot.BinnedScatter plot.ProbePositionEffects plot.RawAlleleBFractions
-  plot.RawCopyNumbers plot.RawGenomicSignals plot.SegmentedCopyNumbers
+  plot.RawCopyNumbers plot.RawGenomicSignals plot.SegmentedGenomicSignalsInterface
   points.BinnedScatter points.RawGenomicSignals
-  points.SegmentedCopyNumbers pointsSequence
+  points.SegmentedGenomicSignalsInterface pointsSequence
   pointsSequence.ProbePositionEffects predict.ProbePositionEffects
   print.GenericSummary print.Interface process
   readColumns.AromaTabularBinaryFile readData
@@ -316,4 +317,7 @@ exportFracBDiffSet exportFracBDiffSet.AromaUnitFracBCnBinarySet
  extractIGV extractIGV.CopyNumberRegions getExpectedOutputFiles
   getExpectedOutputFiles.AromaTransform getOutputDataSet0
   getOutputDataSet0.AromaTransform
- 
+ getExpectedOutputFullnames getExpectedOutputFullnames.AromaTransform
+getFields.Interface isHeterozygous
+isHeterozygous.AromaUnitGenotypeCallFile isHomozygous
+isHomozygous.AromaUnitGenotypeCallFile setStates

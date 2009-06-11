@@ -56,8 +56,8 @@ extends \link[aroma.core]{AromaUnitCallFile}\cr
  \tab \code{allocate} \tab  -\cr
  \tab \code{extractGenotypeMatrix} \tab  -\cr
  \tab \code{extractGenotypes} \tab  -\cr
- \tab \code{isHeterozygote} \tab  -\cr
- \tab \code{isHomozygote} \tab  -\cr
+ \tab \code{isHeterozygous} \tab  -\cr
+ \tab \code{isHomozygous} \tab  -\cr
  \tab \code{updateGenotypes} \tab  -\cr
 }
 

@@ -32,14 +32,20 @@ setMethodS3("allocate", "AromaUnitGenotypeCallFile", function(static, ..., types
 }, static=TRUE)
 
 
-setMethodS3("isHomozygote", "AromaUnitGenotypeCallFile", function(this, ..., drop=FALSE) {
+setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., drop=FALSE) {
+  # Don't drop, because a single unit might be extracted.
   calls <- extractCalls(this, ..., drop=FALSE);
+  dim <- dim(calls);
 
-  res <- rep(TRUE, length=nrow(calls));
-  for (cc in seq(length=ncol(calls))) {
-    res <- res & (calls[,cc,1] == 0);
+  counts <- integer(dim[1]);
+  for (cc in seq(length=dim[2])) {
+    counts <- counts + (calls[,cc,1] > 0);
   }
   rm(calls);
+
+  res <- array(NA, dim=dim[-2]);
+  res[,1] <- (counts == 1);
+  rm(counts);
 
   # Drop singleton dimensions?
   if (drop) {
@@ -50,13 +56,14 @@ setMethodS3("isHomozygote", "AromaUnitGenotypeCallFile", function(this, ..., dro
 })
 
 
-setMethodS3("isHeterozygote", "AromaUnitGenotypeCallFile", function(this, ..., drop=FALSE) {
+setMethodS3("isHeterozygous", "AromaUnitGenotypeCallFile", function(this, ..., drop=FALSE) {
+  # Don't drop, because a single unit might be extracted.
   calls <- extractCalls(this, ..., drop=FALSE);
-
-  res <- rep(TRUE, length=nrow(calls));
+  dim <- dim(calls);
+  res <- array(TRUE, dim=dim[-2]);
   calls0 <- calls[,1,1,drop=FALSE];
-  for (cc in 2:ncol(calls)) {
-    res <- res & (calls[,cc,1] == calls0);
+  for (cc in 2:dim[2]) {
+    res[,1] <- res[,1] & (calls[,cc,1,drop=FALSE] == calls0);
   }
   rm(calls, calls0);
 
@@ -69,7 +76,7 @@ setMethodS3("isHeterozygote", "AromaUnitGenotypeCallFile", function(this, ..., d
 })
 
 
-setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this, ..., emptyValue=c("", "-", "--"), noCallValue="NC", naValue=c(NA, "NA"), encoding=c("generic", "oligo"), drop=FALSE, verbose=FALSE) {
+setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this, ..., emptyValue=c("", "-", "--"), noCallValue="NC", naValue=c(NA, "NA"), encoding=c("generic", "birdseed", "oligo", "fracB"), drop=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -165,12 +172,35 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
     verbose && enter(verbose, "Encodes genotypes");
     verbose && cat(verbose, "Map: ", encoding);
     if (encoding == "oligo") {
-      calls <- integer(length(res));
+      naValue <- as.integer(NA);
+      calls <- rep(naValue, times=length(res));
       # Genotype map according to 'oligo'
       calls[res == "AA"] <- as.integer(1);
       calls[res == "AB"] <- as.integer(2);
       calls[res == "BB"] <- as.integer(3);
       calls[res == "NC"] <- as.integer(0);
+      dim(calls) <- dim(res);
+      res <- calls;
+      rm(calls);
+    } else if (encoding == "birdseed") {
+      naValue <- as.integer(NA);
+      calls <- rep(naValue, times=length(res));
+      # Genotype map according to 'birdseed'
+      calls[res == "AA"] <- as.integer(0);
+      calls[res == "AB"] <- as.integer(1);
+      calls[res == "BB"] <- as.integer(2);
+      calls[res == "NC"] <- as.integer(-1);
+      dim(calls) <- dim(res);
+      res <- calls;
+      rm(calls);
+    } else if (encoding == "fracB") {
+      naValue <- as.double(NA);
+      calls <- rep(naValue, times=length(res));
+      # Genotype map according to 'fracB'
+      calls[res == "AA"] <- 0;
+      calls[res == "AB"] <- 1/2;
+      calls[res == "BB"] <- 1;
+      calls[res == "NC"] <- NaN;  # To differentiate from NAs
       dim(calls) <- dim(res);
       res <- calls;
       rm(calls);
@@ -194,7 +224,7 @@ setMethodS3("extractGenotypes", "AromaUnitGenotypeCallFile", function(this, ...)
 
 
 
-setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units=NULL, calls, ..., encoding=c("generic", "oligo"), verbose=FALSE) {
+setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units=NULL, calls, ..., encoding=c("generic", "birdseed", "oligo", "fracB"), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -213,23 +243,25 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
 
   # Argument 'calls':
   if (encoding == "generic") {
-  } else if (encoding == "oligo") {
-    # Translate oligo encoded genotypes to generic ones
-    if (is.numeric(calls)) {
-      calls2 <- character(length(calls));
-      # Genotype map according to 'oligo'
-      calls2[calls == 1] <- "AA";
-      calls2[calls == 2] <- "AB";
-      calls2[calls == 3] <- "BB";
-      calls2[calls == 0] <- "NC";
-      calls <- calls2;
-      rm(calls2);
+  } else if (is.element(encoding, c("birdseed", "oligo", "fracB"))) {
+
+    if (encoding == "oligo") {
+      calls <- as.integer(calls);
+      knownCalls <- as.integer(c(0:3, NA));
+    } else if (encoding == "birdseed") {
+      calls <- as.integer(calls);
+      knownCalls <- as.integer(c(-1:2, NA));
+    } else if (encoding == "fracB") {
+      calls <- as.double(calls);
+      knownCalls <- as.double(c(0,1/2,1, NA));
+    }
+
+    # Assert correct encoding
+    unknown <- setdiff(calls, knownCalls);
+    if (length(unknown) > 0) {
+      throw(sprintf("Unknown genotypes detected. Is it really the correct encoding ('%s')?: %s", encoding, paste(head(sort(unique(unknown))), collapse=", ")));
     }
   }
-
-  # Validate generic encoded genotypes
-  calls[is.na(calls)] <- "NA";
-  calls <- Arguments$getCharacters(calls, length=nbrOfUnits, asGString=FALSE);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -239,15 +271,58 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
   }
 
 
-
   verbose && enter(verbose, "Updating genotype calls");
   verbose && cat(verbose, "Fullname: ", getFullName(this));
 
-  verbose && enter(verbose, "Validating calls");
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Decode genotype calls according to encoding
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Decode genotype calls");
+  verbose && cat(verbose, "Encoding: ", encoding);
+
+  if (encoding == "generic") {
+  } else if (encoding == "oligo") {
+    # Translate oligo encoded genotypes to generic ones
+    calls2 <- rep("NA", times=length(calls));
+    # Genotype map according to 'oligo'
+    calls2[calls == 1] <- "AA";
+    calls2[calls == 2] <- "AB";
+    calls2[calls == 3] <- "BB";
+    calls2[calls == 0] <- "NC";
+    calls <- calls2;
+    rm(calls2);
+  } else if (encoding == "birdseed") {
+    # Translate Birdseed encoded genotypes to generic ones
+    calls2 <- rep("NA", times=length(calls));
+    # Genotype map according to 'birdseed'
+    calls2[calls ==  0] <- "AA";
+    calls2[calls ==  1] <- "AB";
+    calls2[calls ==  2] <- "BB";
+    calls2[calls == -1] <- "NC";
+    calls <- calls2;
+    rm(calls2);
+  } else if (encoding == "fracB") {
+    # Translate Birdseed encoded genotypes to generic ones
+    calls2 <- rep("NA", times=length(calls));
+    # Genotype map according to 'birdseed'
+    calls2[calls ==    0] <- "AA";
+    calls2[calls ==  1/2] <- "AB";
+    calls2[calls ==    1] <- "BB";
+    calls2[is.nan(calls)] <- "NC";
+    calls <- calls2;
+    rm(calls2);
+  }
+  calls[is.na(calls)] <- "NA";
+
+  # Validate generic encoded genotypes
+  calls <- Arguments$getCharacters(calls, length=nbrOfUnits, asGString=FALSE);
+
+  verbose && enter(verbose, "Validating (decoded) calls");
   pattern <- "^(|[-]+|NA|NC|[AB]+)$";
   unknown <- calls[(regexpr(pattern, calls) == -1)];
-  verbose && str(verbose, unknown);
   if (length(unknown) > 0) {
+    verbose && cat(verbose, "Unknown calls detected:");
+    verbose && str(verbose, unknown);
     unknown <- unique(unknown);
     unknown <- sort(unknown);
     unknown <- head(unknown);
@@ -256,9 +331,11 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
   }
   rm(unknown);
   verbose && exit(verbose);
+  verbose && exit(verbose);
+
 
   verbose && enter(verbose, "Translating {NA,NC,(|-),A,B,AA,AB,BB,AAA,AAB,...} to (C_A,C_B)");
-  naValue <- as.character(NA);
+  naValue <- as.integer(NA);
   values <- matrix(naValue, nrow=nbrOfUnits, ncol=2);
 
   # NoCalls
@@ -273,43 +350,53 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
   }
 
   # Missing calls
-  pattern <- "^NA$";
-  idxs <- grep(pattern, calls);
+  pattern <- "NA";
+  idxs <- grep(pattern, calls, fixed=TRUE);
   if (length(idxs) > 0) {
+    verbose && enter(verbose, "Missed calls");
     verbose && cat(verbose, "Missing calls identified: ", length(idxs));
     hdr <- readHeader(this)$dataHeader;
     nbrOfBits <- 8*hdr$sizes[1];
     valueOnFile <- as.integer(2^nbrOfBits-1);  # NA
     values[idxs,] <- valueOnFile;
+    verbose && exit(verbose);
   }
 
   # Homozygote deletion, i.e. (C_A,C_B) = (0,0)
   pattern <- "^(|[-]+)$";
   idxs <- grep(pattern, calls);
   if (length(idxs) > 0) {
+    verbose && enter(verbose, "Homozygote deletion calls");
     verbose && cat(verbose, "Homozygote deletions identified: ", length(idxs));
     values[idxs,] <- as.integer(0);
+    verbose && exit(verbose);
   }
 
   # Genotypes {A, B, AA, AB, BB, AAA, AAB, ...}
   pattern <- "^[AB]+$";
   idxs <- grep(pattern, calls);
   if (length(idxs) > 0) {
+    verbose && enter(verbose, "Other genotype calls");
     verbose && cat(verbose, "Genotypes identified: ", length(idxs));
-    callsT <- strsplit(calls[idxs], split="", fixed=TRUE);
 
-    # Count number of A:s and B:s
-    counts <- lapply(callsT, FUN=function(s) {
-      c(sum(s == "A"), sum(s == "B"));
-    });
+    callsT <- calls[idxs];
+    n <- nchar(callsT);
+    verbose && cat(verbose, "Unique copy numbers: ", sort(unique(n)));
+
+    verbose && enter(verbose, "Counting number of A:s (rest are B:s)");
+    callsA <- gsub("B", "", callsT, fixed=TRUE);
     rm(callsT);
-    counts <- unlist(counts, use.names=FALSE);
-    counts <- matrix(counts, ncol=2, byrow=TRUE);
+    nA <- nchar(callsA);
+    verbose && exit(verbose);
+
+    nB <- n-nA;
+    countsAB <- matrix(c(nA,nB), ncol=2, byrow=FALSE);
 
     for (cc in 1:2) {
-      values[idxs,cc] <- counts[,cc];
+      values[idxs,cc] <- countsAB[,cc];
     }
-    rm(counts);
+    rm(countsAB);
+    verbose && exit(verbose);
   }
   rm(idxs);
   verbose && exit(verbose);
@@ -327,9 +414,32 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
   invisible(this);
 })
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+# DEPRECATED
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+setMethodS3("isHomozygote", "AromaUnitGenotypeCallFile", function(...) {
+  isHomozygous(...);
+}, private=TRUE, deprecated=TRUE)
+
+setMethodS3("isHeterozygote", "AromaUnitGenotypeCallFile", function(...) {
+  isHeterozygous(...);
+}, private=TRUE, deprecated=TRUE)
+
 
 ############################################################################
-# HISTORY:#
+# HISTORY:
+# 2009-06-09
+# o Grammar fix: is(Homo|Hetero)zygous(), not is(Homo|Hetero)zygote().
+# o BUG FIX: Dropped by mistake the code for the 'oligo' encoding.
+# 2009-06-08
+# o BUG FIX: isHomozygote() of AromaUnitGenotypeCallFile was not correct.
+# o SPEED UP: updateGenotypes() of AromaUnitGenotypeCallFile is now much
+#   faster in counting A:s and B:s.
+# o Updated extractGenotypeMatrix() of AromaUnitGenotypeCallFile to return
+#   NAs by default.
+# o Added support for "birdseed" and "fracB" encodings in 
+#   extractGenotypeMatrix() and updateGenotypes() of 
+#   AromaUnitGenotypeCallFile.
 # 2009-01-12
 # Added isHomozygote() and isHeterozygote().
 # 2009-01-10
