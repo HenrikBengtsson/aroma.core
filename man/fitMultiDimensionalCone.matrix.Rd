@@ -52,7 +52,8 @@
  }
 
  \examples{
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ if (require("sfit")) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Simulate data (taken from the cfit.matrix() example of 'sfit')
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 N <- 1000
@@ -93,7 +94,7 @@ eps <- matrix(rnorm(ndim*N, mean=0, sd=0.05), ncol=ndim)
 Y <- Z + eps
 
 # Fit crosstalk model and calibrate data accordingly
-fit <- fitMultiDimensionalCone(Y);
+fit <- fitMultiDimensionalCone(Y, flavor="sfit");
 Yc <- backtransformMultiDimensionalCone(Y, fit=fit);
 
 lim <- c(-0.5,6)
@@ -110,7 +111,9 @@ for (ii in 1:(ndim-1)) {
     lines(Mcc, lwd=2, col="red");
   }
 }
-}
+
+ }
+ }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 

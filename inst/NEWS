@@ -1,6 +1,18 @@
 Package: aroma.core
 ===================
 
+Version: 1.1.2 [2009-06-14]
+o Added argument keepUnits=FALSE to extractRawGenomicSignals() of
+  AromaUnitSignalBinaryFile.
+o Now RawGenomicSignals(y=rgs) sets all locus fields in 'rgs' if it is
+  a RawGenomicSignals object.
+o BUG FIX: exportTotalCnRatioSet() would return a AromaUnitFracBCnBinarySet.
+o Updated examples() that requires "suggested" packages to be ran 
+  conditionally, so that it does not throw an error (in R CMD check)
+  if the packages is not available.  This is required for a package
+  to be put on CRAN.
+
+
 Version: 1.1.1 [2009-06-10]
 o ADDED: Added support for "birdseed" encoding in extractGenotypes() 
   and updateGenotypes() of AromaUnitGenotypeCallFile.

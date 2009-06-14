@@ -242,7 +242,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
   verbose && enter(verbose, "Setting up output data sets");
   pattern <- sprintf("%s.asb", typeTags);
-  res <- AromaUnitFracBCnBinarySet$fromFiles(outPath, pattern=pattern);
+  res <- AromaUnitTotalCnBinarySet$fromFiles(outPath, pattern=pattern);
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -253,6 +253,9 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
 ############################################################################
 # HISTORY:
+# 2009-06-13
+# o BUG FIX: exportTotalCnRatioSet() would return a 
+#   AromaUnitFracBCnBinarySet.
 # 2009-05-17
 # o BUG FIX: exportTotalCnRatioSet() would return any signal file.
 # 2009-02-22

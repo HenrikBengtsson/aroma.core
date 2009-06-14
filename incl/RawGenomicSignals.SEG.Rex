@@ -37,8 +37,9 @@ cnr <- extractCopyNumberRegions(fit)
 print(cnr)
 drawLevels(cnr, col="blue")
 
-fit <- segmentByHaarSeg(cn)
-cnr <- extractCopyNumberRegions(fit)
-print(cnr)
-drawLevels(cnr, col="orange")
-
+if (require("HaarSeg")) {
+  fit <- segmentByHaarSeg(cn)
+  cnr <- extractCopyNumberRegions(fit)
+  print(cnr)
+  drawLevels(cnr, col="orange")
+}

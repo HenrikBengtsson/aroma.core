@@ -121,7 +121,7 @@ setMethodS3("extractMatrix", "AromaUnitSignalBinaryFile", function(this, units=N
 
 
 
-setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(this, chromosome, range=NULL, units=NULL, ..., clazz=RawGenomicSignals, verbose=FALSE) {
+setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(this, chromosome, range=NULL, units=NULL, keepUnits=FALSE, ..., clazz=RawGenomicSignals, verbose=FALSE) {
   # Argument 'units':
   if (!is.null(units)) {
     units <- Arguments$getIndices(units, range=c(1, nbrOfUnits(this)));
@@ -132,6 +132,9 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   if (!inherits(clazz, "Class")) {
     throw("Argument 'clazz' is not a Class: ", class(clazz)[1]);
   }
+
+  # Argument 'keepUnits':
+  keepUnits <- Arguments$getLogical(keepUnits);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -165,7 +168,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
     units2 <- units2[keep];
     rm(keep);
     verbose && cat(verbose, "Units:");
-    verbose && str(verbose, units);
+    verbose && str(verbose, units2);
     verbose && exit(verbose);
   }
   units <- units2;
@@ -186,6 +189,12 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   res$platform <- getPlatform(this);
   res$chipType <- getChipType(this);
   res$fullname <- getFullName(this);
+
+  # Add additional locus data
+  if (keepUnits) {
+    res$unit <- units;
+    addLocusFields(res, "unit");
+  }
 
   verbose && exit(verbose);
 
@@ -268,6 +277,9 @@ setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., 
 
 ############################################################################
 # HISTORY:
+# 2009-06-13
+# o Added argument keepUnits=FALSE to extractRawGenomicSignals() of
+#   AromaUnitSignalBinaryFile.
 # 2009-05-18
 # o BUG FIX: allocateFromUnitNamesFile() for AromaUnitSignalBinaryFile
 #   would not call generic allocate() but the one for this class.

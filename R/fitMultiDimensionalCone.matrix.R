@@ -41,7 +41,11 @@
 #    \item{dimData}{The dimension of the input data.}
 # }
 #
-# @examples "../incl/fitMultiDimensionalCone.matrix.Rex"
+# \examples{
+# if (require("sfit")) {
+#  @include "../incl/fitMultiDimensionalCone.matrix.Rex"
+# }
+# }
 #
 # @author
 #

@@ -42,7 +42,9 @@ alphas <- list(
 cols <- 1 + seq(along=alphas)
 legend("topright", names(alphas), col=cols, lwd=4, title="Alpha seq's:")
 
-for (kk in seq(along=alphas)) {
-  fit <- fitGenotypeCone(Y, alpha=alphas[[kk]])
-  lines(fit$M, lwd=4, col=cols[kk])
+if (require("sfit")) {
+  for (kk in seq(along=alphas)) {
+    fit <- fitGenotypeCone(Y, alpha=alphas[[kk]], flavor="sfit")
+    lines(fit$M, lwd=4, col=cols[kk])
+  }
 }

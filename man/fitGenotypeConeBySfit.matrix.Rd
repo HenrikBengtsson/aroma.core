@@ -51,6 +51,15 @@
 
  \examples{
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Fit genotype cone based on available methods (==packages)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+flavors <- c("sfit", "expectile")
+keep <- sapply(flavors, FUN=require, character.only=TRUE)
+flavors <- flavors[keep]
+cat("Available fitting flavors:", paste(flavors, collapse=", "), "\n");
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Simulate data (taken from the cfit.matrix() example of 'sfit')
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #set.seed(0xbeef);
@@ -91,7 +100,6 @@ alphas <- c(0.075, 0.05, 0.01, 0.03, 0.002, 0.001)
 cols <- seq(from=2, to=length(alphas)+1)
 legend("topright", sprintf("\%.3f", alphas), col=cols, lwd=4, title="Alphas")
 
-flavors <- c("sfit", "expectile")
 for (kk in seq(along=alphas)) {
   for (flavor in flavors) {
     fit <- fitGenotypeCone(Y, alpha=alphas[kk], flavor=flavor)

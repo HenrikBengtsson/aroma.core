@@ -33,14 +33,15 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'y':
+  object <- NULL;
   if (!is.null(y)) {
     if (inherits(y, "RawGenomicSignals")) {
       object <- y;
       y <- object$y;
       x <- object$x;
+      w <- object$w;
       chromosome <- object$chromosome;
       name <- object$name;
-      rm(object);
     }
 
     if (!is.vector(y)) {
@@ -75,13 +76,24 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     throw("Unknown arguments: ", argsStr);
   } 
 
-  extend(Object(), "RawGenomicSignals", 
+  this <- extend(Object(), "RawGenomicSignals", 
     y = y,
     x = x,
     w = w,
     chromosome = chromosome,
     .name = name
-  )
+  );
+
+  # Append other locus fields?
+  if (!is.null(object)) {
+    fields <- setdiff(getLocusFields(object), getLocusFields(this));
+    for (field in fields) {
+      this[[field]] <- object[[field]];
+    }
+    addLocusFields(this, fields);
+  }
+
+  this;
 })
 
 
@@ -644,6 +656,9 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-06-13
+# o Now RawGenomicSignals(y=rgs) sets all locus fields in 'rgs' if it is
+#   a RawGenomicSignals object.
 # 2009-05-16
 # o Now all methods of RawCopyNumbers() coerce numerics only if necessary,
 #   i.e. it keeps integers if integers, otherwise to doubles.  This is a

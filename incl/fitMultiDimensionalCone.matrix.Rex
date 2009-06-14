@@ -39,7 +39,7 @@ eps <- matrix(rnorm(ndim*N, mean=0, sd=0.05), ncol=ndim)
 Y <- Z + eps
 
 # Fit crosstalk model and calibrate data accordingly
-fit <- fitMultiDimensionalCone(Y);
+fit <- fitMultiDimensionalCone(Y, flavor="sfit");
 Yc <- backtransformMultiDimensionalCone(Y, fit=fit);
 
 lim <- c(-0.5,6)
