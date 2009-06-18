@@ -52,6 +52,8 @@ setMethodS3("fitGenotypeCone", "matrix", function(y, flavor=c("sfit", "expectile
 
 
 setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lambda=2, ...) {
+  # To please/fool R CMD check (in the case expectile is not installed)
+  fitExpectileCone <- NULL; rm(fitExpectileCone);
   require("expectile") || throw("Package not loaded: expectile");
 
   dim <- dim(y);

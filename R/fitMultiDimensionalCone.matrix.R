@@ -65,6 +65,8 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
   if (flavor == "sfit") {
     require("sfit") || throw("Package not loaded: sfit");
   } else if (flavor == "expectile") {
+    # To please/fool R CMD check (in the case expectile is not installed)
+    fitCone <- NULL; rm(fitCone);
     require("expectile") || throw("Package not loaded: expectile");
     # Only final 'alpha' is needed by expectile::fitCone().
     alpha <- rev(alpha)[1];
