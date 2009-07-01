@@ -50,7 +50,7 @@ extends \link[aroma.core]{SegmentedGenomicSignalsInterface}\cr
 
 
  \bold{Methods inherited from SegmentedGenomicSignalsInterface}:\cr
-as.data.frame, binnedSmoothingByState, extractSubsetByState, getStateColors, getStates, getUniqueStates, kernelSmoothingByState, plot, points, setStates
+as.data.frame, binnedSmoothingByState, extractSubsetByState, getStateColorMap, getStateColors, getStates, getUniqueStates, kernelSmoothingByState, plot, points, setStateColorMap, setStates
 
  \bold{Methods inherited from RawAlleleBFractions}:\cr
 extractRawMirroredAlleleBFractions, plot

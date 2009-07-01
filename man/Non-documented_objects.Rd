@@ -705,6 +705,10 @@
 \alias{isHomozygous}
 \alias{isHomozygous.AromaUnitGenotypeCallFile}
 \alias{setStates}
+\alias{getStateColorMap}
+\alias{getStateColorMap.SegmentedGenomicSignalsInterface}
+\alias{setStateColorMap}
+\alias{setStateColorMap.SegmentedGenomicSignalsInterface}
 
 \description{
   This page contains aliases for all "non-documented" objects that

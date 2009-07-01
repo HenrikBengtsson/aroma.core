@@ -1,6 +1,18 @@
 Package: aroma.core
 ===================
 
+Version: 1.1.3 [2009-06-30]
+o Added support for argument 'byCount' to binnedSmoothingByState() of 
+  SegmentedCopyNumbers.  It is rather complex how it works, but we tried
+  to immitate how it works with byCount=FALSE.
+o Now binnedSmoothing() of RawGenomicSignals demark locus fields 
+  that were not binned to be regular fields.  Ideally all locus fields
+  (including custom ones) should be binned, but we leave that for a 
+  future implementation.
+o Added get-, setStateColorMap(), and getStateColors() for class
+  SegmentedGenomicSignalsInterface.
+
+
 Version: 1.1.2 [2009-06-14]
 o Added argument keepUnits=FALSE to extractRawGenomicSignals() of
   AromaUnitSignalBinaryFile.

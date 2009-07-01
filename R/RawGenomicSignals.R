@@ -401,7 +401,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
       verbose && enter(verbose, "Binned smoothing (by count)");
       # Smoothing y and x (and w).
       Y <- cbind(y=y, x=x, w=weights);
-      xRank <- seq(length=length(x));
+      xRank <- seq(length=nrow(Y));
       verbose && cat(verbose, "Positions (ranks):");
       verbose && str(verbose, xRank);
       verbose && cat(verbose, "Arguments:");
@@ -452,6 +452,9 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   res$y <- ys;
   res$x <- xOut;
   res$w <- wOut;
+
+  # Drop all locus fields not binned [AD HOC: Those should also be binned. /HB 2009-06-30]
+  setLocusFields(res, c("y", "x", "w"));
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -656,6 +659,10 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-06-30
+# o Now binnedSmoothing() of RawGenomicSignals drops locus fields that were
+#   not binned.  Ideally all locus fields (including custom ones) should be
+#   binned, but we leave that for a future implementation.
 # 2009-06-13
 # o Now RawGenomicSignals(y=rgs) sets all locus fields in 'rgs' if it is
 #   a RawGenomicSignals object.

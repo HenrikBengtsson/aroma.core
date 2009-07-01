@@ -42,12 +42,14 @@ extends \link[aroma.core]{Interface}\cr
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothingByState} \tab  -\cr
  \tab \code{extractSubsetByState} \tab  -\cr
+ \tab \code{getStateColorMap} \tab  -\cr
  \tab \code{getStateColors} \tab  -\cr
  \tab \code{getStates} \tab  -\cr
  \tab \code{getUniqueStates} \tab  -\cr
  \tab \code{kernelSmoothingByState} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
+ \tab \code{setStateColorMap} \tab  -\cr
  \tab \code{setStates} \tab  -\cr
 }
 
