@@ -395,12 +395,14 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   verbose && printf(verbose, "Range of positions: [%.0f,%.0f]\n", 
                                            xRange[1], xRange[2]);
 
+  locusFields <- NULL;
   wOut <- NULL;
   if (n > 0) {
     if (byCount) {
       verbose && enter(verbose, "Binned smoothing (by count)");
       # Smoothing y and x (and w).
       Y <- cbind(y=y, x=x, w=weights);
+      locusFields <- colnames(Y);
       xRank <- seq(length=nrow(Y));
       verbose && cat(verbose, "Positions (ranks):");
       verbose && str(verbose, xRank);
@@ -454,7 +456,9 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   res$w <- wOut;
 
   # Drop all locus fields not binned [AD HOC: Those should also be binned. /HB 2009-06-30]
-  setLocusFields(res, c("y", "x", "w"));
+  if (!is.null(locusFields)) {
+    setLocusFields(res, locusFields);
+  }
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -659,6 +663,8 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-07-03
+# o BUG FIX: binnedSmoothing() added non existing locus field 'w'.
 # 2009-06-30
 # o Now binnedSmoothing() of RawGenomicSignals drops locus fields that were
 #   not binned.  Ideally all locus fields (including custom ones) should be

@@ -22,7 +22,7 @@
 \code{~~+--}\code{RawGenomicSignals}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{RawAlleleBFractions}, \link[aroma.core]{RawCopyNumbers}, \link[aroma.core]{RawMirroredAlleleBFractions}, \link[aroma.core]{SegmentedAlleleBFractions}, \link[aroma.core]{SegmentedCopyNumbers}\cr
+\link[aroma.core]{RawAlleleBFractions}, \link[aroma.core]{RawCopyNumbers}, \link[aroma.core]{RawMirroredAlleleBFractions}, \link[aroma.core]{RawSequenceReads}, \link[aroma.core]{SegmentedAlleleBFractions}, \link[aroma.core]{SegmentedCopyNumbers}\cr
 
 public static class \bold{RawGenomicSignals}\cr
 extends \link[R.oo]{Object}\cr

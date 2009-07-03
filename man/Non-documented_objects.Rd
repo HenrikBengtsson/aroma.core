@@ -709,6 +709,11 @@
 \alias{getStateColorMap.SegmentedGenomicSignalsInterface}
 \alias{setStateColorMap}
 \alias{setStateColorMap.SegmentedGenomicSignalsInterface}
+\alias{binnedSums}
+\alias{binnedSums.RawSequenceReads}
+\alias{nbrOfReads}
+\alias{nbrOfReads.RawSequenceReads}
+\alias{plot.RawSequenceReads}
 
 \description{
   This page contains aliases for all "non-documented" objects that

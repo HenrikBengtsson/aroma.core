@@ -42,7 +42,7 @@ setMethodS3("getStateColors", "SegmentedGenomicSignalsInterface", function(this,
   if (hasDefColor) {
     for (type in c("0", "-", "+")) {
       if (!is.element(type, names(colorMap))) {
-        colorMap <- colorMap["*"];
+        colorMap[type] <- colorMap["*"];
       }
     }
   }
@@ -90,6 +90,8 @@ setMethodS3("getStateColors", "SegmentedGenomicSignalsInterface", function(this,
 
 ############################################################################
 # HISTORY:
+# 2009-07-01
+# o BUG FIX: getStateColorMap() with "*" gave all NA colors.
 # 2009-06-29
 # o Created.
 ############################################################################
