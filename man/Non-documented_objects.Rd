@@ -714,6 +714,24 @@
 \alias{nbrOfReads}
 \alias{nbrOfReads.RawSequenceReads}
 \alias{plot.RawSequenceReads}
+\alias{allocateFromUnitAnnotationDataFile}
+\alias{allocateFromUnitAnnotationDataFile.AromaUnitSignalBinaryFile}
+\alias{allocateFromUnitAnnotationDataFile.AromaUnitTabularBinaryFile}
+\alias{byChipType.UnitAnnotationDataFile}
+\alias{findUnitTypesFile}
+\alias{findUnitTypesFile.AromaPlatform}
+\alias{getAromaUgpFile.UnitAnnotationDataFile}
+\alias{getChipType.UnitAnnotationDataFile}
+\alias{getPlatform.UnitAnnotationDataFile}
+\alias{getUnitAnnotationDataFile}
+\alias{getUnitAnnotationDataFile.AromaPlatformInterface}
+\alias{getUnitTypes}
+\alias{getUnitTypes.UnitTypesFile}
+\alias{getUnitTypesFile}
+\alias{getUnitTypesFile.AromaPlatform}
+\alias{getUnitTypesFile.AromaPlatformInterface}
+\alias{nbrOfUnits.UnitAnnotationDataFile}
+\alias{nbrOfUnits.UnitTypesFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

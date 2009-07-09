@@ -1,41 +1,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  UnitNamesFile.R
+%  UnitTypesFile.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{UnitNamesFile}
+ \name{UnitTypesFile}
 \docType{class}
-\alias{UnitNamesFile}
+\alias{UnitTypesFile}
 
 
- \title{The UnitNamesFile interface class}
+ \title{The UnitTypesFile interface class}
 
  \description{
   Package:  aroma.core \cr
-\bold{Class UnitNamesFile}\cr
+\bold{Class UnitTypesFile}\cr
 
 \code{\link[aroma.core]{Interface}}\cr
 \code{~~|}\cr
 \code{~~+--}\code{\link[aroma.core]{UnitAnnotationDataFile}}\cr
 \code{~~~~~~~|}\cr
-\code{~~~~~~~+--}\emph{\code{UnitNamesFile}}\cr
+\code{~~~~~~~+--}\emph{\code{UnitTypesFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{TextUnitNamesFile}\cr
+\cr
 
-public abstract static class \bold{UnitNamesFile}\cr
+public abstract static class \bold{UnitTypesFile}\cr
 extends \emph{\link[aroma.core]{UnitAnnotationDataFile}}\cr
 
 
 
-  A UnitNamesFile provides methods for querying the unit names of
-  a given chip type.
+  A UnitTypesFile provides methods for querying the unit types of
+  a given chip type, e.g. genotyping or copy-number unit, exon unit etc.
  }
 
- \usage{UnitNamesFile(...)}
+ \usage{UnitTypesFile(...)}
 
  \arguments{
    \item{...}{Arguments passed to \code{\link{UnitAnnotationDataFile}}.}
@@ -44,8 +44,7 @@ extends \emph{\link[aroma.core]{UnitAnnotationDataFile}}\cr
  \section{Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{getUnitNames} \tab  -\cr
- \tab \code{\link[aroma.core:indexOf.UnitNamesFile]{indexOf}} \tab Gets the indices of units by their names.\cr
+ \tab \code{getUnitTypes} \tab  -\cr
  \tab \code{nbrOfUnits} \tab  -\cr
 }
 

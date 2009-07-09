@@ -325,3 +325,16 @@ getStateColorMap getStateColorMap.SegmentedGenomicSignalsInterface
 setStateColorMap setStateColorMap.SegmentedGenomicSignalsInterface
  binnedSums binnedSums.RawSequenceReads nbrOfReads
  nbrOfReads.RawSequenceReads plot.RawSequenceReads
+  allocateFromUnitAnnotationDataFile
+  allocateFromUnitAnnotationDataFile.AromaUnitSignalBinaryFile
+  allocateFromUnitAnnotationDataFile.AromaUnitTabularBinaryFile
+  byChipType.UnitAnnotationDataFile findUnitTypesFile
+  findUnitTypesFile.AromaPlatform
+  getAromaUgpFile.UnitAnnotationDataFile
+  getChipType.UnitAnnotationDataFile getPlatform.UnitAnnotationDataFile
+  getUnitAnnotationDataFile
+  getUnitAnnotationDataFile.AromaPlatformInterface getUnitTypes
+  getUnitTypes.UnitTypesFile getUnitTypesFile
+  getUnitTypesFile.AromaPlatform
+  getUnitTypesFile.AromaPlatformInterface
+  nbrOfUnits.UnitAnnotationDataFile nbrOfUnits.UnitTypesFile

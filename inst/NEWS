@@ -1,6 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 1.1.4 [2009-07-08]
+o Added allocateFromUnitAnnotationDataFile() for
+  AromaUnitSignalBinaryFile and AromaUnitTabularBinaryFile.
+o Added getUnitTypesFile() for AromaPlatform and AromaPlatformInterface.
+o Added UnitAnnotationDataFile, which now the UnitNamesFile and the new
+  UnitTypesFile inherits from.
+
+
 Version: 1.1.3 [2009-07-03]
 o Added class RawSequenceReads.
 o Added support for argument 'byCount' to binnedSmoothingByState() of 

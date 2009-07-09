@@ -239,17 +239,25 @@ setMethodS3("getChipType", "AromaUnitSignalBinaryFile", function(this, fullname=
   chipType;
 })
 
-
 setMethodS3("allocateFromUnitNamesFile", "AromaUnitSignalBinaryFile", function(static, unf, ...) {
   # Argument 'unf':
-  className <- "UnitNamesFile";
+  className <- "UnitAnnotationDataFile";
   if (!inherits(unf, className)) {
     throw("Argument 'unf' is not of class ", className, ": ", class(unf)[1]);
   }
+  allocateFromUnitAnnotationDataFile(static, udf=unf, ...);
+})
 
-  platform <- getPlatform(unf);
-  chipType <- getChipType(unf);
-  nbrOfRows <- nbrOfUnits(unf);
+setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", function(static, udf, ...) {
+  # Argument 'udf':
+  className <- "UnitAnnotationDataFile";
+  if (!inherits(udf, className)) {
+    throw("Argument 'udf' is not of class ", className, ": ", class(udf)[1]);
+  }
+
+  platform <- getPlatform(udf);
+  chipType <- getChipType(udf);
+  nbrOfRows <- nbrOfUnits(udf);
   
   allocate(static, ..., nbrOfRows=nbrOfRows, platform=platform, chipType=chipType);
 }, static=TRUE)
@@ -277,6 +285,8 @@ setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., 
 
 ############################################################################
 # HISTORY:
+# 2009-07-08
+# o Added allocateFromUnitAnnotationDataFile() to AromaUnitSignalBinaryFile.
 # 2009-06-13
 # o Added argument keepUnits=FALSE to extractRawGenomicSignals() of
 #   AromaUnitSignalBinaryFile.

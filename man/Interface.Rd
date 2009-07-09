@@ -20,7 +20,7 @@
 \code{+--}\code{Interface}\cr
 
 \bold{Directly known subclasses:}\cr
-\emph{\link[aroma.core]{AromaPlatformInterface}}, \link[aroma.core]{SegmentedGenomicSignalsInterface}, \emph{\link[aroma.core]{UnitNamesFile}}\cr
+\emph{\link[aroma.core]{AromaPlatformInterface}}, \link[aroma.core]{SegmentedGenomicSignalsInterface}, \emph{\link[aroma.core]{UnitAnnotationDataFile}}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
 
 public class \bold{Interface}\cr
 

@@ -151,23 +151,34 @@ setMethodS3("indexOfUnits", "AromaUnitTabularBinaryFile", function(this, names, 
 
 
 
-setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(static, unf, path=getPath(unf), tags=NULL, footer=list(), ...) {
+setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(static, unf, ...) {
   # Argument 'unf':
-  if (!inherits(unf, "UnitNamesFile")) {
-    throw("Argument 'unf' is not an UnitNamesFile: ", class(unf)[1]);
+  className <- "UnitAnnotationDataFile";
+  if (!inherits(unf, className)) {
+    throw("Argument 'unf' is not of class ", className, ": ", class(unf)[1]);
+  }
+  allocateFromUnitAnnotationDataFile(static, udf=unf, ...);
+})
+
+
+setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", function(static, udf, path=getPath(udf), tags=NULL, footer=list(), ...) {
+  # Argument 'udf':
+  className <- "UnitNamesFile";
+  if (!inherits(udf, className)) {
+    throw("Argument 'udf' is not an ", className, ": ", class(udf)[1]);
   }
 
   # Generate filename: <chipType>(,tags)*.<ext>
-  chipType <- getChipType(unf);
+  chipType <- getChipType(udf);
 
   # Exclude 'monocell' tags (AD HOC)
   chipType <- gsub(",monocell", "", chipType);
 
   # Get platform
-  platform <- getPlatform(unf);
+  platform <- getPlatform(udf);
 
   # Number of units
-  nbrOfUnits <- nbrOfUnits(unf);
+  nbrOfUnits <- nbrOfUnits(udf);
 
   fullname <- paste(c(chipType, tags), collapse=",");
   ext <- getFilenameExtension(static);
@@ -186,6 +197,8 @@ setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(
 
 ############################################################################
 # HISTORY:
+# 2009-07-08
+# o Added allocateFromUnitAnnotationDataFile() to AromaUnitTabularBinaryFile.
 # 2009-05-12
 # o Removed getUnitNamesFile() from AromaUnitTabularBinaryFile.
 # 2009-02-10

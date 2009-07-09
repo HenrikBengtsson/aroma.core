@@ -50,6 +50,7 @@ extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{allocate} \tab  -\cr
+ \tab \code{allocateFromUnitAnnotationDataFile} \tab  -\cr
  \tab \code{allocateFromUnitNamesFile} \tab  -\cr
  \tab \code{as.character} \tab  -\cr
  \tab \code{extractMatrix} \tab  -\cr
@@ -63,7 +64,7 @@ extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
 
 
  \bold{Methods inherited from AromaPlatformInterface}:\cr
-getAromaPlatform, getPlatform, getUnitNamesFile
+getAromaPlatform, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
 [, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
@@ -75,7 +76,7 @@ as.character, dim, extractMatrix, getColumnNames, getColumnNameTranslator, nbrOf
 compareChecksum, copyTo, equals, fromFile, getAlias, getAttribute, getAttributes, getChecksum, getCreatedOn, getFilename, getFileSize, getFileType, getFullName, getFullNameTranslator, getLastAccessedOn, getLastModifiedOn, getName, getPath, getPathname, getTags, gunzip, gzip, hasBeenModified, hasTag, hasTags, isFile, readChecksum, renameTo, renameToUpperCaseExt, setAlias, setAttribute, setAttributes, setAttributesBy, setAttributesByTags, setFullName, setFullNameTranslator, setName, testAttributes, validateChecksum, writeChecksum
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
 
 
  }

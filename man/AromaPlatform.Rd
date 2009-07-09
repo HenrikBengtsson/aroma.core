@@ -44,14 +44,16 @@ extends \link[R.oo]{Object}\cr
 \tabular{rll}{
  \tab \code{byName} \tab  -\cr
  \tab \code{findUnitNamesFile} \tab  -\cr
+ \tab \code{findUnitTypesFile} \tab  -\cr
  \tab \code{getAromaUgpFile} \tab  -\cr
  \tab \code{getName} \tab  -\cr
  \tab \code{getUnitNamesFile} \tab  -\cr
+ \tab \code{getUnitTypesFile} \tab  -\cr
 }
 
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
 
 
  }
