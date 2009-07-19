@@ -57,7 +57,7 @@ setMethodS3("byChipType", "UnitAnnotationDataFile", function(static, chipType, t
   # Scan for all possible matches
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   pathnames <- findByChipType(static, chipType=chipType, tags=tags, 
-                                                     firstOnly=FALSE, ...);
+                             firstOnly=FALSE, ..., verbo=less(verbose, 5));
   if (is.null(pathnames)) {
     throw("Could not locate a file for this chip type: ", 
                                    paste(c(chipType, tags), collapse=","));

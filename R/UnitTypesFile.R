@@ -20,6 +20,17 @@
 #  @allmethods "public"
 # }
 #
+# \section{Known unit types}{
+#   unknown=0,
+#   expression=1,
+#   genotyping=2,
+#   resequencing=3,
+#   tag=4,
+#   copynumber=5,
+#   genotypingcontrol=6,
+#   expressioncontrol=7
+# }
+#
 # @author
 #*/###########################################################################
 setConstructorS3("UnitTypesFile", function(...) {
@@ -31,7 +42,6 @@ setMethodS3("getUnitTypes", "UnitTypesFile", abstract=TRUE);
 setMethodS3("nbrOfUnits", "UnitTypesFile", function(this, ...) {
   length(getUnitTypes(this));
 })
-
 
 
 ############################################################################

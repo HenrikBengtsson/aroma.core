@@ -77,7 +77,7 @@ setMethodS3("clearCache", "AromaTransform", function(this, ...) {
 
 
 
-setMethodS3("getAsteriskTags", "AromaTransform", function(this,...) {
+setMethodS3("getAsteriskTags", "AromaTransform", function(this, ...) {
   # Create a default asterisk tags for any class by extracting all
   # capital letters and pasting them together, e.g. AbcDefGhi => ADG.
   name <- class(this)[1];
