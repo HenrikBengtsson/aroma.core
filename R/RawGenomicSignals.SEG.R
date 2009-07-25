@@ -9,7 +9,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
     on.exit(popState(verbose));
   }
 
-  verbose && enter(verbose, "Extracting data used by segmentaion algorithms");
+  verbose && enter(verbose, "Extracting data used by segmentation algorithms");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Retrieving data
