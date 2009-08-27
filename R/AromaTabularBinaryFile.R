@@ -257,7 +257,7 @@ setMethodS3("readRawFooter", "AromaTabularBinaryFile", function(this, con=NULL, 
   seek(con=con, where=footerOffset, origin="start", rw="r");
   nbrOfBytes <- readInts(con=con, size=4);
 
-  raw <- readBin(con=con, what="raw", n=nbrOfBytes);
+  raw <- readBin(con=con, what=raw(), n=nbrOfBytes);
 
   res <- list(
     nbrOfBytes=nbrOfBytes,

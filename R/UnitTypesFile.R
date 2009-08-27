@@ -20,7 +20,7 @@
 #  @allmethods "public"
 # }
 #
-# \section{Known unit types}{
+# \section{The aroma unit-type map}{
 #   unknown=0,
 #   expression=1,
 #   genotyping=2,

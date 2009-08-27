@@ -38,7 +38,26 @@ setMethodS3("extend", "Interface", function(this, ...className, ...) {
 
 
 setMethodS3("uses", "Interface", function(this, ...) {
-  setdiff(class(this), "Interface");
+  res <- setdiff(class(this), "Interface");
+  if (length(list(...)) > 0) {
+    res <- c(list(res), list(uses(...)));
+
+    # Order interfaces/classes
+    names <- sort(unique(unlist(res, use.names=FALSE)));
+    idxs <- integer(length(names));
+    names(idxs) <- names;
+    for (kk in seq(along=res)) {
+      for (name in res[[kk]]) {
+        idxs[name] <- kk;        
+      }
+    }
+    for (kk in seq(along=res)) {
+      keep <- (idxs[res[[kk]]] == kk);
+      res[[kk]] <- res[[kk]][keep];
+    }
+    res <- unlist(res, use.names=FALSE);
+  }
+  res;
 })
 
 setMethodS3("uses", "character", function(className, ...) {
@@ -77,6 +96,8 @@ setMethodS3("getFields", "Interface", function(...) { NULL })
 
 ############################################################################
 # HISTORY:
+# 2009-07-22
+# o Now uses(...) takes multiple Interface classes.
 # 2009-06-10
 # o Added getFields() to Interface as an ad hoc solutions to avoid
 #   print(<Interface>) throwing 'Error in UseMethod("getFields") : no 

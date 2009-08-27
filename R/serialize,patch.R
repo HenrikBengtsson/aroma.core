@@ -14,7 +14,7 @@
       close(con);
       con <- NULL;
       fileSize <- file.info(pathname)$size;
-      readBin(pathname, what="raw", n=fileSize);
+      readBin(pathname, what=raw(), n=fileSize);
     } else {
       serializeOrg(object, connection=connection, ...);
     }
