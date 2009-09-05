@@ -338,3 +338,7 @@ setStateColorMap setStateColorMap.SegmentedGenomicSignalsInterface
   getUnitTypesFile.AromaPlatform
   getUnitTypesFile.AromaPlatformInterface
   nbrOfUnits.UnitAnnotationDataFile nbrOfUnits.UnitTypesFile
+  allocate.AromaUnitTypesFile
+  getChipType.AromaUnitTypesFile getPlatform.AromaUnitTypesFile
+  getUnitTypes.AromaUnitTypesFile importFromUnitTypesFile
+  importFromUnitTypesFile.AromaUnitTypesFile

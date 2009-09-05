@@ -24,7 +24,7 @@
 \code{~~~~~~~+--}\emph{\code{UnitTypesFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\cr
+\link[aroma.core]{AromaUnitTypesFile}\cr
 
 public abstract static class \bold{UnitTypesFile}\cr
 extends \emph{\link[aroma.core]{UnitAnnotationDataFile}}\cr
@@ -56,6 +56,17 @@ byChipType, getAromaUgpFile, getChipType, getPlatform, nbrOfUnits
 extend, getFields, print, uses
 
 
+ }
+
+ \section{The aroma unit-type map}{
+   unknown=0,
+   expression=1,
+   genotyping=2,
+   resequencing=3,
+   tag=4,
+   copynumber=5,
+   genotypingcontrol=6,
+   expressioncontrol=7
  }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}

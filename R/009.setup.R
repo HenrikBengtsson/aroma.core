@@ -11,6 +11,9 @@
   # Patch slow serialize() on Windows (speeds up digest() a lot!)
   .patchSerialize();
 
+  # Get smoothScatter() for geneplotter (<= 1.21.4) if R (< 2.9.0).
+  .patchSmoothScatter();
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Apply downloaded patches
@@ -56,6 +59,9 @@
 
 ############################################################################
 # HISTORY:
+# 2009-09-04
+# o Now smoothScatter() is copying the one in 'geneplotter' v1.2.4 or older,
+#   if not R v2.9.0.
 # 2009-05-13
 # o Now the search() path is fixed for aroma.core as well.
 # 2009-02-22

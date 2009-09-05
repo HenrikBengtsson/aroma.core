@@ -22,7 +22,7 @@
 \code{~~+--}\emph{\code{UnitAnnotationDataFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
+\link[aroma.core]{AromaUnitTypesFile}, \link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
 
 public abstract static class \bold{UnitAnnotationDataFile}\cr
 extends \link[aroma.core]{Interface}\cr

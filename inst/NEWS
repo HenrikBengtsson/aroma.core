@@ -1,6 +1,23 @@
 Package: aroma.core
 ===================
 
+Version: 1.1.6 [2009-09-04]
+o BUG FIX/WORKAROUND: smoothScatter(), which is used in for 
+  instance aroma.affymetrix, is in the graphics package from 
+  R v2.9.0.  It was previously in geneplotter v1.2.4 and before(!).
+  The code imported it from geneplotter would therefore give an 
+  error of a missing function with geneplotter v1.2.5.  We
+  are now assuming R v2.9.0 by default, but if not available,
+  but geneplotter v1.2.4 or earlier is, geneplotter is loaded.
+  If neither are available, a dummy smoothScatter() is setup
+  reporting an error.
+
+
+Version: 1.1.5 [2009-08-29]
+o Added totalAndFracBData/ to the search path of byName() for
+  AromaUnit(FracB|Total)CnBinarySet.
+
+
 Version: 1.1.4 [2009-07-22]
 o Added allocateFromUnitAnnotationDataFile() for
   AromaUnitSignalBinaryFile and AromaUnitTabularBinaryFile.

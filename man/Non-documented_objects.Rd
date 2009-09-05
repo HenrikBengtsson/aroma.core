@@ -732,6 +732,12 @@
 \alias{getUnitTypesFile.AromaPlatformInterface}
 \alias{nbrOfUnits.UnitAnnotationDataFile}
 \alias{nbrOfUnits.UnitTypesFile}
+\alias{allocate.AromaUnitTypesFile}
+\alias{getChipType.AromaUnitTypesFile}
+\alias{getPlatform.AromaUnitTypesFile}
+\alias{getUnitTypes.AromaUnitTypesFile}
+\alias{importFromUnitTypesFile}
+\alias{importFromUnitTypesFile.AromaUnitTypesFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that
