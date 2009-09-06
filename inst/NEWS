@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 1.1.6 [2009-09-04]
+Version: 1.1.6 [2009-09-05]
 o BUG FIX/WORKAROUND: smoothScatter(), which is used in for 
   instance aroma.affymetrix, is in the graphics package from 
   R v2.9.0.  It was previously in geneplotter v1.2.4 and before(!).
