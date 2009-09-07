@@ -634,6 +634,20 @@ setMethodS3("xMax", "RawGenomicSignals", function(this, ...) {
   xRange(this, ...)[2];
 })
 
+setMethodS3("yRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
+  y <- getSignals(this);
+  range(y, na.rm=na.rm);
+})
+
+setMethodS3("yMin", "RawGenomicSignals", function(this, ...) {
+  yRange(this, ...)[1];
+})
+
+setMethodS3("yMax", "RawGenomicSignals", function(this, ...) {
+  yRange(this, ...)[2];
+})
+
+
 setMethodS3("signalRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
   y <- getSignals(this);
   range(y, na.rm=na.rm);
@@ -663,6 +677,8 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-09-07
+# o Added yRange(), yMin() and yMax() to RawGenomicSignals.
 # 2009-07-03
 # o BUG FIX: binnedSmoothing() added non existing locus field 'w'.
 # 2009-06-30

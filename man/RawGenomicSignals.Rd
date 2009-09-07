@@ -88,6 +88,9 @@ extends \link[R.oo]{Object}\cr
  \tab \code{xMin} \tab  -\cr
  \tab \code{xRange} \tab  -\cr
  \tab \code{xSeq} \tab  -\cr
+ \tab \code{yMax} \tab  -\cr
+ \tab \code{yMin} \tab  -\cr
+ \tab \code{yRange} \tab  -\cr
 }
 
 

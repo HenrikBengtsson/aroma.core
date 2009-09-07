@@ -738,6 +738,13 @@
 \alias{getUnitTypes.AromaUnitTypesFile}
 \alias{importFromUnitTypesFile}
 \alias{importFromUnitTypesFile.AromaUnitTypesFile}
+\alias{extractRawCopyNumbers.RawSequenceReads}
+\alias{yRange}
+\alias{yMin}
+\alias{yMax}
+\alias{yMax.RawGenomicSignals}
+\alias{yMin.RawGenomicSignals}
+\alias{yRange.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that
