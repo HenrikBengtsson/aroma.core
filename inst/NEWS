@@ -1,6 +1,16 @@
 Package: aroma.core
 ===================
 
+Version: 1.2.0 [2009-09-07]
+o New public release. No updates.
+o Package passes R CMD check on R v2.9.2 and all redundancy tests.
+
+
+Version: 1.1.7 [2009-09-07]
+o Now getUnitsOnChromosomes() for AromaUnitChromosomeTabularBinaryFile
+  returns a vector by default (unlist=TRUE).
+
+
 Version: 1.1.6 [2009-09-07]
 o Added yRange(), yMin() and yMax() for RawGenomicSignals.
 o Added extractRawCopyNumbers() for RawSequenceReads.

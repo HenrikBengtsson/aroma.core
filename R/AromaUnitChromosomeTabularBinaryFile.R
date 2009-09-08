@@ -88,7 +88,7 @@ setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(th
 
 
 
-setMethodS3("getUnitsOnChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(this, chromosomes=getChromosomes(this), ..., unlist=FALSE, useNames=TRUE) {
+setMethodS3("getUnitsOnChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(this, chromosomes=getChromosomes(this), ..., unlist=TRUE, useNames=!unlist) {
   # Argument 'chromosomes':
   chromosomes <- Arguments$getIndices(chromosomes);
 
@@ -134,7 +134,7 @@ setMethodS3("getUnitsOnChromosome", "AromaUnitChromosomeTabularBinaryFile", func
 
 
 setMethodS3("extractByChromosome", "AromaUnitChromosomeTabularBinaryFile", function(this, chromosomes=getChromosomes(this), ...) {
-  unitsList <- getUnitsOnChromosomes(this, chromosomes=chromosomes);
+  unitsList <- getUnitsOnChromosomes(this, chromosomes=chromosomes, unlist=FALSE);
   data <- readDataFrame(this, ...);
   data <- cbind(unit=seq(length=nrow(data)), data);
   lapply(unitsList, FUN=function(units) {
@@ -183,6 +183,10 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 
 ############################################################################
 # HISTORY:
+# 2009-09-07
+# o Now getUnitsOnChromosomes() returns a vector by default (unlist=TRUE).
+# o By default, getUnitsOnChromosomes() now returns names if the return
+#   structure is a list, otherwise not.
 # 2009-05-08
 # o Added allocate() to AromaUnitChromosomeTabularBinaryFile.  This will
 #   enforce all subclasses to specify a platform and chip type.
