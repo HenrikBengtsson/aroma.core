@@ -35,7 +35,7 @@
 #
 # \seealso{
 #  @see "stats::medpolish".
-#  @see "aroma.light::medpolish".
+#  \code{\link[aroma.light:medianPolish.matrix]{medianPolish}()}.
 # }
 #
 # @keyword internal

@@ -20,15 +20,13 @@
 # }
 # 
 # \details{
-#   Internally @seemethod "HaarSeg::haarSeg" is used to segment the signals.
+#   Internally @see "HaarSeg::haarSeg" is used to segment the signals.
 #   This segmentation method support weighted segmentation.
 # }
 #
 # @author
 #
 # \seealso{
-#   Internally the segmentation function 
-#   @seemethod "HaarSeg::haarSeg" is used.
 #   @seeclass
 # }
 #

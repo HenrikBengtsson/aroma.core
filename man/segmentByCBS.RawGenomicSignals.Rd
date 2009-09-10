@@ -32,7 +32,7 @@
  }
 
  \details{
-   Internally \code{\link[aroma.core:DNAcopy::segment.RawGenomicSignals]{*DNAcopy::segment}()} is used to segment the signals.
+   Internally \code{\link[DNAcopy]{segment}} is used to segment the signals.
    This segmentation method support weighted segmentation.
  }
 
@@ -66,29 +66,34 @@ lines(cnS, col="black", lwd=3)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Segment
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+legend <- c()
+
 fit <- segmentByCBS(cn)
 cnr <- extractCopyNumberRegions(fit)
 print(cnr)
-drawLevels(cnr, col="red")
+drawLevels(cnr, col="red", lwd=3)
+legend <- c(legend, red="CBS")
 
 fit <- segmentByGLAD(cn)
 cnr <- extractCopyNumberRegions(fit)
 print(cnr)
-drawLevels(cnr, col="blue")
+drawLevels(cnr, col="blue", lwd=3)
+legend <- c(legend, blue="GLAD")
 
 if (require("HaarSeg")) {
   fit <- segmentByHaarSeg(cn)
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)
-  drawLevels(cnr, col="orange")
+  drawLevels(cnr, col="orange", lwd=3)
+  legend <- c(legend, orange="HaarSeg")
 }
+
+legend("topleft", pch=19, col=names(legend), legend, bty="n", horiz=TRUE)
 }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
  \seealso{
-   Internally the segmentation function
-   \code{\link[aroma.core:DNAcopy::segment.RawGenomicSignals]{*DNAcopy::segment}()} is used.
    For more information see \code{\link{RawGenomicSignals}}.
  }
 

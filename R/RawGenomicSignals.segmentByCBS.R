@@ -20,7 +20,7 @@
 # }
 # 
 # \details{
-#   Internally @seemethod "DNAcopy::segment" is used to segment the signals.
+#   Internally @see "DNAcopy::segment" is used to segment the signals.
 #   This segmentation method support weighted segmentation.
 # }
 #
@@ -29,8 +29,6 @@
 # @author
 #
 # \seealso{
-#   Internally the segmentation function 
-#   @seemethod "DNAcopy::segment" is used.
 #   @seeclass
 # }
 #

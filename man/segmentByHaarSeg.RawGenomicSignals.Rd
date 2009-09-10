@@ -32,15 +32,13 @@
  }
 
  \details{
-   Internally \code{\link[aroma.core:HaarSeg::haarSeg.RawGenomicSignals]{*HaarSeg::haarSeg}()} is used to segment the signals.
+   Internally \code{\link[HaarSeg]{haarSeg}} is used to segment the signals.
    This segmentation method support weighted segmentation.
  }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
  \seealso{
-   Internally the segmentation function
-   \code{\link[aroma.core:HaarSeg::haarSeg.RawGenomicSignals]{*HaarSeg::haarSeg}()} is used.
    For more information see \code{\link{RawGenomicSignals}}.
  }
 

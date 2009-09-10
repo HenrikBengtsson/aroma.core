@@ -32,15 +32,13 @@
  }
 
  \details{
-   Internally \code{\link[aroma.core:GLAD::glad.RawGenomicSignals]{*GLAD::glad}()} is used to segment the signals.
-   This segmentation method support weighted segmentation.
+   Internally \code{\link[GLAD]{glad}} is used to segment the signals.
+   This segmentation method does not support weighted segmentation.
  }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
  \seealso{
-   Internally the segmentation function
-   \code{\link[aroma.core:GLAD::glad.RawGenomicSignals]{*GLAD::glad}()} is used.
    For more information see \code{\link{RawGenomicSignals}}.
  }
 

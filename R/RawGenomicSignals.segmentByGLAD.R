@@ -20,15 +20,13 @@
 # }
 # 
 # \details{
-#   Internally @seemethod "GLAD::glad" is used to segment the signals.
-#   This segmentation method support weighted segmentation.
+#   Internally @see "GLAD::glad" is used to segment the signals.
+#   This segmentation method does not support weighted segmentation.
 # }
 #
 # @author
 #
 # \seealso{
-#   Internally the segmentation function 
-#   @seemethod "GLAD::glad" is used.
 #   @seeclass
 # }
 #

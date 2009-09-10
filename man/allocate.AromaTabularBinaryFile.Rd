@@ -34,7 +34,7 @@
      column is signed or not.}
   \item{comment}{An optional \code{\link[base]{character}} string written to the file header.}
   \item{overwrite}{If \code{\link[base:logical]{TRUE}}, an existing file is overwritten, otherwise not.}
-  \item{skip}{If \code{\link[base:logical]{TRUE}} and \code{overwrite=\code{\link[base:logical]{TRUE}}}, any existing file is
+  \item{skip}{If \code{\link[base:logical]{TRUE}} and \code{overwrite=TRUE}, any existing file is
      returned as is.}
   \item{footer}{An optional \code{\link[base]{list}} of attributes written (as character
      strings) to the file footer.}

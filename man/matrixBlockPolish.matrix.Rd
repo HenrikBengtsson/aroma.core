@@ -83,7 +83,7 @@ image(r2)
 
  \seealso{
   \code{\link[stats]{medpolish}}.
-  \code{\link[aroma.light]{medpolish}}.
+  \code{\link[aroma.light:medianPolish.matrix]{medianPolish}()}.
  }
 
 
