@@ -142,6 +142,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     # Transform to intensity scale?
     if (hasTag(ce, "log2ratio")) {
       theta <- 2^theta;
+      verbose && cat(verbose, "Transformed theta = 2^M");
     }
 
     # Sanity check
@@ -155,6 +156,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
       # Transform to intensity scale?
       if (hasTag(ceR, "log2ratio")) {
         thetaR <- 2^thetaR;
+        verbose && cat(verbose, "Transformed thetaR = 2^MR");
       }
 
       verbose && str(verbose, thetaR);
@@ -175,6 +177,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     # Sanity check
     stopifnot(length(thetaR) == length(theta));
 
+    verbose && cat(verbose, "Copy-number ratios:");
     C <- theta / thetaR;
     verbose && str(verbose, C);
     rm(theta);
@@ -182,6 +185,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     # Log ratios?
     if (!is.null(logBase)) {
       C <- log(C) / log(logBase);
+      verbose && cat(verbose, "Log copy-number ratios:");
       verbose && str(verbose, C);
     }
 
@@ -253,6 +257,8 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
 ############################################################################
 # HISTORY:
+# 2009-09-24
+# o Added more verbose output.
 # 2009-06-13
 # o BUG FIX: exportTotalCnRatioSet() would return a 
 #   AromaUnitFracBCnBinarySet.
