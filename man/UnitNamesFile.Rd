@@ -17,7 +17,7 @@
   Package:  aroma.core \cr
 \bold{Class UnitNamesFile}\cr
 
-\code{\link[aroma.core]{Interface}}\cr
+\code{\link[R.oo]{Interface}}\cr
 \code{~~|}\cr
 \code{~~+--}\code{\link[aroma.core]{UnitAnnotationDataFile}}\cr
 \code{~~~~~~~|}\cr
@@ -54,7 +54,7 @@ extends \emph{\link[aroma.core]{UnitAnnotationDataFile}}\cr
 byChipType, getAromaUgpFile, getChipType, getPlatform, nbrOfUnits
 
  \bold{Methods inherited from Interface}:\cr
-extend, getFields, print, uses
+extend, print, uses
 
 
  }

@@ -21,7 +21,7 @@
   as.character.AromaTabularBinaryFile as.character.AromaTransform
   as.character.AromaUnitSignalBinaryFile
   as.character.CopyNumberOutliers as.character.CopyNumberRegions
-  as.character.Interface as.character.RawGenomicSignals
+   as.character.RawGenomicSignals
   as.character.TextUnitNamesFile as.data.frame.CopyNumberOutliers
   as.data.frame.CopyNumberRegions as.data.frame.RawCopyNumbers
   as.data.frame.RawGenomicSignals as.data.frame.SegmentedGenomicSignalsInterface
@@ -57,7 +57,7 @@
   drawCytoband.profileCGH drawCytoband2 drawCytoband2.default
   drawLevels drawLevels.CopyNumberOutliers drawLevels.CopyNumberRegions
   estimateStandardDeviation exportTotalCnRatioSet
-  exportTotalCnRatioSet.AromaUnitTotalCnBinarySet extend.Interface
+  exportTotalCnRatioSet.AromaUnitTotalCnBinarySet 
   extractByChromosome
   extractByChromosome.AromaUnitChromosomeTabularBinaryFile
   extractCallArray extractCallArray.AromaUnitCallFile
@@ -223,7 +223,7 @@
   points.BinnedScatter points.RawGenomicSignals
   points.SegmentedGenomicSignalsInterface pointsSequence
   pointsSequence.ProbePositionEffects predict.ProbePositionEffects
-  print.GenericSummary print.Interface process
+  print.GenericSummary  process
   readColumns.AromaTabularBinaryFile readData
   readData.SampleAnnotationFile readDataFrame.AromaTabularBinaryFile
   readDataFrame.AromaUnitChromosomeTabularBinaryFile
@@ -272,7 +272,7 @@
   updateSequenceMatrix.AromaCellSequenceFile updateSequences
   updateSequences.AromaCellSequenceFile updateTargetStrands
   updateTargetStrands.AromaCellSequenceFile uses uses.character
-  uses.Interface validate.AromaMicroarrayDataSet
+   validate.AromaMicroarrayDataSet
   validate.AromaUnitSignalBinarySet weightedMad weightedMean
   whatDataType whatDataType.default writeFooter writeRawFooter
   writeRawFooter.AromaTabularBinaryFile xMax xMax.RawGenomicSignals
@@ -318,7 +318,7 @@ exportFracBDiffSet exportFracBDiffSet.AromaUnitFracBCnBinarySet
   getExpectedOutputFiles.AromaTransform getOutputDataSet0
   getOutputDataSet0.AromaTransform
  getExpectedOutputFullnames getExpectedOutputFullnames.AromaTransform
-getFields.Interface isHeterozygous
+ isHeterozygous
 isHeterozygous.AromaUnitGenotypeCallFile isHomozygous
 isHomozygous.AromaUnitGenotypeCallFile setStates
 getStateColorMap getStateColorMap.SegmentedGenomicSignalsInterface
@@ -346,3 +346,4 @@ extractRawCopyNumbers.RawSequenceReads
 yRange yMin yMax
   extractRawCopyNumbers.RawSequenceReads yMax yMax.RawGenomicSignals
   yMin yMin.RawGenomicSignals yRange yRange.RawGenomicSignals
+byPath.AromaUnitCallSet byPath.AromaUnitGenotypeCallSet

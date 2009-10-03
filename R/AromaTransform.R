@@ -514,7 +514,7 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
   args <- list(path=path, pattern=pattern, ...);
   verbose && str(verbose, args);
   args$verbose <- less(verbose);
-  staticMethod <- clazz$fromFiles;
+  staticMethod <- clazz$byPath;
   dsOut <- do.call("staticMethod", args=args);
   rm(staticMethod, args); # Not needed anymore
   verbose && exit(verbose);
@@ -539,7 +539,7 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
 # @synopsis
 #
 # \arguments{
-#   \item{...}{Arguments passed to static method \code{fromFiles()} of
+#   \item{...}{Arguments passed to static method \code{byPath()} of
 #      the class of the input @see "AromaMicroarrayDataSet".}
 #   \item{incomplete}{If the output data set is incomplete, then @NULL is
 #      returned unless \code{incomplete} is @TRUE.}

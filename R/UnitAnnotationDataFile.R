@@ -13,7 +13,7 @@
 # @synopsis
 #
 # \arguments{
-#   \item{...}{Arguments passed to @see "Interface".}
+#   \item{...}{Arguments passed to @see "R.oo::Interface".}
 # }
 #
 # \section{Methods}{

@@ -27,9 +27,9 @@ setConstructorS3("AromaUnitGenotypeCallSet", function(...) {
 })
 
 
-setMethodS3("fromFiles", "AromaUnitGenotypeCallSet", function(static, ..., pattern=".*,genotypes[.]acf$") {
+setMethodS3("byPath", "AromaUnitGenotypeCallSet", function(static, ..., pattern=".*,genotypes[.]acf$") {
   suppressWarnings({
-    fromFiles.AromaUnitCallSet(static, ..., pattern=pattern);
+    byPath.AromaUnitCallSet(static, ..., pattern=pattern);
   })
 })
 
@@ -41,7 +41,7 @@ setMethodS3("byName", "AromaUnitGenotypeCallSet", function(static, name, tags=NU
   })
 
   suppressWarnings({
-    fromFiles(static, path=path, ..., pattern=pattern);
+    byPath(static, path=path, ..., pattern=pattern);
   })
 }, static=TRUE) 
 

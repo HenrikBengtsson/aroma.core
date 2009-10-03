@@ -49,7 +49,7 @@ setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=N
   })
 
   suppressWarnings({
-    fromFiles(static, path=path, ..., pattern=".*,(frac|freq)B[.]asb$");
+    byPath(static, path=path, ..., pattern=".*,(frac|freq)B[.]asb$");
   })
 }, static=TRUE) 
 

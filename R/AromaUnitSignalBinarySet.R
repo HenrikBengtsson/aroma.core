@@ -40,7 +40,7 @@ setMethodS3("byName", "AromaUnitSignalBinarySet", function(static, name, tags=NU
   })
 
   suppressWarnings({
-    fromFiles(static, path=path, ..., pattern=pattern);
+    byPath(static, path=path, ..., pattern=pattern);
   })
 }, static=TRUE) 
 

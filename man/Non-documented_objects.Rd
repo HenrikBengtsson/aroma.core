@@ -56,7 +56,6 @@
 \alias{as.character.AromaUnitSignalBinaryFile}
 \alias{as.character.CopyNumberOutliers}
 \alias{as.character.CopyNumberRegions}
-\alias{as.character.Interface}
 \alias{as.character.RawGenomicSignals}
 \alias{as.character.TextUnitNamesFile}
 \alias{as.data.frame.CopyNumberOutliers}
@@ -144,7 +143,6 @@
 \alias{estimateStandardDeviation}
 \alias{exportTotalCnRatioSet}
 \alias{exportTotalCnRatioSet.AromaUnitTotalCnBinarySet}
-\alias{extend.Interface}
 \alias{extractByChromosome}
 \alias{extractByChromosome.AromaUnitChromosomeTabularBinaryFile}
 \alias{extractCallArray}
@@ -480,7 +478,6 @@
 \alias{pointsSequence.ProbePositionEffects}
 \alias{predict.ProbePositionEffects}
 \alias{print.GenericSummary}
-\alias{print.Interface}
 \alias{process}
 \alias{readColumns.AromaTabularBinaryFile}
 \alias{readData}
@@ -596,7 +593,6 @@
 \alias{updateTargetStrands.AromaCellSequenceFile}
 \alias{uses}
 \alias{uses.character}
-\alias{uses.Interface}
 \alias{validate.AromaMicroarrayDataSet}
 \alias{validate.AromaUnitSignalBinarySet}
 \alias{weightedMad}
@@ -699,7 +695,6 @@
 \alias{getOutputDataSet0.AromaTransform}
 \alias{getExpectedOutputFullnames}
 \alias{getExpectedOutputFullnames.AromaTransform}
-\alias{getFields.Interface}
 \alias{isHeterozygous}
 \alias{isHeterozygous.AromaUnitGenotypeCallFile}
 \alias{isHomozygous}
@@ -745,6 +740,8 @@
 \alias{yMax.RawGenomicSignals}
 \alias{yMin.RawGenomicSignals}
 \alias{yRange.RawGenomicSignals}
+\alias{byPath.AromaUnitCallSet}
+\alias{byPath.AromaUnitGenotypeCallSet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

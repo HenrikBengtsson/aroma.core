@@ -22,7 +22,7 @@
 \usage{\method{getOutputDataSet}{AromaTransform}(this, ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE)}
 
 \arguments{
-  \item{...}{Arguments passed to static method \code{fromFiles()} of
+  \item{...}{Arguments passed to static method \code{byPath()} of
      the class of the input \code{\link{AromaMicroarrayDataSet}}.}
   \item{incomplete}{If the output data set is incomplete, then \code{\link[base]{NULL}} is
      returned unless \code{incomplete} is \code{\link[base:logical]{TRUE}}.}

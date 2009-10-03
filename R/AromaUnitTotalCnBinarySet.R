@@ -34,7 +34,7 @@ setMethodS3("byName", "AromaUnitTotalCnBinarySet", function(static, name, tags=N
   })
 
   suppressWarnings({
-    fromFiles(static, path=path, ..., pattern=".*,total[.]asb$");
+    byPath(static, path=path, ..., pattern=".*,total[.]asb$");
   })
 }, static=TRUE) 
 

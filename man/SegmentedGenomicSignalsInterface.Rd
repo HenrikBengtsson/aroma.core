@@ -17,7 +17,7 @@
   Package:  aroma.core \cr
 \bold{Class SegmentedGenomicSignalsInterface}\cr
 
-\code{\link[aroma.core]{Interface}}\cr
+\code{\link[R.oo]{Interface}}\cr
 \code{~~|}\cr
 \code{~~+--}\code{SegmentedGenomicSignalsInterface}\cr
 
@@ -25,7 +25,7 @@
 \link[aroma.core]{SegmentedAlleleBFractions}, \link[aroma.core]{SegmentedCopyNumbers}\cr
 
 public class \bold{SegmentedGenomicSignalsInterface}\cr
-extends \link[aroma.core]{Interface}\cr
+extends \link[R.oo]{Interface}\cr
 
 
  }
@@ -55,7 +55,7 @@ extends \link[aroma.core]{Interface}\cr
 
 
  \bold{Methods inherited from Interface}:\cr
-extend, getFields, print, uses
+extend, print, uses
 
 
  }

@@ -32,9 +32,9 @@ setMethodS3("findByName", "AromaUnitCallSet", function(static, ..., paths="callD
 }, static=TRUE) 
 
 
-setMethodS3("fromFiles", "AromaUnitCallSet", function(static, ..., pattern=".*[.]acf$") {
+setMethodS3("byPath", "AromaUnitCallSet", function(static, ..., pattern=".*[.]acf$") {
   suppressWarnings({
-    fromFiles.GenericDataFileSet(static, ..., pattern=pattern);
+    byPath.GenericDataFileSet(static, ..., pattern=pattern);
   })
 })
 

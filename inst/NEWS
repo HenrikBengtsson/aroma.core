@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.2.1 [2009-10-02]
+o CLEAN UP: Updated to use byPath() instead fromFiles().
+o CLEAN UP: Move the Interface class to the R.oo package.
+
+
 Version: 1.2.0 [2009-09-09]
 o New public release. 
 o Fixed broken/missing Rd links.

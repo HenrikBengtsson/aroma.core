@@ -178,7 +178,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
 
   verbose && enter(verbose, "Setting up output data sets");
   pattern <- sprintf("%s.asb", typeTags);
-  res <- AromaUnitFracBCnBinarySet$fromFiles(outPath, pattern=pattern);
+  res <- AromaUnitFracBCnBinarySet$byPath(outPath, pattern=pattern);
   verbose && exit(verbose);
 
   verbose && exit(verbose);

@@ -17,7 +17,7 @@
   Package:  aroma.core \cr
 \bold{Class UnitAnnotationDataFile}\cr
 
-\code{\link[aroma.core]{Interface}}\cr
+\code{\link[R.oo]{Interface}}\cr
 \code{~~|}\cr
 \code{~~+--}\emph{\code{UnitAnnotationDataFile}}\cr
 
@@ -25,7 +25,7 @@
 \link[aroma.core]{AromaUnitTypesFile}, \link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
 
 public abstract static class \bold{UnitAnnotationDataFile}\cr
-extends \link[aroma.core]{Interface}\cr
+extends \link[R.oo]{Interface}\cr
 
 
 
@@ -36,7 +36,7 @@ extends \link[aroma.core]{Interface}\cr
  \usage{UnitAnnotationDataFile(...)}
 
  \arguments{
-   \item{...}{Arguments passed to \code{\link{Interface}}.}
+   \item{...}{Arguments passed to \code{\link[R.oo]{Interface}}.}
  }
 
  \section{Methods}{
@@ -51,7 +51,7 @@ extends \link[aroma.core]{Interface}\cr
 
 
  \bold{Methods inherited from Interface}:\cr
-extend, getFields, print, uses
+extend, print, uses
 
 
  }
