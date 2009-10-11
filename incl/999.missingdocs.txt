@@ -347,3 +347,4 @@ yRange yMin yMax
   extractRawCopyNumbers.RawSequenceReads yMax yMax.RawGenomicSignals
   yMin yMin.RawGenomicSignals yRange yRange.RawGenomicSignals
 byPath.AromaUnitCallSet byPath.AromaUnitGenotypeCallSet
+setName.RawGenomicSignals

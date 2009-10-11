@@ -76,6 +76,7 @@ extends \link[R.oo]{Object}\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
  \tab \code{setLocusFields} \tab  -\cr
+ \tab \code{setName} \tab  -\cr
  \tab \code{setSigma} \tab  -\cr
  \tab \code{setWeights} \tab  -\cr
  \tab \code{setXScale} \tab  -\cr

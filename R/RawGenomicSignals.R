@@ -181,6 +181,15 @@ setMethodS3("getName", "RawGenomicSignals", function(this, ...) {
 })
 
 
+setMethodS3("setName", "RawGenomicSignals", function(this, name, ...) {
+  if (!is.null(name)) {
+    name <- Arguments$getCharacter(name);
+  }
+  this$.name <- name;
+  invisible(this);
+})
+
+
 setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
   this <- x;
@@ -677,6 +686,8 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-10-10
+# o Added setName().
 # 2009-09-07
 # o Added yRange(), yMin() and yMax() to RawGenomicSignals.
 # 2009-07-03

@@ -742,6 +742,7 @@
 \alias{yRange.RawGenomicSignals}
 \alias{byPath.AromaUnitCallSet}
 \alias{byPath.AromaUnitGenotypeCallSet}
+\alias{setName.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

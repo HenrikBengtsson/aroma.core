@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 1.2.2 [2009-10-10]
+o Added setName() for RawGenomicSignals.
+
+
 Version: 1.2.1 [2009-10-02]
 o CLEAN UP: Updated to use byPath() instead fromFiles().
 o CLEAN UP: Move the Interface class to the R.oo package.
