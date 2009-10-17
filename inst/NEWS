@@ -1,8 +1,9 @@
 Package: aroma.core
 ===================
 
-Version: 1.2.2 [2009-10-10]
+Version: 1.2.2 [2009-10-16]
 o Added setName() for RawGenomicSignals.
+o Stricker dependencies.
 
 
 Version: 1.2.1 [2009-10-02]
