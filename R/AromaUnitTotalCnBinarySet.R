@@ -40,7 +40,6 @@ setMethodS3("byName", "AromaUnitTotalCnBinarySet", function(static, name, tags=N
 
 
 
-
 ############################################################################
 # HISTORY:
 # 2009-08-31
