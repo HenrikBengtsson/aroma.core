@@ -11,7 +11,12 @@ setConstructorS3("SampleAnnotationFile", function(...) {
 })
 
 
-setMethodS3("fromPath", "SampleAnnotationFile", function(static, path, pattern="[.](saf|SAF)$", ...) {
+setMethodS3("getExtensionPattern", "SampleAnnotationFile", function(static, ...) {
+  "[.](saf|SAF)$";
+}, static=TRUE, protected=TRUE)
+
+
+setMethodS3("fromPath", "SampleAnnotationFile", function(static, path, pattern=getExtensionPattern(static), ...) {
 #  pathnames <- findSAFs(static, path=path, pattern=pattern, ...);
   pathnames <- list.files(path=path, pattern=pattern, full.names=TRUE, ...);
   if (length(pathnames) == 0)

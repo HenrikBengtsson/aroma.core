@@ -97,6 +97,12 @@ setMethodS3("getFilenameExtension", "TextUnitNamesFile", function(static, ...) {
   "txt";
 }, static=TRUE, protected=TRUE);
 
+
+setMethodS3("getExtensionPattern", "TextUnitNamesFile", function(static, ...) {
+  "[.](txt)$";
+}, static=TRUE, protected=TRUE)
+
+
 setMethodS3("findByChipType", "TextUnitNamesFile", function(static, chipType, tags=NULL, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Search in annotationData/chipTypes/<chipType>/

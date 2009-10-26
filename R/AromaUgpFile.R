@@ -12,6 +12,10 @@ setMethodS3("getFilenameExtension", "AromaUgpFile", function(static, ...) {
   "ugp";
 }, static=TRUE)
 
+setMethodS3("getExtensionPattern", "AromaUgpFile", function(static, ...) {
+  "[.](ugp)$";
+}, static=TRUE, protected=TRUE)
+
 setMethodS3("getColumnNames", "AromaUgpFile", function(this, ...) {
   c("chromosome", "position");
 })

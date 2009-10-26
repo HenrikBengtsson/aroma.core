@@ -348,3 +348,9 @@ yRange yMin yMax
   yMin yMin.RawGenomicSignals yRange yRange.RawGenomicSignals
 byPath.AromaUnitCallSet byPath.AromaUnitGenotypeCallSet
 setName.RawGenomicSignals
+  getExtensionPattern.AromaCellPositionFile
+  getExtensionPattern.AromaCellSequenceFile
+  getExtensionPattern.AromaUgpFile
+  getExtensionPattern.AromaUnitSignalBinaryFile
+  getExtensionPattern.SampleAnnotationFile
+  getExtensionPattern.TextUnitNamesFile

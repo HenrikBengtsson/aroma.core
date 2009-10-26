@@ -27,6 +27,11 @@ setMethodS3("getFilenameExtension", "AromaCellPositionFile", function(static, ..
 }, static=TRUE)
 
 
+setMethodS3("getExtensionPattern", "AromaCellPositionFile", function(static, ...) {
+  "[.](acp)$";
+}, static=TRUE, protected=TRUE)
+
+
 setMethodS3("getColumnNames", "AromaCellPositionFile", function(this, ...) {
   c("chromosome", "position");
 })

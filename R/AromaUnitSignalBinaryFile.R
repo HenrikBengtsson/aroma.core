@@ -78,6 +78,11 @@ setMethodS3("getFilenameExtension", "AromaUnitSignalBinaryFile", function(static
 }, static=TRUE, protected=TRUE)
 
 
+setMethodS3("getExtensionPattern", "AromaUnitSignalBinaryFile", function(static, ...) {
+  "[.](asb)$";
+}, static=TRUE, protected=TRUE)
+
+
 
 setMethodS3("nbrOfUnits", "AromaUnitSignalBinaryFile", function(this, ...) {
   nbrOfRows(this, ...);

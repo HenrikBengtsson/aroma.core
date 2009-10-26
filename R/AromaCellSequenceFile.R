@@ -26,6 +26,10 @@ setMethodS3("getFilenameExtension", "AromaCellSequenceFile", function(static, ..
   "acs";
 }, static=TRUE)
 
+setMethodS3("getExtensionPattern", "AromaCellSequenceFile", function(static, ...) {
+  "[.](acs)$";
+}, static=TRUE, protected=TRUE)
+
 
 setMethodS3("getColumnNames", "AromaCellSequenceFile", function(this, ...) {
   c(sprintf("b%02d", seq(from=1, to=nbrOfColumns(this)-1)), "targetStrand");

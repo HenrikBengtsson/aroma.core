@@ -743,6 +743,12 @@
 \alias{byPath.AromaUnitCallSet}
 \alias{byPath.AromaUnitGenotypeCallSet}
 \alias{setName.RawGenomicSignals}
+\alias{getExtensionPattern.AromaCellPositionFile}
+\alias{getExtensionPattern.AromaCellSequenceFile}
+\alias{getExtensionPattern.AromaUgpFile}
+\alias{getExtensionPattern.AromaUnitSignalBinaryFile}
+\alias{getExtensionPattern.SampleAnnotationFile}
+\alias{getExtensionPattern.TextUnitNamesFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

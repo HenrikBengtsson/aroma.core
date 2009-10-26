@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 1.2.3 [2009-10-25]
+o Added getExtensionPattern() to most GenericDataFile classes.
+
+
 Version: 1.2.2 [2009-10-16]
 o Added setName() for RawGenomicSignals.
 o Stricter dependencies.

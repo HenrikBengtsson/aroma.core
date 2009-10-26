@@ -68,17 +68,21 @@ lines(cnS, col="black", lwd=3)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 legend <- c()
 
-fit <- segmentByCBS(cn)
-cnr <- extractCopyNumberRegions(fit)
-print(cnr)
-drawLevels(cnr, col="red", lwd=3)
-legend <- c(legend, red="CBS")
+if (require("DNAcopy")) {
+  fit <- segmentByCBS(cn)
+  cnr <- extractCopyNumberRegions(fit)
+  print(cnr)
+  drawLevels(cnr, col="red", lwd=3)
+  legend <- c(legend, red="CBS")
+}
 
-fit <- segmentByGLAD(cn)
-cnr <- extractCopyNumberRegions(fit)
-print(cnr)
-drawLevels(cnr, col="blue", lwd=3)
-legend <- c(legend, blue="GLAD")
+if (require("GLAD")) {
+  fit <- segmentByGLAD(cn)
+  cnr <- extractCopyNumberRegions(fit)
+  print(cnr)
+  drawLevels(cnr, col="blue", lwd=3)
+  legend <- c(legend, blue="GLAD")
+}
 
 if (require("HaarSeg")) {
   fit <- segmentByHaarSeg(cn)
