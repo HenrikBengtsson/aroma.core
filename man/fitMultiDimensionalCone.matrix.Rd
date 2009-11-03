@@ -31,7 +31,8 @@
    \item{q,Q}{Percentiles in [0,100] for which data points that are
       below (above) will be assigned zero weight in the fitting of
       the parameters.}
-   \item{...}{Additional arguments passed to \code{\link[sfit]{cfit}}.}
+   \item{...}{Additional arguments passed to the \code{cfit()} function
+      of the \pkg{sfit} package.}
    \item{flavor}{A \code{\link[base]{character}} string specifying what model/algorithm
       should be used to fit the genotype cone.}
  }
@@ -120,7 +121,7 @@ for (ii in 1:(ndim-1)) {
  \seealso{
   To backtransform data fitted using this method,
   see \code{\link[aroma.core:backtransformMultiDimensionalCone.matrix]{*backtransformMultiDimensionalCone}()}.
-  Internally \code{\link[sfit]{cfit}} of the \pkg{sfit} package is used.
+  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
  }
 
 

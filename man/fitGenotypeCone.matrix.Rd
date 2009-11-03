@@ -100,7 +100,7 @@ lines(x=c(0,0,2*lim[2]), y=c(2*lim[2],0,0), col="#aaaaaa", lwd=3, lty=3)
  \seealso{
   To backtransform data fitted using this method,
   see \code{\link{backtransformGenotypeCone}}().
-  Internally \code{\link[sfit]{cfit}} of the \pkg{sfit} package is used.
+  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
  }
 
 

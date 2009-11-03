@@ -54,7 +54,6 @@ extends \link[aroma.core]{AromaUnitSignalBinarySet}\cr
 \tabular{rll}{
  \tab \code{byName} \tab  -\cr
  \tab \code{exportTotalCnRatioSet} \tab  -\cr
- \tab \code{getAverageFile} \tab  -\cr
 }
 
 

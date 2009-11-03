@@ -29,7 +29,7 @@
 # \seealso{
 #  To backtransform data fitted using this method, 
 #  see @see "backtransformGenotypeCone".
-#  Internally @see "sfit::cfit" of the \pkg{sfit} package is used.
+#  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
 # }
 #
 # @keyword internal
@@ -142,7 +142,8 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 #   \item{q,Q}{Percentiles in [0,100] for which data points that are 
 #      below (above) will be assigned zero weight in the fitting of
 #      the parameters.}
-#   \item{...}{Additional arguments passed to @see "sfit::cfit".}
+#   \item{...}{Additional arguments passed to the \code{cfit()} of
+#      the \pkg{sfit} package.}
 # }
 #
 # \value{
@@ -167,7 +168,7 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 # \seealso{
 #  To backtransform data fitted using this method, 
 #  see @see "backtransformGenotypeCone".
-#  Internally @see "sfit::cfit" of the \pkg{sfit} package is used.
+#  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
 # }
 #
 # @keyword internal

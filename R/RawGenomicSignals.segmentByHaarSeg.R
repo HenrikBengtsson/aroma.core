@@ -20,7 +20,8 @@
 # }
 # 
 # \details{
-#   Internally @see "HaarSeg::haarSeg" is used to segment the signals.
+#   Internally \code{haarSeg()} of the \pkg{HaarSeg} is used to segment
+#   the signals.
 #   This segmentation method support weighted segmentation.
 # }
 #

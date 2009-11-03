@@ -21,7 +21,8 @@
 #   \item{q,Q}{Percentiles in [0,100] for which data points that are 
 #      below (above) will be assigned zero weight in the fitting of
 #      the parameters.}
-#   \item{...}{Additional arguments passed to @see "sfit::cfit".}
+#   \item{...}{Additional arguments passed to the \code{cfit()} function 
+#      of the \pkg{sfit} package.}
 #   \item{flavor}{A @character string specifying what model/algorithm 
 #      should be used to fit the genotype cone.}
 # }
@@ -52,7 +53,7 @@
 # \seealso{
 #  To backtransform data fitted using this method, 
 #  see @seemethod "backtransformMultiDimensionalCone".
-#  Internally @see "sfit::cfit" of the \pkg{sfit} package is used.
+#  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
 # }
 #
 # @keyword internal
