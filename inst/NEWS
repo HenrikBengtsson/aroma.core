@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 1.3.2 [2009-11-11]
+Version: 1.3.2 [2009-11-12]
 o Now AromaUflFile$allocateFromUnitNamesFile() works.
 o Added getAromaUflFile() to UnitAnnotationDataFile.
 o Moved AromaUflFile to aroma.core (from aroma.affymetrix).

@@ -154,12 +154,9 @@ setMethodS3("summaryOfUnits", "AromaUflFile", function(this, enzymeLabels=paste(
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # BEGIN: File I/O
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-setMethodS3("allocate", "AromaUflFile", function(static, ..., nbrOfEnzymes=1) {
+setMethodS3("allocate", "AromaUflFile", function(static, ..., nbrOfEnzymes=1, types=rep("integer", nbrOfEnzymes), sizes=rep(2, nbrOfEnzymes)) {
   # Argument 'nbrOfEnzymes':
   nbrOfEnzymes <- Arguments$getInteger(nbrOfEnzymes, range=c(1,10));
-
-  types <- rep("integer", nbrOfEnzymes);
-  sizes <- rep(2, nbrOfEnzymes);
 
   # NextMethod() not supported here.
   allocate.AromaUnitChromosomeTabularBinaryFile(static, types=types, sizes=sizes, ...);
