@@ -749,6 +749,19 @@
 \alias{getExtensionPattern.AromaUnitSignalBinaryFile}
 \alias{getExtensionPattern.SampleAnnotationFile}
 \alias{getExtensionPattern.TextUnitNamesFile}
+\alias{allocate.AromaUflFile}
+\alias{AromaUflFile}
+\alias{getAromaUflFile}
+\alias{getAromaUflFile.UnitAnnotationDataFile}
+\alias{getColumnNames.AromaUflFile}
+\alias{getExtensionPattern.AromaUflFile}
+\alias{getFilenameExtension.AromaUflFile}
+\alias{importFromGenericTabularFile.AromaUflFile}
+\alias{nbrOfEnzymes}
+\alias{nbrOfEnzymes.AromaUflFile}
+\alias{readDataFrame.AromaUflFile}
+\alias{summaryOfUnits}
+\alias{summaryOfUnits.AromaUflFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

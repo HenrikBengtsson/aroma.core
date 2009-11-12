@@ -354,3 +354,9 @@ setName.RawGenomicSignals
   getExtensionPattern.AromaUnitSignalBinaryFile
   getExtensionPattern.SampleAnnotationFile
   getExtensionPattern.TextUnitNamesFile
+ allocate.AromaUflFile AromaUflFile getAromaUflFile
+ getAromaUflFile.UnitAnnotationDataFile getColumnNames.AromaUflFile
+ getExtensionPattern.AromaUflFile getFilenameExtension.AromaUflFile
+ importFromGenericTabularFile.AromaUflFile nbrOfEnzymes
+ nbrOfEnzymes.AromaUflFile readDataFrame.AromaUflFile summaryOfUnits
+ summaryOfUnits.AromaUflFile

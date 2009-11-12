@@ -34,7 +34,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitTabularBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}\cr
+\link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}\cr
 
 public abstract static class \bold{AromaUnitTabularBinaryFile}\cr
 extends \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr

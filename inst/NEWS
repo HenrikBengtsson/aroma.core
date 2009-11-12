@@ -1,6 +1,17 @@
 Package: aroma.core
 ===================
 
+Version: 1.3.2 [2009-11-11]
+o Now AromaUflFile$allocateFromUnitNamesFile() works.
+o Added getAromaUflFile() to UnitAnnotationDataFile.
+o Moved AromaUflFile to aroma.core (from aroma.affymetrix).
+o BUG FIX: importFrom(ufl, dat, ...) where 'ufl' was an
+  AromaUflFile and 'dat' a GenericTabularFile gave an
+  error reporting that importFromGenericTabularFile() 
+  is abstract/not defined for AromaUflFile:s.  
+  Thanks Paolo Guarnieri for reporting this.
+
+
 Version: 1.3.1 [2009-11-03]
 o Replaced Rd cross references to sfit and HaarSeg packages with
   plain text in order to meet the CRAN requirements that all
