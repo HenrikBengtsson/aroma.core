@@ -42,6 +42,8 @@ extends \link[R.oo]{Object}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{as} \tab  -\cr
+ \tab \code{as.AromaMicroarrayDataSetTuple} \tab  -\cr
  \tab \code{byPath} \tab  -\cr
  \tab \code{\link[aroma.core:extract.AromaMicroarrayDataSetTuple]{extract}} \tab Extracts a subset AromaMicroarrayDataSetTuple.\cr
  \tab \code{getAlias} \tab  -\cr

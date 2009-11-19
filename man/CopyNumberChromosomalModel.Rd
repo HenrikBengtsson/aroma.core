@@ -1,0 +1,75 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not modify this file since it was automatically generated from:
+% 
+%  CopyNumberChromosomalModel.R
+% 
+% by the Rdoc compiler part of the R.oo package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \name{CopyNumberChromosomalModel}
+\docType{class}
+\alias{CopyNumberChromosomalModel}
+
+
+ \title{The CopyNumberChromosomalModel class}
+
+ \description{
+  Package:  aroma.core \cr
+\bold{Class CopyNumberChromosomalModel}\cr
+
+\code{\link[R.oo]{Object}}\cr
+\code{~~|}\cr
+\code{~~+--}\code{\link[aroma.core]{ChromosomalModel}}\cr
+\code{~~~~~~~|}\cr
+\code{~~~~~~~+--}\emph{\code{CopyNumberChromosomalModel}}\cr
+
+\bold{Directly known subclasses:}\cr
+\link[aroma.core]{CbsModel}, \emph{\link[aroma.core]{CopyNumberSegmentationModel}}, \link[aroma.core]{GladModel}, \link[aroma.core]{HaarSegModel}, \emph{\link[aroma.core]{RawCopyNumberModel}}\cr
+
+public abstract static class \bold{CopyNumberChromosomalModel}\cr
+extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
+
+
+
+  This \emph{abstract} class represents a copy-number model.
+ }
+
+ \usage{CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, tags="*", genome="Human", ...)}
+
+ \arguments{
+   \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
+   \item{refTuple}{An optional \code{\link{CopyNumberDataFile}},
+      or \code{\link{CopyNumberDataSet}} or \code{\link{CopyNumberDataSetTuple}}
+      for pairwise comparisons.}
+   \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
+   \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
+   \item{...}{Not used.}
+ }
+
+ \section{Fields and Methods}{
+  \bold{Methods:}\cr
+\tabular{rll}{
+ \tab \code{clearCache} \tab  -\cr
+ \tab \code{extractRawCopyNumbers} \tab  -\cr
+ \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
+ \tab \code{getReferenceSetTuple} \tab  -\cr
+ \tab \code{isPaired} \tab  -\cr
+}
+
+
+ \bold{Methods inherited from ChromosomalModel}:\cr
+as.character, clearCache, fit, getAlias, getArrays, getAsteriskTags, getChipEffectFiles, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getListOfChipEffectSets, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSetTuple, getTableOfArrays, getTags, nbrOfArrays, nbrOfChipTypes, setAlias, setGenome
+
+ \bold{Methods inherited from Object}:\cr
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+
+
+ }
+
+ \section{Requirements}{
+   This class requires genome information annotation files for
+   every chip type.
+ }
+
+ \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\keyword{classes}

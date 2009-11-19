@@ -53,9 +53,17 @@ setMethodS3("setLabel", "AromaMicroarrayDataFile", function(this, label, ...) {
 }, private=TRUE)
 
  
+setMethodS3("isAverageFile", "AromaMicroarrayDataFile", function(this, ...) {
+  name <- getName(this);
+  res <- (regexpr("^[.]average-", name) != -1);
+  res;
+})
+
 
 ############################################################################
 # HISTORY:
+# 2009-11-18
+# o Added isAverageFile() for AromaMicroarrayDataFile.
 # 2007-09-16
 # o Created from AffymetrixFile.R.
 ############################################################################

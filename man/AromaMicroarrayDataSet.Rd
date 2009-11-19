@@ -23,12 +23,12 @@
 \code{~~~~~~~|}\cr
 \code{~~~~~~~+--}\code{\link[R.filesets]{GenericDataFileSet}}\cr
 \code{~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~+--}\code{AromaMicroarrayDataSet}\cr
+\code{~~~~~~~~~~~~+--}\emph{\code{AromaMicroarrayDataSet}}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
-public static class \bold{AromaMicroarrayDataSet}\cr
+public abstract static class \bold{AromaMicroarrayDataSet}\cr
 extends \link[R.filesets]{GenericDataFileSet}\cr
 
 
@@ -47,8 +47,11 @@ extends \link[R.filesets]{GenericDataFileSet}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{as.AromaMicroarrayDataSetTuple} \tab  -\cr
+ \tab \code{getAverageFile} \tab  -\cr
  \tab \code{getChipType} \tab  -\cr
  \tab \code{getPlatform} \tab  -\cr
+ \tab \code{getXAM} \tab  -\cr
  \tab \code{nbrOfArrays} \tab  -\cr
 }
 

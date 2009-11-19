@@ -360,3 +360,57 @@ setName.RawGenomicSignals
  importFromGenericTabularFile.AromaUflFile nbrOfEnzymes
  nbrOfEnzymes.AromaUflFile readDataFrame.AromaUflFile summaryOfUnits
  summaryOfUnits.AromaUflFile
+  as.AromaMicroarrayDataSetTuple
+  as.AromaMicroarrayDataSetTuple.AromaMicroarrayDataSet
+  as.AromaMicroarrayDataSetTuple.AromaMicroarrayDataSetTuple
+  as.character.ChromosomalModel as.character.CopyNumberChromosomalModel
+  as.CopyNumberDataFile as.CopyNumberDataFile.CopyNumberDataFile
+  as.CopyNumberDataSet as.CopyNumberDataSet.CopyNumberDataSet
+  as.CopyNumberDataSetTuple
+  as.CopyNumberDataSetTuple.CopyNumberDataSetTuple
+  as.CopyNumberDataSetTuple.list calculateChromosomeStatistics
+  calculateChromosomeStatistics.CopyNumberChromosomalModel
+  clearCache.ChromosomalModel clearCache.CopyNumberChromosomalModel
+  CopyNumberDataFile CopyNumberDataSet CopyNumberDataSetTuple
+  estimateSds extractRawCopyNumbers.CopyNumberChromosomalModel fit
+  fit.ChromosomalModel getAlias.ChromosomalModel
+  getAsteriskTags.ChromosomalModel
+  getAsteriskTags.CopyNumberSegmentationModel
+  getAsteriskTags.HaarSegModel getAverageFile
+  getAverageFile.AromaMicroarrayDataSet getChipEffectFiles
+  getChipEffectFiles.ChromosomalModel getChipTypes.ChromosomalModel
+  getDataFileMatrix getDataFileMatrix.CopyNumberChromosomalModel
+  getFitFunction getFitFunction.CbsModel
+  getFitFunction.CopyNumberSegmentationModel getFitFunction.GladModel
+  getFitFunction.HaarSegModel getFullName.ChromosomalModel
+  getFullNames.ChromosomalModel getGenome getGenome.ChromosomalModel
+  getGenomeData getGenomeData.ChromosomalModel getGenomeFile
+  getGenomeFile.ChromosomalModel getListOfAromaUgpFiles
+  getListOfAromaUgpFiles.ChromosomalModel getListOfChipEffectSets
+  getListOfChipEffectSets.ChromosomalModel getListOfUnitNamesFiles
+  getListOfUnitNamesFiles.ChromosomalModel getListOfUnitTypesFiles
+  getListOfUnitTypesFiles.ChromosomalModel getLog2Ratios
+  getLog2Ratios.CopyNumberSegmentationModel getName.ChromosomalModel
+  getNames.ChromosomalModel getNumberOfFilesAveraged
+  getNumberOfFilesAveraged.CopyNumberDataFile getParentPath
+  getParentPath.ChromosomalModel getPath.ChromosomalModel getRawCnData
+  getRawCnData.CopyNumberChromosomalModel getReferenceSetTuple
+  getReferenceSetTuple.CopyNumberChromosomalModel getRefSetTuple
+  getRefSetTuple.CopyNumberChromosomalModel getRegions
+  getRegions.CopyNumberSegmentationModel getReportPath
+  getReportPath.ChromosomalModel getRootPath.ChromosomalModel getSetTag
+  getSetTag.ChromosomalModel getSetTuple getSetTuple.ChromosomalModel
+  getTags.ChromosomalModel getTags.CopyNumberSegmentationModel getXAM
+  getXAM.AromaMicroarrayDataSet hasAlleleBFractions
+  hasAlleleBFractions.CopyNumberDataFile
+  hasAlleleBFractions.CopyNumberDataSet
+  hasAlleleBFractions.CopyNumberDataSetTuple hasStrandiness
+  hasStrandiness.CopyNumberDataFile hasStrandiness.CopyNumberDataSet
+  hasStrandiness.CopyNumberDataSetTuple isAverageFile
+  isAverageFile.AromaMicroarrayDataFile isPaired
+  isPaired.CopyNumberChromosomalModel onFitAddGenotypeCalls
+  onFitAddGenotypeCalls.default onFitAddGenotypeCalls.GladModel
+  setAlias.ChromosomalModel setGenome setGenome.ChromosomalModel
+  writeRegions writeRegions.CopyNumberSegmentationModel
+  writeRegions.GladModel
+getAsteriskTags.RawCopyNumberModel getSetTag.RawCopyNumberModel
