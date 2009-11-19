@@ -49,6 +49,7 @@ extends \emph{\link[R.filesets]{GenericDataFile}}\cr
 \tabular{rll}{
  \tab \code{getChipType} \tab  -\cr
  \tab \code{getPlatform} \tab  -\cr
+ \tab \code{getXAM} \tab  -\cr
  \tab \code{isAverageFile} \tab  -\cr
 }
 

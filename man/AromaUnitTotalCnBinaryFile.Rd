@@ -31,13 +31,15 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaUnitSignalBinaryFile}}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitTotalCnBinaryFile}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{CopyNumberDataFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitTotalCnBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
-public static class \bold{AromaUnitTotalCnBinaryFile}\cr
-extends \link[aroma.core]{AromaUnitSignalBinaryFile}\cr
+public abstract static class \bold{AromaUnitTotalCnBinaryFile}\cr
+extends \emph{\link[aroma.core]{CopyNumberDataFile}}\cr
 
 
 
@@ -54,11 +56,18 @@ extends \link[aroma.core]{AromaUnitSignalBinaryFile}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{extractRawCopyNumbers} \tab  -\cr
+ \tab \code{getAM} \tab  -\cr
+ \tab \code{getXAM} \tab  -\cr
+ \tab \code{hasAlleleBFractions} \tab  -\cr
+ \tab \code{hasStrandiness} \tab  -\cr
 }
 
 
+ \bold{Methods inherited from CopyNumberDataFile}:\cr
+as, as.CopyNumberDataFile, getNumberOfFilesAveraged, hasAlleleBFractions, hasStrandiness
+
  \bold{Methods inherited from AromaUnitSignalBinaryFile}:\cr
-allocate, allocateFromUnitAnnotationDataFile, allocateFromUnitNamesFile, as.character, extractMatrix, extractRawGenomicSignals, fromFile, getAromaUgpFile, getChipType, getExtensionPattern, getFilenameExtension, getPlatform, nbrOfUnits, readDataFrame
+allocate, allocateFromUnitAnnotationDataFile, allocateFromUnitNamesFile, as.character, extractMatrix, extractRawGenomicSignals, fromFile, getAromaUgpFile, getChipType, getExtensionPattern, getFilenameExtension, getPlatform, isAverageFile, nbrOfUnits, readDataFrame
 
  \bold{Methods inherited from AromaPlatformInterface}:\cr
 getAromaPlatform, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile

@@ -414,3 +414,15 @@ setName.RawGenomicSignals
   writeRegions writeRegions.CopyNumberSegmentationModel
   writeRegions.GladModel
 getAsteriskTags.RawCopyNumberModel getSetTag.RawCopyNumberModel
+  AromaUnitTotalCnBinarySetTuple as.AromaUnitTotalCnBinarySetTuple
+  as.AromaUnitTotalCnBinarySetTuple.AromaUnitTotalCnBinarySet
+  as.AromaUnitTotalCnBinarySetTuple.AromaUnitTotalCnBinarySetTuple
+  as.CopyNumberDataSetTuple.AromaUnitTotalCnBinarySet getAM
+  getAM.AromaUnitTotalCnBinaryFile
+  getListOfUnitNamesFiles.AromaUnitTotalCnBinarySetTuple
+  getUnitNamesFile.AromaUnitTotalCnBinarySet
+  getXAM.AromaMicroarrayDataFile getXAM.AromaUnitTotalCnBinaryFile
+  hasAlleleBFractions.AromaUnitTotalCnBinaryFile
+  hasStrandiness.AromaUnitTotalCnBinaryFile
+  isAverageFile.AromaUnitSignalBinaryFile
+  nbrOfArrays.AromaUnitTotalCnBinarySet

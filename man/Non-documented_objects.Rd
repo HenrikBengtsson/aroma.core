@@ -868,6 +868,21 @@
 \alias{writeRegions.GladModel}
 \alias{getAsteriskTags.RawCopyNumberModel}
 \alias{getSetTag.RawCopyNumberModel}
+\alias{AromaUnitTotalCnBinarySetTuple}
+\alias{as.AromaUnitTotalCnBinarySetTuple}
+\alias{as.AromaUnitTotalCnBinarySetTuple.AromaUnitTotalCnBinarySet}
+\alias{as.AromaUnitTotalCnBinarySetTuple.AromaUnitTotalCnBinarySetTuple}
+\alias{as.CopyNumberDataSetTuple.AromaUnitTotalCnBinarySet}
+\alias{getAM}
+\alias{getAM.AromaUnitTotalCnBinaryFile}
+\alias{getListOfUnitNamesFiles.AromaUnitTotalCnBinarySetTuple}
+\alias{getUnitNamesFile.AromaUnitTotalCnBinarySet}
+\alias{getXAM.AromaMicroarrayDataFile}
+\alias{getXAM.AromaUnitTotalCnBinaryFile}
+\alias{hasAlleleBFractions.AromaUnitTotalCnBinaryFile}
+\alias{hasStrandiness.AromaUnitTotalCnBinaryFile}
+\alias{isAverageFile.AromaUnitSignalBinaryFile}
+\alias{nbrOfArrays.AromaUnitTotalCnBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

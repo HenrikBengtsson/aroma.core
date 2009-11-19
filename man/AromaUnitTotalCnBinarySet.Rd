@@ -29,13 +29,15 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaUnitSignalBinarySet}}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitTotalCnBinarySet}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{CopyNumberDataSet}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitTotalCnBinarySet}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
 public static class \bold{AromaUnitTotalCnBinarySet}\cr
-extends \link[aroma.core]{AromaUnitSignalBinarySet}\cr
+extends \link[aroma.core]{CopyNumberDataSet}\cr
 
 
 
@@ -52,10 +54,17 @@ extends \link[aroma.core]{AromaUnitSignalBinarySet}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{as.AromaUnitTotalCnBinarySetTuple} \tab  -\cr
+ \tab \code{as.CopyNumberDataSetTuple} \tab  -\cr
  \tab \code{byName} \tab  -\cr
  \tab \code{exportTotalCnRatioSet} \tab  -\cr
+ \tab \code{getUnitNamesFile} \tab  -\cr
+ \tab \code{nbrOfArrays} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from CopyNumberDataSet}:\cr
+as, as.CopyNumberDataSet, hasAlleleBFractions, hasStrandiness
 
  \bold{Methods inherited from AromaUnitSignalBinarySet}:\cr
 byName, findByName, getAromaUgpFile, getChipType, getPlatform, validate

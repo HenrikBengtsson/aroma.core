@@ -2,6 +2,10 @@ Package: aroma.core
 ===================
 
 Version: 1.3.3 [2009-11-19]
+o ALPHA: First successful run of segmentation with CbsModel 
+  with AromaUnitTotalCnBinarySet data sets.
+o Added isAverageFile() for AromaUnitSignalBinaryFile.
+o Added class AromaUnitTotalCnBinarySetTuple.
 o GENERALIZATION: Moved CbsModel, GladModel and HaarSegModel
   (all segmentation models) of aroma.affymetrix to here.
 o GENERALIZATION: Moved all (generalized) ChromosomalModel, 

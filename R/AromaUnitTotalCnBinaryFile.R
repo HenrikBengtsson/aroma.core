@@ -22,10 +22,22 @@
 # @author
 #*/########################################################################### 
 setConstructorS3("AromaUnitTotalCnBinaryFile", function(...) {
-  extend(AromaUnitSignalBinaryFile(...), "AromaUnitTotalCnBinaryFile"
+  extend(AromaUnitSignalBinaryFile(...), c("AromaUnitTotalCnBinaryFile", uses("CopyNumberDataFile"))
   );
 })
 
+
+setMethodS3("hasAlleleBFractions", "AromaUnitTotalCnBinaryFile", function(this, ...) {
+  # By definition, always FALSE
+  FALSE;
+})
+
+setMethodS3("hasStrandiness", "AromaUnitTotalCnBinaryFile", function(this, ...) {
+  # For now always FALSE, due to how the (super)classes are defined. 
+  # /HB 2009-11-19
+  FALSE;
+})
+ 
 
 setMethodS3("extractRawCopyNumbers", "AromaUnitTotalCnBinaryFile", function(this, ..., clazz=RawCopyNumbers) {
   extractRawGenomicSignals(this, ..., clazz=clazz);

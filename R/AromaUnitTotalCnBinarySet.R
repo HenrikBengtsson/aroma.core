@@ -23,7 +23,12 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitTotalCnBinarySet", function(...) {
-  extend(AromaUnitSignalBinarySet(...), "AromaUnitTotalCnBinarySet");
+  extend(AromaUnitSignalBinarySet(...), c("AromaUnitTotalCnBinarySet", uses("CopyNumberDataSet")));
+})
+
+setMethodS3("as.CopyNumberDataSetTuple", "AromaUnitTotalCnBinarySet", function(this, ...) {
+  dsList <- list(this);
+  AromaUnitTotalCnBinarySetTuple(dsList);
 })
 
 
@@ -40,8 +45,17 @@ setMethodS3("byName", "AromaUnitTotalCnBinarySet", function(static, name, tags=N
 
 
 
+setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySet", function(this, ...) {
+  AromaUnitTotalCnBinarySetTuple(this, ...);
+})
+
+
 ############################################################################
 # HISTORY:
+# 2009-11-19
+# o Now the class "uses" the CopyNumberDataSetTuple class.
+# o Added as.CopyNumberDataSetTuple().
+# o Added as.AromaUnitTotalCnBinarySetTuple().
 # 2009-08-31
 # o Added totalAndFracBData/ to the search path of byName() of 
 #   AromaUnit(FracB|Total)CnBinarySet.

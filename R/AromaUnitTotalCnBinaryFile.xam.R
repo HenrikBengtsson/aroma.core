@@ -1,0 +1,173 @@
+setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=NULL, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ugp <- getAromaUgpFile(this);
+  # Argument 'other':
+  className <- "CopyNumberDataFile";
+  if (!inherits(other, className)) {
+    throw("Argument 'other' is not an ", className, ": ", class(other)[1]);
+  }
+  
+  # Argument 'units':
+  if (is.null(units)) {
+    units <- seq(length=nbrOfUnits(ugp));
+  } else {
+    units <- Arguments$getIndices(units, range=c(1, nbrOfUnits(ugp)));
+  }
+  
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+  
+
+
+  verbose && enter(verbose, "Getting (A,M)-transformed chip effects");
+
+  nunits <- length(units);
+
+  
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Get thetas from the sample
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Retrieving sample thetas");
+  theta <- this[units,1, drop=TRUE];
+  nTheta <- length(theta);
+  if (!identical(nTheta, nunits)) {
+    verbose && str(verbose, theta);
+    verbose && print(verbose, nunits);
+    throw("Internal error: The number of chip-effect values is not equal to the number of units requested: ", nTheta, " != ", nunits);
+  }
+  verbose && exit(verbose);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Get thetas from the other
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Retrieving other thetas");
+
+  # Get the other theta estimates
+  thetaRef <- other[units,1, drop=TRUE];
+  stopifnot(identical(length(thetaRef), nTheta));
+  verbose && exit(verbose);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Calculate raw copy numbers relative to the other
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  M <- log(theta/thetaRef, base=2);
+  A <- log(theta*thetaRef, base=2)/2;
+  stopifnot(identical(length(M), nTheta));
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Create the return matrix
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  am <- matrix(c(A,M), ncol=2)
+  colnames(am) <- c("A", "M");
+  rownames(am) <- as.character(units);
+
+  verbose && exit(verbose);
+
+  am;
+}) # getAM()
+
+
+
+setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromosome, units=NULL, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'other':
+  className <- "CopyNumberDataFile";
+  if (!inherits(other, className)) {
+    throw("Argument 'other' is not an ", className, ": ", class(other)[1]);
+  }
+
+  # Argument 'chromosome':
+  chromosome <- Arguments$getCharacter(chromosome);  # integer? /HB 2009-05-18
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Getting (X,A,M)-transformed chip effects");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Retrieve genome information, i.e. chromosome positions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Retrieving genome information");
+  ugp <- getAromaUgpFile(this);
+
+  # Extract the units from the given chromosome.  Requested units not on
+  # chromosome are ignored.
+  if (!is.null(units)) {
+    verbose && str(verbose, units);
+  }
+
+  units0 <- getUnitsOnChromosome(ugp, chromosome=chromosome, verbose=less(verbose));
+  if (!is.null(units)) {
+    units0 <- intersect(units0, units);
+  }
+  units <- units0;
+
+  nunits <- length(units);
+  if (nunits == 0) {
+    throw("No units found on requested chromosome: ", chromosome);
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Get the relative copy-number estimates
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  am <- getAM(this, other=other, units=units, verbose=less(verbose));
+
+  # Get the unit indices for all unit groups
+  units <- rownames(am);
+  # Sanity check
+  if (is.null(units)) {
+    throw("Internal error: getAM() did not return unit names: NULL");
+  }
+  units <- as.integer(units);
+  verbose && cat(verbose, "Units read:");
+  verbose && str(verbose, units);
+  
+  # Get the positions of all unit groups
+  x <- getPositions(ugp, units=units, verbose=less(verbose));
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Remove units for which we have no position information
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  keep <- which(!is.na(x));
+  nexcl <- length(x) - length(keep);
+  if (nexcl > 0) {
+    msg <- sprintf("Could not find position information on %d unit groups: ", nexcl);
+    verbose && cat(verbose, msg);
+    warning(msg);
+    x <- x[keep];
+    units <- units[keep];
+  }
+
+  am <- am[,c("M","A"), drop=FALSE]; # Ad hoc /HB 2007-02-19
+  xam <- cbind(x=x, am);
+
+  verbose && cat(verbose, "(X,A,M):");
+  verbose && str(verbose, xam);
+
+  verbose && exit(verbose);
+
+  xam;
+}) # getXAM()
+
+
+############################################################################
+# HISTORY:
+# 2009-11-19
+# o Created.
+############################################################################

@@ -50,7 +50,9 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   # Argument 'refTuple':
   if (!is.null(refTuple)) {
     # Is the reference a single file?
-    if (inherits(refTuple, "AromaMicroarrayDataFile")) {
+    # AD HOC; Need more specialized class than GenericDataFile.
+    # /HB 2009-11-19
+    if (inherits(refTuple, "GenericDataFile")) {
       refTuple <- list(refTuple);
     }
 
@@ -69,7 +71,9 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
         ref <- refList[[kk]];
 
         # If a data file...
-        if (inherits(ref, "AromaMicroarrayDataFile")) {
+        # AD HOC; Need more specialized class than GenericDataFile.
+        # /HB 2009-11-19
+        if (inherits(ref, "GenericDataFile")) {
           chipType <- getChipType(ref, fullname=FALSE);
           ces <- cesList[[chipType]];
 

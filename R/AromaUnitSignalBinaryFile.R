@@ -209,6 +209,13 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
 }, protected=TRUE)
 
 
+setMethodS3("isAverageFile", "AromaUnitSignalBinaryFile", function(this, ...) {
+  name <- getName(this);
+  res <- (regexpr("^[.]average-", name) != -1);
+  res;
+})
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # BEGIN Interface API?
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -290,6 +297,8 @@ setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., 
 
 ############################################################################
 # HISTORY:
+# 2009-11-19
+# o Added isAverageFile() for AromaUnitSignalBinaryFile.
 # 2009-07-08
 # o Added allocateFromUnitAnnotationDataFile() to AromaUnitSignalBinaryFile.
 # 2009-06-13

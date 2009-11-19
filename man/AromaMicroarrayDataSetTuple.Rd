@@ -22,7 +22,7 @@
 \code{~~+--}\emph{\code{AromaMicroarrayDataSetTuple}}\cr
 
 \bold{Directly known subclasses:}\cr
-\cr
+\emph{\link[aroma.core]{AromaUnitTotalCnBinarySetTuple}}\cr
 
 public abstract static class \bold{AromaMicroarrayDataSetTuple}\cr
 extends \link[R.oo]{Object}\cr
