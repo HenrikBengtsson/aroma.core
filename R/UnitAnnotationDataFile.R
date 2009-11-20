@@ -26,12 +26,17 @@ setConstructorS3("UnitAnnotationDataFile", function(...) {
   extend(Interface(), "UnitAnnotationDataFile");
 })
 
-setMethodS3("getChipType", "UnitAnnotationDataFile", abstract=TRUE);
+setMethodS3("getChipType", "UnitAnnotationDataFile", function(...) {
+  NextMethod("getChipType", ...);
+})
 
-setMethodS3("getPlatform", "UnitAnnotationDataFile", abstract=TRUE);
+setMethodS3("getPlatform", "UnitAnnotationDataFile", function(...) {
+  NextMethod("getPlatform", ...);
+})
 
-setMethodS3("nbrOfUnits", "UnitAnnotationDataFile", abstract=TRUE);
-
+setMethodS3("nbrOfUnits", "UnitAnnotationDataFile", function(...) {
+  NextMethod("nbrOfUnits", ...);
+})
 
 setMethodS3("byChipType", "UnitAnnotationDataFile", function(static, chipType, tags=NULL, nbrOfUnits=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -153,6 +158,9 @@ setMethodS3("getAromaUflFile", "UnitAnnotationDataFile", function(this, ..., val
 
 ############################################################################
 # HISTORY:
+# 2009-11-20
+# o Now the "abstract" methods of the interface call NextMethod() instead,
+#   which will give an error if nothing is defined.
 # 2009-11-11
 # o Added getAromaUflFile() to UnitAnnotationDataFile.
 # 2009-07-08

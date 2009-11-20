@@ -19,12 +19,12 @@
 
 \code{\link[R.oo]{Interface}}\cr
 \code{~~|}\cr
-\code{~~+--}\emph{\code{UnitAnnotationDataFile}}\cr
+\code{~~+--}\code{UnitAnnotationDataFile}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUnitTypesFile}, \link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
+\link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}, \link[aroma.core]{AromaUnitTypesFile}, \link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
 
-public abstract static class \bold{UnitAnnotationDataFile}\cr
+public static class \bold{UnitAnnotationDataFile}\cr
 extends \link[R.oo]{Interface}\cr
 
 

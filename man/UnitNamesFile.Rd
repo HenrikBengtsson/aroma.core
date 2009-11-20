@@ -27,7 +27,7 @@
 \link[aroma.core]{TextUnitNamesFile}\cr
 
 public abstract static class \bold{UnitNamesFile}\cr
-extends \emph{\link[aroma.core]{UnitAnnotationDataFile}}\cr
+extends \link[aroma.core]{UnitAnnotationDataFile}\cr
 
 
 

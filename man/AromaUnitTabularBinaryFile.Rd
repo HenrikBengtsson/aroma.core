@@ -31,13 +31,15 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitTabularBinaryFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{UnitAnnotationDataFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitTabularBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
 \link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}\cr
 
 public abstract static class \bold{AromaUnitTabularBinaryFile}\cr
-extends \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr
+extends \link[aroma.core]{UnitAnnotationDataFile}\cr
 
 
 
@@ -63,6 +65,9 @@ extends \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr
  \tab \code{nbrOfUnits} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from UnitAnnotationDataFile}:\cr
+byChipType, getAromaUflFile, getAromaUgpFile, getChipType, getPlatform, nbrOfUnits
 
  \bold{Methods inherited from AromaMicroarrayTabularBinaryFile}:\cr
 allocate, as.character, byChipType, findByChipType, getChipType, getFilenameExtension, getPlatform
