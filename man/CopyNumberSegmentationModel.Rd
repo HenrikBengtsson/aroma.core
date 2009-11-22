@@ -54,7 +54,7 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
 
 
  \bold{Methods inherited from CopyNumberChromosomalModel}:\cr
-as.character, calculateChromosomeStatistics, clearCache, estimateSds, extractRawCopyNumbers, fit, getDataFileMatrix, getRawCnData, getReferenceSetTuple, getRefSetTuple, isPaired
+as.character, calculateChromosomeStatistics, calculateRatios, clearCache, estimateSds, extractRawCopyNumbers, fit, getDataFileMatrix, getReferenceSetTuple, getRefSetTuple, isPaired
 
  \bold{Methods inherited from ChromosomalModel}:\cr
 as.character, clearCache, fit, getAlias, getArrays, getAsteriskTags, getChipEffectFiles, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getListOfChipEffectSets, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSetTuple, getTableOfArrays, getTags, nbrOfArrays, nbrOfChipTypes, setAlias, setGenome

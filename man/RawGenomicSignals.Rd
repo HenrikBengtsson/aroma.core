@@ -41,7 +41,7 @@ extends \link[R.oo]{Object}\cr
      specifying a weight of each locus.}
    \item{chromosome}{An (optional) \code{\link[base]{integer}} specifying the chromosome for
      these genomic signals.}
-   \item{name}{An (optional) @characte string specifying the sample name.}
+   \item{name}{An (optional) \code{\link[base]{character}} string specifying the sample name.}
    \item{...}{Not used.}
  }
 

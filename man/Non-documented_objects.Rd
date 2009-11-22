@@ -782,7 +782,6 @@
 \alias{CopyNumberDataSet}
 \alias{CopyNumberDataSetTuple}
 \alias{estimateSds}
-\alias{extractRawCopyNumbers.CopyNumberChromosomalModel}
 \alias{fit}
 \alias{fit.ChromosomalModel}
 \alias{getAlias.ChromosomalModel}
@@ -885,6 +884,9 @@
 \alias{nbrOfArrays.AromaUnitTotalCnBinarySet}
 \alias{getAverageFile.AromaUnitTotalCnBinarySet}
 \alias{getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile}
+\alias{calculateRatios}
+\alias{calculateRatios.CopyNumberChromosomalModel}
+\alias{extractRawCopyNumbers.RawCopyNumbers}
 
 \description{
   This page contains aliases for all "non-documented" objects that

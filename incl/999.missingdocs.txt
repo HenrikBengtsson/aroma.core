@@ -372,7 +372,7 @@ setName.RawGenomicSignals
   calculateChromosomeStatistics.CopyNumberChromosomalModel
   clearCache.ChromosomalModel clearCache.CopyNumberChromosomalModel
   CopyNumberDataFile CopyNumberDataSet CopyNumberDataSetTuple
-  estimateSds extractRawCopyNumbers.CopyNumberChromosomalModel fit
+  estimateSds fit
   fit.ChromosomalModel getAlias.ChromosomalModel
   getAsteriskTags.ChromosomalModel
   getAsteriskTags.CopyNumberSegmentationModel
@@ -428,3 +428,5 @@ getAsteriskTags.RawCopyNumberModel getSetTag.RawCopyNumberModel
   nbrOfArrays.AromaUnitTotalCnBinarySet
 getAverageFile.AromaUnitTotalCnBinarySet
 getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile
+  calculateRatios calculateRatios.CopyNumberChromosomalModel
+  extractRawCopyNumbers.RawCopyNumbers

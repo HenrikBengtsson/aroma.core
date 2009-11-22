@@ -45,6 +45,7 @@ extends \link[aroma.core]{RawGenomicSignals}\cr
 \tabular{rll}{
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{cnRange} \tab  -\cr
+ \tab \code{extractRawCopyNumbers} \tab  -\cr
  \tab \code{plot} \tab  -\cr
 }
 
