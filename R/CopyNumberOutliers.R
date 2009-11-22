@@ -47,7 +47,7 @@ setMethodS3("applyRegions", "CopyNumberOutliers", function(this, FUN, ...) {
 })
 
 
-setMethodS3("drawLevels", "CopyNumberOutliers", function(this, col="red", lwd=2, lty=1, xScale=1, yScale=1, ...) {
+setMethodS3("drawLevels", "CopyNumberOutliers", function(this, col="red", lwd=2, lty=1, xScale=1e-6, yScale=1, ...) {
   col0 <- col;
   lwd0 <- lwd;
   lty0 <- lty;
@@ -66,7 +66,7 @@ setMethodS3("drawLevels", "CopyNumberOutliers", function(this, col="red", lwd=2,
 
 
 
-setMethodS3("lines", "CopyNumberOutliers", function(x, col="red", lwd=2, xScale=1, yScale=1, ...) {
+setMethodS3("lines", "CopyNumberOutliers", function(x, col="red", lwd=2, xScale=1e-6, yScale=1, ...) {
   # To please R CMD check.
   this <- x;
 

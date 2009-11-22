@@ -883,6 +883,8 @@
 \alias{hasStrandiness.AromaUnitTotalCnBinaryFile}
 \alias{isAverageFile.AromaUnitSignalBinaryFile}
 \alias{nbrOfArrays.AromaUnitTotalCnBinarySet}
+\alias{getAverageFile.AromaUnitTotalCnBinarySet}
+\alias{getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

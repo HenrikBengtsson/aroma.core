@@ -57,6 +57,40 @@ setMethodS3("as.data.frame", "RawCopyNumbers", function(x, ..., translate=TRUE) 
 })
 
 
+setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBase=2) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'logBase':
+  if (!is.null(logBase)) {
+    logBase <- Arguments$getDouble(logBase, range=c(1, 10));
+  }
+
+  # Get the current logarithmic base, if any
+  logBase0 <- this$.yLogBase;
+
+  res <- clone(this);
+
+  if (logBase0 != logBase) {
+    # Get current signals
+    y <- getSignals(this);
+  
+    # Unlog?
+    if (!is.null(logBase0)) {
+      y <- logBase0^y;
+    }
+  
+    # Log?
+    if (!is.null(logBase)) {
+      y <- log(y) / log(logBase);
+    }
+
+    res$y <- y;
+    res$.yLogBase <- logBase;
+  }
+
+  res;
+})
 
 
 setMethodS3("plot", "RawCopyNumbers", function(x, ..., ylab="Copy number") {
@@ -80,6 +114,9 @@ setMethodS3("extractRawCopyNumbers", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-11-22
+# o Added extractRawCopyNumbers() to RawCopyNumbers, which can be used to
+#   change the log base.  Maybe other features are added later.
 # 2009-05-10
 # o Added argument 'translate=TRUE' to as.data.frame().
 # 2009-02-19

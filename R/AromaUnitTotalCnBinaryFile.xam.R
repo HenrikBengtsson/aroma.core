@@ -5,7 +5,9 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   ugp <- getAromaUgpFile(this);
   # Argument 'other':
   className <- "CopyNumberDataFile";
-  if (!inherits(other, className)) {
+  if (is.null(other)) {
+    # Do not calculate ratios relative to a reference
+  } else if (!inherits(other, className)) {
     throw("Argument 'other' is not an ", className, ": ", class(other)[1]);
   }
   
@@ -34,6 +36,7 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   # Get thetas from the sample
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Retrieving sample thetas");
+
   theta <- this[units,1, drop=TRUE];
   nTheta <- length(theta);
   if (!identical(nTheta, nunits)) {
@@ -41,23 +44,63 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
     verbose && print(verbose, nunits);
     throw("Internal error: The number of chip-effect values is not equal to the number of units requested: ", nTheta, " != ", nunits);
   }
+
+  # Unlog?
+  logBase0 <- NULL;
+  if (hasTag(this, "log2ratio")) {
+    logBase0 <- 2;
+  } else if (hasTag(this, "log10ratio")) {
+    logBase0 <- 10;
+  } else if (hasTag(this, "logRatio")) {
+    logBase0 <- 10;
+  }
+  if (!is.null(logBase0)) {
+    theta <- logBase0^theta;
+    verbose && printf(verbose, "Transformed theta = %f^theta\n", logBase0);
+  }
+
   verbose && exit(verbose);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get thetas from the other
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Retrieving other thetas");
+  if (!is.null(other)) {
+    verbose && enter(verbose, "Retrieving other thetas");
+  
+    # Get the other theta estimates
+    thetaR <- other[units,1, drop=TRUE];
+    stopifnot(identical(length(thetaR), nTheta));
 
-  # Get the other theta estimates
-  thetaRef <- other[units,1, drop=TRUE];
-  stopifnot(identical(length(thetaRef), nTheta));
-  verbose && exit(verbose);
+    # Unlog?
+    logBase0 <- NULL;
+    if (hasTag(other, "log2ratio")) {
+      logBase0 <- 2;
+    } else if (hasTag(other, "log10ratio")) {
+      logBase0 <- 10;
+    } else if (hasTag(other, "logRatio")) {
+      logBase0 <- 10;
+    }
+    if (!is.null(logBase0)) {
+      thetaR <- logBase0^thetaR;
+      verbose && printf(verbose, "Transformed thetaR = %f^thetaR\n", logBase0);
+    }
+  
+    verbose && exit(verbose);
+  } else {
+    thetaR <- 1;
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calculate raw copy numbers relative to the other
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  M <- log(theta/thetaRef, base=2);
-  A <- log(theta*thetaRef, base=2)/2;
+  M <- theta/thetaR;
+  A <- theta*thetaR;
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # On the log2 scale?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  M <- log(M, base=2);
+  A <- log(A, base=2)/2;
   stopifnot(identical(length(M), nTheta));
 
 
@@ -81,7 +124,9 @@ setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromo
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'other':
   className <- "CopyNumberDataFile";
-  if (!inherits(other, className)) {
+  if (is.null(other)) {
+    # Do not calculate ratios relative to a reference
+  } else if (!inherits(other, className)) {
     throw("Argument 'other' is not an ", className, ": ", class(other)[1]);
   }
 

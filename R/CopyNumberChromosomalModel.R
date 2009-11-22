@@ -149,6 +149,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     .cesTuple = cesTuple,
     .refTuple = refTuple,
     .paired = (length(refTuple) > 0),
+    .calculateRatios = TRUE,
     .chromosomes = NULL,
     .tags = tags,
     .genome = genome
@@ -312,10 +313,17 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
 }, protected=TRUE);
 
 
+setMethodS3("calculateRatios", "CopyNumberChromosomalModel", function(this, ...) {
+  calculateRatios <- this$.calculateRatios;
+  if (is.null(calculateRatios)) {
+    calculateRatios <- TRUE;
+    this$.calculateRatios <- calculateRatios;
+  }
+  calculateRatios;
+}, protected=TRUE)
 
 
-
-setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., maxNAFraction=1/5, force=FALSE, verbose=FALSE) {
+setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., maxNAFraction=1/5, estimateSd=TRUE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -357,14 +365,16 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     on.exit(popState(verbose));
   }
 
+
   verbose && enter(verbose, "Retrieving raw CN data");
 
   # Data set attributes
   chipTypes <- getChipTypes(this);
   arrayNames <- getArrays(this);
 
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Get (x, M, stddev, chiptype, unit) from all chip types
+  # Get (x, M, stddev*, chiptype, unit) from all chip types
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Retrieving relative copy-number estimates");
   # Get the chip types as a factor
@@ -375,16 +385,24 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     verbose && enter(verbose, "Chip type: ", chipType);
     ce <- ceList[[kk]];
     if (!is.null(ce)) {
-      ref <- refList[[kk]];
+      # Do we need to calculate ratios relative to a reference?
+      if (calculateRatios(this)) {
+        ref <- refList[[kk]];
 
-      # AD HOC. /HB 2007-09-29
-      # Hmmm... what is this? /HB 2009-11-18
-      # At least, replaced AffymetrixCelFile 
-      # with CopyNumberDataFile. /HB 2009-11-18
-      if (!inherits(ref, "CopyNumberDataFile")) {
+        # AD HOC. /HB 2007-09-29
+        # Hmmm... what is this? /HB 2009-11-18
+        # At least, replaced AffymetrixCelFile 
+        # with CopyNumberDataFile. /HB 2009-11-18
+        if (!inherits(ref, "CopyNumberDataFile")) {
+          ref <- NULL;
+        }
+      } else {
         ref <- NULL;
       }
 
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # (a) Extract relative chromosomal signals
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # AD HOC. getXAM() is currently only implemented in the 
       # AffymetrixCelFile class and not defined in any Interface class.
       # It should be implemented by others too, alternatively be 
@@ -397,59 +415,77 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       units0 <- as.integer(rownames(df0));
       verbose && cat(verbose, "Number of units: ", length(units0));
 
-      # Get (theta, sigma) of theta (estimated across all arrays).
-      theta <- extractMatrix(ref, units=units0, field="theta", 
-                                             drop=TRUE, verbose=verbose);
-  
-      sdTheta <- extractMatrix(ref, units=units0, field="sdTheta", 
-                                             drop=TRUE, verbose=verbose);
-
-      # Estimate the std dev of the raw log2(CN). 
-      # [only if ref is averaged across arrays]
-      if (isAverageFile(ref)) {
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        # BEGIN: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
-        # (whose are not supported yet /HB 2009-11-18)
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        # Number of arrays used when averaging (per unit)
-        ns <- getNumberOfFilesAveraged(ref, units=units0, verbose=verbose);
-
-        # Sanity check
-        stopifnot(length(ns) == length(theta));
-
-        # Use Gauss' approximation (since mu and sigma are on the 
-        # intensity scale)
-        sdM <- log2(exp(1)) * sqrt(1+1/ns) * sdTheta / theta;
-
-        rm(ns);
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        # END: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-      } else {
-        naValue <- as.double(NA);
-        sdM <- rep(naValue, length(theta));
-      } # if (isAverageFile(ref))
-
       verbose && enter(verbose, "Scanning for non-finite values");
       n <- sum(!is.finite(df0[,"M"]));
       fraction <- n / nrow(df0);
       verbose && printf(verbose, "Number of non-finite values: %d (%.1f%%)\n", 
                                                              n, 100*fraction);
 
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # (b) Sanity check of not too many missing values
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Sanity check
       if (fraction > maxNAFraction) {
         throw(sprintf("Something is wrong with the data. Too many non-finite values: %d (%.1f%% > %.1f%%)", as.integer(n), 100*fraction, 100*maxNAFraction));
       }
       verbose && exit(verbose);
+
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # (c) Estimate standard errors
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      if (estimateSd) {   
+        sdTheta <- extractMatrix(ref, units=units0, field="sdTheta", 
+                                               drop=TRUE, verbose=verbose);
   
-      # Append SD, chip type, and CDF units.
-      df0 <- cbind(df0, sdTheta=sdTheta, sdM=sdM, 
-                   chipType=rep(chipType, length=length(units0)), unit=units0);
-      rm(theta, sdTheta);
+        # Estimate the std dev of the raw log2(CN). 
+        # [only if ref is averaged across arrays]
+        if (isAverageFile(ref)) {
+          # Get (theta, sigma) of theta (estimated across all arrays).
+          theta <- extractMatrix(ref, units=units0, field="theta", 
+                                               drop=TRUE, verbose=verbose);
+
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+          # BEGIN: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
+          # (whose are not supported yet /HB 2009-11-18)
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+          # Number of arrays used when averaging (per unit)
+          ns <- getNumberOfFilesAveraged(ref, units=units0, verbose=verbose);
   
+          # Sanity check
+          stopifnot(length(ns) == length(units0));
+  
+          # Use Gauss' approximation (since mu and sigma are on the 
+          # intensity scale)
+          sdM <- log2(exp(1)) * sqrt(1+1/ns) * sdTheta / theta;
+  
+          rm(ns, theta);
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+          # END: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        } else {
+          naValue <- as.double(NA);
+          sdM <- rep(naValue, length(units0));
+        } # if (isAverageFile(ref))
+
+        # Append stddev estimates
+        df0 <- cbind(df0, sdTheta=sdTheta, sdM=sdM);
+        rm(sdTheta, sdM);
+      } # if (estimateSd)
+  
+      rm(ref); # Not needed anymore
+
+      # Append chip type, and CDF units.
+      df0 <- cbind(df0, chipType=rep(chipType, length=length(units0)), 
+                                                              unit=units0);
+      rm(units0);  
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # (d) Append data to data for previous chip types
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       df <- rbind(df, df0);
       colnames(df) <- colnames(df0);
-      rm(df0, units0);
+      rm(df0);
     } else {
       verbose && cat(verbose, "No copy-number estimates available: ", arrayNames[kk]);
     }
@@ -464,8 +500,10 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
 
   if (reorder) {
     verbose && enter(verbose, "Re-order by physical position");
-    df <- df[order(df[,"x"]),, drop=FALSE];
+    o <- order(df[,"x"]);
+    df <- df[o,, drop=FALSE];
     rownames(df) <- NULL;
+    rm(o);
     verbose && exit(verbose);
   }
 
@@ -478,7 +516,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
   verbose && exit(verbose);
 
   df;
-}, protected=TRUE)
+}, private=TRUE)
 
 
 
@@ -535,7 +573,8 @@ setMethodS3("calculateChromosomeStatistics", "CopyNumberChromosomalModel", funct
       # Get (x, M, stddev, chiptype, unit) data from all chip types
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       data <- getRawCnData(this, ceList=ceList, refList=rfList, 
-                        chromosome=chromosome, ..., verbose=less(verbose));
+                               chromosome=chromosome, ..., estimateSd=FALSE,
+                                                    verbose=less(verbose));
       M <- data[,"M"];
       rm(data);
 
@@ -599,18 +638,56 @@ setMethodS3("fit", "CopyNumberChromosomalModel", abstract=TRUE);
 
 
 
-setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this, array, chromosome, ..., cache=FALSE, force=FALSE, verbose=FALSE) {
+
+###########################################################################/**
+# @RdocMethod extractRawCopyNumbers
+#
+# @title "Extracts relative copy numbers"
+#
+# \description{
+#  @get "title" for a particular array and chromosome.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{array}{The index of the array to be extracted.}
+#   \item{chromosome}{The index of the chromosome to be extracted.}
+#   \item{...}{See subclasses.}
+#   \item{logBase}{(optional) The base of the logarithm used for the ratios.
+#    If @NULL, the ratios are not logged.}
+#   \item{cache}{If @TRUE, results are cached, otherwise not.}
+#   \item{force}{If @TRUE, cached results are ignored.}
+#   \item{verbose}{See @see "R.utils::Verbose".}
+# }
+#
+# \value{
+#  See subclasses.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
+setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this, array, chromosome, ..., logBase=2, cache=FALSE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'array':
-  array <- Arguments$getIndex(array, range=c(1,nbrOfArrays(this)));
+  array <- Arguments$getIndex(array, range=c(1, nbrOfArrays(this)));
 
   # Argument 'chromosome':
   allChromosomes <- getChromosomes(this);
   chromosome <- Arguments$getIndex(chromosome, range=range(allChromosomes));
   if (!chromosome %in% allChromosomes)
     throw("Argument 'chromosome' has an unknown value: ", chromosome);
+
+  # Argument 'logBase':
+  if (!is.null(logBase)) {
+    logBase <- Arguments$getDouble(logBase, range=c(1, 10));
+  }
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -625,30 +702,38 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
   cacheList <- this$.extractRawCopyNumbersCache;
   if (!is.list(cacheList))
     cacheList <- list();
-  rawCNs <- cacheList[[id]];
-  if (!force && !is.null(rawCNs)) {
-    return(rawCNs);
+  if (force) {
+    cn <- NULL;
+  } else {
+    cn <- cacheList[[id]];
   }
 
-  # Extract the test and reference arrays
-  files <- getDataFileMatrix(this, array=array, verbose=less(verbose,5));
-  ceList <- files[,"test"];
-  rfList <- files[,"reference"];
-
-  data <- getRawCnData(this, ceList=ceList, refList=rfList, 
-                          chromosome=chromosome, ..., verbose=less(verbose));
-
-  rawCNs <- RawCopyNumbers(cn=data[,"M"], x=data[,"x"], 
-                           chromosome=chromosome); 
+  if (is.null(cn)) {
+    # Extract the test and reference arrays
+    files <- getDataFileMatrix(this, array=array, verbose=less(verbose,5));
+    ceList <- files[,"test"];
+    rfList <- files[,"reference"];
+  
+    data <- getRawCnData(this, ceList=ceList, refList=rfList,
+                                 chromosome=chromosome, ..., estimateSd=FALSE,
+                                                       verbose=less(verbose));
+  
+    cn <- RawCopyNumbers(cn=data[,"M"], x=data[,"x"], chromosome=chromosome); 
+    cn$.yLogBase <- 2;
+    rm(data);
+  }
 
   # Save to cache?
   if (cache) {
-    cacheList[[id]] <- rawCNs;
+    cacheList[[id]] <- cn;
     this$.extractRawCopyNumbersCache <- cacheList;
     rm(cacheList);
   }
 
-  rawCNs;
+  # Convert to the correct logarithmic base
+  cn <- extractRawCopyNumbers(cn, logBase=logBase);
+
+  cn;
 })
 
 
@@ -737,6 +822,11 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
 ##############################################################################
 # HISTORY:
+# 2009-11-22
+# o CLEAN UP: Added argument 'estimateSd' to getRawCnData(), because stddev
+#   estimates are actually not used for most segmentation methods.
+# o Added Rdocs for extractRawCopyNumbers().
+# o CLEAN UP: Made getRawCnData() private.  Use extractRawCopyNumbers().
 # 2009-11-18
 # o CLEAN UP: Removed all Affymetrix specific classes/methods; using Interface 
 #   classes almost everywhere.  It is a bit ad hoc design, but we will 

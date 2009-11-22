@@ -426,3 +426,5 @@ getAsteriskTags.RawCopyNumberModel getSetTag.RawCopyNumberModel
   hasStrandiness.AromaUnitTotalCnBinaryFile
   isAverageFile.AromaUnitSignalBinaryFile
   nbrOfArrays.AromaUnitTotalCnBinarySet
+getAverageFile.AromaUnitTotalCnBinarySet
+getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile

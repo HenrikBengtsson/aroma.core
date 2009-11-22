@@ -1,4 +1,4 @@
-setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL, region=NULL, by, ..., force=FALSE, verbose=FALSE) {
+setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL, region=NULL, by, ..., logBase=2, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -17,6 +17,11 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
 
   # Argument 'by':
   by <- Arguments$getInteger(by, range=c(1, Inf));
+
+  # Argument 'logBase':
+  if (!is.null(logBase)) {
+    logBase <- Arguments$getDouble(logBase, range=c(1, 10));
+  }
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -82,8 +87,11 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
   } else {
     cn <- divideBy(cntList[[1]], cntList[[2]]);
   }
-  cn$y <- 2 * cn$y;
   cn <- RawCopyNumbers(cn);
+
+  # Convert to the correct logarithmic base
+  cn <- extractRawCopyNumbers(cn, logBase=logBase);
+
   print(verbose, cn);
   verbose && exit(verbose);
 
@@ -92,6 +100,8 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
 
 ############################################################################
 # HISTORY:
+# 2009-11-22
+# o Added argument 'logBase' to extractRawCopyNumbers() of RawSequenceReads.
 # 2009-09-07
 # o BUG FIX: extractRawCopyNumbers() for RawSequenceReads refered to 
 #   to global variables in the code for file caching.

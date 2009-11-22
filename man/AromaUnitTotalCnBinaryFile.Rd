@@ -33,12 +33,12 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{CopyNumberDataFile}}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitTotalCnBinaryFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitTotalCnBinaryFile}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
-public abstract static class \bold{AromaUnitTotalCnBinaryFile}\cr
+public static class \bold{AromaUnitTotalCnBinaryFile}\cr
 extends \emph{\link[aroma.core]{CopyNumberDataFile}}\cr
 
 
@@ -57,6 +57,7 @@ extends \emph{\link[aroma.core]{CopyNumberDataFile}}\cr
 \tabular{rll}{
  \tab \code{extractRawCopyNumbers} \tab  -\cr
  \tab \code{getAM} \tab  -\cr
+ \tab \code{getNumberOfFilesAveraged} \tab  -\cr
  \tab \code{getXAM} \tab  -\cr
  \tab \code{hasAlleleBFractions} \tab  -\cr
  \tab \code{hasStrandiness} \tab  -\cr

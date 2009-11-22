@@ -281,11 +281,8 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         # Get (x, M, stddev, chipType, unit) data from all chip types
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         tRead <- processTime();
-        data <- getRawCnData(this, ceList=ceList, refList=rfList, 
-                     chromosome=chr, ..., force=force, verbose=less(verbose));
+        cn <- extractRawCopyNumbers(this, array=array, chromosome=chr);
         timers$read <- timers$read + (processTime() - tRead);
-
-        cn <- RawCopyNumbers(data[,"M"], x=data[,"x"], chromosome=chr);
         verbose && print(verbose, cn);
 
 
@@ -296,7 +293,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         fit <- fitFcn(cn, ..., verbose=less(verbose, 1));
         verbose && str(verbose, fit);
         timers$fit <- timers$fit + (processTime() - tFit);
-        rm(data); # Not needed anymore
+        rm(cn); # Not needed anymore
 
         verbose && cat(verbose, "Class of fitted object: ", class(fit)[1]);
         verbose && printf(verbose, "Time to fit segmentation model: %.2fmin\n", timers$fit[3]/60);
@@ -661,6 +658,8 @@ ylim <- c(-1,1);
 
 ##############################################################################
 # HISTORY:
+# 2009-11-22
+# o CLEAN UP: Now extractRawCopyNumbers() is used; not old getRawCnData().
 # 2009-11-16
 # o Except from drop 'chipEffects' tags, the code of this class is completely
 #   generic, that is, it does not assume Affymetrix data.  Note however,

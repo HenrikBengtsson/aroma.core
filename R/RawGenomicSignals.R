@@ -18,7 +18,7 @@
 #     specifying a weight of each locus.}
 #   \item{chromosome}{An (optional) @integer specifying the chromosome for
 #     these genomic signals.}
-#   \item{name}{An (optional) @characte string specifying the sample name.}
+#   \item{name}{An (optional) @character string specifying the sample name.}
 #   \item{...}{Not used.}
 # }
 #
@@ -569,7 +569,7 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("getXScale", "RawGenomicSignals", function(this, ...) {
   scale <- this$.xScale;
-  if (is.null(scale)) scale <- 1;
+  if (is.null(scale)) scale <- 1e-6;
   scale;
 })
 
@@ -579,7 +579,7 @@ setMethodS3("getYScale", "RawGenomicSignals", function(this, ...) {
   scale;
 })
 
-setMethodS3("setXScale", "RawGenomicSignals", function(this, xScale=1, ...) {
+setMethodS3("setXScale", "RawGenomicSignals", function(this, xScale=1e-6, ...) {
   xScale <- Arguments$getNumeric(xScale);
   this$.xScale <- xScale;
 })
@@ -595,6 +595,7 @@ setMethodS3("plot", "RawGenomicSignals", function(x, xlab="Position", ylab="Sign
 
   x <- getPositions(this);
   y <- getSignals(this);
+
   plot(xScale*x, yScale*y, ylim=ylim, xlab=xlab, ylab=ylab, pch=pch, ...);
 })
 
@@ -686,6 +687,8 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-11-22
+# o Now all chromosome plot functions have xScale=1e-6 by default.
 # 2009-10-10
 # o Added setName().
 # 2009-09-07

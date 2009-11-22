@@ -144,14 +144,22 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
   }
 
   if (is.null(res)) {
-    verbose && enter(verbose, "Creating data file to store average signals");
-    pathname <- Arguments$getWritablePathname(filename, path=getPath(this));
+    pathname <- Arguments$getWritablePathname(filename, path=getPath(this), mustNotExist=FALSE);
     verbose && cat(verbose, "Pathname: ", pathname);
-    ugp <- getAromaUgpFile(df);
-    res <- df$allocateFromUnitAnnotationDataFile(udf=ugp, filename=filename, path=getPath(this), verbose=less(verbose));
-    naValue <- as.double(NA);
-    res[,1] <- naValue;
-    verbose && exit(verbose);
+
+    if (isFile(pathname)) {
+      verbose && enter(verbose, "Loading existing data file");
+      res <- newInstance(df, pathname);
+      verbose && exit(verbose);
+    } else {
+      verbose && enter(verbose, "Allocating empty data file to store average signals");
+      ugp <- getAromaUgpFile(df);
+      res <- df$allocateFromUnitAnnotationDataFile(udf=ugp, filename=pathname, verbose=less(verbose));
+      naValue <- as.double(NA);
+      res[,1] <- naValue;
+      verbose && exit(verbose);
+    }
+
     this$.averageFiles[[filename]] <- res;
   }
 
@@ -169,9 +177,9 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
   }
 
   nbrOfIndices <- length(indices);
-
   # Nothing more to do?
   if (nbrOfIndices == 0) {
+    verbose && exit(verbose);
     return(res);
   }
 
@@ -181,13 +189,36 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
   pathnames <- getPathnames(this);
   nbrOfArrays <- length(pathnames);
 
+  # Update foot with number of arrays averaged over
+  footer <- readFooter(res);
+  params <- footer$params;
+  if (length(params) == 0) {
+    srcFiles <- lapply(this, function(df) {
+      list(
+        fullname = getFullName(df),
+        fileSize = getFileSize(df),
+        checkSum = getChecksum(df)
+      );
+    });
+    params <- list(
+      meanName = meanName,
+      sdName = sdName
+    );
+    srcDetails <- list(
+      nbrOfFiles = length(srcFiles),
+      checkSum = digest2(srcFiles)
+    );
+    footer$srcDetails <- srcDetails;
+    footer$params <- params;
+    writeFooter(res, footer);
+  }
+
   # Since we might want to do this robustly, but also because we want to
   # estimate the standard deviation, for each unit we need all data across 
   # arrays at once.  In order to this efficiently, we do this in chunks
 
   arrays <- seq(length=nbrOfArrays);
   naValue <- as.double(NA);
-str(unitsPerChunk);
   lapplyInChunks(indices, function(idxs, ...) {
     verbose && enter(verbose, "Processing chunk");
     verbose && str(verbose, "Indices in chunk:");
