@@ -430,3 +430,38 @@ getAverageFile.AromaUnitTotalCnBinarySet
 getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile
   calculateRatios calculateRatios.CopyNumberChromosomalModel
   extractRawCopyNumbers.RawCopyNumbers
+  addIndexFile.ChromosomeExplorer as.character.ChromosomeExplorer
+  ChromosomeExplorer display.ChromosomeExplorer
+  getArraysOfInput.ChromosomeExplorer 
+  getDefaultFullNames getDefaultFullNames.ChromosomeExplorer
+  getFullNames.ChromosomeExplorer getFullNamesTranslator
+  getFullNamesTranslator.ChromosomeExplorer getModel
+ getNameOfInput.ChromosomeExplorer
+  getNames.ChromosomeExplorer getPath.ChromosomeExplorer
+  getSampleLayerName getSampleLayerName.Explorer
+  getSetTuple.ChromosomeExplorer getTagsOfInput.ChromosomeExplorer
+  getZooms getZooms.ChromosomeExplorer newPlot
+  newPlot.CopyNumberChromosomalModel plotAxesLayers
+  plotAxesLayers.CopyNumberChromosomalModel plotChromosomesLayers
+  plotChromosomesLayers.CopyNumberChromosomalModel
+  plotCopyNumberRegionLayers
+  plotCopyNumberRegionLayers.CopyNumberSegmentationModel
+  plotCytobandLayers plotCytobandLayers.CopyNumberChromosomalModel
+  plotFitLayers plotFitLayers.CopyNumberChromosomalModel
+  plotGridHorizontalLayers
+  plotGridHorizontalLayers.CopyNumberChromosomalModel
+  plotRawCopyNumbers plotRawCopyNumbers.CopyNumberChromosomalModel
+  plotSampleLayers plotSampleLayers.CopyNumberChromosomalModel
+ setCytoband
+  setCytoband.ChromosomeExplorer
+  setFullNamesTranslator.ChromosomeExplorer setup.ChromosomeExplorer
+  setZooms setZooms.ChromosomeExplorer translateFullNames
+  translateFullNames.ChromosomeExplorer updateSamplesFile
+ writeAxesLayers
+  writeAxesLayers.ChromosomeExplorer writeCopyNumberRegionLayers
+  writeCopyNumberRegionLayers.ChromosomeExplorer writeCytobandLayers
+  writeCytobandLayers.ChromosomeExplorer writeGraphs
+  writeGraphs.ChromosomeExplorer writeGridHorizontalLayers
+  writeGridHorizontalLayers.ChromosomeExplorer writeRawCopyNumberLayers
+  writeRawCopyNumberLayers.ChromosomeExplorer
+  writeRegions.ChromosomeExplorer

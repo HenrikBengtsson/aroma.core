@@ -50,10 +50,17 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{clearCache} \tab  -\cr
- \tab \code{extractRawCopyNumbers} \tab  -\cr
+ \tab \code{\link[aroma.core:extractRawCopyNumbers.CopyNumberChromosomalModel]{extractRawCopyNumbers}} \tab Extracts relative copy numbers.\cr
  \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
  \tab \code{getReferenceSetTuple} \tab  -\cr
  \tab \code{isPaired} \tab  -\cr
+ \tab \code{plotAxesLayers} \tab  -\cr
+ \tab \code{plotChromosomesLayers} \tab  -\cr
+ \tab \code{plotCytobandLayers} \tab  -\cr
+ \tab \code{plotFitLayers} \tab  -\cr
+ \tab \code{plotGridHorizontalLayers} \tab  -\cr
+ \tab \code{plotRawCopyNumbers} \tab  -\cr
+ \tab \code{plotSampleLayers} \tab  -\cr
 }
 
 

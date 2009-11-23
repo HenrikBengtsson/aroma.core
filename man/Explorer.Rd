@@ -22,7 +22,7 @@
 \code{~~+--}\emph{\code{Explorer}}\cr
 
 \bold{Directly known subclasses:}\cr
-\cr
+\link[aroma.core]{ChromosomeExplorer}\cr
 
 public abstract static class \bold{Explorer}\cr
 extends \link[R.oo]{Object}\cr
