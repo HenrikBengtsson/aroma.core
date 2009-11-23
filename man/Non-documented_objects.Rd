@@ -889,7 +889,6 @@
 \alias{extractRawCopyNumbers.RawCopyNumbers}
 \alias{addIndexFile.ChromosomeExplorer}
 \alias{as.character.ChromosomeExplorer}
-\alias{ChromosomeExplorer}
 \alias{display.ChromosomeExplorer}
 \alias{getArraysOfInput.ChromosomeExplorer}
 \alias{getDefaultFullNames}

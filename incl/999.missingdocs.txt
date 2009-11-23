@@ -431,7 +431,7 @@ getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile
   calculateRatios calculateRatios.CopyNumberChromosomalModel
   extractRawCopyNumbers.RawCopyNumbers
   addIndexFile.ChromosomeExplorer as.character.ChromosomeExplorer
-  ChromosomeExplorer display.ChromosomeExplorer
+  display.ChromosomeExplorer
   getArraysOfInput.ChromosomeExplorer 
   getDefaultFullNames getDefaultFullNames.ChromosomeExplorer
   getFullNames.ChromosomeExplorer getFullNamesTranslator
