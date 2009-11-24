@@ -46,16 +46,16 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{display} \tab  -\cr
- \tab \code{getChromosomes} \tab  -\cr
+ \tab \code{\link[aroma.core:getChromosomes.ChromosomeExplorer]{getChromosomes}} \tab Gets the chromosomes available.\cr
  \tab \code{getDefaultFullNames} \tab  -\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getFullNamesTranslator} \tab  -\cr
- \tab \code{getModel} \tab  -\cr
+ \tab \code{\link[aroma.core:getModel.ChromosomeExplorer]{getModel}} \tab Gets the model.\cr
  \tab \code{getNames} \tab  -\cr
  \tab \code{getPath} \tab  -\cr
  \tab \code{getZooms} \tab  -\cr
- \tab \code{process} \tab  -\cr
- \tab \code{setArrays} \tab  -\cr
+ \tab \code{\link[aroma.core:process.ChromosomeExplorer]{process}} \tab Generates image files, scripts and dynamic pages for the explorer.\cr
+ \tab \code{\link[aroma.core:setArrays.ChromosomeExplorer]{setArrays}} \tab Sets the arrays.\cr
  \tab \code{setCytoband} \tab  -\cr
  \tab \code{setFullNamesTranslator} \tab  -\cr
  \tab \code{setZooms} \tab  -\cr

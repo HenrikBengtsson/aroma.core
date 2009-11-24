@@ -49,6 +49,7 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
  \tab \code{\link[aroma.core:fit.CopyNumberSegmentationModel]{fit}} \tab Fits the model.\cr
  \tab \code{getRegions} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
+ \tab \code{plot} \tab  -\cr
  \tab \code{plotCopyNumberRegionLayers} \tab  -\cr
  \tab \code{writeRegions} \tab  -\cr
 }

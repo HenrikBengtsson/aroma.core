@@ -465,3 +465,10 @@ getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile
   writeGridHorizontalLayers.ChromosomeExplorer writeRawCopyNumberLayers
   writeRawCopyNumberLayers.ChromosomeExplorer
   writeRegions.ChromosomeExplorer
+extractCopyNumberOutliers extractCopyNumberOutliers.DNAcopy
+extractCopyNumberOutliers.profileCGH
+ drawCytoband.ChromosomalModel drawExtraAnnotations
+ drawExtraAnnotations.default drawExtraAnnotations.profileCGH
+ plot.CopyNumberSegmentationModel plot.profileCGH plotProfile2
+ plotProfile2.profileCGH plotRawCNs plotRawCNs.profileCGH pointsRawCNs
+ pointsRawCNs.default pointsRawCNs.profileCGH 

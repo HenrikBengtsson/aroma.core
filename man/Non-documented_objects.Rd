@@ -946,6 +946,22 @@
 \alias{writeRawCopyNumberLayers}
 \alias{writeRawCopyNumberLayers.ChromosomeExplorer}
 \alias{writeRegions.ChromosomeExplorer}
+\alias{extractCopyNumberOutliers}
+\alias{extractCopyNumberOutliers.DNAcopy}
+\alias{extractCopyNumberOutliers.profileCGH}
+\alias{drawCytoband.ChromosomalModel}
+\alias{drawExtraAnnotations}
+\alias{drawExtraAnnotations.default}
+\alias{drawExtraAnnotations.profileCGH}
+\alias{plot.CopyNumberSegmentationModel}
+\alias{plot.profileCGH}
+\alias{plotProfile2}
+\alias{plotProfile2.profileCGH}
+\alias{plotRawCNs}
+\alias{plotRawCNs.profileCGH}
+\alias{pointsRawCNs}
+\alias{pointsRawCNs.default}
+\alias{pointsRawCNs.profileCGH}
 
 \description{
   This page contains aliases for all "non-documented" objects that
