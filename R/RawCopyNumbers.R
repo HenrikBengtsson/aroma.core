@@ -71,7 +71,7 @@ setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBa
 
   res <- clone(this);
 
-  if (logBase0 != logBase) {
+  if (!isTRUE(all.equal(logBase0, logBase))) {
     # Get current signals
     y <- getSignals(this);
   
@@ -114,6 +114,9 @@ setMethodS3("extractRawCopyNumbers", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2009-12-02
+# o BUG FIX: extractRawCopyNumbers() for RawCopyNumbers would give an error
+#   if the internal logBase was NULL.
 # 2009-11-22
 # o Added extractRawCopyNumbers() to RawCopyNumbers, which can be used to
 #   change the log base.  Maybe other features are added later.

@@ -30,7 +30,7 @@ setConstructorS3("AromaUnitCallFile", function(...) {
 setMethodS3("allocate", "AromaUnitCallFile", function(static, ..., types=c("integer"), sizes=rep(1, length(types)), signed=rep(FALSE, length(types))) { 
   res <- allocate.AromaUnitSignalBinaryFile(static, types=types, sizes=sizes, signed=signed, ...);
 
-  # Default call is NA
+  # Default call is a missing values
   nbrOfBits <- 8*sizes[1];
   valueForNA <- as.integer(2^nbrOfBits-1);
 
@@ -62,6 +62,8 @@ setMethodS3("findUnitsTodo", "AromaUnitCallFile", function(this, units=NULL, ...
   # Locate the non-fitted ones
   hdr <- readHeader(this)$dataHeader;
   nbrOfBits <- 8*hdr$sizes[1];
+
+  # Missing values
   valueForNA <- as.integer(2^nbrOfBits-1);
   isNA <- (calls == valueForNA);
 
@@ -78,11 +80,18 @@ setMethodS3("extractMatrix", "AromaUnitCallFile", function(this, ...) {
 
   hdr <- readHeader(this)$dataHeader;
   nbrOfBits <- 8*hdr$sizes[1];
-  valueForNA <- as.integer(2^nbrOfBits-1);
-  naValue <- as.integer(NA);
 
+  # Missing values
+  valueForNA <- as.integer(2^nbrOfBits-1);
   isNA <- whichVector(data == valueForNA);
+  naValue <- as.integer(NA);
   data[isNA] <- naValue;
+
+  # Not called
+  valueForNC <- as.integer(2^nbrOfBits-2);
+  isNaN <- whichVector(data == valueForNC);
+  nanValue <- as.double(NaN);
+  data[isNaN] <- nanValue;
  
   data;
 })
@@ -91,15 +100,26 @@ setMethodS3("extractMatrix", "AromaUnitCallFile", function(this, ...) {
 setMethodS3("extractCallArray", "AromaUnitCallFile", function(this, units=NULL, ..., drop=FALSE, verbose=FALSE) {
   hdr <- readHeader(this)$dataHeader;
   nbrOfBits <- 8*hdr$sizes[1];
+
   valueForNA <- as.integer(2^nbrOfBits-1);
   naValue <- as.integer(NA);
+
+  valueForNC <- as.integer(2^nbrOfBits-2);
+  nanValue <- as.double(NaN);
 
   res <- NULL;
   for (cc in seq(length=nbrOfColumns(this))) {  
     values <- extractMatrix(this, units=units, column=cc, drop=TRUE, ...);
+
+    # Missing values
     isNA <- whichVector(values == valueForNA);
     values[isNA] <- naValue;
 
+    # Not called
+    isNaN <- whichVector(values == valueForNC);
+    values[isNaN] <- nanValue;
+
+    # Allocate return object?
     if (is.null(res)) {
       dim <- list(length(values), nbrOfColumns(this), 1);
       res <- array(naValue, dim=dim);
@@ -125,6 +145,8 @@ setMethodS3("extractCalls", "AromaUnitCallFile", function(this, ...) {
 
 ############################################################################
 # HISTORY:
+# 2009-12-08
+# o BUG FIX: extractMatrix() of AromaUnitCallFile did not recognize NoCalls.
 # 2009-01-04
 # o Created from AromaGenotypeCallFile.R.
 ############################################################################

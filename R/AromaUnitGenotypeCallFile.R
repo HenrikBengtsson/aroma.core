@@ -43,7 +43,8 @@ setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., dro
   }
   rm(calls);
 
-  res <- array(NA, dim=dim[-2]);
+  naValue <- as.logical(NA);
+  res <- array(naValue, dim=dim[-2]);
   res[,1] <- (counts == 1);
   rm(counts);
 
