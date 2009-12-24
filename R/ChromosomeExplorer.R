@@ -173,7 +173,7 @@ setMethodS3("translateFullNames", "ChromosomeExplorer", function(this, names, ..
 
 setMethodS3("getFullNames", "ChromosomeExplorer", function(this, ...) {
   names <- getDefaultFullNames(this);
-  names <- translateFullNames(names);
+  names <- translateFullNames(this, names);
   names;
 })
 
@@ -840,6 +840,10 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 
 ##############################################################################
 # HISTORY:
+# 2009-12-22
+# o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in 
+#   UseMethod("translateFullNames") : no applicable method for 
+#   'translateFullNames' applied to an object of class "character".
 # 2009-05-19
 # o Now testing for file permissions for creat-/writ-/updating files/dirs.
 # 2008-12-13

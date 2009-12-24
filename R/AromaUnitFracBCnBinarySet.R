@@ -42,14 +42,14 @@ setConstructorS3("AromaUnitFracBCnBinarySet", function(...) {
 })
 
 
-setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData", "rawCnData", "cnData", "smoothCnData")) {
+setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData", "rawCnData", "cnData", "smoothCnData"), pattern=".*,(frac|freq)B[.]asb$") {
   suppressWarnings({
     path <- findByName(static, name=name, tags=tags, chipType=chipType, 
                                            ..., paths=paths, mustExist=TRUE);
   })
 
   suppressWarnings({
-    byPath(static, path=path, ..., pattern=".*,(frac|freq)B[.]asb$");
+    byPath(static, path=path, ..., pattern=pattern);
   })
 }, static=TRUE) 
 
@@ -58,6 +58,8 @@ setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=N
 
 ############################################################################
 # HISTORY:
+# 2009-12-23
+# o Added argument 'pattern' to byName() AromaUnitFracBCnBinarySet.
 # 2009-08-31
 # o Added totalAndFracBData/ to the search path of byName() of 
 #   AromaUnit(FracB|Total)CnBinarySet.

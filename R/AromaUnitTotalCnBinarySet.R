@@ -32,14 +32,14 @@ setMethodS3("as.CopyNumberDataSetTuple", "AromaUnitTotalCnBinarySet", function(t
 })
 
 
-setMethodS3("byName", "AromaUnitTotalCnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData", "rawCnData", "cnData", "smoothCnData")) {
+setMethodS3("byName", "AromaUnitTotalCnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData", "rawCnData", "cnData", "smoothCnData"), pattern=".*,total[.]asb$") {
   suppressWarnings({
     path <- findByName(static, name=name, tags=tags, chipType=chipType, 
                                            ..., paths=paths, mustExist=TRUE);
   })
 
   suppressWarnings({
-    byPath(static, path=path, ..., pattern=".*,total[.]asb$");
+    byPath(static, path=path, ..., pattern=pattern);
   })
 }, static=TRUE) 
 
@@ -279,6 +279,8 @@ setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySet", fu
 
 ############################################################################
 # HISTORY:
+# 2009-12-23
+# o Added argument 'pattern' to byName() AromaUnitTotalCnBinarySet.
 # 2009-11-20
 # o Added getAverageFile() for AromaUnitTotalCnBinarySet.
 # 2009-11-19
