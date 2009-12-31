@@ -371,23 +371,6 @@ setMethodS3("getTableOfArrays", "AromaMicroarrayDataSetTuple", function(this, ..
 
 
 
-setMethodS3("as.data.frame", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  idxMatrix <- getTableOfArrays(this, ...);
-  nbrOfChipTypes <- ncol(idxMatrix);
-  nbrOfArrays <- nrow(idxMatrix);
-
-  dsList <- getListOfSets(this);
-  df <- vector("list", nbrOfChipTypes);
-  for (kk in seq(length=nbrOfChipTypes)) {
-    ds <- dsList[[kk]];
-    idxs <- idxMatrix[,kk,drop=TRUE];
-    files <- getFiles(ds, idxs);
-    df[[kk]] <- files;
-  }
-#  class(df) <- as.data.frame(df);
-  df;
-}, protected=TRUE)
-
 
 setMethodS3("getNames", "AromaMicroarrayDataSetTuple", function(this, ...) {
   rownames(getTableOfArrays(this, ...));
