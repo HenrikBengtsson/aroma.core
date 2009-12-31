@@ -10,7 +10,7 @@
 # @synopsis
 #
 # \arguments{
-#   \item{csList}{A single or @list of @see "AromaMicroarrayDataSet":s.}
+#   \item{dsList}{A single or @list of @see "AromaMicroarrayDataSet":s.}
 #   \item{tags}{A @character @vector of tags.}
 #   \item{...}{Not used.}
 #   \item{.setClass}{The name of the class of the input set.}
@@ -23,37 +23,36 @@
 # @author
 # 
 #*/###########################################################################
-setConstructorS3("AromaMicroarrayDataSetTuple", function(csList=NULL, tags="*", ..., .setClass="AromaMicroarrayDataSet") {
+setConstructorS3("AromaMicroarrayDataSetTuple", function(dsList=NULL, tags="*", ..., .setClass="AromaMicroarrayDataSet") {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'csList':
-  if (!is.null(csList)) {
-    if (!is.list(csList)) {
-      csList <- list(csList);
+  # Argument 'dsList':
+  if (!is.null(dsList)) {
+    if (!is.list(dsList)) {
+      dsList <- list(dsList);
     }
 
-    for (cs in csList) {
-      if (!inherits(cs, .setClass)) {
-        throw("Argument 'csList' contains a non-", .setClass, ": ", 
-                                                            class(cs)[1]);
-      }
+    for (cs in dsList) {
+      cs <- Arguments$getInstanceOf(cs, .setClass);
     }
   }
 
-  # Argument 'tags':
-  if (!is.null(tags)) {
-    tags <- Arguments$getCharacters(tags);
-    tags <- trim(unlist(strsplit(tags, split=",")));
-    tags <- tags[nchar(tags) > 0];
-  }
+  this <- extend(Object(), "AromaMicroarrayDataSetTuple",
+    .dsList = dsList,
+    .tags = NULL
+  );
 
-  extend(Object(), "AromaMicroarrayDataSetTuple",
-    .csList = csList,
-    .tags = tags
-  )
+  setTags(this, tags);
+
+  this;
 })
 
+
+setMethodS3("as.AromaMicroarrayDataSetTuple", "AromaMicroarrayDataSetTuple", function(this, ...) {
+  # Nothing to do
+  this;
+})
 
 
 setMethodS3("as.character", "AromaMicroarrayDataSetTuple", function(x, ...) {
@@ -64,9 +63,9 @@ setMethodS3("as.character", "AromaMicroarrayDataSetTuple", function(x, ...) {
   s <- c(s, paste("Name:", getName(this)));
   s <- c(s, paste("Tags:", paste(getTags(this), collapse=",")));
   s <- c(s, paste("Chip types:", paste(getChipTypes(this), collapse=", ")));
-  csList <- getListOfSets(this);
-  for (kk in seq(along=csList)) {
-    cs <- csList[[kk]];
+  dsList <- getListOfSets(this);
+  for (kk in seq(along=dsList)) {
+    cs <- dsList[[kk]];
     s <- c(s, as.character(cs));
   }
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
@@ -136,19 +135,19 @@ setMethodS3("extract", "AromaMicroarrayDataSetTuple", function(this, arrays, ...
   
   # Extract only those arrays
   res <- clone(this);
-  csList <- getListOfSets(this)[cc];
-  verbose && str(verbose, csList);
+  dsList <- getListOfSets(this)[cc];
+  verbose && str(verbose, dsList);
 
-  for (kk in seq(along=csList)) {
-    cs <- csList[[kk]];
+  for (kk in seq(along=dsList)) {
+    cs <- dsList[[kk]];
     idxs <- arrayTable[,kk];
     idxs <- na.omit(idxs);
     cs <- extract(cs, idxs);
-    csList[[kk]] <- cs;
+    dsList[[kk]] <- cs;
   }
-  res$.csList <- csList;
+  res$.dsList <- dsList;
 
-  verbose && str(verbose, csList);
+  verbose && str(verbose, dsList);
 
   verbose && exit(verbose);
 
@@ -163,10 +162,10 @@ setMethodS3("getName", "AromaMicroarrayDataSetTuple", function(this, collapse="+
 
   if (is.null(name)) {
     # Get name of chip-effect sets
-    csList <- getListOfSets(this);
+    dsList <- getListOfSets(this);
   
     # Get names
-    names <- lapply(csList, FUN=getName);
+    names <- lapply(dsList, FUN=getName);
     names <- unlist(names, use.names=FALSE);
   
     # Merge names
@@ -213,10 +212,10 @@ setMethodS3("setTags", "AromaMicroarrayDataSetTuple", function(this, tags=NULL, 
 
 setMethodS3("getTags", "AromaMicroarrayDataSetTuple", function(this, collapse=NULL, ...) {
   # Get tags of chip-effect set
-  csList <- getListOfSets(this);
+  dsList <- getListOfSets(this);
 
   # Get data set tags
-  tags <- lapply(csList, FUN=getTags);
+  tags <- lapply(dsList, FUN=getTags);
 
   # Keep common tags
   tags <- getCommonListElements(tags);
@@ -261,12 +260,12 @@ setMethodS3("getFullName", "AromaMicroarrayDataSetTuple", function(this, ...) {
 
 
 setMethodS3("getListOfSets", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  sets <- this$.csList;
+  sets <- this$.dsList;
   if (is.null(names(sets))) {
     names(sets) <- sapply(sets, FUN=function(set) {
       getChipType(set, fullname=FALSE);
     });
-    this$.csList <- sets;
+    this$.dsList <- sets;
   }
   sets;
 })
@@ -296,6 +295,7 @@ setMethodS3("getListOfSets", "AromaMicroarrayDataSetTuple", function(this, ...) 
 # @author
 #
 # \seealso{
+#   @seemethod "getChipTypes".
 #   @seeclass
 # }
 #*/###########################################################################
@@ -323,9 +323,10 @@ setMethodS3("nbrOfChipTypes", "AromaMicroarrayDataSetTuple", function(this, ...)
 # }
 #
 # \value{
-#  Returns a \eqn{NxK} @matrix of @integers where \eqn{N} is the total number 
-#  of arrays and \eqn{K} is the number of chip types in the model.  The row 
-#  names are the names of the arrays, and the column names are the chip types.
+#  Returns a \eqn{NxK} @matrix of positive @integers where \eqn{N} is the 
+#  total number of arrays and \eqn{K} is the number of chip types in 
+#  the model.  The row names are the names of the arrays, and 
+#  the column names are the chip types.
 #  If data is available for array \eqn{n} and chip type \eqn{k}, cell 
 #  \eqn{(n,k)} has value \eqn{n}, otherwise @NA.
 # }
@@ -337,14 +338,14 @@ setMethodS3("nbrOfChipTypes", "AromaMicroarrayDataSetTuple", function(this, ...)
 # }
 #*/###########################################################################
 setMethodS3("getTableOfArrays", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  csList <- getListOfSets(this);
+  dsList <- getListOfSets(this);
 
   # Get all chip types for this data set
   chipTypes <- getChipTypes(this);
-  nbrOfChipTypes <- length(csList);
+  nbrOfChipTypes <- length(dsList);
 
   # Get all sample names
-  names <- lapply(csList, FUN=getNames, ...);
+  names <- lapply(dsList, FUN=getNames, ...);
   names(names) <- chipTypes;
 
   # Get all sample names
@@ -366,6 +367,25 @@ setMethodS3("getTableOfArrays", "AromaMicroarrayDataSetTuple", function(this, ..
   }
 
   X;
+}, protected=TRUE)
+
+
+
+setMethodS3("as.data.frame", "AromaMicroarrayDataSetTuple", function(this, ...) {
+  idxMatrix <- getTableOfArrays(this, ...);
+  nbrOfChipTypes <- ncol(idxMatrix);
+  nbrOfArrays <- nrow(idxMatrix);
+
+  dsList <- getListOfSets(this);
+  df <- vector("list", nbrOfChipTypes);
+  for (kk in seq(length=nbrOfChipTypes)) {
+    ds <- dsList[[kk]];
+    idxs <- idxMatrix[,kk,drop=TRUE];
+    files <- getFiles(ds, idxs);
+    df[[kk]] <- files;
+  }
+#  class(df) <- as.data.frame(df);
+  df;
 }, protected=TRUE)
 
 
@@ -587,12 +607,12 @@ setMethodS3("getArrayTuple", "AromaMicroarrayDataSetTuple", function(this, array
   tuple <- vector("list", length(chipTypes));
 
   # Extract tuple
-  csList <- getListOfSets(this);
-  for (kk in seq(along=csList)) {
+  dsList <- getListOfSets(this);
+  for (kk in seq(along=dsList)) {
     idx <- idxs[kk];
     if (is.na(idx))
       next;
-    cs <- csList[[kk]];
+    cs <- dsList[[kk]];
     tuple[[kk]] <- getFile(cs, idx);
   }
   names(tuple) <- chipTypes;
@@ -614,7 +634,7 @@ setMethodS3("asMatrixOfFiles", "AromaMicroarrayDataSetTuple", function(this, ...
 
   verbose && enter(verbose, "Extracting matrix of files");
 
-  csList <- getListOfSets(this);
+  dsList <- getListOfSets(this);
 
   # Identify the array indices for each chip type
   arrayTable <- getTableOfArrays(this, ...);
@@ -626,11 +646,11 @@ setMethodS3("asMatrixOfFiles", "AromaMicroarrayDataSetTuple", function(this, ...
   dimnames(arrayOfFiles) <- dimnames(arrayTable);
 
   for (cc in seq(length=ncol(arrayOfFiles))) {
-    files <- as.list(csList[[cc]]);
+    files <- as.list(dsList[[cc]]);
     files <- files[arrayTable[,cc]];
     arrayOfFiles[,cc] <- files;
   }
-  rm(files, arrayTable, csList);
+  rm(files, arrayTable, dsList);
 
   verbose && exit(verbose);
 
@@ -641,8 +661,8 @@ setMethodS3("asMatrixOfFiles", "AromaMicroarrayDataSetTuple", function(this, ...
 
 
 setMethodS3("getChipTypes", "AromaMicroarrayDataSetTuple", function(this, fullname=FALSE, merge=FALSE, collapse="+", ...) {
-  csList <- getListOfSets(this);
-  chipTypes <- sapply(csList, FUN=getChipType, fullname=fullname);
+  dsList <- getListOfSets(this);
+  chipTypes <- sapply(dsList, FUN=getChipType, fullname=fullname);
 
   # Invariant for order
 #  chipTypes <- sort(chipTypes);

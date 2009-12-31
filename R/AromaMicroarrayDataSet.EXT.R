@@ -1,8 +1,3 @@
-setMethodS3("as.AromaMicroarrayDataSetTuple", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  # Nothing to do
-  this;
-})
-
 setMethodS3("as.AromaMicroarrayDataSetTuple", "AromaMicroarrayDataSet", function(this, ...) {
   classNames <- class(this);
   classNames <- sprintf("%sTuple", classNames);

@@ -12,7 +12,7 @@
 # @synopsis
 #
 # \arguments{
-#   \item{cesTuple}{A @see "CopyNumberDataSetTuple".}
+#   \item{cesTuple}{A @see "AromaMicroarrayDataSetList".}
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
 #   \item{...}{Not used.}
@@ -36,9 +36,9 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
   # Argument 'cesTuple':
   if (!is.null(cesTuple)) {
     # BEGIN: AFFX
-    # Coerce to AromaMicroarrayDataSetTuple, if needed
-    if (!inherits(cesTuple, "AromaMicroarrayDataSetTuple")) {
-      cesTuple <- as.AromaMicroarrayDataSetTuple(cesTuple);
+    # Coerce, if needed
+    if (!inherits(cesTuple, "AromaMicroarrayDataSetList")) {
+      cesTuple <- as.AromaMicroarrayDataSetList(cesTuple);
     }
     # END: AFFX
   }
@@ -84,16 +84,8 @@ setMethodS3("as.character", "ChromosomalModel", function(x, ...) {
   s <- c(s, sprintf("Number of chip types: %d", nbrOfChipTypes));
   s <- c(s, sprintf("Chip types: %d", paste(chipTypes, collapse=", ")));
 
-  s <- c(s, "Data-set tuple:");
-  cesList <- getListOfSets(setTuple);
-  for (kk in seq(along=cesList)) {
-    chipType <- getChipType(cesList);
-    s <- c(s, sprintf("Chip type #%d of %d ('%s'):", 
-                                    kk, nbrOfChipTypes, chipType));
-    s <- c(s, "Chip-effect set:");
-    ces <- cesList[[kk]];
-    s <- c(s, as.character(ces));
-  }
+  s <- c(s, "List of data sets:");
+  s <- c(s, as.character(setTuple));
 
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";

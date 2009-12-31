@@ -1,5 +1,5 @@
 setConstructorS3("AromaUnitTotalCnBinarySetTuple", function(..., .setClass="AromaUnitTotalCnBinarySet") {
-  extend(AromaMicroarrayDataSetTuple(..., .setClass=.setClass), c("AromaUnitTotalCnBinarySetTuple", uses("CopyNumberDataSetTuple")));
+  extend(AromaMicroarrayDataSetList(..., .setClass=.setClass), c("AromaUnitTotalCnBinarySetTuple", uses("CopyNumberDataSetTuple")));
 })
 
 
@@ -32,6 +32,9 @@ setMethodS3("getUnitNamesFile", "AromaUnitTotalCnBinarySet", function(this, ...)
 
 ###########################################################################
 # HISTORY:
+# 2009-12-30
+# o Now AromaUnitTotalCnBinarySetTuple inherits from
+#   AromaMicroarrayDataSetList.
 # 2009-11-19
 # o Created.
 ###########################################################################

@@ -125,9 +125,39 @@ setMethodS3("getModel", "ChromosomeExplorer", function(this, ...) {
 })
 
 
+
+###########################################################################/**
+# @RdocMethod getNames
+#
+# @title "Gets the names of the input samples"
+#
+# \description{
+#  @get "title" for which the explorer is displaying it results.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character @vector.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getNames", "ChromosomeExplorer", function(this, ...) {
-  getArrays(this, ...);
+  names <- getArrays(this, ...);
+##  names <- getFullNames(this, ...);
+##  names <- gsub(",.*", "", names);
+  names;
 })
+
 
 setMethodS3("getArraysOfInput", "ChromosomeExplorer", function(this, ...) {
   model <- getModel(this);
@@ -166,7 +196,7 @@ setMethodS3("translateFullNames", "ChromosomeExplorer", function(this, names, ..
     stopifnot(length(names2) == length(names));
     # Sanity check
     stopifnot(!anyMissing(names2));
-    names <- names;
+    names <- names2;
   }
   names;
 })
@@ -209,19 +239,14 @@ setMethodS3("getFullNames", "ChromosomeExplorer", function(this, ...) {
 setMethodS3("setArrays", "ChromosomeExplorer", function(this, arrays=NULL, ...) {
   # Argument 'arrays':
   if (!is.null(arrays)) {
-    setTuple <- getSetTuple(this);
+    model <- getModel(this);
+    setTuple <- getSetTuple(model);
     arrays <- indexOfArrays(setTuple, arrays);
     arrays <- getArrays(setTuple)[arrays];
   }
 
   this$.arrays <- arrays;
 })
-
-setMethodS3("getSetTuple", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  getSetTuple(model);
-}, protected=TRUE)
-
 
 setMethodS3("getNameOfInput", "ChromosomeExplorer", function(this, ...) {
   model <- getModel(this);
@@ -312,6 +337,14 @@ setMethodS3("setZooms", "ChromosomeExplorer", function(this, zooms=NULL, ...) {
   invisible(this);
 })
 
+setMethodS3("getSampleLabels", "ChromosomeExplorer", function(this, ...) {
+  labels <- getNames(this);
+  fnt <- this$.labelsNT;
+  if (!is.null(fnt)) {
+    labels <- fnt(labels, ...);
+  }
+  labels;
+})
 
 
 
@@ -445,7 +478,7 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
   env <- new.env();
   env$chipTypes <- chipTypes;
   env$samples <- getFullNames(this, ...);
-  env$sampleLabels <- getNames(this);
+  env$sampleLabels <- getSampleLabels(this);
   env$zooms <- zooms;
   env$sets <- sets;
   env$chrLayers <- chrLayers;
@@ -642,9 +675,9 @@ setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  if (is.null(arrays))
+  if (is.null(arrays)) {
     arrays <- getNames(this);
-
+  }
 
   # Get the model
   model <- getModel(this);
@@ -840,6 +873,14 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 
 ##############################################################################
 # HISTORY:
+# 2009-12-30
+# o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
+# 2009-12-25
+# o Added getSampleLabels() to ChromosomeExplorer.
+# o Now getNames() of ChromosomeExplorer is based on the getFullNames()
+#   output, and no longer on getArrays().
+# o BUG FIX: translateFullNames() of ChromosomeExplorer would translate the
+#   full names, but return the original ones.
 # 2009-12-22
 # o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in 
 #   UseMethod("translateFullNames") : no applicable method for 
