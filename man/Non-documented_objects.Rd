@@ -973,6 +973,7 @@
 \alias{indexOf.AromaMicroarrayDataSetTuple}
 \alias{indexOf.ChromosomalModel}
 \alias{indexOf.ChromosomeExplorer}
+\alias{getSets.AromaMicroarrayDataSetTuple}
 
 \description{
   This page contains aliases for all "non-documented" objects that

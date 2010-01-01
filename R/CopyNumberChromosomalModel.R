@@ -61,6 +61,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
       refList <- refTuple;
 
       cesList <- getSets(cesTuple);
+
       # Assert the number of chip types
       if (length(refList) != length(cesList)) {
         throw("The number of chip types in the references (argument 'refTuple') does not match the number of chip types in the sample (argument 'cesTuple'): ", length(refList), " != ", length(cesList));
@@ -79,7 +80,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
 
           # Sanity check
           if (is.null(ces)) {
-            throw("The reference (argument 'refTuple') uses a chip type not used in the sample (argument 'cesTuple'): ", chipType, " not in (", paste(names(ces), collapse=", "), ")");
+            throw("The reference (argument 'refTuple') uses a chip type not used in the sample (argument 'cesTuple'): ", chipType, " not in (", paste(names(cesList), collapse=", "), ")");
           }
 
           # Create a data set holding a sequence of one replicated reference file
@@ -846,6 +847,10 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
 ##############################################################################
 # HISTORY:
+# 2009-12-31
+# o ROBUSTNESS: The error message "The reference (argument 'refTuple')..."
+#   thrown by the constructor when the test and reference sets do not use 
+#   the same chip types did not show the correct chip types for the test set.
 # 2009-11-22
 # o CLEAN UP: Added argument 'estimateSd' to getRawCnData(), because stddev
 #   estimates are actually not used for most segmentation methods.

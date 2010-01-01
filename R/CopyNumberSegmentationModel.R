@@ -62,10 +62,19 @@ setMethodS3("getTags", "CopyNumberSegmentationModel", function(this, collapse=NU
     asteriskTags <- "";
   tags[tags == "*"] <- asteriskTags;
   tags <- tags[nchar(tags) > 0];
-  tags <- unlist(strsplit(tags, split=","), use.names=TRUE);
 
-  # Keep non-empty tags
+  # Nothing more to do?
+  if (length(tags) == 0) {
+    return(NULL);
+  }
+
+  tags <- unlist(strsplit(tags, split=","), use.names=TRUE);
   tags <- tags[nchar(tags) > 0];
+
+  # Nothing more to do?
+  if (length(tags) == 0) {
+    return(NULL);
+  }
 
   # Get unique tags
   tags <- locallyUnique(tags);
@@ -77,8 +86,10 @@ setMethodS3("getTags", "CopyNumberSegmentationModel", function(this, collapse=NU
     tags <- unlist(strsplit(tags, split=","));
   }
 
-  if (length(tags) == 0)
-    tags <- NULL;
+  # Nothing more to do?
+  if (length(tags) == 0) {
+    return(NULL);
+  }
 
   tags;
 })
@@ -658,6 +669,10 @@ ylim <- c(-1,1);
 
 ##############################################################################
 # HISTORY:
+# 2009-12-31
+# o BUG FIX: After the recent updates, the getTags() methods of 
+#   CopyNumberSegmentationModel could give "Error in strsplit(tags, 
+#   split = ",") : non-character argument".
 # 2009-11-22
 # o CLEAN UP: Now extractRawCopyNumbers() is used; not old getRawCnData().
 # 2009-11-16

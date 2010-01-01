@@ -213,6 +213,16 @@ setMethodS3("getChipTypes", "AromaMicroarrayDataSetTuple", function(this, fullna
 })
 
 
+setMethodS3("getSets", "AromaMicroarrayDataSetTuple", function(this, ...) {
+  res <- NextMethod("getSets", this, ...);
+  # Name sets by their chip types
+  chipTypes <- sapply(res, FUN=getChipType);
+  chipTypes <- gsub(",monocell", "", chipTypes);
+  names(res) <- chipTypes;
+  res;
+})
+
+
 
 setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE);
 
@@ -220,6 +230,9 @@ setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE)
 
 ##############################################################################
 # HISTORY:
+# 2009-12-31
+# o getSets() of AromaMicroarrayDataSetTuple overrides the default method
+#   by adding the chip types as the names of the returns list.
 # 2009-12-30
 # o Renamed indexOfArrays() to indexOf().
 # o Dropped nbrOfArrays(); use nbrOfFiles() instead.

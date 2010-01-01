@@ -479,3 +479,4 @@ extractCopyNumberOutliers.profileCGH
   getSampleLabels.ChromosomeExplorer getSets.ChromosomalModel
   indexOf.AromaMicroarrayDataSetTuple indexOf.ChromosomalModel
   indexOf.ChromosomeExplorer
+getSets.AromaMicroarrayDataSetTuple
