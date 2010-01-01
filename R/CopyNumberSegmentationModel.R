@@ -135,7 +135,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
   # Argument 'arrays':
   if (identical(arrays, "fitted")) {
   } else {
-    arrays <- indexOfArrays(this, arrays=arrays);
+    arrays <- indexOf(this, arrays);
   }
 
   allChromosomes <- getChromosomes(this);
@@ -506,7 +506,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  arrays <- indexOfArrays(this, arrays=arrays);
+  arrays <- indexOf(this, arrays);
 
   # Argument 'format':
   format <- match.arg(format);

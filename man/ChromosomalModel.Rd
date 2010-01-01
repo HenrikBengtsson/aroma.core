@@ -35,7 +35,7 @@ extends \link[R.oo]{Object}\cr
  \usage{ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", ...)}
 
  \arguments{
-   \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
+   \item{cesTuple}{A \code{\link{AromaMicroarrayDataSetTuple}}.}
    \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
    \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
    \item{...}{Not used.}
@@ -47,8 +47,6 @@ extends \link[R.oo]{Object}\cr
  \tab \code{clearCache} \tab  -\cr
  \tab \code{fit} \tab  -\cr
  \tab \code{getAlias} \tab  -\cr
- \tab \code{\link[aroma.core:getArrays.ChromosomalModel]{getArrays}} \tab Gets the names of the arrays.\cr
- \tab \code{getChipEffectFiles} \tab  -\cr
  \tab \code{\link[aroma.core:getChipType.ChromosomalModel]{getChipType}} \tab Gets a label for all chip types merged.\cr
  \tab \code{getChipTypes} \tab  -\cr
  \tab \code{\link[aroma.core:getChromosomes.ChromosomalModel]{getChromosomes}} \tab Gets the chromosomes available.\cr
@@ -56,13 +54,12 @@ extends \link[R.oo]{Object}\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getGenome} \tab  -\cr
  \tab \code{getListOfAromaUgpFiles} \tab  -\cr
- \tab \code{getListOfChipEffectSets} \tab  -\cr
  \tab \code{getName} \tab  -\cr
- \tab \code{getNames} \tab  -\cr
+ \tab \code{\link[aroma.core:getNames.ChromosomalModel]{getNames}} \tab Gets the names of the arrays.\cr
  \tab \code{getParentPath} \tab  -\cr
  \tab \code{getPath} \tab  -\cr
  \tab \code{getRootPath} \tab  -\cr
- \tab \code{\link[aroma.core:getTableOfArrays.ChromosomalModel]{getTableOfArrays}} \tab Gets a table of arrays.\cr
+ \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfArrays.ChromosomalModel]{nbrOfArrays}} \tab Gets the number of arrays.\cr
  \tab \code{\link[aroma.core:nbrOfChipTypes.ChromosomalModel]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr

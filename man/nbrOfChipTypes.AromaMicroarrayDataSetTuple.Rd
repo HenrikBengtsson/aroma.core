@@ -32,6 +32,7 @@
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
 \seealso{
+  \code{\link[aroma.core:getChipTypes.AromaMicroarrayDataSetTuple]{*getChipTypes}()}.
   For more information see \code{\link{AromaMicroarrayDataSetTuple}}.
 }
 \keyword{internal}

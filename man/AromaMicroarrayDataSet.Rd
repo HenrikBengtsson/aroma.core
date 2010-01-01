@@ -47,6 +47,7 @@ extends \link[R.filesets]{GenericDataFileSet}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{as.AromaMicroarrayDataSetList} \tab  -\cr
  \tab \code{as.AromaMicroarrayDataSetTuple} \tab  -\cr
  \tab \code{getAverageFile} \tab  -\cr
  \tab \code{getChipType} \tab  -\cr

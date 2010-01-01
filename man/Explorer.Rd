@@ -43,10 +43,10 @@ extends \link[R.oo]{Object}\cr
  \tab \code{addIncludes} \tab  -\cr
  \tab \code{\link[aroma.core:display.Explorer]{display}} \tab Displays the explorer in the default browser.\cr
  \tab \code{\link[aroma.core:getAlias.Explorer]{getAlias}} \tab Gets the alias of the output set.\cr
- \tab \code{\link[aroma.core:getArrays.Explorer]{getArrays}} \tab Gets the names of the arrays.\cr
  \tab \code{getAsteriskTags} \tab  -\cr
  \tab \code{getFullName} \tab  -\cr
  \tab \code{\link[aroma.core:getName.Explorer]{getName}} \tab Gets the name of the explorer.\cr
+ \tab \code{\link[aroma.core:getNames.Explorer]{getNames}} \tab Gets the names of the input samples.\cr
  \tab \code{getPath} \tab  -\cr
  \tab \code{getReportPathPattern} \tab  -\cr
  \tab \code{\link[aroma.core:getTags.Explorer]{getTags}} \tab Gets the tags of the explorer.\cr

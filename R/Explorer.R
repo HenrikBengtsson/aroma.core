@@ -99,12 +99,12 @@ setMethodS3("getArraysOfInput", "Explorer", abstract=TRUE, protected=TRUE);
 
 
 ###########################################################################/**
-# @RdocMethod getArrays
+# @RdocMethod getNames
 #
-# @title "Gets the names of the arrays"
+# @title "Gets the names of the input samples"
 #
 # \description{
-#  @get "title" in the explorer.
+#  @get "title" for which the explorer is displaying results.
 # }
 #
 # @synopsis
@@ -123,14 +123,18 @@ setMethodS3("getArraysOfInput", "Explorer", abstract=TRUE, protected=TRUE);
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("getArrays", "Explorer", function(this, ...) {
-  arrays <- this$.arrays;
-  if (is.null(arrays)) {
-    arrays <- getArraysOfInput(this);
-  }
-  arrays;
-})
+setMethodS3("getNames", "Explorer", function(this, ...) {
+  names <- this$.arrays;
 
+  if (is.null(names)) {
+    names <- getArraysOfInput(this);
+  }
+
+  # Sanity check
+  names <- Arguments$getCharacters(names);
+
+  names;
+})
 
 
 ###########################################################################/**
@@ -190,7 +194,7 @@ setMethodS3("setArrays", "Explorer", abstract=TRUE);
 # }
 #*/###########################################################################
 setMethodS3("nbrOfArrays", "Explorer", function(this, ...) {
-  length(getArrays(this));
+  length(getNames(this));
 })
 
 
@@ -701,6 +705,15 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
 
   invisible(res);
 })
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+# DEPRECATED
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+setMethodS3("getArrays", "Explorer", function(this, ...) {
+  getNames(this, ...);
+}, deprecated=TRUE)
+
+
 
 
 ##############################################################################

@@ -1,9 +1,12 @@
 Package: aroma.core
 ===================
 
-Version: 1.3.7 [2009-12-23]
+Version: 1.3.7 [2009-12-30]
 o Added argument 'pattern' to byName() for AromaUnitTotalCnBinarySet
   and AromaUnitFracBCnBinarySet.
+o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
+o BUG FIX: translateFullNames() of ChromosomeExplorer would translate the
+  full names, but return the original ones.
 o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in 
   UseMethod("translateFullNames") : no applicable method for 
   'translateFullNames' applied to an object of class "character".

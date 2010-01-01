@@ -391,7 +391,7 @@ setName.RawGenomicSignals
   getListOfUnitNamesFiles.ChromosomalModel getListOfUnitTypesFiles
   getListOfUnitTypesFiles.ChromosomalModel getLog2Ratios
   getLog2Ratios.CopyNumberSegmentationModel getName.ChromosomalModel
-  getNames.ChromosomalModel getNumberOfFilesAveraged
+  getNumberOfFilesAveraged
   getNumberOfFilesAveraged.CopyNumberDataFile getParentPath
   getParentPath.ChromosomalModel getPath.ChromosomalModel getRawCnData
   getRawCnData.CopyNumberChromosomalModel getReferenceSetTuple
@@ -472,3 +472,10 @@ extractCopyNumberOutliers.profileCGH
  plot.CopyNumberSegmentationModel plot.profileCGH plotProfile2
  plotProfile2.profileCGH plotRawCNs plotRawCNs.profileCGH pointsRawCNs
  pointsRawCNs.default pointsRawCNs.profileCGH 
+ getFileListClass getFileListClass.GenericDataFileSetList
+  as.AromaMicroarrayDataSetList
+  as.AromaMicroarrayDataSetList.AromaMicroarrayDataSet extractOld
+  extractOld.AromaMicroarrayDataSetTuple getSampleLabels
+  getSampleLabels.ChromosomeExplorer getSets.ChromosomalModel
+  indexOf.AromaMicroarrayDataSetTuple indexOf.ChromosomalModel
+  indexOf.ChromosomeExplorer

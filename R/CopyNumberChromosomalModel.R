@@ -60,7 +60,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     if (is.list(refTuple)) {
       refList <- refTuple;
 
-      cesList <- getListOfSets(cesTuple);
+      cesList <- getSets(cesTuple);
       # Assert the number of chip types
       if (length(refList) != length(cesList)) {
         throw("The number of chip types in the references (argument 'refTuple') does not match the number of chip types in the sample (argument 'cesTuple'): ", length(refList), " != ", length(cesList));
@@ -115,8 +115,8 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
 
 
     # Validate consistency between the data sets and the reference files
-    cesList <- getListOfSets(cesTuple);
-    refList <- getListOfSets(refTuple);
+    cesList <- getSets(cesTuple);
+    refList <- getSets(refTuple);
     for (kk in seq(along=cesList)) {
       ces <- cesList[[kk]];
       ref <- refList[[kk]];
@@ -178,10 +178,10 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
   nbrOfChipTypes <- length(chipTypes);
   s <- c(s, sprintf("Number of chip types: %d", nbrOfChipTypes));
   s <- c(s, "Sample & reference file pairs:");
-  cesList <- getListOfSets(getSetTuple(this));
+  cesList <- getSets(getSetTuple(this));
   refList <- getRefSetTuple(this);
   if (!is.null(refList))
-    refList <- getListOfSets(refList);
+    refList <- getSets(refList);
   for (kk in seq(along=cesList)) {
     s <- c(s, sprintf("Chip type #%d of %d ('%s'):", kk, nbrOfChipTypes, chipTypes[kk]));
     s <- c(s, "Sample data set:");
@@ -250,7 +250,7 @@ setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this,
 
 
   cesTuple <- getSetTuple(this);
-  cesList <- getListOfSets(cesTuple);
+  cesList <- getSets(cesTuple);
 
   refTuple <- getRefSetTuple(this);
   if (!force && inherits(refTuple, class(cesTuple)[1])) {
@@ -295,24 +295,6 @@ setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this,
 
 
 
-setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, array, ..., verbose=FALSE) {
-  cesTuple <- getSetTuple(this);
-  refTuple <- getReferenceSetTuple(this);
-
-  ceList <- getArrayTuple(cesTuple, array=array, ..., verbose=less(verbose,1));
-  rfList <- getArrayTuple(refTuple, array=array, ..., verbose=less(verbose,1));
-
-  # Sanity check
-  if (!identical(names(ceList), names(rfList)))
-    throw("Internal error. Reference files of non-matching chip types.");
-
-  files <- c(ceList, rfList);
-  dim(files) <- c(length(ceList), 2);
-  dimnames(files) <- list(names(ceList), c("test", "reference"));
-  files;  
-}, protected=TRUE);
-
-
 setMethodS3("calculateRatios", "CopyNumberChromosomalModel", function(this, ...) {
   calculateRatios <- this$.calculateRatios;
   if (is.null(calculateRatios)) {
@@ -323,6 +305,54 @@ setMethodS3("calculateRatios", "CopyNumberChromosomalModel", function(this, ...)
 }, protected=TRUE)
 
 
+setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, array, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Extract DataFileMatrix");
+  verbose && cat(verbose, "Array: ", array);
+
+  cesTuple <- getSetTuple(this);
+#  verbose && cat(verbose, "Test data sets:");
+#  verbose && print(verbose, cesTuple);
+
+  refTuple <- getReferenceSetTuple(this);
+#  verbose && cat(verbose, "Reference data sets:");
+#  verbose && print(verbose, refTuple);
+
+#  ceList <- getArrayTuple(cesTuple, array=array, ..., verbose=less(verbose,1));
+#  rfList <- getArrayTuple(refTuple, array=array, ..., verbose=less(verbose,1));
+
+  ceList <- getFileList(cesTuple, array, ..., verbose=less(verbose,1));
+#  verbose && cat(verbose, "Test data files:");
+#  verbose && print(verbose, ceList);
+
+  rfList <- getFileList(refTuple, array, ..., verbose=less(verbose,1));
+#  verbose && cat(verbose, "Reference data files:");
+#  verbose && print(verbose, rfList);
+
+  # Sanity check
+  if (!identical(names(ceList), names(rfList)))
+    throw("Internal error. Reference files of non-matching chip types.");
+
+  files <- c(ceList, rfList);
+  dim(files) <- c(length(ceList), 2);
+  dimnames(files) <- list(names(ceList), c("test", "reference"));
+
+  verbose && exit(verbose);
+
+  files;  
+}, protected=TRUE);
+
+
+
 setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., maxNAFraction=1/5, estimateSd=TRUE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -331,12 +361,9 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
   if (!inherits(ceList, "list")) {
     throw("Argument 'ceList' is not a list: ", class(ceList)[1]);
   } else {
-    for (kk in seq(along=ceList)) {
-      ce <- ceList[[kk]];
-      className <- "CopyNumberDataFile";
-      if (!is.null(ce) && !inherits(ce, className)) {
-        throw("Argument 'ceList' contains a non-", className, ": ", 
-                                                               class(ce)[1]);
+    for (ce in ceList) {
+      if (!is.null(ce)) {
+        ce <- Arguments$getInstanceOf(ce, "CopyNumberDataFile");
       }
     }
   }
@@ -348,12 +375,9 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     if (length(refList) != length(ceList)) {
       throw("Argument 'refList' is of a different length than 'cesList': ", length(refList), " != ", length(ceList));
     }
-    for (kk in seq(along=refList)) {
-      ref <- refList[[kk]];
-      className <- "CopyNumberDataFile";
-      if (!is.null(ref) && !inherits(ref, className)) {
-        throw("Argument 'refList' contains a non-", className, ": ", 
-                                                              class(ref)[1]);
+    for (ref in refList) {
+      if (!is.null(ref)) {
+        ref <- Arguments$getInstanceOf(ref, "CopyNumberDataFile");
       }
     }
   }
@@ -370,7 +394,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
 
   # Data set attributes
   chipTypes <- getChipTypes(this);
-  arrayNames <- getArrays(this);
+  arrayNames <- getNames(this);
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -527,7 +551,7 @@ setMethodS3("calculateChromosomeStatistics", "CopyNumberChromosomalModel", funct
   allChromosomes <- getChromosomes(this);
 
   # Argument 'arrays':
-  arrays <- indexOfArrays(this, arrays=arrays);
+  arrays <- indexOf(this, arrays);
 
   # Argument 'chromosomes':
   if (is.null(chromosomes)) {
@@ -775,7 +799,7 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  arrays <- indexOfArrays(this, arrays=arrays);
+  arrays <- indexOf(this, arrays);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -789,7 +813,7 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
   naValue <- as.double(NA);
   res <- matrix(naValue, nrow=nbrOfChromosomes, ncol=length(arrays));
-  colnames(res) <- getArrays(this)[arrays];
+  colnames(res) <- getNames(this)[arrays];
   rownames(res) <- chromosomes;
 
 

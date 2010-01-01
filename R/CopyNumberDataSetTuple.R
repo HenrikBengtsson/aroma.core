@@ -71,7 +71,7 @@ setMethodS3("as.CopyNumberDataSetTuple", "list", function(this, ...) {
 })
 
 setMethodS3("hasAlleleBFractions", "CopyNumberDataSetTuple", function(this, ...) {
-  cesList <- getListOfSets(this);
+  cesList <- getSets(this);
   res <- sapply(cesList, FUN=hasAlleleBFractions);
 
   # Sanity check
@@ -84,7 +84,7 @@ setMethodS3("hasAlleleBFractions", "CopyNumberDataSetTuple", function(this, ...)
 })
 
 setMethodS3("hasStrandiness", "CopyNumberDataSetTuple", function(this, ...) {
-  cesList <- getListOfSets(this);
+  cesList <- getSets(this);
   res <- sapply(cesList, FUN=hasStrandiness);
 
   # Sanity check

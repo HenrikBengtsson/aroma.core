@@ -16,7 +16,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
   # Argument 'arrays':
   if (identical(arrays, "fitted")) {
   } else {
-    arrays <- indexOfArrays(this, arrays=arrays);
+    arrays <- indexOf(this, arrays);
   } 
 
   allChromosomes <- getChromosomes(this);

@@ -12,7 +12,7 @@
 # @synopsis
 #
 # \arguments{
-#   \item{cesTuple}{A @see "AromaMicroarrayDataSetList".}
+#   \item{cesTuple}{A @see "AromaMicroarrayDataSetTuple".}
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
 #   \item{...}{Not used.}
@@ -35,12 +35,10 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cesTuple':
   if (!is.null(cesTuple)) {
-    # BEGIN: AFFX
     # Coerce, if needed
-    if (!inherits(cesTuple, "AromaMicroarrayDataSetList")) {
-      cesTuple <- as.AromaMicroarrayDataSetList(cesTuple);
+    if (!inherits(cesTuple, "AromaMicroarrayDataSetTuple")) {
+      cesTuple <- as.AromaMicroarrayDataSetTuple(cesTuple);
     }
-    # END: AFFX
   }
 
   # Argument 'tags':
@@ -78,14 +76,14 @@ setMethodS3("as.character", "ChromosomalModel", function(x, ...) {
   s <- c(s, paste("Tags:", getTags(this, collapse=",")));
   s <- c(s, paste("Chip type (virtual):", getChipType(this)));
   s <- c(s, sprintf("Path: %s", getPath(this)));
-  setTuple <- getSetTuple(this);
-  chipTypes <- getChipTypes(setTuple);
+  tuple <- getSetTuple(this);
+  chipTypes <- getChipTypes(tuple);
   nbrOfChipTypes <- length(chipTypes);
   s <- c(s, sprintf("Number of chip types: %d", nbrOfChipTypes));
   s <- c(s, sprintf("Chip types: %d", paste(chipTypes, collapse=", ")));
 
   s <- c(s, "List of data sets:");
-  s <- c(s, as.character(setTuple));
+  s <- c(s, as.character(tuple));
 
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
@@ -184,11 +182,11 @@ setMethodS3("getSetTuple", "ChromosomalModel", function(this, ...) {
 }, protected=TRUE)
 
 
-setMethodS3("getListOfChipEffectSets", "ChromosomalModel", function(this, ...) {
-  cesTuple <- getSetTuple(this);
-  getListOfSets(cesTuple);
-})
 
+setMethodS3("getSets", "ChromosomalModel", function(this, ...) {
+  tuple <- getSetTuple(this);
+  getSets(tuple);
+})
 
 
 ###########################################################################/**
@@ -217,23 +215,27 @@ setMethodS3("getListOfChipEffectSets", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("nbrOfChipTypes", "ChromosomalModel", function(this, ...) {
-  nbrOfChipTypes(getSetTuple(this), ...);
+  tuple <- getSetTuple(this);
+  nbrOfChipTypes(tuple, ...);
 })
 
 
 
 setMethodS3("getListOfUnitNamesFiles", "ChromosomalModel", function(this, ...) {
-  getListOfUnitNamesFiles(getSetTuple(this), ...);
+  tuple <- getSetTuple(this);
+  getListOfUnitNamesFiles(tuple, ...);
 }, private=TRUE)
 
 setMethodS3("getListOfUnitTypesFiles", "ChromosomalModel", function(this, ...) {
-  getListOfUnitTypesFiles(getSetTuple(this), ...);
+  tuple <- getSetTuple(this);
+  getListOfUnitTypesFiles(tuple, ...);
 }, private=TRUE)
 
 
 
 setMethodS3("getChipTypes", "ChromosomalModel", function(this, ...) {
-  getChipTypes(getSetTuple(this), ...);
+  tuple <- getSetTuple(this);
+  getChipTypes(tuple, ...);
 })
 
 
@@ -267,6 +269,47 @@ setMethodS3("getChipType", "ChromosomalModel", function(this, ...) {
 })
 
 
+
+###########################################################################/**
+# @RdocMethod getNames
+#
+# @title "Gets the names of the arrays"
+#
+# \description{
+#  @get "title" available to the model.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character @vector.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
+setMethodS3("getNames", "ChromosomalModel", function(this, ...) {
+  tuple <- getSetTuple(this);
+  getNames(tuple, ...);
+})
+
+
+setMethodS3("getFullNames", "ChromosomalModel", function(this, ...) {
+  tuple <- getSetTuple(this);
+  getFullNames(tuple, ...);
+})
+
+
+
+
+
 ###########################################################################/**
 # @RdocMethod getTableOfArrays
 #
@@ -297,82 +340,14 @@ setMethodS3("getChipType", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getTableOfArrays", "ChromosomalModel", function(this, ...) {
-  getTableOfArrays(getSetTuple(this), ...);
-})
+  tuple <- getSetTuple(this);
+  getTableOfArrays(tuple, ...);
+}, deprecated=TRUE)
 
 
-setMethodS3("getNames", "ChromosomalModel", function(this, ...) {
-  rownames(getTableOfArrays(this, ...));
-})
-
-
-setMethodS3("getFullNames", "ChromosomalModel", function(this, ...) {
-  getFullNames(getSetTuple(this), ...);
-})
-
-
-
-###########################################################################/**
-# @RdocMethod getArrays
-#
-# @title "Gets the names of the arrays"
-#
-# \description{
-#  @get "title" available in the model.
-# }
-#
-# @synopsis
-#
-# \arguments{
-#   \item{...}{Not used.}
-# }
-#
-# \value{
-#  Returns a @character @vector.
-# }
-#
-# @author
-#
-# \seealso{
-#   @seeclass
-# }
-#*/###########################################################################
-setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
-  getNames(this, ...);
-})
-
-
-
-
-###########################################################################/**
-# @RdocMethod indexOfArrays
-#
-# @title "Gets the indices of the arrays"
-#
-# \description{
-#  @get "title".
-# }
-#
-# @synopsis
-#
-# \arguments{
-#   \item{arrays}{A @character @vector of arrays names.
-#     If @NULL, all arrays are considered.}
-#   \item{...}{Not used.}
-# }
-#
-# \value{
-#  Returns an @integer @vector.
-# }
-#
-# @author
-#
-# \seealso{
-#   @seeclass
-# }
-#*/###########################################################################
-setMethodS3("indexOfArrays", "ChromosomalModel", function(this, arrays=NULL, ...) {
-  indexOfArrays(getSetTuple(this), arrays=arrays, ...);
+setMethodS3("indexOf", "ChromosomalModel", function(this, ...) {
+  tuple <- getSetTuple(this);
+  indexOf(tuple, ...);
 }, private=TRUE)
 
 
@@ -410,8 +385,10 @@ setMethodS3("nbrOfArrays", "ChromosomalModel", function(this, ...) {
 setMethodS3("getName", "ChromosomalModel", function(this, collapse="+", ...) {
   name <- getAlias(this);
 
-  if (is.null(name))
-    name <- getName(getSetTuple(this), ...);
+  if (is.null(name)) {
+    tuple <- getSetTuple(this);
+    name <- getName(tuple, ...);
+  }
 
   name;
 })
@@ -443,7 +420,8 @@ setMethodS3("getAsteriskTags", "ChromosomalModel", function(this, collapse=NULL,
 
 
 setMethodS3("getTags", "ChromosomalModel", function(this, collapse=NULL, ...) {
-  tags <- getTags(getSetTuple(this), collapse=collapse, ...);
+  tuple <- getSetTuple(this);
+  tags <- getTags(tuple, collapse=collapse, ...);
 
   # Add model tags
   tags <- c(tags, this$.tags);
@@ -550,13 +528,6 @@ setMethodS3("getListOfAromaUgpFiles", "ChromosomalModel", function(this, ..., ve
 
   ugpList;
 })
-
-
-setMethodS3("getChipEffectFiles", "ChromosomalModel", function(this, ...) {
-  setTuple <- getSetTuple(this);
-  getArrayTuple(setTuple, ...);
-})
-
 
 
 
@@ -688,6 +659,24 @@ setMethodS3("getSetTag", "ChromosomalModel", function(this, ...) {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 # BEGIN: DEPRECATED
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+setMethodS3("getChipEffectFiles", "ChromosomalModel", function(this, ...) {
+  tuple <- getSetTuple(this);
+  getArrayTuple(tuple, ...);
+}, deprecated=TRUE)
+
+
+
+setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
+  getNames(this, ...);
+}, deprecated=TRUE)
+
+
+setMethodS3("getListOfChipEffectSets", "ChromosomalModel", function(this, ...) {
+  getSets(this, ...);
+}, deprecated=TRUE)
+
+
+
 setMethodS3("getAlias", "ChromosomalModel", function(this, ...) {
   this$.alias;
 })

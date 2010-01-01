@@ -819,7 +819,6 @@
 \alias{getLog2Ratios}
 \alias{getLog2Ratios.CopyNumberSegmentationModel}
 \alias{getName.ChromosomalModel}
-\alias{getNames.ChromosomalModel}
 \alias{getNumberOfFilesAveraged}
 \alias{getNumberOfFilesAveraged.CopyNumberDataFile}
 \alias{getParentPath}
@@ -962,6 +961,18 @@
 \alias{pointsRawCNs}
 \alias{pointsRawCNs.default}
 \alias{pointsRawCNs.profileCGH}
+\alias{getFileListClass}
+\alias{getFileListClass.GenericDataFileSetList}
+\alias{as.AromaMicroarrayDataSetList}
+\alias{as.AromaMicroarrayDataSetList.AromaMicroarrayDataSet}
+\alias{extractOld}
+\alias{extractOld.AromaMicroarrayDataSetTuple}
+\alias{getSampleLabels}
+\alias{getSampleLabels.ChromosomeExplorer}
+\alias{getSets.ChromosomalModel}
+\alias{indexOf.AromaMicroarrayDataSetTuple}
+\alias{indexOf.ChromosomalModel}
+\alias{indexOf.ChromosomeExplorer}
 
 \description{
   This page contains aliases for all "non-documented" objects that

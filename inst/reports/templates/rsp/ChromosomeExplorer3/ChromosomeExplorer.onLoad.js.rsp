@@ -10,6 +10,7 @@ explorer.onLoad = function() {
   /* Samples */
   this.setSamples(new Array(<%=paste("'", samples, "'", sep="", collapse=", ")%>));
   this.setSampleAliases(new Array(<%=paste("'", gsub("[,].*$", "", samples), "'", sep="", collapse=", ")%>));
+  this.setSampleAliases(new Array(<%=paste("'", sampleLabels, "'", sep="", collapse=", ")%>));
  
   /* Detected sets */
   this.setSets(new Array(<%=paste(paste("'", sets, "'", sep=""), collapse=", ")%>));

@@ -118,13 +118,20 @@ function ChromosomeExplorer() {
 
   this.updateInfo = function() {
     updateLabel('chromosomeLabel', this.chromosomes[this.chromosomeIdx]);
+
     var label = this.samples[this.sampleIdx];
+    var tags = null;
     if (this.sampleAliases != null) {
       if (this.sampleAliases[this.sampleIdx] != label) {
-        label = this.sampleAliases[this.sampleIdx] + ' (' + label + ')';
+        tags = label;
+        label = this.sampleAliases[this.sampleIdx];
       }
     }
     updateLabel('sampleLabel', label);
+
+    if (tags != null) {
+      updateLabel('sampleTags', '(' + tags + ')');
+    }
   }
 
 

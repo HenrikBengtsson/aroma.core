@@ -74,7 +74,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  arrays <- indexOfArrays(this, arrays=arrays);
+  arrays <- indexOf(this, arrays);
 
   # Argument 'format':
   format <- match.arg(format);

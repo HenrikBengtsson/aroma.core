@@ -1,25 +1,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  ChromosomeExplorer.R
+%  ChromosomalModel.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\name{setArrays.ChromosomeExplorer}
-\alias{setArrays.ChromosomeExplorer}
-\alias{ChromosomeExplorer.setArrays}
-\alias{setArrays.ChromosomeExplorer}
-\alias{setArrays,ChromosomeExplorer-method}
+\name{getNames.ChromosomalModel}
+\alias{getNames.ChromosomalModel}
+\alias{ChromosomalModel.getNames}
+\alias{getNames.ChromosomalModel}
+\alias{getNames,ChromosomalModel-method}
 
 
-\title{Sets the arrays}
+\title{Gets the names of the arrays}
 
 \description{
- Sets the arrays to be processed by the explorer.
+ Gets the names of the arrays available to the model.
 }
 
-\usage{\method{setArrays}{ChromosomeExplorer}(this, ...)}
+\usage{\method{getNames}{ChromosomalModel}(this, ...)}
 
 \arguments{
   \item{...}{Not used.}
@@ -32,7 +32,7 @@
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
 \seealso{
-  For more information see \code{\link{ChromosomeExplorer}}.
+  For more information see \code{\link{ChromosomalModel}}.
 }
 \keyword{internal}
 \keyword{methods}
