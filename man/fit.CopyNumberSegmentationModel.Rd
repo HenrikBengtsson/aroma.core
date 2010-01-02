@@ -19,7 +19,7 @@
  Fits the model.
 }
 
-\usage{\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, aliased=FALSE, ..., .retResults=FALSE, verbose=FALSE)}
+\usage{\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE)}
 
 \arguments{
   \item{arrays}{A \code{\link[base]{vector}} of array indices specifying which arrays to

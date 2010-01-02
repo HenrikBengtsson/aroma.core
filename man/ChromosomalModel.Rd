@@ -61,6 +61,7 @@ extends \link[R.oo]{Object}\cr
  \tab \code{getRootPath} \tab  -\cr
  \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
+ \tab \code{indexOf} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfArrays.ChromosomalModel]{nbrOfArrays}} \tab Gets the number of arrays.\cr
  \tab \code{\link[aroma.core:nbrOfChipTypes.ChromosomalModel]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr
  \tab \code{setAlias} \tab  -\cr

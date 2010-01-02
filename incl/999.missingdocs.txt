@@ -480,3 +480,6 @@ extractCopyNumberOutliers.profileCGH
   indexOf.AromaMicroarrayDataSetTuple indexOf.ChromosomalModel
   indexOf.ChromosomeExplorer
 getSets.AromaMicroarrayDataSetTuple
+  getFullNames.CopyNumberSegmentationModel
+  getNames.CopyNumberSegmentationModel getPairNames
+  getPairNames.CopyNumberSegmentationModel

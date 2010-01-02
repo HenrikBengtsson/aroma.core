@@ -312,6 +312,9 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'array':
+  array <- Arguments$getIndex(array);
+
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
@@ -329,9 +332,6 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
   refTuple <- getReferenceSetTuple(this);
   verbose && cat(verbose, "Reference data sets:");
   verbose && print(verbose, refTuple);
-
-#  ceList <- getArrayTuple(cesTuple, array=array, ..., verbose=less(verbose,1));
-#  rfList <- getArrayTuple(refTuple, array=array, ..., verbose=less(verbose,1));
 
   ceList <- getFileList(cesTuple, array, ..., verbose=less(verbose,1));
   verbose && cat(verbose, "Test data files:");

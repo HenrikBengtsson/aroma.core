@@ -415,6 +415,13 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
   env$sampleLayers <- sampleLayers;
   verbose && print(verbose, ll(envir=env));
 
+  verbose && cat(verbose, "Sample names:");
+  verbose && print(verbose, env$sampleLabels);
+
+  verbose && cat(verbose, "Full sample names:");
+  verbose && print(verbose, env$samples);
+
+
   if (getParallelSafe(this)) {
     tryCatch({
       pathname <- rspToHtml(pathname, path=NULL, 
@@ -606,9 +613,7 @@ setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  if (is.null(arrays)) {
-    arrays <- getNames(this);
-  }
+  arrays <- indexOf(this, arrays);
 
   # Get the model
   model <- getModel(this);
@@ -629,8 +634,7 @@ setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nb
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  if (is.null(arrays)) 
-    arrays <- getNames(this);
+  arrays <- indexOf(this, arrays);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -713,8 +717,7 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  if (is.null(arrays))
-    arrays <- getNames(this);
+  arrays <- indexOf(this, arrays);
 
   # Argument 'chromosomes':
   allChromosomes <- getChromosomes(this);

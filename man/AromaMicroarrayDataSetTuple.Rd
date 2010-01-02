@@ -49,6 +49,7 @@ extends \link[R.filesets]{GenericDataFileSetList}\cr
  \tab \code{byPath} \tab  -\cr
  \tab \code{getChipTypes} \tab  -\cr
  \tab \code{getFullNames} \tab  -\cr
+ \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
  \tab \code{indexOf} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfArrays.AromaMicroarrayDataSetTuple]{nbrOfArrays}} \tab Gets the number of arrays.\cr
@@ -57,7 +58,7 @@ extends \link[R.filesets]{GenericDataFileSetList}\cr
 
 
  \bold{Methods inherited from GenericDataFileSetList}:\cr
-as.character, as.data.frame, as, as.GenericDataFileSetList, as.list, clone, extract, getAsteriskTags, getDefaultFullName, getFileList, getFileListClass, getFullNames, getNames, getSet, getSets, getTags, indexOf, length, nbrOfFiles, nbrOfSets, setTags
+as.character, as.data.frame, as, as.GenericDataFileSetList, as.list, assertDuplicates, clone, extract, getAsteriskTags, getDefaultFullName, getFileList, getFileListClass, getFullNames, getNames, getSet, getSets, getTags, indexOf, length, nbrOfFiles, nbrOfSets, setTags
 
  \bold{Methods inherited from FullNameInterface}:\cr
 appendFullNameTranslator, appendFullNameTranslatorBycharacter, appendFullNameTranslatorByfunction, appendFullNameTranslatorBylist, appendFullNameTranslatorByNULL, clearFullNameTranslator, clearListOfFullNameTranslators, getDefaultFullName, getFullName, getFullNameTranslator, getListOfFullNameTranslators, getName, getTags, hasTag, hasTags, setFullName, setFullNameTranslator, setListOfFullNameTranslators, setName, setTags, updateFullName

@@ -139,7 +139,132 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, aliased=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
+setMethodS3("getNames", "CopyNumberSegmentationModel", function(this, ...) {
+  getPairNames(this, ...);
+})
+
+setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
+  # Get paired names
+  names <- getNames(this, ...);
+
+  # Get tags
+  testTuple <- getSetTuple(this);
+  fullnames <- getFullNames(testTuple);
+  tags <- gsub("^[^,]*(|,)", "", fullnames);
+  rm(testTuple, fullnames);
+
+  fullnames <- paste(names, tags, sep=",");
+  fullnames <- gsub(",$", "", fullnames);
+  
+  fullnames;
+})
+
+setMethodS3("getPairNames", "CopyNumberSegmentationModel", function(this, ..., translate=TRUE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  pairedFnt <- function(names, ...) {
+    names <- gsub("^[.]average-.*", "", names);
+    names;
+  } # pairedFnt()
+
+
+  # Argument 'translate':
+  translate <- Arguments$getLogical(translate);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Constructing names of pairs");
+  tuple <- getSetTuple(this);
+  arrays <- seq(length=nbrOfFiles(tuple));
+
+  # Translate function?
+  if (translate) {
+    fnt <- this$.pairedFnt;
+
+    # Default
+    if (is.null(fnt)) {
+      fnt <- "pair";
+    }
+
+    verbose && cat(verbose, "Name-pair translator: ");
+    if (is.character(fnt)) {
+      verbose && str(verbose, fnt);
+      if (identical(fnt, "pair")) {
+        fnt <- pairedFnt;
+      }
+    }
+    verbose && str(verbose, fnt);
+
+    # Still translate?
+    translate <- is.function(fnt);
+  }
+
+  tupleList <- list(getSetTuple(this), getReferenceSetTuple(this));
+  namesList <- list();
+  for (kk in seq(along=tupleList)) {
+    tuple <- tupleList[[kk]];
+    names <- getNames(tuple);
+
+    # Translate name tuple?
+    if (translate) {
+      verbose && enter(verbose, "Translating name pair");
+      verbose && cat(verbose, "Names before: ", paste(names, collapse=", "));
+      names <- fnt(names);
+      verbose && cat(verbose, "Names after: ", paste(names, collapse=", "));
+      verbose && exit(verbose);
+    }
+
+    namesList[[kk]] <- names;
+  } # for (kk ...)
+
+  # Sanity check
+  ns <- sapply(namesList, FUN=length);
+  ns <- unique(ns);
+  stopifnot(length(ns) == 1);
+
+  sep <- this$.pairedNameSep;
+  if (is.null(sep)) {
+    sep <- "vs";
+  }
+  names <- paste(namesList[[1]], namesList[[2]], sep=sep);
+  pattern <- sprintf("%s$", sep);
+  names <- gsub(pattern, "", names);
+
+  verbose && cat(verbose, "Name of pairs:");
+  verbose && str(verbose, names);
+
+  verbose && exit(verbose);
+
+  names;
+}, protected=TRUE)
+
+
+setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  getTagsFromList <- function(files, ...) {
+    keep <- (!sapply(files, FUN=is.null));
+    files <- files[keep];
+
+    # Get tags *common* across chip types
+    tags <- lapply(files, FUN=getTags);
+    tags <- getCommonListElements(tags);
+    tags <- unlist(tags, use.names=FALSE);
+    # BEGIN: AFFX
+    tags <- setdiff(tags, "chipEffects");
+    # END: AFFX
+    tags <- locallyUnique(tags);
+    tags;
+  } # getTagsFromList()
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -167,9 +292,6 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
 ##    chromosomes[chromosomes == "23"] <- "X";   ## TODO
     chromosomes <- intersect(chromosomes, getChromosomes(this));
   }
-
-  # Argument 'aliased':
-  aliased <- Arguments$getLogical(aliased);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -209,38 +331,22 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
 
     files <- getDataFileMatrix(this, array=array, verbose=less(verbose,5));
 
-    ceList <- files[,"test"];
-    rfList <- files[,"reference"];
+    # Extract the test and reference files
+    ceList <- files[,"test", drop=FALSE];
+    rfList <- files[,"reference", drop=FALSE];
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Get tags for test sample
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Get copy-number signal tags *common* across chip types
-    tags <- lapply(ceList, FUN=function(ce) {
-      if (is.null(ce)) NULL else getTags(ce, aliased=aliased);
-    });
-    tags <- getCommonListElements(tags);
-    tags <- unlist(tags, use.names=FALSE);
-    # BEGIN: AFFX
-    tags <- setdiff(tags, "chipEffects");
-    # END: AFFX
-    tags <- locallyUnique(tags);
-    ceTags <- tags;
+    ceTags <- getTagsFromList(ceList);
     verbose && cat(verbose, "Genomic-signal tags: ", paste(ceTags, collapse=","));
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Get tags for reference sample
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Get copy-number signal tags *common* across chip types
-    tags <- lapply(rfList, FUN=function(rf) {
-      if (is.null(rf)) NULL else getTags(rf, aliased=aliased);
-    });
-    tags <- getCommonListElements(tags);
-    tags <- unlist(tags, use.names=FALSE);
-    # BEGIN: AFFX
-    tags <- setdiff(tags, "chipEffects");
-    # END: AFFX
-    tags <- locallyUnique(tags);
+    rfTags <- getTagsFromList(rfList);
 
     # HB 2007-02-19 To fix: Should the name and the tags of average files
     # be replaced?!? We do not get the same names if we specify the average
@@ -249,10 +355,9 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     # Add combined reference name
     names <- sapply(rfList, FUN=getName);
     names <- mergeByCommonTails(names,"+");
-    rfTags <- c(names, tags);
+    rfTags <- c(names, rfTags);
     rfTags <- digest2(rfTags);
     verbose && cat(verbose, "Reference tags: ", paste(rfTags, collapse=","));
-
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Chromosome by chromosome
@@ -532,7 +637,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
 
   # Setup
   fullname <- getFullName(this);
-  arrayNames <- getNames(this);
+  arrayNames <- getNames(this)[arrays];
 
   path <- getPath(this);
   mkdirs(path);
@@ -549,7 +654,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
   res <- list();
   for (aa in seq(along=arrays)) {
     array <- arrays[aa];
-    name <- arrayNames[array];
+    name <- arrayNames[aa];
     verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", 
                                                aa, name, length(arrays)));
     df <- getRegions(this, arrays=array, ..., verbose=less(verbose))[[1]];
@@ -669,6 +774,9 @@ ylim <- c(-1,1);
 
 ##############################################################################
 # HISTORY:
+# 2010-01-01
+# o Now getNames() uses new getPairNames() to CopyNumberSegmentationModel.
+# o Now fit() and writeRegions() use getPairNames() instead of getNames().
 # 2009-12-31
 # o BUG FIX: After the recent updates, the getTags() methods of 
 #   CopyNumberSegmentationModel could give "Error in strsplit(tags, 

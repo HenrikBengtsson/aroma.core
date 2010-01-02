@@ -974,6 +974,10 @@
 \alias{indexOf.ChromosomalModel}
 \alias{indexOf.ChromosomeExplorer}
 \alias{getSets.AromaMicroarrayDataSetTuple}
+\alias{getFullNames.CopyNumberSegmentationModel}
+\alias{getNames.CopyNumberSegmentationModel}
+\alias{getPairNames}
+\alias{getPairNames.CopyNumberSegmentationModel}
 
 \description{
   This page contains aliases for all "non-documented" objects that

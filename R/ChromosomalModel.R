@@ -345,10 +345,74 @@ setMethodS3("getTableOfArrays", "ChromosomalModel", function(this, ...) {
 }, deprecated=TRUE)
 
 
-setMethodS3("indexOf", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  indexOf(tuple, ...);
-}, private=TRUE)
+setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  getFullNames <- function(fullnames=NULL, ...) {
+    if (!is.null(fullnames))
+      return(fullnames);
+    getFullNames(this);
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  names <- getNames(this);
+
+  # Return all indices
+  if (is.null(patterns)) {
+    res <- seq(along=names);
+    names(res) <- names;
+    return(res);
+  } else if (is.numeric(patterns)) {
+    n <- length(names);
+    res <- Arguments$getIndices(patterns, max=n);
+    names(res) <- names[res];
+    return(res);
+  }
+
+  fullnames <- NULL;
+
+  naValue <- as.integer(NA);
+
+  patterns0 <- patterns;
+  res <- lapply(patterns, FUN=function(pattern) {
+    pattern <- sprintf("^%s$", pattern);
+    pattern <- gsub("\\^\\^", "^", pattern);
+    pattern <- gsub("\\$\\$", "$", pattern);
+
+    # Specifying tags?
+    if (regexpr(",", pattern) != -1) {
+      fullnames <- getFullNames(fullnames);
+      idxs <- grep(pattern, fullnames);
+    } else {
+      idxs <- grep(pattern, names);
+    }
+    if (length(idxs) == 0)
+      idxs <- naValue;
+
+    # Note that 'idxs' may return more than one match
+    idxs;
+  });
+
+  ns <- sapply(res, FUN=length);
+  names <- NULL;
+  for (kk in seq(along=ns)) {
+    names <- c(names, rep(patterns0[kk], times=ns[kk]));
+  }
+  res <- unlist(res, use.names=FALSE);
+  names(res) <- names;
+
+  # Not allowing missing values?
+  if (any(is.na(res))) {
+    names <- names(res)[is.na(res)];
+    throw("Some names where not match: ", paste(names, collapse=", "));
+  }
+
+  res;
+})
+
 
 
 
