@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.4.0 [2010-01-02]
+o Package passes R CMD check on R v2.10.1 and R v2.11.0 devel and
+  all of its redundancy tests.
+
+
 Version: 1.3.8 [2010-01-02]
 o Now getNames() of CopyNumberChromosomalModel uses getPairedNames().
   This will affect: (i) the filenames of stored segmentation fits, e.g.
