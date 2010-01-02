@@ -7,6 +7,7 @@ o Added argument 'pattern' to byName() for AromaUnitTotalCnBinarySet
 o getSets() of AromaMicroarrayDataSetTuple overrides the default method
   by adding the chip types as the names of the returns list.
 o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
+o ROBUSTNESS: Using new Arguments$getInstanceOf() were possible.
 o ROBUSTNESS: Now CopyNumberChromosomalModel() asserts that none of the
   test samples have duplicated names.
 o ROBUSTNESS: Now all index arguments are validated correctly 

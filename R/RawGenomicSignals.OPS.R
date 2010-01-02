@@ -17,11 +17,7 @@ setMethodS3("multiplyBy", "RawGenomicSignals", function(this, ...) {
 
 setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fields=getLocusFields(this), FUN, ..., sort=FALSE) {
   # Argument 'other':
-  className <- class(this)[1];
-  if (!inherits(other, className)) {
-    throw("Argument 'other' is not of class ", className, ": ", 
-                                                          class(other)[1]);
-  }
+  other <- Arguments$getInstanceOf(other, class(this)[1]);
 
   # Argument 'FUN':
   if (!is.function(FUN)) {

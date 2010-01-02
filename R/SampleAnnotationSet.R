@@ -41,8 +41,7 @@ setMethodS3("fromPath", "SampleAnnotationSet", function(static, path, pattern="[
   # Argument 'fileClass':
   clazz <- Class$forName(fileClass);
   dfStatic <- getStaticInstance(clazz);
-  if (!inherits(dfStatic, "SampleAnnotationFile"))
-    throw("Argument 'fileClass' is not refering to an SampleAnnotationFile class: ", paste(class(dfStatic), collapse=", "));
+  dfStatic <- Arguments$getInstanceOf(dfStatic, "SampleAnnotationFile");
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);

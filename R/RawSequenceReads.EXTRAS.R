@@ -3,11 +3,8 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'ref':
-  className <- class(this)[1];
   if (!is.null(ref)) {
-    if (!inherits(ref, className)) {
-      throw("Argument 'ref' is not of class '", className, "': ", class(ref)[1]);
-    }
+    ref <- Arguments$getInstanceOf(ref, class(this)[1]);
   }
 
   # Argument 'region':
@@ -31,6 +28,7 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
   }
 
 
+  className <- class(this)[1];
   verbose && enter(verbose, "Compiling list of ", className);
   rsrList <- list(this, ref);
   rsrList <- rsrList[!sapply(rsrList, is.null)];

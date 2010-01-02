@@ -1,8 +1,6 @@
 setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...) {
   # Argument 'other':
-  if (!inherits(other, class(this)[1])) {
-    throw("Cannot append argument 'other', because it is of an non-compatible class: ", class(other)[1]);
-  }
+  other <- Arguments$getInstanceOf(other, class(this)[1]);
 
   if (addId) {
     # Keep track of origins, but updating the locus IDs

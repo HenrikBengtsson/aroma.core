@@ -52,9 +52,7 @@ setMethodS3("importFromUnitTypesFile", "AromaUnitTypesFile", function(this, utf,
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'utf':
-  if (!inherits(utf, "UnitTypesFile")) {
-    throw("Argument 'utf' is not of class UnitTypesFile: ", class(utf)[1]);
-  }
+  utf <- Arguments$getInstanceOf(utf, "UnitTypesFile");
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);

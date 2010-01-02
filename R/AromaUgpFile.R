@@ -63,9 +63,8 @@ setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (!inherits(src, "GenericTabularFile")) {
-    throw("Argument 'src' is not an GenericTabularFile: ", class(src)[1]);
-  }
+  # Argument 'src':
+  src <- Arguments$getInstanceOf(src, "GenericTabularFile");
 
   # Argument 'colOrder':
   if (!is.null(colOrder)) {

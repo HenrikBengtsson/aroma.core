@@ -361,27 +361,21 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'ceList':
-  if (!inherits(ceList, "list")) {
-    throw("Argument 'ceList' is not a list: ", class(ceList)[1]);
-  } else {
-    for (ce in ceList) {
-      if (!is.null(ce)) {
-        ce <- Arguments$getInstanceOf(ce, "CopyNumberDataFile");
-      }
+  ceList <- Arguments$getInstanceOf(ceList, "list");
+  for (ce in ceList) {
+    if (!is.null(ce)) {
+      ce <- Arguments$getInstanceOf(ce, "CopyNumberDataFile");
     }
   }
 
   # Argument 'refList':
-  if (!inherits(refList, "list")) {
-    throw("Argument 'refList' is not a list: ", class(refList)[1]);
-  } else {
-    if (length(refList) != length(ceList)) {
-      throw("Argument 'refList' is of a different length than 'cesList': ", length(refList), " != ", length(ceList));
-    }
-    for (ref in refList) {
-      if (!is.null(ref)) {
-        ref <- Arguments$getInstanceOf(ref, "CopyNumberDataFile");
-      }
+  refList <- Arguments$getInstanceOf(refList, "list");
+  if (length(refList) != length(ceList)) {
+    throw("Argument 'refList' is of a different length than 'cesList': ", length(refList), " != ", length(ceList));
+  }
+  for (ref in refList) {
+    if (!is.null(ref)) {
+      ref <- Arguments$getInstanceOf(ref, "CopyNumberDataFile");
     }
   }
 

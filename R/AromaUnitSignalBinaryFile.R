@@ -134,9 +134,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   }
 
   # Argument 'clazz':
-  if (!inherits(clazz, "Class")) {
-    throw("Argument 'clazz' is not a Class: ", class(clazz)[1]);
-  }
+  clazz <- Arguments$getInstanceOf(clazz, "Class");
 
   # Argument 'keepUnits':
   keepUnits <- Arguments$getLogical(keepUnits);
@@ -253,19 +251,14 @@ setMethodS3("getChipType", "AromaUnitSignalBinaryFile", function(this, fullname=
 
 setMethodS3("allocateFromUnitNamesFile", "AromaUnitSignalBinaryFile", function(static, unf, ...) {
   # Argument 'unf':
-  className <- "UnitAnnotationDataFile";
-  if (!inherits(unf, className)) {
-    throw("Argument 'unf' is not of class ", className, ": ", class(unf)[1]);
-  }
+  unf <- Arguments$getInstanceOf(unf, "UnitAnnotationDataFile");
+
   allocateFromUnitAnnotationDataFile(static, udf=unf, ...);
 })
 
 setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", function(static, udf, ...) {
   # Argument 'udf':
-  className <- "UnitAnnotationDataFile";
-  if (!inherits(udf, className)) {
-    throw("Argument 'udf' is not of class ", className, ": ", class(udf)[1]);
-  }
+  udf <- Arguments$getInstanceOf(udf, "UnitAnnotationDataFile");
 
   platform <- getPlatform(udf);
   chipType <- getChipType(udf);

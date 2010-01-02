@@ -153,20 +153,14 @@ setMethodS3("indexOfUnits", "AromaUnitTabularBinaryFile", function(this, names, 
 
 setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(static, unf, ...) {
   # Argument 'unf':
-  className <- "UnitNamesFile";
-  if (!inherits(unf, className)) {
-    throw("Argument 'unf' is not of class ", className, ": ", class(unf)[1]);
-  }
+  unf <- Arguments$getInstanceOf(unf, "UnitNamesFile");
   allocateFromUnitAnnotationDataFile(static, udf=unf, ...);
 })
 
 
 setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", function(static, udf, path=getPath(udf), tags=NULL, footer=list(), ...) {
   # Argument 'udf':
-  className <- "UnitAnnotationDataFile";
-  if (!inherits(udf, className)) {
-    throw("Argument 'udf' is not an ", className, ": ", class(udf)[1]);
-  }
+  udf <- Arguments$getInstanceOf(udf, "UnitAnnotationDataFile");
 
   # Generate filename: <chipType>(,tags)*.<ext>
   chipType <- getChipType(udf);

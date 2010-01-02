@@ -37,10 +37,7 @@ setConstructorS3("AromaTransform", function(dataSet=NULL, tags="*", ..., .reqSet
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'dataSet':
   if (!is.null(dataSet)) {
-    if (!inherits(dataSet, .reqSetClass)) {
-      throw("Argument 'dataSet' is not an ", .reqSetClass, " object: ", 
-                                                          class(dataSet)[1]);
-    }
+    dataSet <- Arguments$getInstanceOf(dataSet, .reqSetClass);
   }
 
   # Arguments '...':

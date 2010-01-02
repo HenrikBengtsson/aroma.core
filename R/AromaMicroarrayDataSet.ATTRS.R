@@ -88,9 +88,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'saf':
-  if (!inherits(saf, "SampleAnnotationFile")) {
-    throw("Argument 'saf' is not a SampleAnnotationFile: ", class(saf)[1]);
-  }
+  saf <- Arguments$getInstanceOf(saf, "SampleAnnotationFile");
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);

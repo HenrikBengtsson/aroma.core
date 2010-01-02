@@ -4,11 +4,10 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ugp <- getAromaUgpFile(this);
   # Argument 'other':
-  className <- "CopyNumberDataFile";
   if (is.null(other)) {
     # Do not calculate ratios relative to a reference
-  } else if (!inherits(other, className)) {
-    throw("Argument 'other' is not an ", className, ": ", class(other)[1]);
+  } else {
+    other <- Arguments$getInstanceOf(other, "CopyNumberDataFile");
   }
   
   # Argument 'units':
@@ -123,11 +122,10 @@ setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromo
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'other':
-  className <- "CopyNumberDataFile";
   if (is.null(other)) {
     # Do not calculate ratios relative to a reference
-  } else if (!inherits(other, className)) {
-    throw("Argument 'other' is not an ", className, ": ", class(other)[1]);
+  } else {
+    other <- Arguments$getInstanceOf(other, "CopyNumberDataFile");
   }
 
   # Argument 'chromosome':

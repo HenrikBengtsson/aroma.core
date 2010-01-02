@@ -5,9 +5,7 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  if (!inherits(gladFit, "profileCGH")) {
-    throw("Argument 'gladFit' is not a 'profileCGH' object: ", class(gladFit)[1]);
-  }
+  gladFit <- Arguments$getInstanceOf(gladFit, "profileCGH");
 
   # Nothing to do?
   if (is.null(callList)) {

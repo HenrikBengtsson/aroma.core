@@ -73,8 +73,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
     for (chipType in chipTypes) {
       callSet <- callList[[chipType]];
       if (!is.null(callSet)) {
-        if (!inherits(callSet, "GenotypeCallSet"))
-          throw("Argument 'callList' contains a non-GenotypeCallSet: ", class(callSet)[1]);
+        callSet <- Arguments$getInstanceOf(callSet, "GenotypeCallSet");
 
         if (getChipType(callSet) != chipType) {
           throw("Argument 'callList' contains a GenotypeCallSet for a different chip type than the corresponding copy-number set: ", getChipType(callSet), " != ", chipType);
