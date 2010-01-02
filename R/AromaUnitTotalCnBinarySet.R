@@ -109,7 +109,7 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
     indices <- 1:nbrOfUnits; 
   } else if (identical(indices, "remaining")) {
   } else {
-    indices <- Arguments$getIndices(indices, range=c(1, nbrOfUnits));
+    indices <- Arguments$getIndices(indices, max=nbrOfUnits);
   }
 
   # Argument 'unitsPerChunk':

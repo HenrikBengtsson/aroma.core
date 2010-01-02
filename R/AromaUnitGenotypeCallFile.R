@@ -235,7 +235,7 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
     units <- 1:nbrOfUnits;
   } else {
     nbrOfUnits <- nbrOfUnits(this);
-    units <- Arguments$getIndices(units, range=c(1,nbrOfUnits));
+    units <- Arguments$getIndices(units, max=nbrOfUnits);
     nbrOfUnits <- length(units);
   }
 

@@ -77,7 +77,7 @@ setMethodS3("getUnitNames", "TextUnitNamesFile", function(this, units=NULL, ...)
 
   # Subsetting
   if (!is.null(units)) {
-    units <- Arguments$getIndices(units, range=c(1, length(unitNames)));
+    units <- Arguments$getIndices(units, max=length(unitNames));
     unitNames <- unitNames[units];
   }
 

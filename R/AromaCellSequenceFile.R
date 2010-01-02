@@ -48,12 +48,12 @@ setMethodS3("readSequenceMatrix", "AromaCellSequenceFile", function(this, cells=
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 
   # Argument 'positions':
-  positions <- Arguments$getIndices(positions, range=c(1, getProbeLength(this)));
+  positions <- Arguments$getIndices(positions, max=getProbeLength(this));
 
   # Argument 'what':
   what <- match.arg(what);
@@ -390,7 +390,7 @@ setMethodS3("readTargetStrands", "AromaCellSequenceFile", function(this, cells=N
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 
@@ -444,7 +444,7 @@ setMethodS3("updateTargetStrands", "AromaCellSequenceFile", function(this, cells
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 
@@ -520,7 +520,7 @@ setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cell
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 
@@ -529,7 +529,7 @@ setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cell
   if (is.null(positions)) {
     positions <- 1:nbrOfPositions;
   } else {
-    positions <- Arguments$getIndices(positions, range=c(1, nbrOfPositions));
+    positions <- Arguments$getIndices(positions, max=nbrOfPositions);
   }
 
   # Argument 'seqs':
@@ -734,12 +734,12 @@ setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 
   # Argument 'positions':
-  positions <- Arguments$getIndices(positions, range=c(1, getProbeLength(this)));
+  positions <- Arguments$getIndices(positions, max=getProbeLength(this));
 
   # Argument 'mode':
   mode <- match.arg(mode);

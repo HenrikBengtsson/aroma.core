@@ -305,7 +305,7 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'subset':
-  subset <- Arguments$getIndices(subset, range=c(1, nbrOfLoci(this)));
+  subset <- Arguments$getIndices(subset, max=nbrOfLoci(this));
 
   res <- clone(this);
   clearCache(res);

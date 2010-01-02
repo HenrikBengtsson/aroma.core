@@ -477,13 +477,13 @@ setMethodS3("readDataFrame", "AromaTabularBinaryFile", function(this, rows=NULL,
     rows <- seq(length=hdr$nbrOfRows);
   } else if (is.logical(rows)) {
     rows <- whichVector(rows);
-    rows <- Arguments$getIndices(rows, range=c(1, hdr$nbrOfRows));
+    rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
     if (retRowNames) {
       rownames <- as.character(rows);
       rownames <- make.unique(rownames);
     }
   } else {
-    rows <- Arguments$getIndices(rows, range=c(1, hdr$nbrOfRows));
+    rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
     if (retRowNames) {
       rownames <- as.character(rows);
       rownames <- make.unique(rownames);
@@ -495,9 +495,9 @@ setMethodS3("readDataFrame", "AromaTabularBinaryFile", function(this, rows=NULL,
     columns <- seq(length=hdr$nbrOfColumns);
   } else if (is.logical(columns)) {
     columns <- whichVector(columns);
-    columns <- Arguments$getIndices(columns, range=c(1, hdr$nbrOfColumns));
+    columns <- Arguments$getIndices(columns, max=hdr$nbrOfColumns);
   } else {
-    columns <- Arguments$getIndices(columns, range=c(1, hdr$nbrOfColumns));
+    columns <- Arguments$getIndices(columns, max=hdr$nbrOfColumns);
   }
 
   # Argument 'verbose':
@@ -641,13 +641,13 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
       rows <- seq(length=hdr$nbrOfRows);
     } else if (is.logical(rows)) {
       rows <- whichVector(rows);
-      rows <- Arguments$getIndices(rows, range=c(1, hdr$nbrOfRows));
+      rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
     } else {
-      rows <- Arguments$getIndices(rows, range=c(1, hdr$nbrOfRows));
+      rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
     }
   
     # Argument 'column':
-    column <- Arguments$getIndex(column, range=c(1, hdr$nbrOfColumns));
+    column <- Arguments$getIndex(column, max=hdr$nbrOfColumns);
 
     # Argument 'verbose':
     verbose <- Arguments$getVerbose(verbose);
@@ -800,9 +800,9 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
     rows <- seq(length=hdr$nbrOfRows);
   } else if (is.logical(rows)) {
     rows <- whichVector(rows);
-    rows <- Arguments$getIndices(rows, range=c(1, hdr$nbrOfRows));
+    rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
   } else {
-    rows <- Arguments$getIndices(rows, range=c(1, hdr$nbrOfRows));
+    rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
   }
   nbrOfRows <- length(rows);
 
@@ -811,9 +811,9 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
     columns <- seq(length=hdr$nbrOfColumns);
   } else if (is.logical(columns)) {
     columns <- whichVector(columns);
-    columns <- Arguments$getIndices(columns, range=c(1, hdr$nbrOfColumns));
+    columns <- Arguments$getIndices(columns, max=hdr$nbrOfColumns);
   } else {
-    columns <- Arguments$getIndices(columns, range=c(1, hdr$nbrOfColumns));
+    columns <- Arguments$getIndices(columns, max=hdr$nbrOfColumns);
   }
   nbrOfColumns <- length(columns);
 

@@ -74,7 +74,7 @@ setMethodS3("getNumberOfFilesAveraged", "AromaUnitTotalCnBinaryFile", function(t
 
   # Arguments 'units':
   if (!is.null(units)) {
-    units <- Arguments$getIndices(units, range=c(1, nbrOfUnits));
+    units <- Arguments$getIndices(units, max=nbrOfUnits);
     nbrOfUnits <- length(units);
   }
 

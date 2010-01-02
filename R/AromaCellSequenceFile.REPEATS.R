@@ -4,7 +4,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells(this)));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells(this));
     nbrOfCells <- length(cells);
   } else {
     nbrOfCells <- nbrOfCells(this);

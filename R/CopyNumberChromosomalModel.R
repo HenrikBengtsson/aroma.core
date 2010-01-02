@@ -75,7 +75,9 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
         # AD HOC; Need more specialized class than GenericDataFile.
         # /HB 2009-11-19
         if (inherits(ref, "GenericDataFile")) {
-          chipType <- getChipType(ref, fullname=FALSE);
+          chipType <- getChipType(ref);
+          chipType <- gsub(",monocell", "", chipType);
+
           ces <- cesList[[chipType]];
 
           # Sanity check
@@ -321,19 +323,19 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
   verbose && cat(verbose, "Array: ", array);
 
   cesTuple <- getSetTuple(this);
-#  verbose && cat(verbose, "Test data sets:");
-#  verbose && print(verbose, cesTuple);
+  verbose && cat(verbose, "Test data sets:");
+  verbose && print(verbose, cesTuple);
 
   refTuple <- getReferenceSetTuple(this);
-#  verbose && cat(verbose, "Reference data sets:");
-#  verbose && print(verbose, refTuple);
+  verbose && cat(verbose, "Reference data sets:");
+  verbose && print(verbose, refTuple);
 
 #  ceList <- getArrayTuple(cesTuple, array=array, ..., verbose=less(verbose,1));
 #  rfList <- getArrayTuple(refTuple, array=array, ..., verbose=less(verbose,1));
 
   ceList <- getFileList(cesTuple, array, ..., verbose=less(verbose,1));
-#  verbose && cat(verbose, "Test data files:");
-#  verbose && print(verbose, ceList);
+  verbose && cat(verbose, "Test data files:");
+  verbose && print(verbose, ceList);
 
   rfList <- getFileList(refTuple, array, ..., verbose=less(verbose,1));
 #  verbose && cat(verbose, "Reference data files:");
@@ -701,7 +703,7 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'array':
-  array <- Arguments$getIndex(array, range=c(1, nbrOfArrays(this)));
+  array <- Arguments$getIndex(array, max=nbrOfArrays(this));
 
   # Argument 'chromosome':
   allChromosomes <- getChromosomes(this);
@@ -848,6 +850,8 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 ##############################################################################
 # HISTORY:
 # 2009-12-31
+# o ROBUSTNESS: Now CopyNumberChromosomalModel() asserts that none of the
+#   test samples have duplicated names.
 # o ROBUSTNESS: The error message "The reference (argument 'refTuple')..."
 #   thrown by the constructor when the test and reference sets do not use 
 #   the same chip types did not show the correct chip types for the test set.

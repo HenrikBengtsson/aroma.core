@@ -15,7 +15,7 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   if (is.null(units)) {
     units <- seq(length=nbrOfUnits(ugp));
   } else {
-    units <- Arguments$getIndices(units, range=c(1, nbrOfUnits(ugp)));
+    units <- Arguments$getIndices(units, max=nbrOfUnits(ugp));
   }
   
   # Argument 'verbose':

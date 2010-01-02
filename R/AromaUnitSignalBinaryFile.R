@@ -129,7 +129,7 @@ setMethodS3("extractMatrix", "AromaUnitSignalBinaryFile", function(this, units=N
 setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(this, chromosome, range=NULL, units=NULL, keepUnits=FALSE, ..., clazz=RawGenomicSignals, verbose=FALSE) {
   # Argument 'units':
   if (!is.null(units)) {
-    units <- Arguments$getIndices(units, range=c(1, nbrOfUnits(this)));
+    units <- Arguments$getIndices(units, max=nbrOfUnits(this));
     units <- sort(unique(units));
   }
 

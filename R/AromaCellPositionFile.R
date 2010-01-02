@@ -93,7 +93,7 @@ setMethodS3("readPositions", "AromaCellPositionFile", function(this, cells=NULL,
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 
@@ -128,7 +128,7 @@ setMethodS3("updatePositions", "AromaCellPositionFile", function(this, cells=NUL
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
+    cells <- Arguments$getIndices(cells, max=nbrOfCells);
     nbrOfCells <- length(cells);
   }
 

@@ -158,7 +158,7 @@ setMethodS3("getArrayTuple", "AromaMicroarrayDataSetTuple", function(this, array
 
   # Argument 'array':
   if (is.numeric(array)) {
-    array <- Arguments$getIndex(array, range=c(1, nrow(arrayTable)));
+    array <- Arguments$getIndex(array, max=nrow(arrayTable));
   } else {
     array <- Arguments$getCharacter(array, length=c(1,1));
     arrayNames <- rownames(arrayTable);
