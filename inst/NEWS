@@ -1,13 +1,21 @@
 Package: aroma.core
 ===================
 
-Version: 1.3.8 [2010-01-01]
-o Now getNames() of CopyNumberSegmentationModel returns combined
-  names for the paired cases, i.e. 'TumorvsNormal' instead of just
-  'Tumor'.  If the reference is the average of a pool, then the
-  name is still 'Tumor'.  The former case will change the filenames
-  of the stored segmentation fits, the sample names in ChromosomeExplorer
-  (and the image file names).
+Version: 1.3.8 [2010-01-02]
+o Now getNames() of CopyNumberChromosomalModel uses getPairedNames().
+  This will affect: (i) the filenames of stored segmentation fits, e.g.
+  under cbsData/, (ii) the filenames of the ChromosomeExplorer image
+  files, e.g. reports/, (iii) displayed names in the ChromosomeExplorer.
+  This means that if you re-run fit() on a segmentation model and/or
+  process() on a ChromosomeExplorer, files generated using earlier 
+  versions will not be detected and new ones will be created in 
+  parallel.  We recommend to delete existing directories before
+  rerunning.  Alternatively, add an additional tag to the segmentation
+  model, e.g. cbs <- CbsModel(..., tags=c("*", "v2")).
+o Added getPairedNames() to CopyNumberChromosomalModel which returns
+  combined '<test>vs<ref>' names, e.g. 'TumorvsNormal'.  The default
+  behavior is that if <ref> is the average of a pool, then the
+  paired name is '<test>', e.g. 'Tumor'.
 o CLEAN UP: Moved all GenericSummary code to R.utils.
 
 

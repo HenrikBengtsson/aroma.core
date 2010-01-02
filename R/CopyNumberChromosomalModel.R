@@ -237,6 +237,100 @@ setMethodS3("isPaired", "CopyNumberChromosomalModel", function(this, ...) {
 })
 
 
+setMethodS3("getNames", "CopyNumberChromosomalModel", function(this, ...) {
+  getPairedNames(this, ...);
+})
+
+
+setMethodS3("getPairedNames", "CopyNumberChromosomalModel", function(this, ..., translate=TRUE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  pairedFnt <- function(names, ...) {
+    names <- gsub("^[.]average-.*", "", names);
+    names;
+  } # pairedFnt()
+
+
+  # Argument 'translate':
+  translate <- Arguments$getLogical(translate);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Constructing names of pairs");
+  tuple <- getSetTuple(this);
+  arrays <- seq(length=nbrOfFiles(tuple));
+
+  # Translate function?
+  if (translate) {
+    fnt <- this$.pairedFnt;
+
+    # Default
+    if (is.null(fnt)) {
+      fnt <- "pair";
+    }
+
+    verbose && cat(verbose, "Name-pair translator: ");
+    if (is.character(fnt)) {
+      verbose && str(verbose, fnt);
+      if (identical(fnt, "pair")) {
+        fnt <- pairedFnt;
+      }
+    }
+    verbose && str(verbose, fnt);
+
+    # Still translate?
+    translate <- is.function(fnt);
+  }
+
+  tupleList <- list(getSetTuple(this), getReferenceSetTuple(this));
+  namesList <- list();
+  for (kk in seq(along=tupleList)) {
+    tuple <- tupleList[[kk]];
+    names <- getNames(tuple);
+
+    # Translate name tuple?
+    if (translate) {
+      verbose && enter(verbose, "Translating name pair");
+      verbose && cat(verbose, "Names before: ", paste(names, collapse=", "));
+      names <- fnt(names);
+      verbose && cat(verbose, "Names after: ", paste(names, collapse=", "));
+      verbose && exit(verbose);
+    }
+
+    namesList[[kk]] <- names;
+  } # for (kk ...)
+
+  # Sanity check
+  ns <- sapply(namesList, FUN=length);
+  ns <- unique(ns);
+  stopifnot(length(ns) == 1);
+
+  sep <- this$.pairedNameSep;
+  if (is.null(sep)) {
+    sep <- "vs";
+  }
+  names <- paste(namesList[[1]], namesList[[2]], sep=sep);
+  pattern <- sprintf("%s$", sep);
+  names <- gsub(pattern, "", names);
+
+  verbose && cat(verbose, "Name of pairs:");
+  verbose && str(verbose, names);
+
+  verbose && exit(verbose);
+
+  names;
+}, protected=TRUE)
+
+
+
+
 
 
 setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this, ..., force=FALSE, verbose=FALSE) {
@@ -843,6 +937,9 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
 ##############################################################################
 # HISTORY:
+# 2010-01-01
+# o Now getNames() uses new getPairedNames().
+# o Added getPairedNames() to CopyNumberChromosomalModel.
 # 2009-12-31
 # o ROBUSTNESS: Now CopyNumberChromosomalModel() asserts that none of the
 #   test samples have duplicated names.

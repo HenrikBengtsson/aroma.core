@@ -48,7 +48,6 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
 \tabular{rll}{
  \tab \code{\link[aroma.core:fit.CopyNumberSegmentationModel]{fit}} \tab Fits the model.\cr
  \tab \code{getFullNames} \tab  -\cr
- \tab \code{getNames} \tab  -\cr
  \tab \code{getRegions} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
  \tab \code{plot} \tab  -\cr
@@ -58,7 +57,7 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
 
 
  \bold{Methods inherited from CopyNumberChromosomalModel}:\cr
-as.character, calculateChromosomeStatistics, calculateRatios, clearCache, estimateSds, extractRawCopyNumbers, fit, getDataFileMatrix, getReferenceSetTuple, getRefSetTuple, isPaired, newPlot, plotAxesLayers, plotChromosomesLayers, plotCytobandLayers, plotFitLayers, plotGridHorizontalLayers, plotRawCopyNumbers, plotSampleLayers
+as.character, calculateChromosomeStatistics, calculateRatios, clearCache, estimateSds, extractRawCopyNumbers, fit, getDataFileMatrix, getNames, getPairedNames, getReferenceSetTuple, getRefSetTuple, isPaired, newPlot, plotAxesLayers, plotChromosomesLayers, plotCytobandLayers, plotFitLayers, plotGridHorizontalLayers, plotRawCopyNumbers, plotSampleLayers
 
  \bold{Methods inherited from ChromosomalModel}:\cr
 as.character, clearCache, fit, getAlias, getAsteriskTags, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSets, getSetTuple, getTags, indexOf, nbrOfArrays, nbrOfChipTypes, setAlias, setGenome

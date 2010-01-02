@@ -52,6 +52,7 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
  \tab \code{clearCache} \tab  -\cr
  \tab \code{\link[aroma.core:extractRawCopyNumbers.CopyNumberChromosomalModel]{extractRawCopyNumbers}} \tab Extracts relative copy numbers.\cr
  \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
+ \tab \code{getNames} \tab  -\cr
  \tab \code{getReferenceSetTuple} \tab  -\cr
  \tab \code{isPaired} \tab  -\cr
  \tab \code{plotAxesLayers} \tab  -\cr
