@@ -7,16 +7,6 @@ o Package passes R CMD check on R v2.10.1 and R v2.11.0 devel and
 
 
 Version: 1.3.8 [2010-01-02]
-o Now getNames() of CopyNumberChromosomalModel uses getPairedNames().
-  This will affect: (i) the filenames of stored segmentation fits, e.g.
-  under cbsData/, (ii) the filenames of the ChromosomeExplorer image
-  files, e.g. reports/, (iii) displayed names in the ChromosomeExplorer.
-  This means that if you re-run fit() on a segmentation model and/or
-  process() on a ChromosomeExplorer, files generated using earlier 
-  versions will not be detected and new ones will be created in 
-  parallel.  We recommend to delete existing directories before
-  rerunning.  Alternatively, add an additional tag to the segmentation
-  model, e.g. cbs <- CbsModel(..., tags=c("*", "v2")).
 o Added getPairedNames() to CopyNumberChromosomalModel which returns
   combined '<test>vs<ref>' names, e.g. 'TumorvsNormal'.  The default
   behavior is that if <ref> is the average of a pool, then the

@@ -238,7 +238,21 @@ setMethodS3("isPaired", "CopyNumberChromosomalModel", function(this, ...) {
 
 
 setMethodS3("getNames", "CopyNumberChromosomalModel", function(this, ...) {
-  getPairedNames(this, ...);
+  # In a future version, we will provide correct paired names.
+  # Until getFullNames() support this (currently the tags for the 
+  # references are dropped), we will only make it available
+  # as a hidden feature for getNames().  /HB 2010-01-02
+  usePairedNames <- this$.usePairedNames;
+  if (is.null(usePairedNames))
+    usePairedNames <- FALSE;
+
+  if (usePairedNames) {
+    names <- getPairedNames(this, ...);
+  } else {
+    names <- NextMethod("getNames", this, ...);
+  }
+
+  names;
 })
 
 
