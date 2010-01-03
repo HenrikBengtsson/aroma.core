@@ -28,8 +28,16 @@ setConstructorS3("AromaTabularBinarySet", function(files=NULL, ...) {
 })
 
 
+setMethodS3("getDefaultFullName", "AromaTabularBinarySet", function(this, ...) {
+  NextMethod("getDefaultFullName", this, parent=1, ...);
+})
+
+
 ############################################################################
 # HISTORY:
+# 2010-01-02
+# o Added getDefaultFullName() for AromaTabularBinarySet to override
+#   the new default of GenericDataFileSet in R.filesets v0.7.0.
 # 2008-05-16
 # o Removed extractMatrix() which now implemented in generic super class.
 # 2008-05-11

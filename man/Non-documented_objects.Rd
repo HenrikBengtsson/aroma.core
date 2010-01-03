@@ -939,6 +939,8 @@
 \alias{yMin.RawGenomicSignals}
 \alias{yRange}
 \alias{yRange.RawGenomicSignals}
+\alias{getDefaultFullName.AromaMicroarrayDataSet}
+\alias{getDefaultFullName.AromaTabularBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

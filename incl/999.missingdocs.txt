@@ -451,3 +451,5 @@
   xmlToList.character xRange xRange.RawGenomicSignals xSeq
   xSeq.RawGenomicSignals yellow.colors yMax yMax.RawGenomicSignals yMin
   yMin.RawGenomicSignals yRange yRange.RawGenomicSignals
+  getDefaultFullName.AromaMicroarrayDataSet 
+  getDefaultFullName.AromaTabularBinarySet

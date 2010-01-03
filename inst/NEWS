@@ -2,6 +2,10 @@ Package: aroma.core
 ===================
 
 Version: 1.4.0 [2010-01-02]
+o BUG FIX: Added getDefaultFullName() for AromaMicroarrayDataSet and 
+  AromaTabularBinarySet in order to override (parent=1) the new default 
+  of GenericDataFileSet in R.filesets v0.7.0, which would return the
+  chip type (parent=0) as the name.
 o Package passes R CMD check on R v2.10.1 and R v2.11.0 devel and
   all of its redundancy tests.
 
