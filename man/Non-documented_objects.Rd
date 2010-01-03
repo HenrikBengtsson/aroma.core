@@ -941,6 +941,10 @@
 \alias{yRange.RawGenomicSignals}
 \alias{getDefaultFullName.AromaMicroarrayDataSet}
 \alias{getDefaultFullName.AromaTabularBinarySet}
+\alias{drawCnRegions.MPCBS}
+\alias{extractCopyNumberRegions.MPCBS}
+\alias{segmentByMPCBS}
+\alias{segmentByMPCBS.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

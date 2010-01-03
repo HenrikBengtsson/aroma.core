@@ -453,3 +453,5 @@
   yMin.RawGenomicSignals yRange yRange.RawGenomicSignals
   getDefaultFullName.AromaMicroarrayDataSet 
   getDefaultFullName.AromaTabularBinarySet
+  drawCnRegions.MPCBS extractCopyNumberRegions.MPCBS segmentByMPCBS
+  segmentByMPCBS.RawGenomicSignals
