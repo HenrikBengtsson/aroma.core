@@ -35,6 +35,13 @@
 # @keyword IO
 #*/########################################################################### 
 setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FALSE, force=FALSE, verbose=FALSE) {
+  # To please R CMD check in case 'mpcbs' is not available
+  # This might be need in order for it to work on CRAN. /HB 2010-01-04
+  if (!isPackageInstalled("mpcbs")) {
+    merge.pos <- function(...) {};
+    rm(merge.pos);
+  }
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

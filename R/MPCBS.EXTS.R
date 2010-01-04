@@ -5,6 +5,16 @@ setMethodS3("drawCnRegions", "MPCBS", function(object, ...) {
 
 
 setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
+  # To please R CMD check in case 'mpcbs' is not available
+  # This might be need in order for it to work on CRAN. /HB 2010-01-04
+  if (!isPackageInstalled("mpcbs")) {
+    compute.var <- function(...) {}
+    cross.platform.consensus <- function(...) {}
+    rm(compute.var, cross.platform.consensus);
+  }
+
+  require("mpcbs") || throw("Package not loaded: mpcbs");
+
   # According to example on help("mpcbs-package", package="mpcbs")
   # in mpcbs v1.0.0.
 
