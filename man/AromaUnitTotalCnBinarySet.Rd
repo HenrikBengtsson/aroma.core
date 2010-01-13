@@ -70,6 +70,9 @@ as, as.CopyNumberDataSet, hasAlleleBFractions, hasStrandiness
  \bold{Methods inherited from AromaUnitSignalBinarySet}:\cr
 byName, findByName, getAromaUgpFile, getChipType, getPlatform, validate
 
+ \bold{Methods inherited from AromaTabularBinarySet}:\cr
+getDefaultFullName
+
  \bold{Methods inherited from GenericTabularFileSet}:\cr
 calculateAverageColumnAcrossFiles, extractMatrix
 

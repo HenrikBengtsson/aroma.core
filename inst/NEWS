@@ -1,6 +1,21 @@
 Package: aroma.core
 ===================
 
+Version: 1.4.2 [2010-01-13]
+o ChromosomalModel:s (and and the ChromosomeExplorer) no
+  longer require unit names files. 
+o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via 
+  getListOfUnitNamesFiles().  This opens up the possibility to work 
+  with data files without unit names files, e.g. smoothed CN data.
+o Added getAromaUgpFile() for AromaPlatformInterface.
+o Now getUnitNamesFile() for AromaPlatformInterface utilizes the 
+  generic getUnitAnnotationDataFile() method.
+
+
+Version: 1.4.1 [2010-01-06]
+o Added argument 'defaults' to allocate() of AromaTabularBinaryFile.
+
+
 Version: 1.4.0 [2010-01-04]
 o Added trial version of segmentByMPCBS() via the 'mpcbs' package.
 o BUG FIX: Added getDefaultFullName() for AromaMicroarrayDataSet and 

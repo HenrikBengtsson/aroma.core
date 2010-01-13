@@ -20,158 +20,29 @@ setMethodS3("getAromaPlatform", "AromaPlatformInterface", function(this, ..., fo
 
 
 
-setMethodS3("getUnitNamesFile", "AromaPlatformInterface", function(this, force=FALSE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Local files
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  isCompatibleWith <- function(unf, ugp) {
-    if (getPlatform(unf) != getPlatform(ugp))
+
+# @title "Checks if a particular unit annotation data file is suitable for this AromaPlatformInterface class"
+setMethodS3("isCompatibleWith", "AromaPlatformInterface", function(this, udf, ...) {
+print(class(udf))
+print(udf);
+
+  if (getPlatform(this) != getPlatform(udf))
+    return(FALSE);
+  if (getChipType(this, fullname=FALSE) != getChipType(udf, fullname=FALSE))
+    return(FALSE);
+
+  # Compare nbrOfUnits only if there is a nbrOfUnits() method for 'this'.
+  tryCatch({
+    if (nbrOfUnits(this) != nbrOfUnits(udf))
       return(FALSE);
-    if (getChipType(unf, fullname=FALSE) != getChipType(ugp, fullname=FALSE))
-      return(FALSE);
-    if (nbrOfUnits(unf) != nbrOfUnits(ugp))
-      return(FALSE);
-    TRUE;
-  } # isCompatibleWith()
+  }, error = function(ex) {});
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-
-  platform <- getPlatform(this);
-  chipType <- getChipType(this, fullname=FALSE);
-  chipTypeF <- getChipType(this);
-  nbrOfUnits <- nbrOfUnits(this);
-
-  unf <- this$.unf;
-  if (force || is.null(unf)) {
-    verbose && enter(verbose, "Locating a UnitNamesFile");
-    verbose && cat(verbose, "Platform: ", platform);
-    verbose && cat(verbose, "Chip type (fullname): ", chipTypeF);
-    verbose && cat(verbose, "Chip type: ", chipType);
-    verbose && cat(verbose, "Number of units: ", nbrOfUnits);
-
-    unf <- NULL;
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Alt 1
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    verbose && enter(verbose, "Alt #1: Using an AromaPlatform object");
-
-    verbose && enter(verbose, "Locating AromaPlatform object");
-    aPlatform <- NULL;
-    tryCatch({
-      aPlatform <- getAromaPlatform(this);
-      verbose && print(verbose, aPlatform);
-    }, error=function(ex) {
-#      warning("Could not find the AromaPlatform for this ", class(this)[1], " object: ", ex$message);
-    });
-    verbose && exit(verbose);
-
-    if (!is.null(aPlatform)) {
-      verbose && enter(verbose, "Searching for UnitNamesFile");
-      tryCatch({
-        unf <- getUnitNamesFile(aPlatform, chipType=chipTypeF, 
-                        nbrOfUnits=nbrOfUnits, verbose=less(verbose,10));
-        if (!isCompatibleWith(unf, this)) {
-          unf <- NULL;
-        }
-      }, error=function(ex) {
-        verbose && cat(verbose, "Could not locate UnitNamesFile: ", 
-                                                             ex$message);
-      });
-      if (!is.null(unf)) {
-        verbose && cat(verbose, "Found a matching UnitNamesFile:");
-        verbose && print(verbose, unf);
-      }
-      verbose && exit(verbose);
-    }
-    verbose && exit(verbose);
-
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Alt 2
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    if (is.null(unf)) {
-      verbose && enter(verbose, "Alt #2: Using known subclasses of UnitNamesFile");
-      # Scan for known subclasses
-      classNames <- getKnownSubclasses(UnitNamesFile);
-      verbose && cat(verbose, "Known UnitNamesFile subclasses:");
-      verbose && print(verbose, classNames);
-
-      for (kk in seq(along=classNames)) {
-        className <- classNames[kk];
-        verbose && enter(verbose, sprintf("Search #%d of %d using %s$byChipType())", kk, length(classNames), className));
-        clazz <- Class$forName(className);
-        tryCatch({
-          unf <- clazz$byChipType(chipType, nbrOfUnits=nbrOfUnits, ..., 
-                                               verbose=less(verbose,10));
-          if (!isCompatibleWith(unf, this)) {
-            unf <- NULL;
-          }
-        }, error = function(ex) {});
-        if (!is.null(unf)) {
-          verbose && cat(verbose, "Found a matching UnitNamesFile:");
-          verbose && print(verbose, unf);
-          verbose && exit(verbose);
-          break;
-        }
-        verbose && exit(verbose);
-      } # for (kk ...)
-      verbose && exit(verbose);
-    } # if (is.null(unf))
-
-
-    if (is.null(unf)) {
-      throw("Failed to locate a UnitNamesFile for this chip type: ", chipType);
-    }
-
-    verbose && exit(verbose);
-
-    this$.unf <- unf;
-  } # if (force || is.null(unf))
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Sanity check
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  stopifnot(isCompatibleWith(unf, this));
-
-  unf;
-})
-
-# TO DO, when confirmed to work! /HB 2009-07-08
-# setMethodS3("getUnitNamesFile", "AromaPlatformInterface", function(this, ...) {
-#   getUnitAnnotationDataFile(this, className="UnitNamesFile", ...);
-# })
-
-
-setMethodS3("getUnitTypesFile", "AromaPlatformInterface", function(this, ...) {
-  getUnitAnnotationDataFile(this, className="UnitTypesFile", ...);
-})
+  TRUE;
+}, protected=TRUE)
 
 
 
 setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this, ..., className, force=FALSE, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Local files
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  isCompatibleWith <- function(udf, ugp) {
-    if (getPlatform(udf) != getPlatform(ugp))
-      return(FALSE);
-    if (getChipType(udf, fullname=FALSE) != getChipType(ugp, fullname=FALSE))
-      return(FALSE);
-    if (nbrOfUnits(udf) != nbrOfUnits(ugp))
-      return(FALSE);
-    TRUE;
-  } # isCompatibleWith()
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -196,9 +67,17 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
   platform <- getPlatform(this);
   chipType <- getChipType(this, fullname=FALSE);
   chipTypeF <- getChipType(this);
-  nbrOfUnits <- nbrOfUnits(this);
 
-  udf <- this$.udf;
+  # Compare nbrOfUnits?
+  nbrOfUnits <- NULL;
+  tryCatch({
+    nbrOfUnits <- nbrOfUnits(this);
+  }, error = function(ex) {});
+
+  key <- className;
+  udfList <- this$.udfList;
+  if (!is.list(udfList)) udfList <- list();
+  udf <- udfList[[key]];
   if (force || is.null(udf)) {
     verbose && enter(verbose, "Locating a ", className);
     verbose && cat(verbose, "Platform: ", platform);
@@ -228,7 +107,7 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
       tryCatch({
         udf <- FCN(aPlatform, chipType=chipTypeF, 
                         nbrOfUnits=nbrOfUnits, verbose=less(verbose,10));
-        if (!isCompatibleWith(udf, this)) {
+        if (!isCompatibleWith(this, udf)) {
           udf <- NULL;
         }
       }, error=function(ex) {
@@ -251,8 +130,8 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
       verbose && enter(verbose, "Alt #2: Using known subclasses of ", className);
       # Scan for known subclasses
       classNames <- getKnownSubclasses(clazz);
-      verbose && cat(verbose, "Known ", className, " subclasses:");
-      verbose && print(verbose, classNames);
+      verbose && cat(verbose, "Known ", className, " subclasses (including itself):");
+      classNames <- c(classNames, getName(clazz));
 
       for (kk in seq(along=classNames)) {
         className <- classNames[kk];
@@ -261,7 +140,7 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
         tryCatch({
           udf <- clazz$byChipType(chipType, nbrOfUnits=nbrOfUnits, ..., 
                                                verbose=less(verbose,10));
-          if (!isCompatibleWith(udf, this)) {
+          if (!isCompatibleWith(this, udf)) {
             udf <- NULL;
           }
         }, error = function(ex) {});
@@ -283,13 +162,15 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
 
     verbose && exit(verbose);
 
-    this$.udf <- udf;
+    udfList[[key]] <- udf;
+    this$.udfList <- udfList;
+
   } # if (force || is.null(udf))
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Sanity check
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  stopifnot(isCompatibleWith(udf, this));
+  stopifnot(isCompatibleWith(this, udf));
 
   udf;
 }, protected=TRUE)
@@ -297,8 +178,31 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
 
 
 
+setMethodS3("getUnitNamesFile", "AromaPlatformInterface", function(this, ...) {
+  getUnitAnnotationDataFile(this, className="UnitNamesFile", ...);
+})
+
+
+setMethodS3("getUnitTypesFile", "AromaPlatformInterface", function(this, ...) {
+  getUnitAnnotationDataFile(this, className="UnitTypesFile", ...);
+})
+
+setMethodS3("getAromaUgpFile", "AromaPlatformInterface", function(this, ...) {
+  getUnitAnnotationDataFile(this, className="AromaUgpFile", ...);
+})
+
+
+
 ############################################################################
 # HISTORY:
+# 2010-01-13
+# o Now getUnitNamesFile() for AromaPlatformInterface utilizes the 
+#   generic getUnitAnnotationDataFile() method.
+# o AD HOC: Made getUnitAnnotationDataFile() work also when nbrOfUnits() 
+#   does not exist for the class.
+# o Added protected isCompatibleWith() for AromaPlatformInterface.  It
+#   used to be an internal function before.
+# o Added getAromaUgpFile() for AromaPlatformInterface.
 # 2009-07-08
 # o Added getUnitTypesFile() for AromaPlatformInterface.
 # o Added "generic" getUnitAnnotationDataFile() for AromaPlatformInterface.

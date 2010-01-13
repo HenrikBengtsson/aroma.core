@@ -891,6 +891,8 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
 #      the size of each column (data type).}
 #   \item{signeds}{An @logical @vector specifying if the data types in each
 #      column is signed or not.}
+#   \item{defaults}{An optional @list (or @vector) containing default
+#      values for each column.}
 #   \item{comment}{An optional @character string written to the file header.}
 #   \item{overwrite}{If @TRUE, an existing file is overwritten, otherwise not.}
 #   \item{skip}{If @TRUE and \code{overwrite=TRUE}, any existing file is 
@@ -917,7 +919,7 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
 #
 # @keyword IO
 #*/########################################################################### 
-setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE) {
+setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE) {
   knownDataTypes <- c("integer"=1, "double"=2, "raw"=3);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1013,6 +1015,13 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   signeds <- Arguments$getLogicals(signeds);
   signeds <- rep(signeds, length.out=nbrOfColumns);
 
+  # Argument 'defaults':
+  defaults <- rep(defaults, length.out=nbrOfColumns);
+  defaults <- as.list(defaults);
+  for (kk in seq(along=defaults)) {
+    storage.mode(defaults[[kk]]) <- types[kk];
+  }
+
   # Argument 'comment':
   if (is.null(comment)) {
     pkg <- "aroma.core";
@@ -1060,6 +1069,8 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   verbose && cat(verbose, "types: ", paste(types, collapse=", "));
   verbose && cat(verbose, "sizes: ", paste(sizes, collapse=", "));
   verbose && cat(verbose, "signed: ", paste(signeds, collapse=", "));
+  verbose && cat(verbose, "defaults:");
+  verbose && str(verbose, defaults);
 
   verbose && cat(verbose, "Attributes to be written to file footer:");
   verbose && str(verbose, footer);
@@ -1092,13 +1103,15 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   # Write data header
   writeDataHeader(con=con, nbrOfRows=nbrOfRows, types=types, sizes=sizes, signeds=signeds);
 
-  # Write empty data
+  # Write empty data, column by column
   for (cc in seq(length=nbrOfColumns)) {
     size <- sizes[cc];
     type <- types[cc];
-    value <- rep(NA, nbrOfRows);
-    writeBin(con=con, value, size=size, endian="little");
-    rm(value);
+    signed <- signeds[cc];
+    default <- defaults[[cc]];
+    values <- rep(default, times=nbrOfRows);
+    writeBin(con=con, values, size=size, endian="little");
+    rm(values);
   }
 
   # Write empty footer (this may be used to add extra meta data)
@@ -1301,6 +1314,8 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 
 ############################################################################
 # HISTORY:
+# 2010-01-06
+# o Added argument 'defaults' to allocate() of AromaTabularBinaryFile.
 # 2009-05-18
 # o All methods for modifying an existing file, are now calling
 #   Arguments$getWritablePathname() to assert that it exist and that

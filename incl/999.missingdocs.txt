@@ -454,4 +454,5 @@
   getDefaultFullName.AromaMicroarrayDataSet 
   getDefaultFullName.AromaTabularBinarySet
   drawCnRegions.MPCBS extractCopyNumberRegions.MPCBS segmentByMPCBS
-  segmentByMPCBS.RawGenomicSignals
+  getAromaUgpFile.AromaPlatformInterface isCompatibleWith
+  isCompatibleWith.AromaPlatformInterface

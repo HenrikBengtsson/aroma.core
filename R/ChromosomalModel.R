@@ -222,9 +222,56 @@ setMethodS3("nbrOfChipTypes", "ChromosomalModel", function(this, ...) {
 
 
 setMethodS3("getListOfUnitNamesFiles", "ChromosomalModel", function(this, ...) {
+  verbose && enter(verbose, "Retrieving unit names files");
+
   tuple <- getSetTuple(this);
-  getListOfUnitNamesFiles(tuple, ...);
+
+  tryCatch({
+    unfList <- getListOfUnitNamesFiles(tuple, ...);
+  }, error = function(ex) {
+    msg <- sprintf("Failed to located unit-names files for one of the chip types (%s). The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message);
+    throw(msg);
+  });
+
+  verbose && exit(verbose);
+
+  unfList;
 }, private=TRUE)
+
+
+setMethodS3("getListOfAromaUgpFiles", "ChromosomalModel", function(this, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Retrieving list of UGP files");
+
+  tuple <- getSetTuple(this);
+#  unfList <- getListOfUnitNamesFiles(this);
+
+  ugpList <- NULL;
+  tryCatch({
+    verbose && enter(verbose, "Retrieving UGP files from unit names files");
+#    ugpList <- lapply(unfList, getAromaUgpFile, verbose=less(verbose));
+#   TODO: Why not do this?  /HB 2010-01-12
+    ugpList <- lapply(tuple, getAromaUgpFile, verbose=less(verbose));
+    verbose && exit(verbose);
+  }, error = function(ex) {
+    msg <- sprintf("Failed to located UGP files for one of the chip types (%s). Please note that DChip GenomeInformation files are no longer supported.  The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message);
+    throw(msg);
+  });
+
+  verbose && exit(verbose);
+
+  ugpList;
+})
+
 
 setMethodS3("getListOfUnitTypesFiles", "ChromosomalModel", function(this, ...) {
   tuple <- getSetTuple(this);
@@ -564,35 +611,6 @@ setMethodS3("getChromosomes", "ChromosomalModel", function(this, ...) {
 
 
 
-setMethodS3("getListOfAromaUgpFiles", "ChromosomalModel", function(this, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-  verbose && enter(verbose, "Retrieving list of UGP files");
-  ugpList <- NULL;
-  tryCatch({
-    verbose && enter(verbose, "Retrieving unit names files");
-    unfList <- getListOfUnitNamesFiles(this);
-    verbose && exit(verbose);
-    verbose && enter(verbose, "Retrieving UGP files from unit names files");
-    ugpList <- lapply(unfList, getAromaUgpFile, verbose=less(verbose));
-    verbose && exit(verbose);
-    verbose && exit(verbose);
-  }, error = function(ex) {
-    msg <- sprintf("Failed to located UGP files for one of the chip types (%s). Please note that DChip GenomeInformation files are no longer supported.  There error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message);
-    throw(msg);
-  });
-
-  ugpList;
-})
-
 
 
 setMethodS3("getGenome", "ChromosomalModel", function(this, ...) {
@@ -762,6 +780,10 @@ setMethodS3("setAlias", "ChromosomalModel", function(this, alias=NULL, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-01-13
+# o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via 
+#   getListOfUnitNamesFiles().  This opens up the possibility to work with
+#   data files without unit names files, e.g. smoothed CN data.
 # 2009-11-18
 # o CLEAN UP: Removed all Affymetrix specific classes/methods.
 # 2009-11-16

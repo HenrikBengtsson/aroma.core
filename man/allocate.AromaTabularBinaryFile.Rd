@@ -19,8 +19,8 @@
  Creates an AromaTabularBinaryFile of a certain dimension and data column types.
 }
 
-\synopsis{allocate.AromaTabularBinaryFile(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)}
-\usage{AromaTabularBinaryFile$allocate(filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)}
+\synopsis{allocate.AromaTabularBinaryFile(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)}
+\usage{AromaTabularBinaryFile$allocate(filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)}
 
 \arguments{
   \item{filename}{The filename of the new file.}
@@ -32,6 +32,8 @@
      the size of each column (data type).}
   \item{signeds}{An \code{\link[base]{logical}} \code{\link[base]{vector}} specifying if the data types in each
      column is signed or not.}
+  \item{defaults}{An optional \code{\link[base]{list}} (or \code{\link[base]{vector}}) containing default
+     values for each column.}
   \item{comment}{An optional \code{\link[base]{character}} string written to the file header.}
   \item{overwrite}{If \code{\link[base:logical]{TRUE}}, an existing file is overwritten, otherwise not.}
   \item{skip}{If \code{\link[base:logical]{TRUE}} and \code{overwrite=TRUE}, any existing file is

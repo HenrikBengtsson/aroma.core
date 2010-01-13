@@ -58,6 +58,9 @@ extends \link[aroma.core]{AromaTabularBinarySet}\cr
 }
 
 
+ \bold{Methods inherited from AromaTabularBinarySet}:\cr
+getDefaultFullName
+
  \bold{Methods inherited from GenericTabularFileSet}:\cr
 calculateAverageColumnAcrossFiles, extractMatrix
 

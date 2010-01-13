@@ -28,17 +28,11 @@ setConstructorS3("AromaUnitCallFile", function(...) {
 
 
 setMethodS3("allocate", "AromaUnitCallFile", function(static, ..., types=c("integer"), sizes=rep(1, length(types)), signed=rep(FALSE, length(types))) { 
-  res <- allocate.AromaUnitSignalBinaryFile(static, types=types, sizes=sizes, signed=signed, ...);
-
   # Default call is a missing values
   nbrOfBits <- 8*sizes[1];
   valueForNA <- as.integer(2^nbrOfBits-1);
 
-  for (cc in seq(length=nbrOfColumns(res))) {
-    res[,cc] <- valueForNA;
-  }
-
-  res;
+  allocate.AromaUnitSignalBinaryFile(static, types=types, sizes=sizes, signed=signed, defaults=valueForNA, ...);
 }, static=TRUE)
 
 

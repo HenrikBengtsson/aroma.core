@@ -48,7 +48,9 @@ extends \link[R.filesets]{GenericTabularFileSet}\cr
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
-\emph{No methods defined}.
+\tabular{rll}{
+ \tab \code{getDefaultFullName} \tab  -\cr
+}
 
 
  \bold{Methods inherited from GenericTabularFileSet}:\cr

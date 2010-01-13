@@ -52,7 +52,7 @@ extends \link[R.filesets]{GenericDataFileSetList}\cr
  \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
  \tab \code{indexOf} \tab  -\cr
- \tab \code{\link[aroma.core:nbrOfArrays.AromaMicroarrayDataSetTuple]{nbrOfArrays}} \tab Gets the number of arrays.\cr
+ \tab \code{nbrOfArrays} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfChipTypes.AromaMicroarrayDataSetTuple]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr
 }
 
