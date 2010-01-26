@@ -9,6 +9,7 @@ setMethodS3("getChromosomes", "Arguments", function(static, chromosomes, range=c
     idxs <- (chromosomes %in% names(map));
     chromosomes[idxs] <- map[chromosomes[idxs]];
   }
+
   chromosomes <- Arguments$getIndices(chromosomes, range=range, ...);
 
   chromosomes;

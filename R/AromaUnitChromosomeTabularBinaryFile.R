@@ -50,6 +50,10 @@ setMethodS3("getChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(t
     chromosomes <- .chromosomes;
     if (is.null(chromosomes)) {
       cc <- indexOfColumn(this, "chromosome");
+      # Sanity check
+      if (length(cc) == 0) {
+        throw(sprintf("Failed to infer set of chromosomes. There is no column 'chromosome' in this %s file: %s", class(this)[1], getPathname(this)));
+      }
       chromosomes <- this[,cc,drop=TRUE];
     }
     chromosomes <- unique(chromosomes);
@@ -57,6 +61,7 @@ setMethodS3("getChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(t
     chromosomes <- sort(chromosomes);
     this$.chromosomes <- chromosomes;
   }
+  
   chromosomes;
 })
 
@@ -183,6 +188,10 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 
 ############################################################################
 # HISTORY:
+# 2010-01-25
+# o ROBUSTNESS: Added a sanity check getChromosomes() for class
+#   AromaUnitChromosomeTabularBinaryFile validating that the file has a
+#   'chromosome' column.
 # 2009-09-07
 # o Now getUnitsOnChromosomes() returns a vector by default (unlist=TRUE).
 # o By default, getUnitsOnChromosomes() now returns names if the return
