@@ -27,16 +27,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   }
 
   # Argument 'tags':
-  if (!is.null(tags)) {
-    tags <- Arguments$getCharacters(tags);
-
-    # Clean up tags
-    tags <- paste(tags, collapse=",");
-    tags <- strsplit(tags, split=",", fixed=TRUE)[[1]];
-    tags <- trim(tags);
-    tags <- tags[nchar(tags) > 0];
-    tags <- paste(tags, collapse=",");
-  }
+  tags <- Arguments$getTags(tags, collapse=",");
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);

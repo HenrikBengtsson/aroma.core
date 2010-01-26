@@ -49,11 +49,7 @@ setConstructorS3("Explorer", function(tags="*", ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'tags':
-  if (!is.null(tags)) {
-    tags <- Arguments$getCharacters(tags);
-    tags <- trim(unlist(strsplit(tags, split=",")));
-    tags <- tags[nchar(tags) > 0];
-  }
+  tags <- Arguments$getTags(tags, collapse=NULL);
 
   extend(Object(), "Explorer",
     .alias = NULL,
@@ -353,20 +349,12 @@ setMethodS3("getTags", "Explorer", function(this, collapse=NULL, ...) {
   # Update asterisk tags
   tags[tags == "*"] <- getAsteriskTags(this, collapse=",");
 
-  # Keep non-empty tags
-  tags <- tags[nchar(tags) > 0];
+  tags <- Arguments$getTags(tags, collapse=NULL);
 
   tags <- locallyUnique(tags);
 
   # Collapsed or split?
-  if (!is.null(collapse)) {
-    tags <- paste(tags, collapse=collapse);
-  } else {
-    tags <- unlist(strsplit(tags, split=","));
-  }
-
-  if (length(tags) == 0)
-    tags <- NULL;
+  tags <- Arguments$getTags(tags, collapse=collapse);
 
   tags;
 })
@@ -407,7 +395,8 @@ setMethodS3("getReportPathPattern", "Explorer", function(this, ...) {
 })
 
 setMethodS3("splitByReportPathPattern", "Explorer", function(this, tags, ...) {
-  tags <- paste(tags, collapse=",");
+  # Argument 'tags':
+  tags <- Arguments$getTags(tags, collapse=",");
 
   # Get subname and sampleLayerPrefix
 	pattern <- getReportPathPattern(this);

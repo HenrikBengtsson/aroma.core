@@ -46,17 +46,10 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
 
     args <- list(...);
     nargs <- length(args);
-    if (!is.null(tags)) {
-      tags <- tags[!is.na(tags)];
-      tags <- tags[nchar(tags) > 0];
-      if (length(tags) == 0)
-        tags <- NULL;
-    }
+
+    tags <- Arguments$getTags(tags, collapse=NULL);
 
     if (!is.null(tags)) {
-      # Split tags
-      tags <- unlist(strsplit(tags, split=","), use.names=FALSE);
-      tags <- trim(tags);
       verbose && cat(verbose, "Tags: ", paste(tags, collapse=", "));
       nargs <- nargs + 1;
     }

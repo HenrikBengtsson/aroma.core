@@ -5,6 +5,7 @@ Version: 1.4.3 [2010-01-25]
 o ROBUSTNESS: Added a sanity check getChromosomes() for class
   AromaUnitChromosomeTabularBinaryFile validating that the file 
   has a 'chromosome' column.
+o CLEANUP: Using new Arguments$getTags() whereever possible.
 
 
 Version: 1.4.2 [2010-01-13]

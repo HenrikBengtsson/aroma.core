@@ -42,12 +42,7 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
   }
 
   # Argument 'tags':
-  if (!is.null(tags)) {
-    tags <- Arguments$getCharacters(tags);
-    tags <- trim(unlist(strsplit(tags, split=",")));
-    tags <- tags[nchar(tags) > 0];
-  }
- 
+  tags <- Arguments$getTags(tags, collapse=NULL);
 
   this <- extend(Object(), "ChromosomalModel",
     .alias = NULL,
@@ -542,24 +537,14 @@ setMethodS3("getTags", "ChromosomalModel", function(this, collapse=NULL, ...) {
   if (length(asteriskTags) == 0)
     asteriskTags <- "";
   tags[tags == "*"] <- asteriskTags;
-  tags <- tags[nchar(tags) > 0];
-  tags <- unlist(strsplit(tags, split=","), use.names=TRUE);
 
-  # Keep non-empty tags
-  tags <- tags[nchar(tags) > 0];
+  tags <- Arguments$getTags(tags, collapse=NULL);
 
   # Get unique tags
   tags <- locallyUnique(tags);
 
   # Collapsed or split?
-  if (!is.null(collapse)) {
-    tags <- paste(tags, collapse=collapse);
-  } else {
-    tags <- unlist(strsplit(tags, split=","));
-  }
-
-  if (length(tags) == 0)
-    tags <- NULL;
+  tags <- Arguments$getTags(tags, collapse=collapse);
 
   tags;
 })

@@ -21,8 +21,41 @@ setMethodS3("getChromosome", "Arguments", function(static, chromosome, ..., leng
 }, static=TRUE, protected=TRUE)
 
 
+
+setMethodS3("getTags", "Arguments", function(static, ..., na.rm=TRUE, collapse=",") {
+  # Generate tags
+  tags <- paste(..., sep=",", collapse=",");
+  tags <- Arguments$getCharacters(tags);
+  tags <- strsplit(tags, split=",");
+  tags <- unlist(tags);
+  tags <- trim(tags);
+
+  # Drop missing tags?
+  if (na.rm) {
+    tags <- tags[!is.na(tags)];
+  }
+
+  # Drop empty tags
+  tags <- tags[nchar(tags) > 0];
+
+  # Nothing to do?
+  if (length(tags) == 0) {
+    return(NULL);
+  }
+
+  # Collapse?
+  if (!is.null(collapse)) {
+    tags <- paste(tags, collapse=collapse);
+  }
+
+  tags;
+}, static=TRUE, protected=TRUE)
+
+
 ############################################################################
 # HISTORY:
+# 2010-01-25
+# o Added static getTags() to Arguments.
 # 2007-03-15
 # o BUG FIX: Forgot to pass '...' down in getChromosome().
 # 2007-03-06

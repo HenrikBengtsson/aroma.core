@@ -141,12 +141,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   }
 
   # Argument 'tags':
-  if (!is.null(tags)) {
-    tags <- Arguments$getCharacters(tags);
-    tags <- trim(unlist(strsplit(tags, split=",")));
-    tags <- tags[nchar(tags) > 0];
-  }
-
+  tags <- Arguments$getTags(tags, collapse=NULL);
 
   this <- extend(ChromosomalModel(), "CopyNumberChromosomalModel",
     .cesTuple = cesTuple,

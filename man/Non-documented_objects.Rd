@@ -947,6 +947,7 @@
 \alias{getAromaUgpFile.AromaPlatformInterface}
 \alias{isCompatibleWith}
 \alias{isCompatibleWith.AromaPlatformInterface}
+\alias{getTags.Arguments}
 
 \description{
   This page contains aliases for all "non-documented" objects that

@@ -33,10 +33,7 @@ setMethodS3("hasAttributeXY", "AromaMicroarrayDataFile", function(this, values, 
 
 setMethodS3("setAttributesByTags", "AromaMicroarrayDataFile", function(this, tags=getTags(this), ...) {
   # Split tags
-  if (length(tags) > 0) {
-    tags <- unlist(strsplit(tags, split=","), use.names=FALSE);
-    tags <- trim(tags);
-  }
+  tags <- Arguments$getTags(tags, collapse=NULL);
 
   newAttrs <- NextMethod("setAttributesByTags", this, tags=tags, ...);
 

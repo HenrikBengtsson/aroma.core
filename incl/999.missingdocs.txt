@@ -456,3 +456,4 @@
   drawCnRegions.MPCBS extractCopyNumberRegions.MPCBS segmentByMPCBS
   getAromaUgpFile.AromaPlatformInterface isCompatibleWith
   isCompatibleWith.AromaPlatformInterface
+getTags.Arguments
