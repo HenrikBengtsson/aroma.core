@@ -532,6 +532,10 @@ setMethodS3("getTags", "ChromosomalModel", function(this, collapse=NULL, ...) {
   # Add model tags
   tags <- c(tags, this$.tags);
 
+  # In case this$.tags is not already split
+  tags <- strsplit(tags, split=",", fixed=TRUE);
+  tags <- unlist(tags);
+
   # Update default tags
   asteriskTags <- getAsteriskTags(this, collapse=",");
   if (length(asteriskTags) == 0)

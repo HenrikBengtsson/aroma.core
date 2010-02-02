@@ -344,6 +344,11 @@ setMethodS3("getTags", "Explorer", function(this, collapse=NULL, ...) {
   tags <- getTagsOfInput(this, ...);
 
   tags <- c(tags, this$.tags);
+
+  # In case this$.tags is not already split
+  tags <- strsplit(tags, split=",", fixed=TRUE);
+  tags <- unlist(tags);
+
   tags <- locallyUnique(tags);
 
   # Update asterisk tags
@@ -429,8 +434,9 @@ setMethodS3("getSubname", "Explorer", function(this, ...) {
 
   # Infer from tags
   tags <- getTags(this, collapse=",");
-  if (nchar(tags) == 0)
+  if (length(tags) == 0 || nchar(tags) == 0) {
     tags <- "raw";  # Default
+  }
 
   subname <- splitByReportPathPattern(this, tags)$subname;
   if (is.null(subname))
@@ -443,8 +449,9 @@ setMethodS3("getSubname", "Explorer", function(this, ...) {
 setMethodS3("getSampleLayerPrefix", "Explorer", function(this, ...) {
   # Infer from tags
   tags <- getTags(this, collapse=",");
-  if (nchar(tags) == 0)
+  if (length(tags) == 0 || nchar(tags) == 0) {
     tags <- "raw";  # Default
+  }
   prefix <- splitByReportPathPattern(this, tags)$sampleLayerPrefix;
   prefix;
 }, protected=TRUE)

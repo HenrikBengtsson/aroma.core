@@ -196,6 +196,10 @@ setMethodS3("getTags", "AromaTransform", function(this, collapse=NULL, ...) {
   # Get class-specific tags
   tags <- c(tags, this$.tags);
 
+  # In case this$.tags is not already split
+  tags <- strsplit(tags, split=",", fixed=TRUE);
+  tags <- unlist(tags);
+
   # Update default tags
   tags[tags == "*"] <- getAsteriskTags(this, collapse=",");
 

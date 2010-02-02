@@ -56,6 +56,10 @@ setMethodS3("getTags", "CopyNumberSegmentationModel", function(this, collapse=NU
   # Add model tags
   tags <- c(tags, this$.tags);
 
+  # In case this$.tags is not already split
+  tags <- strsplit(tags, split=",", fixed=TRUE);
+  tags <- unlist(tags);
+
   # Update default tags
   asteriskTags <- paste(getAsteriskTags(this)[-1], collapse=",");
   if (length(asteriskTags) == 0)

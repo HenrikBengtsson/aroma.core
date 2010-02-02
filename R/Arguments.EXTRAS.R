@@ -26,7 +26,7 @@ setMethodS3("getTags", "Arguments", function(static, ..., na.rm=TRUE, collapse="
   # Generate tags
   tags <- paste(..., sep=",", collapse=",");
   tags <- Arguments$getCharacters(tags);
-  tags <- strsplit(tags, split=",");
+  tags <- strsplit(tags, split=",", fixed=TRUE);
   tags <- unlist(tags);
   tags <- trim(tags);
 
