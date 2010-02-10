@@ -1,10 +1,15 @@
 Package: aroma.core
 ===================
 
+Version: 1.4.5 [2010-02-10]
+o CLEANUP: Removed debug print() statements in isCompatibleWith().
+
+
 Version: 1.4.4 [2010-02-03]
 o ROBUSTNESS: Package now requires matrixStats v0.1.9 or newer,
   due to a bug in the earlier versions that would affect smoothing
   of chromosomal signals that contains missing values.
+o Package passes R CMD check and all redundancy tests.
 
 
 Version: 1.4.3 [2010-01-25]

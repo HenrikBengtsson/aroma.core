@@ -23,9 +23,6 @@ setMethodS3("getAromaPlatform", "AromaPlatformInterface", function(this, ..., fo
 
 # @title "Checks if a particular unit annotation data file is suitable for this AromaPlatformInterface class"
 setMethodS3("isCompatibleWith", "AromaPlatformInterface", function(this, udf, ...) {
-print(class(udf))
-print(udf);
-
   if (getPlatform(this) != getPlatform(udf))
     return(FALSE);
   if (getChipType(this, fullname=FALSE) != getChipType(udf, fullname=FALSE))
@@ -195,6 +192,8 @@ setMethodS3("getAromaUgpFile", "AromaPlatformInterface", function(this, ...) {
 
 ############################################################################
 # HISTORY:
+# 2010-02-10
+# o CLEANUP: Removed debug print() statements in isCompatibleWith().
 # 2010-01-13
 # o Now getUnitNamesFile() for AromaPlatformInterface utilizes the 
 #   generic getUnitAnnotationDataFile() method.
