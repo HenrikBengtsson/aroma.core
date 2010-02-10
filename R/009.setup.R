@@ -19,6 +19,8 @@
   # Apply downloaded patches
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   patchPackage("aroma.core");
+  patchPackage("R.filesets");
+  patchPackage("R.utils");
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -59,6 +61,9 @@
 
 ############################################################################
 # HISTORY:
+# 2010-02-10
+# o Now also patches for R.filesets and R.utils are loaded, if available,
+#   when aroma.core is loaded.
 # 2009-09-04
 # o Now smoothScatter() is copying the one in 'geneplotter' v1.2.4 or older,
 #   if not R v2.9.0.

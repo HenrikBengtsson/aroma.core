@@ -2,6 +2,8 @@ Package: aroma.core
 ===================
 
 Version: 1.4.5 [2010-02-10]
+o ROBUSTNESS: Now also patches for R.filesets and R.utils are loaded, 
+  if available, when aroma.core is loaded.
 o CLEANUP: Removed debug print() statements in isCompatibleWith().
 
 
