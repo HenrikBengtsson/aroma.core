@@ -75,6 +75,10 @@ extends \link[R.oo]{Object}\cr
  \tab \code{nbrOfLoci} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
+ \tab \code{\link[aroma.core:segmentByCBS.RawGenomicSignals]{segmentByCBS}} \tab Segment copy numbers using the CBS method.\cr
+ \tab \code{\link[aroma.core:segmentByGLAD.RawGenomicSignals]{segmentByGLAD}} \tab Segment copy numbers using the GLAD method.\cr
+ \tab \code{\link[aroma.core:segmentByHaarSeg.RawGenomicSignals]{segmentByHaarSeg}} \tab Segment copy numbers using the HaarSeg method.\cr
+ \tab \code{\link[aroma.core:segmentByMPCBS.RawGenomicSignals]{segmentByMPCBS}} \tab Segment copy numbers using the multi-platform CBS (mpCBS) method.\cr
  \tab \code{setLocusFields} \tab  -\cr
  \tab \code{setName} \tab  -\cr
  \tab \code{setSigma} \tab  -\cr

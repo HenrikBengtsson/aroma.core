@@ -253,7 +253,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., cache=FALS
   verbose && exit(verbose);
 
   fit;  
-}, private=TRUE) # segmentByCBS()
+}) # segmentByCBS()
 
 
 ############################################################################

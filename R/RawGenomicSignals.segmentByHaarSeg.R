@@ -261,7 +261,7 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
   verbose && exit(verbose);
 
   fit;  
-}, private=TRUE) # segmentByCBS()
+}) # segmentByCBS()
 
 
 ############################################################################

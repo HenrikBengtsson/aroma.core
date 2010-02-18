@@ -73,7 +73,7 @@ byChipType, getAromaUflFile, getAromaUgpFile, getChipType, getPlatform, nbrOfUni
 allocate, as.character, byChipType, findByChipType, getChipType, getFilenameExtension, getPlatform
 
  \bold{Methods inherited from AromaPlatformInterface}:\cr
-getAromaPlatform, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile
+getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
 [, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter

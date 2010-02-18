@@ -67,7 +67,7 @@ extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
 
 
  \bold{Methods inherited from AromaPlatformInterface}:\cr
-getAromaPlatform, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile
+getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
 [, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter

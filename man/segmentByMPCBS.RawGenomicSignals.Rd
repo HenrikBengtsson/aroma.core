@@ -38,30 +38,44 @@
 
  \examples{
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Simulating copy-number data
+# Simulating copy-number data from multiple platforms
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Number of loci
-J <- 1000
+# Piecewise-constant copy-number state function
+cnState <- function(x, ...) {
+  n <- length(x)
+  mu <- double(n)
+  mu[20e6 <= x & x <= 30e6] <- +1
+  mu[65e6 <= x & x <= 80e6] <- -1
+  mu
+} # cnState()
 
-mu <- double(J)
-mu[200:300] <- mu[200:300] + 1
-mu[650:800] <- mu[650:800] - 1
-eps <- rnorm(J, sd=1/2)
-y <- mu + eps
-x <- sort(runif(length(y), max=length(y)))
-w <- runif(J)
-w[650:800] <- 0.001
+xMax <- 100e6
+
+Js <- c(1000, 2000, 500)
+bs <- c(1, 1.4, 0.5)
+as <- c(0, +0.5, -0.5)
+sds <- c(0.5, 0.3, 0.8)
+
+cnList <- list()
+for (kk in seq(along=Js)) {
+  J <- Js[kk]
+  a <- as[kk]
+  b <- bs[kk]
+  sd <- sds[kk]
+  x <- sort(runif(J, max=xMax))
+  mu <- a + b * cnState(x)
+  eps <- rnorm(J, sd=sd)
+  y <- mu + eps
+  cn <- RawCopyNumbers(y, x)
+  cnList[[kk]] <- cn
+}
 
 
-cn <- RawCopyNumbers(y, x)
-print(cn)
-
-plot(cn, col="#aaaaaa")
-
-cnS <- binnedSmoothing(cn, by=10)
-print(cnS)
-lines(cnS, col="black", lwd=3)
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Merge platform data (record their sources in 'id')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+cn <- Reduce(append, cnList)
+plot(cn, col=cn$id)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Segment
@@ -72,25 +86,21 @@ if (require("DNAcopy")) {
   fit <- segmentByCBS(cn)
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)
+  drawLevels(cnr, col="white", lwd=6)
   drawLevels(cnr, col="red", lwd=3)
   legend <- c(legend, red="CBS")
 }
 
-if (require("GLAD")) {
-  fit <- segmentByGLAD(cn)
+
+if (require("mpcbs")) {
+  fit <- segmentByMPCBS(cn)
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)
+  drawLevels(cnr, col="white", lwd=6)
   drawLevels(cnr, col="blue", lwd=3)
-  legend <- c(legend, blue="GLAD")
+  legend <- c(legend, blue="MPCBS")
 }
 
-if (require("HaarSeg")) {
-  fit <- segmentByHaarSeg(cn)
-  cnr <- extractCopyNumberRegions(fit)
-  print(cnr)
-  drawLevels(cnr, col="orange", lwd=3)
-  legend <- c(legend, orange="HaarSeg")
-}
 
 legend("topleft", pch=19, col=names(legend), legend, bty="n", horiz=TRUE)
 }
