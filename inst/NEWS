@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.4.6 [2010-02-18]
+o Added getOutputSet() for ChromosomalModel.
+o Added alpha version of a doCBS().
+
+
 Version: 1.4.5 [2010-02-10]
 o ROBUSTNESS: Now also patches for R.filesets and R.utils are loaded, 
   if available, when aroma.core is loaded.

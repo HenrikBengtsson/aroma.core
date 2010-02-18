@@ -948,6 +948,15 @@
 \alias{isCompatibleWith}
 \alias{isCompatibleWith.AromaPlatformInterface}
 \alias{getTags.Arguments}
+\alias{doCBS}
+\alias{doCBS.character}
+\alias{doCBS.CopyNumberDataSet}
+\alias{getOutputSet}
+\alias{getOutputSet.ChromosomalModel}
+\alias{setAttributesBy.AromaTabularBinarySet}
+\alias{setAttributesBySampleAnnotationFile.AromaTabularBinarySet}
+\alias{setAttributesBySampleAnnotationSet.AromaTabularBinarySet}
+\alias{setAttributesByTags.AromaTabularBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

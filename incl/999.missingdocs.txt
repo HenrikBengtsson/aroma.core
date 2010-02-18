@@ -457,3 +457,8 @@
   getAromaUgpFile.AromaPlatformInterface isCompatibleWith
   isCompatibleWith.AromaPlatformInterface
 getTags.Arguments
+  doCBS doCBS.character doCBS.CopyNumberDataSet getOutputSet
+  getOutputSet.ChromosomalModel setAttributesBy.AromaTabularBinarySet
+  setAttributesBySampleAnnotationFile.AromaTabularBinarySet
+  setAttributesBySampleAnnotationSet.AromaTabularBinarySet
+  setAttributesByTags.AromaTabularBinarySet

@@ -217,6 +217,16 @@ setMethodS3("nbrOfChipTypes", "ChromosomalModel", function(this, ...) {
 
 
 setMethodS3("getListOfUnitNamesFiles", "ChromosomalModel", function(this, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
   verbose && enter(verbose, "Retrieving unit names files");
 
   tuple <- getSetTuple(this);
@@ -727,6 +737,50 @@ setMethodS3("getSetTag", "ChromosomalModel", function(this, ...) {
 }, private=TRUE)
 
 
+setMethodS3("getOutputSet", "ChromosomalModel", function(this, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Retrieving output set");
+
+  verbose && enter(verbose, "Scanning output path");
+  # Locate all 
+  path <- getPath(this);
+  verbose && cat(verbose, "Path: ", path);
+  fs <- GenericDataFileSet$byPath(path, ...);
+  verbose && cat(verbose, "Number of matching files located: ", nbrOfFiles(fs));
+  verbose && exit(verbose);
+
+  verbose && enter(verbose, "Keep those with fullnames matching the input data set");
+  fullnames <- getFullNames(fs);
+  
+  # Drop extranous files
+  keepFullnames <- getFullNames(this);
+  patterns <- sprintf("^%s", fullnames);
+  keep <- rep(FALSE, times=length(fullnames));
+  for (pattern in patterns) {
+    keep <- keep | (regexpr(pattern, fullnames) != -1);
+  }
+  if (any(!keep)) {
+    fs <- extract(fs, keep);
+  }
+  verbose && exit(verbose);
+
+  verbose && print(verbose, fs);
+
+  verbose && exit(verbose);
+
+  fs;
+}, private=TRUE)
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 # BEGIN: DEPRECATED
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -769,6 +823,8 @@ setMethodS3("setAlias", "ChromosomalModel", function(this, alias=NULL, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-02-18
+# o Added getOutputSet() for ChromosomalModel.
 # 2010-01-13
 # o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via 
 #   getListOfUnitNamesFiles().  This opens up the possibility to work with
