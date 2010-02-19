@@ -143,69 +143,12 @@ setMethodS3("drawCytoband", "profileCGH", function(fit, chromosome=NULL, cytoban
 
 
 
-setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, labels=TRUE, height=1, colCytoBand=c("white", "darkblue"), colCentro="red", ...) {
-  opar <- par(xpd=NA);
-  on.exit(par(opar));
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Cytoband colors
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  color <- unique(cytoband$Col);
-  pal <- GLAD::myPalette(low=colCytoBand[1], high=colCytoBand[2], k=length(color));
-
-  info <- data.frame(Color=color, ColorName=I(pal));
-  cytoband <- merge(cytoband, info, by="Color");
-  rm(info);
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Extract cytoband information for current chromosome
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  keep <- which(cytoband$Chromosome == chromosome);
-  cytoband <- cytoband[keep, ];
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Cytoband positions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  CytoPos <- 0.5 * (cytoband$Start + cytoband$End);
-  CytoLength <- (cytoband$End - cytoband$Start);
-  NbCyto <- length(cytoband[, 1]);
-  HeightPlot <- rep(height, NbCyto);
-  sizeCyto <- matrix(c(CytoLength, HeightPlot), nrow=NbCyto, ncol=2);
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Draw cytobands
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  y0 <- min(unique(y));
-  yC <- y0+height/2;
-  y1 <- y0+height;
-  symbols(x=CytoPos, y=rep(yC, NbCyto), rectangles=sizeCyto,
-      inches=FALSE, bg=cytoband$ColorName, add=TRUE, ...);
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Highlight the centromere
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # The inverted arrow indicating where the centromere is.
-  idxs <- which(cytoband$Centro == 1);
-  centroPos <- min(cytoband$End[idxs]);
-  arrows(centroPos, y0, centroPos, y1, col=colCentro, code=2, angle=120, 
-                                                               length=0.1);
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Labels, e.g. 20q12
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  if (labels) {
-    labels <- paste(cytoband$Chromosome, cytoband$Band, sep="");
-#    axis(side=3, at=CytoPos, labels=labels, las=2);
-    dy <- par("cxy")[2];
-    text(x=CytoPos, y=y1+dy/2, labels=labels, srt=90, adj=c(0,0.5));
-  }
-}, private=TRUE)
-
-
  
 ############################################################################
 # HISTORY:
+# 2010-02-19
+# o Moved drawCytoband2() to its own file, because it no longer requires
+#   the GLAD package.
 # 2009-05-14
 # o Moved extractRawCopyNumbers() for profileCGH from aroma.affymetrix.
 # o Moved extractCopyNumberRegions() for profileCGH from aroma.affymetrix.

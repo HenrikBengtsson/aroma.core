@@ -617,10 +617,24 @@ setMethodS3("getGenome", "ChromosomalModel", function(this, ...) {
 })
 
 
-setMethodS3("getGenomeFile", "ChromosomalModel", function(this, ..., verbose=FALSE) {
+setMethodS3("getGenomeFile", "ChromosomalModel", function(this, ..., genome=getGenome(this), tags="chromosomes", pattern="^%s(,.*)*[.]txt$", onMissing=c("error", "warning", "ignore"), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'genome':
+  genome <- Arguments$getCharacter(genome);
+
+  # Argument 'tags':
+  tags <- Arguments$getTags(tags, collapse=",");
+
+  # Argument 'pattern':
+  if (!is.null(pattern)) {
+    pattern <- Arguments$getRegularExpression(pattern);
+  }
+
+  # Argument 'onMissing':
+  onMissing <- match.arg(onMissing);
+
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
@@ -628,26 +642,59 @@ setMethodS3("getGenomeFile", "ChromosomalModel", function(this, ..., verbose=FAL
     on.exit(popState(verbose));
   }
 
-  fullname <- getGenome(this);
-  pattern <- sprintf("^%s.*,chromosomes.txt$", fullname);
 
-  # 1. Search in the regular places
-  pathname <- findAnnotationData(name=fullname, set="genomes", 
-                            pattern=pattern, ..., verbose=less(verbose, 10));
+  verbose && enter(verbose, "Locating genome annotation file");
 
-  # 2. As a backup, search in the <pkg>/annotationData/ directory
-  if (is.null(pathname)) {
-    verbose && enter(verbose, "Search among package's annotationData/");
-    path <- system.file("annotationData", package="aroma.affymetrix");
+  fullname <- paste(c(genome, tags), collapse=",");
+
+  verbose && cat(verbose, "Genome name: ", genome);
+  verbose && cat(verbose, "Genome tags: ", tags);
+  verbose && cat(verbose, "Genome fullname: ", fullname);
+
+  pattern <- sprintf(pattern, fullname);
+  verbose && cat(verbose, "Pattern: ", pattern);
+
+  # Paths to search in
+  paths <- c(
+    system.file("annotationData", package="aroma.core"),
+    system.file("annotationData", package="aroma.affymetrix")
+  );
+  keep <- (nchar(paths) > 0);
+  paths <- paths[keep];
+  keep <- sapply(paths, FUN=isDirectory);
+  paths <- paths[keep];
+  paths <- lapply(paths, FUN=function(path) Arguments$getReadablePath(path));
+  paths <- c(list(NULL), paths);
+
+  verbose && cat(verbose, "Paths to be searched:");
+  verbose && str(verbose, paths);
+
+  for (kk in seq(along=paths)) {
+    path <- paths[[kk]];
     verbose && cat(verbose, "Path: ", path);
     pathname <- findAnnotationData(name=fullname, set="genomes", 
                 pattern=pattern, ..., paths=path, verbose=less(verbose, 10));
-    verbose && exit(verbose);
+    if (!is.null(pathname)) {
+      verbose && cat(verbose, "Found file: ", pathname);
+      break;
+    }
   }
 
+  # Failed to locate a file?
   if (is.null(pathname)) {
-    throw("Failed to locate a genome annotation data file: ", fullname);
+    msg <- sprintf("Failed to locate a genome annotation data file with pattern '%s' for genome '%s'.", pattern, genome);
+    verbose && cat(verbose, msg);
+
+    # Action?
+    if (onMissing == "error") {
+      throw(msg);
+    } else if (onMissing == "warning") {
+      warning(msg);
+    } else if (onMissing == "ignore") {
+    }
   }
+
+  verbose && exit(verbose);
 
   pathname;
 }, protected=TRUE)
@@ -823,6 +870,10 @@ setMethodS3("setAlias", "ChromosomalModel", function(this, alias=NULL, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-02-19
+# o Updated getGenomeFile() for ChromosomalModel such that it can be used
+#   to locate other types of genome annotation files as well, files that
+#   may be optional (without giving an error).
 # 2010-02-18
 # o Added getOutputSet() for ChromosomalModel.
 # 2010-01-13

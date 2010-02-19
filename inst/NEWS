@@ -1,7 +1,16 @@
 Package: aroma.core
 ===================
 
-Version: 1.4.6 [2010-02-18]
+Version: 1.4.6 [2010-02-19]
+o SIMPLIFICATION: Now it is possible to use ChromosomeExplorer without
+  having to install the GLAD package (used before for cytobands).
+o SIMPLIFICATION: Now it is possible to plot cytobands without having
+  to install the GLAD package.
+o Updated getGenomeFile() for ChromosomalModel such that it can be used
+  to locate other types of genome annotation files as well, files that
+  may be optional (without giving an error).
+o Added Human cytoband files to annotationData/genomes/.
+o Added annotationData/genomes/ to aroma.core (from aroma.affymetrix).
 o Added getOutputSet() for ChromosomalModel.
 o Added alpha version of a doCBS().
 

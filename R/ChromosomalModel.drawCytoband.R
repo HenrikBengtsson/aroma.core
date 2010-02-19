@@ -1,4 +1,4 @@
-setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, cytobandLabels=TRUE, colCytoBand=c("white", "darkblue"), colCentro="red", unit=6, ...) {
+setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, cytobandLabels=TRUE, unit=6, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -7,59 +7,68 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
   }
 
   # Do we know how to plot the genome?
-  genome <- getGenome(this);
-  name <- gsub(",.*", "", genome);
-  if (name != "Human") {
-    warning("Cannot draw cytoband. Unsupported genome: ", genome);
+  pathname <- getGenomeFile(this, tags="cytobands", onMissing="warning");
+
+  # If no cytoband annotation data is available, skip it
+  if (is.null(pathname)) {
     return();
   }
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Load annotation data file
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  db <- TabularTextFile(pathname);
+  colClassPattern <- c("*"="character", "(start|end)"="integer", 
+                       "intensity"="integer", "isCentromere"="logical");
+  data <- readDataFrame(db, colClassPattern=colClassPattern);
 
-  require("GLAD") || stop("Package not loaded: GLAD");  # data("cytoband")
+  # Infer chromosome indices
+  data$chromosomeIdx <- Arguments$getChromosomes(data$chromosome);
 
-  xScale <- 1/(10^unit);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Setup a cytoband data frame recognized by the GLAD plot functions
+  # TO DO: Setup our own plot functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Get chromosome lengths
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Load data
-  # To please R CMD check on R v2.6.0
-  cytoband <- NULL; rm(cytoband);
-  data("cytoband", envir=sys.frame(sys.nframe()));  # Package 'GLAD'
-  genomeInfo <- aggregate(cytoband$End, 
-    by=list(Chromosome=cytoband$Chromosome, ChrNumeric=cytoband$ChrNumeric), 
+  genomeInfo <- aggregate(data$end, 
+    by=list(Chromosome=data$chromosome, ChrNumeric=data$chromosomeIdx), 
     FUN=max, na.rm=TRUE);
   names(genomeInfo) <- c("Chromosome", "ChrNumeric", "Length");
-  genomeInfo$Chromosome <- as.character(genomeInfo$Chromosome);
-  genomeInfo$ChrNumeric <- as.integer(as.character(genomeInfo$ChrNumeric));
 
-  LabelChr <- data.frame(Chromosome=chromosome);
-  LabelChr <- merge(LabelChr, genomeInfo[, c("ChrNumeric", "Length")], 
-                         by.x="Chromosome", by.y="ChrNumeric", all.x=TRUE);
-
-  LabelChr$Length <- 0;
+  labelChr <- data.frame(chromosome=chromosome);
+  labelChr <- merge(labelChr, genomeInfo[, c("ChrNumeric", "Length")], 
+                         by.x="chromosome", by.y="ChrNumeric", all.x=TRUE);
+  labelChr$Length <- 0;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Get the cytoband details for the chromosome of interest
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Drop column 'Chromosome'
-  ## Gives a NOTE in R CMD check R v2.6.0, which is nothing, but we'll
-  ## use a workaround to get a clean result. /HB 2007-06-12
-  Chromosome <- NULL; rm(Chromosome); # dummy
-  cytobandNew <- subset(cytoband, select=-Chromosome); 
-  cytobandNew <- merge(LabelChr, cytobandNew, by.x="Chromosome", 
-                                                        by.y="ChrNumeric");
-  # Rescale x positions according to units
-  cytobandNew$Start <- xScale*cytobandNew$Start;
-  cytobandNew$End <- xScale*cytobandNew$End;
+  # Drop column 'chromosome'
+  data2 <- data[,(colnames(data) != "chromosome"), drop=FALSE];
+  data2 <- merge(labelChr, data2, by.x="chromosome", by.y="chromosomeIdx");
 
+  # Rescale x positions according to units
+  xScale <- 1/(10^unit);
+  data2$start <- xScale*data2$start;
+  data2$end <- xScale*data2$end;
+
+  # Translate names to GLAD names
+  names <- names(data2);
+  names <- gsub("intensity", "color", names);
+  names <- gsub("isCentromere", "centro", names);
+  names <- capitalize(names);
+  names(data2) <- names;
+  
   # Where should the cytoband be added and how wide should it be?
   usr <- par("usr");
   dy <- diff(usr[3:4]);
 
-  drawCytoband2(cytobandNew, chromosome=chromosome, 
-    labels=cytobandLabels, y=usr[4]+0.02*dy, height=0.03*dy, 
-    colCytoBand=colCytoBand, colCentro=colCentro);
+  drawCytoband2(data2, chromosome=chromosome, 
+    labels=cytobandLabels, y=usr[4]+0.02*dy, height=0.03*dy, ...);
 }, private=TRUE) # drawCytoband()
 
 
@@ -67,6 +76,8 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
 ##############################################################################
 # HISTORY:
 # 2007-09-25
+# o Dropped arguments 'colCytoBand' and 'colCentro' because they are now
+#   passed via '...' to drawCytoband2().
 # o Moved drawCytoband() to ChromosomalModel. 
 # 2007-09-16
 # o Now drawCytoband() only loads the GLAD package, if actually plotting.
