@@ -39,7 +39,7 @@
 #  @see "CopyNumberChromosomalModel".
 # }
 #*/###########################################################################
-setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:7), ..., version=c("3")) {
+setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ..., version=c("3")) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

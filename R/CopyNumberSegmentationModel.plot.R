@@ -1,4 +1,4 @@
-setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., pixelsPerMb=3, zooms=2^(0:7), pixelsPerTick=2.5, height=400, xmargin=c(50,50), imageFormat="current", skip=TRUE, path=NULL, callList=NULL, verbose=FALSE) {
+setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., pixelsPerMb=3, zooms=2^(0:6), pixelsPerTick=2.5, height=400, xmargin=c(50,50), imageFormat="current", skip=TRUE, path=NULL, callList=NULL, verbose=FALSE) {
   # To please R CMD check.
   this <- x;
 

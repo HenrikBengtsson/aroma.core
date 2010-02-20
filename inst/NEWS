@@ -6,6 +6,9 @@ o SIMPLIFICATION: Now it is possible to use ChromosomeExplorer without
   having to install the GLAD package (used before for cytobands).
 o SIMPLIFICATION: Now it is possible to plot cytobands without having
   to install the GLAD package.
+o Argument 'zooms' of ChromosomeExplorer now default to 2^(0:6), 
+  instead of 2^(0:7), because the images for zoom 2^7=128 would not 
+  display in Firefox for the largest chromosomes.
 o Updated getGenomeFile() for ChromosomalModel such that it can be used
   to locate other types of genome annotation files as well, files that
   may be optional (without giving an error).

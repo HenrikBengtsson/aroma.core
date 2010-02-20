@@ -1,4 +1,4 @@
-setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this, FUN, path, chromosomes=getChromosomes(this), xlim=NULL, ..., pixelsPerMb=3, zooms=2^(0:7), height=400, xmargin=c(50,50), imageFormat="current", transparent=FALSE, skip=TRUE, verbose=FALSE) {
+setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this, FUN, path, chromosomes=getChromosomes(this), xlim=NULL, ..., pixelsPerMb=3, zooms=2^(0:6), height=400, xmargin=c(50,50), imageFormat="current", transparent=FALSE, skip=TRUE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
