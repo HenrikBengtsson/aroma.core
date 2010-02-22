@@ -20,7 +20,8 @@
 # }
 # 
 # \details{
-#   Internally @see "mpcbs::mpcbs.mbic" is used to segment the signals.
+#   Internally \code{mpcbs.mbic()} of the \pkg{mpcbs} package is used
+#   for segmenting the signals.
 #   This segmentation method does not support weighted segmentation.
 # }
 #

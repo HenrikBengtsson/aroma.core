@@ -5,7 +5,7 @@ args="$2 $3 $4 $5 $6 $7 $8 $9"
 tags=""
 echo "$args"
 
-Rver=/usr/local/bin/R
+Rver=R
 
 filename=${pathname/*\//}
 fullname=${filename/.Rex/}
@@ -26,9 +26,9 @@ echo "Tags    : ${tags}"
 echo "Host    : ${hostTag}"
 echo "Date    : ${dateTag}"
 echo "Log file: ${logfile}"
-echo "Command : nohup ${Rver} --no-save ${args} < ${pathname} > ${logfile}"
+echo "Command : nohup ${Rver} --no-save --args ${args} < ${pathname} > ${logfile}"
 
 echo "R version: "
 ${Rver} --version
 
-nohup ${Rver} --no-save ${args} < ${pathname} > ${logfile}
+nohup ${Rver} --no-save --args ${args} < ${pathname} > ${logfile}

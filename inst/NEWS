@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 1.5.0 [2010-02-22]
+o Submitted to CRAN.  No changes since v1.4.7.
+o Package passes R CMD check on R v2.10.1 patch and R v2.11.0 devel.
+o Package passes all redundancy tests.
+
+
 Version: 1.4.7 [2010-02-21]
 o Added the AromaCellCpgFile class.
 o Added Rd help for AromaCellPositionFile class.
