@@ -18,7 +18,7 @@
   apply.SampleAnnotationFile applyBinaryOperator
   applyBinaryOperator.RawGenomicSignals applyRegions
   applyRegions.CopyNumberOutliers applyRows applyRows.CopyNumberRegions
-  AromaCellPositionFile AromaCellSequenceFile AromaCore AromaPackage
+  AromaCellSequenceFile AromaCore AromaPackage
   AromaPlatformInterface aromaSettings AromaSettings AromaUflFile
   AromaUgpFile AromaUnitChromosomeTabularBinaryFile
   AromaUnitTotalCnBinaryFileList AromaUnitTotalCnBinarySetTuple
@@ -462,3 +462,7 @@ getTags.Arguments
   setAttributesBySampleAnnotationFile.AromaTabularBinarySet
   setAttributesBySampleAnnotationSet.AromaTabularBinarySet
   setAttributesByTags.AromaTabularBinarySet
+  allocate.AromaCellCpgFile byChipType.AromaCellCpgFile
+  getColumnNames.AromaCellCpgFile getFilenameExtension.AromaCellCpgFile
+  isMissing.AromaCellCpgFile readCpgs readCpgs.AromaCellCpgFile
+  updateCpgs updateCpgs.AromaCellCpgFile

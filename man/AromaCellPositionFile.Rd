@@ -19,6 +19,11 @@
 
  \usage{AromaCellPositionFile(...)}
 
+ \arguments{
+  \item{...}{Arguments passed to constructor of
+             \code{\link{AromaCellTabularBinaryFile}}.}
+ }
+
  \details{
    Note that this class does \emph{not} assume a rectangular chip layout.
    In other words, there is no concept of mapping a \emph{spatial}

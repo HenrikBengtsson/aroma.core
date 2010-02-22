@@ -51,7 +51,6 @@
 \alias{applyRegions.CopyNumberOutliers}
 \alias{applyRows}
 \alias{applyRows.CopyNumberRegions}
-\alias{AromaCellPositionFile}
 \alias{AromaCellSequenceFile}
 \alias{AromaCore}
 \alias{AromaPackage}
@@ -957,6 +956,15 @@
 \alias{setAttributesBySampleAnnotationFile.AromaTabularBinarySet}
 \alias{setAttributesBySampleAnnotationSet.AromaTabularBinarySet}
 \alias{setAttributesByTags.AromaTabularBinarySet}
+\alias{allocate.AromaCellCpgFile}
+\alias{byChipType.AromaCellCpgFile}
+\alias{getColumnNames.AromaCellCpgFile}
+\alias{getFilenameExtension.AromaCellCpgFile}
+\alias{isMissing.AromaCellCpgFile}
+\alias{readCpgs}
+\alias{readCpgs.AromaCellCpgFile}
+\alias{updateCpgs}
+\alias{updateCpgs.AromaCellCpgFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that
