@@ -17,9 +17,8 @@
 #   non-rectangular chip types.
 # }
 #
-# @author
+# \author{Mark Robinson}
 #*/###########################################################################
-
 setConstructorS3("AromaCellCpgFile", function(...) {
   extend(AromaCellTabularBinaryFile(...), "AromaCellCpgFile");
 })
@@ -35,24 +34,34 @@ setMethodS3("getColumnNames", "AromaCellCpgFile", function(this, ...) {
 
 
 
-setMethodS3("byChipType", "AromaCellCpgFile",function(static, chipType, tags = NULL, validate = TRUE, ..., verbose = FALSE) {
-    chipType <- Arguments$getCharacter(chipType);
-    verbose <- Arguments$getVerbose(verbose);
-    if (verbose) {
-        pushState(verbose);
-        on.exit(popState(verbose));
-    }
-    verbose && enter(verbose, "Locating ", class(static)[1]);
-    pathname <- findByChipType(static, chipType = chipType, tags = tags, 
-        firstOnly = TRUE, ...);
-    if (is.null(pathname)) {
-        throw("Could not locate a file for this chip type: ", 
-            paste(c(chipType, tags), collapse = ","));
-    }
-    verbose && cat(verbose, "Located file: ", pathname);
-    res <- newInstance(static, pathname);
-    verbose && exit(verbose);
-    res;
+setMethodS3("byChipType", "AromaCellCpgFile",function(static, chipType, tags=NULL, validate=TRUE, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'chipType':
+  chipType <- Arguments$getCharacter(chipType);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Locating ", class(static)[1]);
+
+  pathname <- findByChipType(static, chipType=chipType, tags=tags, 
+                                     firstOnly=TRUE, ...);
+  if (is.null(pathname)) {
+    throw("Could not locate a file for this chip type: ", 
+           paste(c(chipType, tags), collapse=","));
+  }
+  verbose && cat(verbose, "Located file: ", pathname);
+  res <- newInstance(static, pathname);
+
+  verbose && exit(verbose);
+
+  res;
 })
 
 
@@ -169,9 +178,9 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
 ############################################################################
 # HISTORY:
 # 2010-02-19 [MR]
-# o added full-row comments for Rdoc
-# o added to rforge repos
-# o modified header description, added semicolons
+# o Added begin/end Rdoc comments so that they are compiled into Rd files.
+# o Added file to SVN repository.
+# o Modified header description, added semicolons.
 # 2008-12-15 [MR]
 # o Created from AromaCellPositionFile.R.
 ############################################################################

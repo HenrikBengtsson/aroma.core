@@ -2,8 +2,9 @@ Package: aroma.core
 ===================
 
 Version: 1.4.7 [2010-02-21]
-o Added AromaCellCpgFile.R
-o Modified docs for AromaCellPositionFile
+o Added the AromaCellCpgFile class.
+o Added Rd help for AromaCellPositionFile class.
+
 
 Version: 1.4.6 [2010-02-19]
 o SIMPLIFICATION: Now it is possible to use ChromosomeExplorer without

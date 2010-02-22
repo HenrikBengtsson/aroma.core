@@ -84,7 +84,8 @@ setMethodS3("readSequenceMatrix", "AromaCellSequenceFile", function(this, cells=
   # Coerce to character strings?
   if (what == "character") {
     verbose && enter(verbose, "Coerce to a character matrix");
-    res <- as.integer(res) + as.integer(1);
+    res <- as.integer(res);
+    res <- res + as.integer(1);
     res <- names(map)[res];
     verbose && exit(verbose);
   }
@@ -422,7 +423,8 @@ setMethodS3("readTargetStrands", "AromaCellSequenceFile", function(this, cells=N
   # Coerce to character strings?
   if (what == "character") {
     verbose && enter(verbose, "Coerce to a character matrix");
-    res <- as.integer(res) + as.integer(1);
+    res <- as.integer(res);
+    res <- res + as.integer(1);
     res <- names(map)[res];
     verbose && exit(verbose);
   }

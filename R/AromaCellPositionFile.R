@@ -19,7 +19,6 @@
 #
 # @author
 #*/###########################################################################
-
 setConstructorS3("AromaCellPositionFile", function(...) {
   extend(AromaCellTabularBinaryFile(...), "AromaCellPositionFile");
 })
