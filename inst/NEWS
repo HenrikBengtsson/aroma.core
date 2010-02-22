@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 1.4.7 [2010-02-21]
+o Added AromaCellCpgFile.R
+o Modified docs for AromaCellPositionFile
+
 Version: 1.4.6 [2010-02-19]
 o SIMPLIFICATION: Now it is possible to use ChromosomeExplorer without
   having to install the GLAD package (used before for cytobands).

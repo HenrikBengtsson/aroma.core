@@ -1,3 +1,4 @@
+###########################################################################/**
 # @RdocClass "AromaCellPositionFile"
 # 
 # @title "A binary file holding chromosome/position for each cell"
@@ -17,6 +18,7 @@
 # }
 #
 # @author
+#*/###########################################################################
 
 setConstructorS3("AromaCellPositionFile", function(...) {
   extend(AromaCellTabularBinaryFile(...), "AromaCellPositionFile");
