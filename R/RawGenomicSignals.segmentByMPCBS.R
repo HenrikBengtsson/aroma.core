@@ -99,6 +99,12 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
   verbose && str(verbose, data);
   verbose && exit(verbose);
 
+  # Sanity check
+  if (is.null(data$id)) {
+    data$id <- 1L;
+    warning(sprintf("%s did not contain a 'id' locus field specifying source/platform. Assuming only one source/platform.", class(this)[1]));
+  }
+
   sampleName <- attr(data, "sampleName");
   chromosome <- data$chromosome[1];
   nbrOfLoci <- nrow(data);
@@ -123,6 +129,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
   ids <- sort(unique(data$id));
   dataById <- split(data, data$id);
   nbrOfIds <- length(dataById);
+
   y <- lapply(dataById, FUN=function(df) df$y);
   pos <- lapply(dataById, FUN=function(df) df$x);
   anchor <- merge.pos(pos);
@@ -258,6 +265,11 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 
 ############################################################################
 # HISTORY:
+# 2010-03-02
+# o Now segmentByMPCBS() can be used to segment data from a single source.
+#   Added this to the (single-platform) segmentation example.
+# 2010-02-28
+# o Added more sanity checks.
 # 2010-02-18
 # o Added an MPCBS example().
 # 2010-01-02

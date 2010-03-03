@@ -784,7 +784,7 @@ setMethodS3("getSetTag", "ChromosomalModel", function(this, ...) {
 }, private=TRUE)
 
 
-setMethodS3("getOutputSet", "ChromosomalModel", function(this, ...) {
+setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -807,17 +807,29 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ...) {
 
   verbose && enter(verbose, "Keep those with fullnames matching the input data set");
   fullnames <- getFullNames(fs);
+  verbose && cat(verbose, "Full names of *all* files found:");
+  verbose && str(verbose, fullnames);
   
   # Drop extranous files
   keepFullnames <- getFullNames(this);
+  verbose && cat(verbose, "Full names to be kept:");
+  verbose && str(verbose, keepFullnames);
+
   patterns <- sprintf("^%s", fullnames);
   keep <- rep(FALSE, times=length(fullnames));
   for (pattern in patterns) {
     keep <- keep | (regexpr(pattern, fullnames) != -1);
   }
+
   if (any(!keep)) {
+    verbose && enter(verbose, "Extract subset of files");
+    keep <- whichVector(keep);
+    verbose && cat(verbose, "Keeping indices:");
+    verbose && str(verbose, keep);
     fs <- extract(fs, keep);
+    verbose && exit(verbose);
   }
+
   verbose && exit(verbose);
 
   verbose && print(verbose, fs);
@@ -870,6 +882,8 @@ setMethodS3("setAlias", "ChromosomalModel", function(this, alias=NULL, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-03-02
+# BUG FIX: Forgot argument 'verbose' of getOutputSet() of ChromosomalModel.
 # 2010-02-19
 # o Updated getGenomeFile() for ChromosomalModel such that it can be used
 #   to locate other types of genome annotation files as well, files that

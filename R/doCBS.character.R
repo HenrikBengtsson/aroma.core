@@ -11,7 +11,7 @@ setMethodS3("doCBS", "character", function(dataSet, ..., verbose=FALSE) {
 
   verbose && enter(verbose, "CBS");
 
-  verbose && enter(verbose, "CBS/Setting up CEL set");
+  verbose && enter(verbose, "CBS/Setting up data set");
   ds <- AromaUnitTotalCnBinarySet$byName(dataSet, ..., 
                        verbose=less(verbose, 50), .onUnknownArgs="ignore");
   verbose && print(verbose, ds);

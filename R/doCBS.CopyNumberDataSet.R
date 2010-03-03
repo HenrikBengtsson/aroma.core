@@ -32,7 +32,7 @@ setMethodS3("doCBS", "CopyNumberDataSet", function(ds, ..., arrays=NULL, verbose
   fit(cbs, arrays=arrays, ..., verbose=verbose);
   verbose && exit(verbose);
 
-  res <- getOutputSet(cbs);
+  res <- getOutputSet(cbs, verbose=less(verbose, 5));
   verbose && print(verbose, res);
 
   # Clean up

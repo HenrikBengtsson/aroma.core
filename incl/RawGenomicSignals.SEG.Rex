@@ -9,7 +9,7 @@ mu[200:300] <- mu[200:300] + 1
 mu[650:800] <- mu[650:800] - 1
 eps <- rnorm(J, sd=1/2)
 y <- mu + eps
-x <- sort(runif(length(y), max=length(y)))
+x <- sort(runif(length(y), max=length(y))) * 1e5;
 w <- runif(J)
 w[650:800] <- 0.001
 
@@ -17,9 +17,9 @@ w[650:800] <- 0.001
 cn <- RawCopyNumbers(y, x)
 print(cn)
 
-plot(cn, col="#aaaaaa")
+plot(cn, col="#aaaaaa", xlab="Position (Mb)")
 
-cnS <- binnedSmoothing(cn, by=10)
+cnS <- binnedSmoothing(cn, by=500e3)
 print(cnS)
 lines(cnS, col="black", lwd=3)
 
@@ -52,5 +52,15 @@ if (require("HaarSeg")) {
   drawLevels(cnr, col="orange", lwd=3)
   legend <- c(legend, orange="HaarSeg")
 }
+
+if (require("mpcbs")) {
+  fit <- segmentByMPCBS(cn)
+  cnr <- extractCopyNumberRegions(fit)
+  print(cnr)
+  drawLevels(cnr, col="white", lwd=6)
+  drawLevels(cnr, col="purple", lwd=3)
+  legend <- c(legend, purple="MPCBS")
+}
+ 
 
 legend("topleft", pch=19, col=names(legend), legend, bty="n", horiz=TRUE)

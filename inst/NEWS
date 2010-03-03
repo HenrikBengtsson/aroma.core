@@ -1,11 +1,15 @@
 Package: aroma.core
 ===================
 
-Version: 1.5.1 [2010-02-25x]
+Version: 1.5.1 [2010-03-02x]
+o Now segmentByMPCBS() can be used to segment data from a single source.
 o CHANGE: Argument 'arrays' of doCBS() for CopyNumberDataSet no longer
   subset the input data set, but instead is passed to the fit() function
   of the segmentation model.  This way all arrays in the input data set 
   are still used for calculating the pooled reference.
+o ROBUSTNESS: Added more sanity checks to segmentByMPCBS() for
+  RawGenomicSignals.
+o BUG FIX: Forgot argument 'verbose' of getOutputSet() of ChromosomalModel.
 
 
 Version: 1.5.0 [2010-02-22]
