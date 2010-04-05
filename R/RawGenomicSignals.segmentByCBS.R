@@ -208,7 +208,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
   # Set the random seed
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(seed)) {
-    verbose && enter(verbose, "Setting random seed");
+    verbose && enter(verbose, "Setting (temporary) random seed");
     oldRandomSeed <- NULL;
     if (exists(".Random.seed", mode="integer")) {
       oldRandomSeed <- get(".Random.seed", mode="integer");
@@ -218,6 +218,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
         .Random.seed <<- oldRandomSeed;
       }
     }, add=TRUE);
+    verbose && cat(verbose, "The random seed will be reset to its original state afterward.");
     verbose && cat(verbose, "Seed: ", seed);
     set.seed(seed);
     verbose && exit(verbose);
