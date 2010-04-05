@@ -6,12 +6,19 @@
 #
 # \description{
 #  @get "title" of the \pkg{DNAcopy} package.
+#  For more details on the Circular Binary Segmentation (CBS) method 
+#  see [1,2].
 # }
 #
 # @synopsis
 #
 # \arguments{
 #   \item{...}{Additional arguments passed to the segmentation function.}
+#   \item{seed}{An (optional) @integer specifying the random seed to be 
+#     set before calling the segmentation method.  The random seed is
+#     set to its original state when exiting.  If @NULL, it is not set.}
+#   \item{cache}{If @TRUE, results are cached to file, otherwise not.}
+#   \item{force}{If @TRUE, cached results are ignored.}
 #   \item{verbose}{See @see "R.utils::Verbose".}
 # }
 #
@@ -22,6 +29,11 @@
 # \details{
 #   Internally @see "DNAcopy::segment" is used to segment the signals.
 #   This segmentation method support weighted segmentation.
+#
+#   The "DNAcopy::segment" implementation of CBS uses approximation
+#   through random sampling for some estimates.  Because of this,
+#   repeated calls using the same signals may result in slightly 
+#   different results.  
 # }
 #
 # @examples "../incl/RawGenomicSignals.SEG.Rex"
@@ -32,12 +44,27 @@
 #   @seeclass
 # }
 #
+# \references{
+#  [1] A.B. Olshen, E.S. Venkatraman (aka Venkatraman E. Seshan), 
+#      R. Lucito and M. Wigler, \emph{Circular binary segmentation for 
+#      the analysis of array-based DNA copy number data},
+#      Biostatistics, 2004.\cr
+#  [2] E.S. Venkatraman and A.B. Olshen, \emph{A faster circular binary
+#      segmentation algorithm for the analysis of array CGH data}. 
+#      Bioinformatics, 2007.\cr
+# }
+#
 # @keyword IO
 #*/########################################################################### 
-setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., cache=FALSE, force=FALSE, verbose=FALSE) {
+setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, cache=FALSE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'seed':
+  if (!is.null(seed)) {
+    seed <- Arguments$getInteger(seed);
+  }
+
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
@@ -150,6 +177,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., cache=FALSE
 
   signatures$data <- cnData;
   signatures$params <- params;
+  signatures$seed <- seed;
 
   args <- c(list(cnData), params, verbose=as.logical(verbose));
   verbose && cat(verbose, "Final arguments:");
@@ -173,7 +201,27 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., cache=FALSE
     }
   }
   verbose && exit(verbose);
+  rm(signatures);
  
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Set the random seed
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (!is.null(seed)) {
+    verbose && enter(verbose, "Setting random seed");
+    oldRandomSeed <- NULL;
+    if (exists(".Random.seed", mode="integer")) {
+      oldRandomSeed <- get(".Random.seed", mode="integer");
+    }
+    on.exit({
+      if (!is.null(oldRandomSeed)) {
+        .Random.seed <<- oldRandomSeed;
+      }
+    }, add=TRUE);
+    verbose && cat(verbose, "Seed: ", seed);
+    set.seed(seed);
+    verbose && exit(verbose);
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calling segmentation function
@@ -196,6 +244,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., cache=FALSE
   });
   attr(fit, "processingTime") <- t;
   attr(fit, "pkgDetails") <- pkgDetails;
+  attr(fit, "randomSeed") <- seed;
 
   verbose && cat(verbose, "Captured output that was sent to stdout:");
   stdout <- paste(stdout, collapse="\n");
@@ -259,6 +308,9 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., cache=FALSE
 
 ############################################################################
 # HISTORY:
+# 2010-04-05
+# o Added argument 'seed' to segmentByCBS().
+# o Added Rdoc references to CBS papers.
 # 2009-05-10
 # o Created.
 ############################################################################

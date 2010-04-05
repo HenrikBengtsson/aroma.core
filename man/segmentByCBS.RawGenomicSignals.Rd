@@ -18,12 +18,19 @@
 
  \description{
   Segment copy numbers using the CBS method of the \pkg{DNAcopy} package.
+  For more details on the Circular Binary Segmentation (CBS) method
+  see [1,2].
  }
 
- \usage{\method{segmentByCBS}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)}
+ \usage{\method{segmentByCBS}{RawGenomicSignals}(this, ..., seed=NULL, cache=FALSE, force=FALSE, verbose=FALSE)}
 
  \arguments{
    \item{...}{Additional arguments passed to the segmentation function.}
+   \item{seed}{An (optional) \code{\link[base]{integer}} specifying the random seed to be
+     set before calling the segmentation method.  The random seed is
+     set to its original state when exiting.  If \code{\link[base]{NULL}}, it is not set.}
+   \item{cache}{If \code{\link[base:logical]{TRUE}}, results are cached to file, otherwise not.}
+   \item{force}{If \code{\link[base:logical]{TRUE}}, cached results are ignored.}
    \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
  }
 
@@ -34,6 +41,11 @@
  \details{
    Internally \code{\link[DNAcopy]{segment}} is used to segment the signals.
    This segmentation method support weighted segmentation.
+
+   The "DNAcopy::segment" implementation of CBS uses approximation
+   through random sampling for some estimates.  Because of this,
+   repeated calls using the same signals may result in slightly
+   different results.
  }
 
  \examples{
@@ -109,6 +121,16 @@ legend("topleft", pch=19, col=names(legend), legend, bty="n", horiz=TRUE)
 
  \seealso{
    For more information see \code{\link{RawGenomicSignals}}.
+ }
+
+ \references{
+  [1] A.B. Olshen, E.S. Venkatraman (aka Venkatraman E. Seshan),
+      R. Lucito and M. Wigler, \emph{Circular binary segmentation for
+      the analysis of array-based DNA copy number data},
+      Biostatistics, 2004.\cr
+  [2] E.S. Venkatraman and A.B. Olshen, \emph{A faster circular binary
+      segmentation algorithm for the analysis of array CGH data}.
+      Bioinformatics, 2007.\cr
  }
 
 
