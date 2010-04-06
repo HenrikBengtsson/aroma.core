@@ -38,12 +38,15 @@ extends \emph{\link[aroma.core]{CopyNumberSegmentationModel}}\cr
   This class represents the Circular Binary Segmentation (CBS) model [1].
  }
 
- \usage{CbsModel(cesTuple=NULL, ...)}
+ \usage{CbsModel(cesTuple=NULL, ..., seed=NULL)}
 
  \arguments{
    \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
    \item{...}{Arguments passed to the constructor of
               \code{\link{CopyNumberSegmentationModel}}.}
+   \item{seed}{An (optional) \code{\link[base]{integer}} that if specified will (temporarily)
+     set the random seed each time before calling the segmentation method.
+     For more information, see \code{\link{segmentByCBS}}().}
  }
 
  \section{Fields and Methods}{

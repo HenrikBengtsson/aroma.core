@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 1.5.4 [2010-04-06]
+o Added equals() for CopyNumberRegions.
+o Added argument 'seed' to CbsModel, which will, if specified, set
+  the random seed (temporarily) each time (per sample and chromosome)
+  before calling the segmentation method.
+
+
 Version: 1.5.3 [2010-04-05]
 # o Added argument 'seed' to segmentByCBS() for RawGenomicSignals.
 

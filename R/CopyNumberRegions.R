@@ -64,6 +64,7 @@ setMethodS3("as.data.frame", "CopyNumberRegions", function(x, ...) {
   data;
 })
 
+
 setMethodS3("extractIGV", "CopyNumberRegions", function(this, ...) {
   data <- as.data.frame(this, ...);
   names <- colnames(data);
@@ -87,6 +88,14 @@ setMethodS3("extractIGV", "CopyNumberRegions", function(this, ...) {
   data <- data[,cols,drop=FALSE];
 
   data;
+})
+
+
+setMethodS3("equals", "CopyNumberRegions", function(this, other, ...) {
+  dfThis <- as.data.frame(this);
+  dfOther <- as.data.frame(other);
+  res <- all.equal(dfThis, dfOther);
+  isTRUE(res);
 })
 
 
@@ -152,6 +161,8 @@ setMethodS3("extractCopyNumberRegions", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2010-04-06
+# o Added equals() for CopyNumberRegions.
 # 2009-05-16
 # o Now the constructor CopyNumberRegions() coerce numerics only if 
 #   necessary, i.e. it keeps integers if integers, otherwise to doubles.

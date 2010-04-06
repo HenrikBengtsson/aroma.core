@@ -15,6 +15,9 @@
 #   \item{cesTuple}{A @see "CopyNumberDataSetTuple".}
 #   \item{...}{Arguments passed to the constructor of 
 #              @see "CopyNumberSegmentationModel".}
+#   \item{seed}{An (optional) @integer that if specified will (temporarily)
+#     set the random seed each time before calling the segmentation method.
+#     For more information, see @see "segmentByCBS".}
 # }
 #
 # \section{Fields and Methods}{
@@ -36,7 +39,7 @@
 #      analysis of array CGH data}. Bioinformatics, 2007.\cr 
 # }
 #*/###########################################################################
-setConstructorS3("CbsModel", function(cesTuple=NULL, ...) {
+setConstructorS3("CbsModel", function(cesTuple=NULL, ..., seed=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Load required packages
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -44,16 +47,47 @@ setConstructorS3("CbsModel", function(cesTuple=NULL, ...) {
     require("DNAcopy") || throw("Package not loaded: DNAcopy");
   }
 
-  extend(CopyNumberSegmentationModel(cesTuple=cesTuple, ...), "CbsModel")
+  # Argument 'seed':
+  if (!is.null(seed)) {
+    seed <- Arguments$getInteger(seed);
+  }
+
+  extend(CopyNumberSegmentationModel(cesTuple=cesTuple, ...), "CbsModel",
+    .seed = seed
+  )
 })
 
+setMethodS3("getRandomSeed", "CbsModel", function(this, ...) {
+  this$.seed;
+}, protected=TRUE)
+
+setMethodS3("setRandomSeed", "CbsModel", function(this, seed, ...) {
+  # Argument 'seed':
+  if (!is.null(seed)) {
+    seed <- Arguments$getInteger(seed);
+  }
+
+  this$.seed <- seed;
+  invisible(this);
+}, protected=TRUE)
+
+
 setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
-  segmentByCBS;
+  seed <- getRandomSeed(this);
+  fitFcn <- function(...) {
+    segmentByCBS(..., seed=seed);
+  }
+  fitFcn;
 });
 
 
 ##############################################################################
 # HISTORY:
+# 2010-04-06
+# o Added argument 'seed' to CbsModel, which will, if specified, set the
+#   random seed (temporarily) each time (per sample and chromosome) before
+#   calling the segmentation method.
+# o Added protected set- and getRandomSeed().
 # 2009-05-16
 # o Added getFitFunction().  Removed fitOne().
 # 2007-08-20
