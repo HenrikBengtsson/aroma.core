@@ -73,8 +73,8 @@ setMethodS3("setRandomSeed", "CbsModel", function(this, seed, ...) {
 
 
 setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
-  seed <- getRandomSeed(this);
-  fitFcn <- function(...) {
+  defaultSeed <- getRandomSeed(this);
+  fitFcn <- function(..., seed=defaultSeed) {
     segmentByCBS(..., seed=seed);
   }
   fitFcn;
@@ -83,6 +83,10 @@ setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-04-12
+# o BUG FIX: getFitFunction() of CbsModel would return a function that
+#   would give "Error in segmentByCBS.RawGenomicSignals(..., seed = seed):
+#   formal argument "seed" matched by multiple actual arguments".
 # 2010-04-06
 # o Added argument 'seed' to CbsModel, which will, if specified, set the
 #   random seed (temporarily) each time (per sample and chromosome) before

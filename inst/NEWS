@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 1.5.5 [2010-04-12]
+o BUG FIX: getFitFunction() of CbsModel would return a function that
+  would give "Error in segmentByCBS.RawGenomicSignals(..., seed = seed):
+  formal argument "seed" matched by multiple actual arguments".
+
+
 Version: 1.5.4 [2010-04-06]
 o Added equals() for CopyNumberRegions.
 o Added argument 'seed' to CbsModel, which will, if specified, set
