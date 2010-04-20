@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 1.5.6 [2010-04-20]
+o Added writeDataFrame() for AromaUnitSignalBinaryFile.
+
+
 Version: 1.5.5 [2010-04-12]
 o BUG FIX: getFitFunction() of CbsModel would return a function that
   would give "Error in segmentByCBS.RawGenomicSignals(..., seed = seed):
@@ -15,7 +19,7 @@ o Added argument 'seed' to CbsModel, which will, if specified, set
 
 
 Version: 1.5.3 [2010-04-05]
-# o Added argument 'seed' to segmentByCBS() for RawGenomicSignals.
+o Added argument 'seed' to segmentByCBS() for RawGenomicSignals.
 
 
 Version: 1.5.2 [2010-03-29]

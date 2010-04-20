@@ -469,3 +469,4 @@ getTags.Arguments
   getRandomSeed getRandomSeed.CbsModel setRandomSeed
   setRandomSeed.CbsModel
 equals.CopyNumberRegions
+writeDataFrame
