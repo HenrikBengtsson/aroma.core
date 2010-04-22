@@ -103,7 +103,9 @@ if (require("mpcbs")) {
 }
 
 
-legend("topleft", pch=19, col=names(legend), legend, bty="n", horiz=TRUE)
+if (length(legend) > 0) {
+  legend("topleft", pch=19, col=names(legend), legend, bty="n", horiz=TRUE)
+}
 }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}

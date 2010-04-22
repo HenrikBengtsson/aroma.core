@@ -1,8 +1,8 @@
 Package: aroma.core
 ===================
 
-Version: 1.5.6 [2010-04-20]
-o Added writeDataFrame() for AromaUnitSignalBinaryFile.
+Version: 1.5.6 [2010-04-22]
+o Added writeDataFrame() for AromaUnitSignalBinary{File|Set}.
 
 
 Version: 1.5.5 [2010-04-12]

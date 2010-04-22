@@ -55,6 +55,7 @@ extends \link[aroma.core]{AromaTabularBinarySet}\cr
  \tab \code{getAromaUgpFile} \tab  -\cr
  \tab \code{getChipType} \tab  -\cr
  \tab \code{getPlatform} \tab  -\cr
+ \tab \code{\link[aroma.core:writeDataFrame.AromaUnitSignalBinarySet]{writeDataFrame}} \tab Writes the data set as a tab-delimited text file.\cr
 }
 
 
