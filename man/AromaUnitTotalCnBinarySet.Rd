@@ -68,7 +68,7 @@ extends \link[aroma.core]{CopyNumberDataSet}\cr
 as, as.CopyNumberDataSet, doCBS, hasAlleleBFractions, hasStrandiness
 
  \bold{Methods inherited from AromaUnitSignalBinarySet}:\cr
-byName, findByName, getAromaUgpFile, getChipType, getPlatform, validate
+byName, findByName, getAromaUgpFile, getChipType, getPlatform, validate, writeDataFrame
 
  \bold{Methods inherited from AromaTabularBinarySet}:\cr
 getDefaultFullName, setAttributesBy, setAttributesBySampleAnnotationFile, setAttributesBySampleAnnotationSet, setAttributesByTags

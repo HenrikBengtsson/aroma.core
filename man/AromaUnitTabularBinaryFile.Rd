@@ -63,6 +63,7 @@ extends \link[aroma.core]{UnitAnnotationDataFile}\cr
  \tab \code{allocateFromUnitNamesFile} \tab  -\cr
  \tab \code{byChipType} \tab  -\cr
  \tab \code{nbrOfUnits} \tab  -\cr
+ \tab \code{writeDataFrame} \tab  -\cr
 }
 
 

@@ -82,6 +82,18 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
     verbose && cat(verbose, "Chip type: ", chipType);
     verbose && cat(verbose, "Number of units: ", nbrOfUnits);
 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # AD HOC: Load aroma.affymetrix package, if needed and installed.
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    if (platform == "Affymetrix") {
+      if (is.element(className, c("UnitNamesFile"))) {
+        pkgName <- "aroma.affymetrix";
+        if (isPackageInstalled(pkgName)) {
+          require(pkgName, character.only=TRUE) || throw("Package not loaded: aroma.affymetrix");
+        }
+      }
+    }
+
     udf <- NULL;
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -192,6 +204,9 @@ setMethodS3("getAromaUgpFile", "AromaPlatformInterface", function(this, ...) {
 
 ############################################################################
 # HISTORY:
+# 2010-04-27
+# o AD HOC: Now getUnitAnnotationDataFile() of AromaPlatformInterface 
+#   load aroma.affymetrix if needed and if installed.
 # 2010-02-10
 # o CLEANUP: Removed debug print() statements in isCompatibleWith().
 # 2010-01-13
