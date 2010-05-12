@@ -971,6 +971,12 @@
 \alias{setRandomSeed.CbsModel}
 \alias{equals.CopyNumberRegions}
 \alias{writeDataFrame}
+\alias{getParentName}
+\alias{getParentName.GenericDataFile}
+\alias{getParentName.GenericDataFileSet}
+\alias{getRootName}
+\alias{getRootName.AromaTabularBinaryFile}
+\alias{getRootName.AromaTabularBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

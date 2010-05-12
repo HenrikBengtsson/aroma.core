@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.5.8 [2010-05-12]
+o Now argument 'path' of all writeDataFrame() methods defaults 
+  to <rootPath>,txt/<dataSet>/<chipType>/.
+
+
 Version: 1.5.7 [2010-04-27]
 o Added writeDataFrame() for AromaUnitTabularBinaryFile.
 o Added argument 'columnNamesPrefix' to all writeDataFrame().

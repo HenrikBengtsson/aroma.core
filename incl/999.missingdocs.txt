@@ -470,3 +470,6 @@ getTags.Arguments
   setRandomSeed.CbsModel
 equals.CopyNumberRegions
 writeDataFrame
+  getParentName getParentName.GenericDataFile
+  getParentName.GenericDataFileSet getRootName
+  getRootName.AromaTabularBinaryFile getRootName.AromaTabularBinarySet
