@@ -43,7 +43,7 @@
 #  @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("writeDataFrame", "AromaUnitTabularBinaryFile", function(this, filename=sprintf("%s.txt", getFilename(this)), path=file.path(getRootName(this, tags="*,txt"), getFullName(this), getChipType(this, fullname=FALSE)), ..., columns=c("unitName", "*"), sep="\t", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE) {
+setMethodS3("writeDataFrame", "AromaUnitTabularBinaryFile", function(this, filename=sprintf("%s.txt", getFilename(this)), path=file.path(getRootName(this, tags="*,txt"), getFullName(this), getChipType(this, fullname=FALSE)), ..., columns=c("unitName", "*"), sep="\t", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, columnNamesPrefix=c("fullname", "name", "none"), overwrite=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

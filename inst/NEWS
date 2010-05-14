@@ -1,7 +1,12 @@
 Package: aroma.core
 ===================
 
-Version: 1.5.8 [2010-05-12]
+Version: 1.6.0 [2010-05-14]
+o Package submitted to CRAN.
+o Package pass R CMD check on R v2.11.0 and v2.12.0 devel.
+
+
+Version: 1.5.8 [2010-05-13]
 o Now argument 'path' of all writeDataFrame() methods defaults 
   to <rootPath>,txt/<dataSet>/<chipType>/.
 
