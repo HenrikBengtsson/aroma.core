@@ -950,6 +950,7 @@
 \alias{doCBS}
 \alias{doCBS.character}
 \alias{doCBS.CopyNumberDataSet}
+\alias{doCBS.CopyNumberDataSetTuple}
 \alias{getOutputSet}
 \alias{getOutputSet.ChromosomalModel}
 \alias{setAttributesBy.AromaTabularBinarySet}
@@ -977,6 +978,8 @@
 \alias{getRootName}
 \alias{getRootName.AromaTabularBinaryFile}
 \alias{getRootName.AromaTabularBinarySet}
+\alias{getAromaFullNameTranslatorSet}
+\alias{getAromaFullNameTranslatorSet.character}
 
 \description{
   This page contains aliases for all "non-documented" objects that

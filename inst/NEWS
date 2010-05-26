@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.1 [2010-05-26]
+o Added trial version of fullname translator files.
+o doCBS() for character:s support data set tuples.
+o Added doCBS() for CopyNumberDataSetTuple:s.
+
+
 Version: 1.6.0 [2010-05-14]
 o Package submitted to CRAN.
 o Package pass R CMD check on R v2.11.0 and v2.12.0 devel.

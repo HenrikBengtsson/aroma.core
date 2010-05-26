@@ -457,7 +457,9 @@
   getAromaUgpFile.AromaPlatformInterface isCompatibleWith
   isCompatibleWith.AromaPlatformInterface
 getTags.Arguments
-  doCBS doCBS.character doCBS.CopyNumberDataSet getOutputSet
+  doCBS doCBS.character doCBS.CopyNumberDataSet 
+  doCBS.CopyNumberDataSetTuple
+  getOutputSet
   getOutputSet.ChromosomalModel setAttributesBy.AromaTabularBinarySet
   setAttributesBySampleAnnotationFile.AromaTabularBinarySet
   setAttributesBySampleAnnotationSet.AromaTabularBinarySet
@@ -473,3 +475,4 @@ writeDataFrame
   getParentName getParentName.GenericDataFile
   getParentName.GenericDataFileSet getRootName
   getRootName.AromaTabularBinaryFile getRootName.AromaTabularBinarySet
+getAromaFullNameTranslatorSet getAromaFullNameTranslatorSet.character
