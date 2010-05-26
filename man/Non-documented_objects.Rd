@@ -980,6 +980,9 @@
 \alias{getRootName.AromaTabularBinarySet}
 \alias{getAromaFullNameTranslatorSet}
 \alias{getAromaFullNameTranslatorSet.character}
+\alias{getFullNameTranslatorSet}
+\alias{getFullNameTranslatorSet.character}
+\alias{getFullNameTranslatorSet.GenericDataFileSet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

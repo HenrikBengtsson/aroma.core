@@ -476,3 +476,5 @@ writeDataFrame
   getParentName.GenericDataFileSet getRootName
   getRootName.AromaTabularBinaryFile getRootName.AromaTabularBinarySet
 getAromaFullNameTranslatorSet getAromaFullNameTranslatorSet.character
+  getFullNameTranslatorSet getFullNameTranslatorSet.character
+  getFullNameTranslatorSet.GenericDataFileSet

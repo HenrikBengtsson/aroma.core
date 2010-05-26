@@ -98,7 +98,7 @@ setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., 
   res <- doCBS(dsTuple, ..., verbose=verbose);
 
   # Clean up
-  rm(ds);
+  rm(dsTuple);
   gc <- gc();
 
   verbose && exit(verbose);
