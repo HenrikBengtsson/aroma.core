@@ -1,3 +1,13 @@
+# NOW:
+# (1) annotationData/dataSets/<dataSet>/
+# (2) annotationData/dataSets/<dataSet>/<chipType>/
+#
+# PROBABLY BETTER/MORE SPECIFIC (THING OO DESIGN):
+# (1) <rootPath>/<dataSet>/<chipType>/
+# (2) <rootPath>/<dataSet>/
+# (3) annotationData/dataSets/<dataSet>/<chipType>/
+# (4) annotationData/dataSets/<dataSet>/
+# (5) annotationData/dataSets/
 setMethodS3("getAromaFullNameTranslatorSet", "character", function(dataSet, chipType=NULL, ..., paths=c("annotationData/dataSets/"), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
