@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 1.6.1 [2010-05-26]
+Version: 1.6.1 [2010-05-27]
 o Added trial version of fullname translator files.
 o doCBS() for character:s support data set tuples.
 o Added doCBS() for CopyNumberDataSetTuple:s.

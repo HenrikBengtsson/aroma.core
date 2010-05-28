@@ -983,6 +983,8 @@
 \alias{getFullNameTranslatorSet}
 \alias{getFullNameTranslatorSet.character}
 \alias{getFullNameTranslatorSet.GenericDataFileSet}
+\alias{getAromaFullNameTranslatorSet.AromaMicroarrayDataSet}
+\alias{getAromaFullNameTranslatorSet.AromaUnitSignalBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

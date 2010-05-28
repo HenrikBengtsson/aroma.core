@@ -51,6 +51,10 @@ setMethodS3("getAromaFullNameTranslatorSet", "AromaMicroarrayDataSet", function(
   getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...);
 })
 
+setMethodS3("getAromaFullNameTranslatorSet", "AromaUnitSignalBinarySet", function(this, ...) {
+  getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...);
+})
+
 
 
 

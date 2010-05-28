@@ -478,3 +478,5 @@ writeDataFrame
 getAromaFullNameTranslatorSet getAromaFullNameTranslatorSet.character
   getFullNameTranslatorSet getFullNameTranslatorSet.character
   getFullNameTranslatorSet.GenericDataFileSet
+  getAromaFullNameTranslatorSet.AromaMicroarrayDataSet
+  getAromaFullNameTranslatorSet.AromaUnitSignalBinarySet
