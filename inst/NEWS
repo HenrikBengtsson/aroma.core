@@ -1,6 +1,17 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.2 [2010-06-02]
+o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would 
+  censor *signed integers* incorrectly; it should censor at/to
+  [-(n+1),n], but did it at [-n,(n+1)] ("two's complement").
+  This caused it to write too large values as n+1, which then
+  would be read as -(n+1), e.g. writing 130 would be censored
+  to 128 (should be 127), which then would be read as -128.
+  Added more detailed information on how many values were censored.
+  Thanks Robert Ivanek for report on this.
+
+
 Version: 1.6.1 [2010-05-27]
 o Added trial version of fullname translator files.
 o doCBS() for character:s support data set tuples.

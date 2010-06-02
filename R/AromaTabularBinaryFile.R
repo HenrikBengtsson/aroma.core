@@ -610,7 +610,6 @@ setMethodS3("readColumns", "AromaTabularBinaryFile", function(this, ...) {
 })
 
 
-
 setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NULL, column, values, .con=NULL, .hdr=NULL, .validateArgs=TRUE, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
@@ -702,7 +701,7 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
     } else if (type == "integer") {
       # FYI: intNA <- as.integer(2^31);
       if (signed) {
-        range <- c(1-2^(8*size-1), 2^(8*size-1));
+        range <- c(-2^(8*size-1), 2^(8*size-1)-1);
       } else {
         range <- c(0, 2^(8*size)-1);
       }
@@ -713,20 +712,29 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
       values <- as.double(values);
     }
 
-    censored <- FALSE;
+    msgL <- msgH <- NULL;
+
     idxs <- whichVector(values < range[1]);
-    if (length(idxs) > 0) {
+    nL <- length(idxs);
+    if (nL > 0) {
+      rangeL <- range(values[idxs], na.rm=TRUE);
+      msgL <- sprintf("%d values in [%.0f,%.0f] were too small", 
+                                       nL, rangeL[1], rangeL[2]);
       values[idxs] <- range[1];
-      censored <- TRUE;
     }
     idxs <- whichVector(values > range[2]);
-    if (length(idxs) > 0) {
+    nH <- length(idxs);
+    if (nH > 0) {
+      rangeH <- range(values[idxs], na.rm=TRUE);
+      msgH <- sprintf("%d values in [%.0f,%.0f] were too large", 
+                                       nH, rangeH[1], rangeH[2]);
       values[idxs] <- range[2];
-      censored <- TRUE;
     }
 
-    if (censored) {
-      warning(sprintf("Values to be assigned were out of range [%.0f,%.0f] and therefore censored to fit the range.", range[1], range[2]));
+    if (nL+nH > 0) {
+      msg <- sprintf("%d values to be assigned were out of range [%.0f,%.0f] and therefore censored to fit the range. Of these, %s.", (nL+nH), range[1], range[2], paste(c(msgL, msgH), collapse=" and "));
+      verbose && cat(verbose, msg);
+      warning(msg);
     }
   }
 
@@ -1314,6 +1322,15 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 
 ############################################################################
 # HISTORY:
+# 2010-06-02
+# o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would 
+#   censor *signed integers* incorrectly; it should censor at/to
+#   [-(n+1),n], but did it at [-n,(n+1)] ("two's complement").
+#   This caused it to write too large values as n+1, which then
+#   would be read as -(n+1), e.g. writing 130 would be censored
+#   to 128 (should be 127), which then would be read as -128.
+#   Added more detailed information on how many values were censored.
+#   Thanks Robert Ivanek for report on this.
 # 2010-01-06
 # o Added argument 'defaults' to allocate() of AromaTabularBinaryFile.
 # 2009-05-18
