@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.3 [2010-06-22]
+o BUG FIX: as.GrayscaleImage(..., transforms=NULL) for 'matrix' would
+  throw "Exception: Argument 'transforms' contains a non-function: NULL".
+
+
 Version: 1.6.2 [2010-06-02]
 o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would 
   censor *signed integers* incorrectly; it should censor at/to

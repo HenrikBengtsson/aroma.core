@@ -49,8 +49,10 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Argument 'transforms':
-  if (!is.list(transforms)) {
-    transforms <- list(transforms);
+  if (!is.null(transforms)) {
+    if (!is.list(transforms)) {
+      transforms <- list(transforms);
+    }
   }
 
   for (transform in transforms) {
@@ -133,6 +135,9 @@ setMethodS3("as.TrueColorImage", "Image", function(img, ...) {
 
 ############################################################################
 # HISTORY:
+# 2010-06-22
+# o BUG FIX: as.GrayscaleImage(..., transforms=NULL) for 'matrix' would
+#   throw "Exception: Argument 'transforms' contains a non-function: NULL".
 # 2009-05-16
 # o Now argument 'scale' of as.GrayscaleImage() is validated using 
 #   Arguments$getNumeric() [not getDouble()].
