@@ -397,72 +397,26 @@ setMethodS3("getTableOfArrays", "ChromosomalModel", function(this, ...) {
 }, deprecated=TRUE)
 
 
-setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  getFullNames <- function(fullnames=NULL, ...) {
-    if (!is.null(fullnames))
-      return(fullnames);
-    getFullNames(this);
-  }
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ..., onMissing=c("error", "NA")) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  names <- getNames(this);
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'onMissing':
+  onMissing <- match.arg(onMissing);
 
-  # Return all indices
-  if (is.null(patterns)) {
-    res <- seq(along=names);
-    names(res) <- names;
-    return(res);
-  } else if (is.numeric(patterns)) {
+
+  # If 'patterns' is numeric, then...
+  if (is.numeric(patterns)) {
+    names <- getNames(this);
     n <- length(names);
     res <- Arguments$getIndices(patterns, max=n);
     names(res) <- names[res];
     return(res);
   }
 
-  fullnames <- NULL;
-
-  naValue <- as.integer(NA);
-
-  patterns0 <- patterns;
-  res <- lapply(patterns, FUN=function(pattern) {
-    pattern <- sprintf("^%s$", pattern);
-    pattern <- gsub("\\^\\^", "^", pattern);
-    pattern <- gsub("\\$\\$", "$", pattern);
-
-    # Specifying tags?
-    if (regexpr(",", pattern) != -1) {
-      fullnames <- getFullNames(fullnames);
-      idxs <- grep(pattern, fullnames);
-    } else {
-      idxs <- grep(pattern, names);
-    }
-    if (length(idxs) == 0)
-      idxs <- naValue;
-
-    # Note that 'idxs' may return more than one match
-    idxs;
-  });
-
-  ns <- sapply(res, FUN=length);
-  names <- NULL;
-  for (kk in seq(along=ns)) {
-    names <- c(names, rep(patterns0[kk], times=ns[kk]));
-  }
-  res <- unlist(res, use.names=FALSE);
-  names(res) <- names;
-
-  # Not allowing missing values?
-  if (any(is.na(res))) {
-    names <- names(res)[is.na(res)];
-    throw("Some names where not match: ", paste(names, collapse=", "));
-  }
-
-  res;
+  # ...otherwise, reuse indexOf() for GenericDataFileSet in R.filesets.
+  indexOf.GenericDataFileSet(this, patterns=patterns, ..., 
+                                                         onMissing=onMissing);
 })
 
 
@@ -882,6 +836,12 @@ setMethodS3("setAlias", "ChromosomalModel", function(this, alias=NULL, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-07-06
+# o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
+#   pattern contained parenthesis '(' and ')'.  There was a similar issue
+#   in indexOf() for GenericDataFileSet/List in R.filesets, which was
+#   solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel 
+#   utilizes ditto for GenericDataFileSet for its solution.
 # 2010-03-02
 # BUG FIX: Forgot argument 'verbose' of getOutputSet() of ChromosomalModel.
 # 2010-02-19

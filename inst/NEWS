@@ -1,6 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.4 [2010-07-06]
+o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
+  pattern contained parenthesis '(' and ')'.  There was a similar issue
+  in indexOf() for GenericDataFileSet/List in R.filesets, which was
+  solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel 
+  utilizes ditto for GenericDataFileSet for its solution.
+
+
 Version: 1.6.3 [2010-06-22]
 o BUG FIX: as.GrayscaleImage(..., transforms=NULL) for 'matrix' would
   throw "Exception: Argument 'transforms' contains a non-function: NULL".
