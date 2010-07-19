@@ -412,6 +412,9 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     fileSize <- file.info(pathnameT)$size;
     verbose && printf(verbose, "Current file size: %.1f MB\n", fileSize/1024^2);
 
+    # Next chunk
+    unitsLeft <- unitsLeft[-idxsHead];
+
     verbose && exit(verbose);
   } # for (kk ...)
   rm(adData);
@@ -449,6 +452,9 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
 ############################################################################
 # HISTORY:
+# 2010-07-07 [PN]
+# o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would write the
+#   same data chunk over and over.
 # 2010-05-12
 # o Now argument 'path' defaults to <rootPath>,txt/<dataSet>/<chipType>/.
 # o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet was not working.

@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.5 [2010-07-08]
+o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would 
+  write the same data chunk over and over.
+
+
 Version: 1.6.4 [2010-07-06]
 o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
   pattern contained parenthesis '(' and ')'.  There was a similar issue
