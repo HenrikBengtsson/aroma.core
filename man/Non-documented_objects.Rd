@@ -985,6 +985,9 @@
 \alias{getFullNameTranslatorSet.GenericDataFileSet}
 \alias{getAromaFullNameTranslatorSet.AromaMicroarrayDataSet}
 \alias{getAromaFullNameTranslatorSet.AromaUnitSignalBinarySet}
+\alias{extractRegions}
+\alias{extractRegions.RawGenomicSignals}
+\alias{subset.CopyNumberRegions}
 
 \description{
   This page contains aliases for all "non-documented" objects that

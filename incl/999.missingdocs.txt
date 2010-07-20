@@ -480,3 +480,5 @@ getAromaFullNameTranslatorSet getAromaFullNameTranslatorSet.character
   getFullNameTranslatorSet.GenericDataFileSet
   getAromaFullNameTranslatorSet.AromaMicroarrayDataSet
   getAromaFullNameTranslatorSet.AromaUnitSignalBinarySet
+  extractRegions extractRegions.RawGenomicSignals
+  subset.CopyNumberRegions
