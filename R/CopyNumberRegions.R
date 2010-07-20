@@ -151,16 +151,45 @@ setMethodS3("lines", "CopyNumberRegions", function(x, col="red", lwd=2, xScale=1
 
 
 
-setMethodS3("extractCNRs", "default", function(...) {
-  extractCopyNumberRegions(...);
+setMethodS3("subset", "CopyNumberRegions", function(x, subset, ...) {
+  # To please R CMD check
+  this <- x;
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'subset':
+  if (all(subset < 0)) {
+    subset <- -Arguments$getIndices(-subset, max=nbrOfRegions(this));
+  } else {
+    subset <- Arguments$getIndices(subset, max=nbrOfRegions(this));
+  }
+
+  # Get field names.  AD HOC /HB 2010-07-19
+  data <- as.data.frame(this);
+  fields <- colnames(data);
+  rm(data);
+
+  res <- clone(this);
+  for (field in fields) {
+    res[[field]] <- res[[field]][subset];
+  }
+
+  res;
 })
 
 
 setMethodS3("extractCopyNumberRegions", "default", abstract=TRUE);
 
+setMethodS3("extractCNRs", "default", function(...) {
+  extractCopyNumberRegions(...);
+})
+
 
 ############################################################################
 # HISTORY:
+# 2010-07-19
+# o Added subset() for CopyNumberRegions.
 # 2010-04-06
 # o Added equals() for CopyNumberRegions.
 # 2009-05-16

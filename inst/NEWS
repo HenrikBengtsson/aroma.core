@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.6 [2010-07-19]
+o Added subset() for CopyNumberRegions.
+o Now extractRegion() for RawGenomicSignals also accepts a
+  CopyNumberRegions object for argument 'regions'.
+o Added extractRegions() for RawGenomicSignals.
+
+
 Version: 1.6.5 [2010-07-08]
 o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would 
   write the same data chunk over and over.

@@ -300,6 +300,49 @@ setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, ...) {
 })
 
 
+
+setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'regions':
+  cl <- class(regions)[1];
+  if (inherits(regions, "CopyNumberRegions")) {
+    regions <- as.data.frame(regions);
+    regions <- regions[,c("start", "stop")];
+  }
+  if (is.data.frame(regions)) {
+    regions <- as.matrix(regions);
+  }
+  if (!is.matrix(regions)) {
+    throw("Argument 'regions' is not a matrix or data.frame: ", cl);
+  }
+  if (ncol(regions) != 2) {
+    throw("Argument 'regions' does not have two columns: ", ncol(regions));
+  }
+  regions <- Arguments$getNumerics(regions);
+  stopifnot(all(regions[1] <= regions[2]));
+
+  res <- clone(this);
+  x <- getPositions(this);
+
+  keep <- rep(FALSE, times=length(x));
+  for (kk in seq(length=nrow(regions))) {
+    region <- regions[kk,,drop=TRUE];
+    keepKK <- (region[1] <= x & x <= region[2]);
+    keep <- keep | keepKK;
+  }
+
+  fields <- getLocusFields(res);
+  for (ff in seq(along=fields)) {
+    field <- fields[ff];
+    res[[field]] <- this[[field]][keep];
+  }
+
+  res;
+}) # extractRegions()
+
+
 setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -687,6 +730,10 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2010-07-19
+# o Now extractRegion() for RawGenomicSignals also accepts a
+#   CopyNumberRegions object for argument 'regions'.
+# o Added extractRegions() for RawGenomicSignals.
 # 2009-11-22
 # o Now all chromosome plot functions have xScale=1e-6 by default.
 # 2009-10-10
