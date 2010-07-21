@@ -4,6 +4,7 @@ Package: aroma.core
 Version: 1.6.7 [2010-07-20]
 o Added writeDataFrame() for AromaUnitTotalCnBinarySet and
   AromaUnitFracBCnBinarySet to get the correct filename extension.
+  Thanks Nicolas Vergne at the Curie Institute for reporting this.
 
 
 Version: 1.6.6 [2010-07-19]
