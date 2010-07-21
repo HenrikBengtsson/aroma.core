@@ -276,9 +276,16 @@ setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySet", fu
   AromaUnitTotalCnBinarySetTuple(this, ...);
 })
 
+setMethodS3("writeDataFrame", "AromaUnitTotalCnBinarySet", function(this, filename=sprintf("%s,total.txt", getFullName(this)), ...) {
+  NextMethod("writeDataFrame", this, filename=filename, ...);
+})
+
 
 ############################################################################
 # HISTORY:
+# 2010-07-20
+# o Added writeDataFrame() for AromaUnitTotalCnBinarySet to get the
+#   correct filename extension.
 # 2009-12-23
 # o Added argument 'pattern' to byName() AromaUnitTotalCnBinarySet.
 # 2009-11-20

@@ -482,3 +482,5 @@ getAromaFullNameTranslatorSet getAromaFullNameTranslatorSet.character
   getAromaFullNameTranslatorSet.AromaUnitSignalBinarySet
   extractRegions extractRegions.RawGenomicSignals
   subset.CopyNumberRegions
+writeDataFrame.AromaUnitTotalCnBinarySet
+writeDataFrame.AromaUnitFracBCnBinarySet

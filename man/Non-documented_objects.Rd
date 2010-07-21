@@ -988,6 +988,8 @@
 \alias{extractRegions}
 \alias{extractRegions.RawGenomicSignals}
 \alias{subset.CopyNumberRegions}
+\alias{writeDataFrame.AromaUnitTotalCnBinarySet}
+\alias{writeDataFrame.AromaUnitFracBCnBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

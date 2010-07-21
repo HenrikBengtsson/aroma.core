@@ -54,10 +54,16 @@ setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=N
 }, static=TRUE) 
 
 
+setMethodS3("writeDataFrame", "AromaUnitFracBCnBinarySet", function(this, filename=sprintf("%s,fracB.txt", getFullName(this)), ...) {
+  NextMethod("writeDataFrame", this, filename=filename, ...);
+})
 
 
 ############################################################################
 # HISTORY:
+# 2010-07-20
+# o Added writeDataFrame() for AromaUnitFracBCnBinarySet to get the
+#   correct filename extension.
 # 2009-12-23
 # o Added argument 'pattern' to byName() AromaUnitFracBCnBinarySet.
 # 2009-08-31
