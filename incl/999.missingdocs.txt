@@ -484,3 +484,8 @@ getAromaFullNameTranslatorSet getAromaFullNameTranslatorSet.character
   subset.CopyNumberRegions
 writeDataFrame.AromaUnitTotalCnBinarySet
 writeDataFrame.AromaUnitFracBCnBinarySet
+  -.CopyNumberRegions *.CopyNumberRegions +.CopyNumberRegions getMeanAt
+  getMeanAt.CopyNumberRegions getValueAt getValueAt.CopyNumberRegions
+  prune prune.CopyNumberRegions simulateRawCopyNumbers
+  simulateRawCopyNumbers.CopyNumberRegions xRange.CopyNumberRegions
+xMax.CopyNumberRegions xMin.CopyNumberRegions

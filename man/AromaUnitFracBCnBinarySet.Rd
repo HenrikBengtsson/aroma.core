@@ -63,6 +63,7 @@ extends \link[aroma.core]{AromaUnitSignalBinarySet}\cr
 \tabular{rll}{
  \tab \code{byName} \tab  -\cr
  \tab \code{exportFracBDiffSet} \tab  -\cr
+ \tab \code{writeDataFrame} \tab  -\cr
 }
 
 

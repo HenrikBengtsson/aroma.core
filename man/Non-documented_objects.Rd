@@ -990,6 +990,20 @@
 \alias{subset.CopyNumberRegions}
 \alias{writeDataFrame.AromaUnitTotalCnBinarySet}
 \alias{writeDataFrame.AromaUnitFracBCnBinarySet}
+\alias{-.CopyNumberRegions}
+\alias{*.CopyNumberRegions}
+\alias{+.CopyNumberRegions}
+\alias{getMeanAt}
+\alias{getMeanAt.CopyNumberRegions}
+\alias{getValueAt}
+\alias{getValueAt.CopyNumberRegions}
+\alias{prune}
+\alias{prune.CopyNumberRegions}
+\alias{simulateRawCopyNumbers}
+\alias{simulateRawCopyNumbers.CopyNumberRegions}
+\alias{xRange.CopyNumberRegions}
+\alias{xMax.CopyNumberRegions}
+\alias{xMin.CopyNumberRegions}
 
 \description{
   This page contains aliases for all "non-documented" objects that

@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.6.8 [2010-07-24]
+o Added several methods for CopyNumberRegions, e.g. xRange(), prune(), 
+  simulateRawCopyNumbers(), "+"(), "-"() and "*"().
+
+
 Version: 1.6.7 [2010-07-20]
 o Added writeDataFrame() for AromaUnitTotalCnBinarySet and
   AromaUnitFracBCnBinarySet to get the correct filename extension.
