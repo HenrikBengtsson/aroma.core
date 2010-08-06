@@ -489,3 +489,21 @@ writeDataFrame.AromaUnitFracBCnBinarySet
   prune prune.CopyNumberRegions simulateRawCopyNumbers
   simulateRawCopyNumbers.CopyNumberRegions xRange.CopyNumberRegions
 xMax.CopyNumberRegions xMin.CopyNumberRegions
+  append.CopyNumberRegions as.character.SegmentationDataSet
+  byName.CbsSegmentationDataSet byPath.CbsSegmentationDataSet
+  byPath.SegmentationDataSet CbsSegmentationDataFile
+  CbsSegmentationDataSet extractByReferenceName
+  extractByReferenceName.SegmentationDataSet extractBySampleName
+  extractBySampleName.SegmentationDataSet
+  extractCopyNumberRegions.SegmentationDataFile
+  extractCopyNumberRegions.SegmentationDataSet
+  getChipType.SegmentationDataSet getChromosome.SegmentationDataFile
+  getChromosomes.CopyNumberRegions getChromosomes.SegmentationDataSet
+  getDefaultFullName.SegmentationDataSet getReferenceName
+  getReferenceName.SegmentationDataFile getReferenceNames
+  getReferenceNames.SegmentationDataSet getSampleName
+  getSampleName.SegmentationDataFile getSampleNames
+  getSampleNames.SegmentationDataSet loadFit
+  loadFit.CbsSegmentationDataFile loadFit.SegmentationDataFile
+  nbrOfChromosomes nbrOfChromosomes.CopyNumberRegions
+  SegmentationDataFile SegmentationDataSet unique.CopyNumberRegions
