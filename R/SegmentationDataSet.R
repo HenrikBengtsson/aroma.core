@@ -39,13 +39,13 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
   snames <- paste(snames, collapse=", ");
   s <- c(s, sprintf("Sample names: %s [%d]", snames, ns));
 
-  s <- c(s, sprintf("Number of files per sample: %g [%d*%d+%d=%d]",
-                     nf/ns, nc, (nf %/% nc), (nf %% nc), nf));
-
   if (nc >= 5)
     chrs <- c(chrs[1:2], "...", chrs[nc]);
   chrs <- paste(chrs, collapse=", ");
   s <- c(s, sprintf("Chromosomes: %s [%d]", chrs, nc));
+
+  s <- c(s, sprintf("Number of \"missing\" files: %d [%d*%d-%d=%d]",
+                     (nc*ns-nf), nc, ns, (nc*ns-nf), nf));
 
   if (nr >= 5)
     rnames <- c(rnames[1:2], "...", rnames[nr]);

@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 #
-#  A AromaCellTabularBinaryFile is an @see "AromaTabularBinaryFile" with
+#  An AromaCellTabularBinaryFile is an @see "AromaTabularBinaryFile" with
 #  the constraint that the rows map one-to-one to the cells (features)
 #  of a microarray.
 # }

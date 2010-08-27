@@ -1,6 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 1.7.2 [2010-08-22]
+o Added the AromaGenomeTextFile class.
+o Added genome annotation file Canine,chromosomes,UGP,HB20100822.txt to
+  system.file("annotationData/genomes/Canine", package="aroma.core").
+o BUG FIX: annotationData/genomes/Human/Human,chromosomes.txt had
+  an extra TAB on the ChrM row.
+
+
 Version: 1.7.1 [2010-08-06]
 o Added abstract classes SegmentationDataFile and SegmentationDataSet
   to represent segmentation data results.  Current subclasses are

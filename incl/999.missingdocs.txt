@@ -507,3 +507,6 @@ xMax.CopyNumberRegions xMin.CopyNumberRegions
   loadFit.CbsSegmentationDataFile loadFit.SegmentationDataFile
   nbrOfChromosomes nbrOfChromosomes.CopyNumberRegions
   SegmentationDataFile SegmentationDataSet unique.CopyNumberRegions
+ byGenome byGenome.AromaGenomeTextFile
+  findByGenome findByGenome.AromaGenomeTextFile
+  readDataFrame.AromaGenomeTextFile

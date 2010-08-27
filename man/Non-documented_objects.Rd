@@ -1038,6 +1038,11 @@
 \alias{SegmentationDataFile}
 \alias{SegmentationDataSet}
 \alias{unique.CopyNumberRegions}
+\alias{byGenome}
+\alias{byGenome.AromaGenomeTextFile}
+\alias{findByGenome}
+\alias{findByGenome.AromaGenomeTextFile}
+\alias{readDataFrame.AromaGenomeTextFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that
