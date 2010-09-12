@@ -15,7 +15,7 @@
 
 
  \description{
-   This package is a private support package for aroma.affymetrix et al.  The methods and classes of this package are independent of platform.  Its API is in alpha and beta stage.
+   This package contains core methods and classes used by higher-level aroma.* packages part of the Aroma Project, e.g. aroma.affymetrix and aroma.cn.  Its API should be considered to be in alpha and beta versions, and is mostly of interest to developers.
 
    This package is a support package for \pkg{aroma.affymetrix}.
    This package should be considered to be in an alpha or beta phase.

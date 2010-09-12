@@ -93,8 +93,8 @@ setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBa
 })
 
 
-setMethodS3("plot", "RawCopyNumbers", function(x, ..., ylab="Copy number") {
-  NextMethod("plot", x, ..., ylab=ylab);
+setMethodS3("plot", "RawCopyNumbers", function(x, ..., ylim=c(0,5), ylab="Copy number") {
+  NextMethod("plot", x, ..., ylim=ylim, ylab=ylab);
 })
 
 
@@ -114,6 +114,8 @@ setMethodS3("extractRawCopyNumbers", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2010-09-11
+# o Added an explicit 'ylim' argument to plot() for RawCopyNumbers.
 # 2009-12-02
 # o BUG FIX: extractRawCopyNumbers() for RawCopyNumbers would give an error
 #   if the internal logBase was NULL.

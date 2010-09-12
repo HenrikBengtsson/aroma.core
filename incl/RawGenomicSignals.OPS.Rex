@@ -23,7 +23,7 @@ print(cnT)
 cn <- RawCopyNumbers(y, x, w=w)
 print(cn)
 
-plot(cn, col="#aaaaaa")
+plot(cn, ylim=c(-3,3), col="#aaaaaa")
 points(cnT, col="red")
 
 # Genomic positions are never included, i.e. they are kept.

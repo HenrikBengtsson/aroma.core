@@ -36,7 +36,7 @@ for (kk in seq(along=Js)) {
 # Merge platform data (record their sources in 'id')
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 cn <- Reduce(append, cnList)
-plot(cn, col=cn$id)
+plot(cn, ylim=c(-3,3), col=cn$id)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Segment

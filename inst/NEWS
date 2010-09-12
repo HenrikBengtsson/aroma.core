@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.7.3 [2010-09-11]
+o Now the ylim defaults to c(0,5) for plot() for RawCopyNumbers.
+o Added basic support for operators +, - and * to RawGenomicSignals.
+
+
 Version: 1.7.2 [2010-08-22]
 o Added the AromaGenomeTextFile class.
 o Added genome annotation file Canine,chromosomes,UGP,HB20100822.txt to

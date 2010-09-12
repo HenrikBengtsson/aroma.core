@@ -1043,6 +1043,9 @@
 \alias{findByGenome}
 \alias{findByGenome.AromaGenomeTextFile}
 \alias{readDataFrame.AromaGenomeTextFile}
+\alias{-.RawGenomicSignals}
+\alias{*.RawGenomicSignals}
+\alias{+.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

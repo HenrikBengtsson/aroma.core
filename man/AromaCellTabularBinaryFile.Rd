@@ -41,7 +41,7 @@ extends \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr
 
 
 
-  A AromaCellTabularBinaryFile is an \code{\link{AromaTabularBinaryFile}} with
+  An AromaCellTabularBinaryFile is an \code{\link{AromaTabularBinaryFile}} with
   the constraint that the rows map one-to-one to the cells (features)
   of a microarray.
  }

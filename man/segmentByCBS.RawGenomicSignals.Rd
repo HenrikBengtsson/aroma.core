@@ -68,7 +68,7 @@ w[650:800] <- 0.001
 cn <- RawCopyNumbers(y, x)
 print(cn)
 
-plot(cn, col="#aaaaaa", xlab="Position (Mb)")
+plot(cn, ylim=c(-3,3), col="#aaaaaa", xlab="Position (Mb)")
 
 cnS <- binnedSmoothing(cn, by=500e3)
 print(cnS)

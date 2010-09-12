@@ -48,6 +48,9 @@ extends \link[R.oo]{Object}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{-} \tab  -\cr
+ \tab \code{*} \tab  -\cr
+ \tab \code{+} \tab  -\cr
  \tab \code{addBy} \tab  -\cr
  \tab \code{addLocusFields} \tab  -\cr
  \tab \code{append} \tab  -\cr

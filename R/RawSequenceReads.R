@@ -34,14 +34,16 @@ setMethodS3("binnedSums", "RawSequenceReads", function(this, ...) {
 })
 
 
-setMethodS3("plot", "RawSequenceReads", function(x, ..., ylab="Reads") {
-  NextMethod("plot", x, ..., ylab=ylab);
+setMethodS3("plot", "RawSequenceReads", function(x, ..., ylim=c(0,10), ylab="Reads") {
+  NextMethod("plot", x, ..., ylim=ylim, ylab=ylab);
 })
 
 
 
 ############################################################################
 # HISTORY:
+# 2010-09-11
+# o Added an explicit 'ylim' argument to plot() for RawSequenceReads. 
 # 2009-07-02
 # o Created from RawCopyNumbers.R.
 ############################################################################

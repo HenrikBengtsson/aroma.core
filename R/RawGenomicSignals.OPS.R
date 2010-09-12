@@ -64,8 +64,53 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
 
 
 
+setMethodS3("+", "RawGenomicSignals", function(e1, e2) {
+  # To please R CMD check 
+  this <- e1;
+  other <- e2;
+
+  addBy(this, other);
+}, appendVarArgs=FALSE);
+
+setMethodS3("-", "RawGenomicSignals", function(e1, e2) {
+  # To please R CMD check 
+  this <- e1;
+  other <- e2;
+
+  subtractBy(this, other);
+}, appendVarArgs=FALSE);
+
+setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
+  # To please R CMD check 
+  this <- e1;
+  value <- e2;
+
+  # Swap 'this' and 'value'?
+  if (inherits(value, "RawGenomicSignals")) {
+    tmp <- this;
+    this <- value;
+    value <- tmp;
+  }
+
+  value <- Arguments$getDouble(value);
+
+  res <- clone(this);
+
+  fields <- getLocusFields(this);
+  fields <- setdiff(fields, "x");
+
+  for (field in fields) {
+    res[[field]] <- value * res[[field]];
+  } 
+
+  res;
+}, appendVarArgs=FALSE);
+
+
 ############################################################################
 # HISTORY:
+# 2010-09-11
+# o Added basic support for operators +, - and * to RawGenomicSignals.
 # 2009-05-10
 # o Added {add,subtract,multiply,divide}By() to RawGenomicSignals.
 # o Added applyBinaryOperator().
