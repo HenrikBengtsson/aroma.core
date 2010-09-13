@@ -51,6 +51,39 @@ setMethodS3("nbrOfRegions", "CopyNumberRegions", function(this, ...) {
   length(this$start);
 })
 
+setMethodS3("getLength", "CopyNumberRegions", function(this, ...) {
+  this$stop - this$start;
+})
+
+
+setMethodS3("getDensity", "CopyNumberRegions", function(this, field="mean", adjust=0.2, ...) {
+  # Argument 'adjust':
+  adjust <- Arguments$getDouble(adjust, range=c(0,Inf));
+
+  # Region signal
+  y <- this[[field]];
+
+  # Weight by length of regions
+  w <- getLength(this);
+
+  # Drop missing values
+  keep <- is.finite(y);
+  y <- y[keep];
+  w <- w[keep];
+
+  # Special case
+  if (length(y) == 1) {
+    y <- rep(y, times=2);
+    w <- rep(w, times=2);
+  }
+
+  # Standardize weights
+  w <- w / sum(w, na.rm=TRUE);
+
+  # Estimate the weighted empircal density
+  density(y, weights=w, adjust=adjust, ...);
+})
+
 
 setMethodS3("as.data.frame", "CopyNumberRegions", function(x, ...) {
   # To please R CMD check
@@ -188,6 +221,9 @@ setMethodS3("extractCNRs", "default", function(...) {
 
 ############################################################################
 # HISTORY:
+# 2010-09-12
+# o Added getDensity() for CopyNumberRegions.
+# o Added virtual field 'length'/getLength() for CopyNumberRegions.
 # 2010-07-19
 # o Added subset() for CopyNumberRegions.
 # 2010-04-06

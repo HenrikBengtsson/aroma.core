@@ -1046,6 +1046,13 @@
 \alias{-.RawGenomicSignals}
 \alias{*.RawGenomicSignals}
 \alias{+.RawGenomicSignals}
+\alias{draw}
+\alias{draw.density}
+\alias{drawDensity}
+\alias{drawDensity.CopyNumberRegions}
+\alias{drawDensity.RawGenomicSignals}
+\alias{swapXY}
+\alias{swapXY.density}
 
 \description{
   This page contains aliases for all "non-documented" objects that

@@ -511,3 +511,5 @@ xMax.CopyNumberRegions xMin.CopyNumberRegions
   findByGenome findByGenome.AromaGenomeTextFile
   readDataFrame.AromaGenomeTextFile
   -.RawGenomicSignals *.RawGenomicSignals +.RawGenomicSignals
+  draw draw.density drawDensity drawDensity.CopyNumberRegions
+  drawDensity.RawGenomicSignals swapXY swapXY.density

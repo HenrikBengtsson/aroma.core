@@ -57,6 +57,7 @@ extends \link[R.oo]{Object}\cr
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothing} \tab  -\cr
  \tab \code{divideBy} \tab  -\cr
+ \tab \code{drawDensity} \tab  -\cr
  \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
  \tab \code{extractRegion} \tab  -\cr
  \tab \code{extractRegions} \tab  -\cr

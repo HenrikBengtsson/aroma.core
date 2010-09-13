@@ -1,7 +1,12 @@
 Package: aroma.core
 ===================
 
-Version: 1.7.3 [2010-09-11]
+Version: 1.7.3 [2010-09-12]
+o Added drawDensity() for CopyNumberRegions and RawGenomicSignals.
+o Added getDensity() for CopyNumberRegions which returns the 
+  empirical density of the mean levels weighted by the region lengths.
+o Added getLength() for CopyNumberRegions, which returns a vector
+  of region lengths.
 o Now the ylim defaults to c(0,5) for plot() for RawCopyNumbers.
 o Added basic support for operators +, - and * to RawGenomicSignals.
 
