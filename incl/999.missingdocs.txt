@@ -513,3 +513,5 @@ xMax.CopyNumberRegions xMin.CopyNumberRegions
   -.RawGenomicSignals *.RawGenomicSignals +.RawGenomicSignals
   draw draw.density drawDensity drawDensity.CopyNumberRegions
   drawDensity.RawGenomicSignals swapXY swapXY.density
+ getDensity getDensity.CopyNumberRegions getLength
+ getLength.CopyNumberRegions
