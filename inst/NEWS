@@ -1,6 +1,15 @@
 Package: aroma.core
 ===================
 
+Version: 1.7.4 [2010-10-13]
+o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate 
+  chromosomal plots with cytobands tries to utilize GLAD package,
+  if available.  However, even when GLAD is installed it may still be
+  broken to missing dynamic libraries, e.g. 'Error in library.dynam(lib,
+  package, package.lib) : DLL 'GLAD' not found: maybe not installed for
+  this architecture?'.  We now avoid this too.
+
+
 Version: 1.7.3 [2010-09-12]
 o Added drawDensity() for CopyNumberRegions and RawGenomicSignals.
 o Added getDensity() for CopyNumberRegions which returns the 

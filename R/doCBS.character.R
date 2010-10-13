@@ -1,3 +1,38 @@
+###########################################################################/**
+# @set "class=character"
+# @RdocMethod doCBS
+#
+# @title "Performs CBS segmentation on a data set"
+#
+# \description{
+#  @get "title" for one or more chip types.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{dataSets}{A @character string specifying the data set(s).}
+#   \item{tags}{And optional @character @vector of data set tags.}
+#   \item{chipTypes}{A @character @vector specifying the chip types
+#     to be used and merged.}
+#   \item{...}{Additional arguments passed to ...}
+#   \item{verbose}{A @logical or @see "R.utils::Verbose".}
+# }
+#
+# \value{
+#  Returns a ...
+# }
+#
+# \examples{\dontrun{
+#   @include "../incl/doCBS.Rex"
+# }}
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -109,6 +144,8 @@ setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., 
 
 ############################################################################
 # HISTORY:
+# 2010-10-07
+# o Added Rdoc comments for doCBS() for the 'character' class.
 # 2010-05-25
 # o Added support for data set tuples.
 # o Renamed arguments with plural 's'.

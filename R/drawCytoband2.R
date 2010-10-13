@@ -4,17 +4,28 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  seqPalette <- NULL;
+  # Try to use the palette defined by GLAD
   if (isPackageInstalled("GLAD")) {
-    seqPalette <- function(from, to, length.out, ...) {
+    # Note that although GLAD is installed we may still get:
+    # > GLAD::myPalette
+    # Error in library.dynam(lib, package, package.lib) :
+    # DLL 'GLAD' not found: maybe not installed for this architecture?
+    tryCatch({
       # WORKAROUND: Since GLAD is not using packageStartupMessage()
       # but cat() in .onLoad(), there will be a long message printed
       # even when using GLAD::<fcn>. /HB 2010-02-19
       dummy <- capture.output({
         fcn <- GLAD::myPalette;
       });
-      fcn(low=from, high=to, k=length.out, ...);
-    } # seqPalette()
-  } else {
+      seqPalette <- function(from, to, length.out, ...) {
+        fcn(low=from, high=to, k=length.out, ...);
+      } # seqPalette()
+    }, error=function(ex) {});
+  }
+
+  # Fallback...
+  if (is.null(seqPalette)) {
     seqPalette <- function(from, to, length.out, ...) {
       # Argument 'from':
       if (is.character(from)) {
@@ -34,7 +45,6 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
       rgb(rgbData);
     } # seqPalette()
   }
-
 
   opar <- par(xpd=NA);
   on.exit(par(opar));
@@ -99,6 +109,13 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
  
 ############################################################################
 # HISTORY:
+# 2010-10-13
+# o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate 
+#   chromosomal plots with cytobands tries to utilize GLAD package,
+#   if available.  However, even when GLAD is installed it may still be
+#   broken to missing dynamic libraries, e.g. 'Error in library.dynam(lib,
+#   package, package.lib) : DLL 'GLAD' not found: maybe not installed for
+#   this architecture?'.  We now avoid this too.
 # 2010-02-19
 # o Now suppressing the .onLoad() message of GLAD.
 # o Extracted from GLAD.EXT.R.
