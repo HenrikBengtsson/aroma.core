@@ -18,7 +18,8 @@
 #      for pairwise comparisons.}
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
-#   \item{...}{Not used.}
+#   \item{...}{Optional arguments that may be used by some of the
+#      subclass models.}
 # }
 #
 # \section{Fields and Methods}{
@@ -143,6 +144,9 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   # Argument 'tags':
   tags <- Arguments$getTags(tags, collapse=NULL);
 
+  # Optional arguments
+  optionalArgs <- list(...);
+
   this <- extend(ChromosomalModel(), "CopyNumberChromosomalModel",
     .cesTuple = cesTuple,
     .refTuple = refTuple,
@@ -150,7 +154,8 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     .calculateRatios = TRUE,
     .chromosomes = NULL,
     .tags = tags,
-    .genome = genome
+    .genome = genome,
+    .optionalArgs = optionalArgs
   );
 
   # Validate?
@@ -217,6 +222,10 @@ setMethodS3("clearCache", "CopyNumberChromosomalModel", function(this, ...) {
 })
 
 
+
+setMethodS3("getOptionalArguments", "CopyNumberChromosomalModel", function(this, ...) {
+  this$.optionalArgs;
+}, protected=TRUE)
 
 
 setMethodS3("getRefSetTuple", "CopyNumberChromosomalModel", function(this, ...) {
@@ -946,6 +955,9 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
 ##############################################################################
 # HISTORY:
+# 2010-10-25
+# o Now optional arguments '...' to CopyNumberChromosomalModel are recorded.
+# o Added protected getOptionalArguments() to CopyNumberChromosomalModel.
 # 2010-01-01
 # o Now getNames() uses new getPairedNames().
 # o Added getPairedNames() to CopyNumberChromosomalModel.

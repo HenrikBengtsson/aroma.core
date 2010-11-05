@@ -457,7 +457,7 @@
   getAromaUgpFile.AromaPlatformInterface isCompatibleWith
   isCompatibleWith.AromaPlatformInterface
 getTags.Arguments
-  doCBS doCBS.character doCBS.CopyNumberDataSet 
+  doCBS doCBS.CopyNumberDataSet 
   doCBS.CopyNumberDataSetTuple
   getOutputSet
   getOutputSet.ChromosomalModel setAttributesBy.AromaTabularBinarySet
@@ -515,3 +515,4 @@ xMax.CopyNumberRegions xMin.CopyNumberRegions
   drawDensity.RawGenomicSignals swapXY swapXY.density
  getDensity getDensity.CopyNumberRegions getLength
  getLength.CopyNumberRegions
+getOptionalArguments getOptionalArguments.CopyNumberChromosomalModel

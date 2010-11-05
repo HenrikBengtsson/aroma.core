@@ -43,7 +43,8 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
       for pairwise comparisons.}
    \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
    \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
-   \item{...}{Not used.}
+   \item{...}{Optional arguments that may be used by some of the
+      subclass models.}
  }
 
  \section{Fields and Methods}{

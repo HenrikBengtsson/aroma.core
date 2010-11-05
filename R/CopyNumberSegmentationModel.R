@@ -282,14 +282,28 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Fit segmentation model
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        verbose && enter(verbose, "Calling model fit function");
+
+        optArgs <- getOptionalArguments(this);
+        verbose && cat(verbose, "Optional arguments (may be ignored/may give an error/warning):");
+        verbose && str(verbose, optArgs);
+        args <- list(cn);
+        args <- c(args, optArgs);
+        args <- c(args, list(...));
+        verbose && cat(verbose, "All arguments:");
+        verbose && str(verbose, args);
+        args <- c(args, list(...), list(verbose=less(verbose, 1)));
         tFit <- processTime();
-        fit <- fitFcn(cn, ..., verbose=less(verbose, 1));
+        fit <- do.call("fitFcn", args);
         verbose && str(verbose, fit);
         timers$fit <- timers$fit + (processTime() - tFit);
         rm(cn); # Not needed anymore
 
         verbose && cat(verbose, "Class of fitted object: ", class(fit)[1]);
         verbose && printf(verbose, "Time to fit segmentation model: %.2fmin\n", timers$fit[3]/60);
+
+        verbose && exit(verbose);
+
 
         verbose && enter(verbose, "Validate that it can be coerced");
         rawCns <- extractRawCopyNumbers(fit);
@@ -667,6 +681,11 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2010-10-25
+# o Now fit() for CopyNumberSegmentationModel also passed the optional
+#   arguments ('...') passed to the constructor function.  This makes it
+#   possible to specify all arguments while initiating the model, e.g.
+#   sm <- CbsModel(..., min.width=5, alpha=0.05).
 # 2010-01-01
 # o Added getFullNames() to CopyNumberSegmentationModel in order to be
 #   backward compatible with previous versions.

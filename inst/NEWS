@@ -1,13 +1,27 @@
 Package: aroma.core
 ===================
 
+Version: 1.7.6 [2010-11-04]
+o ROBUSTNESS: Now subsample() for BinnedScatter utilizes resample().
+o CLEANUP: Removed some outdated patches for R v2.7.0 and before.
+o CLEANUP: Package no longer need to "suggest" geneplotter.
+
+
+Version: 1.7.5 [2010-10-25]
+o Now fit() for CopyNumberSegmentationModel also passed the optional
+  arguments ('...') passed to the constructor function.  This makes it
+  possible to specify all arguments while initiating the model, e.g.
+  sm <- CbsModel(..., min.width=5, alpha=0.05).
+o Now optional arguments '...' to CopyNumberChromosomalModel are recorded.
+
+
 Version: 1.7.4 [2010-10-13]
 o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate 
   chromosomal plots with cytobands tries to utilize GLAD package,
   if available.  However, even when GLAD is installed it may still be
-  broken to missing dynamic libraries, e.g. 'Error in library.dynam(lib,
-  package, package.lib) : DLL 'GLAD' not found: maybe not installed for
-  this architecture?'.  We now avoid this too.
+  broken due to missing dynamic libraries, e.g. 'Error in 
+  library.dynam(lib, package, package.lib) : DLL 'GLAD' not found: maybe
+  not installed for this architecture?'.  We now avoid this too.
 
 
 Version: 1.7.3 [2010-09-12]

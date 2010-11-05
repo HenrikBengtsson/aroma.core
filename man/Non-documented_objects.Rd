@@ -948,7 +948,6 @@
 \alias{isCompatibleWith.AromaPlatformInterface}
 \alias{getTags.Arguments}
 \alias{doCBS}
-\alias{doCBS.character}
 \alias{doCBS.CopyNumberDataSet}
 \alias{doCBS.CopyNumberDataSetTuple}
 \alias{getOutputSet}
@@ -1053,6 +1052,12 @@
 \alias{drawDensity.RawGenomicSignals}
 \alias{swapXY}
 \alias{swapXY.density}
+\alias{getDensity}
+\alias{getDensity.CopyNumberRegions}
+\alias{getLength}
+\alias{getLength.CopyNumberRegions}
+\alias{getOptionalArguments}
+\alias{getOptionalArguments.CopyNumberChromosomalModel}
 
 \description{
   This page contains aliases for all "non-documented" objects that

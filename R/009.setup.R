@@ -2,17 +2,8 @@
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Patches
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Patch base::matrix() to be more memory efficient when 'dimnames==NULL'.
-  .patchMatrix();
-
-  # Patch log2()/log10() that are slow to display warnings
-  .patchLog2();
-
   # Patch slow serialize() on Windows (speeds up digest() a lot!)
   .patchSerialize();
-
-  # Get smoothScatter() for geneplotter (<= 1.21.4) if R (< 2.9.0).
-  .patchSmoothScatter();
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -61,6 +52,11 @@
 
 ############################################################################
 # HISTORY:
+# 2010-10-27
+# o CLEANUP: Removed outdated patch for finding smoothScatter(), which
+#   is not needed in R v2.9.0 and beyond.
+# o CLEANUP: Removed outdated patches for log2()/log10() and matrix().
+#   They only applied to R v2.7.0 and before.
 # 2010-02-10
 # o Now also patches for R.filesets and R.utils are loaded, if available,
 #   when aroma.core is loaded.

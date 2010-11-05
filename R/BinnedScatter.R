@@ -132,7 +132,7 @@ setMethodS3("subsample", "BinnedScatter", function(object, size=NULL, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Randomized sampling according to weights
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  subset <- sample(1:length(w), size=size, prob=w, replace=FALSE);
+  subset <- resample(1:length(w), size=size, prob=w, replace=FALSE);
   rm(w);
   res <- subset(object, subset=subset, ...);
 
@@ -159,14 +159,9 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Identify density estimator
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # smootherScatter() et al. were migrated from the Bioconductor 
-  # 'geneplotter' package to the grDevices part of the R v2.9.0 distro.
-  rVer <- paste(R.Version()$major, R.Version()$minor, sep=".");
-  if (compareVersion(rVer, "2.9.0") >= 0) {
-    calcDensity <- grDevices:::.smoothScatterCalcDensity;
-  } else {
-    calcDensity <- geneplotter:::.smoothScatterCalcDensity;
-  }
+  # Used to be a workaround since it used to be in 'geneplotter'.
+  calcDensity <- grDevices:::.smoothScatterCalcDensity;
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimate the (x,y) density
@@ -223,6 +218,10 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
 
 ############################################################################
 # HISTORY:
+# 2010-11-04
+# o ROBUSTNESS: Now subsample() for BinnedScatter utilizes resample().
+# 2010-10-27
+# o CLEANUP: Dropped outdated backup import to geneplotter in binScatter().
 # 2009-05-09
 # o UPDATED: Now binScatter() of BinnedScatter don't need the 'geneplotter'
 #   package if R v2.9.0+ is used.
