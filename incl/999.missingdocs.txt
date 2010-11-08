@@ -419,7 +419,7 @@
   smoothWRMA smoothWRMA.matrix smoothWSA smoothWSA.matrix
   sort.RawGenomicSignals splitByReportPathPattern
   splitByReportPathPattern.Explorer splitInChunks splitInChunks.numeric
-  sqrtabs sqrtcenter sqrtneg sqrtpos stext stext.default stextChipType
+  sqrtabs sqrtcenter sqrtneg sqrtpos stextChipType
   stextChipType.character stextLabel stextLabel.AromaMicroarrayDataFile
   stextLabels stextLabels.AromaMicroarrayDataFile stextSize
   stextSize.AromaMicroarrayDataFile stringTree stringTree.character

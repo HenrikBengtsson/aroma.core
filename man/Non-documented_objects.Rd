@@ -855,8 +855,6 @@
 \alias{sqrtcenter}
 \alias{sqrtneg}
 \alias{sqrtpos}
-\alias{stext}
-\alias{stext.default}
 \alias{stextChipType}
 \alias{stextChipType.character}
 \alias{stextLabel}
