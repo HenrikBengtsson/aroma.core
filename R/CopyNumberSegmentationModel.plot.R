@@ -210,23 +210,31 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
           opar <- par(xaxs="r");
           suppressWarnings({
             # Create empty plot
+            verbose && enter(verbose, "Creating empty plot");
             newPlot(this, xlim=xlim, ylim=ylim, flavor="ce", unit=unit, ...);
+            verbose && exit(verbose);
 
 #            plotProfile2(fit, unit=unit, ylim=c(-1,+1)*3, xmargin=xmargin, resScale=resScale, flavor="ce", Bkp=FALSE, Smoothing=NULL, cnLevels=NULL, plotband=FALSE, ...);
 
+            verbose && enter(verbose, "Adding axes and rulers");
             # Add ruler
             drawXAxisRuler(xrange=c(0,nbrOfBases)/10^unit, ticksBy=ticksBy); 
+            verbose && exit(verbose);
  
             # Add cytoband to graph (optional; class specific)
             if (!identical(this$.plotCytoband, FALSE)) {
+              verbose && enter(verbose, "Adding cytoband");
               drawCytoband(this, chromosome=chromosome, unit=unit);
+              verbose && exit(verbose);
             }
         
             # Add CN=1,2,3 lines to graph
+            verbose && enter(verbose, "Adding CN grid lines");
             cnLevels <- c(1/2,1,3/2);
             for (level in cnLevels) {
               abline(h=log2(level), col="blue", lty=2);
             }
+            verbose && exit(verbose);
 
             # Extract raw CN estimates
             rawCns <- extractRawCopyNumbers(fit);
@@ -238,16 +246,22 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
             # Plot raw CNs data points (and highlight outliers)
             # Generic function
+            verbose && enter(verbose, "Adding data points");
             pointsRawCNs(fit, unit=unit, ...);
 #            points(rawCns, xScale=1/10^unit, pch=20, col="black");
+            verbose && exit(verbose);
 
             # Draw CNRs
+            verbose && enter(verbose, "Adding segmentation results");
             cnRegions <- extractCopyNumberRegions(fit);
             verbose && print(verbose, cnRegions, level=-50);
             drawLevels(cnRegions, lwd=4, col="black", xScale=1/10^unit);
+            verbose && exit(verbose);
 
             # Model-specific annotations (optional; class specific)
+            verbose && enter(verbose, "Adding additional annotations");
             drawExtraAnnotations(fit);
+            verbose && exit(verbose);
 
             # Add genotype call tracks, if available (optional; class specific)
             onFitAddGenotypeCalls(fit, callList=callList, arrayName=arrayName, resScale=10^unit*resScale, ...);
@@ -290,6 +304,8 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
 ##############################################################################
 # HISTORY:
+# 2010-11-23
+# o Added more verbose output to plot() of CopyNumberSegmentationModel.
 # 2009-07-01
 # o ROBUSTNESS/BUG FIX: Now plot() of CopyNumberSegmentationModel asserts 
 #   that the RColorBrewer package is avaiable at the very beginning.  This
