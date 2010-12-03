@@ -952,9 +952,42 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
 
 
+setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, chromosome, ...) {
+  data <- getGenomeData(this);
+  nbrOfChromosomes <- nrow(data);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'chromosome'
+  if (is.numeric(chromosome)) {
+    chromosome <- Arguments$getIndex(chromosome, max=nbrOfChromosomes);
+  } else {
+    chromosome <- Arguments$getCharacter(chromosome);
+    if (!is.element(chromosome, row.names(data))) {
+      throw("Cannot infer number of bases in chromosome. No such chromosome: ", chromosome);
+    }
+  }
+
+
+  # Extract the length
+  nbrOfBases <- data[chromosome,"nbrOfBases"];
+  
+  # Sanity check
+  disallow <- c("Inf", "NA", "NaN");
+  nbrOfBases <- Arguments$getNumeric(nbrOfBases, range=c(0, Inf), disallow=disallow);
+
+  nbrOfBases;
+}) # getChromosomeLength()
+
+
+
+
 
 ##############################################################################
 # HISTORY:
+# 2010-12-02
+# o Added getChromosomeLength() for CopyNumberSegmentationModel.
 # 2010-10-25
 # o Now optional arguments '...' to CopyNumberChromosomalModel are recorded.
 # o Added protected getOptionalArguments() to CopyNumberChromosomalModel.

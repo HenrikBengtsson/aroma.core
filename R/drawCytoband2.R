@@ -49,6 +49,12 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
   opar <- par(xpd=NA);
   on.exit(par(opar));
 
+
+  # Nothing todo?
+  if (nrow(cytoband) == 0) {
+    return();
+  }
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Cytoband colors
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -109,6 +115,9 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
  
 ############################################################################
 # HISTORY:
+# 2010-12-02
+# o BUG FIX: drawCytoband2() would throw an error if argument 'cytoband'
+#   was an empty data frame.  Now it returns quietly.
 # 2010-10-13
 # o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate 
 #   chromosomal plots with cytobands tries to utilize GLAD package,

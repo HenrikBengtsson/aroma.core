@@ -1056,6 +1056,8 @@
 \alias{getLength.CopyNumberRegions}
 \alias{getOptionalArguments}
 \alias{getOptionalArguments.CopyNumberChromosomalModel}
+\alias{getChromosomeLength}
+\alias{getChromosomeLength.CopyNumberChromosomalModel}
 
 \description{
   This page contains aliases for all "non-documented" objects that

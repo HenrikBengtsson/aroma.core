@@ -1,16 +1,5 @@
 setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), FUN, path, xlim=NULL, ..., pixelsPerMb=3, zooms=2^(0:6), height=400, xmargin=c(50,50), imageFormat="current", transparent=FALSE, skip=TRUE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  getChromosomeLength <- function(chromosome) {
-    data <- getGenomeData(this);
-    if (!chromosome %in% row.names(data))
-      throw("Cannot infer number of bases in chromosome. No such chromosome: ", chromosome);
-    data[chromosome,"nbrOfBases"];
-  } # getChromosomeLength()
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
@@ -127,7 +116,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
       xlim <- xlim0;
       # Argument 'xlim' missing?
       if (is.null(xlim)) {
-        xlim <- c(0, getChromosomeLength(chromosome))/10^unit;
+        xlim <- c(0, widthMb);
       }
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -189,6 +178,8 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
 
 ##############################################################################
 # HISTORY:
+# 2010-12-02
+# o CLEANUP: Dropped any usage getChromosomeLength().
 # 2007-10-09
 # o Added plotCytobandLayers().
 # 2007-09-15

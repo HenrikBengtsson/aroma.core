@@ -34,12 +34,6 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
   } # drawXAxisRuler()
 
 
-  getChromosomeLength <- function(chromosome) {
-    data <- getGenomeData(this);
-    if (!chromosome %in% row.names(data))
-      throw("Cannot infer number of bases in chromosome. No such chromosome: ", chromosome);
-    data[chromosome,"nbrOfBases"];
-  } # getChromosomeLength()
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -171,7 +165,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
       # Argument 'xlim' missing?
       if (is.null(xlim)) {
-        xlim <- c(0, getChromosomeLength(chromosome))/10^unit;
+        xlim <- c(0, widthMb);
       }
     
       verbose && enter(verbose, sprintf("Plotting %s for chromosome %02d [%.2fMB]", arrayName, chromosome, widthMb));
@@ -304,6 +298,11 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
 ##############################################################################
 # HISTORY:
+# 2010-12-02
+# o BUG FIX: plot() for CopyNumberSegmentationModel would throw exception
+#   "Cannot infer number of bases in chromosome. No such chromosome: 25"
+#   for chromosome 25.
+# o CLEANUP: Dropped any usage getChromosomeLength().
 # 2010-11-23
 # o Added more verbose output to plot() of CopyNumberSegmentationModel.
 # 2009-07-01
