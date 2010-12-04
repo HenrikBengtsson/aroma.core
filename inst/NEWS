@@ -4,9 +4,10 @@ Package: aroma.core
 Version: 1.8.1 [2010-12-02]
 o BUG FIX: plot() for CopyNumberSegmentationModel would throw exception
   "Cannot infer number of bases in chromosome. No such chromosome: 25"
-  for chromosome 25.  Solved by using new getChromosomeLength().
+  for chromosome 25.
 o BUG FIX: drawCytoband2() would throw an error if argument 'cytoband'
-  was an empty data frame.  Now it returns quietly.
+  was an empty data frame, which could happen if there is no cytoband
+  annotation data for the requested chromosome.  Now it returns quietly.
 
 
 Version: 1.8.0 [2010-11-07]
