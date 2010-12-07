@@ -58,7 +58,7 @@ extends \emph{\link[aroma.core]{CopyNumberSegmentationModel}}\cr
 
 
  \bold{Methods inherited from CopyNumberSegmentationModel}:\cr
-plot, fit, getAsteriskTags, getFitFunction, getFullNames, getRegions, getTags, plot, plotCopyNumberRegionLayers, writeRegions
+fit, getAsteriskTags, getFitFunction, getFullNames, getRegions, getTags, plot, plotCopyNumberRegionLayers, writeRegions
 
  \bold{Methods inherited from CopyNumberChromosomalModel}:\cr
 as.character, calculateChromosomeStatistics, calculateRatios, clearCache, estimateSds, extractRawCopyNumbers, fit, getChromosomeLength, getDataFileMatrix, getNames, getOptionalArguments, getPairedNames, getReferenceSetTuple, getRefSetTuple, isPaired, newPlot, plotAxesLayers, plotChromosomesLayers, plotCytobandLayers, plotFitLayers, plotGridHorizontalLayers, plotRawCopyNumbers, plotSampleLayers

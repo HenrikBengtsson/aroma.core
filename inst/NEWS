@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 1.8.2 [2010-12-06]
+o Whenever the GLAD package is tried to be loaded and it fails due
+  to failure of loading a shared library, then this will be remembered
+  for 24 hours while it will not be loaded again.
+
+
 Version: 1.8.1 [2010-12-02]
 o BUG FIX: plot() for CopyNumberSegmentationModel would throw exception
   "Cannot infer number of bases in chromosome. No such chromosome: 25"

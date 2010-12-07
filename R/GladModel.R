@@ -58,7 +58,7 @@ setConstructorS3("GladModel", function(cesTuple=NULL, ...) {
   # Load required packages
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(cesTuple)) {
-    require("GLAD") || throw("Package not loaded: GLAD");
+    requireWithMemory("GLAD") || stop("Package not loaded: GLAD");
   }
 
   extend(CopyNumberSegmentationModel(cesTuple=cesTuple, ...), "GladModel")
