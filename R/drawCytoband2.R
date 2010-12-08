@@ -11,7 +11,16 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
     # > GLAD::myPalette
     # Error in library.dynam(lib, package, package.lib) :
     # DLL 'GLAD' not found: maybe not installed for this architecture?
+
+    # In order to minimize the impact of that, we will indeed to load
+    # GLAD although we're only interested in importing GLAD::myPalette().
+    # We could unload GLAD when exiting this function (iff it was loaded
+    # by us), but since drawCytoband2() is called for each sample and
+    # chromosome, that would generate a huge number of package loads.
+    # /HB 2010-12-07
+
     tryCatch({
+      requireWithMemory("GLAD") || throw("Package not loaded: GLAD");
       # WORKAROUND: Since GLAD is not using packageStartupMessage()
       # but cat() in .onLoad(), there will be a long message printed
       # even when using GLAD::<fcn>. /HB 2010-02-19
@@ -115,6 +124,9 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
  
 ############################################################################
 # HISTORY:
+# 2010-12-07
+# o Now drawCytoband2() utilizes requireWithMemory() to minimize the
+#   annoyances when GLAD fails to load.
 # 2010-12-02
 # o BUG FIX: drawCytoband2() would throw an error if argument 'cytoband'
 #   was an empty data frame.  Now it returns quietly.

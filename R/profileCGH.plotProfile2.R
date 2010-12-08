@@ -187,6 +187,9 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
 
 ############################################################################
 # HISTORY:
+# 2010-12-07
+# o plotProfile2() for profileCGH now utilizing requireWithMemory()
+#   to decrease the annoyances for users if GLAD fails to load.
 # 2007-09-04
 # o Now data("cytoband") is loaded to the local environment.
 # 2007-08-22

@@ -11,7 +11,7 @@
 # [1] Bioconductor developers list, thread 'GLAD: Suggestion: Throw a formal
 #     error condition instead of modal GUI dialog', started on 2010-11-23.
 ############################################################################
-setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=24*3600) {
+setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=24*3600, force=FALSE) {
   require("R.utils") || throw("Package not loaded: R.utils");
 
   # If package is already loaded, do nothing
@@ -21,8 +21,15 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
 
   require("R.cache") || throw("Package not loaded: R.cache");
 
+  # Argument 'package'
+  package <- Arguments$getCharacter(package);
+
   # Argument 'since'
   since <- Arguments$getInteger(since, range=c(0, Inf));
+
+  # Argument 'force'
+  force <- Arguments$getLogical(force);
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Check cache for loading errors within the last 'since' seconds
@@ -30,11 +37,13 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
   pd <- packageDescription(package);
   key <- list(package=package, packageDescription=pd);
   dirs <- c("aroma.core", "requireWithMemory", package);
-  lastResult <- loadCache(key=key, dirs=dirs);
-  if (!is.null(lastResult)) {
-    # Too old? Try only once every 'since' seconds
-    if (Sys.time() - lastResult$timestamp < since) {
-      return(FALSE);
+  if (!force) {
+    lastResult <- loadCache(key=key, dirs=dirs);
+    if (!is.null(lastResult)) {
+      # Too old? Try only once every 'since' seconds
+      if (Sys.time() - lastResult$timestamp < since) {
+        return(FALSE);
+      }
     }
   }
 
@@ -88,6 +97,8 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
 
 ############################################################################
 # HISTORY:
+# 2010-12-07
+# o Added argument 'force' to requireWithMemory().
 # 2010-12-06
 # o Added requireWithMemory().
 # o Created.

@@ -62,7 +62,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., cache=FALS
   verbose && cat(verbose, "Package: ", pkgDetails);
 
   # We need to load package
-  require(pkgName, character.only=TRUE) || throw("Package not loaded: ", pkgName);
+  requireWithMemory(pkgName) || throw("Package not loaded: ", pkgName);
 
   # Get the fit function for the segmentation method
   envir <- as.environment(sprintf("package:%s", pkgName));
@@ -253,11 +253,14 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., cache=FALS
   verbose && exit(verbose);
 
   fit;  
-}) # segmentByCBS()
+}) # segmentByGLAD()
 
 
 ############################################################################
 # HISTORY:
+# 2010-12-07
+# o segmentByGLAD() for RawGenomicSignals now utilizing requireWithMemory()
+#   to decrease the annoyances for users if GLAD fails to load.
 # 2009-06-27
 # o FIX: Updated the cache key to refer to "segmentByCBS" (was HaarSeg).
 # 2009-05-10
