@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 1.8.3 [2010-12-27]xx
+o Added genome annotation file Mouse,chromosomes.txt to
+  system.file("annotationData/genomes/Mouse", package="aroma.core").
+
+
 Version: 1.8.2 [2010-12-07]
 o ROBUSTNESS: Whenever the GLAD package is tried to be loaded and it 
   fails due to failure of loading a shared library, then this will be
