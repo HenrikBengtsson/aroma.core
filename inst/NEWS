@@ -1,7 +1,11 @@
 Package: aroma.core
 ===================
 
-Version: 1.8.3 [2010-12-27]xx
+Version: 1.9.0 [2011-01-10]
+o No updates.  Submitted to CRAN.
+
+
+Version: 1.8.3 [2010-12-27]
 o Added genome annotation file Mouse,chromosomes.txt to
   system.file("annotationData/genomes/Mouse", package="aroma.core").
 
