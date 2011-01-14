@@ -213,6 +213,17 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   verbose && cat(verbose, "Fitting time per 1000 loci (in seconds):");
   verbose && print(verbose, 1000*t/nbrOfLoci);
 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Add segmentByGLAD() parameters
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  params <- list(
+    flavor = flavor
+  );
+
+  attr(fit, "params") <- params;
+
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimating aroma parameters
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -264,6 +275,8 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
 
 ############################################################################
 # HISTORY:
+# 2011-01-14
+# o Added 'params' attribute to returned result object.
 # 2011-01-11
 # o Added argument 'flavor' to segmentByGLAD() for RawGenomicSignals,
 #   which makes it possible to specify whether daglad() or glad() of
