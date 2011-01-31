@@ -1,6 +1,11 @@
 ##############################################################################
 # This source file contains all methods and classes related to the
 # Image class (of EBImage).
+#
+# In aroma.affymetrix, the following methods are used:
+# - getImage() for the matrix class.
+# - display(). 
+# - writeImage(). 
 ##############################################################################
 
 
@@ -13,6 +18,22 @@ setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
 
   img;
 }, protected=TRUE)
+
+
+setMethodS3("display", "Image", function(this, ...) {
+  EBImage::display(this, ...);
+}, protected=TRUE) 
+
+
+setMethodS3("writeImage", "Image", function(x, file, ...) {
+  if (compareVersion(packageDescription("EBImage")$Version, "2.1.23") >= 0) {
+    EBImage::writeImage(x, files=file, ...);
+  } else {
+    EBImage::write.image(x, files=file, ...);
+  }
+}, protected=TRUE)
+
+
 
 
 
@@ -241,10 +262,6 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
 }, protected=TRUE)
 
 
-setMethodS3("display", "Image", function(this, ...) {
-  EBImage::display(this, ...);
-}, protected=TRUE) 
-
 
 
 setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto"), ..., verbose=TRUE) {
@@ -363,7 +380,7 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
   verbose && exit(verbose);
 
   this;
-})
+}, protected=TRUE)
 
 
 setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose=FALSE) {
@@ -393,22 +410,15 @@ setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose
   verbose && exit(verbose);
 
   img;
-})
-
-
-setMethodS3("writeImage", "Image", function(x, file, ...) {
-  if (compareVersion(packageDescription("EBImage")$Version, "2.1.23") >= 0) {
-    EBImage::writeImage(x, files=file, ...);
-  } else {
-    EBImage::write.image(x, files=file, ...);
-  }
 }, protected=TRUE)
+
 
 
 
 ############################################################################
 # HISTORY:
 # 2011-01-31
+# o Made rescale() and interleave() protected.
 # o CLEAN UP: Removed deprecated internal rgbTransform() for Image.
 # o Moved all methods related to the Image class to one source file.
 #   All history has been merged accordingly.
