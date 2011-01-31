@@ -1060,6 +1060,8 @@
 \alias{getChromosomeLength.CopyNumberChromosomalModel}
 \alias{requireWithMemory}
 \alias{requireWithMemory.default}
+\alias{writeImage}
+\alias{writeImage.Image}
 
 \description{
   This page contains aliases for all "non-documented" objects that

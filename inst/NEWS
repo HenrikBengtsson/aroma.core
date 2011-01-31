@@ -9,6 +9,9 @@ o SPEED UP: The memoization/caching mechanisms should now be faster
   since v0.9.3.4.  That patch wrote to file, which was slower than
   the recent fix.  This Windows-only patch is no longer needed,
   and hence neither applied, on R v2.12.0 and beyond.
+o Added an internal writeImage() for Image objects as defined by
+  the EBImage package.  This made it possible to remove the remaining
+  explicit dependencies on EBImage in the aroma.affymetrix package.
 
 
 Version: 1.9.1 [2011-01-14]

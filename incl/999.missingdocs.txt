@@ -518,4 +518,4 @@ xMax.CopyNumberRegions xMin.CopyNumberRegions
 getOptionalArguments getOptionalArguments.CopyNumberChromosomalModel
   getChromosomeLength getChromosomeLength.CopyNumberChromosomalModel
 requireWithMemory requireWithMemory.default
-
+ writeImage writeImage.Image
