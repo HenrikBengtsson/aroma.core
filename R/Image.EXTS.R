@@ -170,7 +170,7 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   # if only PM locations have signal, add a fake row?
   img <- interleave(img, what=interleaved);
 
-  # Scale (if scale ==1, it does nothing)
+  # Scale (if scale == 1, it does nothing)
   img <- rescale(img, scale=scale);
 
   verbose && exit(verbose);
@@ -427,6 +427,7 @@ setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose
 
   img;
 }, protected=TRUE)
+
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

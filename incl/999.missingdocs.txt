@@ -521,3 +521,8 @@ requireWithMemory requireWithMemory.default
  writeImage writeImage.Image
   createImage createImage.matrix getImageData getImageData.Image
   setImageData setImageData.Image
+  RasterImage [.RasterImage as.character.RasterImage
+  display.RasterImage dropAlpha dropAlpha.RasterImage
+  getImageData.RasterImage read read.RasterImage rescale.RasterImage
+  save.RasterImage setImageData.RasterImage str.RasterImage
+  write.RasterImage writeImage.RasterImage

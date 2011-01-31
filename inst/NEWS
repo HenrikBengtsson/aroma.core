@@ -2,6 +2,7 @@ Package: aroma.core
 ===================
 
 Version: 1.9.3 [2011-01-31]
+o Added alpha version of an RasterImage class.
 o GENERALIZATION: Started to generalize the methods for creating
   bitmap images in an effort of making the code less dependent
   on the EBImage package, which is hard to install on some OSes,
