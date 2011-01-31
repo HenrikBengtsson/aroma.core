@@ -4,6 +4,18 @@
 ##############################################################################
 
 
+setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
+  img <- as.GrayscaleImage(z, ...);
+
+  if (!is.null(palette)) {
+    img <- colorize(img, palette=palette, ...);
+  }
+
+  img;
+}, protected=TRUE)
+
+
+
 ###########################################################################/**
 # @set "class=matrix"
 # @RdocMethod as.GrayscaleImage
@@ -229,11 +241,6 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
 }, protected=TRUE)
 
 
-setMethodS3("rgbTransform", "Image", function(this, ...) {
-  colorize(this, ...);
-}, private=TRUE, deprecated=TRUE)
-
-
 setMethodS3("display", "Image", function(this, ...) {
   EBImage::display(this, ...);
 }, protected=TRUE) 
@@ -398,9 +405,11 @@ setMethodS3("writeImage", "Image", function(x, file, ...) {
 }, protected=TRUE)
 
 
+
 ############################################################################
 # HISTORY:
 # 2011-01-31
+# o CLEAN UP: Removed deprecated internal rgbTransform() for Image.
 # o Moved all methods related to the Image class to one source file.
 #   All history has been merged accordingly.
 # 2011-01-30

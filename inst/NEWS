@@ -12,6 +12,7 @@ o SPEED UP: The memoization/caching mechanisms should now be faster
 o Added an internal writeImage() for Image objects as defined by
   the EBImage package.  This made it possible to remove the remaining
   explicit dependencies on EBImage in the aroma.affymetrix package.
+o CLEAN UP: Removed deprecated internal rgbTransform() for Image.
 
 
 Version: 1.9.1 [2011-01-14]
