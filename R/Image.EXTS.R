@@ -10,7 +10,10 @@
 
 
 setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
-  img <- as.GrayscaleImage(z, ...);
+  # Argument 'class':
+  class <- match.arg(class);
+
+  img <- as.GrayscaleImage(z, class=class, ...);
 
   if (!is.null(palette)) {
     img <- colorize(img, palette=palette, ...);
@@ -18,6 +21,41 @@ setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
 
   img;
 }, protected=TRUE)
+
+
+
+setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "color"), ..., class=c("EBImage::Image")) {
+  # Argument 'class':
+  class <- match.arg(class);
+
+  # Argument 'dim':
+  if (!is.null(dim)) {
+    dim <- Arguments$getIntegers(dim, range=c(0,Inf), length=c(2,2));
+  }
+
+  # Argument 'colorMode':
+  colorMode <- match.arg(colorMode);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Create an EBImage Image object?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (class == "EBImage::Image") {
+    if (colormode == "gray") {
+      colormode <- EBImage::Grayscale;
+    } else if (colormode == "color") {
+      colormode <- EBImage::TrueColor;
+    }
+    z <- t(z);
+    if (is.null(dim)) {
+      dim <- dim(z);
+    }
+    img <- EBImage::Image(data=z, dim=dim, colormode=colormode);
+  }
+
+  img;
+}, protected=TRUE)
+
 
 
 setMethodS3("display", "Image", function(this, ...) {
@@ -36,11 +74,9 @@ setMethodS3("writeImage", "Image", function(x, file, ...) {
 
 
 
-
 ###########################################################################/**
 # @set "class=matrix"
 # @RdocMethod as.GrayscaleImage
-# @aliasmethod as.TrueColorsImage
 #
 # @title "Creates a Grayscale (TrueColor) Image from a matrix file"
 #
@@ -57,33 +93,23 @@ setMethodS3("writeImage", "Image", function(x, file, ...) {
 #     should be interleaved, if at all.}
 #   \item{scale}{A @numeric scale factor in (0,+Inf) for resizing the 
 #     imaging. If \code{1}, no resizing is done.}
-#   \item{...}{Passed to \code{colorize()} of @see "EBImage::Image".}
+#   \item{...}{Passed to \code{colorize()} for the object created.}
 #   \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
 #
 # \value{
-#   Returns an @see "EBImage::Image" object.
+#   Returns a bitmap image object.
 # }
 #
 # \author{Henrik Bengtsson and Ken Simpson.}
 #
 # \seealso{
-#   @see "EBImage::Image".
 #   @seeclass
 # }
 #
 # @keyword IO
 #*/###########################################################################
 setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interleaved=c("none", "h", "v", "auto"), scale=1, ..., verbose=FALSE) {
-  require("EBImage") || throw("Package not loaded: EBImage.");
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  safeMeans <- function(x) {
-    mean(x[is.finite(x)]);
-  }
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -139,8 +165,7 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   verbose && exit(verbose);
 
   # Create an EBImage Image object
-  z <- t(z);
-  img <- EBImage::Image(data=z, dim=dim(z), colormode=EBImage::Grayscale);
+  img <- createImage(z, colorMode="gray", ...);
 
   # if only PM locations have signal, add a fake row?
   img <- interleave(img, what=interleaved);
@@ -154,22 +179,17 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 }, protected=TRUE)
 
 
-setMethodS3("as.TrueColorImage", "matrix", function(z, ...) {
-  img <- as.GrayscaleImage(z, ...);
-  img <- colorize(img, ...);
-  img;
+setMethodS3("getImageData", "Image", function(this, ...) {
+  x <- this@.Data;
+  x;
 }, protected=TRUE)
 
 
-setMethodS3("as.TrueColorImage", "Image", function(img, ...) {
-  colorMode <- colorMode(img);
-  if (colorMode == EBImage::TrueColor)
-    return(img);
-
-  img <- colorize(img, ...);
-
-  img;
+setMethodS3("setImageData", "Image", function(this, data, ...) {
+  this@.Data <- data;
+  invisible(this);
 }, protected=TRUE)
+
 
 
 # given an input Image, transform to new RGB image based
@@ -212,7 +232,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   verbose && enter(verbose, "Binning image signals");
   # Data
-  x <- this@.Data;
+  x <- getImageData(this);
   dim <- dim(x);
 
   # Outliers
@@ -254,7 +274,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Create a new Image object
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  img <- EBImage::Image(x, dim=dim, colormode=EBImage::TrueColor);
+  img <- createImage(x, dim=dim, colorMode="color", ...);
 
   verbose && exit(verbose);
 
@@ -265,8 +285,6 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
 
 
 setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto"), ..., verbose=TRUE) {
-  require("EBImage") || throw("Package not loaded: EBImage.");
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -298,7 +316,7 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
   verbose && enter(verbose, "Interleaving image");
 
   # Get image data
-  z <- this@.Data;
+  z <- getImageData(this);
   verbose && cat(verbose, "z:");
   verbose && str(verbose, z);
   zDim <- dim(z);
@@ -374,7 +392,7 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
 
   # Update?
   if (isUpdated) {
-    this@.Data <- z;
+    this <- setImageData(this, z);
   }
 
   verbose && exit(verbose);
@@ -384,8 +402,6 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
 
 
 setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose=FALSE) {
-  require("EBImage") || throw("Package not loaded: EBImage.");
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -413,11 +429,38 @@ setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose
 }, protected=TRUE)
 
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# DEPRECATED
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+setMethodS3("as.TrueColorImage", "matrix", function(z, ...) {
+  img <- as.GrayscaleImage(z, ...);
+  img <- colorize(img, ...);
+  img;
+}, protected=TRUE, deprecated=TRUE)
+
+
+setMethodS3("as.TrueColorImage", "Image", function(img, ...) {
+  colorMode <- colorMode(img);
+  if (colorMode == EBImage::TrueColor)
+    return(img);
+
+  img <- colorize(img, ...);
+
+  img;
+}, protected=TRUE, deprecated=TRUE)
+
 
 
 ############################################################################
 # HISTORY:
 # 2011-01-31
+# o Added createImage() with argument 'class' for specifying what type of
+#   bitmap image should be created.  Currently only Image objects of
+#   EBImage can be created.
+# o CLEAN UP: Removed require("EBImage") from resize().
+# o CLEAN UP: Removed non-used local safeMean() from as.GrayscaleImage().
+# o CLEAN UP: Removed explicit dependencies on EBImage from interleave().
+# o Added getImageData() and setImageData() for the Image class.
 # o Made rescale() and interleave() protected.
 # o CLEAN UP: Removed deprecated internal rgbTransform() for Image.
 # o Moved all methods related to the Image class to one source file.

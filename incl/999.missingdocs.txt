@@ -519,3 +519,5 @@ getOptionalArguments getOptionalArguments.CopyNumberChromosomalModel
   getChromosomeLength getChromosomeLength.CopyNumberChromosomalModel
 requireWithMemory requireWithMemory.default
  writeImage writeImage.Image
+  createImage createImage.matrix getImageData getImageData.Image
+  setImageData setImageData.Image

@@ -1,7 +1,21 @@
 Package: aroma.core
 ===================
 
-Version: 1.9.2 [2011-01-31]
+Version: 1.9.3 [2011-01-31]
+o GENERALIZATION: Started to generalize the methods for creating
+  bitmap images in an effort of making the code less dependent
+  on the EBImage package, which is hard to install on some OSes,
+  e.g. Windows 7 64-bit.  We aim for using the 'png' package
+  as an alternative to the EBImage package.
+o Added an internal writeImage() for Image objects as defined by
+  the EBImage package.  This made it possible to remove the remaining
+  explicit dependencies on EBImage in the aroma.affymetrix package.
+o CLEAN UP: Removed deprecated internal rgbTransform() for Image.
+o CLEAN UP: Deprecated internal as.TrueColorImage() for the Image
+  class and for matrices.
+
+
+Version: 1.9.2 [2011-01-30]
 o SPEED UP: The memoization/caching mechanisms should now be faster
   on Windows, because digest() uses the faster serialize() of
   R v2.12.0.  The earlier version was orders of magnitude slower
@@ -9,10 +23,6 @@ o SPEED UP: The memoization/caching mechanisms should now be faster
   since v0.9.3.4.  That patch wrote to file, which was slower than
   the recent fix.  This Windows-only patch is no longer needed,
   and hence neither applied, on R v2.12.0 and beyond.
-o Added an internal writeImage() for Image objects as defined by
-  the EBImage package.  This made it possible to remove the remaining
-  explicit dependencies on EBImage in the aroma.affymetrix package.
-o CLEAN UP: Removed deprecated internal rgbTransform() for Image.
 
 
 Version: 1.9.1 [2011-01-14]

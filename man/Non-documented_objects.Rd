@@ -1062,6 +1062,12 @@
 \alias{requireWithMemory.default}
 \alias{writeImage}
 \alias{writeImage.Image}
+\alias{createImage}
+\alias{createImage.matrix}
+\alias{getImageData}
+\alias{getImageData.Image}
+\alias{setImageData}
+\alias{setImageData.Image}
 
 \description{
   This page contains aliases for all "non-documented" objects that
