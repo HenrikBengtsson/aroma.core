@@ -20,7 +20,7 @@
     }
   } # serialize2()
 
-  if (.Platform$OS.type %in% "windows") {
+  if ((.Platform$OS.type %in% "windows") && (getRversion() < "2.12.0")) {
     serializeOrg <- base::serialize;
     if (is.null(attr(serializeOrg, "oldValue"))) {
       assignInNamespace("serializeOrg", serializeOrg, ns="base", 
@@ -32,6 +32,9 @@
 
 ############################################################################
 # HISTORY:
+# 2011-01-30
+# o The slow performance of serialize() on Windows was fixed in 
+#   R v2.11.1 patched on July 20, 2010.
 # 2008-07-24
 # o Added patch for slow base::serialize() on Windows.
 # o Created.
