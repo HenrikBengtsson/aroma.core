@@ -10,10 +10,7 @@
 
 
 setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
-  # Argument 'class':
-  class <- match.arg(class);
-
-  img <- as.GrayscaleImage(z, class=class, ...);
+  img <- as.GrayscaleImage(z, ...);
 
   if (!is.null(palette)) {
     img <- colorize(img, palette=palette, ...);
@@ -24,9 +21,12 @@ setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
 
 
 
-setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "color"), ..., class=c("EBImage::Image")) {
+setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "color"), ..., class=c("EBImage::Image", "png::array"), verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Argument 'class':
-  class <- match.arg(class);
+  class <- match.arg(class, several.ok=TRUE);
 
   # Argument 'dim':
   if (!is.null(dim)) {
@@ -36,22 +36,63 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
   # Argument 'colorMode':
   colorMode <- match.arg(colorMode);
 
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Creating image object");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Create an EBImage Image object?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (class == "EBImage::Image") {
-    if (colormode == "gray") {
-      colormode <- EBImage::Grayscale;
-    } else if (colormode == "color") {
-      colormode <- EBImage::TrueColor;
+  img <- NULL;
+
+  for (kk in seq(along=class)) {
+    verbose && enter(verbose, sprintf("Class #%d ('%s') of %d", 
+                                        kk, class[kk], length(class)));
+
+    if (class[kk] == "EBImage::Image") {
+      tryCatch({
+        if (colorMode == "gray") {
+          colormode <- EBImage::Grayscale;
+        } else if (colorMode == "color") {
+          colormode <- EBImage::TrueColor;
+        }
+        z <- t(z);
+        if (is.null(dim)) {
+          dim <- dim(z);
+        }
+        img <- EBImage::Image(data=z, dim=dim, colormode=colormode);
+      }, error = function(ex) {
+        verbose && print(verbose, ex);
+      })
+    } else if (class[kk] == "png::array") {
+      if (is.null(dim)) {
+        dim <- dim(z);
+      }
+
+      tryCatch({
+        img <- RasterImage(z);
+        if (colorMode == "color") {
+          img <- colorize(z);
+        }
+      }, error = function(ex) {
+        verbose && print(verbose, ex);
+      })
     }
-    z <- t(z);
-    if (is.null(dim)) {
-      dim <- dim(z);
-    }
-    img <- EBImage::Image(data=z, dim=dim, colormode=colormode);
+
+    verbose && exit(verbose);
+  } # for (kk ...)
+
+  if (is.null(img)) {
+    throw("Failed to create image object trying several methods: ", paste(class, colllapse=", "));
   }
+
+  verbose && exit(verbose);
 
   img;
 }, protected=TRUE)
@@ -326,7 +367,7 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
   # Sanity check
   stopifnot(ndim == 2 || ndim == 3);
   if (ndim == 2) {
-    dim(z) <- c(zDim, 1);
+    dim(z) <- c(zDim, 1L);
   }
 
   # if only PM locations have signal, add a fake row
@@ -428,6 +469,124 @@ setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose
   img;
 }, protected=TRUE)
 
+
+
+setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v", "auto"), ..., verbose=TRUE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  safeMeans <- function(x) {
+    mean(x[is.finite(x)]);
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'what':
+  what <- match.arg(what);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Interleave
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Nothing todo?
+  if (what == "none") {
+    return(this);
+  }
+
+  verbose && enter(verbose, "Interleaving image");
+
+  # Get image data
+  z <- getImageData(this);
+  verbose && cat(verbose, "z:");
+  verbose && str(verbose, z);
+  zDim <- dim(z);
+  ndim <- length(zDim);
+  dim(z) <- zDim;
+
+  # Sanity check
+  stopifnot(ndim == 2 || ndim == 3);
+  if (ndim == 2) {
+    dim(z) <- c(zDim, 1L);
+  }
+
+  # if only PM locations have signal, add a fake row
+  if (what == "auto") {
+    verbose && enter(verbose, "Infering horizontal, vertical, or no interleaving");
+    n <- 2*(nrow(z) %/% 2);
+    idxOdd <- seq(from=1, to=n, by=2);
+    zOdd <- z[idxOdd,,,drop=FALSE];
+    zEven <- z[idxOdd+1,,,drop=FALSE];
+    hOdd <- safeMeans(abs(zOdd));
+    hEven <- safeMeans(abs(zEven));
+    verbose && printf(verbose, "hOdd=%.2g\n", hOdd);
+    verbose && printf(verbose, "hEven=%.2g\n", hEven);
+    hRatio <- log(hOdd/hEven);
+    verbose && printf(verbose, "hRatio=%.2g\n", hRatio);
+
+    n <- 2*(ncol(z) %/% 2);
+#    n <- max(n, 40);  # Infer from the first 40 rows.
+    idxOdd <- seq(from=1, to=n, by=2);
+    zOdd <- z[,idxOdd,,drop=FALSE];
+    zEven <- z[,idxOdd+1,,drop=FALSE];
+    vOdd <- safeMeans(abs(zOdd));
+    vEven <- safeMeans(abs(zEven));
+    verbose && printf(verbose, "vOdd=%.2g\n", vOdd);
+    verbose && printf(verbose, "vEven=%.2g\n", vEven);
+    vRatio <- log(vOdd/vEven);
+    verbose && printf(verbose, "vRatio=%.2g\n", vRatio);
+
+    what <- "none";
+    if (abs(vRatio) > abs(hRatio)) {
+      if (abs(vRatio) > 0.25) {
+        if (vRatio > 0)
+          what <- "v"
+        else
+          what <- "v";
+      }
+    } else {
+      if (abs(hRatio) > 0.25) {
+        if (hRatio > 0)
+          what <- "h"
+        else
+          what <- "h";
+      }
+    }
+    verbose && cat(verbose, "what: ", what);
+    verbose && exit(verbose);
+  }
+
+  isUpdated <- FALSE;
+  if (what == "h") {
+    idxOdd <- seq(from=1, to=2*(nrow(z) %/% 2), by=2);
+    z[idxOdd,,] <- z[idxOdd+1,,,drop=FALSE];
+  } else if (what == "v") {
+    idxOdd <- seq(from=1, to=2*(ncol(z) %/% 2), by=2);
+    z[,idxOdd,] <- z[,idxOdd+1,,drop=FALSE];
+  } else {
+    isUpdated <- FALSE;
+  }
+
+  if (ndim == 2) {
+    z <- z[,,1,drop=TRUE];
+  }
+
+  # Update?
+  if (isUpdated) {
+    this <- setImageData(this, z);
+  }
+
+  verbose && exit(verbose);
+
+  this;
+}, protected=TRUE)
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

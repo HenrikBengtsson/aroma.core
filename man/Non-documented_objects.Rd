@@ -1083,6 +1083,8 @@
 \alias{str.RasterImage}
 \alias{write.RasterImage}
 \alias{writeImage.RasterImage}
+\alias{colorize.RasterImage}
+\alias{interleave.RasterImage}
 
 \description{
   This page contains aliases for all "non-documented" objects that

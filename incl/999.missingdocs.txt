@@ -526,3 +526,4 @@ requireWithMemory requireWithMemory.default
   getImageData.RasterImage read read.RasterImage rescale.RasterImage
   save.RasterImage setImageData.RasterImage str.RasterImage
   write.RasterImage writeImage.RasterImage
+ colorize.RasterImage interleave.RasterImage

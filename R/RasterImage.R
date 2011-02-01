@@ -317,6 +317,7 @@ setMethodS3("str", "RasterImage", function(object, ...) {
   str(unclass(as.array(object), ...));
 })
 
+
 setMethodS3("display", "RasterImage", function(this, dropAlpha=TRUE, interpolate=FALSE, ...) {
   if (!exists("rasterImage", mode="function")) {
     throw("Cannot display ", class(this)[1], ". Only possible in R v2.11.0 or newer: ", as.character(getRversion()));
@@ -324,11 +325,13 @@ setMethodS3("display", "RasterImage", function(this, dropAlpha=TRUE, interpolate
 
   dim <- dim(this);
   ndim <- length(dim);
-  if (ndim < 3) {
-    throw("Cannot display ", class(this)[1], ". Only possible for 3-dim (RGB) and 4-dim (RGBA) images: ", ndim);
-  }
 
   img <- this;
+
+  if (ndim < 3) {
+    img <- colorize(img);
+  }
+
   if (dropAlpha) {
     img <- dropAlpha(img);
   }
@@ -341,9 +344,133 @@ setMethodS3("display", "RasterImage", function(this, dropAlpha=TRUE, interpolate
 })
 
 
+
+setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), lim=c(-Inf,Inf), outlierCol="white", ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'this':
+
+  # Argument 'lim':
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  # Nothing todo?
+  if (!is.na(dim(this)[3])) {
+    return(this);
+  }
+
+  verbose && enter(verbose, "Colorizing image");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Bin the signals
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  verbose && enter(verbose, "Binning image signals");
+  # Data
+  x <- getImageData(this);
+  dim <- dim(x);
+
+  # Outliers
+  if (lim[1] > -Inf)
+    x[x < lim[1]] <- NA;
+  if (lim[2] < +Inf)
+    x[x > lim[2]] <- NA;
+  x[!is.finite(x)] <- NA;
+
+  # Standardize to [0,1]
+  r <- range(x, na.rm=TRUE);
+  verbose && cat(verbose, "Before:");
+  verbose && print(verbose, summary(as.vector(x)));
+  x <- (x - r[1])/(r[2]-r[1]);
+  verbose && cat(verbose, "After:");
+  verbose && print(verbose, summary(as.vector(x)));
+
+  # Standardize to [0,n] where n is number of bins
+  n <- length(palette);
+  x <- x*n;
+
+  # Bin to [1,n] by moving any values at the left extreme to bin one.
+  x <- as.integer(x);
+  x[x == 0L] <- 1L;
+
+  verbose && str(verbose, x);
+  verbose && summary(verbose, x);
+  verbose && exit(verbose);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Assign colors to each bin
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  verbose && enter(verbose, "Binning image data to color map");
+  # Translate 'palette' of length n into a 4xn (R,G,B,A) matrix
+  paletteRGBA <- col2rgb(palette, alpha=TRUE);
+  colnames(paletteRGBA) <- palette;
+  verbose && cat(verbose, "Color map:");
+  verbose && str(verbose, paletteRGBA);
+
+  naRGBA <- col2rgb(outlierCol, alpha=TRUE);
+  colnames(naRGBA) <- outlierCol;
+  verbose && cat(verbose, "Missing-value color:");
+  verbose && str(verbose, naRGBA);
+
+  # Map image to colors
+  z <- paletteRGBA[,x,drop=FALSE];
+  z[,is.na(x)] <- naRGBA;
+  dim(z) <- c(4L, dim);
+
+  # Rescale to [0,1]
+  z <- z / 255;
+
+  verbose && str(verbose, z);
+  verbose && summary(verbose, z);
+
+  # Sanity checks
+  stopifnot(min(z, na.rm=TRUE) >= 0);
+  stopifnot(max(z, na.rm=TRUE) <= 1);
+
+  verbose && exit(verbose);
+
+
+  verbose && enter(verbose, "Restructuring");
+
+  z <- aperm(z, perm=c(2,3,1));
+  verbose && str(verbose, z);
+  verbose && summary(verbose, z);
+
+  # Is the alpha channel needed?
+  if (all(z[,,4,drop=TRUE] == 1)) {
+    verbose && cat(verbose, "Dropped the alpha channel, because it is not needed.");
+    z <- z[,,1:3,drop=FALSE];
+    verbose && str(verbose, z);
+    verbose && summary(verbose, z);
+  }
+
+  verbose && exit(verbose);
+
+
+  # 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Create a new Image object
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  img <- RasterImage(z, ...);
+
+  verbose && exit(verbose);
+
+  img;
+}, protected=TRUE)
+
+
+
 ############################################################################
 # HISTORY:
 # 2011-01-31
+# o Added interleave() for RasterImage.
+# o Added colorize() for RasterImage.
 # o Now write() is atomic by writing to a temporary file.
 # o Added "smart" save() for RasterImage that checks if user really
 #   mean to call write() instead.

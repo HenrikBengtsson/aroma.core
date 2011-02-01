@@ -2,12 +2,11 @@ Package: aroma.core
 ===================
 
 Version: 1.9.3 [2011-01-31]
-o Added alpha version of an RasterImage class.
-o GENERALIZATION: Started to generalize the methods for creating
-  bitmap images in an effort of making the code less dependent
-  on the EBImage package, which is hard to install on some OSes,
-  e.g. Windows 7 64-bit.  We aim for using the 'png' package
-  as an alternative to the EBImage package.
+o GENERALIZATION: Now spatial PNG image files can also be created
+  utilizing the 'png' package as an alternative to the 'EBImage' 
+  package.  The EBImage package can be hard to install on some OSes,
+  e.g. Windows 7 64-bit.
+o Added alpha version of an inteernal RasterImage class.
 o Added an internal writeImage() for Image objects as defined by
   the EBImage package.  This made it possible to remove the remaining
   explicit dependencies on EBImage in the aroma.affymetrix package.
