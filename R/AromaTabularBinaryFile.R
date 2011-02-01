@@ -124,7 +124,7 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
   readString <- function(con, ...) {
     nbrOfBytes <- readInts(con);
     nbrOfBytes <- Arguments$getInteger(nbrOfBytes, range=c(0,2^20));
-    readChar(con=con, nchar=nbrOfBytes);
+    readChar(con=con, nchars=nbrOfBytes);
   }	
 
   readDataHeader <- function(con, ...) {
@@ -1322,6 +1322,8 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 
 ############################################################################
 # HISTORY:
+# 2011-02-01
+# o ROBUSTNESS: Using argument 'nchars' (not 'nchar') in readChar() calls.
 # 2010-06-02
 # o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would 
 #   censor *signed integers* incorrectly; it should censor at/to

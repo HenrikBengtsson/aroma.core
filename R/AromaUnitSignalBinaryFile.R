@@ -98,7 +98,7 @@ setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platf
 
   # Create tabular binary file
   res <- allocate.AromaTabularBinaryFile(static, generic="allocate", ...,
-                                  types=types, sizes=sizes, signed=signed);
+                                  types=types, sizes=sizes, signeds=signed);
 
 
   # Write attributes to footer
