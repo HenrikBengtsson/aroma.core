@@ -19,13 +19,15 @@
  Fits the model.
 }
 
-\usage{\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE)}
+\usage{\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=1/5, force=FALSE, ..., .retResults=FALSE, verbose=FALSE)}
 
 \arguments{
   \item{arrays}{A \code{\link[base]{vector}} of array indices specifying which arrays to
    be considered.  If \code{\link[base]{NULL}}, all are processed.}
   \item{chromosome}{A \code{\link[base]{vector}} of chromosomes indices specifying which
     chromosomes to be considered.  If \code{\link[base]{NULL}}, all are processed.}
+  \item{maxNAFraction}{A \code{\link[base]{double}} in [0,1] indicating how many non-finite
+    signals are allowed in the sanity checks of the data.}
   \item{force}{If \code{\link[base:logical]{FALSE}}, the model will not be fitted again if it was
     already fitted.}
   \item{...}{Additional arguments passed to the segmentation method for

@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 1.9.4 [2011-02-07]
+o BUG FIX: Now fit() for CopyNumberSegmentationModel passes 
+  down argument 'maxNAFraction' to the internal sanity test
+  as it used to do before aroma.core v1.3.4 (November 2009).
+
+
 Version: 1.9.3 [2011-02-01]
 o GENERALIZATION: Now spatial PNG image files can also be created
   utilizing the 'png' package as an alternative to the 'EBImage' 

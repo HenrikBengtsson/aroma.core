@@ -99,6 +99,8 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #    be considered.  If @NULL, all are processed.}
 #   \item{chromosome}{A @vector of chromosomes indices specifying which
 #     chromosomes to be considered.  If @NULL, all are processed.}
+#   \item{maxNAFraction}{A @double in [0,1] indicating how many non-finite
+#     signals are allowed in the sanity checks of the data.}
 #   \item{force}{If @FALSE, the model will not be fitted again if it was
 #     already fitted.}
 #   \item{...}{Additional arguments passed to the segmentation method for
@@ -123,7 +125,7 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
+setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=1/5, force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -274,7 +276,8 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         # Get (x, M, stddev, chipType, unit) data from all chip types
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         tRead <- processTime();
-        cn <- extractRawCopyNumbers(this, array=array, chromosome=chr);
+        cn <- extractRawCopyNumbers(this, array=array, chromosome=chr, 
+                                                maxNAFraction=maxNAFraction);
         timers$read <- timers$read + (processTime() - tRead);
         verbose && print(verbose, cn);
 
@@ -681,6 +684,10 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2011-02-07
+# o Now fit() for CopyNumberSegmentationModel passes down argument 
+#   'maxNAFraction' to extractRawCopyNumbers().  This argument used to
+#   work before aroma.core v1.3.4.
 # 2010-10-25
 # o Now fit() for CopyNumberSegmentationModel also passed the optional
 #   arguments ('...') passed to the constructor function.  This makes it
