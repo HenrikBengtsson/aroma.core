@@ -2,6 +2,11 @@ Package: aroma.core
 ===================
 
 Version: 1.9.4 [2011-02-07]
+o CLARIFICATION: Now the exception thrown by getRawCopyNumbers() for
+  CopyNumberSegmentationModel, when there are too many non-finite 
+  signals, gives a more informative error message containing 
+  information also on which sample, reference and chromosome the
+  problem was detected on.
 o BUG FIX: Now fit() for CopyNumberSegmentationModel passes 
   down argument 'maxNAFraction' to the internal sanity test
   as it used to do before aroma.core v1.3.4 (November 2009).

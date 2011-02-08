@@ -549,17 +549,23 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       verbose && cat(verbose, "Number of units: ", length(units0));
 
       verbose && enter(verbose, "Scanning for non-finite values");
-      n <- sum(!is.finite(df0[,"M"]));
-      fraction <- n / nrow(df0);
-      verbose && printf(verbose, "Number of non-finite values: %d (%.1f%%)\n", 
-                                                             n, 100*fraction);
+      nbrOfLoci <- nrow(df0);
+      n <- as.integer(sum(!is.finite(df0[,"M"])));
+      fraction <- n / nbrOfLoci;
+      verbose && printf(verbose, "Number of non-finite values: %d (%.1f%%) out of %d\n", n, 100*fraction, nbrOfLoci);
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # (b) Sanity check of not too many missing values
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Sanity check
       if (fraction > maxNAFraction) {
-        throw(sprintf("Something is wrong with the data. Too many non-finite values: %d (%.1f%% > %.1f%%)", as.integer(n), 100*fraction, 100*maxNAFraction));
+        sampleTag <- getFullName(ce);
+        if (is.null(ref)) {
+          refTag <- "<none>";
+        } else {
+          refTag <- getFullName(ref);
+        }
+        throw(sprintf("Something is wrong with the copy-number ratios of sample '%s' relative to reference '%s' on chromosome %s. Too many non-finite values: %d (%.1f%% > %.1f%%) out of %d.", sampleTag, refTag, chromosome, n, 100*fraction, 100*maxNAFraction, nbrOfLoci));
       }
       verbose && exit(verbose);
 
@@ -986,6 +992,11 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
 ##############################################################################
 # HISTORY:
+# 2011-02-07
+# o CLARIFICATION: Now the error message from getRawCopyNumbers() for
+#   CopyNumberSegmentationModel that reports on too many non-finite signals
+#   gives more information on which sample, reference and chromosome
+#   the problem occured on.
 # 2010-12-02
 # o Added getChromosomeLength() for CopyNumberSegmentationModel.
 # 2010-10-25
