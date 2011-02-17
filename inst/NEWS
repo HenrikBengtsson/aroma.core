@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.0 [2011-02-16]
+o No updates.  Submitted to CRAN.
+
+
 Version: 1.9.4 [2011-02-07]
 o CLARIFICATION: Now the exception thrown by getRawCopyNumbers() for
   CopyNumberSegmentationModel, when there are too many non-finite 
