@@ -1,4 +1,6 @@
 setMethodS3("importFromTable", "FileMatrix", function(static, filename, path=NULL, srcPathname, colClasses=NULL, header=TRUE, sep="\t", skip=0, nrows=-1, col.names=NULL, ..., ram=NULL, verbose=FALSE) {
+  throw("Static method importFromTable() for FileMatrix is deprecated.");
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -154,6 +156,8 @@ setMethodS3("importFromTable", "FileMatrix", function(static, filename, path=NUL
 
 ############################################################################
 # HISTORY:
+# 2011-02-18
+# o CLEANUP: Deprecated static method importFromTable() for FileMatrix.
 # 2008-05-21
 # o BUG FIX: Argument 'verbose' was never passed to Arguments$getVerbose().
 # 2007-04-01

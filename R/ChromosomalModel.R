@@ -794,48 +794,12 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
 }, private=TRUE)
 
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-# BEGIN: DEPRECATED
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-setMethodS3("getChipEffectFiles", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getArrayTuple(tuple, ...);
-}, deprecated=TRUE)
-
-
-
-setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
-  getNames(this, ...);
-}, deprecated=TRUE)
-
-
-setMethodS3("getListOfChipEffectSets", "ChromosomalModel", function(this, ...) {
-  getSets(this, ...);
-}, deprecated=TRUE)
-
-
-
-setMethodS3("getAlias", "ChromosomalModel", function(this, ...) {
-  this$.alias;
-})
-
-
-setMethodS3("setAlias", "ChromosomalModel", function(this, alias=NULL, ...) {
-  # Argument 'alias':
-  if (!is.null(alias)) {
-    alias <- Arguments$getCharacter(alias, length=c(1,1));
-  }
-  this$.alias <- alias;
-  invisible(this);
-})
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-# END: DEPRECATED
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
 
 ##############################################################################
 # HISTORY:
+# 2011-02-19
+# o CLEANUP: Removed getChipEffectFiles(), getListOfChipEffectSets(),
+#   getArrays(), getAlias(), and setAlias() for ChromosomalModel.
 # 2010-07-06
 # o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
 #   pattern contained parenthesis '(' and ')'.  There was a similar issue
