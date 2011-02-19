@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.1 [2011-02-18]
+o CLEANUP: Moved static getTags() to Arguments to R.filesets v0.9.3.
+o CLEANUP: Removed several deprecated methods.
+
+
 Version: 2.0.0 [2011-02-16]
 o No updates.  Submitted to CRAN.
 
