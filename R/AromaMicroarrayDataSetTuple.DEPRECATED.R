@@ -232,6 +232,10 @@ setMethodS3("asMatrixOfFiles", "AromaMicroarrayDataSetTuple", function(this, ...
 
 ##############################################################################
 # HISTORY:
+# 2011-02-18
+# o CLEANUP: Removed deprecated AromaMicroarrayDataSetTuple methods: 
+#   extractOld(), getArrays(), getTableOfArrays(), getArrayTuple(), 
+#   and asMatrixOfFiles().
 # 2009-12-30
 # o Renamed indexOfArrays() to indexOf().
 # o Dropped nbrOfArrays(); use nbrOfFiles() instead.
