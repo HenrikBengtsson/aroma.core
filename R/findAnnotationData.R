@@ -76,7 +76,12 @@ setMethodS3("findAnnotationData", "default", function(name, tags=NULL, set, patt
   paths0 <- paths;
 
   if (is.null(paths)) {
-    paths <- "annotationData";
+    # Default root paths: annotationData/, annotationData,<tags>/
+    ## paths <- "annotationData";
+    rootPattern <- "^annotationData(|,.*)";
+    ## verbose && cat(verbose, "Directory patterns: ", rootPattern);
+    paths <- list.files(path=".", pattern=rootPattern);
+    paths <- sort(paths);
     verbose && cat(verbose, "Paths (default): ", paste(paths, collapse=", "));
   } else {
     # Split path strings by semicolons.
@@ -157,6 +162,9 @@ setMethodS3("findAnnotationData", "default", function(name, tags=NULL, set, patt
 
 ############################################################################
 # HISTORY:
+# 2011-02-19
+# o GENERALIZATION: Extended the default root paths of findAnnotationData()
+#   to be annotationData/ and annotationData,<tags>/
 # 2009-02-10
 # o Now findAnnotationData() always returns pathnames ordered by the length
 #   of their fullnames. Before this was only done if 'firstOnly=TRUE'.

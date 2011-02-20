@@ -794,6 +794,10 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
 }, private=TRUE)
 
 
+setMethodS3("getAlias", "ChromosomalModel", function(this, ...) {
+  this$.alias;
+})
+
 
 ##############################################################################
 # HISTORY:
