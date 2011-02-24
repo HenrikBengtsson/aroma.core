@@ -1,6 +1,23 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.3 [2011-02-24]
+o GENERALIZATION: Now the default for createImage() for matrix is to 
+  test to create images according to aroma settings option
+  'output/ImageClasses'.
+o Now write() and read() for RasterImage throws an informative error
+  message explaining that the 'png' package is needed.
+o BUG FIX: createImage() for matrix would not result the first possible
+  image created (when testing different image classes) but instead
+  continue trying to create image for all possible classes. 
+  For instance, this meant that although you had the 'EBImage' package
+  installed, but not the 'png' package, it would still in the end try
+  to (also) use 'png' package.  If writing PNG images to file, say via
+  ArrayExplorer, this would result in "Error in loadNamespace(name) : 
+  there is no package called 'png'".  Thanks Richard Beyer at
+  University of Washington for reporting on this.
+
+
 Version: 2.0.2 [2011-02-19]
 o GENERALIZATION: Extended the default root paths of findAnnotationData()
   to be annotationData/ and annotationData,<tags>/

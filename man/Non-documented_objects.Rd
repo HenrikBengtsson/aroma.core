@@ -1085,6 +1085,7 @@
 \alias{writeImage.RasterImage}
 \alias{colorize.RasterImage}
 \alias{interleave.RasterImage}
+\alias{dropRootPathTags.default}
 
 \description{
   This page contains aliases for all "non-documented" objects that

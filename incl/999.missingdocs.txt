@@ -527,3 +527,4 @@ requireWithMemory requireWithMemory.default
   save.RasterImage setImageData.RasterImage str.RasterImage
   write.RasterImage writeImage.RasterImage
  colorize.RasterImage interleave.RasterImage
+dropRootPathTags.default

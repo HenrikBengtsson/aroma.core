@@ -70,6 +70,4 @@ asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone
  }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
-\keyword{internal}
-\keyword{methods}
 \keyword{classes}

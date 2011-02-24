@@ -20,13 +20,16 @@ setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
 }, protected=TRUE)
 
 
-
-setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "color"), ..., class=c("EBImage::Image", "png::array"), verbose=FALSE) {
+setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "color"), ..., class=NULL, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Argument 'class':
-  class <- match.arg(class, several.ok=TRUE);
+  knownClasses <- c("EBImage::Image", "png::array");
+  if (is.null(class)) {
+    class <- getOption(aromaSettings, "output/ImageClasses", knownClasses);
+  }
+  class <- match.arg(class, choices=knownClasses, several.ok=TRUE);
 
   # Argument 'dim':
   if (!is.null(dim)) {
@@ -76,6 +79,13 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
       }
 
       tryCatch({
+        # You can create a 'RasterImage' object without the 
+        # 'png' package being installed, but we will need it
+        # later if the image should be saved to file. 
+        # If only requested to display on screen or save by other
+        # means, the 'png' package is not needed.  This calls
+        # for an option to specify "what the purpose is".
+        # /HB 2011-02-24
         img <- RasterImage(z);
         if (colorMode == "color") {
           img <- colorize(z);
@@ -83,6 +93,14 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
       }, error = function(ex) {
         verbose && print(verbose, ex);
       })
+    }
+
+    # Success?
+    if (!is.null(img)) {
+      verbose && cat(verbose, "Image was successfully created (using '%s').", 
+                                                                  class[kk]);
+      verbose && exit(verbose);
+      break;
     }
 
     verbose && exit(verbose);
@@ -613,6 +631,19 @@ setMethodS3("as.TrueColorImage", "Image", function(img, ...) {
 
 ############################################################################
 # HISTORY:
+# 2011-02-24
+# o GENERALIZATION: Now the default for createImage() for matrix is to 
+#   test to create images according to aroma settings option
+#   'output/ImageClasses'.
+# o BUG FIX: createImage() for matrix would not result the first possible
+#   image created (when testing different image classes) but instead
+#   continue trying to create image for all possible classes. 
+#   For instance, this meant that although you had the 'EBImage' package
+#   installed, but not the 'png' package, it would still in the end try
+#   to (also) use 'png' package.  If writing PNG images to file, say via
+#   ArrayExplorer, this would result in "Error in loadNamespace(name) : 
+#   there is no package called 'png'".  Thanks Richard Beyer at
+#   University of Washington for reporting on this.
 # 2011-01-31
 # o Added createImage() with argument 'class' for specifying what type of
 #   bitmap image should be created.  Currently only Image objects of
