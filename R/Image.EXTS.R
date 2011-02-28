@@ -268,7 +268,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Argument 'this':
-  colorMode <- colorMode(this);
+  colorMode <- EBImage::colorMode(this);
   if (colorMode != EBImage::Grayscale) {
     if (colorMode == EBImage::TrueColor) {
       colorMode <- "TrueColor";
@@ -327,6 +327,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   verbose && str(verbose, binValue);
   x <- binValue[x];
   x[is.na(x)] <- col2rgbComposite(outlierCol);
+  dim(x) <- dim;
   verbose && str(verbose, x);
 
 
@@ -631,6 +632,12 @@ setMethodS3("as.TrueColorImage", "Image", function(img, ...) {
 
 ############################################################################
 # HISTORY:
+# 2011-02-27
+# o BUG FIX: colorize() for Image would throw '<simpleError in ...: could
+#   not find function "colorMode">', because the colorMode() function
+#   needs to be explicitly imported after the recent package cleanups.
+# o BUG FIX: colorize() for Image try to call createImage() using a vector
+#   and not a matrix.
 # 2011-02-24
 # o GENERALIZATION: Now the default for createImage() for matrix is to 
 #   test to create images according to aroma settings option

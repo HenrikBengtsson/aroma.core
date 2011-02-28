@@ -1,12 +1,17 @@
 Package: aroma.core
 ===================
 
-Version: 2.0.3 [2011-02-24]
+Version: 2.0.3 [2011-02-27]
 o GENERALIZATION: Now the default for createImage() for matrix is to 
   test to create images according to aroma settings option
   'output/ImageClasses'.
 o Now write() and read() for RasterImage throws an informative error
   message explaining that the 'png' package is needed.
+o BUG FIX: colorize() for Image would throw '<simpleError in ...: could
+  not find function "colorMode">', because the colorMode() function
+  needs to be explicitly imported after the recent package cleanups.
+o BUG FIX: colorize() for Image try to call createImage() using a
+  vector instead of a matrix.
 o BUG FIX: createImage() for matrix would not result the first possible
   image created (when testing different image classes) but instead
   continue trying to create image for all possible classes. 
