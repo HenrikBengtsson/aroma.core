@@ -799,8 +799,16 @@ setMethodS3("getAlias", "ChromosomalModel", function(this, ...) {
 })
 
 
+setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
+  getNames(this, ...);
+}, deprecated=TRUE)
+
+
+
 ##############################################################################
 # HISTORY:
+# 2011-02-28
+# o UNDO: getArrays() was needed.
 # 2011-02-19
 # o CLEANUP: Removed getChipEffectFiles(), getListOfChipEffectSets(),
 #   getArrays(), getAlias(), and setAlias() for ChromosomalModel.
