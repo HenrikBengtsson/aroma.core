@@ -5,6 +5,18 @@ Version: 2.0.3 [2011-02-28]
 o GENERALIZATION: Now the default for createImage() for matrix is to 
   test to create images according to aroma settings option
   'output/ImageClasses'.
+o GENERALIZATION: getAverageFile() for AromaUnitTotalCnBinarySet first
+  searches for an existing result file according to the new search
+  conventions.  If not found, then it's created.
+o STANDARDIZATION: Now the default output path for all 
+  allocateFromUnitAnnotationDataFile() is
+  annotationData/chipTypes/<chipType>/.  Before it was the same
+  directory as the original annotation data file, which may for
+  instance have been in a deeper subdirectory, or recently also
+  in a sibling root path.
+o ROBUSTNESS: Now getAverageFile() for AromaUnitTotalCnBinarySet creates
+  the result file atomically by writing to a temporary file which is
+  renamed afterward.
 o Now write() and read() for RasterImage throws an informative error
   message explaining that the 'png' package is needed.
 o BUG FIX: colorize() for Image would throw '<simpleError in ...: could

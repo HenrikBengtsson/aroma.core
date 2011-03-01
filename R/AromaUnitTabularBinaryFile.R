@@ -158,7 +158,7 @@ setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(
 })
 
 
-setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", function(static, udf, path=getPath(udf), tags=NULL, footer=list(), ...) {
+setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", function(static, udf, path=NULL, tags=NULL, footer=list(), ...) {
   # Argument 'udf':
   udf <- Arguments$getInstanceOf(udf, "UnitAnnotationDataFile");
 
@@ -167,6 +167,12 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
 
   # Exclude 'monocell' tags (AD HOC)
   chipType <- gsub(",monocell", "", chipType);
+
+  # Output path
+  if (is.null(path)) {
+    path <- file.path("annotationData", "chipTypes", chipType);
+  }
+  path <- Arguments$getWritablePath(path);
 
   # Get platform
   platform <- getPlatform(udf);
@@ -191,6 +197,13 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
 
 ############################################################################
 # HISTORY:
+# 2011-02-28
+# o STANDARDIZATION: Now the default output path for all 
+#   allocateFromUnitAnnotationDataFile() is
+#   annotationData/chipTypes/<chipType>/.  Before it was the same
+#   directory as the original annotation data file, which may for
+#   instance have been in a deeper subdirectory, or recently also
+#   in a sibling root path.
 # 2009-07-08
 # o Added allocateFromUnitAnnotationDataFile() to AromaUnitTabularBinaryFile.
 # 2009-05-12

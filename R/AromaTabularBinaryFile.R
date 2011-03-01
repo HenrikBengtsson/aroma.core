@@ -1086,9 +1086,7 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Create empty temporary file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Open temporary file (should not exist!)
-  pathnameT <- sprintf("%s.tmp", pathname);
-  pathnameT <- Arguments$getWritablePathname(pathnameT, mustNotExist=TRUE);
+  pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
 
   con <- file(pathnameT, open="wb");
   on.exit({
@@ -1132,10 +1130,7 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   con <- NULL;
 
   # Rename temporary file
-  file.rename(pathnameT, pathname);
-  if (!isFile(pathname) || isFile(pathnameT)) {
-    throw("Failed to rename temporary file: ", pathnameT, " -> ", pathname);
-  }
+  pathname <- popTemporaryFile(pathnameT, verbose=verbose);
 
   # Object to be returned
   res <- newInstance(static, pathname);

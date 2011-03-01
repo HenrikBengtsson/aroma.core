@@ -65,7 +65,7 @@ setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE,
   pathname <- Arguments$getWritablePathname(file, path=path, mustNotExist=!overwrite, ...);
 
   # Write to a temporary file
-  pathnameT <- sprintf("%s.tmp", pathname);
+  pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
 
   if (format == "png") {
     if (!isPackageInstalled("png")) {
@@ -78,7 +78,7 @@ setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE,
   pathnameT <- Arguments$getReadablePathname(pathnameT, mustExist=TRUE);
 
   # Rename temporary file
-  file.rename(pathnameT, pathname);
+  pathname <- popTemporaryFile(pathnameT, verbose=verbose);
 
   invisible(pathname);
 })
