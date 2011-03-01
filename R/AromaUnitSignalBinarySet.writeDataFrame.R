@@ -184,10 +184,6 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   verbose && cat(verbose, "Destination pathname: ", pathname);
 
 
-  # Write to a temporary file
-  pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
-
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get annotation data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -293,6 +289,16 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # Write to file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Writing data set");
+
+  # Overwrite?
+  if (overwrite && isFile(pathname)) {
+    # TODO: Added a backup/restore feature in case new writing fails.
+    file.remove(pathname);
+    verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).");
+  }
+
+  # Write to a temporary file
+  pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
 
   if (!is.null(hdr)) {
     verbose && enter(verbose, "Writing file header");
@@ -415,11 +421,10 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
   verbose && exit(verbose);
 
-  verbose && exit(verbose);
-
-
   # Renaming temporary file
   pathname <- popTemporaryFile(pathnameT, verbose=verbose);
+
+  verbose && exit(verbose);
 
 
   verbose && enter(verbose, "Loading output data file");

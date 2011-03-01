@@ -173,6 +173,12 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
 
   verbose && cat(verbose, "Destination pathname: ", pathname);
 
+  # Overwrite?
+  if (overwrite && isFile(pathname)) {
+    # TODO: Added a backup/restore feature in case new writing fails.
+    file.remove(pathname);
+    verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).");
+  }
 
   # Write to a temporary file
   pathnameT <- pushTemporaryFile(pathname, verbose=verbose);

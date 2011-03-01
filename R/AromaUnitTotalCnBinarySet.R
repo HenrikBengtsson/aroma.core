@@ -171,6 +171,7 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
       verbose && cat(verbose, "Pathname: ", pathnameT);
       if (isFile(pathnameT)) {
         pathname <- pathnameT;
+        verbose && cat(verbose, "Found an existing file.");
         verbose && exit(verbose);
         break;
       }
