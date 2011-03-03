@@ -124,6 +124,13 @@ setMethodS3("getUnitsOnChromosomes", "AromaUnitChromosomeTabularBinaryFile", fun
     res <- unlist(res, use.names=useNames);
   }
 
+  # CONTRACT/Sanity check
+  if (unlist) {
+    res <- Arguments$getIndices(res);
+  } else {
+    # Ignored; to expensive
+  }
+
   res;
 }, protected=TRUE)
 
@@ -188,6 +195,9 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 
 ############################################################################
 # HISTORY:
+# 2011-03-03
+# o ROBUSTNESS: Added a return contract/sanity check asserting that
+#   getUnitsOnChromosomes() truly returns valid 'unit' indices.
 # 2010-01-25
 # o ROBUSTNESS: Added a sanity check getChromosomes() for class
 #   AromaUnitChromosomeTabularBinaryFile validating that the file has a

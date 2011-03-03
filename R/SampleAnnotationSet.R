@@ -27,6 +27,53 @@ setMethodS3("findSAFs", "SampleAnnotationSet", function(static, path, pattern="[
 }, static=TRUE, private=TRUE)
 
 
+setMethodS3("byPathnames", "SampleAnnotationSet", function(static, pathnames, ..., fileClass="SampleAnnotationFile", verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'path':
+  pathnames <- sapply(pathnames, FUN=function(pathname) {
+    Arguments$getReadablePathnames(pathname, mustExist=TRUE);
+  });
+
+  # Argument 'fileClass':
+  clazz <- Class$forName(fileClass);
+  dfStatic <- getStaticInstance(clazz);
+  dfStatic <- Arguments$getInstanceOf(dfStatic, "SampleAnnotationFile");
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Defining ", length(pathnames), " files");
+  files <- list();
+  for (kk in seq(along=pathnames)) {
+    if (as.logical(verbose)) cat(kk, ", ", sep="");
+    df <- newInstance(dfStatic, pathnames[kk]);
+    files[[kk]] <- df;
+    if (kk == 1) {
+      # Update the static class instance.  The reason for this is
+      # that if the second file cannot be instanciated with the same
+      # class as the first one, then the files are incompatible.
+      # Note that 'df' might be of a subclass of 'dfStatic'.
+      clazz <- Class$forName(class(df)[1]);
+      dfStatic <- getStaticInstance(clazz);
+    }
+  }
+  if (as.logical(verbose)) cat("\n");
+
+  # Create the file set object
+  set <- newInstance(static, files, ...);
+
+  verbose && exit(verbose);
+
+  set;
+}, static=TRUE, private=TRUE) # byPathnames()
+
+
 setMethodS3("fromPath", "SampleAnnotationSet", function(static, path, pattern="[.](saf|SAF)$", ..., fileClass="SampleAnnotationFile", verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -74,11 +121,122 @@ setMethodS3("fromPath", "SampleAnnotationSet", function(static, path, pattern="[
   set <- newInstance(static, files, ...);
 
   set;
-}, static=TRUE)
+}, static=TRUE) # fromPath()
+
+
+setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotationData(|,.*)/", ..., merge=TRUE, reversePaths=TRUE, dropDuplicates=TRUE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'paths':
+  paths <- sapply(paths, FUN=Arguments$getRegularExpression);
+
+  # Argument 'merge':
+  merge <- Arguments$getLogical(merge);
+
+  # Argument 'reversePaths':
+  reversePaths <- Arguments$getLogical(reversePaths);
+
+  # Argument 'dropDuplicates':
+  dropDuplicates <- Arguments$getLogical(dropDuplicates);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Loading all ", class(static)[1], ":s");
+
+  verbose && enter(verbose, "Identify all directories containing SAF files");
+  pathnames <- findAnnotationData(set="samples", pattern="[.](saf|SAF)$", 
+                                firstOnly=FALSE, verbose=less(verbose,5));
+
+  # Pathnames are now ordered according to aroma search conventions
+  verbose && cat(verbose, "All SAF files located:");
+  verbose && print(verbose, pathnames);
+
+  paths <- dirname(pathnames);
+  paths <- unique(paths);
+  verbose && cat(verbose, "All directories with SAF files:");
+  verbose && print(verbose, paths);
+  verbose && exit(verbose);
+
+  verbose && enter(verbose, "Loading ", class(static)[1], ":s");
+  dsList <- lapply(paths, FUN=function(path) {
+    fromPath(static, path=path, ..., verbose=verbose);
+  })
+  verbose && print(verbose, dsList);
+  verbose && exit(verbose);
+
+  if (merge) {
+    # However, if we want to apply SAF files, we need to make sure
+    # annotationData/ has higher priority than annotationData,<tags>/,
+    # so we need to reverse the root paths order before merging.
+    if (reversePaths) {
+      verbose && enter(verbose, "Reversing order of ", class(static)[1], ":s");
+      dsList <- rev(dsList);
+      verbose && print(verbose, dsList);
+      verbose && exit(verbose);
+    }
+
+    verbose && enter(verbose, "Merging ", class(static)[1], ":s");
+    dsList <- Reduce(append, dsList);
+    verbose && print(verbose, dsList);
+    verbose && exit(verbose);
+
+    if (dropDuplicates) {
+      verbose && enter(verbose, "Dropping duplicated files in ", class(static)[1], ":s");
+      # (a) A duplicate must have the same file size as another file...
+      ds <- dsList;
+
+      # AD HOC: Undoing the above
+      if (reversePaths) ds <- extract(ds, rev(seq(ds)));
+
+      fileSizes <- sapply(ds, getFileSize);
+      tt <- table(fileSizes);
+      tt <- tt[tt > 1];
+      dupFileSizes <- as.numeric(names(tt));
+      dups <- (is.element(fileSizes, dupFileSizes));
+      if (any(dups)) {
+        # (b) ...and the same checksum
+        dsT <- extract(ds, dups);
+        checksumsT <- sapply(dsT, getChecksum);
+        dupsT <- duplicated(checksumsT);
+
+        if (any(dupsT)) {
+          # Identify which to drop
+          dups <- whichVector(dups);
+          dups <- dups[dupsT];
+
+          verbose && printf(verbose, "Dropping %d files that are identical to other files:\n", length(dups));
+          verbose && print(verbose, paste(getPathnames(ds)[dups]));
+          ds <- extract(ds, -dups);
+
+          # AD HOC: Redoing the above
+          if (reversePaths) ds <- extract(ds, rev(seq(ds)));
+
+          dsList <- ds;
+
+          verbose && print(verbose, dsList);
+        }
+      }
+      verbose && exit(verbose);
+    }
+  } # if (merge)
+  
+  verbose && exit(verbose);
+
+  dsList;
+}, static=TRUE, protected=TRUE) # loadAll()
 
 
 ############################################################################
 # HISTORY:
+# 2011-03-03
+# o Added internal static byPathnames().
+# o Added static loadAll() for SampleAnnotationSet.
 # 2008-05-09
 # o Now SampleAnnotationSet inherits from GenericDataFileSet and no longer
 #   from AffymetrixFileSet.

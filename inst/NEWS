@@ -1,6 +1,17 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.4 [2011-03-03]
+o Added static loadAll() for SampleAnnotationSet.
+o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
+  findAnnotationData() can also search <rootPath>/<set>/ by not 
+  specifying argument 'name' (or setting it to NULL).
+o ROBUSTNESS: Added a return contract/sanity check asserting that
+  getUnitsOnChromosomes() for AromaUnitChromosomeTabularBinaryFile
+  truly returns valid 'unit' indices.  Thanks to Emilie Sohier, 
+  France for reporting on a problem related to this.
+
+
 Version: 2.0.3 [2011-03-02]
 o GENERALIZATION: Now the default for createImage() for matrix is to 
   test to create images according to aroma settings option

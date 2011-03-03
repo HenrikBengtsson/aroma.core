@@ -1086,6 +1086,10 @@
 \alias{colorize.RasterImage}
 \alias{interleave.RasterImage}
 \alias{dropRootPathTags.default}
+\alias{loadAll}
+\alias{loadAll.SampleAnnotationSet}
+\alias{byPathnames}
+\alias{byPathnames.SampleAnnotationSet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

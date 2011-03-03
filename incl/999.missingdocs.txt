@@ -528,3 +528,5 @@ requireWithMemory requireWithMemory.default
   write.RasterImage writeImage.RasterImage
  colorize.RasterImage interleave.RasterImage
 dropRootPathTags.default
+loadAll loadAll.SampleAnnotationSet
+  byPathnames byPathnames.SampleAnnotationSet
