@@ -236,12 +236,22 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
       pathnamesKK <- affxparser::findFiles(..., paths=path);
       verbose && print(verbose, pathnamesKK);
 
+      if (length(pathnamesKK) == 0) {
+        verbose && exit(verbose);
+        next;
+      }
+
       # AD HOC: Clean out files in "private" directories
       if (!private) {
         excl <- sapply(pathnamesKK, FUN=isInPrivateDirectory);
         pathnamesKK <- pathnamesKK[!excl];
         verbose && cat(verbose, "Dropping private directories:");
         verbose && print(verbose, pathnamesKK);
+      }
+
+      if (length(pathnamesKK) == 0) {
+        verbose && exit(verbose);
+        next;
       }
 
       verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
