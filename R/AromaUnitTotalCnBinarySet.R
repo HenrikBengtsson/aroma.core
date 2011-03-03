@@ -204,6 +204,10 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
 
       pathname <- popTemporaryFile(pathnameT, verbose=verbose);
 
+      # Don't forget to update 'res' accordingly
+      # BTW, should there be a protected setPathname() or a popTemporaryFile().
+      res$.pathname <- pathname;
+
       verbose && exit(verbose);
     }
 
@@ -330,6 +334,9 @@ setMethodS3("writeDataFrame", "AromaUnitTotalCnBinarySet", function(this, filena
 
 ############################################################################
 # HISTORY:
+# 2011-03-02
+# o BUG FIX: getAverageFile() did not update the pathname of internal
+#   'res' file object, which pointed to a temporary file.
 # 2011-02-28
 # o ROBUSTNESS: Now getAverageFile() for AromaUnitTotalCnBinarySet creates
 #   the result file atomically by writing to a temporary file which is
