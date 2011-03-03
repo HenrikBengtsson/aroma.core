@@ -81,7 +81,7 @@ setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClass
 
 
 
-setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags=NULL, pattern=sprintf("^%s,chromosomes(,.*)*[.]txt$", genome, paste(tags, collapse=",")), paths=c("annotationData/", system.file("annotationData", package="aroma.core")), ..., verbose=FALSE) {
+setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags=NULL, pattern=sprintf("^%s,chromosomes(|,.*)*[.]txt$", genome, paste(tags, collapse=",")), paths=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -111,30 +111,17 @@ setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags
   verbose && cat(verbose, "Genome name: ", genome);
   verbose && cat(verbose, "Genome tags: ", tags);
   verbose && cat(verbose, "Genome fullname: ", fullname);
+  verbose && cat(verbose, "Pattern (fmtstr): ", pattern);
+  patternT <- sprintf(pattern, fullname);
+  verbose && cat(verbose, "Pattern (updated): ", patternT);
+  verbose && cat(verbose, "Paths:");
+  verbose && print(verbose, paths);
 
-  pattern <- sprintf(pattern, fullname);
-  verbose && cat(verbose, "Pattern: ", pattern);
-
-  # Paths to search in
-  keep <- (nchar(paths) > 0);
-  paths <- paths[keep];
-  keep <- sapply(paths, FUN=isDirectory);
-  paths <- paths[keep];
-  paths <- lapply(paths, FUN=function(path) Arguments$getReadablePath(path));
-  paths <- c(list(NULL), paths);
-
-  verbose && cat(verbose, "Paths to be searched:");
-  verbose && str(verbose, paths);
-
-  for (kk in seq(along=paths)) {
-    path <- paths[[kk]];
-    verbose && cat(verbose, "Path: ", path);
-    pathname <- findAnnotationData(name=fullname, set="genomes", 
-                pattern=pattern, ..., paths=path, verbose=less(verbose, 10));
-    if (!is.null(pathname)) {
-      verbose && cat(verbose, "Found file: ", pathname);
-      break;
-    }
+  pathname <- findAnnotationData(name=fullname, set="genomes", 
+                                 pattern=patternT, paths=paths, ..., 
+                                      verbose=less(verbose, 10));
+  if (!is.null(pathname)) {
+    verbose && cat(verbose, "Found file: ", pathname);
   }
 
   verbose && exit(verbose);
@@ -172,6 +159,12 @@ setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., onM
 
 ############################################################################
 # HISTORY:
+# 2011-03-03
+# o Now findByGenome() for AromaGenomeTextFile follows the new aroma
+#   search conventions.
+# o Updated the default filename patterns used by findByGenome() for
+#   AromaGenomeTextFile to "^%s,chromosomes(|,.*)*[.]txt$".  Before
+#   additional tags were needed.
 # 2010-08-22
 # o Added Rdoc comments and an example.
 # o Created.

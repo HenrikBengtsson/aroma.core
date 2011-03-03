@@ -3,9 +3,16 @@ Package: aroma.core
 
 Version: 2.0.4 [2011-03-03]
 o Added static loadAll() for SampleAnnotationSet.
+o Updated the default filename patterns used by findByGenome() for
+  AromaGenomeTextFile to "^%s,chromosomes(|,.*)*[.]txt$".  Before
+  additional tags were needed.
+o GENERALIZATION: Now findByGenome() for AromaGenomeTextFile follows 
+  the new aroma search conventions.
 o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
   findAnnotationData() can also search <rootPath>/<set>/ by not 
-  specifying argument 'name' (or setting it to NULL).
+  specifying argument 'name' (or setting it to NULL).  Also, if it
+  cannot locate any files, it falls back to annotation data available
+  in any of the aroma.* packages.
 o ROBUSTNESS: Added a return contract/sanity check asserting that
   getUnitsOnChromosomes() for AromaUnitChromosomeTabularBinaryFile
   truly returns valid 'unit' indices.  Thanks to Emilie Sohier, 

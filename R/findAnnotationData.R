@@ -103,6 +103,20 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
     verbose && cat(verbose, "Identified root paths:");
     verbose && print(verbose, paths);
 
+    verbose && enter(verbose, "Adding root paths of aroma.* packages as a backup");
+    # Searching for aroma.* packages with install.packages() is
+    # more generic, but also much slower. Maybe later. /HB 2011-03-03
+    pkgs <- c("aroma.core", "aroma.affymetrix", "aroma.cn");
+    pkgPaths <- sapply(pkgs, FUN=function(pkg) {
+      system.file("annotationData", package=pkg);
+    });
+    pkgPaths <- pkgPaths[nchar(pkgPaths) > 0];
+    verbose && cat(verbose, "Additional root paths:");
+    verbose && print(verbose, pkgPaths);
+    paths <- c(paths, pkgPaths);
+    verbose && exit(verbose);
+
+
     # Nothing to do?
     if (length(paths) == 0) {
       verbose && cat(verbose, "None of the search paths exists. Skipping.");
@@ -295,6 +309,8 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 ############################################################################
 # HISTORY:
 # 2011-03-03
+# o GENERALIZATION: Now findAnnotationData() falls back to annotation data
+#   available in any of the aroma.* packages.
 # o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
 #   findAnnotationData() can also search <rootPath>/<set>/ by not 
 #   specifying argument 'name' (or setting it to NULL).
