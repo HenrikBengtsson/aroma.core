@@ -161,7 +161,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   # Validate?
   if (!is.null(this$.cesTuple)) {
     # Validate genome
-    pathname <- getGenomeFile(this);
+    gf <- getGenomeFile(this);
   }
 
   this;

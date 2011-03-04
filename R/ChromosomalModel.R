@@ -54,8 +54,8 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
 
   # Validate?
   if (!is.null(this$.cesTuple)) {
-    # Validate genome
-    pathname <- getGenomeFile(this);
+    # Assert that a genome annotation file exists
+    gf <- getGenomeFile(this);
   }
 
   this;
@@ -571,20 +571,12 @@ setMethodS3("getGenome", "ChromosomalModel", function(this, ...) {
 })
 
 
-setMethodS3("getGenomeFile", "ChromosomalModel", function(this, ..., genome=getGenome(this), tags="chromosomes", pattern="^%s(,.*)*[.]txt$", onMissing=c("error", "warning", "ignore"), verbose=FALSE) {
+setMethodS3("getGenomeFile", "ChromosomalModel", function(this, genome=getGenome(this), ..., onMissing=c("error", "warning", "ignore"), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'genome':
   genome <- Arguments$getCharacter(genome);
-
-  # Argument 'tags':
-  tags <- Arguments$getTags(tags, collapse=",");
-
-  # Argument 'pattern':
-  if (!is.null(pattern)) {
-    pattern <- Arguments$getRegularExpression(pattern);
-  }
 
   # Argument 'onMissing':
   onMissing <- match.arg(onMissing);
@@ -598,41 +590,12 @@ setMethodS3("getGenomeFile", "ChromosomalModel", function(this, ..., genome=getG
 
 
   verbose && enter(verbose, "Locating genome annotation file");
-
-  fullname <- paste(c(genome, tags), collapse=",");
-
   verbose && cat(verbose, "Genome name: ", genome);
-  verbose && cat(verbose, "Genome tags: ", tags);
-  verbose && cat(verbose, "Genome fullname: ", fullname);
 
-  pattern <- sprintf(pattern, fullname);
-  verbose && cat(verbose, "Pattern: ", pattern);
+  gf <- AromaGenomeTextFile$byGenome(genome, ..., verbose=verbose);
+  verbose && print(verbose, df);
 
-  # Paths to search in
-  paths <- c(
-    system.file("annotationData", package="aroma.core"),
-    system.file("annotationData", package="aroma.affymetrix")
-  );
-  keep <- (nchar(paths) > 0);
-  paths <- paths[keep];
-  keep <- sapply(paths, FUN=isDirectory);
-  paths <- paths[keep];
-  paths <- lapply(paths, FUN=function(path) Arguments$getReadablePath(path));
-  paths <- c(list(NULL), paths);
-
-  verbose && cat(verbose, "Paths to be searched:");
-  verbose && str(verbose, paths);
-
-  for (kk in seq(along=paths)) {
-    path <- paths[[kk]];
-    verbose && cat(verbose, "Path: ", path);
-    pathname <- findAnnotationData(name=fullname, set="genomes", 
-                pattern=pattern, ..., paths=path, verbose=less(verbose, 10));
-    if (!is.null(pathname)) {
-      verbose && cat(verbose, "Found file: ", pathname);
-      break;
-    }
-  }
+  pathname <- getPathname(df);
 
   # Failed to locate a file?
   if (is.null(pathname)) {
@@ -676,7 +639,7 @@ setMethodS3("setGenome", "ChromosomalModel", function(this, genome, tags=NULL, .
   # Verify that there is an existing genome file
   tryCatch({
     this$.genome <- fullname;
-    pathname <- getGenomeFile(this, verbose=less(verbose, 10));
+    gf <- getGenomeFile(this, verbose=less(verbose, 10));
   }, error = function(ex) {
     this$.genome <- oldGenome;
     throw(ex$message);
@@ -704,12 +667,12 @@ setMethodS3("getGenomeData", "ChromosomalModel", function(this, ..., verbose=FAL
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get genome annotation data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Searching for the file");
-  # Search annotationData/genomes/
-  pathname <- getGenomeFile(this, verbose=less(verbose, 10));
+  verbose && enter(verbose, "Retrieving genome annotation file");
+  gf <- getGenomeFile(this, verbose=less(verbose, 10));
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Reading data file");
+  pathname <- getPathname(gf);
   verbose && cat(verbose, "Pathname: ", pathname);
   data <- readTable(pathname, header=TRUE, 
                             colClasses=c(nbrOfBases="integer"), row.names=1);
@@ -807,6 +770,9 @@ setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2011-03-03
+# o Now getGenomeFile() for ChromosomalModel utilizes byGenome() for
+#   AromaGenomeTextFile to locate the genome annotation file.
 # 2011-02-28
 # o UNDO: getArrays() was needed.
 # 2011-02-19

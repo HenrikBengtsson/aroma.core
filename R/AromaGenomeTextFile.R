@@ -153,7 +153,13 @@ setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., onM
     }
   }
 
-  newInstance(static, pathname);
+  if (is.null(pathname)) {
+    res <- NULL;
+  } else {
+    res <- newInstance(static, pathname);
+  }
+
+  res;
 }, static=TRUE)
 
 

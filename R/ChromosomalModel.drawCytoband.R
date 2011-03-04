@@ -7,7 +7,8 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
   }
 
   # Do we know how to plot the genome?
-  pathname <- getGenomeFile(this, tags="cytobands", onMissing="warning");
+  gf <- getGenomeFile(this, tags="cytobands", onMissing="warning");
+  pathname <- getPathname(gf);
 
   # If no cytoband annotation data is available, skip it
   if (is.null(pathname)) {

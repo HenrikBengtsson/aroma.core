@@ -6,6 +6,8 @@ o Added static loadAll() for SampleAnnotationSet.
 o Updated the default filename patterns used by findByGenome() for
   AromaGenomeTextFile to "^%s,chromosomes(|,.*)*[.]txt$".  Before
   additional tags were needed.
+o Now getGenomeFile() for ChromosomalModel utilizes byGenome() for
+  AromaGenomeTextFile to locate the genome annotation file.
 o GENERALIZATION: Now findByGenome() for AromaGenomeTextFile follows 
   the new aroma search conventions.
 o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
