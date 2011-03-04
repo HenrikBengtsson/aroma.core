@@ -39,6 +39,92 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
   # Needs affxparser::findFiles()
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  orderByFullName <- function(pathnames, ..., verbose=FALSE) {
+    verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
+  
+    # Order located pathnames in increasing length of the fullnames
+    # This is an AD HOC solution for selecting GenomeWideSNP_6 before
+    # GenomeWideSNP_6,Full.
+  
+    # (a) Get filenames
+    filenames <- basename(pathnames);
+  
+    # (b) Get fullnames by dropping filename extension
+    fullnames <- gsub("[.][^.]*$", "", filenames);
+  
+    # (c) Order by length of fullnames
+    o <- order(nchar(fullnames));
+  
+    verbose && cat(verbose, "Order:");
+    verbose && print(verbose, o);
+  
+    verbose && exit(verbose);
+  
+    o;
+  } # orderByFullNames()
+
+
+  sortByFullName <- function(pathnames, ..., verbose=FALSE) {
+    o <- orderByFullName(pathnames, verbose=verbose);
+    pathnames <- pathnames[o];
+    pathnames;
+  } # sortByFullName()
+
+
+  localFindFiles <- function(..., paths=paths) {
+    isInPrivateDirectory <- function(pathname) {
+      pathname <- strsplit(pathname, split="[/\\\\]")[[1]];
+      pathname <- pathname[!(pathname %in% c(".", ".."))];
+      any(regexpr("^[.]", pathname) != -1);
+    } # isInPrivateDirectory()
+
+    # By explicitly searching each path seperately as here, we
+    # can guarantee that the root paths are search in the correct
+    # order according to the aroma search conventions. /HB 2011-03-03
+    pathnames <- c();
+    for (kk in seq(along=paths)) {
+      path <- paths[kk];
+      verbose && enter(verbose, sprintf("Path #%d of %d", kk, length(paths)));
+
+      verbose && cat(verbose, "Path: ", path);
+      pathnamesKK <- affxparser::findFiles(..., paths=path);
+      verbose && print(verbose, pathnamesKK);
+
+      if (length(pathnamesKK) == 0) {
+        verbose && exit(verbose);
+        next;
+      }
+
+      # AD HOC: Clean out files in "private" directories
+      if (!private) {
+        excl <- sapply(pathnamesKK, FUN=isInPrivateDirectory);
+        pathnamesKK <- pathnamesKK[!excl];
+        verbose && cat(verbose, "Dropping private directories:");
+        verbose && print(verbose, pathnamesKK);
+      }
+
+      if (length(pathnamesKK) == 0) {
+        verbose && exit(verbose);
+        next;
+      }
+
+##      verbose && enter(verbose, "Reorder by fullname");
+##      pathnamesKK <- sortByFullName(pathnamesKK, verbose=verbose);
+##      verbose && print(verbose, pathnamesKK);
+##      verbose && exit(verbose);
+    
+      pathnames <- c(pathnames, pathnamesKK);
+
+      verbose && exit(verbose);
+    } # for (kk ...)
+    pathnames;
+  } # localFindFiles()
+
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'name':
@@ -73,7 +159,6 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
       rm(fullname); # Not need anymore
     }
   }
-
 
   verbose && enter(verbose, "Searching for annotation data file(s)");
 
@@ -231,68 +316,15 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
   verbose && cat(verbose, "Arguments to findFiles:");
   verbose && str(verbose, args);
 
-  localFindFiles <- function(..., paths=paths) {
-    isInPrivateDirectory <- function(pathname) {
-      pathname <- strsplit(pathname, split="[/\\\\]")[[1]];
-      pathname <- pathname[!(pathname %in% c(".", ".."))];
-      any(regexpr("^[.]", pathname) != -1);
-    } # isInPrivateDirectory()
-
-    # By explicitly searching each path seperately as here, we
-    # can guarantee that the root paths are search in the correct
-    # order according to the aroma search conventions. /HB 2011-03-03
-    pathnames <- c();
-    for (kk in seq(along=paths)) {
-      path <- paths[kk];
-      verbose && enter(verbose, sprintf("Path #%d of %d", kk, length(paths)));
-
-      verbose && cat(verbose, "Path: ", path);
-      pathnamesKK <- affxparser::findFiles(..., paths=path);
-      verbose && print(verbose, pathnamesKK);
-
-      if (length(pathnamesKK) == 0) {
-        verbose && exit(verbose);
-        next;
-      }
-
-      # AD HOC: Clean out files in "private" directories
-      if (!private) {
-        excl <- sapply(pathnamesKK, FUN=isInPrivateDirectory);
-        pathnamesKK <- pathnamesKK[!excl];
-        verbose && cat(verbose, "Dropping private directories:");
-        verbose && print(verbose, pathnamesKK);
-      }
-
-      if (length(pathnamesKK) == 0) {
-        verbose && exit(verbose);
-        next;
-      }
-
-      verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
-      # Order located pathnames in increasing length of the fullnames
-      # This is an AD HOC solution for selecting GenomeWideSNP_6 before
-      # GenomeWideSNP_6,Full.
-      # (a) Get filenames
-      filenames <- basename(pathnamesKK);
-      # (b) Get fullnames by dropping filename extension
-      fullnames <- gsub("[.][^.]*$", "", filenames);
-      # (c) Order by length of fullnames
-      o <- order(nchar(fullnames));
-      pathnamesKK <- pathnamesKK[o];
-      verbose && print(verbose, pathnamesKK);
-      verbose && exit(verbose);
-    
-      pathnames <- c(pathnames, pathnamesKK);
-
-      verbose && exit(verbose);
-    } # for (kk ...)
-    pathnames;
-  } # localFindFiles()
-
   pathnames <- do.call("localFindFiles", args=args);
 
   verbose && cat(verbose, "All located pathname(s):");
   verbose && print(verbose, pathnames);
+
+  verbose && enter(verbose, "Reorder by fullname");
+  pathnames <- sortByFullName(pathnames, verbose=verbose);
+  verbose && print(verbose, pathnames);
+  verbose && exit(verbose);
 
   # Keep first match?
   if (firstOnly && length(pathnames) > 1) {
@@ -309,6 +341,8 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 ############################################################################
 # HISTORY:
 # 2011-03-03
+# o Now findAnnotationData() again guarantees that the returned pathnames
+#   are ordered by the (length of the) fullnames.
 # o GENERALIZATION: Now findAnnotationData() falls back to annotation data
 #   available in any of the aroma.* packages.
 # o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
