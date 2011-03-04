@@ -186,7 +186,7 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
   if (!is.null(refList))
     refList <- getSets(refList);
   for (kk in seq(along=cesList)) {
-    s <- c(s, sprintf("Chip type #%d of %d ('%s'):", kk, nbrOfChipTypes, chipTypes[kk]));
+    s <- c(s, sprintf("Chip type #%d ('%s') of %d:", kk, chipTypes[kk], nbrOfChipTypes));
     s <- c(s, "Sample data set:");
     ces <- cesList[[kk]];
     ref <- refList[[kk]];
@@ -934,11 +934,12 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
   for (rr in seq(length=nbrOfChromosomes)) {
     chromosome <- chromosomes[rr];
-    verbose && enter(verbose, "Chromosome #", rr, " of ", nbrOfChromosomes);
+    verbose && enter(verbose, sprintf("Chromosome #%d ('Chr%02d') of %d", 
+                                          rr, chromosome, nbrOfChromosomes));
 
     for (cc in seq(along=arrays)) {
       array <- arrays[cc];
-      verbose && enter(verbose, "Array #", cc, " of ", length(arrays));
+      verbose && enter(verbose, sprintf("Array #%d of %d", cc, length(arrays)));
 
       rawCns <- extractRawCopyNumbers(this, array=array, chromosome=chromosome, ..., verbose=less(verbose,5));
 
@@ -992,6 +993,8 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
 ##############################################################################
 # HISTORY:
+# 2011-03-03
+# o Added more information to verbose output.
 # 2011-02-07
 # o CLARIFICATION: Now the error message from getRawCopyNumbers() for
 #   CopyNumberSegmentationModel that reports on too many non-finite signals
