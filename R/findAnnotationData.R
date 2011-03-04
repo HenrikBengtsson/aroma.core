@@ -42,6 +42,11 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   orderByFullName <- function(pathnames, ..., verbose=FALSE) {
+    # Nothing to do?
+    if (length(pathnames) == 0) {
+      return(integer(0));
+    }
+
     verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
   
     # Order located pathnames in increasing length of the fullnames
