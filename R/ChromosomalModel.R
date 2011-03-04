@@ -599,7 +599,7 @@ setMethodS3("getGenomeFile", "ChromosomalModel", function(this, genome=getGenome
 
   # Failed to locate a file?
   if (is.null(pathname)) {
-    msg <- sprintf("Failed to locate a genome annotation data file with pattern '%s' for genome '%s'.", pattern, genome);
+    msg <- sprintf("Failed to locate a genome annotation data file for genome '%s'.", genome);
     verbose && cat(verbose, msg);
 
     # Action?
