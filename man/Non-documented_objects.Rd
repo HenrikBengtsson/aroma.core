@@ -1090,6 +1090,8 @@
 \alias{loadAll.SampleAnnotationSet}
 \alias{byPathnames}
 \alias{byPathnames.SampleAnnotationSet}
+\alias{getAromaGenomeTextFile}
+\alias{getAromaGenomeTextFile.ChromosomalModel}
 
 \description{
   This page contains aliases for all "non-documented" objects that

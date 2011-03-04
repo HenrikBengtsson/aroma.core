@@ -530,3 +530,4 @@ requireWithMemory requireWithMemory.default
 dropRootPathTags.default
 loadAll loadAll.SampleAnnotationSet
   byPathnames byPathnames.SampleAnnotationSet
+  getAromaGenomeTextFile getAromaGenomeTextFile.ChromosomalModel
