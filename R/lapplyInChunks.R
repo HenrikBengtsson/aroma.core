@@ -20,7 +20,7 @@ setMethodS3("lapplyInChunks", "numeric", function(idxs, fcn, ..., chunkSize=1, u
   n <- length(idxs);
 
   # Nothing todo?
-  if (length(n) == 0)
+  if (n == 0)
     return(list());
    
   remaining <- 1:n;
@@ -98,6 +98,9 @@ setMethodS3("splitInChunks", "numeric", function(idxs, chunkSize=1, ...) {
 
 ############################################################################
 # HISTORY:
+# 2011-03-03
+# o BUG FIX: lapplyInChunks(idxs) for numeric did not correctly handle
+#   the case when length(idxs) == 0, because of a typo.
 # 2007-08-17
 # o Added splitInChunks().
 # 2007-02-12

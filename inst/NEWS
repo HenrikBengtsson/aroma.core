@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.5 [2011-03-04]
+o BUG FIX: lapplyInChunks(idxs) for numeric did not correctly handle
+  the case when length(idxs) == 0, because of a typo.
+
+
 Version: 2.0.4 [2011-03-03]
 o Added static loadAll() for SampleAnnotationSet.
 o Updated the default filename patterns used by findByGenome() for
