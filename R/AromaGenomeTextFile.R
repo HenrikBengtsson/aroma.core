@@ -120,6 +120,7 @@ setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags
   pathname <- findAnnotationData(name=fullname, set="genomes", 
                                  pattern=patternT, paths=paths, ..., 
                                       verbose=less(verbose, 10));
+
   if (!is.null(pathname)) {
     verbose && cat(verbose, "Found file: ", pathname);
   }
@@ -130,34 +131,39 @@ setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags
 }, static=TRUE)
 
 
-setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., onMissing=c("error", "warning", "ignore")) {
+setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., mustExist=TRUE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'onMissing':
-  onMissing <- match.arg(onMissing);
+  # Argument 'mustExist':
+  mustExist <- Arguments$getLogical(mustExist);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  verbose && enter(verbose, "Locating genome annotation file");
 
   # Locate genome file
-  pathname <- findByGenome(static, genome=genome, ...);
-
-  # Failed to locate a file?
-  if (is.null(pathname)) {
-    msg <- sprintf("Failed to locate a genome annotation data file for genome '%s'.", genome);
-    verbose && cat(verbose, msg);
-
-    if (onMissing == "error") {
-      throw(msg);
-    } else if (onMissing == "warning") {
-      warning(msg);
-    } else if (onMissing == "ignore") {
-    }
-  }
+  pathname <- findByGenome(static, genome=genome, ..., verbose=verbose);
 
   if (is.null(pathname)) {
     res <- NULL;
   } else {
     res <- newInstance(static, pathname);
   }
+
+  if (mustExist && is.null(res)) {
+    msg <- sprintf("Failed to locate a genome annotation data file for genome '%s'.", genome);
+    verbose && cat(verbose, msg);
+    throw(msg);
+  }
+
+  verbose && exit(verbose);
 
   res;
 }, static=TRUE)
@@ -166,6 +172,7 @@ setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., onM
 ############################################################################
 # HISTORY:
 # 2011-03-03
+# o Replaced argument 'onMissing' of byGenome() with 'mustExist'.
 # o Now findByGenome() for AromaGenomeTextFile follows the new aroma
 #   search conventions.
 # o Updated the default filename patterns used by findByGenome() for

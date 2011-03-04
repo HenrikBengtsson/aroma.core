@@ -571,15 +571,17 @@ setMethodS3("getGenome", "ChromosomalModel", function(this, ...) {
 })
 
 
-setMethodS3("getGenomeFile", "ChromosomalModel", function(this, genome=getGenome(this), ..., onMissing=c("error", "warning", "ignore"), verbose=FALSE) {
+setMethodS3("getGenomeFile", "ChromosomalModel", function(...) {
+  getAromaGenomeTextFile(...);
+}, protected=TRUE)
+
+
+setMethodS3("getAromaGenomeTextFile", "ChromosomalModel", function(this, genome=getGenome(this), ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'genome':
   genome <- Arguments$getCharacter(genome);
-
-  # Argument 'onMissing':
-  onMissing <- match.arg(onMissing);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -588,33 +590,15 @@ setMethodS3("getGenomeFile", "ChromosomalModel", function(this, genome=getGenome
     on.exit(popState(verbose));
   }
 
-
   verbose && enter(verbose, "Locating genome annotation file");
   verbose && cat(verbose, "Genome name: ", genome);
 
   gf <- AromaGenomeTextFile$byGenome(genome, ..., verbose=verbose);
-  verbose && print(verbose, df);
-
-  pathname <- getPathname(df);
-
-  # Failed to locate a file?
-  if (is.null(pathname)) {
-    msg <- sprintf("Failed to locate a genome annotation data file for genome '%s'.", genome);
-    verbose && cat(verbose, msg);
-
-    # Action?
-    if (onMissing == "error") {
-      throw(msg);
-    } else if (onMissing == "warning") {
-      warning(msg);
-    } else if (onMissing == "ignore") {
-    }
-  }
-
+  verbose && print(verbose, gf);
   verbose && exit(verbose);
 
-  pathname;
-}, protected=TRUE)
+  gf;
+}, protected=TRUE)  # getAromaGenomeTextFile()
 
 
 setMethodS3("setGenome", "ChromosomalModel", function(this, genome, tags=NULL, ..., verbose=FALSE) {
@@ -771,8 +755,9 @@ setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
 ##############################################################################
 # HISTORY:
 # 2011-03-03
-# o Now getGenomeFile() for ChromosomalModel utilizes byGenome() for
-#   AromaGenomeTextFile to locate the genome annotation file.
+# o Now getAromaGenomeTextFile() for ChromosomalModel utilizes byGenome() 
+#   for AromaGenomeTextFile to locate and return the AromaGenomeTextFile.
+# o getGenomeFile() calls getAromaGenomeTextFile().
 # 2011-02-28
 # o UNDO: getArrays() was needed.
 # 2011-02-19

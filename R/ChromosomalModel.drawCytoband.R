@@ -7,21 +7,18 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
   }
 
   # Do we know how to plot the genome?
-  gf <- getGenomeFile(this, tags="cytobands", onMissing="warning");
-  pathname <- getPathname(gf);
-
+  gf <- getGenomeFile(this, tags="cytobands", mustExist=FALSE);
   # If no cytoband annotation data is available, skip it
-  if (is.null(pathname)) {
+  if (is.null(gf)) {
     return();
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Load annotation data file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  db <- TabularTextFile(pathname);
   colClassPattern <- c("*"="character", "(start|end)"="integer", 
                        "intensity"="integer", "isCentromere"="logical");
-  data <- readDataFrame(db, colClassPattern=colClassPattern);
+  data <- readDataFrame(gf, colClassPattern=colClassPattern);
 
   # Infer chromosome indices
   data$chromosomeIdx <- Arguments$getChromosomes(data$chromosome);
