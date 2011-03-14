@@ -531,3 +531,4 @@ dropRootPathTags.default
 loadAll loadAll.SampleAnnotationSet
   byPathnames byPathnames.SampleAnnotationSet
   getAromaGenomeTextFile getAromaGenomeTextFile.ChromosomalModel
+getChromosomeLabels getChromosomeLabels.ChromosomeExplorer

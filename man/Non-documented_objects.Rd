@@ -1092,6 +1092,8 @@
 \alias{byPathnames.SampleAnnotationSet}
 \alias{getAromaGenomeTextFile}
 \alias{getAromaGenomeTextFile.ChromosomalModel}
+\alias{getChromosomeLabels}
+\alias{getChromosomeLabels.ChromosomeExplorer}
 
 \description{
   This page contains aliases for all "non-documented" objects that

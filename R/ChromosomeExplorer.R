@@ -219,7 +219,7 @@ setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
 
 
 ###########################################################################/**
-# @RdocMethod getChromosomes
+
 #
 # @title "Gets the chromosomes available"
 #
@@ -246,6 +246,25 @@ setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
 setMethodS3("getChromosomes", "ChromosomeExplorer", function(this, ...) {
   model <- getModel(this);
   getChromosomes(model);
+})
+
+
+setMethodS3("getChromosomeLabels", "ChromosomeExplorer", function(this, ...) {
+  chrs <- getChromosomes(this);
+
+  chrsL <- character(length=max(chrs, na.rm=TRUE));
+  chrsL[chrs] <- as.character(chrs);
+  if (length(chrsL) >= 23) {
+    chrsL[23] <- "X";
+  }
+  if (length(chrsL) >= 24) {
+    chrsL[24] <- "Y";
+  }
+  if (length(chrsL) >= 25) {
+    chrsL[25] <- "M";
+  }
+
+  chrsL;
 })
 
 
@@ -406,6 +425,7 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
   # Compile RSP file
   verbose && enter(verbose, "Compiling RSP");
   env <- new.env();
+  env$chromosomeLabels <- getChromosomeLabels(this);
   env$chipTypes <- chipTypes;
   env$samples <- getFullNames(this, ...);
   env$sampleLabels <- getNames(this);
@@ -689,6 +709,9 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 
 ##############################################################################
 # HISTORY:
+# 2011-03-14
+# o Now updateSamplesFile() passes down 'chromosomeLabels' too.
+# o Added getChromosomeLabels() for ChromosomeExplorer.
 # 2009-12-30
 # o CLEAN UP: Now ChromosomeExplorer is unaware of the data set tuple in 
 #   the model.  Instead all queries goes to the model.
