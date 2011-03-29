@@ -162,15 +162,10 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
   # Argument 'udf':
   udf <- Arguments$getInstanceOf(udf, "UnitAnnotationDataFile");
 
-  # Generate filename: <chipType>(,tags)*.<ext>
-  chipType <- getChipType(udf);
-
-  # Exclude 'monocell' tags (AD HOC)
-  chipType <- gsub(",monocell", "", chipType);
-
   # Output path
   if (is.null(path)) {
-    path <- file.path("annotationData", "chipTypes", chipType);
+    chipTypeS <- getChipType(udf, fullname=FALSE);
+    path <- file.path("annotationData", "chipTypes", chipTypeS);
   }
   path <- Arguments$getWritablePath(path);
 
@@ -179,6 +174,12 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
 
   # Number of units
   nbrOfUnits <- nbrOfUnits(udf);
+
+  # Generate filename: <chipType>(,tags)*.<ext>
+  chipType <- getChipType(udf);
+
+  # Exclude 'monocell' tags (AD HOC)
+  chipType <- gsub(",monocell", "", chipType);
 
   fullname <- paste(c(chipType, tags), collapse=",");
   ext <- getFilenameExtension(static);
@@ -197,6 +198,10 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
 
 ############################################################################
 # HISTORY:
+# 2011-03-28
+# o BUG FIX: allocateFromUnitAnnotationDataFile() for 
+#   AromaUnitTabularBinaryFile would include chip type tags in the
+#   path, e.g. annotationData/chipTypes/GenomeWidesSNP_6,Full.
 # 2011-02-28
 # o STANDARDIZATION: Now the default output path for all 
 #   allocateFromUnitAnnotationDataFile() is

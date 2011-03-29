@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.7 [2011-03-28]
+o BUG FIX: allocateFromUnitAnnotationDataFile() for 
+  AromaUnitTabularBinaryFile would include chip type tags in the
+  path, e.g. annotationData/chipTypes/GenomeWidesSNP_6,Full.
+
+
 Version: 2.0.6 [2011-03-14]
 o Now ChromosomeExplorer does a better job of listing
   chromosomes that specific to the genome/organism used.
