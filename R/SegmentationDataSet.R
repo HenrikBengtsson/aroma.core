@@ -27,30 +27,21 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
   s <- c(s, sprintf("Chip type(s): %s", getChipType(this)));
 
   nf <- nbrOfFiles(this);
+
   snames <- getSampleNames(this);
   ns <- length(snames);
-  rnames <- getReferenceNames(this);
-  nr <- length(rnames);
+  s <- c(s, sprintf("Sample names: %s [%d]", hpaste(snames), ns));
+
   chrs <- getChromosomes(this);
   nc <- length(chrs);
-
-  if (ns >= 5)
-    snames <- c(snames[1:2], "...", snames[ns]);
-  snames <- paste(snames, collapse=", ");
-  s <- c(s, sprintf("Sample names: %s [%d]", snames, ns));
-
-  if (nc >= 5)
-    chrs <- c(chrs[1:2], "...", chrs[nc]);
-  chrs <- paste(chrs, collapse=", ");
-  s <- c(s, sprintf("Chromosomes: %s [%d]", chrs, nc));
+  s <- c(s, sprintf("Chromosomes: %s [%d]", hpaste(chrs), nc));
 
   s <- c(s, sprintf("Number of \"missing\" files: %d [%d*%d-%d=%d]",
                      (nc*ns-nf), nc, ns, (nc*ns-nf), nf));
 
-  if (nr >= 5)
-    rnames <- c(rnames[1:2], "...", rnames[nr]);
-  rnames <- paste(rnames, collapse=", ");
-  s <- c(s, sprintf("Reference names: %s [%d]", rnames, nr));
+  rnames <- getReferenceNames(this);
+  nr <- length(rnames);
+  s <- c(s, sprintf("Reference names: %s [%d]", hpaste(rnames), nr));
 
   class(s) <- class;
   s;
@@ -192,6 +183,8 @@ setMethodS3("extractCopyNumberRegions", "SegmentationDataSet", function(this, ..
 
 ############################################################################
 # HISTORY:
+# 2011-04-03
+# o Updated as.character() to utilize hpaste().
 # 2010-08-05
 # o Created.
 ############################################################################

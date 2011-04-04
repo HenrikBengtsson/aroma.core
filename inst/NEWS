@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.0.8 [2011-04-03]
+o CLEANUP: Utilizing hpaste() internally wherever applicable. 
+
+
 Version: 2.0.7 [2011-03-28]
 o BUG FIX: allocateFromUnitAnnotationDataFile() for 
   AromaUnitTabularBinaryFile would include chip type tags in the
