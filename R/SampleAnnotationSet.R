@@ -149,7 +149,7 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
 
   verbose && enter(verbose, "Loading all ", class(static)[1], ":s");
 
-  verbose && enter(verbose, "Identify all directories containing SAF files");
+  verbose && enter(verbose, "Identifying all directories containing SAF files");
   pathnames <- findAnnotationData(set="samples", pattern="[.](saf|SAF)$", 
                                 firstOnly=FALSE, verbose=less(verbose,5));
 
