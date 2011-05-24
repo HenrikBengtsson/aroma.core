@@ -68,7 +68,7 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
 
   # Identify the *last* difference
   naValue <- as.integer(NA);
-  pos <- rep(naValue, nrow(cells));
+  pos <- rep(naValue, times=nrow(cells));
   for (pp in seq(length=probeLength)) {
     idxs <- whichVector(seqsA[,pp] != seqsB[,pp]);
     pos[idxs] <- pp;
@@ -125,26 +125,48 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   }
 
 
+  verbose && enter(verbose, "Retrieving SNP nucleotides");
+  verbose && cat(verbose, "Probe shifts:");
+  verbose && str(verbose, shifts);
+
+  verbose && cat(verbose, "Argument 'cells':");
+  verbose && str(verbose, cells);
+
   byRow <- (dim[2] == 2);
   if (byRow) {
     cells <- t(cells);
     dim <- dim(cells);
   }
 
+  verbose && cat(verbose, "Number of pairs: ", ncol(cells));
+
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Identify SNP positions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   pos <- getSnpPositions(this, cells=cells, verbose=less(verbose, 1));
+  verbose && cat(verbose, "SNP positions:");
+  verbose && str(verbose, pos);
+
+  # Sanity check
+  stopifnot(length(pos) == ncol(cells));
+
+  verbose && cat(verbose, "Tabulated SNP positions:");
   verbose && print(verbose, table(pos));
+
   uPos <- sort(unique(pos));
   verbose && cat(verbose, "Unique SNP positions:");
   verbose && print(verbose, uPos);
+
+  # Sanity check
+  stopifnot(length(uPos) > 0);
+
   
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read probe sequences
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   naValue <- as.character(NA);
-  seqs <- rep(naValue, length(cells));
+  seqs <- rep(naValue, times=length(cells));
   dim(seqs) <- dim(cells);
   for (pp in seq(along=uPos)) {
     snpPosition <- uPos[pp];
@@ -161,11 +183,16 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   }
   rm(idxs, seqsPP, positions, cellsPP, snpPosition, cells, pos);
 
-  if (byRow)
+  if (byRow) {
     seqs <- t(seqs);
+  }
+
+  verbose && cat(verbose, "Probe sequences:");
+  verbose && str(verbose, seqs);
+  verbose && exit(verbose);
 
   seqs;
-}) # getAlleleNucleotidePairs()
+}) # getSnpNucleotides()
  
 
 
@@ -312,6 +339,9 @@ setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cel
 
 ############################################################################
 # HISTORY:
+# 2011-05-10
+# o Added more sanity checks and more verbose output to getSnpNucleotides()
+#   for AromaCellSequenceFile
 # 2008-12-04
 # o BUG FIX: groupBySnpNucleotides() of AromaCellSequenceFile would return
 #   an empty element 'missing' for some chip types, e.g. Mapping10K_Xba142.
