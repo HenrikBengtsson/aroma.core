@@ -1094,6 +1094,11 @@
 \alias{getAromaGenomeTextFile.ChromosomalModel}
 \alias{getChromosomeLabels}
 \alias{getChromosomeLabels.ChromosomeExplorer}
+\alias{cat}
+\alias{getOption}
+\alias{append}
+\alias{lapply}
+\alias{sapply}
 
 \description{
   This page contains aliases for all "non-documented" objects that
