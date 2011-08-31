@@ -1,6 +1,6 @@
 Package: aroma.core
-Version: 2.1.4
-Date: 2011-08-02
+Version: 2.1.5
+Date: 2011-08-30
 Title: Core methods and classes used by aroma.* package part of 
        The Aroma Project
 Author: Henrik Bengtsson <henrikb@braju.com>
