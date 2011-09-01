@@ -219,7 +219,7 @@ setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
 
 
 ###########################################################################/**
-
+# @RdocMethod getChromosomes
 #
 # @title "Gets the chromosomes available"
 #

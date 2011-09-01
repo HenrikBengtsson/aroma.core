@@ -16,12 +16,15 @@
   Locates an annotation data file.
  }
 
- \usage{\method{findAnnotationData}{default}(name, tags=NULL, set, pattern=NULL, private=FALSE, ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)}
+ \usage{\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)}
 
  \arguments{
-   \item{name}{A \code{\link[base]{character}} string.}
-   \item{tags}{Optional \code{\link[base]{character}} string.}
-   \item{pattern}{A filename pattern to search for.}
+   \item{name}{Optional \code{\link[base]{character}} string.}
+   \item{tags}{Optional \code{\link[base]{character}} string.
+     Only used if argument \code{pattern} is not specified.}
+   \item{pattern}{A filename pattern to search for.
+     If \code{\link[base]{NULL}}, then defaults to the fullname as defined by
+     arguments \code{name} and \code{tags}.}
    \item{private}{If \code{\link[base:logical]{FALSE}}, files and directories starting
      with a periods are ignored.}
    \item{...}{Arguments passed to \code{\link[affxparser]{findFiles}}.}

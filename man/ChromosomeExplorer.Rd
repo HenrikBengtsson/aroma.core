@@ -46,6 +46,7 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{display} \tab  -\cr
+ \tab \code{getChromosomeLabels} \tab  -\cr
  \tab \code{\link[aroma.core:getChromosomes.ChromosomeExplorer]{getChromosomes}} \tab Gets the chromosomes available.\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{\link[aroma.core:getModel.ChromosomeExplorer]{getModel}} \tab Gets the model.\cr
@@ -65,7 +66,7 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
 addIncludes, addIndexFile, display, getAlias, getArraysOfInput, getAsteriskTags, getFullName, getIncludePath, getMainPath, getName, getNameOfInput, getNames, getParallelSafe, getPath, getReportPathPattern, getSampleLayerPrefix, getSubname, getTags, getTagsOfInput, getTemplatePath, nbrOfArrays, process, setAlias, setArrays, setParallelSafe, setReportPathPattern, setSubname, setup, splitByReportPathPattern
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
 
 
  }
