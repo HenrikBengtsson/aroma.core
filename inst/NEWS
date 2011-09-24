@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.2.1 [2011-09-24]
+o readHeader(), readRawFooter() and writeRawFooter() of 
+  AromaTabularBinaryFile would try to read non-signed 4-byte integers,
+  which is not supported and would be instead read as signed integers.
+  From R v2.13.1 this would generated warnings.
+
+
 Version: 2.2.0 [2011-09-01]
 o Submitted to CRAN.
 o The package passes all redundancy tests.

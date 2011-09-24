@@ -117,8 +117,9 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
     readBin(con=con, what=integer(), size=2, n=n, signed=FALSE, endian="little");
   }
 
+  # Non-signed integers of length 4 bytes are not supported, cf. help(readBin).
   readInts <- function(con, n=1, ...) {
-    readBin(con=con, what=integer(), size=4, n=n, signed=FALSE, endian="little");
+    readBin(con=con, what=integer(), size=4, n=n, signed=TRUE, endian="little");
   }
 
   readString <- function(con, ...) {
@@ -206,8 +207,7 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
     throw("File format error. The read \"magic\" does not match the existing one: ", asStr(magic), " != ", asStr(trueMagic));
   }
 
-  # File version
-  version <- readBin(con=con, what=integer(), size=4, signed=FALSE, endian="little");
+  version <- readInts(con, n=1);
   if (version < 0) {
     throw("File format error. Negative file version: ", version);
   }
@@ -232,8 +232,12 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
 
 
 setMethodS3("readRawFooter", "AromaTabularBinaryFile", function(this, con=NULL, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Non-signed integers of length 4 bytes are not supported, cf. help(readBin)
   readInts <- function(con, n=1, ...) {
-    readBin(con=con, what=integer(), size=4, n=n, signed=FALSE, endian="little");
+    readBin(con=con, what=integer(), size=4, n=n, signed=TRUE, endian="little");
   }
 
   if (is.null(con)) {
@@ -391,8 +395,9 @@ setMethodS3("writeRawFooter", "AromaTabularBinaryFile", function(this, raw, con=
     writeBin(con=con, values, size=4, endian="little");
   }
 
+  # Non-signed integers of length 4 bytes are not supported, cf. help(readBin)
   readInts <- function(con, n=1, ...) {
-    readBin(con=con, what=integer(), size=4, n=n, signed=FALSE, endian="little");
+    readBin(con=con, what=integer(), size=4, n=n, signed=TRUE, endian="little");
   }
 
 
@@ -1330,6 +1335,11 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 
 ############################################################################
 # HISTORY:
+# 2011-09-24
+# o readHeader(), readRawFooter() and writeRawFooter() of 
+#   AromaTabularBinaryFile would try to read non-signed 4-byte integers,
+#   which is not supported and would be instead read as signed integers.
+#   From R v2.13.1 this would generated warnings.
 # 2011-02-01
 # o ROBUSTNESS: Using argument 'nchars' (not 'nchar') in readChar() calls.
 # 2010-06-02
