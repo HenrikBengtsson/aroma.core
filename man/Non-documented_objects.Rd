@@ -1099,6 +1099,26 @@
 \alias{append}
 \alias{lapply}
 \alias{sapply}
+\alias{AromaRepository}
+\alias{downloadACS}
+\alias{downloadACS.AromaRepository}
+\alias{downloadCDF}
+\alias{downloadCDF.AromaRepository}
+\alias{downloadChipTypeFile}
+\alias{downloadChipTypeFile.AromaRepository}
+\alias{downloadFile.AromaRepository}
+\alias{downloadProbeSeqsTXT}
+\alias{downloadProbeSeqsTXT.AromaRepository}
+\alias{downloadTXT}
+\alias{downloadTXT.AromaRepository}
+\alias{downloadUFL}
+\alias{downloadUFL.AromaRepository}
+\alias{downloadUGP}
+\alias{downloadUGP.AromaRepository}
+\alias{getUrlPath}
+\alias{getUrlPath.AromaRepository}
+\alias{getVerbose.AromaRepository}
+\alias{setVerbose.AromaRepository}
 
 \description{
   This page contains aliases for all "non-documented" objects that
