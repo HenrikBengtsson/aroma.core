@@ -129,7 +129,9 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(static, chipType
 
   verbose && enter(verbose, "Downloading chiptype file");
 
-  path <- file.path("annotationData", "chipTypes", chipType);
+  chipTypeS <- gsub(",.*", "", chipType);
+
+  path <- file.path("annotationData", "chipTypes", chipTypeS);
   verbose && cat(verbose, "Path: ", path);
 
   fullname <- paste(c(chipType, tags), collapse=",");
@@ -143,6 +145,18 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(static, chipType
   res;
 }, static=TRUE, protected=TRUE) # downloadChipTypeFile()
 
+
+setMethodS3("downloadACC", "AromaRepository", function(static, ...) {
+  downloadChipTypeFile(static, ..., suffix=".acc");
+}, static=TRUE)
+
+setMethodS3("downloadACM", "AromaRepository", function(static, ...) {
+  downloadChipTypeFile(static, ..., suffix=".acm");
+}, static=TRUE)
+
+setMethodS3("downloadACP", "AromaRepository", function(static, ...) {
+  downloadChipTypeFile(static, ..., suffix=".acp");
+}, static=TRUE)
 
 setMethodS3("downloadACS", "AromaRepository", function(static, ...) {
   downloadChipTypeFile(static, ..., suffix=".acs");

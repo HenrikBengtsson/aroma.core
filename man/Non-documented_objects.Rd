@@ -1119,6 +1119,12 @@
 \alias{getUrlPath.AromaRepository}
 \alias{getVerbose.AromaRepository}
 \alias{setVerbose.AromaRepository}
+\alias{downloadACC}
+\alias{downloadACC.AromaRepository}
+\alias{downloadACM}
+\alias{downloadACM.AromaRepository}
+\alias{downloadACP}
+\alias{downloadACP.AromaRepository}
 
 \description{
   This page contains aliases for all "non-documented" objects that

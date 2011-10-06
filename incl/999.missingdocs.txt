@@ -542,3 +542,5 @@ append lapply sapply
   downloadUGP downloadUGP.AromaRepository getUrlPath
   getUrlPath.AromaRepository getVerbose.AromaRepository
   setVerbose.AromaRepository
+ downloadACC downloadACC.AromaRepository downloadACM
+ downloadACM.AromaRepository downloadACP downloadACP.AromaRepository
