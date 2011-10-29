@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.0 [2011-10-28]
+o Added a namespace to the package, which will be more or less
+  a requirement starting with R v2.14.0.
+
+
 Version: 2.2.2 [2011-09-29]
 o Added alpha version of the AromaRepository class.
 
