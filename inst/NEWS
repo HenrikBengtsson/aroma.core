@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.1 [2011-11-11]
+o Added extractPSCNArray() for AromaUnitTotalCnBinary{File|Set}.
+
+
 Version: 2.3.0 [2011-10-28]
 o Added a namespace to the package, which will be more or less
   a requirement starting with R v2.14.0.

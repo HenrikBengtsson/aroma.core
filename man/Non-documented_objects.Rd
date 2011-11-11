@@ -1125,6 +1125,11 @@
 \alias{downloadACM.AromaRepository}
 \alias{downloadACP}
 \alias{downloadACP.AromaRepository}
+\alias{extractPSCNArray}
+\alias{extractPSCNArray.AromaUnitTotalCnBinaryFile}
+\alias{extractPSCNArray.AromaUnitTotalCnBinarySet}
+\alias{extractPSCNMatrix}
+\alias{extractPSCNMatrix.AromaUnitTotalCnBinaryFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

@@ -544,3 +544,7 @@ append lapply sapply
   setVerbose.AromaRepository
  downloadACC downloadACC.AromaRepository downloadACM
  downloadACM.AromaRepository downloadACP downloadACP.AromaRepository
+extractPSCNArray extractPSCNArray.AromaUnitTotalCnBinaryFile
+extractPSCNArray.AromaUnitTotalCnBinarySet extractPSCNMatrix
+extractPSCNMatrix.AromaUnitTotalCnBinaryFile
+
