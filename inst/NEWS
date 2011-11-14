@@ -1,6 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.2 [2011-11-14]
+o BUG FIX: process() of ChromosomeExplorer would throw "Error in
+  file(file, ifelse(append, "a", "w")) : [...] cannot open file '/
+  [...] (new Array(': No such file or directory".  Importing
+  the R.rsp namespace in the aroma.core namespace solved this.
+  Thanks Qian Liu for reporting on this.
+
+
 Version: 2.3.1 [2011-11-11]
 o Added extractPSCNArray() for AromaUnitTotalCnBinary{File|Set}.
 
