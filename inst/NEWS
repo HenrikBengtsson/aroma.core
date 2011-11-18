@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.3 [2011-11-17]
+o Added trial version of AromaUcscGenomeTextFile.
+
+
 Version: 2.3.2 [2011-11-14]
 o BUG FIX: process() of ChromosomeExplorer would throw "Error in
   file(file, ifelse(append, "a", "w")) : [...] cannot open file '/
