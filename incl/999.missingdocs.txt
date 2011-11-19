@@ -552,3 +552,5 @@ extractPSCNMatrix.AromaUnitTotalCnBinaryFile
  readDataFrame.AromaUcscGenomeTextFile
 getDefaultExtension.AromaCellCpgFile
 getDefaultExtension.AromaCellPositionFile
+getDefaultExtension.AromaCellSequenceFile
+getDefaultExtension.AromaUflFile getDefaultExtension.AromaUgpFile

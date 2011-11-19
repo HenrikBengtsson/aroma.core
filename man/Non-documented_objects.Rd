@@ -1137,6 +1137,9 @@
 \alias{readDataFrame.AromaUcscGenomeTextFile}
 \alias{getDefaultExtension.AromaCellCpgFile}
 \alias{getDefaultExtension.AromaCellPositionFile}
+\alias{getDefaultExtension.AromaCellSequenceFile}
+\alias{getDefaultExtension.AromaUflFile}
+\alias{getDefaultExtension.AromaUgpFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that
