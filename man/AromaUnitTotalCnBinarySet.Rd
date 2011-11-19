@@ -58,6 +58,7 @@ extends \link[aroma.core]{CopyNumberDataSet}\cr
  \tab \code{as.CopyNumberDataSetTuple} \tab  -\cr
  \tab \code{byName} \tab  -\cr
  \tab \code{exportTotalCnRatioSet} \tab  -\cr
+ \tab \code{extractPSCNArray} \tab  -\cr
  \tab \code{getAverageFile} \tab  -\cr
  \tab \code{getUnitNamesFile} \tab  -\cr
  \tab \code{nbrOfArrays} \tab  -\cr

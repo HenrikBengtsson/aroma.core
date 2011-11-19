@@ -30,7 +30,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaGenomeTextFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\cr
+\emph{\link[aroma.core]{AromaUcscGenomeTextFile}}\cr
 
 public abstract static class \bold{AromaGenomeTextFile}\cr
 extends \emph{\link[R.filesets]{TabularTextFile}}\cr
@@ -58,7 +58,7 @@ extends \emph{\link[R.filesets]{TabularTextFile}}\cr
 
 
  \bold{Methods inherited from TabularTextFile}:\cr
-[, as.character, getColumnNames, getHeader, getReadArguments, hasColumnHeader, nbrOfLines, nbrOfRows, readColumnNames, readColumns, readDataFrame, readLines, readRawHeader, writeColumnsToFiles
+[, as.character, getColumnNames, getCommentChar, getHeader, getReadArguments, hasColumnHeader, nbrOfLines, nbrOfRows, readColumnNames, readColumns, readDataFrame, readLines, readRawHeader, setCommentChar, writeColumnsToFiles
 
  \bold{Methods inherited from GenericTabularFile}:\cr
 as.character, dim, extractMatrix, getColumnNames, getColumnNameTranslator, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, setColumnNameTranslator, translateColumnNames

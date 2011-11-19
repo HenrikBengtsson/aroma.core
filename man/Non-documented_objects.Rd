@@ -1130,6 +1130,13 @@
 \alias{extractPSCNArray.AromaUnitTotalCnBinarySet}
 \alias{extractPSCNMatrix}
 \alias{extractPSCNMatrix.AromaUnitTotalCnBinaryFile}
+\alias{AromaUcscGenomeTextFile}
+\alias{findByGenome.AromaUcscGenomeTextFile}
+\alias{getDefaultExtension}
+\alias{getDefaultExtension.UnitAnnotationDataFile}
+\alias{readDataFrame.AromaUcscGenomeTextFile}
+\alias{getDefaultExtension.AromaCellCpgFile}
+\alias{getDefaultExtension.AromaCellPositionFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

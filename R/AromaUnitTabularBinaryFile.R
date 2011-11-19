@@ -77,8 +77,20 @@ setMethodS3("byChipType", "AromaUnitTabularBinaryFile", function(static, chipTyp
   pathnames <- findByChipType(static, chipType=chipType, tags=tags, 
                                                      firstOnly=FALSE, ...);
   if (is.null(pathnames)) {
-    throw("Could not locate a file for this chip type: ", 
-                                   paste(c(chipType, tags), collapse=","));
+    ext <- getDefaultExtension(static);
+    note <- attr(ext, "note");
+    msg <- sprintf("Failed to create %s object. Could to locate an annotation data file for chip type '%s'", class(static)[1], chipType);
+    if (is.null(tags)) {
+      msg <- sprintf("%s (without requiring any tags)", msg);
+    } else {
+      msg <- sprintf("%s with tags '%s'", msg, paste(tags, collapse=","));
+    }
+    msg <- sprintf("%s and with filename extension '%s'", msg, ext);
+    if (!is.null(note)) {
+      msg <- sprintf("%s (%s)", msg, note);
+    }
+    msg <- sprintf("%s.", msg);
+    throw(msg);
   }
 
   verbose && cat(verbose, "Number of tabular binary files located: ", 
@@ -198,6 +210,10 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
 
 ############################################################################
 # HISTORY:
+# 2011-11-19
+# o Now byChipType() for AromaUnitTabularBinaryFile gives an error
+#   message with more information on which file it failed to locate,
+#   e.g. by specifying filename extension it looked for.
 # 2011-03-28
 # o BUG FIX: allocateFromUnitAnnotationDataFile() for 
 #   AromaUnitTabularBinaryFile would include chip type tags in the

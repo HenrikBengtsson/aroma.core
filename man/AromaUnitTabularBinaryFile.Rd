@@ -68,7 +68,7 @@ extends \link[aroma.core]{UnitAnnotationDataFile}\cr
 
 
  \bold{Methods inherited from UnitAnnotationDataFile}:\cr
-byChipType, getAromaUflFile, getAromaUgpFile, getChipType, getPlatform, nbrOfUnits
+byChipType, getAromaUflFile, getAromaUgpFile, getChipType, getDefaultExtension, getPlatform, nbrOfUnits
 
  \bold{Methods inherited from AromaMicroarrayTabularBinaryFile}:\cr
 allocate, as.character, byChipType, findByChipType, getChipType, getFilenameExtension, getPlatform

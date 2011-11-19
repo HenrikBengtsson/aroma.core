@@ -55,6 +55,8 @@ extends \emph{\link[aroma.core]{CopyNumberDataFile}}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{extractPSCNArray} \tab  -\cr
+ \tab \code{extractPSCNMatrix} \tab  -\cr
  \tab \code{extractRawCopyNumbers} \tab  -\cr
  \tab \code{getAM} \tab  -\cr
  \tab \code{getNumberOfFilesAveraged} \tab  -\cr

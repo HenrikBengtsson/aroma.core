@@ -1,6 +1,15 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.4 [2011-11-19]
+o Now byChipType() for UnitAnnotationDataFile and derivatives give an
+  error message with more information on which file it failed to 
+  locate, e.g. by specifying filename extension it looked for.
+o Added default getDefaultExtension() for UnitAnnotationDataFile,
+  which guesses the filename extension from the class name, unless
+  overridden by a subclass.
+
+
 Version: 2.3.3 [2011-11-17]
 o Added trial version of AromaUcscGenomeTextFile.
 

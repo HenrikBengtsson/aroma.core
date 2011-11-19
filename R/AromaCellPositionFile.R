@@ -32,6 +32,10 @@ setMethodS3("getFilenameExtension", "AromaCellPositionFile", function(static, ..
   "acp";
 }, static=TRUE)
 
+setMethodS3("getDefaultExtension", "AromaCellPositionFile", function(static, ...) {
+  "acp";
+}, static=TRUE)
+
 
 setMethodS3("getExtensionPattern", "AromaCellPositionFile", function(static, ...) {
   "[.](acp)$";
@@ -68,8 +72,20 @@ setMethodS3("byChipType", "AromaCellPositionFile", function(static, chipType, ta
   pathname <- findByChipType(static, chipType=chipType, tags=tags, 
       firstOnly=TRUE, ...);
   if (is.null(pathname)) {
-      throw("Could not locate a file for this chip type: ", 
-          paste(c(chipType, tags), collapse=","));
+    ext <- getDefaultExtension(static);
+    note <- attr(ext, "note");
+    msg <- sprintf("Failed to create %s object. Could to locate an annotation data file for chip type '%s'", class(static)[1], chipType);
+    if (is.null(tags)) {
+      msg <- sprintf("%s (without requiring any tags)", msg);
+    } else {
+      msg <- sprintf("%s with tags '%s'", msg, paste(tags, collapse=","));
+    }
+    msg <- sprintf("%s and with filename extension '%s'", msg, ext);
+    if (!is.null(note)) {
+      msg <- sprintf("%s (%s)", msg, note);
+    }
+    msg <- sprintf("%s.", msg);
+    throw(msg);
   }
 
   verbose && cat(verbose, "Located file: ", pathname);

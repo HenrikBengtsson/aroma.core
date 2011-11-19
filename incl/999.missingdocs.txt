@@ -547,4 +547,8 @@ append lapply sapply
 extractPSCNArray extractPSCNArray.AromaUnitTotalCnBinaryFile
 extractPSCNArray.AromaUnitTotalCnBinarySet extractPSCNMatrix
 extractPSCNMatrix.AromaUnitTotalCnBinaryFile
-
+ AromaUcscGenomeTextFile findByGenome.AromaUcscGenomeTextFile
+ getDefaultExtension getDefaultExtension.UnitAnnotationDataFile
+ readDataFrame.AromaUcscGenomeTextFile
+getDefaultExtension.AromaCellCpgFile
+getDefaultExtension.AromaCellPositionFile
