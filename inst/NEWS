@@ -8,6 +8,12 @@ o Now byChipType() for UnitAnnotationDataFile and derivatives give an
 o Added default getDefaultExtension() for UnitAnnotationDataFile,
   which guesses the filename extension from the class name, unless
   overridden by a subclass.
+o CLEANUP: Now getFullNames() for AromaMicroarrayDataSetTuple no 
+  longer produces a warning on "is.na() applied to non-(list or 
+  vector) of type 'NULL'".
+o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet and
+  exportFracBDiffSet() for AromaUnitTotalCnBinarySet tried to call
+  cat(verbose, x) with length(x) > 1.
 
 
 Version: 2.3.3 [2011-11-17]

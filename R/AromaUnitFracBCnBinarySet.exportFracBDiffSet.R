@@ -46,7 +46,8 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   verbose && cat(verbose, "Chip type: ", chipType);
   nbrOfFiles <- length(this);
   verbose && cat(verbose, "Number of files: ", nbrOfFiles);
-  verbose && cat(verbose, "Reference set: ", refSet);
+  verbose && cat(verbose, "Reference set:");
+  verbose && print(verbose, refSet);
 
   dataSetOut <- paste(c(dataSet, tags), collapse=",");
   verbose && cat(verbose, "Output data set: ", dataSetOut);
@@ -175,6 +176,9 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
 
 ############################################################################
 # HISTORY:
+# 2011-11-19
+# o BUG FIX: exportFracBDiffSet() for AromaUnitTotalCnBinarySet tried
+#   to call cat(verbose, x) with length(x) > 1.
 # 2009-05-17
 # o Created from AromaUnitTotalCnBinarySet.exportTotalCnRatioSet.R.
 ############################################################################

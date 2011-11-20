@@ -62,7 +62,8 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
   nbrOfFiles <- length(this);
   verbose && cat(verbose, "Number of files: ", nbrOfFiles);
   if (!is.null(refSet)) {
-    verbose && cat(verbose, "Reference set: ", refSet);
+    verbose && cat(verbose, "Reference set:");
+    verbose && print(verbose, refSet);
   } else {
     verbose && str(verbose, "theta[R]: ", thetaR);
   }
@@ -241,6 +242,9 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
 ############################################################################
 # HISTORY:
+# 2011-11-19
+# o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet tried
+#   to call cat(verbose, x) with length(x) > 1.
 # 2009-09-24
 # o Added more verbose output.
 # 2009-06-13

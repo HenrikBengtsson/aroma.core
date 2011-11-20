@@ -157,7 +157,10 @@ setMethodS3("getFullNames", "AromaMicroarrayDataSetTuple", function(this, arrays
   
     # Get chip-effect tags *common* across chip types
     tags <- lapply(cfList, FUN=getTags, ...);
-    tags <- lapply(tags, FUN=na.omit);
+    tags <- lapply(tags, FUN=function(x) { 
+      # To avoid warning on na.omit(NULL)
+      if (length(x) > 0) na.omit(x) else x;
+    });
     tags <- base::lapply(tags, setdiff, exclude);
     tags <- getCommonListElements(tags);
     tags <- tags[[1]];
@@ -226,6 +229,10 @@ setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE)
 
 ##############################################################################
 # HISTORY:
+# 2011-11-19
+# o CLEANUP: Now getFullNames() for AromaMicroarrayDataSetTuple no 
+#   longer produces a warning on "is.na() applied to non-(list or 
+#   vector) of type 'NULL'".
 # 2009-12-31
 # o getSets() of AromaMicroarrayDataSetTuple overrides the default method
 #   by adding the chip types as the names of the returns list.
