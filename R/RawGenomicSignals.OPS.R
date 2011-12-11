@@ -70,7 +70,7 @@ setMethodS3("+", "RawGenomicSignals", function(e1, e2) {
   other <- e2;
 
   addBy(this, other);
-}, appendVarArgs=FALSE);
+}, appendVarArgs=FALSE, validators=NULL);
 
 setMethodS3("-", "RawGenomicSignals", function(e1, e2) {
   # To please R CMD check 
@@ -78,7 +78,7 @@ setMethodS3("-", "RawGenomicSignals", function(e1, e2) {
   other <- e2;
 
   subtractBy(this, other);
-}, appendVarArgs=FALSE);
+}, appendVarArgs=FALSE, validators=NULL);
 
 setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
   # To please R CMD check 
@@ -104,11 +104,13 @@ setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
   } 
 
   res;
-}, appendVarArgs=FALSE);
+}, appendVarArgs=FALSE, validators=NULL);
 
 
 ############################################################################
 # HISTORY:
+# 2011-12-10
+# o ROBUSTNESS: Turned of RCC validation for "+", "-" and "*" methods.
 # 2010-09-11
 # o Added basic support for operators +, - and * to RawGenomicSignals.
 # 2009-05-10

@@ -20,12 +20,26 @@
 #     positions.}
 #   \item{w}{A optional @numeric @vector of prior weights for each of 
 #     the J entries.}
-#   \item{from,to}{The center location of the first and the last bin.}
-#   \item{by}{The distance between the center locations of each bin.}
-#   \item{length.out}{The number of bins.}
-#   \item{xOut}{Prespecified center locations.}
-#   \item{na.rm}{If @TRUE, missing values are excluded, otherwise not.}
+#   \item{xOut}{Optional @numeric @vector of K bin center locations.}
+#   \item{xOutRange}{Optional Kx2 @matrix specifying the boundary
+#     locations for bins.
+#     If not specified, the boundaries are set to be the midpoints
+#     of the bin centers, such that the bins have maximum lengths
+#     without overlapping.
+#     Also, if \code{xOut} is not specified, then it is set to be the
+#     mid points of these boundaries.
+#   }
+#   \item{from, to, by, length.out}{
+#     If neither \code{xOut} nor \code{xOutRange} is specified,
+#     the \code{xOut} is generated uniformly from these arguments, which 
+#     specify the center location of the first and the last bin, and the
+#     distance between the center locations, utilizing the
+#     @see "base::seq" function.
+#     Argument \code{length.out} can be used as an alternative to
+#     \code{by}, in case it specifies the total number of bins instead.
+#   }
 #   \item{FUN}{A @function.}
+#   \item{na.rm}{If @TRUE, missing values are excluded, otherwise not.}
 #   \item{...}{Not used.}
 #   \item{verbose}{See @see "R.utils::Verbose".}
 # }
@@ -33,11 +47,14 @@
 # \value{
 #   Returns a @numeric KxI @matrix (or a @vector of length K) where
 #   K is the total number of bins.
-#   Attribute 'xOut' specifies the center locations of each bin.
-#   The center locations are always uniformly distributed.
-#   Attribute 'binWidth' specifies the width of the bins.  
-#   The width of the bins are always the same and identical to the
-#   distance between two adjacent bin centers.
+#   The following attributes are also returned:
+#   \itemize{
+#    \item{\code{xOut}}{The center locations of each bin.}
+#    \item{\code{xOutRange}}{The bin boundaries.}
+#    \item{\code{count}}{The number of data points within each bin
+#         (based solely on argument \code{x}).}
+#    \item{\code{binWidth}}{The \emph{average} bin width.}
+#  }
 # }
 #
 # @examples "../incl/colBinnedSmoothing.Rex"
@@ -53,7 +70,7 @@
 # @keyword robust
 # @keyword univar 
 #*/###########################################################################
-setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w=NULL, from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), by=NULL, length.out=length(x), xOut=NULL, na.rm=TRUE, FUN="median", ..., verbose=FALSE) {
+setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -97,6 +114,17 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
     xOut <- Arguments$getNumerics(xOut);
   }
 
+  # Argument 'xOut':
+  if (!is.null(xOutRange)) {
+    if (!is.matrix(xOutRange)) {
+      throw("Argument 'xOutRange' must be a matrix: ", hpaste(class(xOutRange)));
+    }
+    if (ncol(xOutRange) != 2L) {
+      throw("Argument 'xOutRange' must be a matrix with two columns: ", ncol(xOutRange));
+    }
+    stopifnot(all(xOutRange[,2L] >= xOutRange[,1L]));
+  }
+
   # Arguments 'na.rm':
   na.rm <- Arguments$getLogical(na.rm);
 
@@ -129,27 +157,53 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Generate center locations of bins?
   if (is.null(xOut)) {
-    if (!is.null(by)) {
-      xOut <- seq(from=from, to=to, by=by);
+    # Generate from bin boundaries, or by using seq()?
+    if (!is.null(xOutRange)) {
+      # Place in the center of the bins
+      xOut <- (xOutRange[,1L] + xOutRange[,2L]) / 2;
     } else {
-      xOut <- seq(from=from, to=to, length.out=length.out);
+      if (!is.null(by)) {
+        xOut <- seq(from=from, to=to, by=by);
+      } else {
+        xOut <- seq(from=from, to=to, length.out=length.out);
+      }
     }
   }
+
+  # Number of bins
+  nOut <- length(xOut);
 
   verbose && cat(verbose, "xOut:");
   verbose && str(verbose, xOut);
 
-  # Infer 'by' from 'xOut'?
-  if (is.null(by)) {
-    by <- mean(diff(xOut), na.rm=TRUE);
+  # Create 'xOutRange' (or validate existing)
+  if (is.null(xOutRange)) {
+    # Average bin width
+    if (is.null(by)) {
+      avgBinWidth <- mean(diff(xOut), na.rm=TRUE);
+    } else {
+      avgBinWidth <- by;
+    }
+
+    # Identify mid points between target locations
+    xOutMid <- (xOut[-1L] + xOut[-nOut]) / 2;
+    xOutMid <- c(xOutMid[1L]-avgBinWidth, xOutMid, xOutMid[nOut-1L]+avgBinWidth);
+
+    naValue <- as.double(NA);
+    xOutRange <- matrix(naValue, nrow=nOut, ncol=2);
+    xOutRange[,1L] <- xOutMid[-length(xOutMid)];
+    xOutRange[,2L] <- xOutMid[-1L];
+  } else {
+    # Validate
+    if (nrow(xOutRange) != nOut) {
+      throw("The number of rows in 'xOutRange' does not match the number of bin: ", ncol(xOutRange), " != ", nOut);
+    }
+
+    # Assert that the bin boundaries [x0,x1) contains the target bin.
+    stopifnot(all(xOutRange[,1L] <= xOut));
+    stopifnot(all(xOut <= xOutRange[,2L]));
   }
 
-  # Width of each bin
-  h <- by;
-  radius <- h/2;
-
-  # Number of bins
-  nOut <- length(xOut);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Smoothing in bins
@@ -159,27 +213,35 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
 
   verbose && enter(verbose, "Estimating signals in each bin");
 
-  verbose && cat(verbose, "Output locations (centers of bins):");
+  verbose && cat(verbose, "Output locations (bin centers):");
   verbose && str(verbose, xOut);
 
-  verbose && cat(verbose, "Distance between bins (width of each bin):");
-  verbose && str(verbose, h);
+  # Speed up access access
+  x0 <- xOutRange[,1L, drop=TRUE];
+  x1 <- xOutRange[,2L, drop=TRUE];
+
+  verbose && cat(verbose, "Summary of bin widths:");
+  verbose && print(verbose, summary(x1-x0));
+
+  # Allocate number of counts per bin
+  counts <- integer(nOut);
 
   # For each bin...
   for (kk in seq_len(nOut)) {
     if (kk %% 100 == 0)
       verbose && cat(verbose, kk);
 
-    # Weights centered around x[kk]
-    xDiff <- (x-xOut[kk]);
-    keep <- whichVector(abs(xDiff) <= radius);
+    # Identify data points within the bin
+    keep <- whichVector(x0[kk] <= x & x < x1[kk]);
+    nKK <- length(keep);
+    counts[kk] <- nKK;
+
     # Nothing to do?
-    if (length(keep) == 0) {
+    if (nKK == 0) {
       next;
     }
 
     # Keep only data points and prior weight within the current bin
-    xDiff <- xDiff[keep];
     YBin <- Y[keep,,drop=FALSE];
     if (is.null(w)) {
       wBin <- NULL;
@@ -206,8 +268,13 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
 
   verbose && exit(verbose);
 
+  # Average bin width
+  avgBinWidth <- mean(xOutRange[,2L] - xOutRange[,1L], na.rm=TRUE);
+
   attr(Ys, "xOut") <- xOut;
-  attr(Ys, "binWidth") <- h;
+  attr(Ys, "xOutRange") <- xOutRange;
+  attr(Ys, "counts") <- counts;
+  attr(Ys, "binWidth") <- avgBinWidth;
 
   verbose && exit(verbose);
 
@@ -226,6 +293,16 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2011-12-10
+# o Returning also the bin counts.
+# o Now it is possible to fully specify the location and the width
+#   of each bin used by colBinnedSmoothing().
+# o Moved argument 'xOut' and new 'xOutRange' up front.
+# o DOCUMENTATION: Put 'from', 'to', 'by' and 'length.out' into one
+#   argument item and reference help for seq() as well.
+# o CORRECTNESS: Now bins are by default strictly disjoint, by redefining
+#   them as [x0,x1) instead of [x0,x1].
+# o CLEANUP: Dropped unused 'xDiff <- xDiff[keep]'.
 # 2009-05-16
 # o Now colBinnedSmoothing() uses Arguments$getNumerics(), not getDoubles(),
 #   where possible.  This will save memory in some cases.

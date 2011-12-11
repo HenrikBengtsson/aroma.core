@@ -100,7 +100,7 @@ setMethodS3("+", "CopyNumberRegions", function(e1, e2) {
 ##  res <- prune(res, delta=0);
 
   res;  
-}, appendVarArgs=FALSE)
+}, appendVarArgs=FALSE, validators=NULL)
 
 
 setMethodS3("-", "CopyNumberRegions", function(e1, e2) {
@@ -112,7 +112,7 @@ setMethodS3("-", "CopyNumberRegions", function(e1, e2) {
   otherNeg$mean <- -otherNeg$mean;
   res <- this + otherNeg;
   res;
-}, appendVarArgs=FALSE)
+}, appendVarArgs=FALSE, validators=NULL)
 
 
 setMethodS3("*", "CopyNumberRegions", function(e1, e2) {
@@ -133,7 +133,7 @@ setMethodS3("*", "CopyNumberRegions", function(e1, e2) {
   res$mean <- value*res$mean;
 
   res;
-}, appendVarArgs=FALSE)
+}, appendVarArgs=FALSE, validators=NULL)
 
 
 setMethodS3("xRange", "CopyNumberRegions", function(this, ...) {
@@ -197,6 +197,8 @@ setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(
 
 ############################################################################
 # HISTORY:
+# 2011-12-10
+# o ROBUSTNESS: Turned of RCC validation for "+", "-" and "*" methods.
 # 2010-07-24
 # o Added simulateRawCopyNumbers() for CopyNumberRegions.
 # o Added xRange(), xMin() and xMax() for CopyNumberRegions.

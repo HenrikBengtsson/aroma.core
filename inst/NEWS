@@ -1,6 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.5 [2011-12-10]
+o Now it is possible to fully specify the location and the width
+  of each bin used by colBinnedSmoothing(), which now also returns
+  the bin counts as part of the attributes.  Moreover, the bins
+  are now defined to be strictly disjoint using boundaries [x0,x1)
+  instead of [x0,x1] as before.
+
+
 Version: 2.3.4 [2011-11-19]
 o Now byChipType() for UnitAnnotationDataFile and derivatives give an
   error message with more information on which file it failed to 
