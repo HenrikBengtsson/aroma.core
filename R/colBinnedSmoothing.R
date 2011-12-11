@@ -112,6 +112,10 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
   # Argument 'xOut':
   if (!is.null(xOut)) {
     xOut <- Arguments$getNumerics(xOut);
+    o <- order(xOut);
+    if (!all(diff(o) > 0L)) {
+      throw("Argument 'xOut' must be strictly ordered: ", hpaste(na.omit(xOut)));
+    }
   }
 
   # Argument 'xOut':
@@ -293,6 +297,8 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2011-12-11
+# o ROBUSTNESS: colBinnedSmoothing() now asserts that 'xOut' is ordered.
 # 2011-12-10
 # o Returning also the bin counts.
 # o Now it is possible to fully specify the location and the width
