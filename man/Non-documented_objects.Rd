@@ -1140,6 +1140,8 @@
 \alias{getDefaultExtension.AromaCellSequenceFile}
 \alias{getDefaultExtension.AromaUflFile}
 \alias{getDefaultExtension.AromaUgpFile}
+\alias{plotCoverageMap}
+\alias{plotCoverageMap.AromaUgpFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

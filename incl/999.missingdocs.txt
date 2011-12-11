@@ -554,3 +554,4 @@ getDefaultExtension.AromaCellCpgFile
 getDefaultExtension.AromaCellPositionFile
 getDefaultExtension.AromaCellSequenceFile
 getDefaultExtension.AromaUflFile getDefaultExtension.AromaUgpFile
+plotCoverageMap plotCoverageMap.AromaUgpFile
