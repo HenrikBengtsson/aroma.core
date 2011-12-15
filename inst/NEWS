@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.6 [2011-12-15]
+o Added argument 'units' to writeDateFrame() for AromaUnitSignalBinarySet
+  to make it possible to write any subset of units and in any order,
+  e.g. genome order.
+
+
 Version: 2.3.5 [2011-12-11]
 o Now it is possible to fully specify the location and the width
   of each bin used by colBinnedSmoothing(), which now also returns

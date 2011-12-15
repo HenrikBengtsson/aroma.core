@@ -24,12 +24,13 @@
   For more details, see below.
 }
 
-\usage{\method{writeDataFrame}{AromaUnitSignalBinarySet}(this, filename=sprintf("\%s.txt", getFullName(this)), path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this, fullname = FALSE)), ..., columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE)}
+\usage{\method{writeDataFrame}{AromaUnitSignalBinarySet}(this, filename=sprintf("\%s.txt", getFullName(this)), path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this, fullname = FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE)}
 
 \arguments{
  \item{filename}{The filename of the generated file.}
  \item{path}{The path where the generated file should be written.}
  \item{...}{Not used.}
+ \item{units}{The units to be written.  If \code{\link[base]{NULL}}, all units are considered.}
  \item{columns}{A \code{\link[base]{character}} \code{\link[base]{vector}} specifying which column names,
    including optional annotation data column names, that should be
    exported.  A string \code{"*"} corresponds to inserting

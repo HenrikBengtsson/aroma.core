@@ -18,6 +18,7 @@
 #  \item{filename}{The filename of the generated file.}
 #  \item{path}{The path where the generated file should be written.}
 #  \item{...}{Not used.}
+#  \item{units}{The units to be written.  If @NULL, all units are considered.}
 #  \item{columns}{A @character @vector specifying which column names,
 #    including optional annotation data column names, that should be
 #    exported.  A string \code{"*"} corresponds to inserting
@@ -49,7 +50,7 @@
 #  @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filename=sprintf("%s.txt", getFullName(this)), path=file.path(getRootName(this, tags="*,txt"), getFullName(this), getChipType(this, fullname=FALSE)), ..., columns=c("unitName", "*"), sep="\t", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE) {
+setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filename=sprintf("%s.txt", getFullName(this)), path=file.path(getRootName(this, tags="*,txt"), getFullName(this), getChipType(this, fullname=FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="\t", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -115,10 +116,19 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
   dfFirst <- getFile(this, 1);
   fields <- getColumnNames(dfFirst);
+  ugp <- getAromaUgpFile(dfFirst);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'units':
+  maxNbrOfUnits <- nbrOfUnits(ugp);
+  if (is.null(units)) {
+    units <- seq(length=maxNbrOfUnits);
+  } else {
+    units <- Arguments$getIndices(units, max=maxNbrOfUnits);
+  }
+
   # Argument 'columns':
   columns <- Arguments$getCharacters(columns);
 
@@ -202,7 +212,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # Generate file header
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nbrOfFiles <- nbrOfFiles(this);
-  nbrOfUnits <- nbrOfUnits(dfFirst);
+  nbrOfUnits <- length(units);
   nbrOfColumnsPerFile <- nbrOfColumns(dfFirst);
   nbrOfColumns <- nbrOfFiles*nbrOfColumnsPerFile;
 
@@ -319,7 +329,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   verbose && cat(verbose, "Number of units per chunk: ", nbrOfUnitsPerChunk);
   verbose && cat(verbose, "Number of chunks: ", nbrOfChunks);
 
-  unitsLeft <- seq(length=nbrOfUnits);
+  unitsLeft <- units;
   idxsHead <- seq(length=nbrOfUnitsPerChunk);
 
   verbose && cat(verbose, "Units:");
@@ -441,6 +451,10 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
 ############################################################################
 # HISTORY:
+# 2011-12-15 [HB]
+# o Added argument 'units' to writeDateFrame() for
+#   AromaUnitSignalBinarySet to make it possible to write any subset
+#   of units and in any order (e.g. genome order).
 # 2010-07-07 [PN]
 # o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would write the
 #   same data chunk over and over.
