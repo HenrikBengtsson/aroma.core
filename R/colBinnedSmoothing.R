@@ -112,10 +112,10 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
   # Argument 'xOut':
   if (!is.null(xOut)) {
     xOut <- Arguments$getNumerics(xOut);
-    o <- order(xOut);
-    if (!all(diff(o) > 0L)) {
-      throw("Argument 'xOut' must be strictly ordered: ", hpaste(na.omit(xOut)));
-    }
+#    o <- order(xOut);
+#    if (!all(diff(o) > 0L)) {
+#      throw("Argument 'xOut' must be strictly ordered: ", hpaste(na.omit(xOut)));
+#    }
   }
 
   # Argument 'xOut':
@@ -174,13 +174,26 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
     }
   }
 
-  # Number of bins
-  nOut <- length(xOut);
-
   verbose && cat(verbose, "xOut:");
   verbose && str(verbose, xOut);
 
+  # Number of bins
+  nOut <- length(xOut);
+
+  # Make sure that 'xOut' (and 'xOutRange') are ordered before
+  # binning.  Also make sure to undo afterward.
+  o <- order(xOut);
+  wasReordered <- (!all(diff(o) > 0L));
+  if (wasReordered) {
+    ro <- order(o);
+    xOut <- xOut[o];
+    if (!is.null(xOutRange)) {
+      xOutRange <- xOutRange[o,,drop=FALSE];
+    }
+  }
+
   # Create 'xOutRange' (or validate existing)
+  # [Here 'xOut' must be ordered']
   if (is.null(xOutRange)) {
     # Average bin width
     if (is.null(by)) {
@@ -272,6 +285,12 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
 
   verbose && exit(verbose);
 
+  # Undo reordering
+  if (wasReordered) {
+    xOut <- xOut[ro];
+    xOutRange <- xOutRange[ro,,drop=FALSE];
+  }
+
   # Average bin width
   avgBinWidth <- mean(xOutRange[,2L] - xOutRange[,1L], na.rm=TRUE);
 
@@ -279,6 +298,9 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
   attr(Ys, "xOutRange") <- xOutRange;
   attr(Ys, "counts") <- counts;
   attr(Ys, "binWidth") <- avgBinWidth;
+
+  # Sanity check
+  stopifnot(nrow(Ys) == nOut);
 
   verbose && exit(verbose);
 
@@ -297,6 +319,8 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2011-12-15
+# o Now colBinnedSmoothing() handles an unordered 'xOut'.
 # 2011-12-11
 # o ROBUSTNESS: colBinnedSmoothing() now asserts that 'xOut' is ordered.
 # 2011-12-10

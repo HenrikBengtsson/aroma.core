@@ -418,7 +418,7 @@ setMethodS3("gaussianSmoothing", "RawGenomicSignals", function(this, sd=10e3, ..
 
 
 
-setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=getWeights(this), byCount=FALSE, verbose=FALSE) {
+setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=getWeights(this), xOut=integer(0), byCount=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -448,6 +448,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
                                            xRange[1], xRange[2]);
 
   locusFields <- NULL;
+  nOut <- length(xOut);
   wOut <- NULL;
   if (n > 0) {
     if (byCount) {
@@ -459,9 +460,11 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
       verbose && cat(verbose, "Positions (ranks):");
       verbose && str(verbose, xRank);
       verbose && cat(verbose, "Arguments:");
-      args <- list(Y=Y, x=xRank, w=weights, ...);
+      args <- list(Y=Y, x=xRank, w=weights, xOut=xOut, ...);
       verbose && str(verbose, args);
-      Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, ..., verbose=less(verbose, 10));
+
+      Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, xOut=xOut, ..., verbose=less(verbose, 10));
+ 
       verbose && str(verbose, Ys);
       xOut <- attr(Ys, "xOut");
       verbose && str(verbose, xOut);
@@ -482,11 +485,16 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
       verbose && cat(verbose, "Arguments:");
       args <- list(Y=Y, w=weights, ...);
       verbose && str(verbose, args);
-      Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, ..., verbose=less(verbose, 10));
+
+      Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, xOut=xOut, ..., verbose=less(verbose, 10));
+
       # The smoothed y:s
       ys <- Ys[,1,drop=TRUE];
       verbose && str(verbose, ys);
+      verbose && str(verbose, xOut);
       xOut <- attr(Ys, "xOut");
+      verbose && str(verbose, xOut);
+
       # Smoothed weights
       if (!is.null(weights)) {
         wOut <- Ys[,2,drop=TRUE];
@@ -495,8 +503,8 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
       verbose && exit(verbose);
     }
   } else {
-    ys <- double(0);
-    xOut <- double(0);
+    naValue <- as.double(NA);
+    ys <- rep(naValue, times=nOut);
   } # if (n > 0)
 
 

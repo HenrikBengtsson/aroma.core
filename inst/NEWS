@@ -2,6 +2,7 @@ Package: aroma.core
 ===================
 
 Version: 2.3.6 [2011-12-15]
+o Now colBinnedSmoothing() handles an unordered 'xOut'.
 o Added argument 'units' to writeDateFrame() for AromaUnitSignalBinarySet
   to make it possible to write any subset of units and in any order,
   e.g. genome order.
