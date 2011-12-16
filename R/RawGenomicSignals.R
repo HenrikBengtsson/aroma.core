@@ -738,6 +738,9 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2011-12-15
+# o ROBUSTNESS: Now binnedSmoothing(..., xOut) for RawGenomicSignals
+#   guarantees to return length(xOut) loci.
 # 2010-07-19
 # o Now extractRegion() for RawGenomicSignals also accepts a
 #   CopyNumberRegions object for argument 'regions'.
