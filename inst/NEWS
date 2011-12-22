@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.3.7 [2011-12-22]
+o BUG FIX: The overridden library() would always return an invisible()
+  object, even if base::library() wouldn't.  This caused plain library() 
+  to not list installed packaged.  Thanks Venkat Seshan at MSKCC for
+  reporting on this.
+
+
 Version: 2.3.6 [2011-12-15]
 o Now colBinnedSmoothing() handles an unordered 'xOut'.
 o Added argument 'units' to writeDateFrame() for AromaUnitSignalBinarySet

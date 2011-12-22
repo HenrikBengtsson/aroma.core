@@ -441,7 +441,6 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
   verbose && cat(verbose, "Full sample names:");
   verbose && print(verbose, env$samples);
 
-
   if (getParallelSafe(this)) {
     tryCatch({
       pathname <- rspToHtml(pathname, path=NULL, 

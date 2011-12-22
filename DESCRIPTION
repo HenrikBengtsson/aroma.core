@@ -1,11 +1,11 @@
 Package: aroma.core
-Version: 2.3.6
-Date: 2011-12-15
+Version: 2.3.7
+Date: 2011-12-22
 Title: Core methods and classes used by aroma.* packages part of The Aroma Framework
 Author: Henrik Bengtsson <henrikb@braju.com>
 Maintainer: Henrik Bengtsson <henrikb@braju.com>
 Depends: R (>= 2.12.0), R.methodsS3 (>= 1.2.1), R.oo (>= 1.8.3),
-        R.utils (>= 1.9.6), R.cache (>= 0.5.2), R.filesets (>= 1.1.4),
+        R.utils (>= 1.9.7), R.cache (>= 0.5.2), R.filesets (>= 1.1.4),
         R.rsp (>= 0.7.1), matrixStats (>= 0.4.3), digest (>= 0.5.1),
         aroma.light (>= 1.22.0)
 Imports: affxparser (>= 1.22.0), RColorBrewer (>= 1.0-5)
