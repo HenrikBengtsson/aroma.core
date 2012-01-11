@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.4.0 [2012-01-11]
+o No updates. Submitted to CRAN.
+
+
 Version: 2.3.7 [2011-12-22]
 o BUG FIX: The overridden library() would always return an invisible()
   object, even if base::library() wouldn't.  This caused plain library() 
