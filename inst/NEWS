@@ -3,6 +3,7 @@ Package: aroma.core
 
 Version: 2.4.0 [2012-01-11]
 o ROBUSTNESS: Aroma settings are no longer loaded during R CMD check.
+o Updated package dependencies.
 
 
 Version: 2.3.7 [2011-12-22]
