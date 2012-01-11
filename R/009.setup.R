@@ -14,16 +14,22 @@
   patchPackage("R.utils");
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read settings file ".<name>Settings" and store it in package
   # variable '<name>Settings'.
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # ...but don't load settings if running R CMD check
   name <- "aroma";
   varName <- sprintf("%sSettings", name);
   basename <- paste(".", varName, sep="");
-  settings <- AromaSettings$loadAnywhere(basename, verbose=TRUE);
-  if (is.null(settings))
+  if (queryRCmdCheck() == "notRunning") {
+    settings <- AromaSettings$loadAnywhere(basename, verbose=TRUE);
+  } else {
+    settings <- NULL;
+  }
+  if (is.null(settings)) {
     settings <- AromaSettings(basename);
+  }
   assign(varName, settings, pos=getPosition(pkg));
 
 
@@ -52,6 +58,8 @@
 
 ############################################################################
 # HISTORY:
+# 2012-01-11
+# o ROBUSTNESS: Aroma settings are no longer loaded during R CMD check.
 # 2010-10-27
 # o CLEANUP: Removed outdated patch for finding smoothScatter(), which
 #   is not needed in R v2.9.0 and beyond.
