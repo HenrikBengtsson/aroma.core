@@ -1,12 +1,5 @@
 .setupAromaCore <- function(pkg, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Patches
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Patch slow serialize() on Windows (speeds up digest() a lot!)
-  .patchSerialize();
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Apply downloaded patches
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   patchPackage("aroma.core");
@@ -58,6 +51,10 @@
 
 ############################################################################
 # HISTORY:
+# 2012-01-12
+# o CLEANUP: Dropped internal patch of base::serialize(), because it
+#   was only applied to R (< 2.12.0) anyway and this package now
+#   requires R (>= 2.12.0).
 # 2012-01-11
 # o ROBUSTNESS: Aroma settings are no longer loaded during R CMD check.
 # 2010-10-27
