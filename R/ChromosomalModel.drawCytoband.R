@@ -1,3 +1,4 @@
+
 setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, cytobandLabels=TRUE, unit=6, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -7,7 +8,9 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
   }
 
   # Do we know how to plot the genome?
-  gf <- getGenomeFile(this, tags="cytobands", mustExist=FALSE);
+  genome <- getGenome(this);
+  pattern <- sprintf("^%s,cytobands(|,.*)*[.]txt$", genome);
+  gf <- getGenomeFile(this, genome=genome, pattern=pattern, mustExist=FALSE);
   # If no cytoband annotation data is available, skip it
   if (is.null(gf)) {
     return();
@@ -16,9 +19,9 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Load annotation data file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  colClassPattern <- c("*"="character", "(start|end)"="integer", 
+  colClassPatterns <- c("*"="character", "(start|end)"="integer", 
                        "intensity"="integer", "isCentromere"="logical");
-  data <- readDataFrame(gf, colClassPattern=colClassPattern);
+  data <- readDataFrame(gf, colClassPatterns=colClassPatterns);
 
   # Infer chromosome indices
   data$chromosomeIdx <- Arguments$getChromosomes(data$chromosome);
@@ -73,6 +76,10 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
 
 ##############################################################################
 # HISTORY:
+# 2012-01-14
+# o BUG FIX: drawCytoband() for ChromosomalModel failed to locate the
+#   genome annotation data file containing cytoband information, e.g.
+#   Human,cytobands,<tags>.txt.
 # 2007-09-25
 # o Dropped arguments 'colCytoBand' and 'colCentro' because they are now
 #   passed via '...' to drawCytoband2().
