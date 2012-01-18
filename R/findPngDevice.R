@@ -16,21 +16,17 @@ setMethodS3("findPngDevice", "default", function(transparent=TRUE, ..., force=FA
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Initial set of png devices
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  isRv270plus <- (getRversion() >= "2.7.0");
   pngHasType <- ("type" %in% names(formals(png)));
-  if (isRv270plus && pngHasType) {
-    # To fool R CMD check code validation
-    pngTyped <- function(...) png(...);
-
+  if (pngHasType) {
     types <- eval(formals(png)$type);
     defType <- getOption("bitmapType");
     preferredTypes <- c("cairo", "cairo1");
     types <- unique(c(preferredTypes, defType, types));
 
     if (transparent) {
-      fmtstr <- "function(...) pngTyped(..., bg=NA, type=\"%s\")";
+      fmtstr <- "function(...) png(..., bg=NA, type=\"%s\")";
     } else {
-      fmtstr <- "function(...) pngTyped(..., type=\"%s\")";
+      fmtstr <- "function(...) png(..., type=\"%s\")";
     }
 
     for (type in types) {
