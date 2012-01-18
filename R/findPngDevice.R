@@ -1,22 +1,52 @@
-setMethodS3("findPngDevice", "default", function(transparent=TRUE, ...) {
+setMethodS3("findPngDevice", "default", function(transparent=TRUE, ..., force=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Check for memoized results
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  key <- sprintf(".Rcache/aroma.core/findPngDevice(transparent=%s)", transparent);
+  if (!force) {
+    res <- getOption(key, NULL);
+    if (!is.null(res)) {
+      return(res);
+    }
+  }
+ 
   devices <- list();
 
-  isRv270plus <- (compareVersion(as.character(getRversion()), "2.7.0") >= 0);
-  pngHasType <- ("type" %in% names(formals(png)));
 
-  # To fool R CMD check code validation
-  pngTyped <- function(...) png(...);
-  
-  if (transparent) {
-    if (isRv270plus && pngHasType) {
-      # png(..., type="cairo");
-      pngCairoDefault <- function(...) pngTyped(..., bg=NA, type="cairo");
-      pngCairo1 <- function(...) pngTyped(..., bg=NA, type="cairo1");
-      devices <- c(devices, pngCairoDefault, pngCairo1);
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Initial set of png devices
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  isRv270plus <- (getRversion() >= "2.7.0");
+  pngHasType <- ("type" %in% names(formals(png)));
+  if (isRv270plus && pngHasType) {
+    # To fool R CMD check code validation
+    pngTyped <- function(...) png(...);
+
+    types <- eval(formals(png)$type);
+    defType <- getOption("bitmapType");
+    preferredTypes <- c("cairo", "cairo1");
+    types <- unique(c(preferredTypes, defType, types));
+
+    if (transparent) {
+      fmtstr <- "function(...) pngTyped(..., bg=NA, type=\"%s\")";
+    } else {
+      fmtstr <- "function(...) pngTyped(..., type=\"%s\")";
     }
 
+    for (type in types) {
+      code <- sprintf(fmtstr, type);
+      pngDev <- eval(parse(text=code));
+      devices <- c(devices, pngDev);
+    }
+  } # if (pngHasType)
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Additiona devices as backup
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  if (transparent) {
     # Cairo::CairoPNG()
-    if (require("Cairo")) {
+    if (isPackageInstalled("Cairo")) {
       CairoPNGtrans <- function(...) {
         Cairo::CairoPNG(..., bg=NA);
       };
@@ -39,18 +69,11 @@ setMethodS3("findPngDevice", "default", function(transparent=TRUE, ...) {
     }
     devices <- c(devices, pngtrans);
   } else {
-    if (isRv270plus && pngHasType) {
-      # png(..., type="cairo");
-      pngCairoDefault <- function(...) pngTyped(..., type="cairo");
-      pngCairo1 <- function(...) pngTyped(..., type="cairo1");
-      devices <- c(devices, pngCairoDefault, pngCairo1);
-    }
-
     # R.utils::png2()
     devices <- c(devices, png2);
 
     # Cairo::CairoPNG()
-    if (require("Cairo")) {
+    if (isPackageInstalled("Cairo")) {
       devices <- c(devices, Cairo::CairoPNG);
     }
 
@@ -58,13 +81,27 @@ setMethodS3("findPngDevice", "default", function(transparent=TRUE, ...) {
     devices <- c(devices, grDevices::png);
   }
 
-  
-  System$findGraphicsDevice(devices=devices);
+  # Test which one really works
+  res <- System$findGraphicsDevice(devices=devices, ...);
+
+  # Cache result
+  setOption(key, res);
+
+  res;
 }, protected=TRUE)
 
 
 ##############################################################################
 # HISTORY:
+# 2012-01-17
+# o Now findPngDevice() tries all the available settings for argument
+#   "type" of png(), for the current platform.
+# o CLEANUP: Now findPngDevice() uses isPackageInstalled("Cairo") instead
+#   of require("Cairo") to avoid loading Cairo if not really used.
+# o SPEEDUP: Now findPngDevice() memoizes the results throughout the
+#   current session.
+# o Now  findPngDevice() passes '...' to System$findGraphicsDevice().
+# o Some minor code cleanup.
 # 2008-05-21
 # o Added png(..., type="cairo") and png(..., type="cairo1") for cases when
 #   png() has argument 'type' and R is v2.7.0 or newer.
