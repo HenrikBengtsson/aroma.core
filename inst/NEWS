@@ -1,6 +1,18 @@
 Package: aroma.core
 ===================
 
+Version: 2.4.4 [2012-02-01]
+o GENERALIZATION: The new ChromosomeExplorer v3.2 will work with most
+  commonly used web browsers including Mozilla Firefox, Google Chrome,
+  Microsoft Internet Explorer and Apple Safari.  This far it has been
+  tested with the following browsers: Firefox v3.6/v9.01/v10.0, 
+  Chrome v17.0, IE v7.x/v9.0, and Safari 5.
+  NOTE: To update an existing ChromosomeExplorer report, call
+  setup(ce, force=TRUE) where 'ce' is your ChromosomeExplorer object.
+  Thanks to Keith Ching at ConsultChing for providing this long
+  anticipated improvement, cf. http://consultching.com/root/?p=64.
+
+
 Version: 2.4.3 [2012-01-17]
 o ROBUSTNESS: Now findPngDevice() tries all the available settings for 
   argument "type" of png(), for the current platform.  This will
@@ -14,7 +26,8 @@ o CLEANUP: Now findPngDevice() uses isPackageInstalled("Cairo") instead
 Version: 2.4.2 [2012-01-14]
 o BUG FIX: drawCytoband() for ChromosomalModel failed to locate the
   genome annotation data file containing cytoband information, e.g.
-  Human,cytobands,<tags>.txt.
+  Human,cytobands,<tags>.txt.  Thanks to Kai Wang at Pfizer for
+  reporting on this.
 o Added tag 'hg17' to Human,cytobands,hg17,GLADv2.4.0,HB20100219.txt 
   in annotationData/genomes/Human/.
 

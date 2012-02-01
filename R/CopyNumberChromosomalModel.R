@@ -450,12 +450,17 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
   verbose && print(verbose, ceList);
 
   rfList <- getFileList(refTuple, array, ..., verbose=less(verbose,1));
-#  verbose && cat(verbose, "Reference data files:");
-#  verbose && print(verbose, rfList);
 
   # Sanity check
-  if (!identical(names(ceList), names(rfList)))
-    throw("Internal error. Reference files of non-matching chip types.");
+  if (!identical(names(ceList), names(rfList))) {
+    verbose && enter(verbose, "Sanity check failed");
+    verbose && cat(verbose, "Test data files:");
+    verbose && print(verbose, ceList);
+    verbose && cat(verbose, "Reference data files:");
+    verbose && print(verbose, rfList);
+    throw("SANITY CHECK ERROR: Target and reference files have non-matching chip types: ", hpaste(names(ceList)), " != ", hpaste(names(rfList)));
+    verbose && exit(verbose);
+  }
 
   files <- c(ceList, rfList);
   dim(files) <- c(length(ceList), 2);
@@ -993,6 +998,9 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
 ##############################################################################
 # HISTORY:
+# 2012-01-24
+# o Added more information to error messages thrown by getDataFileMatrix()
+#   for CopyNumberChromosomalModel.
 # 2011-03-03
 # o Added more information to verbose output.
 # 2011-02-07

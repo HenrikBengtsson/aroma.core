@@ -5,10 +5,10 @@ Description: Automatically enumerate links (using <sup> tags) and enables
              the user to enter the number next to each link followed by
              ENTER to "click" on a link. And much more...
 
-Version    : 0.9
+Version    : 1.1
 Language   : Javascript1.2
 Author     : Henrik Bengtsson, hb@maths.lth.se
-Date       : August 2002 - May 2003
+Date       : August 2002 - Feb 2012
 URL        : http://www.maths.lth.se/tools/webcuts/
 
 References:
@@ -44,14 +44,20 @@ var isNS6up = (isNS && (versionMajor >= 5));
 // Identify Internet Explorer browsers...
 var isIE      = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
 var isIE3     = (isIE && (versionMajor < 4));
-var isIE4     = (isIE && (versionMajor == 4) && (agt.indexOf("msie 4")!=-1) );
+var isIE4     = (isIE && (versionMajor == 4) && (agt.indexOf("msie 4")!=-1));
 var isIE4up   = (isIE && (versionMajor >= 4));
-var isIE5     = (isIE && (versionMajor == 4) && (agt.indexOf("msie 5.0")!=-1) );
+var isIE5     = (isIE && (versionMajor == 4) && (agt.indexOf("msie 5.0")!=-1));
+var isIE5up   = (isIE && isIE4up && !isIE4);
 var isIE5_5   = (isIE && (versionMajor == 4) && (agt.indexOf("msie 5.5") !=-1));
-var isIE5up   = (isIE && !isIE3 && !isIE4);
-var isIE5_5up =(isIE && !isIE3 && !isIE4 && !isIE5);
-var isIE6     = (isIE && (versionMajor == 4) && (agt.indexOf("msie 6.")!=-1) );
-var isIE6up   = (isIE && !isIE3 && !isIE4 && !isIE5 && !isIE5_5);
+var isIE5_5up = (isIE && isIE5up && !isIE5);
+var isIE6     = (isIE && (versionMajor == 4) && (agt.indexOf("msie 6.")!=-1));
+var isIE6up   = (isIE && isIE5_5up && !isIE5_5);
+var isIE7     = (isIE && (versionMajor == 5) && (agt.indexOf("msie 7.")!=-1));
+var isIE7up   = (isIE && isIE6up && !isIE6);
+var isIE8     = (isIE && (versionMajor == 5) && (agt.indexOf("msie 8.")!=-1));
+var isIE8up   = (isIE && isIE7up && !isIE7);
+var isIE9     = (isIE && (versionMajor == 5) && (agt.indexOf("msie 9.")!=-1));
+var isIE9up   = (isIE && isIE8up && !isIE8);
 
 
 function isURLAccepted(urls) {
@@ -182,14 +188,14 @@ function DOM_className(node) {
 }
 
 function DOM_getInnerText(node) {
-  if (isIE4up)
+  if (isIE4up && !isIE7up)
     return(node.innerText);
   else 
     return(node.innerHTML);
 }
 
 function DOM_setInnerText(node, value) {
-  if (isIE4up)
+  if (isIE4up && !isIE7up)
     node.innerText = value;
   else 
     node.innerHTML = value;
@@ -792,6 +798,10 @@ webcuts['braju'] = "http://www.braju.com/";
 
 /*************************************************************************
 HISTORY:
+2012-02-01 [v1.1]
+o BUG FIX: Updated DOM_(g|s)etInnerText() to work with IE v7+.  Thanks
+  to Keith Ching at ConsultChing for pointing me to this, cf.
+  http://consultching.com/root/?p=64
 2006-07-29 [v1.0]
 o Added option 'numberLinks' to specify if links can be numbered or not
   by pressing '0'.

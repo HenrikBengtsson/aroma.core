@@ -17,7 +17,7 @@
 <tr valign="bottom">
 <td align="left">
 <big>Chromosome Explorer</big>
-<small><small>(&copy; 2006-2010 Henrik Bengtsson)</small></small>
+<small><small>(&copy; 2006-2011 Henrik Bengtsson)</small></small>
 </td>
 <td align="right">
  <span style="float:right; font-size:smaller;">
@@ -60,11 +60,14 @@ Chromosome:
 for (var kk=0; kk < chromosomes.length; kk++) {
   var chr = chromosomes[kk];
   var chrLabel = chr;
-  if (chr == 'X')
+  if (chr == 'X') {
     chrLabel = "23(X)";
-  if (chr == 'Y')
+  } else if (chr == 'Y') {
     chrLabel = "24(Y)";
-  document.write('[<span id="chromosome' + chr + '"><a href="javascript:changeChromosome(' + kk + ');">' + chrLabel + '</a></span>]');
+  }
+  if (chrLabel != '') {
+    document.write('[<span id="chromosome' + chr + '"><a href="javascript:changeChromosome(' + kk + ');">' + chrLabel + '</a></span>]');
+  }
 }
 </script>
 <br>

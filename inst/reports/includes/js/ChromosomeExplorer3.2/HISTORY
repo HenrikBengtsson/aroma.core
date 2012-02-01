@@ -1,0 +1,33 @@
+ChromosomeExplorer
+==================
+
+2012-02-01
+o GENERALIZATION: By moving 'var explorer = new ChromosomeExplorer();'
+  from includes/js/ChromosomeExplorer3.x/main.js to the dataset
+  specific ChromosomeExplorer.onLoad.js, ChromosomeExplorer now works
+  on Firefox, Google Chrome, Internet Explorer and Safari. 
+  This far it is known to work work with Chrome v17.0, 
+  Firefox v3.6/v9.01/v10.0, IE v7/v9., and Safari 5.
+  Thanks to Keith Ching at ConsultChing for providing the troubleshooting
+  and the solution, cf. http://consultching.com/root/?p=64.
+
+
+2008-07-30
+o Minor tuning. Tested on Firefox 3.01. Don't know about Firefox 2.
+
+
+2008-06-23
+o Updated to work with Firefox 3.
+
+
+2007-01-07
+o Added link to regions.xls file in the browser.
+
+
+2006-11-06
+o BUG FIX: Drag of navigator and panel did not work on Firefox on *nix.
+  Forgot to retrieve mouse position in onmousemove(). For some reason
+  it worked on Windows.
+o Added support for multiple chip types too.  This requires that the
+  sample image files have equal names for the different chip types.
+o Now the current chip type, sample, chromsome and zoom is highlighted.
