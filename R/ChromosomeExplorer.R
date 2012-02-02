@@ -234,7 +234,7 @@ setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
 # }
 #
 # \value{
-#  Returns a @character @vector.
+#  Returns a @integer @vector.
 # }
 #
 # @author
@@ -252,8 +252,12 @@ setMethodS3("getChromosomes", "ChromosomeExplorer", function(this, ...) {
 setMethodS3("getChromosomeLabels", "ChromosomeExplorer", function(this, ...) {
   chrs <- getChromosomes(this);
 
+  # Sanity check
+  chrs <- Arguments$getIntegers(chrs);
+
   chrsL <- character(length=max(chrs, na.rm=TRUE));
-  chrsL[chrs] <- as.character(chrs);
+  chrsL[chrs] <- sprintf("%02d", chrs);
+
   if (length(chrsL) >= 23) {
     chrsL[23] <- "X";
   }
@@ -708,6 +712,9 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 
 ##############################################################################
 # HISTORY:
+# 2012-02-01
+# o Now getChromosomeLabels() returns "01", "02", ..., instead of 
+#   "1", "2", ..., which makes it easier to use Webcuts.
 # 2011-03-14
 # o Now updateSamplesFile() passes down 'chromosomeLabels' too.
 # o Added getChromosomeLabels() for ChromosomeExplorer.

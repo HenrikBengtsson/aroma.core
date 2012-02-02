@@ -3,20 +3,36 @@
 
 <html>
 <head>
-<title>Chromosome Explorer v3.2</title>
+<title>Chromosome Explorer v3.3</title>
 <link rel="icon" type="image/ico" href="../../favicon.ico">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/R.css">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/rsp.css">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/figures.css"> 
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/ChromosomeExplorer3.1.css"> 
-<script type="text/javascript" src="../../includes/js/ChromosomeExplorer3.2/include.js" language="JavaScript1.2"></script>
-<script type="text/javascript" src="../../includes/js/ChromosomeExplorer3.2/main.js" language="JavaScript1.2"></script></head>
+<script type="text/javascript" src="../../includes/js/require.js" language="JavaScript1.2"></script>
+<script>
+function onPageLoad() {
+  require([
+    "../../includes/js/Webcuts.js",
+    "../../includes/js/domUtils.js",
+    "../../includes/js/ChromosomeExplorer3.3/ChromosomeExplorer.js",
+    "../../includes/js/ChromosomeExplorer3.3/main.js",
+    "ChromosomeExplorer.onLoad.js",
+  ], function() {
+      // This function will be called when all the dependencies
+      // listed above are loaded. Note that this function could
+      // be called before the page is loaded.
+      myOnLoad();
+    });
+}
+</script>
+</head>
 
-<body onLoad="onLoad();">
+<body onload="onPageLoad();">
 <table width="100%" border="0" cellpadding="2" cellspacing="0" style="margin: 0px; border: none; border-bottom: 2px solid black;">
 <tr valign="bottom">
 <td align="left">
-<big>Chromosome Explorer v3.2</big>
+<big>Chromosome Explorer v3.3</big>
 <small><small>(&copy; 2006-2012 Henrik Bengtsson)</small></small>
 </td>
 <td align="right">
@@ -55,21 +71,7 @@ Step:&nbsp;[<a href="javascript:gotoNextSample(-1);">prev</a>][<a href="javascri
 &nbsp;
 Play:&nbsp;[<a href="javascript:playAlongSamples('start');">start</a>][<a href="javascript:playAlongSamples('stop');">stop</a>]&nbsp;(<a href="javascript:{playDelay=playDelay*2; return true;}">slower</a>,<a href="javascript:{playDelay=playDelay/2; return true;}">faster</a>)
 <br>
-Chromosome: 
-<script type="text/javascript" language="JavaScript1.2">
-for (var kk=0; kk < chromosomes.length; kk++) {
-  var chr = chromosomes[kk];
-  var chrLabel = chr;
-  if (chr == 'X') {
-    chrLabel = "23(X)";
-  } else if (chr == 'Y') {
-    chrLabel = "24(Y)";
-  }
-  if (chrLabel != '') {
-    document.write('[<span id="chromosome' + chr + '"><a href="javascript:changeChromosome(' + kk + ');">' + chrLabel + '</a></span>]');
-  }
-}
-</script>
+Chromosomes: <span id="chromosomes">?</span>
 <br>
 <script type="text/javascript" language="JavaScript1.2">
 if (shortcuts.length > 0) {
