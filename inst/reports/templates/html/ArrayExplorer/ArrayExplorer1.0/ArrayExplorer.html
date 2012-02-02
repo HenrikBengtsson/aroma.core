@@ -3,40 +3,22 @@
 
 <html>
 <head>
-<title>Array Explorer v3.3</title>
+<title>Array Explorer</title>
 <link rel="icon" type="image/ico" href="../../favicon.ico">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/R.css">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/rsp.css">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/figures.css"> 
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/ArrayExplorer.css"> 
-<script type="text/javascript" src="../../includes/js/require.js" language="JavaScript1.2"></script>
-<script>
-function onPageLoad() {
-  require([
-    "../../includes/js/Webcuts.js",
-    "../../includes/js/domUtils.js",
-    "../../includes/js/ScrollImage2d.js",
-    "../../includes/js/Scrollbar2d.js",
-    "../../includes/js/ArrayExplorer3.3/ArrayExplorer.js",
-    "../../includes/js/ArrayExplorer3.3/main.js",
-    "ArrayExplorer.onChipType.js",
-    "ArrayExplorer.onLoad.js",
-  ], function() {
-      // This function will be called when all the dependencies
-      // listed above are loaded. Note that this function could
-      // be called before the page is loaded.
-      myOnLoad();
-    });
-}
-</script>
+<script type="text/javascript" src="../../includes/js/ArrayExplorer/include.js" language="JavaScript1.2"></script>
+<script type="text/javascript" src="../../includes/js/ArrayExplorer/main.js" language="JavaScript1.2"></script>
 </head>
 
-<body onLoad="onPageLoad();">
+<body onLoad="onLoad();">
 <table width="100%" border="0" cellpadding="2" cellspacing="0" style="margin: 0px; border: none; border-bottom: 2px solid black;">
 <tr>
 <td align="left">
-<big>Array Explorer v3.3</big>
-<small><small>(&copy; 2006-2012 Henrik Bengtsson)</small></small>
+<big>Array Explorer</big>
+<small><small>(&copy; 2006-2010 Henrik Bengtsson)</small></small>
 </td>
 <td align="right">
  <span style="float:right; font-size:smaller;">

@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.4.5 [2012-02-02]
+o GENERALIZATION: As ChromosomeExplorer v3.3, the new ArrayExplorer v3.3
+  works with most common web browsers. See below.  However, we still
+  have problems getting ArrayExplorer to load the main spatil (PNG) image
+  in Internet Explorer.
+
+
 Version: 2.4.4 [2012-02-01]
 o GENERALIZATION: The new ChromosomeExplorer v3.3 will work with most
   commonly used web browsers including Mozilla Firefox, Google Chrome,
