@@ -1,11 +1,24 @@
 Package: aroma.core
 ===================
 
-Version: 2.4.5 [2012-02-02]
+Version: 2.4.6 [2012-02-04]
+o GENERALIZATION: Now binnedSmoothing() of RawGenomicSignals default to
+  generate the same target bins as binnedSmoothing() of a numeric vector.
+  Before the bins had to be specified explicitly by the caller.
+o GENERALIZATION: Now it is possible to call colBinnedSmoothing() with
+  an empty set of input loci, but still requesting a set of output loci,
+  which then will be all missing values.
+o BUG FIX: Argument 'x' of colBinnedSmoothing() would default to the
+  incorrect number of loci.
+
+
+Version: 2.4.5 [2012-02-03]
 o GENERALIZATION: As ChromosomeExplorer v3.3, the new ArrayExplorer v3.3
   works with most common web browsers. See below.  However, we still
   have problems getting ArrayExplorer to load the main spatil (PNG) image
   in Internet Explorer.
+o Forgot to include require.js in v2.4.4, which is needed by the
+  ChromosomeExplorer v3.3.
 
 
 Version: 2.4.4 [2012-02-01]

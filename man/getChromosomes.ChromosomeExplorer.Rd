@@ -26,7 +26,7 @@
 }
 
 \value{
- Returns a \code{\link[base]{character}} \code{\link[base]{vector}}.
+ Returns a \code{\link[base]{integer}} \code{\link[base]{vector}}.
 }
 
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}

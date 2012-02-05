@@ -418,7 +418,7 @@ setMethodS3("gaussianSmoothing", "RawGenomicSignals", function(this, sd=10e3, ..
 
 
 
-setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=getWeights(this), xOut=integer(0), byCount=FALSE, verbose=FALSE) {
+setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=getWeights(this), byCount=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -442,71 +442,63 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   verbose && enter(verbose, "Smoothing data set");
   y <- getSignals(this);
   x <- getPositions(this);
-  n <- length(x);
   xRange <- range(x, na.rm=TRUE);
   verbose && printf(verbose, "Range of positions: [%.0f,%.0f]\n", 
                                            xRange[1], xRange[2]);
 
   locusFields <- NULL;
-  nOut <- length(xOut);
   wOut <- NULL;
-  if (n > 0) {
-    if (byCount) {
-      verbose && enter(verbose, "Binned smoothing (by count)");
-      # Smoothing y and x (and w).
-      Y <- cbind(y=y, x=x, w=weights);
-      locusFields <- colnames(Y);
-      xRank <- seq(length=nrow(Y));
-      verbose && cat(verbose, "Positions (ranks):");
-      verbose && str(verbose, xRank);
-      verbose && cat(verbose, "Arguments:");
-      args <- list(Y=Y, x=xRank, w=weights, xOut=xOut, ...);
-      verbose && str(verbose, args);
 
-      Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, xOut=xOut, ..., verbose=less(verbose, 10));
- 
-      verbose && str(verbose, Ys);
-      xOut <- attr(Ys, "xOut");
-      verbose && str(verbose, xOut);
-      # The smoothed y:s
-      ys <- Ys[,1,drop=TRUE];
-      # The smoothed x:s, which becomes the new target positions
-      xOut <- Ys[,2,drop=TRUE];
-      # Smoothed weights
-      if (!is.null(weights)) {
-        wOut <- Ys[,3,drop=TRUE];
-      }
-      rm(xRank, Y, Ys);
-      verbose && exit(verbose);
-    } else {
-      verbose && enter(verbose, "Binned smoothing (by position)");
-      # Smoothing y (and w).
-      Y <- cbind(y=y, w=weights);
-      verbose && cat(verbose, "Arguments:");
-      args <- list(Y=Y, w=weights, ...);
-      verbose && str(verbose, args);
+  if (byCount) {
+    verbose && enter(verbose, "Binned smoothing (by count)");
+    # Smoothing y and x (and w).
+    Y <- cbind(y=y, x=x, w=weights);
+    locusFields <- colnames(Y);
+    xRank <- seq(length=nrow(Y));
+    verbose && cat(verbose, "Positions (ranks):");
+    verbose && str(verbose, xRank);
+    verbose && cat(verbose, "Arguments:");
+    args <- list(Y=Y, x=xRank, w=weights, ...);
+    verbose && str(verbose, args);
 
-      Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, xOut=xOut, ..., verbose=less(verbose, 10));
+    Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, ..., verbose=less(verbose, 10));
 
-      # The smoothed y:s
-      ys <- Ys[,1,drop=TRUE];
-      verbose && str(verbose, ys);
-      verbose && str(verbose, xOut);
-      xOut <- attr(Ys, "xOut");
-      verbose && str(verbose, xOut);
-
-      # Smoothed weights
-      if (!is.null(weights)) {
-        wOut <- Ys[,2,drop=TRUE];
-        wOut[is.na(wOut)] <- 0;
-      }
-      verbose && exit(verbose);
+    verbose && str(verbose, Ys);
+    xOut <- attr(Ys, "xOut");
+    verbose && str(verbose, xOut);
+    # The smoothed y:s
+    ys <- Ys[,1,drop=TRUE];
+    # The smoothed x:s, which becomes the new target positions
+    xOut <- Ys[,2,drop=TRUE];
+    # Smoothed weights
+    if (!is.null(weights)) {
+      wOut <- Ys[,3,drop=TRUE];
     }
+    rm(xRank, Y, Ys);
+    verbose && exit(verbose);
   } else {
-    naValue <- as.double(NA);
-    ys <- rep(naValue, times=nOut);
-  } # if (n > 0)
+    verbose && enter(verbose, "Binned smoothing (by position)");
+    # Smoothing y (and w).
+    Y <- cbind(y=y, w=weights);
+    verbose && cat(verbose, "Arguments:");
+    args <- list(Y=Y, w=weights, ...);
+    verbose && str(verbose, args);
 
+    Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, ..., verbose=less(verbose, 10));
+
+    # The smoothed y:s
+    ys <- Ys[,1,drop=TRUE];
+    verbose && str(verbose, ys);
+    xOut <- attr(Ys, "xOut");
+    verbose && str(verbose, xOut);
+
+    # Smoothed weights
+    if (!is.null(weights)) {
+      wOut <- Ys[,2,drop=TRUE];
+      wOut[is.na(wOut)] <- 0;
+    }
+    verbose && exit(verbose);
+  } # if (byCount)
 
   verbose && enter(verbose, "Creating result object");
   res <- clone(this);
@@ -738,6 +730,10 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2012-02-04
+# o GENERALIZATION: Now binnedSmoothing() of RawGenomicSignals default to
+#   generate the same target bins as binnedSmoothing() of a numeric vector.
+#   Before the bins had to be specified explicitly by the caller.
 # 2011-12-15
 # o ROBUSTNESS: Now binnedSmoothing(..., xOut) for RawGenomicSignals
 #   guarantees to return length(xOut) loci.

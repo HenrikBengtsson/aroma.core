@@ -70,7 +70,7 @@
 # @keyword robust
 # @keyword univar 
 #*/###########################################################################
-setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE) {
+setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -94,9 +94,11 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=ncol(Y)), w
   }
 
   # Argument 'from' & 'to':
-  disallow <- c("NA", "NaN", "Inf");
-  from <- Arguments$getNumeric(from, disallow=disallow);
-  to <- Arguments$getNumeric(to, range=c(from,Inf), disallow=disallow);
+  if (is.null(xOut) && is.null(xOutRange)) {
+    disallow <- c("NA", "NaN", "Inf");
+    from <- Arguments$getNumeric(from, disallow=disallow);
+    to <- Arguments$getNumeric(to, range=c(from,Inf), disallow=disallow);
+  }
 
   # Arguments 'by' & 'length.out':
   if (is.null(by) & is.null(length.out)) {
@@ -319,6 +321,12 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-02-04
+# o GENERALIZATION: Now it is possible to call colBinnedSmoothing() with
+#   an empty set of input loci, but still requesting a set of output loci,
+#   which then will be all missing values.
+# o BUG FIX: Argument 'x' of colBinnedSmoothing() would default to the
+#   incorrect number of loci.
 # 2011-12-15
 # o Now colBinnedSmoothing() handles an unordered 'xOut'.
 # 2011-12-11
