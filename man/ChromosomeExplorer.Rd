@@ -32,7 +32,7 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
 
  }
 
- \usage{ChromosomeExplorer(model=NULL, zooms=2^(0:6), ..., version=c("3"))}
+ \usage{ChromosomeExplorer(model=NULL, zooms=2^(0:6), ..., version=c("3.4", "3"))}
 
  \arguments{
    \item{model}{A \code{\link{CopyNumberChromosomalModel}} object.}

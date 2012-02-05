@@ -3,20 +3,36 @@
 
 <html>
 <head>
-<title>Chromosome Explorer v3.4</title>
+<title>Chromosome Explorer v3.3</title>
 <link rel="icon" type="image/ico" href="../../favicon.ico">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/R.css">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/rsp.css">
 <link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/figures.css"> 
-<link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/ChromosomeExplorer3.4.css"> 
-<script src="../../includes/js/require.js"></script>
+<link media="screen" type="text/css" rel="StyleSheet" href="../../includes/css/ChromosomeExplorer3.1.css"> 
+<script type="text/javascript" src="../../includes/js/require.js" language="JavaScript1.2"></script>
+<script>
+function onPageLoad() {
+  require([
+    "../../includes/js/Webcuts.js",
+    "../../includes/js/domUtils.js",
+    "../../includes/js/ChromosomeExplorer3.3/ChromosomeExplorer.js",
+    "../../includes/js/ChromosomeExplorer3.3/main.js",
+    "ChromosomeExplorer.onLoad.js",
+  ], function() {
+      // This function will be called when all the dependencies
+      // listed above are loaded. Note that this function could
+      // be called before the page is loaded.
+      myOnLoad();
+    });
+}
+</script>
 </head>
 
 <body onload="onPageLoad();">
 <table width="100%" border="0" cellpadding="2" cellspacing="0" style="margin: 0px; border: none; border-bottom: 2px solid black;">
 <tr valign="bottom">
 <td align="left">
-<big>Chromosome Explorer v3.4</big>
+<big>Chromosome Explorer v3.3</big>
 <small><small>(&copy; 2006-2012 Henrik Bengtsson)</small></small>
 </td>
 <td align="right">
@@ -51,12 +67,30 @@
 <span id="samplesLabel">?</span> 
 &nbsp;
 &nbsp;
-Step:&nbsp;[<a href="javascript:explorer.gotoNextSample(-1);">prev</a>][<a href="javascript:explorer.gotoNextSample(+1);">next</a>]
+Step:&nbsp;[<a href="javascript:gotoNextSample(-1);">prev</a>][<a href="javascript:gotoNextSample(+1);">next</a>]
 &nbsp;
-Play:&nbsp;[<a href="javascript:explorer.playAlongSamples('start');">start</a>][<a href="javascript:explorer.playAlongSamples('stop');">stop</a>]&nbsp;(<a href="javascript:explorer.playSlower();">slower</a>,<a href="javascript:explorer.playFaster();">faster</a>)
+Play:&nbsp;[<a href="javascript:playAlongSamples('start');">start</a>][<a href="javascript:playAlongSamples('stop');">stop</a>]&nbsp;(<a href="javascript:{playDelay=playDelay*2; return true;}">slower</a>,<a href="javascript:{playDelay=playDelay/2; return true;}">faster</a>)
 <br>
 Chromosomes: <span id="chromosomes">?</span>
 <br>
+<script type="text/javascript" language="JavaScript1.2">
+if (shortcuts.length > 0) {
+  document.write('<br>Shortcuts: ');
+  for (var kk=0; kk < shortcuts.length; kk++) {
+    var args = shortcuts[kk];
+    if (args.substring(0,1) == '{') {
+      var label = args.substring(1,args.length-1);
+      document.write('<strong>' + label + '</strong>: ');
+    } else if (args != "") {
+      var label = kk+1;
+      if (shortcutLabels.length > kk)
+        label = shortcutLabels[kk];
+      document.write('[<span id="shortcut' + kk + '"><a href="javascript:jumpTo(' + args + ');">' + label + '</a></span>] ');
+    }
+  }
+  document.write('<br><small>Legends: i) If a shortcut is tagged with a chip type or an analysis label, it means that the region is not clearly visible for the other chip types or analysis methods. ii) An asterisk (*) indicates the mean level of diploid is most likely biased due to too many samples with abberations in this region.</small>');
+}
+</script>
 </small>
 </td>
 </tr>
@@ -104,39 +138,5 @@ Image URL: <a id="imageUrl" href="" target="otherWindow"></a>
  </td>
 </tr>
 </table>
-<div id="webcutsLabel" style="position:absolute; width:auto; height:auto; right:0px; top:0px; border: solid; border-width: 1px; border-color: black; background-color:lightgreen; font-size: x-small; visibility: hidden;"><small></small></div>
 </body>
-<script>
-var explorer = null;
-function onPageLoad() {
-  require.config({
-    paths: {
-      'order': '../../includes/js/order',
-      'Webcuts': '../../includes/js/Webcuts',
-      'domUtils': '../../includes/js/domUtils',
-      'ChromosomeExplorer': '../../includes/js/ChromosomeExplorer3.4/ChromosomeExplorer',
-      'setupExplorer': 'setupExplorer'
-    }
-  });
-
-  require(["Webcuts", "domUtils", "ChromosomeExplorer", "setupExplorer"],
-  function(wc, du, ce, se) {
-    // This function will be called when all the dependencies
-    // listed above are loaded. Note that this function could
-    // be called before the page is loaded.
-    explorer = new ChromosomeExplorer();
-    setupExplorer(explorer);
-    explorer.start();
-
-    explorer.setSample(0);
-    explorer.setChromosome(0);
-    explorer.setScale(0);
-    explorer.setSet(0);
-
-    window.onresize = function() {
-      explorer.update();
-    }
-  });
-}
-</script>
 </html>

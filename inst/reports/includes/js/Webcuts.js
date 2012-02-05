@@ -5,10 +5,10 @@ Description: Automatically enumerate links (using <sup> tags) and enables
              the user to enter the number next to each link followed by
              ENTER to "click" on a link. And much more...
 
-Version    : 1.1
+Version    : 1.2
 Language   : Javascript1.2
-Author     : Henrik Bengtsson, hb@maths.lth.se
-Date       : August 2002 - Feb 2012
+Author     : Henrik Bengtsson, hb@biostat.ucsf.edu
+Date       : August 2002 - February 2012
 URL        : http://www.maths.lth.se/tools/webcuts/
 
 References:
@@ -23,7 +23,6 @@ References:
 
 // convert all characters to lowercase to simplify testing
 var agt = navigator.userAgent.toLowerCase();
-
 var versionMajor = parseInt(navigator.appVersion);
 var versionMinor = parseFloat(navigator.appVersion);
 
@@ -59,6 +58,8 @@ var isIE8up   = (isIE && isIE7up && !isIE7);
 var isIE9     = (isIE && (versionMajor == 5) && (agt.indexOf("msie 9.")!=-1));
 var isIE9up   = (isIE && isIE8up && !isIE8);
 
+// Identify Chrome browsers...
+var isChrome = (navigator.userAgent.toLowerCase().indexOf('chrome') > -1);
 
 function isURLAccepted(urls) {
   if (urls == "any")
@@ -474,9 +475,12 @@ function unhighlightAnchor(unfocus) {
 
 
 function createWebcutsLabel() {
-  bfr = "<div id=\"webcutsLabel\" style=\"position:absolute; width:auto; height:auto; right:0px; top:0px; border: solid; border-width: 1px; border-color: black; background-color:lightgreen; font-size: x-small; visibility: hidden;\"><small></small></div>";
-  document.write(bfr);
   var label = document.getElementById("webcutsLabel");
+  if (label == null) {
+    bfr = "<div id=\"webcutsLabel\" style=\"position:absolute; width:auto; height:auto; right:0px; top:0px; border: solid; border-width: 1px; border-color: black; background-color:lightgreen; font-size: x-small; visibility: hidden;\"><small></small></div>";
+    document.write(bfr);
+  }
+  label = document.getElementById("webcutsLabel");
   return(label);
 }
 
@@ -534,6 +538,7 @@ function isWebcutsLabelVisible() {
 // State Machine
 ///////////////////////////////////////////////////
 function resetState(unfocus) {
+//    alert("resetState("+unfocus+")");
   unhighlightAnchor(unfocus);
   hideWebcutsLabel();
   enteredString = "";
@@ -746,7 +751,8 @@ function onKeyDown(e) {
 
   if (keyCode == 0) {
     result = true;
-  } else if (keyCode == 10 || keyCode == 13) {
+  } else if (keyCode == 10 || keyCode == 13) {  // ENTER
+    resetState(false);
     result = true;
   } else if (keyCode == 9) {  // TAB
     resetState(false);
@@ -766,9 +772,10 @@ function onKeyDown(e) {
     move = "cycle next";
     processState();
   }
-
-  if (isIE4up)
+    if (isIE4up){
     event.returnValue = result;
+    }
+
   return(result);
 }
 
@@ -780,24 +787,28 @@ if ((isNS6up || isIE4up)) {
   document.onkeydown  = onKeyDown;
 }
 
-
-
 ///////////////////////////////////////////////////
 // Predefined hard coded webcuts
 ///////////////////////////////////////////////////
 var webcutsOptions = new Array();
-webcutsOptions['numberLinks'] = true;
+webcutsOptions['numberLinks'] = false;
 
 var webcuts = new Array();  // Define webcuts launcher pages here
+/*
 webcuts['webcuts'] = "http://www.maths.lth.se/tools/webcuts/";
 webcuts['google'] = "http://www.google.com/";
 webcuts['hb'] = "http://www.maths.lth.se/~hb/";
 webcuts['.hb'] = "http://www.maths.lth.se/~hb/";
 webcuts['braju'] = "http://www.braju.com/";
-
+*/
 
 /*************************************************************************
 HISTORY:
+2012-02-04 [v1.2]
+o Added detection of Chrome browsers.
+o Updated onKeyDown() to resetState(false) on ENTER.  Needed for Chrome.
+2012-02-01 [v1.1.1]
+o Drop default webcuts.
 2012-02-01 [v1.1]
 o BUG FIX: Updated DOM_(g|s)etInnerText() to work with IE v7+.  Thanks
   to Keith Ching at ConsultChing for pointing me to this, cf.

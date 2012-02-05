@@ -2,6 +2,8 @@ Package: aroma.core
 ===================
 
 Version: 2.4.6 [2012-02-04]
+o Created ChromosomeExplorer v3.4, which should work on even more
+  browsers.
 o GENERALIZATION: Now binnedSmoothing() of RawGenomicSignals default to
   generate the same target bins as binnedSmoothing() of a numeric vector.
   Before the bins had to be specified explicitly by the caller.

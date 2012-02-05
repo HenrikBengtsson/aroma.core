@@ -39,7 +39,7 @@
 #  @see "CopyNumberChromosomalModel".
 # }
 #*/###########################################################################
-setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ..., version=c("3")) {
+setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ..., version=c("3.4", "3")) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -354,6 +354,8 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
   srcPath <- getTemplatePath(this);
   if (version == "3") {
     pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer3", "ChromosomeExplorer.onLoad.js.rsp");
+  } else if (version == "3.4") {
+    pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer3.4", "setupExplorer.js.rsp");
   } else if (version == "4") {
     pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer4", "ChromosomeExplorer4.onLoad.js.rsp");
   } else if (version == "5") {
@@ -471,6 +473,8 @@ setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename=NULL, 
   if (is.null(filename)) {
     version <- this$.version;
     if (version == "3") {
+      filename <- "ChromosomeExplorer.html";
+    } else if (version == "3.4") {
       filename <- "ChromosomeExplorer.html";
     } else if (version == "4") {
       filename <- "ChromosomeExplorer4.html";
