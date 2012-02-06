@@ -492,11 +492,10 @@ function ChromosomeExplorer() {
      *******************************************************/
     nav = document.getElementById('navigator');
     navImage = document.getElementById('navigatorImage');
-  
     navArea = document.getElementById('navigatorArea');
     var mouseX = 0;
     var mouseDown = false;
-  
+
     /* Immitate onmousepress, which does not exists */
     navImage.onmousepress = function() {
       if (mouseDown) {
@@ -659,7 +658,7 @@ function ChromosomeExplorer() {
         owner.loadCount = 0;
         owner.setStatus("");
       }
-			panelImageOnLoad();
+      panelImageOnLoad();
       panelImageOnLoad = function() {};
     }
     panelImage.src = pathname;
