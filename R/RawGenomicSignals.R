@@ -28,7 +28,7 @@
 #
 # @author
 #*/########################################################################### 
-setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosome=NA, name=NULL, ...) {
+setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosome=0L, name=NULL, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -54,6 +54,15 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
   }
   n <- length(y);
 
+  # Argument 'chromosome':
+  if (is.null(chromosome)) {
+    chromosome <- as.integer(NA);
+  }
+  if (length(chromosome) == 1) {
+    chromosome <- rep(chromosome, times=n);
+  }
+  chromosome <- Arguments$getIntegers(chromosome, range=c(0,Inf), length=c(n,n), disallow=c("NaN", "Inf"));
+
   # Argument 'x':
   if (!is.null(x)) {
     x <- Arguments$getNumerics(x, length=c(n,n));
@@ -64,11 +73,6 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     w <- Arguments$getNumerics(w, range=c(0,Inf), length=c(n,n));
   }
 
-  # Argument 'chromosome':
-  if (!is.na(chromosome)) {
-    chromosome <- Arguments$getIndex(chromosome);
-  }
-
   # Arguments '...':
   args <- list(...);
   if (length(args) > 0) {
@@ -77,10 +81,10 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
   } 
 
   this <- extend(Object(), "RawGenomicSignals", 
-    y = y,
-    x = x,
-    w = w,
     chromosome = chromosome,
+    x = x,
+    y = y,
+    w = w,
     .name = name
   );
 
@@ -105,14 +109,17 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
   name <- getName(this);
   if (is.null(name)) name <- "";
   s <- c(s, sprintf("Name: %s", as.character(name)));
-  s <- c(s, sprintf("Chromosome: %d", getChromosome(this)));
-  xRange <- xRange(this);
-  s <- c(s, sprintf("Position range: [%g,%g]", xRange[1], xRange[2]));
+  chrs <- getChromosomes(this);
+  nbrOfChrs <- length(chrs);
+  s <- c(s, sprintf("Chromosomes: %s [%d]", seqToHumanReadable(chrs), nbrOfChrs));
   n <- nbrOfLoci(this);
   s <- c(s, sprintf("Number of loci: %d", n));
-  dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA);
-  s <- c(s, sprintf("Mean distance between loci: %g", dAvg));
-
+  if (nbrOfChrs == 1) {
+    xRange <- xRange(this);
+    s <- c(s, sprintf("Position range: [%g,%g]", xRange[1], xRange[2]));
+    dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA);
+    s <- c(s, sprintf("Mean distance between loci: %g", dAvg));
+  }
   fields <- getLocusFields(this);
   fields <- sapply(fields, FUN=function(field) {
     values <- this[[field]];
@@ -135,7 +142,34 @@ setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {
   length(y);
 })
 
+setMethodS3("getChromosomes", "RawGenomicSignals", function(this, ...) {
+  chrs <- this$chromosome;
+  if (is.null(chrs)) {
+    chrs <- as.integer(NA);
+  }
+  chrs <- as.integer(chrs);
+  chrs <- unique(chrs);
+  chrs <- sort(chrs);
+  chrs;
+})
+
+setMethodS3("nbrOfChromosomes", "RawGenomicSignals", function(this, ...) {
+  chrs <- getChromosomes(this, ...);
+  length(chrs);
+})
+
+
+setMethodS3("assertOneChromosome", "RawGenomicSignals", function(this, ...) {
+  if (nbrOfChromosomes(this) > 1) {
+    throw(sprintf("Cannot perform operation. %s has more than one chromosome: %s", class(this)[1], nbrOfChromosomes(this)));
+  }
+}, protected=TRUE)
+
+
 setMethodS3("getPositions", "RawGenomicSignals", function(this, ...) {
+  # This is a single-chromosome method. Assert that is the case.
+  assertOneChromosome(this);
+
   x <- this$x;
   if (is.null(x)) {
     x <- seq(length=nbrOfLoci(this));
@@ -145,9 +179,13 @@ setMethodS3("getPositions", "RawGenomicSignals", function(this, ...) {
 
 
 setMethodS3("getChromosome", "RawGenomicSignals", function(this, ...) {
+  # This is a single-chromosome method. Assert that is the case.
+  assertOneChromosome(this);
+
   chr <- this$chromosome;
-  if (is.null(chr))
-    chr <- NA;
+  if (is.null(chr)) {
+    chr <- as.integer(NA);
+  }
   chr <- as.integer(chr);
   chr;
 })
@@ -221,7 +259,7 @@ setMethodS3("summary", "RawGenomicSignals", function(object, ...) {
 setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
   fields <- this$.locusFields;
   if (is.null(fields)) {
-    fields <- c("x", "y");
+    fields <- c("chromosome", "x", "y");
     if (hasWeights(this)) {
       fields <- c(fields, "w");
     }
@@ -235,8 +273,8 @@ setMethodS3("setLocusFields", "RawGenomicSignals", function(this, fields, ...) {
 
   oldFields <- this$.locusFields;
 
-  # Always keep (x,y)
-  fields <- unique(c("x", "y", fields));
+  # Always keep (chromosome, x,y)
+  fields <- unique(c("chromosome", "x", "y", fields));
 
   # Update
   this$.locusFields <- fields;
@@ -256,31 +294,48 @@ setMethodS3("getLociFields", "RawGenomicSignals", function(this, ...) {
 }, deprecated=TRUE, protected=TRUE)
 
 
+
 setMethodS3("sort", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
   this <- x;
 
   res <- clone(this);
-  x <- getPositions(res);
-  o <- order(x);
-  rm(x);
+
+  # Order by (chromosome, x)
+  o <- order(res$chromosome, getPositions(res));
+
   for (field in getLocusFields(res)) {
     res[[field]] <- res[[field]][o];
   }
+
   res;
 })
 
 
 setMethodS3("getXY", "RawGenomicSignals", function(this, sort=TRUE, ...) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   xy <- data.frame(x=this$x, y=this$y);
   if (sort)
     xy <- xy[order(xy$x),,drop=FALSE];
   xy;
-})
+}, protected=TRUE)
+
+setMethodS3("getCXY", "RawGenomicSignals", function(this, sort=TRUE, ...) {
+  cxy <- data.frame(chromosome=this$chromosome, x=this$x, y=this$y);
+  if (sort) {
+    cxy <- cxy[order(cxy$chromosome, cxy$x),,drop=FALSE];
+  }
+  cxy;
+}, protected=TRUE)
 
 
 
 setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, ...) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   # Argument 'region':
   region <- Arguments$getNumerics(region, length=c(2,2));
   stopifnot(region[1] <= region[2]);
@@ -302,6 +357,9 @@ setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, ...) {
 
 
 setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, ...) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -363,6 +421,9 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
 
 
 setMethodS3("kernelSmoothing", "RawGenomicSignals", function(this, xOut=NULL, ..., verbose=FALSE) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -419,6 +480,9 @@ setMethodS3("gaussianSmoothing", "RawGenomicSignals", function(this, sd=10e3, ..
 
 
 setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=getWeights(this), byCount=FALSE, verbose=FALSE) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -560,21 +624,25 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
 # @keyword programming
 #*/########################################################################### 
 setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'method':
   method <- match.arg(method);
 
   # Argument 'estimator':
   estimator <- match.arg(estimator);
 
-  y <- getSignals(this);
-  n <- length(y);
+  n <- nbrOfLoci(this);
+
+  # Nothing todo?
   if (n <= 1) {
     return(as.double(NA));
   }
 
   # Argument 'weights':
   if (!is.null(weights)) {
-    weights <- Arguments$getNumerics(weights, range=c(0,Inf), length=rep(n,2));
+    weights <- Arguments$getNumerics(weights, range=c(0,Inf), length=c(n,n));
   }
 
   # Get the estimator function
@@ -584,7 +652,25 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
   }  
   estimatorFcn <- get(estimator, mode="function");
 
+
   if (method == "diff") {
+    # Sort along genome
+    rgs <- sort(this);
+    y <- getSignals(rgs);
+
+    # Insert NAs ("dividers") between chromosomes?
+    if (nbrOfChromosomes(this) > 1) {
+      chrs <- rgs$chromosome;
+      dchrs <- diff(chrs);
+      ats <- which(is.finite(dchrs) & dchrs > 0);
+      y <- insert(y, ats=ats);  # R.utils::insert()
+      if (!is.null(weights)) {
+        weights <- insert(weights, ats=ats);
+      }
+      rm(chrs, dchrs, ats);
+    }
+    rm(rgs);
+
     y <- diff(y);
 
     # Weighted estimator?
@@ -596,6 +682,7 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
       sigma <- estimatorFcn(y, na.rm=na.rm)/sqrt(2);
     }
   } else if (method == "direct") {
+    y <- getSignals(this);
     if (!is.null(weights)) {
       sigma <- estimatorFcn(y, w=weights, na.rm=na.rm);
     } else {
@@ -636,6 +723,9 @@ setMethodS3("plot", "RawGenomicSignals", function(x, xlab="Position", ylab="Sign
   # To please R CMD check
   this <- x;
 
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   x <- getPositions(this);
   y <- getSignals(this);
 
@@ -647,6 +737,9 @@ setMethodS3("points", "RawGenomicSignals", function(x, pch=20, ..., xScale=getXS
   # To please R CMD check
   this <- x;
 
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   x <- getPositions(this);
   y <- getSignals(this);
   points(xScale*x, yScale*y, pch=pch, ...);
@@ -655,6 +748,9 @@ setMethodS3("points", "RawGenomicSignals", function(x, pch=20, ..., xScale=getXS
 setMethodS3("lines", "RawGenomicSignals", function(x, ..., xScale=getXScale(this), yScale=getYScale(this)) {
   # To please R CMD check
   this <- x;
+
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
 
   x <- getPositions(this);
   y <- getSignals(this);
@@ -671,10 +767,16 @@ setMethodS3("lines", "RawGenomicSignals", function(x, ..., xScale=getXScale(this
 
 
 setMethodS3("xSeq", "RawGenomicSignals", function(this, from=1, to=xMax(this), by=100e3, ...) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   seq(from=from, to=to, by=by);
 })
 
 setMethodS3("xRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(this);
+
   x <- getPositions(this);
   range(x, na.rm=na.rm);
 })
@@ -730,6 +832,13 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2012-03-01
+# o Preparing to support multiple-chromosome RawGenomicSignals;
+#   - Added getChromosomes() and nbrOfChromosomes().
+#   - Added single-chromosome assertions for methods assume that.
+#   - Turn single-chromosome methods into multi-chromosome ones;
+#     as.character(), (get|set)LocusFields(), sort()
+#   - Added getCXY().
 # 2012-02-04
 # o GENERALIZATION: Now binnedSmoothing() of RawGenomicSignals default to
 #   generate the same target bins as binnedSmoothing() of a numeric vector.

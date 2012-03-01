@@ -555,3 +555,7 @@ getDefaultExtension.AromaCellPositionFile
 getDefaultExtension.AromaCellSequenceFile
 getDefaultExtension.AromaUflFile getDefaultExtension.AromaUgpFile
 plotCoverageMap plotCoverageMap.AromaUgpFile
+assertOneChromosome assertOneChromosome.RawGenomicSignals
+getCXY getCXY.RawGenomicSignals
+getChromosomes.RawGenomicSignals
+nbrOfChromosomes.RawGenomicSignals

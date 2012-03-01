@@ -1142,6 +1142,12 @@
 \alias{getDefaultExtension.AromaUgpFile}
 \alias{plotCoverageMap}
 \alias{plotCoverageMap.AromaUgpFile}
+\alias{assertOneChromosome}
+\alias{assertOneChromosome.RawGenomicSignals}
+\alias{getCXY}
+\alias{getCXY.RawGenomicSignals}
+\alias{getChromosomes.RawGenomicSignals}
+\alias{nbrOfChromosomes.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

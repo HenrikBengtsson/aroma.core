@@ -30,7 +30,7 @@ extends \link[R.oo]{Object}\cr
 
  }
 
- \usage{RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=NA, name=NULL, ...)}
+ \usage{RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=0, name=NULL, ...)}
 
  \arguments{
    \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the signal
@@ -64,6 +64,7 @@ extends \link[R.oo]{Object}\cr
  \tab \code{extractSubset} \tab  -\cr
  \tab \code{gaussianSmoothing} \tab  -\cr
  \tab \code{getChromosome} \tab  -\cr
+ \tab \code{getChromosomes} \tab  -\cr
  \tab \code{getLocusFields} \tab  -\cr
  \tab \code{getName} \tab  -\cr
  \tab \code{getPositions} \tab  -\cr
@@ -71,12 +72,12 @@ extends \link[R.oo]{Object}\cr
  \tab \code{getSignals} \tab  -\cr
  \tab \code{getWeights} \tab  -\cr
  \tab \code{getXScale} \tab  -\cr
- \tab \code{getXY} \tab  -\cr
  \tab \code{getYScale} \tab  -\cr
  \tab \code{hasWeights} \tab  -\cr
  \tab \code{kernelSmoothing} \tab  -\cr
  \tab \code{lines} \tab  -\cr
  \tab \code{multiplyBy} \tab  -\cr
+ \tab \code{nbrOfChromosomes} \tab  -\cr
  \tab \code{nbrOfLoci} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr

@@ -1,4 +1,7 @@
 setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL, region=NULL, by, ..., logBase=2, force=FALSE, verbose=FALSE) {
+  # This is a single-chromosome method. Assert that is the case.
+  assertOneChromosome(this);
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

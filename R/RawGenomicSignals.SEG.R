@@ -1,4 +1,7 @@
 setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, order=TRUE, useWeights=TRUE, dropNonFinite=TRUE, dropZeroWeights=TRUE, dropWeightsIfAllEqual=TRUE, defaultChromosome=0L, defaultSampleName="Unnamed sample", ..., verbose=FALSE) {
+  # This is a single-chromosome method. Assert that is the case.
+  assertOneChromosome(this);
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

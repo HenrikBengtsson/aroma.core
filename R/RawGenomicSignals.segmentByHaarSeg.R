@@ -46,6 +46,10 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
 
 
   verbose && enter(verbose, "Segmenting");
+  verbose && cat(verbose, "Chromosomes: ", hpaste(getChromosomes(this)));
+
+  # This is a single-chromosome method. Assert that is the case.
+  assertOneChromosome(this);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Retrieving segmentation function
