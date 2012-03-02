@@ -12,7 +12,7 @@ setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...
       nextId <- max(this$id, na.rm=TRUE) + 1L;
       other$id <- rep(nextId, times=nbrOfLoci(other));
     }
-    addLocusFields(this, "id");
+    this <- addLocusFields(this, "id");
   }
 
   for (ff in getLocusFields(this)) {

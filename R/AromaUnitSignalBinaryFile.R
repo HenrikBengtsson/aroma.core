@@ -196,7 +196,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   # Add additional locus data
   if (keepUnits) {
     res$unit <- units;
-    addLocusFields(res, "unit");
+    res <- addLocusFields(res, "unit");
   }
 
   verbose && exit(verbose);

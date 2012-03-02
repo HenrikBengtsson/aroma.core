@@ -1148,6 +1148,10 @@
 \alias{getCXY.RawGenomicSignals}
 \alias{getChromosomes.RawGenomicSignals}
 \alias{nbrOfChromosomes.RawGenomicSignals}
+\alias{extractChromosome}
+\alias{extractChromosome.RawGenomicSignals}
+\alias{extractChromosomes}
+\alias{extractChromosomes.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

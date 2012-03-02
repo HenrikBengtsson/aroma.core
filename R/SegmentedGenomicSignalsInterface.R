@@ -230,21 +230,15 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   }
 
   verbose && enter(verbose, "Binning data set");
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Allocate result set
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Allocating result set");
-  res <- clone(this);
-  clearCache(res);
-
   verbose && cat(verbose, "by: ", by);
   verbose && cat(verbose, "length.out: ", length.out);
   verbose && cat(verbose, "byCount: ", byCount);
 
   verbose && enter(verbose, "Find target positions");
+
   if (byCount) {
     verbose && enter(verbose, "By count");
-    res <- sort(res);
+    res <- sort(res); # sort() returns a clone():d object. /HB 2012-03-01
     resOut <- binnedSmoothing(res, by=by, length.out=length.out, 
                               byCount=TRUE, verbose=less(verbose, 5));
     xOut <- resOut$x;
@@ -259,7 +253,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       xOut <- seq(from=from, to=to, length.out=length.out);
     }
     verbose && exit(verbose);
-  }
+  } # if (byCount)
 
   verbose && cat(verbose, "xOut:");
   verbose && str(verbose, xOut);
@@ -267,10 +261,18 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   xOut <- Arguments$getNumerics(xOut);
   verbose && exit(verbose);
 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Allocate result set
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Allocating result set");
+  res <- clone(this);
+  clearCache(res);
+
+  # Target 'x' and 'y':
   res$x <- xOut;
-  
-  # Target 'y':
   res$y <- rep(as.double(NA), times=length(xOut));
+
   verbose && print(verbose, res);
   verbose && exit(verbose);
 
@@ -290,7 +292,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     gs <- clone(this);
     gs <- sort(gs);
     gs$xOrder <- seq(length=nbrOfLoci(gs));
-    addLocusFields(gs, "xOrder");
+    gs <- addLocusFields(gs, "xOrder");
   } else {
     gs <- this;
   }
@@ -348,7 +350,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       nbrOfLociToAdd <- (gsSS$xOrder[1] %% by) - 1;
       verbose && cat(verbose, "nbrOfLociToAdd: ", nbrOfLociToAdd);
       fields <- setdiff(getLocusFields(gsSS), "xOrder");
-      setLocusFields(gsSS, fields);
+      gsSS <- setLocusFields(gsSS, fields);
       gsSS$xOrder <- NULL;
       if (nbrOfLociToAdd > 0) {
         for (ff in fields) {

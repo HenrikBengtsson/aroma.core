@@ -59,6 +59,8 @@ extends \link[R.oo]{Object}\cr
  \tab \code{divideBy} \tab  -\cr
  \tab \code{drawDensity} \tab  -\cr
  \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
+ \tab \code{extractChromosome} \tab  -\cr
+ \tab \code{extractChromosomes} \tab  -\cr
  \tab \code{extractRegion} \tab  -\cr
  \tab \code{extractRegions} \tab  -\cr
  \tab \code{extractSubset} \tab  -\cr

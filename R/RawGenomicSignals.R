@@ -94,7 +94,7 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     for (field in fields) {
       this[[field]] <- object[[field]];
     }
-    addLocusFields(this, fields);
+    this <- addLocusFields(this, fields);
   }
 
   this;
@@ -164,6 +164,175 @@ setMethodS3("assertOneChromosome", "RawGenomicSignals", function(this, ...) {
     throw(sprintf("Cannot perform operation. %s has more than one chromosome: %s", class(this)[1], nbrOfChromosomes(this)));
   }
 }, protected=TRUE)
+
+
+
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# EXTRACT METHODS
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'subset':
+  n <- nbrOfLoci(this);
+  if (is.logical(subset)) {
+    subset <- Arguments$getLogicals(subset, length=c(n,n));
+    subset <- which(subset);
+  } else {
+    subset <- Arguments$getIndices(subset, max=n);
+  }
+
+  res <- clone(this);
+  clearCache(res);
+
+  fields <- getLocusFields(res);
+  for (ff in seq(along=fields)) {
+    field <- fields[ff];
+    res[[field]] <- res[[field]][subset];
+  } # for (ff ...)
+
+  res;
+}) # extractSubset()
+
+
+setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, chromosome=NULL, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'chromosome':
+
+  # Argument 'region':
+  region <- Arguments$getNumerics(region, length=c(2,2));
+  stopifnot(region[1] <= region[2]);
+
+
+  # Subset by chromosome
+  if (!is.null(chromosome)) {
+    rgs <- extractChromosome(this, chromosome=chromosome);
+  } else {
+    rgs <- this;
+  }
+
+  # This is a single-chromosome method. Assert that's the case.
+  assertOneChromosome(rgs);
+
+  x <- getPositions(rgs);
+  keep <- whichVector(region[1] <= x & x <= region[2]);
+
+  extractSubset(rgs, keep);
+}) # extractRegion()
+
+
+
+setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, chromosomes=NULL, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'regions':
+  cl <- class(regions)[1];
+  if (inherits(regions, "CopyNumberRegions")) {
+    regions <- as.data.frame(regions);
+    regions <- regions[,c("chromosome", "start", "stop")];
+  } else if (is.matrix(regions)) {
+    regions <- as.data.frame(regions);
+  }
+  if (!is.data.frame(regions)) {
+    throw("Argument 'regions' is neither a CopyNumberRegions object, a data.frame, nor a matrix: ", cl);
+  }
+
+  # Argument 'chromosomes':
+  if (is.null(chromosomes) && !is.element("chromosome", colnames(regions))) {
+    # Backward compatibility only
+    # This is a single-chromosome method. Assert that is the case.
+    assertOneChromosome(this);
+    chromosomes <- getChromosomes(this);
+    chromosomes <- rep(chromosomes, times=nrow(regions));
+  }
+
+  # Argument 'regions' (again):
+  if (!is.null(chromosomes)) {
+    if (is.element("chromosome", names(regions))) {
+      throw("Argument 'chromosomes' must not be specified when argument 'regions' already specifies chromosomes: ", hpaste(colnames(regions)));
+    }
+    regions <- cbind(data.frame(chromosome=chromosomes), regions);
+    chromosomes <- NULL; # Not needed anymore
+  }
+
+  reqs <- c("chromosome", "start", "stop");
+  missing <- reqs[!is.element(reqs, colnames(regions))];
+  if (length(missing)) {
+    throw("Missing fields in argument 'regions': ", hpaste(missing));
+  }
+
+  # Extract fields of interest
+  regions <- regions[,reqs];
+
+  # Assert the fields are numeric
+  for (key in colnames(regions)) {
+    regions[[key]] <- Arguments$getNumerics(regions[[key]], .name=key);
+  }
+
+  # Assert ordered (start,stop)
+  stopifnot(all(regions[["start"]] <= regions[["stop"]]));
+
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # For each chromosome
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  chromosome <- this$chromosome;
+  x <- getPositions(this);
+  keep <- rep(FALSE, times=length(x));
+  for (rr in seq(length=nrow(regions))) {
+    region <- unlist(regions[rr,], use.names=TRUE);
+    chr <- region["chromosome"];
+    start <- region["start"];
+    stop <- region["stop"];
+    keepRR <- (chromosome == chr & start <= x & x <= stop);
+    keep <- keep | keepRR;
+  } # for (rr ...)
+
+  keep <- which(keep);
+
+  extractSubset(this, keep);
+}) # extractRegions()
+
+
+setMethodS3("extractChromosomes", "RawGenomicSignals", function(this, chromosomes=NULL, ...) {
+  # Argument 'chromosomes':
+  if (!is.null(chromosomes)) {
+    chromosomes <- Arguments$getChromosomes(chromosomes);
+    chromosomes <- unique(chromosomes);
+    chromosomes <- sort(chromosomes);
+  }
+
+  # Nothing todo?
+  if (is.null(chromosomes)) {
+    return(this);
+  }
+
+  keep <- is.element(this$chromosome, chromosomes);
+  keep <- which(keep);
+
+  extractSubset(this, keep);
+}) # extractChromosomes()
+
+
+setMethodS3("extractChromosome", "RawGenomicSignals", function(this, chromosome, ...) {
+  # Argument 'chromosome':
+  chromosome <- Arguments$getChromosome(chromosome);
+
+  extractChromosomes(this, chromosomes=chromosome, ...);  
+}) # extractChromosome()
+
+
+
+setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
+
+
+
 
 
 setMethodS3("getPositions", "RawGenomicSignals", function(this, ...) {
@@ -278,8 +447,7 @@ setMethodS3("setLocusFields", "RawGenomicSignals", function(this, fields, ...) {
 
   # Update
   this$.locusFields <- fields;
-
-  invisible(oldFields);
+  invisible(this);
 })
 
 setMethodS3("addLocusFields", "RawGenomicSignals", function(this, fields, ...) {
@@ -332,91 +500,6 @@ setMethodS3("getCXY", "RawGenomicSignals", function(this, sort=TRUE, ...) {
 
 
 
-setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, ...) {
-  # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
-
-  # Argument 'region':
-  region <- Arguments$getNumerics(region, length=c(2,2));
-  stopifnot(region[1] <= region[2]);
-
-  res <- clone(this);
-
-  x <- getPositions(this);
-  keep <- whichVector(region[1] <= x & x <= region[2]);
-
-  fields <- getLocusFields(res);
-  for (ff in seq(along=fields)) {
-    field <- fields[ff];
-    res[[field]] <- this[[field]][keep];
-  } # for (ff ...)
-
-  res;   
-})
-
-
-
-setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, ...) {
-  # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'regions':
-  cl <- class(regions)[1];
-  if (inherits(regions, "CopyNumberRegions")) {
-    regions <- as.data.frame(regions);
-    regions <- regions[,c("start", "stop")];
-  }
-  if (is.data.frame(regions)) {
-    regions <- as.matrix(regions);
-  }
-  if (!is.matrix(regions)) {
-    throw("Argument 'regions' is not a matrix or data.frame: ", cl);
-  }
-  if (ncol(regions) != 2) {
-    throw("Argument 'regions' does not have two columns: ", ncol(regions));
-  }
-  regions <- Arguments$getNumerics(regions);
-  stopifnot(all(regions[1] <= regions[2]));
-
-  res <- clone(this);
-  x <- getPositions(this);
-
-  keep <- rep(FALSE, times=length(x));
-  for (kk in seq(length=nrow(regions))) {
-    region <- regions[kk,,drop=TRUE];
-    keepKK <- (region[1] <= x & x <= region[2]);
-    keep <- keep | keepKK;
-  }
-
-  fields <- getLocusFields(res);
-  for (ff in seq(along=fields)) {
-    field <- fields[ff];
-    res[[field]] <- this[[field]][keep];
-  }
-
-  res;
-}) # extractRegions()
-
-
-setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'subset':
-  subset <- Arguments$getIndices(subset, max=nbrOfLoci(this));
-
-  res <- clone(this);
-  clearCache(res);
-
-  for (field in getLocusFields(res)) {
-    res[[field]] <- res[[field]][subset];
-  }
-
-  res;
-})
 
 
 
@@ -573,7 +656,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
 
   # Drop all locus fields not binned [AD HOC: Those should also be binned. /HB 2009-06-30]
   if (!is.null(locusFields)) {
-    setLocusFields(res, locusFields);
+    res <- setLocusFields(res, locusFields);
   }
   verbose && exit(verbose);
 
@@ -694,9 +777,9 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
 })
 
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Graphics related methods
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# GRAPHICS RELATED METHODS
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 setMethodS3("getXScale", "RawGenomicSignals", function(this, ...) {
   scale <- this$.xScale;
   if (is.null(scale)) scale <- 1e-6;
@@ -712,11 +795,13 @@ setMethodS3("getYScale", "RawGenomicSignals", function(this, ...) {
 setMethodS3("setXScale", "RawGenomicSignals", function(this, xScale=1e-6, ...) {
   xScale <- Arguments$getNumeric(xScale);
   this$.xScale <- xScale;
+  invisible(this);
 })
 
 setMethodS3("setYScale", "RawGenomicSignals", function(this, xScale=1, ...) {
   yScale <- Arguments$getNumeric(yScale);
   this$.yScale <- yScale;
+  invisible(this);
 })
 
 setMethodS3("plot", "RawGenomicSignals", function(x, xlab="Position", ylab="Signal", ylim=c(-3,3), pch=20, xScale=getXScale(this), yScale=getYScale(this), ...) {
@@ -811,6 +896,7 @@ setMethodS3("signalRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) 
 setMethodS3("setSigma", "RawGenomicSignals", function(this, sigma, ...) {
   sigma <- Arguments$getNumeric(sigma, range=c(0,Inf), disallow=NULL);
   this$.sigma <- sigma;
+  invisible(this);
 })
 
 setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
@@ -825,20 +911,23 @@ setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
 
 
 
-setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
-
-
 
 
 ############################################################################
 # HISTORY:
 # 2012-03-01
+# o Now all setNnn() methods returns invisible(this).
 # o Preparing to support multiple-chromosome RawGenomicSignals;
 #   - Added getChromosomes() and nbrOfChromosomes().
 #   - Added single-chromosome assertions for methods assume that.
 #   - Turn single-chromosome methods into multi-chromosome ones;
-#     as.character(), (get|set)LocusFields(), sort()
+#     as.character(), (get|set)LocusFields(), sort(),
+#     estimateStandardDeviation(), extractRegion(), extractRegions().
 #   - Added getCXY().
+#   - Added extractChromosome() and extractChromosomes().
+#   - Added argument 'chromosome' to extractRegion().
+#   - Added argument 'chromosomes' to extractRegions().
+# o CLEANUP: Now extractRegion() and extractRegions() use extractSubset().
 # 2012-02-04
 # o GENERALIZATION: Now binnedSmoothing() of RawGenomicSignals default to
 #   generate the same target bins as binnedSmoothing() of a numeric vector.

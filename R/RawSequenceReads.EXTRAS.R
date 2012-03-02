@@ -55,7 +55,7 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
     verbose && enter(verbose, "Smoothing");
     rsr <- clone(rsr);
     fields <- setdiff(getLocusFields(rsr), "id");
-    setLocusFields(rsr, fields);
+    rsr <- setLocusFields(rsr, fields);
     print(verbose, rsr);
     key <- list(method="binnedSums", class=class(rsr)[1], 
          dataChecksum=digest(as.data.frame(rsr)), by=by, region=region);

@@ -37,8 +37,8 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
 
   # Sort by genomic position?
   if (sort) {
+    # sort() returns a sorted clone():d object. /HB 2012-03-01
     res <- sort(res);
-    other <- clone(other);
     other <- sort(other);
   }
 
@@ -57,7 +57,7 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
     delta <- FUN(res[[field]], other[[field]]);
     res[[field]] <- delta;
   }
-  setLocusFields(res, fields);
+  res <- setLocusFields(res, fields);
 
   res;  
 }, protected=TRUE)
@@ -94,11 +94,10 @@ setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
 
   value <- Arguments$getDouble(value);
 
-  res <- clone(this);
-
   fields <- getLocusFields(this);
   fields <- setdiff(fields, "x");
 
+  res <- clone(this);
   for (field in fields) {
     res[[field]] <- value * res[[field]];
   } 

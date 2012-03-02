@@ -559,3 +559,5 @@ assertOneChromosome assertOneChromosome.RawGenomicSignals
 getCXY getCXY.RawGenomicSignals
 getChromosomes.RawGenomicSignals
 nbrOfChromosomes.RawGenomicSignals
+extractChromosome extractChromosome.RawGenomicSignals
+extractChromosomes extractChromosomes.RawGenomicSignals
