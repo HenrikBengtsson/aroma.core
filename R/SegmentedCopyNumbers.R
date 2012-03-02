@@ -26,12 +26,14 @@
 setConstructorS3("SegmentedCopyNumbers", function(..., states=NULL) {
   this <- extend(RawCopyNumbers(...), c("SegmentedCopyNumbers", 
                                    uses("SegmentedGenomicSignalsInterface")));
-  setStates(this, states=states);
+  this <- setStates(this, states=states);
   this;
 })
 
 ############################################################################
 # HISTORY:
+# 2012-03-01
+# o No longer assumes that class provides reference variables.
 # 2009-06-10
 # o Now SegmentedCopyNumbers implements the SegmentedGenomicSignalsInterface
 #   which makes this class a light-weight class.

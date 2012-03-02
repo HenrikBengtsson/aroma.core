@@ -2,7 +2,8 @@ Package: aroma.core
 ===================
 
 Version: 2.4.7 [2012-03-01]
-o Preparing to support multiple-chromosome RawGenomicSignals.
+o Preparing for making RawGenomicSignals non-reference objects.
+o Preparing for supporting multiple-chromosome RawGenomicSignals.
 o ROBUSTNESS: Added system tests for RawGenomicSignals classes.
 o CLEANUP: Now R CMD check no longer reports that the package
   is using .Internal() function calls.  This was due to how we
