@@ -173,6 +173,43 @@ setMethodS3("assertOneChromosome", "RawGenomicSignals", function(this, ...) {
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # EXTRACT METHODS
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+setMethodS3("newInstance", "RawGenomicSignals", function(this, nbrOfLoci, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'nbrOfLoci':
+  nbrOfLoci <- Arguments$getInteger(nbrOfLoci, range=c(0,Inf));
+
+  res <- clone(this);
+  clearCache(res);
+  res[1L,] <- NA;
+
+  subset <- rep(1L, times=nbrOfLoci);
+
+  if (inherits(res, "data.frame")) {
+    attrs <- attributes(res);
+    keep <- setdiff(names(attrs), c("names", "row.names", "class"));
+    attrs <- attrs[keep];
+    fields <- getLocusFields(res);
+    res <- res[subset,fields,drop=FALSE];
+    for (key in names(attrs)) {
+      attr(res, key) <- attrs[[key]];
+    }
+  } else {
+    fields <- getLocusFields(res);
+    for (ff in seq(along=fields)) {
+      field <- fields[ff];
+      res[[field]] <- res[[field]][subset];
+    } # for (ff ...)
+  }
+
+  # Sanity check
+  stopifnot(nbrOfLoci(res) == nbrOfLoci);
+
+  res;
+}, protected=TRUE) # newInstance()
+
+
 setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -189,7 +226,7 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   res <- clone(this);
   clearCache(res);
 
-  if (!inherits(res, "Object") && !inherits(res, "BasicObject")) {
+  if (inherits(res, "data.frame")) {
     attrs <- attributes(res);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
@@ -205,6 +242,9 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
       res[[field]] <- res[[field]][subset];
     } # for (ff ...)
   }
+
+  # Sanity check
+  stopifnot(nbrOfLoci(res) == length(subset));
 
   res;
 }) # extractSubset()
@@ -557,10 +597,11 @@ setMethodS3("kernelSmoothing", "RawGenomicSignals", function(this, xOut=NULL, ..
 
 
   verbose && enter(verbose, "Creating result object");
-  res <- clone(this);
-  clearCache(res);
-  res$y <- ys;
+  # Allocate the correct size
+  res <- newInstance(this, nbrOfLoci=length(xOut));
+
   res$x <- xOut;
+  res$y <- ys;
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -661,13 +702,11 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   } # if (byCount)
 
   verbose && enter(verbose, "Creating result object");
-  nOut <- length(ys);
   # Allocate the correct size
-  res <- clone(this);
-  clearCache(res);
-  res <- extractSubset(res, seq(length=nOut));
-  res$y <- ys;
+  res <- newInstance(this, nbrOfLoci=length(xOut));
+
   res$x <- xOut;
+  res$y <- ys;
   res$w <- wOut;
 
   # Drop all locus fields not binned [AD HOC: Those should also be binned. /HB 2009-06-30]
@@ -972,6 +1011,9 @@ setMethodS3("print", "RawGenomicSignals", function(x, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-02
+# o Added newInstance() for RawGenomicSignals.
+# o BUG FIX: Forgot to update kernelSmoothing() for data.frame:s.
 # 2012-03-01
 # o Now RawGenomicSignals inherits from data.frame().
 # o Added (get|set)BasicField() for the Object -> BasicObject

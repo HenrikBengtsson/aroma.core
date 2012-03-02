@@ -1159,6 +1159,7 @@
 \alias{print.RawGenomicSignals}
 \alias{setBasicField}
 \alias{setBasicField.RawGenomicSignals}
+\alias{newInstance.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

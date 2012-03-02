@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 2.4.8 [2012-03-01]
+Version: 2.4.8 [2012-03-02]
 o GENERALIZATION: Now RawGenomicSignals inherits from data.frame
   instead of Object.  It works with the big aroma.affymetrix test
   suite as well as with the TCGA vignette (of aroma.cn.eval).

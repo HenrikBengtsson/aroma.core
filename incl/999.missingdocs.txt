@@ -565,3 +565,4 @@ clearCache.RawGenomicSignals clone.RawGenomicSignals
 getBasicField getBasicField.RawGenomicSignals
 print.RawGenomicSignals setBasicField
 setBasicField.RawGenomicSignals
+newInstance.RawGenomicSignals

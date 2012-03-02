@@ -178,12 +178,11 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   verbose && str(verbose, yOut);
 
   verbose && enter(verbose, "Creating result object");
-  res <- clone(this);
-  clearCache(res);
-  res <- extractSubset(res, seq(along=yOut));
+  # Allocate results of the correct size
+  res <- newInstance(this, nbrOfLoci=length(xOut));
 
-  res$y <- yOut;
   res$x <- xOut;
+  res$y <- yOut;
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -268,9 +267,8 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   # Allocate result set
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Allocating result set");
-  res <- clone(this);
-  clearCache(res);
-  res <- extractSubset(res, seq(along=xOut));
+  # Allocate results of the correct size
+  res <- newInstance(this, nbrOfLoci=length(xOut));
 
   # Target 'x' and 'y':
   res$x <- xOut;
@@ -359,8 +357,10 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       gsSS$xOrder <- NULL;
       
       if (nbrOfLociToAdd > 0) {
+        # Allocate the correct size
         nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
-        gsSS2 <- extractSubset(gsSS, rep(1L, times=nbrOfLoci2));
+        gsSS2 <- newInstance(gsSS, nbrOfLoci=nbrOfLoci2);
+
         for (ff in fields) {
           values <- gsSS[[ff]];
           if (is.element(ff, "w")) {
