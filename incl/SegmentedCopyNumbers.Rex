@@ -57,11 +57,11 @@ legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d
 plot(cn, col="#999999", ylim=c(-3,3))
 title(main="Binned smoothing stratified by state")
 
-cnSa <- binnedSmoothingByState(cn, by=3)
+cnSa <- binnedSmoothingByState(cn, by=3, verbose=-1)
 lines(cnSa, col="blue")
 points(cnSa, col="blue")
 
-cnSb <- binnedSmoothingByState(cn, by=9)
+cnSb <- binnedSmoothingByState(cn, by=9, verbose=-1)
 lines(cnSb, col="red")
 points(cnSb, col="red")
 

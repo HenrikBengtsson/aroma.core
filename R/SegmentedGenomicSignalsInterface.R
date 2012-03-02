@@ -94,7 +94,7 @@ setMethodS3("extractSubsetByState", "SegmentedGenomicSignalsInterface", function
   keep <- whichVector(keep);
 
   # Extract this subset
-  extractSubset(this, subset=keep, ...);
+  extractSubset(this, keep, ...);
 })
 
  
@@ -180,6 +180,8 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   verbose && enter(verbose, "Creating result object");
   res <- clone(this);
   clearCache(res);
+  res <- extractSubset(res, seq(along=yOut));
+
   res$y <- yOut;
   res$x <- xOut;
   verbose && exit(verbose);
@@ -268,6 +270,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   verbose && enter(verbose, "Allocating result set");
   res <- clone(this);
   clearCache(res);
+  res <- extractSubset(res, seq(along=xOut));
 
   # Target 'x' and 'y':
   res$x <- xOut;
@@ -322,6 +325,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     nbrOfBins <- nbrOfLoci(resSS);
     rm(resSS);
     if (nbrOfBins == 0) {
+      verbose && cat(verbose, "No bins. Skipping state.");
       verbose && exit(verbose);
       next;
     }
@@ -332,10 +336,12 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     verbose && enter(verbose, "Extracting subset of (source) loci with this signal state");
     gsSS <- extractSubsetByState(gs, states=state, verbose=less(verbose,50));
-    print(gsSS);
+#    verbose && print(verbose, gsSS);
+    ySS <- getSignals(gsSS);
     verbose && exit(verbose);
     # Nothing to do?
     if (nbrOfLoci(gsSS) == 0) {
+      verbose && cat(verbose, "No extracted loci. Skipping state.");
       verbose && exit(verbose);
       next;
     }
@@ -369,7 +375,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
         } # for (ff ...)
       }
       verbose && exit(verbose);
-    }
+    } # if (byCount)
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Bin loci of this state towards target loci (of the same state)
@@ -387,14 +393,12 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       args <- list(xOut=xOutSS, by=by, byCount=byCount, ...);
       verbose && str(verbose, args);
       resSS <- binnedSmoothing(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
-    }
+    } # if (byCount)
     rm(gsSS, args);
     verbose && print(verbose, resSS);
     verbose && exit(verbose);
 
     # Sanity check
-    str(idxsOut);
-    print(resSS);  
     stopifnot(length(idxsOut) == nbrOfLoci(resSS));  
 
     res$y[idxsOut] <- resSS$y;

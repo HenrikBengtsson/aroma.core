@@ -562,4 +562,6 @@ nbrOfChromosomes.RawGenomicSignals
 extractChromosome extractChromosome.RawGenomicSignals
 extractChromosomes extractChromosomes.RawGenomicSignals
 clearCache.RawGenomicSignals clone.RawGenomicSignals
-
+getBasicField getBasicField.RawGenomicSignals
+print.RawGenomicSignals setBasicField
+setBasicField.RawGenomicSignals

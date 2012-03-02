@@ -80,12 +80,13 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     throw("Unknown arguments: ", argsStr);
   } 
 
-  this <- extend(BasicObject(), "RawGenomicSignals", 
-    chromosome = chromosome,
-    x = x,
-    y = y,
-    w = w
-  );
+  # Setup data frame with optional fields
+  data <- data.frame(chromosome=chromosome);
+  data$x <- x;  # optional
+  data$y <- y;
+  data$w <- w;  # optional
+
+  this <- extend(data, "RawGenomicSignals");
 
   this <- setName(this, name);
 
@@ -188,11 +189,22 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   res <- clone(this);
   clearCache(res);
 
-  fields <- getLocusFields(res);
-  for (ff in seq(along=fields)) {
-    field <- fields[ff];
-    res[[field]] <- res[[field]][subset];
-  } # for (ff ...)
+  if (!inherits(res, "Object") && !inherits(res, "BasicObject")) {
+    attrs <- attributes(res);
+    keep <- setdiff(names(attrs), c("names", "row.names", "class"));
+    attrs <- attrs[keep];
+    fields <- getLocusFields(res);
+    res <- res[subset,fields,drop=FALSE];
+    for (key in names(attrs)) {
+      attr(res, key) <- attrs[[key]];
+    }
+  } else {
+    fields <- getLocusFields(res);
+    for (ff in seq(along=fields)) {
+      field <- fields[ff];
+      res[[field]] <- res[[field]][subset];
+    } # for (ff ...)
+  }
 
   res;
 }) # extractSubset()
@@ -481,15 +493,15 @@ setMethodS3("sort", "RawGenomicSignals", function(x, ...) {
 })
 
 
-setMethodS3("getXY", "RawGenomicSignals", function(this, sort=TRUE, ...) {
+setMethodS3("getXY", "RawGenomicSignals", function(this,  ...) {
   # This is a single-chromosome method. Assert that's the case.
   assertOneChromosome(this);
 
-  xy <- data.frame(x=this$x, y=this$y);
-  if (sort)
-    xy <- xy[order(xy$x),,drop=FALSE];
+  xy <- getCXY(this, ...);
+  xy <- xy[,c("x","y"), drop=FALSE];
   xy;
 }, protected=TRUE)
+
 
 setMethodS3("getCXY", "RawGenomicSignals", function(this, sort=TRUE, ...) {
   cxy <- data.frame(chromosome=this$chromosome, x=this$x, y=this$y);
@@ -649,8 +661,11 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   } # if (byCount)
 
   verbose && enter(verbose, "Creating result object");
+  nOut <- length(ys);
+  # Allocate the correct size
   res <- clone(this);
   clearCache(res);
+  res <- extractSubset(res, seq(length=nOut));
   res$y <- ys;
   res$x <- xOut;
   res$w <- wOut;
@@ -948,12 +963,17 @@ setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...
   invisible(this);
 }, protected=TRUE)
 
+setMethodS3("print", "RawGenomicSignals", function(x, ...) {
+  print(as.character(x));
+})
+
 
 
 
 ############################################################################
 # HISTORY:
 # 2012-03-01
+# o Now RawGenomicSignals inherits from data.frame().
 # o Added (get|set)BasicField() for the Object -> BasicObject
 #   -> data.frame transition.
 # o Now all setNnn() methods returns invisible(this).

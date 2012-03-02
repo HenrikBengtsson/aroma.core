@@ -33,7 +33,9 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
 
   # Extracting data of interest
   data <- as.data.frame(this, translate=FALSE);
-  data <- cbind(chromosome=chromosome, data);
+  if (!is.element("chromosome", colnames(data))) {
+    data <- cbind(chromosome=chromosome, data);
+  }
 #  verbose && str(verbose, data);
 
   # Use weights, if they exists?

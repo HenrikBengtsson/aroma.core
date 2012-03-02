@@ -1154,6 +1154,11 @@
 \alias{extractChromosomes.RawGenomicSignals}
 \alias{clearCache.RawGenomicSignals}
 \alias{clone.RawGenomicSignals}
+\alias{getBasicField}
+\alias{getBasicField.RawGenomicSignals}
+\alias{print.RawGenomicSignals}
+\alias{setBasicField}
+\alias{setBasicField.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

@@ -15,8 +15,15 @@ setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...
     this <- addLocusFields(this, "id");
   }
 
-  for (ff in getLocusFields(this)) {
-    this[[ff]] <- c(this[[ff]], other[[ff]]);
+  if (inherits(this, "Object") || inherits(this, "BasicObject")) {
+    for (ff in getLocusFields(this)) {
+      this[[ff]] <- c(this[[ff]], other[[ff]]);
+    }
+  } else {
+    fields <- getLocusFields(this);
+    this <- this[,fields,drop=FALSE];
+    other <- other[,fields,drop=FALSE];
+    this <- rbind(this, other);
   }
 
   invisible(this);

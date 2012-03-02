@@ -17,17 +17,15 @@
   Package:  aroma.core \cr
 \bold{Class RawGenomicSignals}\cr
 
-\code{logical}\cr
+\code{data.frame}\cr
 \code{~~|}\cr
-\code{~~+--}\code{\link[R.oo]{BasicObject}}\cr
-\code{~~~~~~~|}\cr
-\code{~~~~~~~+--}\code{RawGenomicSignals}\cr
+\code{~~+--}\code{RawGenomicSignals}\cr
 
 \bold{Directly known subclasses:}\cr
 \link[aroma.core]{RawAlleleBFractions}, \link[aroma.core]{RawCopyNumbers}, \link[aroma.core]{RawMirroredAlleleBFractions}, \link[aroma.core]{RawSequenceReads}, \link[aroma.core]{SegmentedAlleleBFractions}, \link[aroma.core]{SegmentedCopyNumbers}\cr
 
 public class \bold{RawGenomicSignals}\cr
-extends \link[R.oo]{BasicObject}\cr
+extends data.frame\cr
 
 
  }
@@ -58,8 +56,6 @@ extends \link[R.oo]{BasicObject}\cr
  \tab \code{append} \tab  -\cr
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothing} \tab  -\cr
- \tab \code{clearCache} \tab  -\cr
- \tab \code{clone} \tab  -\cr
  \tab \code{divideBy} \tab  -\cr
  \tab \code{drawDensity} \tab  -\cr
  \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
@@ -87,6 +83,7 @@ extends \link[R.oo]{BasicObject}\cr
  \tab \code{nbrOfLoci} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
+ \tab \code{print} \tab  -\cr
  \tab \code{\link[aroma.core:segmentByCBS.RawGenomicSignals]{segmentByCBS}} \tab Segment copy numbers using the CBS method.\cr
  \tab \code{\link[aroma.core:segmentByGLAD.RawGenomicSignals]{segmentByGLAD}} \tab Segment copy numbers using the GLAD method.\cr
  \tab \code{\link[aroma.core:segmentByHaarSeg.RawGenomicSignals]{segmentByHaarSeg}} \tab Segment copy numbers using the HaarSeg method.\cr
@@ -111,11 +108,8 @@ extends \link[R.oo]{BasicObject}\cr
 }
 
 
- \bold{Methods inherited from BasicObject}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, detach, equals, extend, getFields, getInstantiationTime, hasField, hashCode, isReferable, objectSize, print
-
- \bold{Methods inherited from logical}:\cr
-as.data.frame, as.raster, whichVector
+ \bold{Methods inherited from data.frame}:\cr
+$<-, [, [[, [[<-, [<-, aggregate, anyDuplicated, as.data.frame, as.list, as.matrix, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, Math, mean, merge, na.exclude, na.omit, Ops, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, Summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
  }
