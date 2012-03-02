@@ -17,7 +17,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Retrieving data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  sampleName <- this$fullname;
+  sampleName <- getBasicField(this, "fullname");
   if (is.null(sampleName)) {
     sampleName <- defaultSampleName;
   }

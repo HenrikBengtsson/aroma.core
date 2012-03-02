@@ -84,9 +84,10 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     chromosome = chromosome,
     x = x,
     y = y,
-    w = w,
-    .name = name
+    w = w
   );
+
+  this <- setName(this, name);
 
   # Append other locus fields?
   if (!is.null(object)) {
@@ -97,23 +98,6 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     this <- addLocusFields(this, fields);
   }
 
-  this;
-})
-
-# Adding clone() and clearCache() for RawGenomicSignals so that its
-# methods work regardless of RawGenomicSignals extending BasicObject
-# or Object (the original implementation).
-setMethodS3("clone", "RawGenomicSignals", function(this, ...) {
-  if (inherits(this, "Object")) {
-    this <- NextMethod("clone", this, ...);
-  }
-  this;
-})
-
-setMethodS3("clearCache", "RawGenomicSignals", function(this, ...) {
-  if (inherits(this, "Object")) {
-    this <- NextMethod("clearCache", this, ...);
-  }
   this;
 })
 
@@ -401,7 +385,7 @@ setMethodS3("hasWeights", "RawGenomicSignals", function(this, ...) {
 
 
 setMethodS3("getName", "RawGenomicSignals", function(this, ...) {
-  this$.name;
+  getBasicField(this, ".name");
 })
 
 
@@ -409,7 +393,7 @@ setMethodS3("setName", "RawGenomicSignals", function(this, name, ...) {
   if (!is.null(name)) {
     name <- Arguments$getCharacter(name);
   }
-  this$.name <- name;
+  this <- setBasicField(this, ".name", name);
   invisible(this);
 })
 
@@ -443,7 +427,7 @@ setMethodS3("summary", "RawGenomicSignals", function(object, ...) {
 
 
 setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
-  fields <- this$.locusFields;
+  fields <- getBasicField(this, ".locusFields");
   if (is.null(fields)) {
     fields <- c("chromosome", "x", "y");
     if (hasWeights(this)) {
@@ -457,13 +441,13 @@ setMethodS3("setLocusFields", "RawGenomicSignals", function(this, fields, ...) {
   # Argument 'field':
   fields <- Arguments$getCharacters(fields);
 
-  oldFields <- this$.locusFields;
-
   # Always keep (chromosome, x,y)
   fields <- unique(c("chromosome", "x", "y", fields));
 
   # Update
-  this$.locusFields <- fields;
+
+  this <- setBasicField(this, ".locusFields", fields);
+
   invisible(this);
 })
 
@@ -798,26 +782,26 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
 # GRAPHICS RELATED METHODS
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 setMethodS3("getXScale", "RawGenomicSignals", function(this, ...) {
-  scale <- this$.xScale;
+  scale <- getBasicField(this, ".xScale");
   if (is.null(scale)) scale <- 1e-6;
   scale;
 })
 
 setMethodS3("getYScale", "RawGenomicSignals", function(this, ...) {
-  scale <- this$.yScale;
+  scale <- getBasicField(this, ".yScale");
   if (is.null(scale)) scale <- 1;
   scale;
 })
 
-setMethodS3("setXScale", "RawGenomicSignals", function(this, xScale=1e-6, ...) {
-  xScale <- Arguments$getNumeric(xScale);
-  this$.xScale <- xScale;
+setMethodS3("setXScale", "RawGenomicSignals", function(this, scale=1e-6, ...) {
+  scale <- Arguments$getNumeric(scale);
+  this <- setBasicField(this, ".xScale", scale);
   invisible(this);
 })
 
-setMethodS3("setYScale", "RawGenomicSignals", function(this, xScale=1, ...) {
-  yScale <- Arguments$getNumeric(yScale);
-  this$.yScale <- yScale;
+setMethodS3("setYScale", "RawGenomicSignals", function(this, scale=1, ...) {
+  scale <- Arguments$getNumeric(scale);
+  this <- setBasicField(this, ".yScale", scale);
   invisible(this);
 })
 
@@ -912,20 +896,57 @@ setMethodS3("signalRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) 
 
 setMethodS3("setSigma", "RawGenomicSignals", function(this, sigma, ...) {
   sigma <- Arguments$getNumeric(sigma, range=c(0,Inf), disallow=NULL);
-  this$.sigma <- sigma;
+  this <- setBasicField(this, ".sigma", sigma);
   invisible(this);
 })
 
 setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
-  sigma <- this$.sigma;
+  sigma <- getBasicField(this, ".sigma");
   if (is.null(sigma)) {
     sigma <- estimateStandardDeviation(this, ...);
-    setSigma(this, sigma);
+    this <- setSigma(this, sigma);
   }
   sigma;
 })
 
 
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# TRICKS DURING Object -> BasicObject -> data.frame transition
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# Adding clone() and clearCache() for RawGenomicSignals so that its
+# methods work regardless of RawGenomicSignals extending BasicObject
+# or Object (the original implementation).
+setMethodS3("clone", "RawGenomicSignals", function(this, ...) {
+  if (inherits(this, "Object")) {
+    this <- NextMethod("clone", this, ...);
+  }
+  this;
+}, protected=TRUE)
+
+setMethodS3("clearCache", "RawGenomicSignals", function(this, ...) {
+  if (inherits(this, "Object")) {
+    this <- NextMethod("clearCache", this, ...);
+  }
+  this;
+}, protected=TRUE)
+
+setMethodS3("getBasicField", "RawGenomicSignals", function(this, key, ...) {
+  if (inherits(this, "Object")) {
+    this[[key]];
+  } else {
+    attr(this, key);
+  }
+}, protected=TRUE)
+
+setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...) {
+  if (inherits(this, "Object")) {
+    this[[key]] <- value;
+  } else {
+    attr(this, key) <- value;
+  }
+  invisible(this);
+}, protected=TRUE)
 
 
 
@@ -933,6 +954,8 @@ setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
 ############################################################################
 # HISTORY:
 # 2012-03-01
+# o Added (get|set)BasicField() for the Object -> BasicObject
+#   -> data.frame transition.
 # o Now all setNnn() methods returns invisible(this).
 # o Preparing to support multiple-chromosome RawGenomicSignals;
 #   - Added getChromosomes() and nbrOfChromosomes().

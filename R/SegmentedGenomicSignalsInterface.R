@@ -32,7 +32,7 @@ setMethodS3("setStates", "SegmentedGenomicSignalsInterface", function(this, stat
     }
   }
 
-  this$.states <- states;
+  this <- setBasicField(this, ".states", states);
 
   invisible(this);
 })
@@ -44,7 +44,7 @@ setMethodS3("getStates", "SegmentedGenomicSignalsInterface", function(this, x=ge
 
   nbrOfLoci <- length(x);
 
-  states <- this$.states;
+  states <- getBasicField(this, ".states");
 
   if (is.function(states)) {
     fcn <- states;
