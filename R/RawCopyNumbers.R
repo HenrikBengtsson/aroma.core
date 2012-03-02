@@ -67,7 +67,7 @@ setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBa
   }
 
   # Get the current logarithmic base, if any
-  logBase0 <- this$.yLogBase;
+  logBase0 <- getBasicField(this, ".yLogBase");
 
   res <- clone(this);
 
@@ -86,7 +86,7 @@ setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBa
     }
 
     res$y <- y;
-    res$.yLogBase <- logBase;
+    res <- setBasicField(res, ".yLogBase", logBase);
   }
 
   res;

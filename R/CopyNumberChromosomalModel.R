@@ -863,7 +863,7 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
                                                        verbose=less(verbose));
   
     cn <- RawCopyNumbers(cn=data[,"M"], x=data[,"x"], chromosome=chromosome); 
-    cn$.yLogBase <- 2;
+    cn <- setBasicField(cn, ".yLogBase", 2);
     rm(data);
   }
 

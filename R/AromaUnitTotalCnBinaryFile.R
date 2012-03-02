@@ -60,7 +60,8 @@ setMethodS3("extractRawCopyNumbers", "AromaUnitTotalCnBinaryFile", function(this
     # AD HOC. Now standard
     logBase0 <- 10;
   }
-  cn$.yLogBase <- logBase0;
+
+  cn <- setBasicField(cn, ".yLogBase", logBase0);
 
   # Convert to the correct logarithmic base
   cn <- extractRawCopyNumbers(cn, logBase=logBase);

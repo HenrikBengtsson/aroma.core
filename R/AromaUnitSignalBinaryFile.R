@@ -186,12 +186,13 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   verbose && enter(verbose, "Extracting data");
   y <- extractMatrix(this, units=units, drop=TRUE, verbose=less(verbose,5));
   verbose && str(verbose, y);
-  res <- newInstance(clazz, y, x=pos, chromosome=chromosome, name=name);
+  res <- newInstance(clazz, y, x=pos, chromosome=chromosome);
+  res <- setName(res, name);
 
   # Add annotation data
-  res$platform <- getPlatform(this);
-  res$chipType <- getChipType(this);
-  res$fullname <- getFullName(this);
+  res <- setBasicField(res, "platform", getPlatform(this));
+  res <- setBasicField(res, "chipType", getChipType(this));
+  res <- setBasicField(res, "fullname", getFullName(this));
 
   # Add additional locus data
   if (keepUnits) {

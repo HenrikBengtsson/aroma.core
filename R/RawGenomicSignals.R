@@ -41,7 +41,7 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
       x <- object$x;
       w <- object$w;
       chromosome <- object$chromosome;
-      name <- object$name;
+      name <- getName(object);
     }
 
     if (!is.vector(y)) {

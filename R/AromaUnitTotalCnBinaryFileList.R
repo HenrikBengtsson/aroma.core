@@ -164,8 +164,9 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   # Estimating platform-specific weights based their noise levels
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   verbose && enter(verbose, "Estimating platform-specific weights based their noise levels");
-  # Comment: The 'sigma' field is calculated on the fly, cf. getSigma().
-  vars <- sapply(cnList, FUN=function(cn) cn$sigma^2);
+  vars <- sapply(cnList, FUN=function(cn) {
+    getSigma(cn)^2
+  });
   verbose && cat(verbose, "Robust first-order variance estimates (per source):");
   verbose && print(verbose, vars);
   verbose && cat(verbose, "Relative to the first source:");
@@ -189,11 +190,11 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   verbose && enter(verbose, "Assign platform specific weights");
   for (kk in seq(along=cnList)) {
     cn <- cnList[[kk]];
-    cn$weights <- rep(ws[kk], nbrOfLoci(cn));
+    cn$weights <- rep(ws[kk], times=nbrOfLoci(cn));
     cnList[[kk]] <- cn;
 
     cnS <- cnSList[[kk]];
-    cnS$weights <- rep(ws[kk], nbrOfLoci(cnS));
+    cnS$weights <- rep(ws[kk], times=nbrOfLoci(cnS));
     cnSList[[kk]] <- cnS;
   } # for (kk ...)
   verbose && exit(verbose);

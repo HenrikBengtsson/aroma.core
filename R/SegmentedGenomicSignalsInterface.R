@@ -337,7 +337,6 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     verbose && enter(verbose, "Extracting subset of (source) loci with this signal state");
     gsSS <- extractSubsetByState(gs, states=state, verbose=less(verbose,50));
 #    verbose && print(verbose, gsSS);
-    ySS <- getSignals(gsSS);
     verbose && exit(verbose);
     # Nothing to do?
     if (nbrOfLoci(gsSS) == 0) {
@@ -358,7 +357,10 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       fields <- setdiff(getLocusFields(gsSS), "xOrder");
       gsSS <- setLocusFields(gsSS, fields);
       gsSS$xOrder <- NULL;
+      
       if (nbrOfLociToAdd > 0) {
+        nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
+        gsSS2 <- extractSubset(gsSS, rep(1L, times=nbrOfLoci2));
         for (ff in fields) {
           values <- gsSS[[ff]];
           if (is.element(ff, "w")) {
@@ -371,9 +373,11 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
           storage.mode(naValue) <- storage.mode(values);
           naValues <- rep(naValue, times=nbrOfLociToAdd);
           values <- c(naValues, values);
-          gsSS[[ff]] <- values;
+          gsSS2[[ff]] <- values;
         } # for (ff ...)
-      }
+        gsSS <- gsSS2;
+        rm(gsSS2);
+      } # if (nbrOfLociToAdd > 0)
       verbose && exit(verbose);
     } # if (byCount)
 
@@ -428,6 +432,9 @@ setMethodS3("points", "SegmentedGenomicSignalsInterface", function(x, ..., col=g
 
 ############################################################################
 # HISTORY:
+# 2012-03-01
+# o Now binnedSmoothingByState() works also when RawGenomicSignals
+#   extends data.frame.
 # 2009-06-30
 # o Added support for argument 'byCount' to binnedSmoothingByState() of 
 #   SegmentedCopyNumbers.  It is rather complex how it works, but we tried
