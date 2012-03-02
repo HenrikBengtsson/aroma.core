@@ -238,7 +238,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
 
   if (byCount) {
     verbose && enter(verbose, "By count");
-    res <- sort(res); # sort() returns a clone():d object. /HB 2012-03-01
+    res <- sort(this); # sort() returns a clone():d object. /HB 2012-03-01
     resOut <- binnedSmoothing(res, by=by, length.out=length.out, 
                               byCount=TRUE, verbose=less(verbose, 5));
     xOut <- resOut$x;

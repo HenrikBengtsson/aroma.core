@@ -1,7 +1,7 @@
 setMethodS3("getStateColorMap", "SegmentedGenomicSignalsInterface", function(this, ...) {
   colorMap <- this$.stateColorMap;
   if (is.null(colorMap)) {
-    setStateColorMap(this, colorMap="default");
+    this <- setStateColorMap(this, colorMap="default");
     colorMap <- this$.stateColorMap;
   }
   colorMap;
