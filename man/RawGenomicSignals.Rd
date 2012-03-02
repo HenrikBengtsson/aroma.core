@@ -17,15 +17,17 @@
   Package:  aroma.core \cr
 \bold{Class RawGenomicSignals}\cr
 
-\code{\link[R.oo]{Object}}\cr
+\code{logical}\cr
 \code{~~|}\cr
-\code{~~+--}\code{RawGenomicSignals}\cr
+\code{~~+--}\code{\link[R.oo]{BasicObject}}\cr
+\code{~~~~~~~|}\cr
+\code{~~~~~~~+--}\code{RawGenomicSignals}\cr
 
 \bold{Directly known subclasses:}\cr
 \link[aroma.core]{RawAlleleBFractions}, \link[aroma.core]{RawCopyNumbers}, \link[aroma.core]{RawMirroredAlleleBFractions}, \link[aroma.core]{RawSequenceReads}, \link[aroma.core]{SegmentedAlleleBFractions}, \link[aroma.core]{SegmentedCopyNumbers}\cr
 
-public static class \bold{RawGenomicSignals}\cr
-extends \link[R.oo]{Object}\cr
+public class \bold{RawGenomicSignals}\cr
+extends \link[R.oo]{BasicObject}\cr
 
 
  }
@@ -56,6 +58,8 @@ extends \link[R.oo]{Object}\cr
  \tab \code{append} \tab  -\cr
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothing} \tab  -\cr
+ \tab \code{clearCache} \tab  -\cr
+ \tab \code{clone} \tab  -\cr
  \tab \code{divideBy} \tab  -\cr
  \tab \code{drawDensity} \tab  -\cr
  \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
@@ -107,8 +111,11 @@ extends \link[R.oo]{Object}\cr
 }
 
 
- \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+ \bold{Methods inherited from BasicObject}:\cr
+asThis, $, $<-, [[, [[<-, as.character, attach, detach, equals, extend, getFields, getInstantiationTime, hasField, hashCode, isReferable, objectSize, print
+
+ \bold{Methods inherited from logical}:\cr
+as.data.frame, as.raster, whichVector
 
 
  }

@@ -1152,6 +1152,8 @@
 \alias{extractChromosome.RawGenomicSignals}
 \alias{extractChromosomes}
 \alias{extractChromosomes.RawGenomicSignals}
+\alias{clearCache.RawGenomicSignals}
+\alias{clone.RawGenomicSignals}
 
 \description{
   This page contains aliases for all "non-documented" objects that

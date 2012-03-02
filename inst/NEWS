@@ -1,8 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.4.8 [2012-03-01]
+o Now RawGenomicSignals inherits from BasicObject instead of Object.
+  This is the first step of turning it into a "basic" R data type.
+
+
 Version: 2.4.7 [2012-03-01]
-o Preparing for making RawGenomicSignals non-reference objects.
+o Preparing for RawGenomicSignals not being reference variables.
 o Preparing for supporting multiple-chromosome RawGenomicSignals.
 o ROBUSTNESS: Added system tests for RawGenomicSignals classes.
 o CLEANUP: Now R CMD check no longer reports that the package

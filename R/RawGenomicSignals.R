@@ -80,7 +80,7 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     throw("Unknown arguments: ", argsStr);
   } 
 
-  this <- extend(Object(), "RawGenomicSignals", 
+  this <- extend(BasicObject(), "RawGenomicSignals", 
     chromosome = chromosome,
     x = x,
     y = y,
@@ -97,6 +97,23 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
     this <- addLocusFields(this, fields);
   }
 
+  this;
+})
+
+# Adding clone() and clearCache() for RawGenomicSignals so that its
+# methods work regardless of RawGenomicSignals extending BasicObject
+# or Object (the original implementation).
+setMethodS3("clone", "RawGenomicSignals", function(this, ...) {
+  if (inherits(this, "Object")) {
+    this <- NextMethod("clone", this, ...);
+  }
+  this;
+})
+
+setMethodS3("clearCache", "RawGenomicSignals", function(this, ...) {
+  if (inherits(this, "Object")) {
+    this <- NextMethod("clearCache", this, ...);
+  }
   this;
 })
 
