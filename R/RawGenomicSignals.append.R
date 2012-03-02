@@ -15,20 +15,21 @@ setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...
     this <- addLocusFields(this, "id");
   }
 
-  if (inherits(this, "Object") || inherits(this, "BasicObject")) {
-    for (ff in getLocusFields(this)) {
-      this[[ff]] <- c(this[[ff]], other[[ff]]);
-    }
-  } else {
+  if (is.data.frame(this)) {
     attrs <- attributes(this);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
-    fields <- getLocusFields(this);
+    fields <- getDefaultLocusFields(this);
     this <- this[,fields,drop=FALSE];
     other <- other[,fields,drop=FALSE];
     this <- rbind(this, other);
     for (key in names(attrs)) {
       attr(this, key) <- attrs[[key]];
+    }
+  } else {
+    # For inherits(this, "Object") || inherits(this, "BasicObject")
+    for (ff in getLocusFields(this)) {
+      this[[ff]] <- c(this[[ff]], other[[ff]]);
     }
   }
 

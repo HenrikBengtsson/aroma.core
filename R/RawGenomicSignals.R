@@ -462,13 +462,18 @@ setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  fields <- getLocusFields(this);
   data <- NULL;
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # "Default" fields
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  fields <- getDefaultLocusFields(this);
   for (cc in seq(along=fields)) {
     field <- fields[cc];
     values <- this[[field]];
     if (cc == 1) {
       data <- data.frame(values);
+      colnames(data) <- field;
     } else {
       data[[field]] <- values;
     }
@@ -518,6 +523,8 @@ setMethodS3("getVirtualLocusFields", "RawGenomicSignals", function(this, ...) {
 
 setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
   fields <- c(getDefaultLocusFields(this), getVirtualLocusFields(this));
+  fields <- unique(fields);
+  fields;
 }) # getLocusFields()
 
 

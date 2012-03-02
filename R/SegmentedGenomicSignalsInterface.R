@@ -82,6 +82,7 @@ setMethodS3("as.data.frame", "SegmentedGenomicSignalsInterface", function(x, ...
 setMethodS3("getVirtualLocusFields", "SegmentedGenomicSignalsInterface", function(this, ...) {
   fields <- NextMethod("getVirtualLocusFields", this, ...);
   fields <- c(fields, "state");
+  fields <- unique(fields);
   fields;
 })
 
@@ -357,8 +358,8 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       verbose && cat(verbose, "xOrder:");
       verbose && str(verbose, gsSS$xOrder);
       nbrOfLociToAdd <- (gsSS$xOrder[1] %% by) - 1;
-      verbose && cat(verbose, "nbrOfLociToAdd: ", nbrOfLociToAdd);
-      fields <- setdiff(getLocusFields(gsSS), "xOrder");
+      verbose && cat(verbose, "Number of loci to add: ", nbrOfLociToAdd);
+      fields <- setdiff(getDefaultLocusFields(gsSS), "xOrder");
       gsSS <- setLocusFields(gsSS, fields);
       gsSS$xOrder <- NULL;
       
