@@ -122,14 +122,22 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
     dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA);
     s <- c(s, sprintf("Mean distance between loci: %g", dAvg));
   }
-  fields <- getLocusFields(this);
+
+  fields <- getDefaultLocusFields(this);
   fields <- sapply(fields, FUN=function(field) {
     values <- this[[field]];
     mode <- mode(values);
     sprintf("%s [%dx%s]", field, length(values), mode);
-  })
+  });
+  if (length(fields) == 0) fields <- "<none>";
   fields <- paste(fields, collapse=", ");
-  s <- c(s, sprintf("Loci fields: %s", fields));
+  s <- c(s, sprintf("Default locus fields: %s", fields));
+
+  fields <- getVirtualLocusFields(this);
+  if (length(fields) == 0) fields <- "<none>";
+  fields <- paste(fields, collapse=", ");
+  s <- c(s, sprintf("Virtual locus fields: %s", fields));
+
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
@@ -186,17 +194,17 @@ setMethodS3("newInstance", "RawGenomicSignals", function(this, nbrOfLoci, ...) {
 
   subset <- rep(1L, times=nbrOfLoci);
 
-  if (inherits(res, "data.frame")) {
+  if (is.data.frame(res)) {
     attrs <- attributes(res);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
-    fields <- getLocusFields(res);
+    fields <- getDefaultLocusFields(res);
     res <- res[subset,fields,drop=FALSE];
     for (key in names(attrs)) {
       attr(res, key) <- attrs[[key]];
     }
   } else {
-    fields <- getLocusFields(res);
+    fields <- getDefaultLocusFields(res);
     for (ff in seq(along=fields)) {
       field <- fields[ff];
       res[[field]] <- res[[field]][subset];
@@ -226,17 +234,17 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   res <- clone(this);
   clearCache(res);
 
-  if (inherits(res, "data.frame")) {
+  if (is.data.frame(res)) {
     attrs <- attributes(res);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
-    fields <- getLocusFields(res);
+    fields <- getDefaultLocusFields(res);
     res <- res[subset,fields,drop=FALSE];
     for (key in names(attrs)) {
       attr(res, key) <- attrs[[key]];
     }
   } else {
-    fields <- getLocusFields(res);
+    fields <- getDefaultLocusFields(res);
     for (ff in seq(along=fields)) {
       field <- fields[ff];
       res[[field]] <- res[[field]][subset];
@@ -478,27 +486,62 @@ setMethodS3("summary", "RawGenomicSignals", function(object, ...) {
 })
 
 
-setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
-  fields <- getBasicField(this, ".locusFields");
-  if (is.null(fields)) {
-    fields <- c("chromosome", "x", "y");
+setMethodS3("getDefaultLocusFields", "RawGenomicSignals", function(this, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # "Default" fields
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (is.data.frame(this)) {
+    defFields <- colnames(this);
+  } else {
+    # When RawGenomicSignals extends Object
+    defFields <- c("chromosome", "x", "y");
     if (hasWeights(this)) {
-      fields <- c(fields, "w");
+      defFields <- c(defFields, "w");
     }
   }
-  fields;
-})
+
+  defFields;
+}) # getDefaultLocusFields()
+
+
+setMethodS3("getVirtualLocusFields", "RawGenomicSignals", function(this, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # "Virtual" fields
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  virtualFields <- getBasicField(this, ".locusFields");
+  virtualFields <- setdiff(virtualFields, getDefaultLocusFields(this));
+
+  virtualFields;
+}) # getVirtualLocusFields()
+
+
+
+setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
+  fields <- c(getDefaultLocusFields(this), getVirtualLocusFields(this));
+}) # getLocusFields()
+
+
 
 setMethodS3("setLocusFields", "RawGenomicSignals", function(this, fields, ...) {
   # Argument 'field':
   fields <- Arguments$getCharacters(fields);
 
   # Always keep (chromosome, x,y)
+  fields0 <- fields;
   fields <- unique(c("chromosome", "x", "y", fields));
 
   # Update
-
   this <- setBasicField(this, ".locusFields", fields);
+
+  # Sanity check
+  if (is.data.frame(this)) {
+    missing <- setdiff(fields, getLocusFields(this));
+    n <- length(missing);
+    if (n > 0) {
+      msg <- sprintf("INTERNAL ISSUE: Detected %d non-specific locus fields after doing setLocusFields(..., fields=c(%s)): %s not in c(%s)", n, hpaste(sprintf("'%s'", fields0)), hpaste(sprintf("'%s'", missing)), hpaste(sprintf("'%s'", fields)));
+      stop(msg);
+    }
+  }
 
   invisible(this);
 })

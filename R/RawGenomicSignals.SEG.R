@@ -23,7 +23,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   }
 
   chromosome <- as.integer(this$chromosome);
-  if (is.na(chromosome)) {
+  if (all(is.na(chromosome))) {
     chromosome <- defaultChromosome;
   }
   nbrOfLoci <- nbrOfLoci(this);

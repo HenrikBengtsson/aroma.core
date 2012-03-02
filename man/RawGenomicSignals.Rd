@@ -67,11 +67,13 @@ extends data.frame\cr
  \tab \code{gaussianSmoothing} \tab  -\cr
  \tab \code{getChromosome} \tab  -\cr
  \tab \code{getChromosomes} \tab  -\cr
+ \tab \code{getDefaultLocusFields} \tab  -\cr
  \tab \code{getLocusFields} \tab  -\cr
  \tab \code{getName} \tab  -\cr
  \tab \code{getPositions} \tab  -\cr
  \tab \code{getSigma} \tab  -\cr
  \tab \code{getSignals} \tab  -\cr
+ \tab \code{getVirtualLocusFields} \tab  -\cr
  \tab \code{getWeights} \tab  -\cr
  \tab \code{getXScale} \tab  -\cr
  \tab \code{getYScale} \tab  -\cr

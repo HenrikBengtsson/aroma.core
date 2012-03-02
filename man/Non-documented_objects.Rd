@@ -1160,6 +1160,11 @@
 \alias{setBasicField}
 \alias{setBasicField.RawGenomicSignals}
 \alias{newInstance.RawGenomicSignals}
+\alias{getDefaultLocusFields}
+\alias{getDefaultLocusFields.RawGenomicSignals}
+\alias{getVirtualLocusFields}
+\alias{getVirtualLocusFields.RawGenomicSignals}
+\alias{getVirtualLocusFields.SegmentedGenomicSignalsInterface}
 
 \description{
   This page contains aliases for all "non-documented" objects that

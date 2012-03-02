@@ -79,6 +79,12 @@ setMethodS3("as.data.frame", "SegmentedGenomicSignalsInterface", function(x, ...
   df;
 })
 
+setMethodS3("getVirtualLocusFields", "SegmentedGenomicSignalsInterface", function(this, ...) {
+  fields <- NextMethod("getVirtualLocusFields", this, ...);
+  fields <- c(fields, "state");
+  fields;
+})
+
 
 setMethodS3("extractSubsetByState", "SegmentedGenomicSignalsInterface", function(this, states, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

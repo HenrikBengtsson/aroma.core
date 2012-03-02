@@ -566,3 +566,6 @@ getBasicField getBasicField.RawGenomicSignals
 print.RawGenomicSignals setBasicField
 setBasicField.RawGenomicSignals
 newInstance.RawGenomicSignals
+getDefaultLocusFields getDefaultLocusFields.RawGenomicSignals
+getVirtualLocusFields getVirtualLocusFields.RawGenomicSignals
+getVirtualLocusFields.SegmentedGenomicSignalsInterface

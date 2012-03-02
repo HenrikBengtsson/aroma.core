@@ -46,6 +46,7 @@ extends \link[R.oo]{Interface}\cr
  \tab \code{getStateColors} \tab  -\cr
  \tab \code{getStates} \tab  -\cr
  \tab \code{getUniqueStates} \tab  -\cr
+ \tab \code{getVirtualLocusFields} \tab  -\cr
  \tab \code{kernelSmoothingByState} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
