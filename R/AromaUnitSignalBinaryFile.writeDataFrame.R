@@ -335,6 +335,12 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   }
 
   verbose && enter(verbose, "Writing data section");
+  quoteColumnNamesIfNeeded <- function(x, quote="\"") {
+    idxs <-grep("#", x);
+    x[idxs] <- sprintf("%s%s%s", quote, x[idxs], quote);
+    x;
+  } # quoteColumnNamesIfNeeded()
+  allColumnNames <- quoteColumnNamesIfNeeded(allColumnNames);
   allColumnNamesStr <- paste(allColumnNames, collapse=sep);
   cat(file=pathnameT, allColumnNamesStr, sep="\n", append=TRUE);
 
