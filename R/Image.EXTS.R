@@ -340,7 +340,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Argument 'z':
-  z <- Arguments$getNumerics(z, range=c(0,1));  
+  z <- Arguments$getNumerics(z, range=c(0,1));
 
   # Argument 'class':
   knownClasses <- c("png::array", "EBImage::Image");
@@ -529,7 +529,15 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   verbose && summary(verbose, as.vector(z));
   verbose && exit(verbose);
 
+  verbose && enter(verbose, "Truncating possible +Inf to 1");
+  z[z == +Inf] <- 1;
+  verbose && summary(verbose, as.vector(z));
+  verbose && exit(verbose);
+  
   # Create an Image object
+  # Sanity check
+  stopifnot(all(z >= 0, na.rm=TRUE));
+  stopifnot(all(z <= 1, na.rm=TRUE));
   img <- createImage(z, colorMode="gray", ...);
 
   verbose && cat(verbose, "Create image object:");

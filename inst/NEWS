@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.4.10 [2012-03-06]
+o GENERALIZATION: The new ArrayExplorer v3.4 will work with most
+  commonly used web browsers including Mozilla Firefox, Google Chrome,
+  Microsoft Internet Explorer, Apple Safari, and Opera.
+
+
 Version: 2.4.9 [2012-03-06]
 o ROBUSTNESS: Now all writeDataFrame() methods will add quotation
   marks around column names that contain a comment character ('#').
@@ -54,8 +60,8 @@ o Forgot to include require.js in v2.4.4, which is needed by the
 Version: 2.4.4 [2012-02-01]
 o GENERALIZATION: The new ChromosomeExplorer v3.3 will work with most
   commonly used web browsers including Mozilla Firefox, Google Chrome,
-  Microsoft Internet Explorer and Apple Safari.  This far it has been
-  tested with the following browsers: Firefox v3.6/v9.01/v10.0, 
+  Microsoft Internet Explorer, Apple Safari and Opera.  This far it has 
+  been tested with the following browsers: Firefox v3.6/v9.01/v10.0, 
   Chrome v17.0, IE v7.x/v9.0, and Safari 5.
   NOTE: To update an existing ChromosomeExplorer report, call
   setup(ce, force=TRUE) where 'ce' is your ChromosomeExplorer object.
