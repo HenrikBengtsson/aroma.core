@@ -23,6 +23,9 @@ setMethodS3("as.character", "RasterImage", function(x, ...) {
 
   s <- sprintf("%s:", class(this)[1]);
   s <- c(s, sprintf("Dimensions: %s", paste(dim(this), collapse="x")));
+  r <- range(this, na.rm=TRUE);
+  s <- c(s, sprintf("Pixel intensity range: [%g,%g]", r[1], r[2]));
+  class(s) <- c("GenericSummary", class(s));
   s;
 })
 
@@ -71,7 +74,36 @@ setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE,
     if (!isPackageInstalled("png")) {
       throw("Cannot write PNG to file. Package not installed: png");
     }
-    png::writePNG(this, target=pathnameT);
+
+    img <- this;
+#saveObject(img, "img.RData");
+
+    r <- range(img, na.rm=TRUE);
+
+    # Sanity check
+    if (r[1] < 0) {
+      throw("INTERNAL ERROR: Detected negative pixel intensities: ", r[1]);
+    }
+    if (r[2] > 65535) {
+      throw("INTERNAL ERROR: Detected too large pixel intensities: ", r[2]);
+    }
+
+    # Rescale to [0,1]?
+    if (r[2] > 2) {
+      warning("Rescaled RasterImage pixel intensities to [0,1].");
+      img <- img / 65535;
+    }
+
+    # Sanity check
+    r <- range(img, na.rm=TRUE);
+    if (r[1] < 0) {
+      throw("INTERNAL ERROR: Detected negative pixel intensities: ", r[1]);
+    }
+    if (r[2] > 1) {
+      throw("INTERNAL ERROR: Detected too large pixel intensities: ", r[2]);
+    }
+
+    png::writePNG(img, target=pathnameT);
   }
 
   # Assert that image file was created
@@ -432,6 +464,7 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
   # Rescale to [0,1]
   z <- z / 255;
 
+  verbose && cat(verbose, "Rescale to [0,1]:");
   verbose && str(verbose, z);
   verbose && summary(verbose, z);
 
@@ -464,6 +497,7 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
   # Create a new Image object
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   img <- RasterImage(z, ...);
+  verbose && print(verbose, img);
 
   verbose && exit(verbose);
 
@@ -471,9 +505,131 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
 }, protected=TRUE)
 
 
+setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v", "auto"), ..., verbose=TRUE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  safeMeans <- function(x) {
+    mean(x[is.finite(x)]);
+  }
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'what':
+  what <- match.arg(what);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Interleave
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Nothing todo?
+  if (what == "none") {
+    return(this);
+  }
+
+  verbose && enter(verbose, "Interleaving image");
+
+  # Get image data
+  z <- getImageData(this);
+  verbose && cat(verbose, "z:");
+  verbose && str(verbose, z);
+  zDim <- dim(z);
+  ndim <- length(zDim);
+  dim(z) <- zDim;
+
+  # Sanity check
+  stopifnot(ndim == 2 || ndim == 3);
+  if (ndim == 2) {
+    dim(z) <- c(zDim, 1L);
+  }
+
+  # if only PM locations have signal, add a fake row
+  if (what == "auto") {
+    verbose && enter(verbose, "Infering horizontal, vertical, or no interleaving");
+    n <- 2*(nrow(z) %/% 2);
+    idxOdd <- seq(from=1, to=n, by=2);
+    zOdd <- z[idxOdd,,,drop=FALSE];
+    zEven <- z[idxOdd+1,,,drop=FALSE];
+    hOdd <- safeMeans(abs(zOdd));
+    hEven <- safeMeans(abs(zEven));
+    verbose && printf(verbose, "hOdd=%.2g\n", hOdd);
+    verbose && printf(verbose, "hEven=%.2g\n", hEven);
+    hRatio <- log(hOdd/hEven);
+    verbose && printf(verbose, "hRatio=%.2g\n", hRatio);
+
+    n <- 2*(ncol(z) %/% 2);
+#    n <- max(n, 40);  # Infer from the first 40 rows.
+    idxOdd <- seq(from=1, to=n, by=2);
+    zOdd <- z[,idxOdd,,drop=FALSE];
+    zEven <- z[,idxOdd+1,,drop=FALSE];
+    vOdd <- safeMeans(abs(zOdd));
+    vEven <- safeMeans(abs(zEven));
+    verbose && printf(verbose, "vOdd=%.2g\n", vOdd);
+    verbose && printf(verbose, "vEven=%.2g\n", vEven);
+    vRatio <- log(vOdd/vEven);
+    verbose && printf(verbose, "vRatio=%.2g\n", vRatio);
+
+    what <- "none";
+    if (abs(vRatio) > abs(hRatio)) {
+      if (abs(vRatio) > 0.25) {
+        if (vRatio > 0)
+          what <- "v"
+        else
+          what <- "v";
+      }
+    } else {
+      if (abs(hRatio) > 0.25) {
+        if (hRatio > 0)
+          what <- "h"
+        else
+          what <- "h";
+      }
+    }
+    verbose && cat(verbose, "what: ", what);
+    verbose && exit(verbose);
+  }
+
+  isUpdated <- FALSE;
+  if (what == "h") {
+    idxOdd <- seq(from=1, to=2*(nrow(z) %/% 2), by=2);
+    z[idxOdd,,] <- z[idxOdd+1,,,drop=FALSE];
+  } else if (what == "v") {
+    idxOdd <- seq(from=1, to=2*(ncol(z) %/% 2), by=2);
+    z[,idxOdd,] <- z[,idxOdd+1,,drop=FALSE];
+  } else {
+    isUpdated <- FALSE;
+  }
+
+  if (ndim == 2) {
+    z <- z[,,1,drop=TRUE];
+  }
+
+  # Update?
+  if (isUpdated) {
+    this <- setImageData(this, z);
+  }
+
+  verbose && exit(verbose);
+
+  this;
+}, protected=TRUE)
+
 
 ############################################################################
 # HISTORY:
+# 2012-03-05
+# o BUG FIX: write() for RasterImage would write a transposed image,
+#   and also truncate intensities, because we forgot to rescale [0,65535]
+#   to [0,1] intensities.
+# o Now as.character() for RasterImage also reports on the intensity range.
 # 2011-02-24
 # o Now write() and read() for RasterImage throws an informative error
 #   message explaining that the 'png' package is needed.

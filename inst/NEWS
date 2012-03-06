@@ -1,12 +1,17 @@
 Package: aroma.core
 ===================
 
-Version: 2.4.9 [2012-03-05]
+Version: 2.4.9 [2012-03-06]
 o ROBUSTNESS: Now all writeDataFrame() methods will add quotation
   marks around column names that contain a comment character ('#').
   This will make the written file readable with read.table() even 
   when there are header comments with prefix '#'.  This issue was
   reported by Yu Song at Oakland University.
+o Now createImage() for matrix creates images of type "png::array"
+  by default (used to be "EBImage::Image").  If the latter, then
+  EBImage v3.9.7 (July 2011) is required.
+o BUG FIX: write() for RasterImage would write truncated intensities,
+  because we forgot to rescale [0,65535] to [0,1] intensities.
 
 
 Version: 2.4.8 [2012-03-02]
