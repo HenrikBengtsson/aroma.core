@@ -3,7 +3,7 @@ Package: aroma.core
 
 Version: 2.4.9 [2012-03-05]
 o ROBUSTNESS: Now all writeDataFrame() methods will add quotation
-  marks around column names that contains a comment character ('#').
+  marks around column names that contain a comment character ('#').
   This will make the written file readable with read.table() even 
   when there are header comments with prefix '#'.  This issue was
   reported by Yu Song at Oakland University.
