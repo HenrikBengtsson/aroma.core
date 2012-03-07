@@ -86,7 +86,7 @@ function ArrayExplorer() {
     var s = 'Zoom: ';
     for (var kk=0; kk < scales.length; kk++) {
       var scale = scales[kk];
-      s = s + '[<span id="zoom' + scale + '"><a href="javascript:explorer.setScale(' + kk + ');">x' + padWidthZeros(scale, zWidth) + '</a></span>]'; 
+      s = s + '[<span id="zoom' + scale + '"><a href="javascript:explorer.setScale(' + scale + ');">x' + padWidthZeros(scale, zWidth) + '</a></span>]'; 
     }
     s = s + '<br>';
     updateLabel('zoomLabel', s);
