@@ -306,6 +306,8 @@ function ArrayExplorer() {
     var ar = this.image2d.getAspectRatio();
     this.nav2d.setRelDimension(1/this.scale, 1/this.scale/ar);
     this.updateImage();
+    this.image2d.update();
+    this.nav2d.update();
     this.updateInfo();
   }
 
@@ -337,6 +339,8 @@ function ArrayExplorer() {
 /****************************************************************
  HISTORY:
  2012-03-06
+ o Now update() also updates the navigator, which may be needed
+   if the windows was resized.
  o Now ArrayExplorer v3.4 works with at least Chrome 18, 
    Firefox 10, Internet Explorer 9, and Opera 11.61.
  o BUG FIX: Now update() uses 'window.innerHeigh' instead of

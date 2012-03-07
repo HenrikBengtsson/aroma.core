@@ -23,11 +23,13 @@ function Scrollbar2d(id) {
   }
 
   this.getImageWidth = function() {
-    return(this.image.width-5);
+    return(this.image.width);
+/*    return(this.image.width-5); */
   }
 
   this.getImageHeight = function() {
-    return(this.image.height-4);
+    return(this.image.height);
+/*    return(this.image.height-4); */
   }
 
   this.update = function() {
@@ -161,6 +163,9 @@ function Scrollbar2d(id) {
 
 /****************************************************************
  HISTORY:
+ 2012-03-06
+ o Update getImageWidth()/getImageHeight() to no longer
+   subtract an ad hoc padding/inner margin.
  2012-02-02
  o Extracted Scrollbar2d.js.
  2008-06-23

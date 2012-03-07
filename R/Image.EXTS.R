@@ -529,8 +529,8 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   verbose && summary(verbose, as.vector(z));
   verbose && exit(verbose);
 
-  verbose && enter(verbose, "Truncating possible +Inf to 1");
-  z[z == +Inf] <- 1;
+  verbose && enter(verbose, "Censor +/-Inf to NA");
+  z[is.infinite(z)] <- NA;
   verbose && summary(verbose, as.vector(z));
   verbose && exit(verbose);
   
