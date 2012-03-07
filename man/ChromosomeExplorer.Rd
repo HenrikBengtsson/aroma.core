@@ -32,14 +32,14 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
 
  }
 
- \usage{ChromosomeExplorer(model=NULL, zooms=2^(0:6), ..., version=c("3.4", "3"))}
+ \usage{ChromosomeExplorer(model=NULL, zooms=2^(0:6), version=c("3.4", "3"), ...)}
 
  \arguments{
    \item{model}{A \code{\link{CopyNumberChromosomalModel}} object.}
    \item{zooms}{An positive \code{\link[base]{integer}} \code{\link[base]{vector}} specifying for which zoom
     levels the graphics should be generated.}
-   \item{...}{Not used.}
    \item{version}{The version of the Explorer HTML/Javascript generated/used.}
+   \item{...}{Not used.}
  }
 
  \section{Fields and Methods}{
@@ -63,7 +63,7 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
 
 
  \bold{Methods inherited from Explorer}:\cr
-addIncludes, addIndexFile, display, getAlias, getArraysOfInput, getAsteriskTags, getFullName, getIncludePath, getMainPath, getName, getNameOfInput, getNames, getParallelSafe, getPath, getReportPathPattern, getSampleLayerPrefix, getSubname, getTags, getTagsOfInput, getTemplatePath, nbrOfArrays, process, setAlias, setArrays, setParallelSafe, setReportPathPattern, setSubname, setup, splitByReportPathPattern
+addIncludes, addIndexFile, display, getAlias, getArraysOfInput, getAsteriskTags, getFullName, getIncludePath, getMainPath, getName, getNameOfInput, getNames, getParallelSafe, getPath, getReportPathPattern, getSampleLayerPrefix, getSubname, getTags, getTagsOfInput, getTemplatePath, getVersion, nbrOfArrays, process, setAlias, setArrays, setParallelSafe, setReportPathPattern, setSubname, splitByReportPathPattern, updateSetupExplorerFile
 
  \bold{Methods inherited from Object}:\cr
 asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save

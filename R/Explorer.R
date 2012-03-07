@@ -11,6 +11,7 @@
 #
 # \arguments{
 #   \item{tags}{A @character @vector of tags to be added to the output path.}
+#   \item{version}{An optional @character string.}
 #   \item{...}{Not used.}
 # }
 #
@@ -44,14 +45,18 @@
 # @author
 # 
 #*/###########################################################################
-setConstructorS3("Explorer", function(tags="*", ...) {
+setConstructorS3("Explorer", function(tags="*", version="0", ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'tags':
   tags <- Arguments$getTags(tags, collapse=NULL);
 
+  # Argument 'version':
+  version <- Arguments$getCharacter(version);
+
   extend(Object(), "Explorer",
+    .version = version,
     .alias = NULL,
     .tags = tags,
     .arrays = NULL,
@@ -66,14 +71,19 @@ setMethodS3("as.character", "Explorer", function(x, ...) {
   this <- x;
 
   s <- sprintf("%s:", class(this)[1]);
-  s <- c(s, paste("Name:", getName(this)));
-  s <- c(s, paste("Tags:", getTags(this, collapse=",")));
+  s <- c(s, sprintf("Version: %s", getVersion(this)));
+  s <- c(s, sprintf("Name: %s", getName(this)));
+  s <- c(s, sprintf("Tags: %s", getTags(this, collapse=",")));
   s <- c(s, sprintf("Main path: %s", getMainPath(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
 }, private=TRUE)
 
+
+setMethodS3("getVersion", "Explorer", function(this, ...) {
+  this$.version;
+})
 
 
 setMethodS3("getParallelSafe", "Explorer", function(this, ...) {
@@ -605,7 +615,64 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
 
 
 
-setMethodS3("setup", "Explorer", abstract=TRUE);
+setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., verbose=FALSE) {
+  require("R.rsp") || throw("Package not loaded: R.rsp");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'data':
+  data <- Arguments$getInstanceOf(data, "environment");
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  outFile <- "setupExplorer.js";
+
+  verbose && enter(verbose, "Updating ", outFile);
+
+  mainPath <- getMainPath(this);
+  setTuple <- getSetTuple(this);
+  filename <- sprintf("%s.rsp", outFile);
+  srcPath <- getTemplatePath(this);
+  pathname <- filePath(srcPath, "rsp", class(this)[1], filename);
+  verbose && cat(verbose, "Source: ", pathname);
+
+  outPath <- mainPath;
+  verbose && cat(verbose, "Output path: ", outPath);
+  outPath <- Arguments$getWritablePath(outPath);
+
+  verbose && cat(verbose, "Input data:");
+  verbose && str(verbose, as.list(data));
+
+  verbose && enter(verbose, "Compiling RSP");
+  pathname <- rspToHtml(pathname, path=NULL, 
+                        outFile=outFile, outPath=outPath, 
+                        overwrite=TRUE, envir=data);
+  verbose && exit(verbose);
+
+  verbose && exit(verbose);
+
+  invisible(pathname);
+}, protected=TRUE) # updateSetupExplorerFile()
+
+
+
+setMethodS3("setup", "Explorer", function(this, ..., force=FALSE) {
+  # Setup includes/
+  addIncludes(this, ..., force=force);
+
+  # Setup HTML explorer page
+  addIndexFile(this, ..., force=force);
+
+  # Update Javascript files
+  updateSetupExplorerFile(this, ...);
+}, protected=TRUE)
 
 
 
@@ -714,6 +781,10 @@ setMethodS3("getArrays", "Explorer", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2012-02-06
+# o Added implementation of setup() to Explorer.
+# o Added updateSetupExplorerFile() to Explorer.
+# o Added getVersion() to Explorer.
 # 2009-05-17
 # o Added missing abstract method getArraysOfInput() to Explorer.
 # o Moved the Explorer class and its support files under inst/ to aroma.core.

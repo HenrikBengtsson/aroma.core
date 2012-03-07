@@ -13,8 +13,8 @@
 #   \item{model}{A @see "CopyNumberChromosomalModel" object.}
 #   \item{zooms}{An positive @integer @vector specifying for which zoom
 #    levels the graphics should be generated.}
-#   \item{...}{Not used.}
 #   \item{version}{The version of the Explorer HTML/Javascript generated/used.}
+#   \item{...}{Not used.}
 # }
 #
 # \section{Fields and Methods}{
@@ -39,7 +39,7 @@
 #  @see "CopyNumberChromosomalModel".
 # }
 #*/###########################################################################
-setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ..., version=c("3.4", "3")) {
+setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), version=c("3.4", "3"), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -59,12 +59,11 @@ setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ..., 
   version <- match.arg(version);
 
 
-  extend(Explorer(...), c("ChromosomeExplorer"),
+  extend(Explorer(version=version, ...), c("ChromosomeExplorer"),
     .model = model,
     .arrays = NULL,
     .plotCytoband = TRUE,
-    .zooms = zooms,
-    .version = version
+    .zooms = zooms
   )
 })
 
@@ -74,9 +73,10 @@ setMethodS3("as.character", "ChromosomeExplorer", function(x, ...) {
   this <- x;
 
   s <- sprintf("%s:", class(this)[1]);
-  s <- c(s, paste("Name:", getName(this)));
-  s <- c(s, paste("Tags:", paste(getTags(this), collapse=",")));
-  s <- c(s, paste("Number of arrays:", nbrOfArrays(this)));
+  s <- c(s, sprintf("Version: %s", getVersion(this)));
+  s <- c(s, sprintf("Name: %s", getName(this)));
+  s <- c(s, sprintf("Tags: %s", paste(getTags(this), collapse=",")));
+  s <- c(s, sprintf("Number of arrays: %d", nbrOfArrays(this)));
   s <- c(s, sprintf("Path: %s", getPath(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
@@ -300,11 +300,106 @@ setMethodS3("getSampleLabels", "ChromosomeExplorer", function(this, ...) {
 })
 
 
+setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {
+  # To please R CMD check.
+  this <- x;
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'arrays':
+  arrays <- indexOf(this, arrays);
+
+  # Get the model
+  model <- getModel(this);
+
+  path <- getPath(this);
+  path <- Arguments$getWritablePath(path); 
+
+  plotband <- this$.plotCytoband;  # Plot cytoband?
+  plot(model, path=path, imageFormat="png", plotband=plotband, arrays=arrays, ...);
+
+  invisible(path);
+}, private=TRUE)
+
+
+
+setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nbrOfSnps=c(3,Inf), smoothing=c(-Inf,-0.15, +0.15,+Inf), ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'arrays':
+  arrays <- indexOf(this, arrays);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  model <- getModel(this);
+
+  # Not supported?
+  if (!inherits(model, "CopyNumberSegmentationModel"))
+    return(NULL);
+
+  verbose && enter(verbose, "Writing CN regions");
+
+  path <- getPath(this);
+  path <- Arguments$getWritablePath(path); 
+
+  dest <- filePath(path, "regions.xls");
+  dest <- Arguments$getWritablePathname(dest); 
+
+
+  # Extract and write regions
+  if (getParallelSafe(this)) {
+    tryCatch({
+      pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
+      res <- copyFile(pathname, dest, overwrite=TRUE);
+      if (!res)
+        dest <- NULL;
+    }, error = function(ex) {})
+  } else {
+    pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
+    res <- copyFile(pathname, dest, overwrite=TRUE);
+    if (!res)
+      dest <- NULL;
+  }
+
+
+  verbose && exit(verbose);
+
+  invisible(dest);
+}, private=TRUE)
+
+
+
+
+setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename=NULL, ...) {
+  if (is.null(filename)) {
+    version <- getVersion(this);
+    if (version == "3") {
+      filename <- "ChromosomeExplorer.html";
+    } else if (version == "3.4") {
+      filename <- "ChromosomeExplorer.html";
+    } else if (version == "4") {
+      filename <- "ChromosomeExplorer4.html";
+    } else if (version == "5") {
+      filename <- "ChromosomeExplorer5.html";
+    }
+  }
+  NextMethod("addIndexFile", this, filename=filename, ...);
+}, protected=TRUE)
+
+
 
 ###########################################################################/**
-# @RdocMethod updateSamplesFile
+# @RdocMethod updateSetupExplorerFile
 #
-# @title "Updates the samples.js file"
+# @title "Updates the Javascript file"
 #
 # \description{
 #  @get "title".
@@ -327,7 +422,7 @@ setMethodS3("getSampleLabels", "ChromosomeExplorer", function(this, ...) {
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbose=FALSE) {
+setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ..., verbose=FALSE) {
   require("R.rsp") || throw("Package not loaded: R.rsp");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -342,7 +437,7 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
 
 
   # Output version
-  version <- this$.version;
+  version <- getVersion(this);
   verbose && cat(verbose, "Explorer output version: ", version);
 
 
@@ -465,129 +560,7 @@ setMethodS3("updateSamplesFile", "ChromosomeExplorer", function(this, ..., verbo
   verbose && exit(verbose);
   
   invisible(pathname);
-}, private=TRUE)
-
-
-
-setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename=NULL, ...) {
-  if (is.null(filename)) {
-    version <- this$.version;
-    if (version == "3") {
-      filename <- "ChromosomeExplorer.html";
-    } else if (version == "3.4") {
-      filename <- "ChromosomeExplorer.html";
-    } else if (version == "4") {
-      filename <- "ChromosomeExplorer4.html";
-    } else if (version == "5") {
-      filename <- "ChromosomeExplorer5.html";
-    }
-  }
-  NextMethod("addIndexFile", this, filename=filename, ...);
-}, protected=TRUE)
-
-
-
-
-setMethodS3("setup", "ChromosomeExplorer", function(this, ..., force=FALSE) {
-  if (getParallelSafe(this)) {
-    tryCatch({
-      # Setup includes/?
-      addIncludes(this, ..., force=force);
-  
-      # Setup main HTML file
-      addIndexFile(this, ..., force=force);
-  
-      # Setup samples.js?
-      updateSamplesFile(this, ...);
-    }, error = function(ex) {})
-  } else {
-    # Setup includes/?
-    addIncludes(this, ..., force=force);
-
-    # Setup main HTML file
-    addIndexFile(this, ..., force=force);
-
-    # Setup samples.js?
-    updateSamplesFile(this, ...);
-  }
-}, private=TRUE)
-
-
-
-setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {
-  # To please R CMD check.
-  this <- x;
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'arrays':
-  arrays <- indexOf(this, arrays);
-
-  # Get the model
-  model <- getModel(this);
-
-  path <- getPath(this);
-  path <- Arguments$getWritablePath(path); 
-
-  plotband <- this$.plotCytoband;  # Plot cytoband?
-  plot(model, path=path, imageFormat="png", plotband=plotband, arrays=arrays, ...);
-
-  invisible(path);
-}, private=TRUE)
-
-
-
-setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nbrOfSnps=c(3,Inf), smoothing=c(-Inf,-0.15, +0.15,+Inf), ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'arrays':
-  arrays <- indexOf(this, arrays);
-
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-
-  model <- getModel(this);
-
-  # Not supported?
-  if (!inherits(model, "CopyNumberSegmentationModel"))
-    return(NULL);
-
-  verbose && enter(verbose, "Writing CN regions");
-
-  path <- getPath(this);
-  path <- Arguments$getWritablePath(path); 
-
-  dest <- filePath(path, "regions.xls");
-  dest <- Arguments$getWritablePathname(dest); 
-
-
-  # Extract and write regions
-  if (getParallelSafe(this)) {
-    tryCatch({
-      pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-      res <- copyFile(pathname, dest, overwrite=TRUE);
-      if (!res)
-        dest <- NULL;
-    }, error = function(ex) {})
-  } else {
-    pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-    res <- copyFile(pathname, dest, overwrite=TRUE);
-    if (!res)
-      dest <- NULL;
-  }
-
-
-  verbose && exit(verbose);
-
-  invisible(dest);
-}, private=TRUE)
+}, protected=TRUE) # updateSetupExplorerFile()
 
 
 
@@ -687,10 +660,10 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
   # Update samples.js
   if (getParallelSafe(this)) {
     tryCatch({
-      updateSamplesFile(this, ..., verbose=less(verbose));
+      updateSetupExplorerFile(this, ..., verbose=less(verbose));
     }, error = function(ex) {})
   } else {
-    updateSamplesFile(this, ..., verbose=less(verbose));
+    updateSetupExplorerFile(this, ..., verbose=less(verbose));
   }
 
   # Write regions file
@@ -716,6 +689,10 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 
 ##############################################################################
 # HISTORY:
+# 2012-03-06
+# o Dropped setup() for ChromosomeExplorer, because now Explorer has one.
+# o Renamed updateSamplesFile() to updateSetupExplorerFile().
+# o Now ChromosomeExplorer() passes argument 'version' to Explorer().
 # 2012-02-01
 # o Now getChromosomeLabels() returns "01", "02", ..., instead of 
 #   "1", "2", ..., which makes it easier to use Webcuts.

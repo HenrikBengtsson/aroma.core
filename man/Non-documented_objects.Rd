@@ -887,7 +887,6 @@
 \alias{updateGenotypes.AromaUnitGenotypeCallFile}
 \alias{updatePositions}
 \alias{updatePositions.AromaCellPositionFile}
-\alias{updateSamplesFile}
 \alias{updateSequenceMatrix}
 \alias{updateSequenceMatrix.AromaCellSequenceFile}
 \alias{updateSequences}
@@ -1165,6 +1164,9 @@
 \alias{getVirtualLocusFields}
 \alias{getVirtualLocusFields.RawGenomicSignals}
 \alias{getVirtualLocusFields.SegmentedGenomicSignalsInterface}
+\alias{getVersion.Explorer}
+\alias{updateSetupExplorerFile}
+\alias{updateSetupExplorerFile.Explorer}
 
 \description{
   This page contains aliases for all "non-documented" objects that

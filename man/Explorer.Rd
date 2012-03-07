@@ -30,10 +30,11 @@ extends \link[R.oo]{Object}\cr
 
  }
 
- \usage{Explorer(tags="*", ...)}
+ \usage{Explorer(tags="*", version="0", ...)}
 
  \arguments{
    \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags to be added to the output path.}
+   \item{version}{An optional \code{\link[base]{character}} string.}
    \item{...}{Not used.}
  }
 
@@ -51,13 +52,13 @@ extends \link[R.oo]{Object}\cr
  \tab \code{getReportPathPattern} \tab  -\cr
  \tab \code{\link[aroma.core:getTags.Explorer]{getTags}} \tab Gets the tags of the explorer.\cr
  \tab \code{getTagsOfInput} \tab  -\cr
+ \tab \code{getVersion} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfArrays.Explorer]{nbrOfArrays}} \tab Gets the total number of arrays.\cr
  \tab \code{\link[aroma.core:process.Explorer]{process}} \tab Generates image files, scripts and dynamic pages for the explorer.\cr
  \tab \code{\link[aroma.core:setAlias.Explorer]{setAlias}} \tab Sets the alias of the output set.\cr
  \tab \code{\link[aroma.core:setArrays.Explorer]{setArrays}} \tab Sets the arrays.\cr
  \tab \code{setReportPathPattern} \tab  -\cr
  \tab \code{setSubname} \tab  -\cr
- \tab \code{setup} \tab  -\cr
  \tab \code{splitByReportPathPattern} \tab  -\cr
 }
 

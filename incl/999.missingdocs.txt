@@ -431,7 +431,7 @@
   updateData updateData.AromaTabularBinaryFile updateDataColumn
   updateDataColumn.AromaTabularBinaryFile updateGenotypes
   updateGenotypes.AromaUnitGenotypeCallFile updatePositions
-  updatePositions.AromaCellPositionFile updateSamplesFile
+  updatePositions.AromaCellPositionFile 
   updateSequenceMatrix updateSequenceMatrix.AromaCellSequenceFile
   updateSequences updateSequences.AromaCellSequenceFile
   updateTargetStrands updateTargetStrands.AromaCellSequenceFile
@@ -569,3 +569,5 @@ newInstance.RawGenomicSignals
 getDefaultLocusFields getDefaultLocusFields.RawGenomicSignals
 getVirtualLocusFields getVirtualLocusFields.RawGenomicSignals
 getVirtualLocusFields.SegmentedGenomicSignalsInterface
+getVersion.Explorer setup.Explorer updateSetupExplorerFile
+updateSetupExplorerFile.Explorer
