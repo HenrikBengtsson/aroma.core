@@ -15,9 +15,18 @@ setMethodS3("multiplyBy", "RawGenomicSignals", function(this, ...) {
 })
 
 
-setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fields=getLocusFields(this), FUN, ..., sort=FALSE) {
+setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fields=NULL, FUN, ..., sort=FALSE) {
   # Argument 'other':
   other <- Arguments$getInstanceOf(other, class(this)[1]);
+
+  # Argument 'fields':
+  if (is.null(fields)) {
+    if (is.data.frame(this)) {
+      fields <- getLocusFields(this, translate=FALSE);
+    } else {
+      fields <- getLocusFields(this);
+    }
+  }
 
   # Argument 'FUN':
   if (!is.function(FUN)) {
@@ -30,7 +39,11 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
     throw("The number of loci in argument 'other' does not match the number of loci in this object: ", nbrOfLoci(other), " != ", nbrOfLoci);
   }
 
-  fieldsOther <- getLocusFields(other);
+  if (is.data.frame(other)) {
+    fieldsOther <- getLocusFields(other, translate=FALSE);
+  } else {
+    fieldsOther <- getLocusFields(other);
+  }
   fields <- intersect(fields, fieldsOther);
 
   res <- clone(this);
@@ -52,6 +65,7 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
     # Keep positions
     fields <- setdiff(fields, "x");
   }
+
 
   for (field in fields) {
     delta <- FUN(res[[field]], other[[field]]);
@@ -94,7 +108,11 @@ setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
 
   value <- Arguments$getDouble(value);
 
-  fields <- getLocusFields(this);
+  if (is.data.frame(this)) {
+    fields <- getLocusFields(this, translate=FALSE);
+  } else {
+    fields <- getLocusFields(this);
+  }
   fields <- setdiff(fields, "x");
 
   res <- clone(this);

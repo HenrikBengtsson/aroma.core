@@ -145,12 +145,17 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
 
 
 setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {
-  y <- getSignals(this);
+  data <- as.data.frame(this);
+  names <- colnames(data);
+  names <- setdiff(names, c("chromosome", "x"));
+  data <- data[,names,drop=FALSE];
+  y <- data[,1,drop=TRUE];
   if (na.rm) {
     y <- y[is.finite(y)];
   }
   length(y);
 })
+
 
 setMethodS3("getChromosomes", "RawGenomicSignals", function(this, ...) {
   chrs <- this$chromosome;
@@ -198,7 +203,7 @@ setMethodS3("newInstance", "RawGenomicSignals", function(this, nbrOfLoci, ...) {
     attrs <- attributes(res);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
-    fields <- getDefaultLocusFields(res);
+    fields <- getDefaultLocusFields(res, translate=FALSE);
     res <- res[subset,fields,drop=FALSE];
     for (key in names(attrs)) {
       attr(res, key) <- attrs[[key]];
@@ -238,7 +243,7 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
     attrs <- attributes(res);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
-    fields <- getDefaultLocusFields(res);
+    fields <- getDefaultLocusFields(res, translate=FALSE);
     res <- res[subset,fields,drop=FALSE];
     for (key in names(attrs)) {
       attr(res, key) <- attrs[[key]];
@@ -428,8 +433,8 @@ setMethodS3("getSignals", "RawGenomicSignals", function(this, ...) {
 
 setMethodS3("setWeights", "RawGenomicSignals", function(this, weights, ...) {
   # Argument 'weights':
-  n <- length(getSignals(this));
-  weights <- Arguments$getNumerics(weights, length=rep(n,2), range=c(0,Inf));
+  n <- nbrOfLoci(this);
+  weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf));
   this$w <- weights;
   invisible(this);
 })
@@ -458,15 +463,26 @@ setMethodS3("setName", "RawGenomicSignals", function(this, name, ...) {
 })
 
 
-setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ...) {
+setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ..., sort=FALSE) {
   # To please R CMD check
   this <- x;
 
-  data <- NULL;
+  # Sort along genome?
+  if (sort) {
+    this <- sort(this, ...);
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # "Default" fields
+  # Return "default" fields
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (is.data.frame(this)) {
+    res <- this;
+    class(res) <- "data.frame";
+    return(res);
+  }
+
+  # Backward compatibility (Object & BasicObject)
+  data <- NULL;
   fields <- getDefaultLocusFields(this);
   for (cc in seq(along=fields)) {
     field <- fields[cc];
@@ -491,12 +507,16 @@ setMethodS3("summary", "RawGenomicSignals", function(object, ...) {
 })
 
 
-setMethodS3("getDefaultLocusFields", "RawGenomicSignals", function(this, ...) {
+setMethodS3("getDefaultLocusFields", "RawGenomicSignals", function(this, translate=TRUE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # "Default" fields
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (is.data.frame(this)) {
-    defFields <- colnames(this);
+    data <- this;
+    if (translate) {
+      data <- as.data.frame(data);
+    }
+    defFields <- colnames(data);
   } else {
     # When RawGenomicSignals extends Object
     defFields <- c("chromosome", "x", "y");
@@ -514,7 +534,7 @@ setMethodS3("getVirtualLocusFields", "RawGenomicSignals", function(this, ...) {
   # "Virtual" fields
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   virtualFields <- getBasicField(this, ".locusFields");
-  virtualFields <- setdiff(virtualFields, getDefaultLocusFields(this));
+  virtualFields <- setdiff(virtualFields, getDefaultLocusFields(this, ...));
 
   virtualFields;
 }) # getVirtualLocusFields()
@@ -522,7 +542,7 @@ setMethodS3("getVirtualLocusFields", "RawGenomicSignals", function(this, ...) {
 
 
 setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
-  fields <- c(getDefaultLocusFields(this), getVirtualLocusFields(this));
+  fields <- c(getDefaultLocusFields(this, ...), getVirtualLocusFields(this, ...));
   fields <- unique(fields);
   fields;
 }) # getLocusFields()
@@ -586,19 +606,17 @@ setMethodS3("sort", "RawGenomicSignals", function(x, ...) {
 setMethodS3("getXY", "RawGenomicSignals", function(this,  ...) {
   # This is a single-chromosome method. Assert that's the case.
   assertOneChromosome(this);
-
-  xy <- getCXY(this, ...);
-  xy <- xy[,c("x","y"), drop=FALSE];
-  xy;
+  data <- getCXY(this, ...);
+  data <- data[,c("x","y"), drop=FALSE];
+  data;
 }, protected=TRUE)
 
 
-setMethodS3("getCXY", "RawGenomicSignals", function(this, sort=TRUE, ...) {
-  cxy <- data.frame(chromosome=this$chromosome, x=this$x, y=this$y);
-  if (sort) {
-    cxy <- cxy[order(cxy$chromosome, cxy$x),,drop=FALSE];
-  }
-  cxy;
+setMethodS3("getCXY", "RawGenomicSignals", function(this, ...) {
+  data <- as.data.frame(this, ...);
+  fields <- c("chromosome", "x", "y");
+  data <- data[,fields,drop=FALSE];
+  data;
 }, protected=TRUE)
 
 
@@ -673,10 +691,10 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  n <- nbrOfLoci(this); 
   # Argument 'weights':
   if (!is.null(weights)) {
-    weights <- Arguments$getNumerics(weights, length=rep(nbrOfLoci(this),2),
-                                                           range=c(0,Inf));
+    weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf));
   }
 
   # Argument 'byCount':
@@ -1061,6 +1079,12 @@ setMethodS3("print", "RawGenomicSignals", function(x, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-10
+# o Now getDefaultLocusFields() utilizes as.data.frame().
+# o Added argument 'sort' to as.data.frame() for RawGenomicSignals.
+# o GENERALIZATION: Now nbrOfLoci() for RawGenomicSignals infers the 
+#   number of loci from the number of rows in as.data.frame(), instead
+#   of assuming there exists a column names 'y'.
 # 2012-03-02
 # o Added newInstance() for RawGenomicSignals.
 # o BUG FIX: Forgot to update kernelSmoothing() for data.frame:s.

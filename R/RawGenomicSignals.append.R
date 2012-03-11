@@ -19,7 +19,7 @@ setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...
     attrs <- attributes(this);
     keep <- setdiff(names(attrs), c("names", "row.names", "class"));
     attrs <- attrs[keep];
-    fields <- getDefaultLocusFields(this);
+    fields <- getDefaultLocusFields(this, translate=FALSE);
     this <- this[,fields,drop=FALSE];
     other <- other[,fields,drop=FALSE];
     this <- rbind(this, other);
