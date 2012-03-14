@@ -426,14 +426,16 @@ setMethodS3("setVirtualColumnFunctions", "RichDataFrame", function(this, virtual
 
   stopifnot(is.list(virtuals));
 
-  # Must be named
-  stopifnot(!is.null(names(virtuals)));
+  if (length(virtuals) > 0) {
+    # Must be named
+    stopifnot(!is.null(names(virtuals)));
 
-  # Cannot have duplicated names
-  stopifnot(!any(duplicated(names(virtuals))));
+    # Cannot have duplicated names
+    stopifnot(!any(duplicated(names(virtuals))));
 
-  # Assert non-name clashes between virtual and default columns.
-  stopifnot(all(!is.element(names(virtuals), getColumnNames(this, virtual=FALSE))));
+    # Assert non-name clashes between virtual and default columns.
+    stopifnot(all(!is.element(names(virtuals), getColumnNames(this, virtual=FALSE))));
+  }
 
   # Validate content
   for (key in names(virtuals)) {
