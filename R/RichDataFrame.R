@@ -218,17 +218,38 @@ setMethodS3("newInstance", "RichDataFrame", function(this, nrow, ...) {
 }, protected=TRUE) # newInstance()
 
 
-setMethodS3("subset", "RichDataFrame", function(x, ...) {
+setMethodS3("subset", "RichDataFrame", function(x, subset, select, drop=FALSE, envir=parent.frame(), ...) {
   # To please R CMD check
   this <- x;
 
-  # Identify rows to extract
+  # Data table to use for indentification of rows and columns
   data <- as.data.frame(this);
-  data <- subset(data, ...);
-  rows <- as.integer(rownames(data));
+
+  # Identify rows to select
+  if (missing(subset)) {
+    r <- TRUE;
+  } else {
+    e <- substitute(subset);
+    r <- eval(e, envir=data, enclos=envir);
+    if (!is.logical(r)) {
+      throw("Argument 'subset' must evaluate to logical: ", mode(r));
+    }
+    r <- r & !is.na(r);
+  }
+
+  # Identify columns to select
+  if (missing(select)) {
+    vars <- TRUE;
+  } else {
+    nl <- as.list(seq_along(data));
+    names(nl) <- names(data);
+    vars <- eval(substitute(select), envir=nl, enclos=envir);
+  }
+
+  # Not needed anymore
   rm(data);
 
-  res <- this[rows,,drop=FALSE];
+  res <- this[r,, drop=drop];
 
   res;
 })
@@ -567,6 +588,9 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-14
+# o BUG FIX: Had to adopt/paste from subset() for data.frame, because
+#   there are expressions that are evaluated in the "parent.frame()".
 # 2012-03-13
 # o Created RichDataFrame from RawGenomicSignals.
 ############################################################################
