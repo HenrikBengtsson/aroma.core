@@ -431,7 +431,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
         nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
         gsSS2 <- newInstance(gsSS, nrow=nbrOfLoci2);
 
-        fields <- getDefaultLocusFields(gsSS, translate=FALSE);
+        fields <- getDefaultLocusFields(gsSS, translate=TRUE);
         for (ff in fields) {
           values <- gsSS[[ff]];
           if (is.element(ff, "w")) {
