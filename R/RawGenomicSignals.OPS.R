@@ -21,11 +21,7 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
 
   # Argument 'fields':
   if (is.null(fields)) {
-    if (is.data.frame(this)) {
-      fields <- getLocusFields(this, translate=FALSE);
-    } else {
-      fields <- getLocusFields(this);
-    }
+    fields <- getColumnNames(this);
   }
 
   # Argument 'FUN':
@@ -39,14 +35,10 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
     throw("The number of loci in argument 'other' does not match the number of loci in this object: ", nbrOfLoci(other), " != ", nbrOfLoci);
   }
 
-  if (is.data.frame(other)) {
-    fieldsOther <- getLocusFields(other, translate=FALSE);
-  } else {
-    fieldsOther <- getLocusFields(other);
-  }
+  fieldsOther <- getColumnNames(other);
   fields <- intersect(fields, fieldsOther);
 
-  res <- clone(this);
+  res <- this;
 
   # Sort by genomic position?
   if (sort) {
@@ -71,7 +63,6 @@ setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fi
     delta <- FUN(res[[field]], other[[field]]);
     res[[field]] <- delta;
   }
-  res <- setLocusFields(res, fields);
 
   res;  
 }, protected=TRUE)
@@ -108,11 +99,7 @@ setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
 
   value <- Arguments$getDouble(value);
 
-  if (is.data.frame(this)) {
-    fields <- getLocusFields(this, translate=FALSE);
-  } else {
-    fields <- getLocusFields(this);
-  }
+  fields <- getColumnNames(this, translate=FALSE);
   fields <- setdiff(fields, "x");
 
   res <- clone(this);

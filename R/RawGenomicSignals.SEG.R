@@ -15,9 +15,37 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   verbose && enter(verbose, "Extracting data used by segmentation algorithms");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Drop loci with unknown locations?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Dropping loci with unknown locations");
+  x <- this$x;
+  keep <- whichVector(is.finite(x));
+  nbrOfDropped <- length(x)-length(keep);
+  verbose && cat(verbose, "Number of dropped loci: ", nbrOfDropped);
+  if (nbrOfDropped > 0) {
+    this <- this[keep,,drop=FALSE];
+  }
+  rm(x, keep);
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Order along genome?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (order) {
+    verbose && enter(verbose, "Ordering along genome");
+    this <- sort(this);
+    verbose && exit(verbose);
+  }
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Retrieving data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   sampleName <- getBasicField(this, "fullname");
+  if (is.null(sampleName)) {
+    sampleName <- getFullName(this);
+  }
   if (is.null(sampleName)) {
     sampleName <- defaultSampleName;
   }
@@ -28,7 +56,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   }
   nbrOfLoci <- nbrOfLoci(this);
   verbose && cat(verbose, "Sample name: ", sampleName);
-  verbose && cat(verbose, "Chromosome: ", chromosome);
+  verbose && cat(verbose, "Chromosomes: ", hpaste(sort(unique(chromosome))));
   verbose && cat(verbose, "Number of loci: ", nbrOfLoci);
 
   # Extracting data of interest
@@ -41,28 +69,18 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   # Use weights, if they exists?
   hasWeights <- useWeights && (length(data$w) > 0);
   
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Drop loci with unknown locations?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Dropping loci with unknown locations");
-  keep <- whichVector(is.finite(data$x));
-  nbrOfDropped <- nbrOfLoci-length(keep);
-  verbose && cat(verbose, "Number of dropped loci: ", nbrOfDropped);
-  if (nbrOfDropped > 0) {
-    data <- data[keep,,drop=FALSE];
-    nbrOfLoci <- nrow(data);
-#    verbose && str(verbose, data);
-  }
-  rm(keep);
-  verbose && exit(verbose);
-
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Drop non-finite signals?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (dropNonFinite) {
     verbose && enter(verbose, "Dropping loci with non-finite signals");
-    keep <- whichVector(is.finite(data$y));
+    y <- data$y;
+    verbose && cat(verbose, "Signals:");
+    verbose && str(verbose, y);
+    # Sanity check
+    stopifnot(is.numeric(y));
+    keep <- whichVector(is.finite(y));
     nbrOfDropped <- nbrOfLoci-length(keep);
     verbose && cat(verbose, "Number of dropped loci: ", nbrOfDropped);
     if (nbrOfDropped > 0) {
@@ -73,20 +91,6 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
     rm(keep);
     verbose && exit(verbose);
   }
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Order along genome?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (order) {
-    verbose && enter(verbose, "Order data along genome");
-    # Order signals by their genomic location
-    o <- order(data$x);
-    data <- data[o,,drop=FALSE];
-#    verbose && str(verbose, data);
-    verbose && exit(verbose);
-    rm(o);
-  }
-
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Weights

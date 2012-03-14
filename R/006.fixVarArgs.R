@@ -13,6 +13,9 @@ setMethodS3("colMeans", "default", function(...) {
   base::colMeans(...);
 })
 
+#colnames <- function(...) UseMethod("colnames", ...);
+#colnames.default <- function(...) base::colnames(...);
+
 
 ############################################################################
 # HISTORY:

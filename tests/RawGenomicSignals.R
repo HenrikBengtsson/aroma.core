@@ -49,7 +49,7 @@ cnD <- subtractBy(cn, cnT)
 print(cnD)
 
 # Subtract only fields, i.e. keep field 'w'.
-cnD <- subtractBy(cn, cnT, fields="y")
+cnD <- subtractBy(cn, cnT, fields="cn")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -

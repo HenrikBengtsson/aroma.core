@@ -37,7 +37,7 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
   if (!is.null(y)) {
     if (inherits(y, "RawGenomicSignals")) {
       object <- y;
-      y <- object$y;
+      y <- getSignals(object);
       x <- object$x;
       w <- object$w;
       chromosome <- object$chromosome;
@@ -81,22 +81,19 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
   } 
 
   # Setup data frame with optional fields
-  data <- data.frame(chromosome=chromosome);
+  data <- RichDataFrame(chromosome=chromosome, .name=name);
   data$x <- x;  # optional
   data$y <- y;
   data$w <- w;  # optional
 
   this <- extend(data, "RawGenomicSignals");
 
-  this <- setName(this, name);
-
   # Append other locus fields?
   if (!is.null(object)) {
-    fields <- setdiff(getLocusFields(object), getLocusFields(this));
+    fields <- setdiff(colnames(object), colnames(this));
     for (field in fields) {
       this[[field]] <- object[[field]];
     }
-    this <- addLocusFields(this, fields);
   }
 
   this;
@@ -107,10 +104,9 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  s <- sprintf("%s:", class(this)[1]);
-  name <- getName(this);
-  if (is.null(name)) name <- "";
-  s <- c(s, sprintf("Name: %s", as.character(name)));
+  s <- getGenericSummary(this);
+  class <- class(s);
+
   chrs <- getChromosomes(this);
   nbrOfChrs <- length(chrs);
   s <- c(s, sprintf("Chromosomes: %s [%d]", seqToHumanReadable(chrs), nbrOfChrs));
@@ -123,36 +119,38 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
     s <- c(s, sprintf("Mean distance between loci: %g", dAvg));
   }
 
-  fields <- getDefaultLocusFields(this);
-  fields <- sapply(fields, FUN=function(field) {
-    values <- this[[field]];
-    mode <- mode(values);
-    sprintf("%s [%dx%s]", field, length(values), mode);
-  });
-  if (length(fields) == 0) fields <- "<none>";
-  fields <- paste(fields, collapse=", ");
-  s <- c(s, sprintf("Default locus fields: %s", fields));
+  class(s) <- class;
 
-  fields <- getVirtualLocusFields(this);
-  if (length(fields) == 0) fields <- "<none>";
-  fields <- paste(fields, collapse=", ");
-  s <- c(s, sprintf("Virtual locus fields: %s", fields));
-
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
-  class(s) <- "GenericSummary";
   s;
 }, private=TRUE) 
 
 
-setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {
-  data <- as.data.frame(this);
-  names <- colnames(data);
-  names <- setdiff(names, c("chromosome", "x"));
-  data <- data[,names,drop=FALSE];
-  y <- data[,1,drop=TRUE];
-  if (na.rm) {
-    y <- y[is.finite(y)];
+
+setMethodS3("print", "RawGenomicSignals", function(x, ...) {
+  print(as.character(x));
+})
+
+
+setMethodS3("getSignalColumnNames", "RawGenomicSignals", function(this, translate=TRUE, ...) {
+  names <- "y";
+  if (translate) {
+    names <- translateColumnNames(this, names);
   }
+  names;
+})
+
+setMethodS3("getSignalColumnName", "RawGenomicSignals", function(this, ...) {
+  getSignalColumnNames(this, ...)[1];
+})
+
+
+setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {
+  if (!na.rm) {
+    return(nrow(this));
+  }
+
+  y <- getSignals(this, ...);
+  y <- y[is.finite(y)];
   length(y);
 })
 
@@ -186,43 +184,6 @@ setMethodS3("assertOneChromosome", "RawGenomicSignals", function(this, ...) {
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # EXTRACT METHODS
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-setMethodS3("newInstance", "RawGenomicSignals", function(this, nbrOfLoci, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'nbrOfLoci':
-  nbrOfLoci <- Arguments$getInteger(nbrOfLoci, range=c(0,Inf));
-
-  res <- clone(this);
-  clearCache(res);
-  res[1L,] <- NA;
-
-  subset <- rep(1L, times=nbrOfLoci);
-
-  if (is.data.frame(res)) {
-    attrs <- attributes(res);
-    keep <- setdiff(names(attrs), c("names", "row.names", "class"));
-    attrs <- attrs[keep];
-    fields <- getDefaultLocusFields(res, translate=FALSE);
-    res <- res[subset,fields,drop=FALSE];
-    for (key in names(attrs)) {
-      attr(res, key) <- attrs[[key]];
-    }
-  } else {
-    fields <- getDefaultLocusFields(res);
-    for (ff in seq(along=fields)) {
-      field <- fields[ff];
-      res[[field]] <- res[[field]][subset];
-    } # for (ff ...)
-  }
-
-  # Sanity check
-  stopifnot(nbrOfLoci(res) == nbrOfLoci);
-
-  res;
-}, protected=TRUE) # newInstance()
-
-
 setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -236,31 +197,14 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
     subset <- Arguments$getIndices(subset, max=n);
   }
 
-  res <- clone(this);
-  clearCache(res);
-
-  if (is.data.frame(res)) {
-    attrs <- attributes(res);
-    keep <- setdiff(names(attrs), c("names", "row.names", "class"));
-    attrs <- attrs[keep];
-    fields <- getDefaultLocusFields(res, translate=FALSE);
-    res <- res[subset,fields,drop=FALSE];
-    for (key in names(attrs)) {
-      attr(res, key) <- attrs[[key]];
-    }
-  } else {
-    fields <- getDefaultLocusFields(res);
-    for (ff in seq(along=fields)) {
-      field <- fields[ff];
-      res[[field]] <- res[[field]][subset];
-    } # for (ff ...)
-  }
+  res <- this[subset,,drop=FALSE];
 
   # Sanity check
   stopifnot(nbrOfLoci(res) == length(subset));
 
   res;
 }) # extractSubset()
+
 
 
 setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, chromosome=NULL, ...) {
@@ -427,7 +371,23 @@ setMethodS3("getChromosome", "RawGenomicSignals", function(this, ...) {
 
 
 setMethodS3("getSignals", "RawGenomicSignals", function(this, ...) {
-  this$y;
+  name <- getSignalColumnName(this, ...);
+  # Sanity check
+  if (!hasColumn(this, name, ...)) {
+    throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))));
+  }
+  this[[name]];
+})
+
+
+setMethodS3("setSignals", "RawGenomicSignals", function(this, values, ...) {
+  name <- getSignalColumnName(this, ...);
+  # Sanity check
+  if (!hasColumn(this, name, ...)) {
+    throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))));
+  }
+  this[[name]] <- values;
+  invisible(this);
 })
 
 
@@ -448,21 +408,6 @@ setMethodS3("hasWeights", "RawGenomicSignals", function(this, ...) {
 })
 
 
-
-setMethodS3("getName", "RawGenomicSignals", function(this, ...) {
-  getBasicField(this, ".name");
-})
-
-
-setMethodS3("setName", "RawGenomicSignals", function(this, name, ...) {
-  if (!is.null(name)) {
-    name <- Arguments$getCharacter(name);
-  }
-  this <- setBasicField(this, ".name", name);
-  invisible(this);
-})
-
-
 setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ..., sort=FALSE) {
   # To please R CMD check
   this <- x;
@@ -472,38 +417,7 @@ setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ..., sort=FALSE) {
     this <- sort(this, ...);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Return "default" fields
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (is.data.frame(this)) {
-    res <- this;
-    class(res) <- "data.frame";
-    return(res);
-  }
-
-  # Backward compatibility (Object & BasicObject)
-  data <- NULL;
-  fields <- getDefaultLocusFields(this);
-  for (cc in seq(along=fields)) {
-    field <- fields[cc];
-    values <- this[[field]];
-    if (cc == 1) {
-      data <- data.frame(values);
-      colnames(data) <- field;
-    } else {
-      data[[field]] <- values;
-    }
-  } # for (cc ...)
-  colnames(data) <- fields;
-
-  data;
-})
-
-setMethodS3("summary", "RawGenomicSignals", function(object, ...) {
-  # To please R CMD check
-  this <- object;
-
-  summary(as.data.frame(this));
+  NextMethod("as.data.frame", this, ...);
 })
 
 
@@ -511,95 +425,31 @@ setMethodS3("getDefaultLocusFields", "RawGenomicSignals", function(this, transla
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # "Default" fields
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (is.data.frame(this)) {
-    data <- this;
-    if (translate) {
-      data <- as.data.frame(data);
-    }
-    defFields <- colnames(data);
-  } else {
-    # When RawGenomicSignals extends Object
-    defFields <- c("chromosome", "x", "y");
-    if (hasWeights(this)) {
-      defFields <- c(defFields, "w");
-    }
+  data <- this;
+  if (translate) {
+    data <- as.data.frame(data, virtual=FALSE);
   }
+  defFields <- colnames(data);
 
   defFields;
 }) # getDefaultLocusFields()
 
 
-setMethodS3("getVirtualLocusFields", "RawGenomicSignals", function(this, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # "Virtual" fields
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  virtualFields <- getBasicField(this, ".locusFields");
-  virtualFields <- setdiff(virtualFields, getDefaultLocusFields(this, ...));
-
-  virtualFields;
-}) # getVirtualLocusFields()
-
-
 
 setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
-  fields <- c(getDefaultLocusFields(this, ...), getVirtualLocusFields(this, ...));
+  fields <- c(getDefaultLocusFields(this, ...), getVirtualColumnNames(this, ...));
   fields <- unique(fields);
   fields;
 }) # getLocusFields()
-
-
-
-setMethodS3("setLocusFields", "RawGenomicSignals", function(this, fields, ...) {
-  # Argument 'field':
-  fields <- Arguments$getCharacters(fields);
-
-  # Always keep (chromosome, x,y)
-  fields0 <- fields;
-  fields <- unique(c("chromosome", "x", "y", fields));
-
-  # Update
-  this <- setBasicField(this, ".locusFields", fields);
-
-  # Sanity check
-  if (is.data.frame(this)) {
-    missing <- setdiff(fields, getLocusFields(this));
-    n <- length(missing);
-    if (n > 0) {
-      msg <- sprintf("INTERNAL ISSUE: Detected %d non-specific locus fields after doing setLocusFields(..., fields=c(%s)): %s not in c(%s)", n, hpaste(sprintf("'%s'", fields0)), hpaste(sprintf("'%s'", missing)), hpaste(sprintf("'%s'", fields)));
-      stop(msg);
-    }
-  }
-
-  invisible(this);
-})
-
-setMethodS3("addLocusFields", "RawGenomicSignals", function(this, fields, ...) {
-  oldFields <- getLocusFields(this);
-  fields <- c(oldFields, fields);
-  fields <- unique(fields);
-  setLocusFields(this, fields, ...);
-})
-
-setMethodS3("getLociFields", "RawGenomicSignals", function(this, ...) {
-  getLocusFields(this, ...);
-}, deprecated=TRUE, protected=TRUE)
-
 
 
 setMethodS3("sort", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  res <- clone(this);
-
   # Order by (chromosome, x)
-  o <- order(res$chromosome, getPositions(res));
-
-  for (field in getLocusFields(res)) {
-    res[[field]] <- res[[field]][o];
-  }
-
-  res;
+  o <- order(this$chromosome, getPositions(this));
+  this[o,, drop=FALSE];  
 })
 
 
@@ -645,8 +495,8 @@ setMethodS3("kernelSmoothing", "RawGenomicSignals", function(this, xOut=NULL, ..
 
 
   verbose && enter(verbose, "Smoothing data set");
-  y <- getSignals(this);
   x <- getPositions(this);
+  y <- getSignals(this);
 
   if (is.null(xOut)) {
     xOut <- x;
@@ -666,10 +516,10 @@ setMethodS3("kernelSmoothing", "RawGenomicSignals", function(this, xOut=NULL, ..
 
   verbose && enter(verbose, "Creating result object");
   # Allocate the correct size
-  res <- newInstance(this, nbrOfLoci=length(xOut));
+  res <- newInstance(this, nrow=length(xOut));
 
   res$x <- xOut;
-  res$y <- ys;
+  res <- setSignals(res, ys);
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -771,22 +621,271 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
 
   verbose && enter(verbose, "Creating result object");
   # Allocate the correct size
-  res <- newInstance(this, nbrOfLoci=length(xOut));
+  res <- newInstance(this, nrow=length(xOut));
 
   res$x <- xOut;
-  res$y <- ys;
+  res <- setSignals(res, ys);
   res$w <- wOut;
-
-  # Drop all locus fields not binned [AD HOC: Those should also be binned. /HB 2009-06-30]
-  if (!is.null(locusFields)) {
-    res <- setLocusFields(res, locusFields);
-  }
   verbose && exit(verbose);
 
   verbose && exit(verbose);
 
   res;
 }) # binnedSmoothing()
+
+
+
+
+
+setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field, from=xMin(this), to=xMax(this), by=NULL, length.out=NULL, byCount=FALSE, ..., verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'field':
+  field <- Arguments$getCharacter(field);
+  if (!hasColumn(this, field)) {
+    throw("Unknown field: ", field);
+  }
+
+  x <- getPositions(this);
+  # Argument 'from' & 'to':
+  if (is.null(from)) {
+    from <- min(x, na.rm=TRUE);
+  } else {
+    from <- Arguments$getInteger(from);
+  }
+  if (is.null(to)) {
+    to <- max(x, na.rm=TRUE);
+  } else {
+    to <- Arguments$getInteger(to, range=c(from, Inf));
+  }
+
+  # Arguments 'by' & 'length.out':
+  if (is.null(by) & is.null(length.out)) {
+    throw("Either argument 'by' or 'length.out' needs to be given.");
+  }
+  if (!is.null(by)) {
+    by <- Arguments$getNumeric(by, range=c(0,to-from));
+  }
+  if (!is.null(length.out)) {
+    length.out <- Arguments$getInteger(length.out, range=c(1,Inf));
+  }
+ 
+  # Argument 'byCount':
+  byCount <- Arguments$getLogical(byCount);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Binning data set");
+  verbose && cat(verbose, "By field: ", field);
+  data <- as.data.frame(this);
+  byValues <- data[[field]];
+  setOfValues <- sort(unique(byValues), na.last=TRUE);
+  verbose && cat(verbose, "Set of values: ", hpaste(setOfValues));
+
+  # Sanity check
+  if (length(setOfValues) > 0.1*length(byValues)) {
+    throw("Detected ridicolously large number of possible values in field '%s': (%s) [%d]", field, hpaste(setOfValues), length(setOfValues));
+  }
+
+  verbose && cat(verbose, "by: ", by);
+  verbose && cat(verbose, "length.out: ", length.out);
+  verbose && cat(verbose, "byCount: ", byCount);
+
+  verbose && enter(verbose, "Find target positions");
+
+  if (byCount) {
+    verbose && enter(verbose, "By count");
+    res <- sort(this);
+    resOut <- binnedSmoothing(res, by=by, length.out=length.out, 
+                              byCount=TRUE, verbose=less(verbose, 5));
+    xOut <- resOut$x;
+    rm(resOut);
+    verbose && exit(verbose);
+  } else {
+    verbose && enter(verbose, "By position");
+    # Target 'x':
+    if (!is.null(by)) {
+      xOut <- seq(from=from, to=to, by=by);
+    } else {
+      xOut <- seq(from=from, to=to, length.out=length.out);
+    }
+    verbose && exit(verbose);
+  } # if (byCount)
+
+  verbose && cat(verbose, "xOut:");
+  verbose && str(verbose, xOut);
+  # Sanity check
+  xOut <- Arguments$getNumerics(xOut);
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Allocate result set
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Allocating result set");
+  # Allocate results of the correct size
+  res <- newInstance(this, nrow=length(xOut));
+print(res);
+
+  # Target 'x' and 'y':
+  res$x <- xOut;
+  ys <- rep(as.double(NA), times=length(xOut));
+  res <- setSignals(res, ys);
+  rm(ys);
+
+  verbose && print(verbose, res);
+  verbose && exit(verbose);
+
+  verbose && enter(verbose, "Identifying output states (may drop short regions)");
+  dataOut <- as.data.frame(res);
+  # Sanity check
+  stopifnot(is.element(field, colnames(dataOut)));
+
+  byValuesOut <- dataOut[[field]];
+  verbose && cat(verbose, "byValuesOut:");
+  verbose && str(verbose, byValuesOut);
+  setOfValuesOut <- sort(unique(byValuesOut), na.last=TRUE);
+  verbose && printf(verbose, "Unique output '%s' values:\n", field);
+  verbose && str(verbose, setOfValuesOut);
+  verbose && exit(verbose);
+
+  verbose && enter(verbose, "Setting up source signals");
+  if (byCount) {
+    # Adding ordering along genome
+    gs <- sort(this);
+    gs$xOrder <- seq(length=nbrOfLoci(gs));
+  } else {
+    gs <- this;
+  }
+  verbose && print(verbose, gs);
+  verbose && exit(verbose);
+
+  
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Binning (target) stratified by field
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  for (ss in seq(along=setOfValuesOut)) {
+    byValue <- setOfValuesOut[ss];
+    verbose && enter(verbose, sprintf("Value #%d (%s == '%s') of %d", 
+                                        ss, field, byValue, length(setOfValuesOut)));
+  
+    verbose && cat(verbose, "By value: ", byValue);
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Identify target loci with this byValue
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    verbose && enter(verbose, "Extracting subset of (target) loci for this value");
+    idxsOut <- whichVector(is.element(byValuesOut, byValue));
+    resSS <- extractSubset(res, idxsOut, verbose=less(verbose,50));
+    verbose && print(verbose, resSS);
+    xOutSS <- getPositions(resSS);
+    verbose && str(verbose, xOutSS);
+    verbose && exit(verbose);
+    # Nothing to do? [Should actually never happen!]
+    nbrOfBins <- nbrOfLoci(resSS);
+    rm(resSS);
+    if (nbrOfBins == 0) {
+      verbose && cat(verbose, "No bins. Skipping byValue.");
+      verbose && exit(verbose);
+      next;
+    }
+
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Identifying source loci with this byValue
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    verbose && enter(verbose, "Extracting subset of (source) loci with this signal value");
+    idxsSS <- whichVector(is.element(byValues, byValue));
+    gsSS <- extractSubset(gs, idxsSS);
+    verbose && print(verbose, gsSS);
+    verbose && exit(verbose);
+    # Nothing to do?
+    if (nbrOfLoci(gsSS) == 0) {
+      verbose && cat(verbose, "No extracted loci. Skipping byValue.");
+      verbose && exit(verbose);
+      next;
+    }
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Extending bins to equal count sizes?
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    if (byCount) {
+      verbose && enter(verbose, "Extending bins to have equal number of loci");
+      verbose && cat(verbose, "xOrder:");
+      verbose && str(verbose, gsSS$xOrder);
+      nbrOfLociToAdd <- (gsSS$xOrder[1] %% by) - 1;
+      verbose && cat(verbose, "Number of loci to add: ", nbrOfLociToAdd);
+      gsSS$xOrder <- NULL;
+      
+      if (nbrOfLociToAdd > 0) {
+        # Allocate the correct size
+        nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
+        gsSS2 <- newInstance(gsSS, nrow=nbrOfLoci2);
+
+        fields <- getColumnNames(gsSS, virtual=FALSE, translate=FALSE);
+        for (ff in fields) {
+          values <- gsSS[[ff]];
+          if (is.element(ff, "w")) {
+            naValue <- 0;
+          } else if (is.element(ff, "x")) {
+            naValue <- 0;
+          } else {
+            naValue <- NA;
+          }
+          storage.mode(naValue) <- storage.mode(values);
+          naValues <- rep(naValue, times=nbrOfLociToAdd);
+          values <- c(naValues, values);
+          gsSS2[[ff]] <- values;
+        } # for (ff ...)
+        gsSS <- gsSS2;
+        rm(gsSS2);
+      } # if (nbrOfLociToAdd > 0)
+      verbose && exit(verbose);
+    } # if (byCount)
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Bin loci of this byValue towards target loci (of the same byValue)
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    verbose && enter(verbose, "Binned smoothing of temporary object");
+    if (byCount) {
+      xOutSSRank <- seq(from=(1+by)/2, by=by, length.out=nbrOfBins);
+      verbose && cat(verbose, "Arguments:");
+      args <- list(gsSS, xOut=xOutSSRank, by=by, byCount=byCount, ...);
+      verbose && str(verbose, args);
+      resSS <- binnedSmoothing(gsSS, xOut=xOutSSRank, by=by, byCount=byCount, ...);
+      resSS$x <- xOutSS;
+    } else {
+      verbose && cat(verbose, "Arguments:");
+      args <- list(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
+      verbose && str(verbose, args);
+      resSS <- binnedSmoothing(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
+    } # if (byCount)
+    rm(gsSS, args);
+    verbose && print(verbose, resSS);
+    verbose && exit(verbose);
+
+    # Sanity check
+    stopifnot(length(idxsOut) == nbrOfLoci(resSS));  
+
+    ys <- getSignals(res);
+    ys[idxsOut] <- getSignals(resSS);
+    res <- setSignals(res, ys);
+    rm(resSS, ys);
+  
+    verbose && exit(verbose);
+  } # for (ss ...)
+
+  verbose && print(verbose, res);
+  verbose && exit(verbose);
+
+  res;
+}) # binnedSmoothingByField()
 
 
 
@@ -1040,45 +1139,33 @@ setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
 # methods work regardless of RawGenomicSignals extending BasicObject
 # or Object (the original implementation).
 setMethodS3("clone", "RawGenomicSignals", function(this, ...) {
-  if (inherits(this, "Object")) {
-    this <- NextMethod("clone", this, ...);
-  }
   this;
 }, protected=TRUE)
 
 setMethodS3("clearCache", "RawGenomicSignals", function(this, ...) {
-  if (inherits(this, "Object")) {
-    this <- NextMethod("clearCache", this, ...);
-  }
   this;
 }, protected=TRUE)
 
 setMethodS3("getBasicField", "RawGenomicSignals", function(this, key, ...) {
-  if (inherits(this, "Object")) {
-    this[[key]];
-  } else {
-    attr(this, key);
-  }
+  attr(this, key);
 }, protected=TRUE)
 
 setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...) {
-  if (inherits(this, "Object")) {
-    this[[key]] <- value;
-  } else {
-    attr(this, key) <- value;
-  }
+  attr(this, key) <- value;
   invisible(this);
 }, protected=TRUE)
-
-setMethodS3("print", "RawGenomicSignals", function(x, ...) {
-  print(as.character(x));
-})
-
 
 
 
 ############################################################################
 # HISTORY:
+# 2012-03-13
+# o CLEANUP: Dropped all code for backward compatibility for 
+#   RawGenericSignals inheriting from Object.
+# 2012-03-12
+# o Added binnedSmoothingByField() for RawGenomicSignals.
+# o Added subset() for RawGenomicSignals.
+# o Added (get|set)VirtualField().
 # 2012-03-10
 # o Now getDefaultLocusFields() utilizes as.data.frame().
 # o Added argument 'sort' to as.data.frame() for RawGenomicSignals.

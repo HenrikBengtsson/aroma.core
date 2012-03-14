@@ -24,7 +24,9 @@
 # @author
 #*/########################################################################### 
 setConstructorS3("RawCopyNumbers", function(cn=NULL, ...) {
-  extend(RawGenomicSignals(y=cn, ...), "RawCopyNumbers")
+  this <- extend(RawGenomicSignals(y=cn, ...), "RawCopyNumbers");
+  this <- setColumnNamesMap(this, y="cn");
+  this;
 })
 
 
@@ -33,6 +35,10 @@ setMethodS3("getPhysicalPositions", "RawCopyNumbers", function(this, ...) {
 }, protected=TRUE, deprecated=TRUE)
 
 
+setMethodS3("getSignals", "RawCopyNumbers", function(this, ...) {
+  this$cn;
+})
+
 setMethodS3("getCNs", "RawCopyNumbers", function(this, ...) {
   getSignals(this);
 }, protected=TRUE)
@@ -40,21 +46,6 @@ setMethodS3("getCNs", "RawCopyNumbers", function(this, ...) {
 setMethodS3("getCn", "RawCopyNumbers", function(this, ...) {
   getSignals(this);
 }, protected=TRUE)
-
-
-setMethodS3("as.data.frame", "RawCopyNumbers", function(x, ..., translate=TRUE) {
-  # To please R CMD check
-  this <- x;
-
-  df <- NextMethod("as.data.frame");
-
-  # Translate column names?
-  if (translate) {
-    colnames(df) <- gsub("y", "cn", colnames(df), fixed=TRUE);
-  }
-
-  df;
-})
 
 
 setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBase=2) {
@@ -85,7 +76,7 @@ setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBa
       y <- log(y) / log(logBase);
     }
 
-    res$y <- y;
+    res <- setSignals(res, y);
     res <- setBasicField(res, ".yLogBase", logBase);
   }
 
