@@ -19,13 +19,15 @@
 
 \code{data.frame}\cr
 \code{~~|}\cr
-\code{~~+--}\code{RawGenomicSignals}\cr
+\code{~~+--}\code{\link[aroma.core]{RichDataFrame}}\cr
+\code{~~~~~~~|}\cr
+\code{~~~~~~~+--}\code{RawGenomicSignals}\cr
 
 \bold{Directly known subclasses:}\cr
 \link[aroma.core]{RawAlleleBFractions}, \link[aroma.core]{RawCopyNumbers}, \link[aroma.core]{RawMirroredAlleleBFractions}, \link[aroma.core]{RawSequenceReads}, \link[aroma.core]{SegmentedAlleleBFractions}, \link[aroma.core]{SegmentedCopyNumbers}\cr
 
 public class \bold{RawGenomicSignals}\cr
-extends data.frame\cr
+extends \link[aroma.core]{RichDataFrame}\cr
 
 
  }
@@ -52,10 +54,10 @@ extends data.frame\cr
  \tab \code{*} \tab  -\cr
  \tab \code{+} \tab  -\cr
  \tab \code{addBy} \tab  -\cr
- \tab \code{addLocusFields} \tab  -\cr
  \tab \code{append} \tab  -\cr
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothing} \tab  -\cr
+ \tab \code{binnedSmoothingByField} \tab  -\cr
  \tab \code{divideBy} \tab  -\cr
  \tab \code{drawDensity} \tab  -\cr
  \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
@@ -69,11 +71,11 @@ extends data.frame\cr
  \tab \code{getChromosomes} \tab  -\cr
  \tab \code{getDefaultLocusFields} \tab  -\cr
  \tab \code{getLocusFields} \tab  -\cr
- \tab \code{getName} \tab  -\cr
  \tab \code{getPositions} \tab  -\cr
  \tab \code{getSigma} \tab  -\cr
+ \tab \code{getSignalColumnName} \tab  -\cr
+ \tab \code{getSignalColumnNames} \tab  -\cr
  \tab \code{getSignals} \tab  -\cr
- \tab \code{getVirtualLocusFields} \tab  -\cr
  \tab \code{getWeights} \tab  -\cr
  \tab \code{getXScale} \tab  -\cr
  \tab \code{getYScale} \tab  -\cr
@@ -90,16 +92,14 @@ extends data.frame\cr
  \tab \code{\link[aroma.core:segmentByGLAD.RawGenomicSignals]{segmentByGLAD}} \tab Segment copy numbers using the GLAD method.\cr
  \tab \code{\link[aroma.core:segmentByHaarSeg.RawGenomicSignals]{segmentByHaarSeg}} \tab Segment copy numbers using the HaarSeg method.\cr
  \tab \code{\link[aroma.core:segmentByMPCBS.RawGenomicSignals]{segmentByMPCBS}} \tab Segment copy numbers using the multi-platform CBS (mpCBS) method.\cr
- \tab \code{setLocusFields} \tab  -\cr
- \tab \code{setName} \tab  -\cr
  \tab \code{setSigma} \tab  -\cr
+ \tab \code{setSignals} \tab  -\cr
  \tab \code{setWeights} \tab  -\cr
  \tab \code{setXScale} \tab  -\cr
  \tab \code{setYScale} \tab  -\cr
  \tab \code{signalRange} \tab  -\cr
  \tab \code{sort} \tab  -\cr
  \tab \code{subtractBy} \tab  -\cr
- \tab \code{summary} \tab  -\cr
  \tab \code{xMax} \tab  -\cr
  \tab \code{xMin} \tab  -\cr
  \tab \code{xRange} \tab  -\cr
@@ -109,6 +109,9 @@ extends data.frame\cr
  \tab \code{yRange} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from RichDataFrame}:\cr
+$, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNames, getColumnNamesTranslator, getFullName, getName, getTags, getVirtualColumn, getVirtualColumnFunction, getVirtualColumnNames, hasColumn, hasColumns, hasVirtualColumn, hasVirtualColumns, length, names, newInstance, print, rbind, setAttributes, setColumnNamesMap, setColumnNamesTranslator, setName, setTags, setVirtualColumn, subset, translateColumnNames
 
  \bold{Methods inherited from data.frame}:\cr
 $<-, [, [[, [[<-, [<-, aggregate, anyDuplicated, as.data.frame, as.list, as.matrix, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, Math, mean, merge, na.exclude, na.omit, Ops, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, Summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
