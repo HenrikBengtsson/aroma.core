@@ -731,7 +731,6 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   verbose && enter(verbose, "Allocating result set");
   # Allocate results of the correct size
   res <- newInstance(this, nrow=length(xOut));
-print(res);
 
   # Target 'x' and 'y':
   res$x <- xOut;
@@ -801,10 +800,19 @@ print(res);
     # Identifying source loci with this byValue
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     verbose && enter(verbose, "Extracting subset of (source) loci with this signal value");
+    byValues <- gs[[field]];
     idxsSS <- whichVector(is.element(byValues, byValue));
     gsSS <- extractSubset(gs, idxsSS);
     verbose && print(verbose, gsSS);
+    # Sanity check
+    if (!all(is.element(gsSS[[field]], byValue))) {
+       values <- gsSS[[field]];
+       print(table(values, useNA="always"));
+       print(byValue);
+    }
+    stopifnot(all(is.element(gsSS[[field]], byValue)));
     verbose && exit(verbose);
+
     # Nothing to do?
     if (nbrOfLoci(gsSS) == 0) {
       verbose && cat(verbose, "No extracted loci. Skipping byValue.");
@@ -824,16 +832,27 @@ print(res);
       gsSS$xOrder <- NULL;
       
       if (nbrOfLociToAdd > 0) {
+        verbose && enter(verbose, sprintf("Appending %d extra loci", nbrOfLociToAdd));
+
         # Allocate the correct size
         nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
         gsSS2 <- newInstance(gsSS, nrow=nbrOfLoci2);
 
-        fields <- getColumnNames(gsSS, virtual=FALSE, translate=FALSE);
-        for (ff in fields) {
-          values <- gsSS[[ff]];
-          if (is.element(ff, "w")) {
+        fields <- getColumnNames(gsSS, virtual=FALSE, translate=TRUE);
+        verbose && cat(verbose, "Fields:");
+        verbose && print(verbose, fields);
+
+        for (ff in seq(along=fields)) {
+          field <- fields[ff];
+          verbose && enter(verbose, sprintf("Field #%d ('%s') of %d", ff, field, length(fields)));
+          values <- gsSS[[field]];
+
+          # Sanity check
+          stopifnot(!is.null(values));
+
+          if (is.element(field, "w")) {
             naValue <- 0;
-          } else if (is.element(ff, "x")) {
+          } else if (is.element(field, "x")) {
             naValue <- 0;
           } else {
             naValue <- NA;
@@ -841,10 +860,13 @@ print(res);
           storage.mode(naValue) <- storage.mode(values);
           naValues <- rep(naValue, times=nbrOfLociToAdd);
           values <- c(naValues, values);
-          gsSS2[[ff]] <- values;
+          gsSS2[[field]] <- values;
+
+          verbose && exit(verbose);
         } # for (ff ...)
         gsSS <- gsSS2;
         rm(gsSS2);
+        verbose && exit(verbose);
       } # if (nbrOfLociToAdd > 0)
       verbose && exit(verbose);
     } # if (byCount)
@@ -1159,6 +1181,9 @@ setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...
 
 ############################################################################
 # HISTORY:
+# 2012-03-14
+# o BUG FIX: binnedSmoothingByField(..., byCount=TRUE) would bin using
+#   incorrect bin sets.
 # 2012-03-13
 # o CLEANUP: Dropped all code for backward compatibility for 
 #   RawGenericSignals inheriting from Object.
