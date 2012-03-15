@@ -46,3 +46,16 @@ print(head(cn))
 
 cn$TCN <- 0.8*levels[cn$state] + cn$eps
 print(head(cn))
+
+
+# Subsetting "before" or "after" as.data.frame()
+rows <- c(1,1,2)
+data <- as.data.frame(cn)
+dataSa <- data[rows,]
+
+cnSb <- cn[rows,]
+dataSb <- as.data.frame(cnSb)
+
+# Sanity check
+stopifnot(all.equal(dataSb, dataSa))
+

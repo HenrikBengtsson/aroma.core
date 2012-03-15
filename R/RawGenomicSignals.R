@@ -370,12 +370,21 @@ setMethodS3("getChromosome", "RawGenomicSignals", function(this, ...) {
 })
 
 
-setMethodS3("getSignals", "RawGenomicSignals", function(this, ...) {
-  name <- getSignalColumnName(this, ...);
+setMethodS3("getSignals", "RawGenomicSignals", function(this, field=NULL, ...) {
+  # Argument 'field':
+  if (is.null(field)) {
+    field <- getSignalColumnName(this);
+  } else {
+    field <- Arguments$getCharacter(field);
+  }
+
+  name <- field;
+
   # Sanity check
   if (!hasColumn(this, name, ...)) {
     throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))));
   }
+
   this[[name]];
 })
 
@@ -534,7 +543,7 @@ setMethodS3("gaussianSmoothing", "RawGenomicSignals", function(this, sd=10e3, ..
 
 
 
-setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=getWeights(this), byCount=FALSE, verbose=FALSE) {
+setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, fields=NULL, ..., weights=getWeights(this), byCount=FALSE, verbose=FALSE) {
   # This is a single-chromosome method. Assert that's the case.
   assertOneChromosome(this);
 
@@ -545,6 +554,17 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   # Argument 'weights':
   if (!is.null(weights)) {
     weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf));
+  }
+
+  # Argument 'fields':
+  if (is.null(fields)) {
+    fields <- getSignalColumnName(this);
+  } else {
+    fields <- Arguments$getCharacters(fields);
+    unknown <- fields[!hasColumns(this, fields)];
+    if (length(unknown) > 0) {
+      throw("No such field(s): ", hpaste(unknown));
+    }
   }
 
   # Argument 'byCount':
@@ -559,20 +579,27 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
 
 
   verbose && enter(verbose, "Smoothing data set");
-  y <- getSignals(this);
+  verbose && cat(verbose, "Smoothing fields: ", paste(fields, collapse=", "));
+  dataY <- as.data.frame(this);
+  dataY <- dataY[,fields,drop=FALSE];
+  dataY <- as.matrix(dataY);
+  verbose && str(verbose, dataY);
+
+  verbose && cat(verbose, "Genomic positions:");
   x <- getPositions(this);
+  verbose && str(verbose, x);
   xRange <- range(x, na.rm=TRUE);
   verbose && printf(verbose, "Range of positions: [%.0f,%.0f]\n", 
                                            xRange[1], xRange[2]);
 
-  locusFields <- NULL;
+
   wOut <- NULL;
 
   if (byCount) {
     verbose && enter(verbose, "Binned smoothing (by count)");
     # Smoothing y and x (and w).
-    Y <- cbind(y=y, x=x, w=weights);
-    locusFields <- colnames(Y);
+    Y <- cbind(dataY, x=x, w=weights);
+    verbose && summary(verbose, Y);
     xRank <- seq(length=nrow(Y));
     verbose && cat(verbose, "Positions (ranks):");
     verbose && str(verbose, xRank);
@@ -581,41 +608,56 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
     verbose && str(verbose, args);
 
     Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, ..., verbose=less(verbose, 10));
-
     verbose && str(verbose, Ys);
+    verbose && summary(verbose, Ys);
+
     xOut <- attr(Ys, "xOut");
     verbose && str(verbose, xOut);
-    # The smoothed y:s
-    ys <- Ys[,1,drop=TRUE];
+
     # The smoothed x:s, which becomes the new target positions
-    xOut <- Ys[,2,drop=TRUE];
+    xOut <- Ys[,"x", drop=TRUE];
+    verbose && str(verbose, xOut);
+
     # Smoothed weights
     if (!is.null(weights)) {
-      wOut <- Ys[,3,drop=TRUE];
+      wOut <- Ys[,"w", drop=TRUE];
+      wOut[is.na(wOut)] <- 0;
+      verbose && str(verbose, wOut);
     }
-    rm(xRank, Y, Ys);
+
+    # The smoothed y:s
+    Ys <- Ys[,fields, drop=FALSE];
+    verbose && str(verbose, Ys);
+
+    rm(xRank, Y);
     verbose && exit(verbose);
   } else {
     verbose && enter(verbose, "Binned smoothing (by position)");
     # Smoothing y (and w).
-    Y <- cbind(y=y, w=weights);
+    Y <- cbind(dataY, w=weights);
+    verbose && summary(verbose, Y);
     verbose && cat(verbose, "Arguments:");
     args <- list(Y=Y, w=weights, ...);
     verbose && str(verbose, args);
 
     Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, ..., verbose=less(verbose, 10));
+    verbose && str(verbose, Ys);
+    verbose && summary(verbose, Ys);
 
-    # The smoothed y:s
-    ys <- Ys[,1,drop=TRUE];
-    verbose && str(verbose, ys);
     xOut <- attr(Ys, "xOut");
     verbose && str(verbose, xOut);
 
     # Smoothed weights
     if (!is.null(weights)) {
-      wOut <- Ys[,2,drop=TRUE];
+      wOut <- Ys[,"w", drop=TRUE];
       wOut[is.na(wOut)] <- 0;
+      verbose && str(verbose, wOut);
     }
+
+    # The smoothed y:s
+    Ys <- Ys[,fields, drop=FALSE];
+    verbose && str(verbose, Ys);
+
     verbose && exit(verbose);
   } # if (byCount)
 
@@ -624,8 +666,11 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
   res <- newInstance(this, nrow=length(xOut));
 
   res$x <- xOut;
-  res <- setSignals(res, ys);
   res$w <- wOut;
+  for (ff in fields) {
+    res[[ff]] <- Ys[,ff,drop=TRUE];
+  }
+  verbose && print(verbose, summary(res));
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -637,7 +682,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, ..., weights=
 
 
 
-setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field, from=xMin(this), to=xMax(this), by=NULL, length.out=NULL, byCount=FALSE, ..., verbose=FALSE) {
+setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field, fields=NULL, from=xMin(this), to=xMax(this), by=NULL, length.out=NULL, byCount=FALSE, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -645,6 +690,17 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   field <- Arguments$getCharacter(field);
   if (!hasColumn(this, field)) {
     throw("Unknown field: ", field);
+  }
+
+  # Argument 'fields':
+  if (is.null(fields)) {
+    fields <- getSignalColumnName(this);
+  } else {
+    fields <- Arguments$getCharacters(fields);
+    unknown <- fields[!hasColumns(this, fields)];
+    if (length(unknown) > 0) {
+      throw("No such field(s): ", hpaste(unknown));
+    }
   }
 
   x <- getPositions(this);
@@ -682,11 +738,13 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   }
 
   verbose && enter(verbose, "Binning data set");
-  verbose && cat(verbose, "By field: ", field);
+  verbose && cat(verbose, "Smoothing fields: ", paste(fields, collapse=", "));
+  verbose && cat(verbose, "Stratifying by field: ", field);
+
   data <- as.data.frame(this);
   byValues <- data[[field]];
   setOfValues <- sort(unique(byValues), na.last=TRUE);
-  verbose && cat(verbose, "Set of values: ", hpaste(setOfValues));
+  verbose && cat(verbose, "Set of stratification values: ", hpaste(setOfValues));
 
   # Sanity check
   if (length(setOfValues) > 0.1*length(byValues)) {
@@ -702,8 +760,9 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   if (byCount) {
     verbose && enter(verbose, "By count");
     res <- sort(this);
-    resOut <- binnedSmoothing(res, by=by, length.out=length.out, 
-                              byCount=TRUE, verbose=less(verbose, 5));
+    resOut <- binnedSmoothing(res, fields="x", 
+                              by=by, length.out=length.out, byCount=TRUE,
+                              verbose=less(verbose, 5));
     xOut <- resOut$x;
     rm(resOut);
     verbose && exit(verbose);
@@ -734,10 +793,13 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
 
   # Target 'x' and 'y':
   res$x <- xOut;
-  ys <- rep(as.double(NA), times=length(xOut));
-  res <- setSignals(res, ys);
-  rm(ys);
 
+  naValue <- as.double(NA);
+  Ys <- matrix(naValue, nrow=length(xOut), ncol=length(fields));
+  colnames(Ys) <- fields;
+  for (ff in fields) {
+    res[[ff]] <- Ys[,ff,drop=TRUE];
+  }
   verbose && print(verbose, res);
   verbose && exit(verbose);
 
@@ -838,13 +900,13 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
         nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
         gsSS2 <- newInstance(gsSS, nrow=nbrOfLoci2);
 
-        fields <- getColumnNames(gsSS, virtual=FALSE, translate=TRUE);
+        fieldsT <- getColumnNames(gsSS, virtual=FALSE, translate=TRUE);
         verbose && cat(verbose, "Fields:");
-        verbose && print(verbose, fields);
+        verbose && print(verbose, fieldsT);
 
-        for (ff in seq(along=fields)) {
-          field <- fields[ff];
-          verbose && enter(verbose, sprintf("Field #%d ('%s') of %d", ff, field, length(fields)));
+        for (ff in seq(along=fieldsT)) {
+          field <- fieldsT[ff];
+          verbose && enter(verbose, sprintf("Field #%d ('%s') of %d", ff, field, length(fieldsT)));
           values <- gsSS[[field]];
 
           # Sanity check
@@ -880,13 +942,17 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
       verbose && cat(verbose, "Arguments:");
       args <- list(gsSS, xOut=xOutSSRank, by=by, byCount=byCount, ...);
       verbose && str(verbose, args);
-      resSS <- binnedSmoothing(gsSS, xOut=xOutSSRank, by=by, byCount=byCount, ...);
+      resSS <- binnedSmoothing(gsSS, fields=fields,
+                               xOut=xOutSSRank, by=by, byCount=byCount,
+                               ..., verbose=less(verbose,5));
       resSS$x <- xOutSS;
     } else {
       verbose && cat(verbose, "Arguments:");
       args <- list(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
       verbose && str(verbose, args);
-      resSS <- binnedSmoothing(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
+      resSS <- binnedSmoothing(gsSS, fields=fields,
+                               xOut=xOutSS, by=by, byCount=byCount,
+                               ..., verbose=less(verbose,5));
     } # if (byCount)
     rm(gsSS, args);
     verbose && print(verbose, resSS);
@@ -895,15 +961,21 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
     # Sanity check
     stopifnot(length(idxsOut) == nbrOfLoci(resSS));  
 
-    ys <- getSignals(res);
-    ys[idxsOut] <- getSignals(resSS);
-    res <- setSignals(res, ys);
-    rm(resSS, ys);
+    YsSS <- as.data.frame(resSS)[,fields, drop=FALSE];
+    YsSS <- as.matrix(YsSS);
+    Ys[idxsOut,fields] <- YsSS;
+    rm(resSS, YsSS);
   
     verbose && exit(verbose);
   } # for (ss ...)
 
+  # Update 'res':
+  for (ff in fields) {
+    res[[ff]] <- Ys[,ff,drop=TRUE];
+  }
   verbose && print(verbose, res);
+  verbose && print(verbose, summary(res));
+
   verbose && exit(verbose);
 
   res;
@@ -926,6 +998,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
 # @synopsis
 #
 # \arguments{
+#   \item{field}{A @character specifying the field to estimate.}
 #   \item{method}{If \code{"diff"}, the estimate is based on the first-order
 #     contigous differences of raw Ys. If \code{"direct"}, it is based 
 #     directly on the raw Ys.}
@@ -950,12 +1023,19 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
 # @keyword IO
 # @keyword programming
 #*/########################################################################### 
-setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...) {
+setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, field=NULL, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'method':
   method <- match.arg(method);
+
+  # Argument 'field':
+  if (is.null(field)) {
+    field <- getSignalColumnName(this);
+  } else {
+    field <- Arguments$getCharacter(field);
+  }
 
   # Argument 'estimator':
   estimator <- match.arg(estimator);
@@ -983,7 +1063,7 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
   if (method == "diff") {
     # Sort along genome
     rgs <- sort(this);
-    y <- getSignals(rgs);
+    y <- rgs[[field]];
 
     # Insert NAs ("dividers") between chromosomes?
     if (nbrOfChromosomes(this) > 1) {
@@ -1009,7 +1089,7 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
       sigma <- estimatorFcn(y, na.rm=na.rm)/sqrt(2);
     }
   } else if (method == "direct") {
-    y <- getSignals(this);
+    y <- this[[field]];
     if (!is.null(weights)) {
       sigma <- estimatorFcn(y, w=weights, na.rm=na.rm);
     } else {
@@ -1020,79 +1100,6 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, met
   sigma;
 })
 
-
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-# GRAPHICS RELATED METHODS
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-setMethodS3("getXScale", "RawGenomicSignals", function(this, ...) {
-  scale <- getBasicField(this, ".xScale");
-  if (is.null(scale)) scale <- 1e-6;
-  scale;
-})
-
-setMethodS3("getYScale", "RawGenomicSignals", function(this, ...) {
-  scale <- getBasicField(this, ".yScale");
-  if (is.null(scale)) scale <- 1;
-  scale;
-})
-
-setMethodS3("setXScale", "RawGenomicSignals", function(this, scale=1e-6, ...) {
-  scale <- Arguments$getNumeric(scale);
-  this <- setBasicField(this, ".xScale", scale);
-  invisible(this);
-})
-
-setMethodS3("setYScale", "RawGenomicSignals", function(this, scale=1, ...) {
-  scale <- Arguments$getNumeric(scale);
-  this <- setBasicField(this, ".yScale", scale);
-  invisible(this);
-})
-
-setMethodS3("plot", "RawGenomicSignals", function(x, xlab="Position", ylab="Signal", ylim=c(-3,3), pch=20, xScale=getXScale(this), yScale=getYScale(this), ...) {
-  # To please R CMD check
-  this <- x;
-
-  # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
-
-  x <- getPositions(this);
-  y <- getSignals(this);
-
-  plot(xScale*x, yScale*y, ylim=ylim, xlab=xlab, ylab=ylab, pch=pch, ...);
-})
-
-
-setMethodS3("points", "RawGenomicSignals", function(x, pch=20, ..., xScale=getXScale(this), yScale=getYScale(this)) {
-  # To please R CMD check
-  this <- x;
-
-  # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
-
-  x <- getPositions(this);
-  y <- getSignals(this);
-  points(xScale*x, yScale*y, pch=pch, ...);
-})
-
-setMethodS3("lines", "RawGenomicSignals", function(x, ..., xScale=getXScale(this), yScale=getYScale(this)) {
-  # To please R CMD check
-  this <- x;
-
-  # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
-
-  x <- getPositions(this);
-  y <- getSignals(this);
-
-  o <- order(x);
-  x <- x[o];
-  y <- y[o];
-
-  x <- x*xScale;
-  y <- y*yScale;
-
-  lines(x, y, ...);
-})
 
 
 setMethodS3("xSeq", "RawGenomicSignals", function(this, from=1, to=xMax(this), by=100e3, ...) {
@@ -1119,7 +1126,7 @@ setMethodS3("xMax", "RawGenomicSignals", function(this, ...) {
 })
 
 setMethodS3("yRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
-  y <- getSignals(this);
+  y <- getSignals(this, ...);
   range(y, na.rm=na.rm);
 })
 
@@ -1133,7 +1140,7 @@ setMethodS3("yMax", "RawGenomicSignals", function(this, ...) {
 
 
 setMethodS3("signalRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
-  y <- getSignals(this);
+  y <- getSignals(this, ...);
   range(y, na.rm=na.rm);
 })
 
@@ -1182,6 +1189,9 @@ setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...
 ############################################################################
 # HISTORY:
 # 2012-03-14
+# o Added argument 'field' to getSignals() and estimateStandardDeviation().
+# o Added argument 'fields' to binnedSmoothing() for RawGenomicSignals.
+#   Also to binnedSmoothingByField().
 # o BUG FIX: binnedSmoothingByField(..., byCount=TRUE) would bin using
 #   incorrect bin sets.
 # 2012-03-13
@@ -1227,8 +1237,6 @@ setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...
 # o Now extractRegion() for RawGenomicSignals also accepts a
 #   CopyNumberRegions object for argument 'regions'.
 # o Added extractRegions() for RawGenomicSignals.
-# 2009-11-22
-# o Now all chromosome plot functions have xScale=1e-6 by default.
 # 2009-10-10
 # o Added setName().
 # 2009-09-07

@@ -228,7 +228,9 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
   # Smoothing in bins
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Allocate vector of smoothed signals
-  Ys <- matrix(NA, nrow=nOut, ncol=k);
+  naValue <- as.double(NA);
+  Ys <- matrix(naValue, nrow=nOut, ncol=k);
+  colnames(Ys) <- colnames(Y);
 
   verbose && enter(verbose, "Estimating signals in each bin");
 
@@ -321,6 +323,9 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-14
+# o Now colNnnSmoothing() returns a matrix with column name as
+#   in argument 'Y'.
 # 2012-02-04
 # o GENERALIZATION: Now it is possible to call colBinnedSmoothing() with
 #   an empty set of input loci, but still requesting a set of output loci,

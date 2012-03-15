@@ -15,14 +15,16 @@ setMethodS3("getGenericSummary", "RichDataFrame", function(x, ...) {
   name <- getName(this);
   if (is.null(name)) name <- "<none>";
   s <- c(s, sprintf("Name: %s", as.character(name)));
-  n <- nrow(this);
-  s <- c(s, sprintf("Number of rows: %d", n));
-  data <- as.data.frame(this);
+  s <- c(s, sprintf("Number of rows: %d", nrow(this)));
+
+  data <- this[1,,drop=FALSE];
+  data <- as.data.frame(data);
+  names <- getColumnNames(this);
   vNames <- getVirtualColumnNames(this);
-  names <- sapply(colnames(data), FUN=function(field) {
+  names <- sapply(names, FUN=function(field) {
     values <- data[[field]];
     # Sanity check
-    stopifnot(length(values) == n);
+    stopifnot(length(values) == 1);
     mode <- mode(values);
     if (is.element(field, vNames)) {
       field <- sprintf("%s*", field);
@@ -30,8 +32,9 @@ setMethodS3("getGenericSummary", "RichDataFrame", function(x, ...) {
     sprintf("%s [%s]", field, mode);
   });
   if (length(names) == 0) names <- "<none>";
+
+  s <- c(s, sprintf("Number of columns: %d", length(names)));
   names <- paste(names, collapse=", ");
-  s <- c(s, sprintf("Number of columns: %d", ncol(data)));
   s <- c(s, sprintf("Columns: %s", names));
 
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
@@ -106,10 +109,21 @@ setMethodS3("translateColumnNames", "RichDataFrame", function(this, names, ...) 
   names;
 })
 
+setMethodS3("getColumnNames", "RichDataFrame", function(this, virtual=TRUE, translate=TRUE, vTag=NULL, ...) {
+  names <- names(unclass(this));
+  if (translate) {
+    names <- translateColumnNames(this, names);
+  }
 
-setMethodS3("getColumnNames", "RichDataFrame", function(this, ...) {
-  data <- as.data.frame(this, ...);
-  names(data);
+  if (virtual) {
+    vNames <- getVirtualColumnNames(this, translate=translate);
+    if (!is.null(vTag)) {
+      vNames <- sprintf("%s%s", vNames, vTag);
+    }
+    names <- c(names, vNames);
+  }
+
+  names;
 }) # getColumnNames()
 
 
@@ -271,9 +285,22 @@ setMethodS3("as.data.frame", "RichDataFrame", function(x, ..., virtual=TRUE, tra
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (virtual) {
     vNames <- getVirtualColumnNames(this);
-    for (name in vNames) {
-      data[[name]] <- getVirtualColumn(this, name);
-    } # for (name ...)
+    if (length(vNames) > 0) {
+      dataT <- data;
+
+      # Translate column names?
+      names0 <- names(data);
+      names <- translateColumnNames(this, names0);
+      if (!all(names == names0)) {
+        names(dataT) <- names;
+      }
+
+      for (name in vNames) {
+        data[[name]] <- getVirtualColumn(this, name, data=dataT);
+      } # for (name ...)
+
+      rm(dataT);
+    }
   }
 
   if (translate) {
@@ -286,13 +313,15 @@ setMethodS3("as.data.frame", "RichDataFrame", function(x, ..., virtual=TRUE, tra
 })
 
 setMethodS3("dim", "RichDataFrame", function(x) {
-  x <- as.data.frame(x);
-  dim(x);
+  names <- names(x);
+  ncol <- length(names);
+  nrow <- length(unclass(x)[[1]]);
+  c(nrow, ncol);
 }, appendVarArgs=FALSE)
 
 setMethodS3("length", "RichDataFrame", function(x) {
-  x <- as.data.frame(x);
-  length(x);
+  names <- names(x);
+  length(names);
 }, appendVarArgs=FALSE)
 
 setMethodS3("as.list", "RichDataFrame", function(x, ...) {
@@ -304,47 +333,103 @@ setMethodS3("as.list", "RichDataFrame", function(x, ...) {
 setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   this <- x;
 
-  # Figure out with rows and columns to keep
-  data <- as.data.frame(this);
-  rownames <- rownames(data);
-  colnames <- colnames(data);
-  vColnames <- getVirtualColumnNames(this);
-  idxs <- which(is.element(colnames, vColnames));
-  colnames[idxs] <- sprintf("%s*", colnames[idxs]);
+  virtuals <- getVirtualColumnFunctions(this);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Columns
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  colnames <- getColumnNames(this);
+  ncol <- length(colnames);
+  cols <- seq(length=ncol);
+  names(cols) <- colnames;
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Rows
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  nrow <- nrow(this);
+  rows <- seq(length=nrow);
+  names(rows) <- rownames(this);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Subset rows and columns
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Dummy matrix to catch out of bound errors
+  data <- matrix(NA, nrow=nrow, ncol=ncol);
+  colnames(data) <- names(cols);
+  rownames(data) <- names(rows);
 
   if (missing(i) && missing(j)) {
-    dataS <- data[,,drop=FALSE];
   } else if (missing(i)) {
-    dataS <- data[,j,drop=FALSE];
+    data <- data[,j,drop=FALSE];
+    cols <- cols[j];
   } else if (missing(j)) {
-    dataS <- data[i,,drop=FALSE];
+    data <- data[i,,drop=FALSE];
+    rows <- rows[i];
   } else {
-    dataS <- data[i,j,drop=FALSE];
+    data <- data[i,j,drop=FALSE];
+    rows <- rows[i];
+    cols <- cols[j];
   }
 
-  # Rows to keep
-  rows <- match(rownames(dataS), rownames);
-  cols <- match(colnames(dataS), colnames);
-  cols <- cols[!is.na(cols)];
+  # Not needed anymore
+  rm(data);
 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Drop?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (is.null(drop)) {
     drop <- FALSE;
     if (missing(i)) {
       drop <- TRUE;
     } else {
-      drop <- (ncol(dataS) == 1);
+      drop <- (length(cols) == 1);
     }
   }
 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Virtual columns
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  vColnames <- getVirtualColumnNames(this);
+  nvcol <- length(vColnames);
+
+  # Are there any virtual columns?
+  if (nvcol > 0) {
+    isVirtual <- rep(FALSE, times=ncol);
+    isVirtual[is.element(colnames, vColnames)] <- TRUE;
+    names(isVirtual) <- colnames;
+
+    # Subset virtual columns
+    vColnamesS <- intersect(vColnames, colnames[cols]);
+    virtuals <- virtuals[vColnamesS];
+
+    # Subset non-virtual columns
+    cols <- cols[!isVirtual[cols]];
+  } # if (nvcol > 0)
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Subset
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   i <- rows;
   j <- cols;
+##  res <- NextMethod("[", this);
 
+  class <- class(this);
+  res <- this;
+  class(res) <- "data.frame";
+  res <- res[i,j,drop=drop];
 
-  res <- NextMethod("[", this);
-
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Preserve attributes
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # The dimensions may have been dropped above
-  if (is.data.frame(res)) {
+  if (!drop) {
+    class(res) <- class;
     res <- setAttributes(res, attributes(this));
+    res <- setVirtualColumnFunctions(res, virtuals);
   }
 
   res;
@@ -352,8 +437,40 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
 
 
 setMethodS3("[[", "RichDataFrame", function(x, name) {
-  data <- as.data.frame(x);
-  data[[name]];
+  this <- x;
+
+  colnames <- getColumnNames(this);
+  ncol <- length(colnames);
+
+  # Argument 'name':  
+  if (length(name) == 0) {
+    throw("attempt to select less than one element");
+  }
+  if (length(name) > 1) {
+    throw("attempt to select more than one element");
+  }
+  if (is.numeric(name)) {
+    if (name < 1 || name > ncol) {
+      throw(sprintf("Column index out of range [%d,%d]: %d", min(1,ncol), ncol, name));
+    }
+    name <- colnames[name];
+  } else {
+    if (!is.element(name, colnames)) {
+      return(NULL);
+    }
+  }
+
+  # Is it a virtual column?
+  vColnames <- getVirtualColumnNames(this);
+  isVirtual <- is.element(name, vColnames);
+  if (isVirtual) {
+    res <- getVirtualColumn(this, name);
+  } else {
+    col <- match(name, colnames);
+    res <- unclass(this)[[col]];
+  }
+
+  res;
 })
 
 setMethodS3("[[<-", "RichDataFrame", function(x, name, value) {
@@ -499,9 +616,12 @@ setMethodS3("hasVirtualColumn", "RichDataFrame", function(this, name, ...) {
 
 
 
-setMethodS3("getVirtualColumn", "RichDataFrame", function(this, name, ...) {
+setMethodS3("getVirtualColumn", "RichDataFrame", function(this, name, data=NULL, ...) {
   fcn <- getVirtualColumnFunction(this, name, ...);
-  data <- as.data.frame(this, virtual=FALSE);
+
+  if (is.null(data)) {
+    data <- as.data.frame(this, virtual=FALSE);
+  }
 
   tryCatch({
     value <- fcn(data, ...);
@@ -589,6 +709,10 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
 ############################################################################
 # HISTORY:
 # 2012-03-14
+# o SPEEDUP: Now "["() no longer uses as.data.frame().
+# o SPEEDUP: Now getColumnNames() no longer uses as.data.frame().
+# o BUG FIX: "["(i,j) would insert NA rows if any row indices 'i' where
+#   duplicated.  Same for columns.
 # o BUG FIX: Had to adopt/paste from subset() for data.frame, because
 #   there are expressions that are evaluated in the "parent.frame()".
 # 2012-03-13

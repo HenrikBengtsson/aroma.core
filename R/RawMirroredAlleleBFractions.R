@@ -31,8 +31,7 @@ setMethodS3("extractRawMirroredAlleleBFractions", "default", abstract=TRUE);
 
 
 setMethodS3("extractRawMirroredAlleleBFractions", "RawAlleleBFractions", function(this, ...) {
-  res <- clone(this);
-  beta <- getSignals(res);
+  beta <- getSignals(this);
   dh <- abs(beta - 1/2);
   res <- setSignals(res, dh);
   class(res) <- c("RawMirroredAlleleBFractions", class(res));

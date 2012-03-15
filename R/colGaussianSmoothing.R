@@ -54,7 +54,9 @@ setMethodS3("colGaussianSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)),
   # Smoothing
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Allocate vector of smoothed signals
-  Ys <- matrix(NA, nrow=nOut, ncol=k);
+  naValue <- as.double(NA);
+  Ys <- matrix(naValue, nrow=nOut, ncol=k);
+  colnames(Ys) <- colnames(Y);
 
 #  wKernelMax <- dnorm(x, sd=sd);
 
@@ -145,6 +147,9 @@ setMethodS3("gaussianSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-14
+# o Now colNnnSmoothing() returns a matrix with column name as
+#   in argument 'Y'.
 # 2009-05-16
 # o Now colGaussianSmoothing() uses Arguments$getNumerics(), not 
 #   getDoubles(), where possible.  This will save memory in some cases.

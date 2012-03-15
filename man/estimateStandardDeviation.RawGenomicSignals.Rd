@@ -21,9 +21,10 @@
  or a first-order difference estimator.
 }
 
-\usage{\method{estimateStandardDeviation}{RawGenomicSignals}(this, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...)}
+\usage{\method{estimateStandardDeviation}{RawGenomicSignals}(this, field=NULL, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...)}
 
 \arguments{
+  \item{field}{A \code{\link[base]{character}} specifying the field to estimate.}
   \item{method}{If \code{"diff"}, the estimate is based on the first-order
     contigous differences of raw Ys. If \code{"direct"}, it is based
     directly on the raw Ys.}

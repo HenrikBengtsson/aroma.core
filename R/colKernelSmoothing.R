@@ -150,7 +150,9 @@ setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
   # Smoothing
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Allocate vector of smoothed signals
-  Ys <- matrix(NA, nrow=nOut, ncol=k);
+  naValue <- as.double(NA);
+  Ys <- matrix(naValue, nrow=nOut, ncol=k);
+  colnames(Ys) <- colnames(Y);
 
   verbose && enter(verbose, "Estimating signals at given locations");
 
@@ -225,6 +227,9 @@ setMethodS3("kernelSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-14
+# o Now colNnnSmoothing() returns a matrix with column name as
+#   in argument 'Y'.
 # 2009-05-16
 # o Now colKernelSmoothing() uses Arguments$getNumerics(), not 
 #   getDoubles(), where possible.  This will save memory in some cases.
