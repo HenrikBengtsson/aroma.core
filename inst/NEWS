@@ -6,6 +6,8 @@ o Added alpha versions of PairedPSCNData and NonPairedPSCNData,
   which inherits from RawGenomicSignals.
 o Turned weightedMad() into a default method, added help documentation
   with example code.
+o BUG FIX: "["() for RichDataFrame would loose the class attribute,
+  unless argument 'drop' was FALSE.
 
 
 Version: 2.4.12 [2012-03-15]
@@ -41,7 +43,7 @@ o ROBUSTNESS: Now all writeDataFrame() methods will add quotation
   reported by Yu Song at Oakland University.
 o Now createImage() for matrix creates images of type "png::array"
   by default (used to be "EBImage::Image").  If the latter, then
-  EBImage v3.9.7 (July 2011) is required.
+  at least EBImage v3.9.7 (July 2011) is required.
 o BUG FIX: write() for RasterImage would write truncated intensities,
   because we forgot to rescale [0,65535] to [0,1] intensities.
 

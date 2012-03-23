@@ -1,4 +1,4 @@
-setConstructorS3("RichDataFrame", function(..., .name=NULL, .virtuals=NULL) {
+setConstructorS3("RichDataFrame", function(..., .name=NULL, .virtuals=list()) {
   data <- data.frame(...);
   this <- extend(data, "RichDataFrame");
   this <- setName(this, .name);
@@ -422,11 +422,12 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   class(res) <- "data.frame";
   res <- res[i,j,drop=drop];
 
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Preserve attributes
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # The dimensions may have been dropped above
-  if (!drop) {
+  # Keep class attributes, unless dimensions have been dropped
+  if (!is.null(dim(res))) {
     class(res) <- class;
     res <- setAttributes(res, attributes(this));
     res <- setVirtualColumnFunctions(res, virtuals);
@@ -708,6 +709,10 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
 
 ############################################################################
 # HISTORY:
+# 2012-03-23
+# o Now argument '.virtuals' of RichDataFrame defaults to list().
+# o BUG FIX: "["() for RichDataFrame would loose the class attribute,
+#   unless argument 'drop' was FALSE.
 # 2012-03-14
 # o SPEEDUP: Now "["() no longer uses as.data.frame().
 # o SPEEDUP: Now getColumnNames() no longer uses as.data.frame().
