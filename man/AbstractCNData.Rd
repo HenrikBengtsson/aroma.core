@@ -1,21 +1,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  RawMirroredAlleleBFractions.R
+%  AbstractCNData.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{RawMirroredAlleleBFractions}
+ \name{AbstractCNData}
 \docType{class}
-\alias{RawMirroredAlleleBFractions}
+\alias{AbstractCNData}
 
 
- \title{The RawMirroredAlleleBFractions class}
+ \title{The AbstractCNData class}
 
  \description{
   Package:  aroma.core \cr
-\bold{Class RawMirroredAlleleBFractions}\cr
+\bold{Class AbstractCNData}\cr
 
 \code{data.frame}\cr
 \code{~~|}\cr
@@ -23,34 +23,45 @@
 \code{~~~~~~~|}\cr
 \code{~~~~~~~+--}\code{\link[aroma.core]{RawGenomicSignals}}\cr
 \code{~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~+--}\code{\link[aroma.core]{RawAlleleBFractions}}\cr
-\code{~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~+--}\code{RawMirroredAlleleBFractions}\cr
+\code{~~~~~~~~~~~~+--}\code{AbstractCNData}\cr
 
 \bold{Directly known subclasses:}\cr
-\cr
+\link[aroma.core]{AbstractPSCNData}, \link[aroma.core]{NonPairedPSCNData}, \link[aroma.core]{PairedPSCNData}\cr
 
-public class \bold{RawMirroredAlleleBFractions}\cr
-extends \link[aroma.core]{RawAlleleBFractions}\cr
+public class \bold{AbstractCNData}\cr
+extends \link[aroma.core]{RawGenomicSignals}\cr
 
 
+
+  An AbstractCNData object holds copy number data.
  }
 
- \usage{RawMirroredAlleleBFractions(...)}
+ \usage{AbstractCNData(chromosome=NULL, x=NULL, y=NULL, ..., name=NULL, .virtuals=NULL)}
 
  \arguments{
-   \item{...}{Arguments passed to \code{\link{RawAlleleBFractions}}.}
+   \item{chromosome}{(Optional) An \code{\link[base]{integer}} scalar (or a \code{\link[base]{vector}} of length J),
+        which can be used to specify which chromosome each locus belongs to
+        in case multiple chromosomes are segments.
+        This argument is also used for annotation purposes.}
+   \item{x}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of J genomic locations.
+            If \code{\link[base]{NULL}}, index locations \code{1:J} are used.}
+   \item{y}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of J genomic locations.}
+   \item{...}{Optional named locus-specific signal \code{\link[base]{vector}}s of length J.}
+   \item{name}{Optional \code{\link[base]{character}} string.}
+   \item{.virtuals}{(Internal) a \code{\link[base]{list}} with virtual column name \code{\link[base]{function}}s.}
  }
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{plot} \tab  -\cr
+ \tab \code{findLargeGaps} \tab  -\cr
+ \tab \code{getChipType} \tab  -\cr
+ \tab \code{getLocusData} \tab  -\cr
+ \tab \code{getPlatform} \tab  -\cr
+ \tab \code{setChipType} \tab  -\cr
+ \tab \code{setPlatform} \tab  -\cr
 }
 
-
- \bold{Methods inherited from RawAlleleBFractions}:\cr
-extractRawMirroredAlleleBFractions, plot
 
  \bold{Methods inherited from RawGenomicSignals}:\cr
 -, *, +, addBy, append, applyBinaryOperator, as.data.frame, assertOneChromosome, binnedSmoothing, binnedSmoothingByField, clearCache, clone, divideBy, drawDensity, estimateStandardDeviation, extractChromosome, extractChromosomes, extractDataForSegmentation, extractRegion, extractRegions, extractSubset, gaussianSmoothing, getBasicField, getChromosome, getChromosomes, getCXY, getDefaultLocusFields, getLocusFields, getPositions, getSigma, getSignalColumnName, getSignalColumnNames, getSignals, getWeights, getXScale, getXY, getYScale, hasWeights, kernelSmoothing, lines, multiplyBy, nbrOfChromosomes, nbrOfLoci, plot, points, print, segmentByCBS, segmentByGLAD, segmentByHaarSeg, segmentByMPCBS, setBasicField, setSigma, setSignals, setWeights, setXScale, setYScale, signalRange, sort, subtractBy, xMax, xMin, xRange, xSeq, yMax, yMin, yRange
@@ -59,7 +70,7 @@ extractRawMirroredAlleleBFractions, plot
 $, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNames, getColumnNamesTranslator, getFullName, getName, getTags, getVirtualColumn, getVirtualColumnFunction, getVirtualColumnNames, hasColumn, hasColumns, hasVirtualColumn, hasVirtualColumns, length, names, newInstance, print, rbind, setAttributes, setColumnNamesMap, setColumnNamesTranslator, setName, setTags, setVirtualColumn, subset, translateColumnNames
 
  \bold{Methods inherited from data.frame}:\cr
-$<-, [, [[, [[<-, [<-, aggregate, anyDuplicated, as.data.frame, as.list, as.matrix, as.NonPairedPSCNData, as.PairedPSCNData, as.profileCGH, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, Math, mean, merge, na.exclude, na.omit, Ops, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, Summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
+$<-, [, [[, [[<-, [<-, aggregate, anyDuplicated, as.data.frame, as.list, as.matrix, as.NonPairedPSCNData, as.PairedPSCNData, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, Math, mean, merge, na.exclude, na.omit, Ops, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, Summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
  }

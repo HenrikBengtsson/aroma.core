@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.4.13 [2012-03-23]
+o Added alpha versions of PairedPSCNData and NonPairedPSCNData,
+  which inherits from RawGenomicSignals.
+o Turned weightedMad() into a default method, added help documentation
+  with example code.
+
+
 Version: 2.4.12 [2012-03-15]
 o Now colBinnedSmoothing(), colKernelSmoothing() and
   colGaussianSmoothing() returns a matrix with column names

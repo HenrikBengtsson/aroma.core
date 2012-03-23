@@ -436,7 +436,7 @@
   updateSequences updateSequences.AromaCellSequenceFile
   updateTargetStrands updateTargetStrands.AromaCellSequenceFile
   validate.AromaMicroarrayDataSet validate.AromaUnitSignalBinarySet
-  weightedMad weightedMean whatDataType whatDataType.default
+  weightedMean whatDataType whatDataType.default
   writeAxesLayers writeAxesLayers.ChromosomeExplorer
   writeCopyNumberRegionLayers
   writeCopyNumberRegionLayers.ChromosomeExplorer writeCytobandLayers
@@ -601,4 +601,30 @@ setSignals setSignals.RawGenomicSignals setTags.RichDataFrame
 setVirtualColumn setVirtualColumn.RichDataFrame
 setVirtualColumnFunctions setVirtualColumnFunctions.RichDataFrame
 subset.RichDataFrame translateColumnNames.RichDataFrame
-
+as.NonPairedPSCNData as.NonPairedPSCNData.NonPairedPSCNData
+as.NonPairedPSCNData.data.frame as.PairedPSCNData
+as.PairedPSCNData.NonPairedPSCNData
+as.PairedPSCNData.PairedPSCNData as.PairedPSCNData.data.frame
+callNaiveGenotypes.NonPairedPSCNData
+callNaiveGenotypes.PairedPSCNData callSNPs
+callSNPs.AbstractPSCNData callSegmentationOutliers
+callSegmentationOutliers.NonPairedPSCNData
+callSegmentationOutliers.PairedPSCNData dropSegmentationOutliers
+dropSegmentationOutliers.NonPairedPSCNData
+dropSegmentationOutliers.PairedPSCNData extractNonPairedPSCNData
+extractNonPairedPSCNData.PairedPSCNData findLargeGaps
+findLargeGaps.AbstractCNData getChipType.AbstractCNData
+getLocusData getLocusData.AbstractCNData
+getPlatform.AbstractCNData getSNPFields
+getSNPFields.AbstractPSCNData
+getSignalColumnNames.NonPairedPSCNData
+getSignalColumnNames.PairedPSCNData getTCNs
+getTCNs.PairedPSCNData getTotalCopyNumbers
+getTotalCopyNumbers.PairedPSCNData hasKnownPositions
+hasKnownPositions.AbstractCNData
+normalizeTumorBoost.PairedPSCNData orderAlongGenome
+orderAlongGenome.AbstractCNData segmentByCBS.NonPairedPSCNData
+segmentByCBS.PairedPSCNData segmentByPairedPSCBS
+segmentByPairedPSCBS.PairedPSCNData setChipType
+setChipType.AbstractCNData setPlatform
+setPlatform.AbstractCNData
