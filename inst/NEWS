@@ -6,6 +6,8 @@ o Added alpha versions of PairedPSCNData and NonPairedPSCNData,
   which inherits from RawGenomicSignals.
 o Turned weightedMad() into a default method, added help documentation
   with example code.
+o CLEANUP: Moved (internal) swapXY() and draw() for 'density'
+  objects to R.utils (>= 1.10.0).
 o BUG FIX: "["() for RichDataFrame would loose the class attribute,
   unless argument 'drop' was FALSE.
 
