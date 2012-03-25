@@ -1041,13 +1041,9 @@
 \alias{-.RawGenomicSignals}
 \alias{*.RawGenomicSignals}
 \alias{+.RawGenomicSignals}
-\alias{draw}
-\alias{draw.density}
 \alias{drawDensity}
 \alias{drawDensity.CopyNumberRegions}
 \alias{drawDensity.RawGenomicSignals}
-\alias{swapXY}
-\alias{swapXY.density}
 \alias{getDensity}
 \alias{getDensity.CopyNumberRegions}
 \alias{getLength}

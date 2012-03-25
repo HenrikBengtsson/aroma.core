@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.5.0 [2012-03-25]
+o Submitted to CRAN.
+o The package passes all redundancy tests.
+
+
 Version: 2.4.13 [2012-03-23]
 o Added alpha versions of PairedPSCNData and NonPairedPSCNData,
   which inherits from RawGenomicSignals.
