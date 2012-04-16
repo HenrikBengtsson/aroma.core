@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.5.1 [2012-04-16]
+o Package no longer "Suggests" affxparser.  It was needed because of
+  the findFiles() function, which has been added to R.utils v1.13.1.
+
+
 Version: 2.5.0 [2012-03-25]
 o Submitted to CRAN.
 o The package passes all redundancy tests.

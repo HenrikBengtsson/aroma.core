@@ -18,7 +18,7 @@
 #     arguments \code{name} and \code{tags}.}
 #   \item{private}{If @FALSE, files and directories starting 
 #     with a periods are ignored.}
-#   \item{...}{Arguments passed to @see "affxparser::findFiles".}
+#   \item{...}{Arguments passed to @see "R.utils::findFiles".}
 #   \item{firstOnly}{If @TRUE, only the first matching pathname is returned.}
 #   \item{paths}{A @character @vector of paths to search.
 #     If @NULL, default paths are used.}
@@ -36,8 +36,6 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, ..., firstOnly=TRUE, paths=NULL, verbose=FALSE) {
-  # Needs affxparser::findFiles()
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -94,7 +92,7 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
       verbose && enter(verbose, sprintf("Path #%d of %d", kk, length(paths)));
 
       verbose && cat(verbose, "Path: ", path);
-      pathnamesKK <- affxparser::findFiles(..., paths=path);
+      pathnamesKK <- findFiles(..., paths=path);
       verbose && print(verbose, pathnamesKK);
 
       if (length(pathnamesKK) == 0) {
@@ -345,6 +343,9 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 
 ############################################################################
 # HISTORY:
+# 2012-04-16
+# o CLEANUP: findAnnotationData() no longer needs affxparser, because
+#   findFiles() is in R.utils (>= 1.13.1).
 # 2011-03-03
 # o Now findAnnotationData() again guarantees that the returned pathnames
 #   are ordered by the (length of the) fullnames.

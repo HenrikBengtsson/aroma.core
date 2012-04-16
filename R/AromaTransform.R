@@ -456,7 +456,7 @@ setMethodS3("getOutputFiles", "AromaTransform", function(this, pattern=NULL, ...
   }
 
   outPath <- getPath(this);
-  affxparser::findFiles(pattern=pattern, paths=outPath, firstOnly=FALSE);
+  findFiles(pattern=pattern, paths=outPath, firstOnly=FALSE);
 }, protected=TRUE)
 
 
