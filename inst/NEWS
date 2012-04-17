@@ -2,8 +2,14 @@ Package: aroma.core
 ===================
 
 Version: 2.5.1 [2012-04-16]
-o Package no longer "Suggests" affxparser.  It was needed because of
-  the findFiles() function, which has been added to R.utils v1.13.1.
+o CLEANUP: Package no depends/imports on CRAN package, which simplifies
+  the installation of aroma.core.  Note, there are still "suggested" 
+  non-CRAN packages.
+o CLEANUP: Package no longer depends on aroma.light, but instead it
+  "suggests" it.  This is possible, because now weightedMad() of
+  aroma.light has been added to matrixStats v0.5.0.
+o CLEANUP: Package no longer "Suggests" affxparser.  It was needed because
+  of the findFiles() function, which has been added to R.utils v1.13.1.
 
 
 Version: 2.5.0 [2012-03-25]

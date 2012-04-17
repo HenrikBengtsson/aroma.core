@@ -1272,6 +1272,8 @@
 \alias{setChipType.AbstractCNData}
 \alias{setPlatform}
 \alias{setPlatform.AbstractCNData}
+\alias{normalizeTumorBoost}
+\alias{callNaiveGenotypes}
 
 \description{
   This page contains aliases for all "non-documented" objects that

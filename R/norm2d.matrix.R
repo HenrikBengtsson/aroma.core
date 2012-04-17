@@ -1,5 +1,6 @@
 setMethodS3("fit2d", "matrix", function(M, MARGIN=1, spar=0.7, h=20, ...) {
-  colMedians <- function(x, ...) rowMedians(t(x), ...);
+  ## aroma.light::robustSmoothSpline()
+  require("aroma.light") || throw("Package not loaded: aroma.light");
 
   nr <- nrow(M);
   nc <- ncol(M);
@@ -79,6 +80,9 @@ setMethodS3("calcMargins", "matrix", function(M, unshift=FALSE, ...) {
 
 ############################################################################
 # HISTORY: 
+# 2012-04-16
+# o Now fit2d() explicitly require the 'aroma.light' package.
+# o Dropped internal colMedians() from fit2d(); already in matrixStats.
 # 2008-03-19
 # o Created.
 ############################################################################

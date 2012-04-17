@@ -52,7 +52,7 @@ extends list\cr
 
 
  \bold{Methods inherited from list}:\cr
-all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, averageQuantile, callHooks, listToXml, mergeBoxplotStats, normalizeAverage, normalizeDifferencesToAverage, normalizeQuantileRank, normalizeQuantileSpline, plotDensity, relist, within
+all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, callHooks, listToXml, mergeBoxplotStats, relist, within
 
 
  }

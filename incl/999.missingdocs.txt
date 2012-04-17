@@ -628,3 +628,5 @@ segmentByCBS.PairedPSCNData segmentByPairedPSCBS
 segmentByPairedPSCBS.PairedPSCNData setChipType
 setChipType.AbstractCNData setPlatform
 setPlatform.AbstractCNData
+normalizeTumorBoost
+callNaiveGenotypes
