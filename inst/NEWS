@@ -2,6 +2,7 @@ Package: aroma.core
 ===================
 
 Version: 2.5.2 [2012-05-30]
+o Updated package dependencies.
 o Added argument 'calculateRatios' to CopyNumberChromosomalModel().
 
 
