@@ -34,13 +34,17 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
   This \emph{abstract} class represents a copy-number model.
  }
 
- \usage{CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, tags="*", genome="Human", ...)}
+ \usage{CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", ...)}
 
  \arguments{
    \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
    \item{refTuple}{An optional \code{\link{CopyNumberDataFile}},
       or \code{\link{CopyNumberDataSet}} or \code{\link{CopyNumberDataSetTuple}}
       for pairwise comparisons.}
+   \item{calculateRatios}{A \code{\link[base]{logical}} specifying whether ratios should
+      be calculated relative to the reference.
+      If \code{\link[base:logical]{FALSE}}, argument \code{refTuple} is ignored.
+   }
    \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
    \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
    \item{...}{Optional arguments that may be used by some of the

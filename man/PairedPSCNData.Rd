@@ -83,6 +83,7 @@ extends \link[aroma.core]{AbstractPSCNData}\cr
  \tab \code{getTCNs} \tab  -\cr
  \tab \code{getTotalCopyNumbers} \tab  -\cr
  \tab \code{normalizeTumorBoost} \tab  -\cr
+ \tab \code{plotTracks} \tab  -\cr
  \tab \code{segmentByCBS} \tab  -\cr
  \tab \code{segmentByPairedPSCBS} \tab  -\cr
 }

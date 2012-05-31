@@ -630,3 +630,4 @@ setChipType.AbstractCNData setPlatform
 setPlatform.AbstractCNData
 normalizeTumorBoost
 callNaiveGenotypes
+plotTracks plotTracks.PairedPSCNData

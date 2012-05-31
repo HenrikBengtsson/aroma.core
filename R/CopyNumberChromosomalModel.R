@@ -16,6 +16,10 @@
 #   \item{refTuple}{An optional @see "CopyNumberDataFile", 
 #      or @see "CopyNumberDataSet" or @see "CopyNumberDataSetTuple" 
 #      for pairwise comparisons.}
+#   \item{calculateRatios}{A @logical specifying whether ratios should
+#      be calculated relative to the reference.
+#      If @FALSE, argument \code{refTuple} is ignored.
+#   }
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
 #   \item{...}{Optional arguments that may be used by some of the
@@ -33,7 +37,7 @@
 #
 # @author
 #*/###########################################################################
-setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=NULL, tags="*", genome="Human", ...) {
+setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -141,6 +145,12 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     } # for (kk in ...)
   }
 
+  # Argument 'calculateRatios':
+  if (is.character(calculateRatios) && calculateRatios == "auto") {
+  } else {
+    calculateRatios <- Arguments$getLogical(calculateRatios);
+  }
+
   # Argument 'tags':
   tags <- Arguments$getTags(tags, collapse=NULL);
 
@@ -151,7 +161,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     .cesTuple = cesTuple,
     .refTuple = refTuple,
     .paired = (length(refTuple) > 0),
-    .calculateRatios = TRUE,
+    .calculateRatios = calculateRatios,
     .chromosomes = NULL,
     .tags = tags,
     .genome = genome,
@@ -524,7 +534,19 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     ce <- ceList[[kk]];
     if (!is.null(ce)) {
       # Do we need to calculate ratios relative to a reference?
-      if (calculateRatios(this)) {
+      calculateRatios <- calculateRatios(this);
+      verbose && cat(verbose, "Calculate ratios? ", calculateRatios);
+
+      # Infer from filename tags?
+      if (identical(calculateRatios, "auto")) {
+        tags <- getTags(ce);
+        pattern <- "^(log|log2|log10|)ratio$";
+        hasRatio <- any(regexpr(pattern, tags) != -1);
+        calculateRatios <- !hasRatio;
+        verbose && cat(verbose, "Calculate ratios (inferred from tags)? ", calculateRatios);
+      }
+
+      if (calculateRatios) {
         ref <- refList[[kk]];
 
         # AD HOC. /HB 2007-09-29
@@ -998,6 +1020,11 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
 ##############################################################################
 # HISTORY:
+# 2012-05-30
+# o Added argument 'calculateRatios' to CopyNumberChromosomalModel().
+#   If 'calculateRatios' is "auto", then it is inferred from the filename
+#   tags, i.e. if any of the tags is 'ratio', 'logratio', 'log2ratio' or
+#   'log10ratio', then it is assumed that ratios are already calculated.
 # 2012-01-24
 # o Added more information to error messages thrown by getDataFileMatrix()
 #   for CopyNumberChromosomalModel.

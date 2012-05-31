@@ -1,10 +1,15 @@
 Package: aroma.core
 ===================
 
+Version: 2.5.2 [2012-05-30]
+o Added argument 'calculateRatios' to CopyNumberChromosomalModel().
+
+
 Version: 2.5.1 [2012-04-16]
-o CLEANUP: Package no depends/imports on CRAN package, which simplifies
-  the installation of aroma.core.  Note, there are still "suggested" 
-  non-CRAN packages.
+o CLEANUP: Package now only depends/imports on CRAN package, which 
+  simplifies the installation of aroma.core, and indirectly any
+  packages that depends on it.  Note, there are still "suggested"
+  non-CRAN packages, which are required by some/optional methods.
 o CLEANUP: Package no longer depends on aroma.light, but instead it
   "suggests" it.  This is possible, because now weightedMad() of
   aroma.light has been added to matrixStats v0.5.0.
