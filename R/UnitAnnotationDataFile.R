@@ -85,7 +85,7 @@ setMethodS3("byChipType", "UnitAnnotationDataFile", function(static, chipType, t
   if (is.null(pathnames)) {
     ext <- getDefaultExtension(static);
     note <- attr(ext, "note");
-    msg <- sprintf("Failed to create %s object. Could to locate an annotation data file for chip type '%s'", class(static)[1], chipType);
+    msg <- sprintf("Failed to create %s object. Could not locate an annotation data file for chip type '%s'", class(static)[1], chipType);
     if (is.null(tags)) {
       msg <- sprintf("%s (without requiring any tags)", msg);
     } else {
