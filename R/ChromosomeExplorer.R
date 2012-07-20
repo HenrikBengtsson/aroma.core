@@ -25,7 +25,7 @@
 #   In order to get better looking graphs, but also to be able to generate
 #   bitmap images on systems without direct bitmap support, which is the case
 #   when running R in batch mode or on Unix without X11 support, images are
-#   created using the @see "R.utils::png2" device (a wrapper for 
+#   created using the @see "R.devices::png2" device (a wrapper for 
 #   \code{bitmap()} immitating \code{png()}).  The \code{png()} is only
 #   used if \code{png2()}, which requires Ghostscript, does not.
 #   Note, when images are created using \code{png2()}, the images does

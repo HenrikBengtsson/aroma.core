@@ -49,7 +49,7 @@ setMethodS3("findPngDevice", "default", function(transparent=TRUE, ..., force=FA
       devices <- c(devices, CairoPNGtrans);
     }
 
-    # R.utils::png2()
+    # R.devices::png2()
     png2trans <- function(...) {
       png2(..., type="pngalpha");
       par(bg=NA);
@@ -65,7 +65,7 @@ setMethodS3("findPngDevice", "default", function(transparent=TRUE, ..., force=FA
     }
     devices <- c(devices, pngtrans);
   } else {
-    # R.utils::png2()
+    # R.devices::png2()
     devices <- c(devices, png2);
 
     # Cairo::CairoPNG()
