@@ -30,7 +30,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitSignalBinarySet}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUnitCallSet}, \link[aroma.core]{AromaUnitFracBCnBinarySet}, \link[aroma.core]{AromaUnitGenotypeCallSet}, \link[aroma.core]{AromaUnitTotalCnBinarySet}\cr
+\link[aroma.core]{AromaUnitCallSet}, \link[aroma.core]{AromaUnitFracBCnBinarySet}, \link[aroma.core]{AromaUnitGenotypeCallSet}, \link[aroma.core]{AromaUnitPscnBinarySet}, \link[aroma.core]{AromaUnitTotalCnBinarySet}\cr
 
 public static class \bold{AromaUnitSignalBinarySet}\cr
 extends \link[aroma.core]{AromaTabularBinarySet}\cr

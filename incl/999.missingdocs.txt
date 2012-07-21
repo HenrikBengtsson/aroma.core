@@ -234,7 +234,6 @@
   getNameOfInput.ChromosomeExplorer getNameOfInput.Explorer
   getNames.ChromosomeExplorer getNames.CopyNumberChromosomalModel
   getNumberOfFilesAveraged
-  getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile
   getNumberOfFilesAveraged.CopyNumberDataFile getOutputDataSet
   getOutputDataSet0 getOutputDataSet0.AromaTransform getOutputFiles
   getOutputFiles.AromaTransform getPairedNames
@@ -630,3 +629,16 @@ setChipType.AbstractCNData setPlatform
 setPlatform.AbstractCNData
 normalizeTumorBoost
 callNaiveGenotypes
+getNumberOfFilesAveraged.AromaUnitSignalBinaryFile
+allocate.AromaUnitPscnBinaryFile 
+byName.AromaUnitPscnBinarySet
+extractRawCopyNumbers.AromaUnitPscnBinaryFile
+getAverageFile.AromaUnitPscnBinarySet
+getColumnNames.AromaUnitPscnBinaryFile
+getNumberOfFilesAveraged.AromaUnitSignalBinaryFile
+hasAlleleBFractions.AromaUnitPscnBinaryFile
+hasStrandiness.AromaUnitPscnBinaryFile hasTotalCopyNumberRatios
+hasTotalCopyNumberRatios.AromaUnitPscnBinaryFile
+writeDataFrame.AromaUnitPscnBinarySet
+exportAromaUnitPscnBinarySet
+exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet

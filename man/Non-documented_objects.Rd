@@ -462,7 +462,6 @@
 \alias{getNames.ChromosomeExplorer}
 \alias{getNames.CopyNumberChromosomalModel}
 \alias{getNumberOfFilesAveraged}
-\alias{getNumberOfFilesAveraged.AromaUnitTotalCnBinaryFile}
 \alias{getNumberOfFilesAveraged.CopyNumberDataFile}
 \alias{getOutputDataSet}
 \alias{getOutputDataSet0}
@@ -1274,6 +1273,19 @@
 \alias{setPlatform.AbstractCNData}
 \alias{normalizeTumorBoost}
 \alias{callNaiveGenotypes}
+\alias{getNumberOfFilesAveraged.AromaUnitSignalBinaryFile}
+\alias{allocate.AromaUnitPscnBinaryFile}
+\alias{byName.AromaUnitPscnBinarySet}
+\alias{extractRawCopyNumbers.AromaUnitPscnBinaryFile}
+\alias{getAverageFile.AromaUnitPscnBinarySet}
+\alias{getColumnNames.AromaUnitPscnBinaryFile}
+\alias{hasAlleleBFractions.AromaUnitPscnBinaryFile}
+\alias{hasStrandiness.AromaUnitPscnBinaryFile}
+\alias{hasTotalCopyNumberRatios}
+\alias{hasTotalCopyNumberRatios.AromaUnitPscnBinaryFile}
+\alias{writeDataFrame.AromaUnitPscnBinarySet}
+\alias{exportAromaUnitPscnBinarySet}
+\alias{exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet}
 
 \description{
   This page contains aliases for all "non-documented" objects that

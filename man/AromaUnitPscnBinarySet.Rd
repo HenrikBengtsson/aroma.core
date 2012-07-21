@@ -1,21 +1,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  AromaTabularBinarySet.R
+%  AromaUnitPscnBinarySet.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaTabularBinarySet}
+ \name{AromaUnitPscnBinarySet}
 \docType{class}
-\alias{AromaTabularBinarySet}
+\alias{AromaUnitPscnBinarySet}
 
 
- \title{The AromaTabularBinarySet class}
+ \title{The AromaUnitPscnBinarySet class}
 
  \description{
   Package:  aroma.core \cr
-\bold{Class AromaTabularBinarySet}\cr
+\bold{Class AromaUnitPscnBinarySet}\cr
 
 \code{\link[R.oo]{Object}}\cr
 \code{~~|}\cr
@@ -25,33 +25,49 @@
 \code{~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~+--}\code{\link[R.filesets]{GenericTabularFileSet}}\cr
 \code{~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~+--}\code{AromaTabularBinarySet}\cr
+\code{~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaTabularBinarySet}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaUnitSignalBinarySet}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{CopyNumberDataSet}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitPscnBinarySet}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUnitCallSet}, \link[aroma.core]{AromaUnitFracBCnBinarySet}, \link[aroma.core]{AromaUnitGenotypeCallSet}, \link[aroma.core]{AromaUnitPscnBinarySet}, \link[aroma.core]{AromaUnitSignalBinarySet}, \link[aroma.core]{AromaUnitTotalCnBinarySet}\cr
+\cr
 
-public static class \bold{AromaTabularBinarySet}\cr
-extends \link[R.filesets]{GenericTabularFileSet}\cr
+public static class \bold{AromaUnitPscnBinarySet}\cr
+extends \link[aroma.core]{CopyNumberDataSet}\cr
 
 
 
-  An AromaTabularBinarySet object represents a set of
-  \code{\link{AromaTabularBinaryFile}}s with \emph{identical} chip types.
+  An AromaUnitPscnBinarySet object represents a set of
+  \code{\link{AromaUnitPscnBinaryFile}}s with \emph{identical} chip types.
  }
 
- \usage{AromaTabularBinarySet(files=NULL, ...)}
+ \usage{AromaUnitPscnBinarySet(...)}
 
  \arguments{
-   \item{files}{A \code{\link[base]{list}} of \code{\link{AromaTabularBinaryFile}}:s.}
-   \item{...}{Arguments passed to \code{\link[R.filesets]{GenericDataFileSet}}.}
+   \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinarySet}}.}
  }
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{getDefaultFullName} \tab  -\cr
+ \tab \code{byName} \tab  -\cr
+ \tab \code{getAverageFile} \tab  -\cr
+ \tab \code{writeDataFrame} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from CopyNumberDataSet}:\cr
+as, as.CopyNumberDataSet, doCBS, hasAlleleBFractions, hasStrandiness
+
+ \bold{Methods inherited from AromaUnitSignalBinarySet}:\cr
+byName, findByName, getAromaFullNameTranslatorSet, getAromaUgpFile, getChipType, getPlatform, validate, writeDataFrame
+
+ \bold{Methods inherited from AromaTabularBinarySet}:\cr
+getDefaultFullName, getRootName, setAttributesBy, setAttributesBySampleAnnotationFile, setAttributesBySampleAnnotationSet, setAttributesByTags
 
  \bold{Methods inherited from GenericTabularFileSet}:\cr
 calculateAverageColumnAcrossFiles, extractMatrix

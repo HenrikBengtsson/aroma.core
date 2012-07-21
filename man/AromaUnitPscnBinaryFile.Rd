@@ -1,21 +1,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  AromaUnitSignalBinaryFile.R
+%  AromaUnitPscnBinaryFile.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitSignalBinaryFile}
+ \name{AromaUnitPscnBinaryFile}
 \docType{class}
-\alias{AromaUnitSignalBinaryFile}
+\alias{AromaUnitPscnBinaryFile}
 
 
- \title{The AromaUnitSignalBinaryFile class}
+ \title{The AromaUnitPscnBinaryFile class}
 
  \description{
   Package:  aroma.core \cr
-\bold{Class AromaUnitSignalBinaryFile}\cr
+\bold{Class AromaUnitPscnBinaryFile}\cr
 
 \code{\link[R.oo]{Object}}\cr
 \code{~~|}\cr
@@ -29,44 +29,51 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaPlatformInterface}}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{AromaUnitSignalBinaryFile}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{AromaUnitSignalBinaryFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{CopyNumberDataFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitPscnBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUnitCallFile}, \link[aroma.core]{AromaUnitFracBCnBinaryFile}, \link[aroma.core]{AromaUnitGenotypeCallFile}, \emph{\link[aroma.core]{AromaUnitPscnBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTotalCnBinaryFile}}, \link[aroma.core]{AromaUnitTypesFile}\cr
+\cr
 
-public static class \bold{AromaUnitSignalBinaryFile}\cr
-extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
+public abstract static class \bold{AromaUnitPscnBinaryFile}\cr
+extends \emph{\link[aroma.core]{CopyNumberDataFile}}\cr
 
 
 
-  An AromaUnitSignalBinaryFile is a \code{\link{AromaTabularBinaryFile}}.
+  An AromaUnitPscnBinaryFile is a \code{\link{AromaUnitSignalBinaryFile}}
+  that holds total copy number signals (TCNs) and allele B fractions (BAFs).
+  The TCNs can either be on an unknown scale or ratios relative
+  to a reference.  The signals are always stored on the original scale,
+  i.e. they are never stored on the logaritmic scale.
+  The BAFs are always on a [0-eps,1+eps] scale, where eps >= 0.
  }
 
- \usage{AromaUnitSignalBinaryFile(...)}
+ \usage{AromaUnitPscnBinaryFile(...)}
 
  \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaTabularBinaryFile}}.}
+   \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinaryFile}}.}
  }
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{allocate} \tab  -\cr
- \tab \code{allocateFromUnitAnnotationDataFile} \tab  -\cr
- \tab \code{allocateFromUnitNamesFile} \tab  -\cr
- \tab \code{as.character} \tab  -\cr
- \tab \code{extractMatrix} \tab  -\cr
- \tab \code{fromFile} \tab  -\cr
- \tab \code{getAromaUgpFile} \tab  -\cr
- \tab \code{getChipType} \tab  -\cr
- \tab \code{getNumberOfFilesAveraged} \tab  -\cr
- \tab \code{getPlatform} \tab  -\cr
- \tab \code{isAverageFile} \tab  -\cr
- \tab \code{nbrOfUnits} \tab  -\cr
- \tab \code{readDataFrame} \tab  -\cr
- \tab \code{\link[aroma.core:writeDataFrame.AromaUnitSignalBinaryFile]{writeDataFrame}} \tab Writes the data file as a tab-delimited text file.\cr
+ \tab \code{extractRawCopyNumbers} \tab  -\cr
+ \tab \code{getColumnNames} \tab  -\cr
+ \tab \code{hasAlleleBFractions} \tab  -\cr
+ \tab \code{hasStrandiness} \tab  -\cr
+ \tab \code{hasTotalCopyNumberRatios} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from CopyNumberDataFile}:\cr
+as, as.CopyNumberDataFile, getNumberOfFilesAveraged, hasAlleleBFractions, hasStrandiness
+
+ \bold{Methods inherited from AromaUnitSignalBinaryFile}:\cr
+allocate, allocateFromUnitAnnotationDataFile, allocateFromUnitNamesFile, as.character, extractMatrix, extractRawGenomicSignals, fromFile, getAromaUgpFile, getChipType, getExtensionPattern, getFilenameExtension, getNumberOfFilesAveraged, getPlatform, isAverageFile, nbrOfUnits, readDataFrame, writeDataFrame
 
  \bold{Methods inherited from AromaPlatformInterface}:\cr
 getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
@@ -90,8 +97,4 @@ asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clea
  }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
-
- \seealso{
-   \code{\link[aroma.core]{AromaTabularBinaryFile}}.
- }
 \keyword{classes}
