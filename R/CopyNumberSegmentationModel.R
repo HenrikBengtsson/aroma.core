@@ -342,7 +342,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
           t <- totalTime[3];
           printf(verbose, "Total time for chromosome %d: %.2fs == %.2fmin\n", chr, t, t/60);
           t <- totalTime[3]/nbrOfLoci;
-          printf(verbose, "Total time per 1000 locus (with %d loci): %.2fs/locus\n", nbrOfLoci, 1000*t);
+          printf(verbose, "Total time per 1000 locus (with %d loci): %.2fs\n", nbrOfLoci, 1000*t);
           # Get distribution of what is spend where
           t <- base::lapply(timers, FUN=function(timer) unname(timer[3]));
           t <- unlist(t);
