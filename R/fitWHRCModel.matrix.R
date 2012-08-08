@@ -14,7 +14,14 @@ setMethodS3("fitWRCModel", "matrix", function(y, ...) {
 # Each data element can be given a weight.  Moreover, if there
 # are missing values, these will be given zero weights.
 # 'tau' is an optional penalty term to avoid zero variance estimates.
-setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0, psiK=1.345, tau=1e-3, eps=1e-3, maxIterations=100, .checkArgs=TRUE, ...) {
+setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0, psiK=1.345, tau=1e-3, eps=1e-3, maxIterations=100, .checkArgs=TRUE, ..., .loadDeps=FALSE) {
+  # Constants
+  PACKAGE <- "preprocessCore";
+  if (.loadDeps) {
+    require(PACKAGE, character.only=TRUE) || throw("Package not loaded: ", PACKAGE);
+  }
+
+
   I <- ncol(y);  # Number of arrays
   K <- nrow(y);  # Number of probes
 
@@ -46,10 +53,11 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0
 
     badCells <- apply(isNA, MARGIN=2, FUN=all);
     if (any(badCells)) {
-      return(list(Estimates=rep(NA, I+K),
-                  StdErrors=rep(NA, I+K),
-                  Weights=matrix(NA, nrow=K, ncol=I),
-                  Residuals=matrix(NA, nrow=K, ncol=I)
+      naValue <- as.double(NA);
+      return(list(Estimates=rep(naValue, times=I+K),
+                  StdErrors=rep(naValue, times=I+K),
+                  Weights=matrix(naValue, nrow=K, ncol=I),
+                  Residuals=matrix(naValue, nrow=K, ncol=I)
                  )
             );
     }
@@ -71,14 +79,13 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0
   # Iterative re-weighted fit
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   w0 <- w;
-  dParams <- NA;
+  dParams <- naValue;
   lastParams <- NULL;
 
   nbrOfIterations <- 0;
   ready <- FALSE;
   while (!ready) {
-    fit <- .Call("R_wrlm_rma_default_model", y, psiCode, psiK, w, PACKAGE="preprocessCore");
-
+    fit <- .Call("R_wrlm_rma_default_model", y, psiCode, psiK, w, PACKAGE=PACKAGE);
 
     nbrOfIterations <- nbrOfIterations + as.integer(1);
 
@@ -122,6 +129,10 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0
 
 ############################################################################
 # HISTORY:
+# 2012-08-08
+# o Now fitWHRCModel() allocates numerical NAs (instead of logical ones).
+# o Added argument '.loadDeps' to fitWRMA().
+# o Now R CMD check is no longer complaining about .Call(..., PACKAGE).
 # 2007-10-05
 # o Created.
 ############################################################################

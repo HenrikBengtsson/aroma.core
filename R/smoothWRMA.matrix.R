@@ -94,7 +94,7 @@ setMethodS3("smoothWRMA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, s
 
       # Fit weighted RMA (don't have to rescale weights)
       # Call fitWRMA.matrix() explicitly to avoid dispatching
-      fit <- fitWRMA.matrix(y=y, w=wM, .log2=FALSE);
+      fit <- fitWRMA.matrix(y=y, w=wM, .log2=FALSE, ...);
       verbose && print(verbose, fit);
       theta[kk,] <- .subset2(fit, "theta");
       # Average phi?
@@ -117,6 +117,8 @@ setMethodS3("smoothWRMA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, s
 
 ############################################################################
 # HISTORY:
+# 2012-08-08
+# o Now smoothWRMA() passes '...' to fitWRMA().
 # 2007-09-26
 # o Added support for (optional) prior weights (either as row weights or
 #   full matrix weights).

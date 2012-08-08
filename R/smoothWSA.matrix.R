@@ -61,8 +61,9 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
   }
 
   # Allocate vector of smoothed signals
-  theta <- matrix(NA, nrow=K, ncol=I);
-  phi <- rep(NA, K);
+  naValue <- as.double(NA);
+  theta <- matrix(naValue, nrow=K, ncol=I);
+  phi <- rep(naValue, times=K);
 
   # At each position, calculate the weighed average using a 
   # Gaussian kernel.
@@ -121,11 +122,11 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
 
 ############################################################################
 # HISTORY:
+# 2012-08-08
+# o Now smoothWSA() allocates with numerical NAs (instead of logical ones).
 # 2007-09-26
 # o Added support for (optional) prior weights (either as row weights or
 #   full matrix weights).
-# 2007-09-24
-# o Now smoothWRMA() returns (theta, phi) on the intensity scale.
 # 2007-09-18
 # o Created from gaussianSmoothing.R.
 ############################################################################

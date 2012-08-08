@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.5.7 [2012-08-08]
+o ROBUSTNESS: Added 'preprocessCore' as a suggested package, because
+  some of the internal functions rely on that package.  This was never
+  an issue, because those functions were called by wrapper functions
+  in aroma.affymetrix that assert that the package is indeed loaded.
+
+
 Version: 2.5.6 [2012-07-21]
 o Added exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet.
 o Added alpha versions of classes AromaUnitPscnBinary(File|Set).
