@@ -17,9 +17,9 @@ sapply <- R.filesets::sapply;
   pkg <- AromaCore(pkgname);
   assign(pkgname, pkg, pos=getPosition(pkg));
 
-  packageStartupMessage(getName(pkg), " v", getVersion(pkg), " (", 
-    getDate(pkg), ") successfully loaded. See ?", pkgname, " for help.");
-
   # Setup package
   .setupAromaCore(pkg);
+
+  packageStartupMessage(getName(pkg), " v", getVersion(pkg), " (", 
+    getDate(pkg), ") successfully loaded. See ?", pkgname, " for help.");
 }

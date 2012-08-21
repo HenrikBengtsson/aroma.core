@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.5.8 [2012-08-21]
+o ROBUSTNESS: Now the package startup message is outputted at the
+  very end.  Previously it was done before some additional setup,
+  which could potentially fail.
+
+
 Version: 2.5.7 [2012-08-08]
 o ROBUSTNESS: Added 'preprocessCore' as a suggested package, because
   some of the internal functions rely on that package.  This was never
