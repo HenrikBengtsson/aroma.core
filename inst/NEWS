@@ -5,6 +5,11 @@ Version: 2.5.8 [2012-08-21]
 o ROBUSTNESS: Now the package startup message is outputted at the
   very end.  Previously it was done before some additional setup,
   which could potentially fail.
+o ROBUSTNESS: fitWRMA() and fitWHRCModel() now call rcModelWPLM() 
+  of preprocessCore instead of .Call(..., PACKAGE="preprocessCore").
+  Doing so will somewhat slow down the speed, because rcModelWPLM()
+  introduces some non-needed validation of the arguments.
+  This caused their arguments 'psiCode' and 'psiK' to be dropped.
 
 
 Version: 2.5.7 [2012-08-08]

@@ -14,13 +14,15 @@ setMethodS3("fitWRCModel", "matrix", function(y, ...) {
 # Each data element can be given a weight.  Moreover, if there
 # are missing values, these will be given zero weights.
 # 'tau' is an optional penalty term to avoid zero variance estimates.
-setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0, psiK=1.345, tau=1e-3, eps=1e-3, maxIterations=100, .checkArgs=TRUE, ..., .loadDeps=FALSE) {
+setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3, eps=1e-3, maxIterations=100, .checkArgs=TRUE, ..., .loadDeps=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Constants
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   PACKAGE <- "preprocessCore";
   if (.loadDeps) {
     require(PACKAGE, character.only=TRUE) || throw("Package not loaded: ", PACKAGE);
   }
-
+  rcModelWPLM <- NULL; rm(rcModelWPLM); # To please R CMD check
 
   I <- ncol(y);  # Number of arrays
   K <- nrow(y);  # Number of probes
@@ -85,7 +87,7 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0
   nbrOfIterations <- 0;
   ready <- FALSE;
   while (!ready) {
-    fit <- .Call("R_wrlm_rma_default_model", y, psiCode, psiK, w, PACKAGE=PACKAGE);
+    fit <- rcModelWPLM(y, w=w);
 
     nbrOfIterations <- nbrOfIterations + as.integer(1);
 
@@ -129,6 +131,10 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, psiCode=0
 
 ############################################################################
 # HISTORY:
+# 2012-08-21
+# o ROBUSTNESS: fitWHRCModel() now calls rcModelWPLM() of preprocessCore
+#   instead of internal .Call(..., PACKAGE="preprocessCore") calls.
+# o CLEANUP: Dropped arguments 'psiCode' and 'psiK' from fitWHRCModel().
 # 2012-08-08
 # o Now fitWHRCModel() allocates numerical NAs (instead of logical ones).
 # o Added argument '.loadDeps' to fitWRMA().
