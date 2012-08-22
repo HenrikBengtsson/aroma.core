@@ -1,3 +1,29 @@
+###########################################################################/**
+# @RdocClass AromaRepository
+#
+# @title "The AromaRepository class"
+#
+# \description{
+#  @classhierarchy
+#
+#  An AromaRepository object provides methods for downloading annotation data
+#  from the Aroma repository.
+# }
+# 
+# @synopsis
+#
+# \arguments{
+#   \item{urlPath}{The URL to the Aroma reposity.}
+#   \item{verbose}{The @see "R.utils::Verbose" to be used during processing.}
+#   \item{...}{Not used.}
+# }
+#
+# \section{Methods}{
+#  @allmethods "public"
+# }
+#
+# @author
+#*/########################################################################### 
 setConstructorS3("AromaRepository", function(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -14,15 +40,15 @@ setConstructorS3("AromaRepository", function(urlPath="http://www.aroma-project.o
   );
 })
 
-setMethodS3("getUrlPath", "AromaRepository", function(static, ...) {
-  static$.urlPath;
-}, static=TRUE, protected=TRUE)
+setMethodS3("getUrlPath", "AromaRepository", function(this, ...) {
+  this$.urlPath;
+}, protected=TRUE)
 
 
 setMethodS3("setVerbose", "AromaRepository", function(this, ...) {
   verbose <- Arguments$getVerbose(verbose, ...);
   this$.verbose <- verbose;
-  invisible(this)
+  invisible(this);
 }, protected=TRUE)
 
 
@@ -31,13 +57,158 @@ setMethodS3("getVerbose", "AromaRepository", function(this, ...) {
 }, protected=TRUE)
 
 
-setMethodS3("downloadFile", "AromaRepository", function(static, filename, path=NULL, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(static)) {
+
+
+
+###########################################################################/**
+# @RdocMethod listFiles
+#
+# @title "Retrieves the files available on the repository under a particular path"
+#
+# \description{
+#  @get "title".
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{path}{The relative path to be listed.}
+#   \item{orderBy}{A @character specifying how the returns files should be ordered.}
+#   \item{...}{Additional arguments passed to @see "R.utils::downloadFile".}
+#   \item{force}{If @FTRUE, cached results are redownloaded, otherwise not.}
+# }
+#
+# \value{
+#  Returns the relative pathnames of the files available.
+# }
+#
+# \details{
+#   Note that this method makes strong assumptions of the format of the
+#   downloaded HTML index file.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/########################################################################### 
+setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this)) {
+  require("R.cache") || throw("Package not loaded: R.cache");
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'orderBy':
+  orderBy <- match.arg(orderBy);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+
+  # Get the URL to download  
+  urlPath <- getUrlPath(this);
+  if (!is.null(path)) {
+    urlPath <- file.path(urlPath, path);
+  }
+
+  verbose && enter(verbose, "Listing files");
+
+  verbose && cat(verbose, "URL to download: ", urlPath);
+
+  dirs <- c("aroma.core", "AromaRepository", Sys.Date());
+  key <- list(method="downloadListFiles", class=class(this), urlPath=urlPath, orderBy=orderBy);
+  res <- loadCache(key=key, dirs=dirs);
+  if (!force && !is.null(res)) {
+    verbose && exit(verbose);
+    return(res);
+  }
+
+  # Download the URL HTML index file
+  filename <- tempfile();
+  on.exit(file.remove(filename));
+  pathname <- tryCatch({
+    downloadFile(url=urlPath, filename=filename, ...);
+  }, error = function(ex) {
+    # Failed to download index file.  Assume directory does not exists.
+    return(NULL);
+  });
+  if (is.null(pathname)) {
+    verbose && exit(verbose);
+    return(NULL);
+  }
+
+  # Parse the index fril
+  bfr <- readLines(pathname);
+
+  # Extract the filenames
+  pattern <- ".*<a href=\"([^\"/?][^\"]*)\">.*";
+  bfr <- grep(pattern, bfr, value=TRUE);
+  filenames <- gsub(pattern, "\\1", bfr);
+
+  # Reorder?
+  if (orderBy == "name") {
+    o <- order(filenames);
+  } else if (orderBy == "time") {
+    patternT <- ".*>([0-9]*-[^-]*-[0-9]*)[ ]+([0-9]*:[0-9]*)[ ]*<.*";
+    timestamps <- gsub(patternT, "\\1 \\2", bfr);
+    timestamps <- strptime(timestamps, format="%d-%b-%Y %H:%M");
+    o <- order(timestamps);
+  }
+  filenames <- filenames[o];
+
+  saveCache(filenames, key=key, dirs=dirs);
+
+  verbose && exit(verbose);
+
+  filenames;
+}, protected=TRUE) # listFiles()
+
+
+
+###########################################################################/**
+# @RdocMethod downloadFile
+#
+# @title "Download a particular file from the reposity"
+#
+# \description{
+#  @get "title" by its relative pathname.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{filename, path}{The filename and the relative path of the file 
+#         to be download.}
+#   \item{gzipped}{If @TRUE, a gzipped file is downloaded and decompressed.}
+#   \item{skip}{If @TRUE, an already downloaded file is skipped.}
+#   \item{overwrite}{If @TRUE, an not skipping, an already downloaded file
+#      is overwritten, otherwise an error is thrown.}
+#   \item{...}{Additional arguments passed to @see "R.utils::downloadFile".}
+#   \item{verbose}{See @see "R.utils::Verbose".}
+# }
+#
+# \value{
+#  Returns the pathname of the uncompressed downloaded file.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/########################################################################### 
+setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NULL, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Arguments 'filename' & 'path':
-  pathname <- Arguments$getWritablePathname(filename, path=path, 
-                                        mustNotExist=!skip & !overwrite);
+  pathname <- file.path(path, filename);
+  pathnameL <- Arguments$getWritablePathname(pathname, mustNotExist=!skip & !overwrite);
 
   # Argument 'gzipped':
   gzipped <- Arguments$getLogical(gzipped);
@@ -52,29 +223,45 @@ setMethodS3("downloadFile", "AromaRepository", function(static, filename, path=N
 
   verbose && enter(verbose, "Downloading file");
 
-  verbose && cat(verbose, "Local pathname: ", pathname);
-  if (skip && isFile(pathname)) {
-    verbose && cat(verbose, "Already downloaded: ", pathname);
+  verbose && cat(verbose, "Local pathname: ", pathnameL);
+  if (skip && isFile(pathnameL)) {
+    verbose && cat(verbose, "Already downloaded: ", pathnameL);
     verbose && exit(verbose);
-    return(pathname);
+    return(pathnameL);
   }
 
   # If decompressed, check if already downloaded
   if (gzipped) {
     pathnameD <- sprintf("%s.gz", pathname);
-    pathnameD <- Arguments$getWritablePathname(pathnameD,
-                                        mustNotExist=!skip & !overwrite);
   } else {
     pathnameD <- pathname;
   }
+  pathnameDL <- Arguments$getWritablePathname(pathnameD,
+                                      mustNotExist=!skip & !overwrite);
 
-  # Get the URL to download  
-  urlPath <- getUrlPath(static);
-  url <- file.path(urlPath, pathnameD);
-  verbose && cat(verbose, "URL to download: ", url);
+  verbose && cat(verbose, "File to download: ", pathnameD);
 
+  # The filename and the relative path of the file to be downloaded
+  filename <- basename(pathnameD);
+  path <- dirname(pathnameD);
+
+  # Get the list of files available for download
+  pathnames <- listFiles(this, path=path, verbose=less(verbose,1));
+  verbose && cat(verbose, "Available files:");
+  verbose && print(verbose, pathnames);
+
+  # Is the file available for download?
+  if (!is.element(pathnameD, pathnames) && !is.element(pathname, pathnames)) {
+    msg <- paste("File not available for download: ", pathnameD, sep="");
+    verbose && cat(verbose, msg);
+    warning(msg);
+    verbose && exit(verbose);
+    return(NULL);
+  }
+
+  # Try to download the file
   tryCatch({
-    pathnameD <- downloadFile(url, filename=pathnameD, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
+    pathnameD <- downloadFile(url, filename=pathnameDL, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
   }, error = function(ex) {
     # If gzipped file did not exists, try the regular one
     verbose && cat(verbose, "Failed to download compressed file.");
@@ -82,7 +269,7 @@ setMethodS3("downloadFile", "AromaRepository", function(static, filename, path=N
       verbose && enter(verbose, "Trying to download non-compressed file");
       url <- file.path(urlPath, pathname);
       verbose && cat(verbose, "URL to download: ", url);
-      pathname <- downloadFile(url, filename=pathname, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
+      pathname <- downloadFile(url, filename=pathnameL, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
       gzipped <<- FALSE;
       verbose && exit(verbose);
     } else {
@@ -92,7 +279,7 @@ setMethodS3("downloadFile", "AromaRepository", function(static, filename, path=N
 
   if (gzipped) {
     verbose && enter(verbose, "Decompressing file");
-    gunzip(pathnameD, overwrite=overwrite, remove=TRUE);
+    gunzip(pathnameDL, overwrite=overwrite, remove=TRUE);
     verbose && exit(verbose);
   }
 
@@ -102,11 +289,47 @@ setMethodS3("downloadFile", "AromaRepository", function(static, filename, path=N
   verbose && exit(verbose);
 
   pathname;
-}, static=TRUE, protected=TRUE) # downloadFile()
+}, protected=TRUE) # downloadFile()
 
 
 
-setMethodS3("downloadChipTypeFile", "AromaRepository", function(static, chipType, tags=NULL, suffix, ..., verbose=getVerbose(static)) {
+
+
+
+###########################################################################/**
+# @RdocMethod downloadChipTypeFile
+#
+# @title "Download a particular chip type annotation file"
+#
+# \description{
+#  @get "title" by its chip type, tags and suffix.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{chipType}{The chip type of the file to be downloaded.}
+#   \item{tags}{Optional tags of the file to be downloaded.}
+#   \item{suffix}{The filename suffix (including any preceeding period) of
+#      the file to be downloaded.}
+#   \item{skip}{If @TRUE, an already downloaded file is skipped.}
+#   \item{overwrite}{If @TRUE, an not skipping, an already downloaded file
+#      is overwritten, otherwise an error is thrown.}
+#   \item{...}{Additional arguments passed to @seemethod "downloadFile".}
+#   \item{verbose}{See @see "R.utils::Verbose".}
+# }
+#
+# \value{
+#  Returns the pathname of the uncompressed downloaded file.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/########################################################################### 
+setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags="*", suffix, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -135,56 +358,108 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(static, chipType
   verbose && cat(verbose, "Path: ", path);
 
   fullname <- paste(c(chipType, tags), collapse=",");
-  filename <- sprintf("%s%s", fullname, suffix);
-  verbose && cat(verbose, "Filename: ", filename);
+  verbose && cat(verbose, "Fullname: ", fullname);
 
-  res <- downloadFile(static, filename, path=path, ..., verbose=less(verbose,1));
+  # Download "any" available file?
+  if (identical(tags, "*")) {
+    filenames <- listFiles(this, path=path, verbose=less(verbose,1));
+    # Nothing available?
+    if (length(filenames) == 0) return(NULL);
+    pattern <- sprintf("^%s.*(%s)(|.gz)$", chipType, suffix);
+    filenames <- grep(pattern, filenames, value=TRUE);
+    # No matching files available?
+    if (length(filenames) == 0) return(NULL);
+    # Get the "last" (="any") file
+    filename <- filenames[length(filenames)];
+    # Drop filename extensions
+    filename <- gsub("[.]gz$", "", filename);
+  } else {
+    filename <- sprintf("%s%s", fullname, suffix);
+  }
+  pathname <- file.path(path, filename);
+  verbose && cat(verbose, "Pathname: ", pathname);
+
+  # Already downloaded?
+  if (skip && isFile(pathname)) {
+    return(pathname);
+  }
+
+  # Download
+  pathname <- downloadFile(this, filename, path=path, ..., verbose=less(verbose,1));
+  if (is.null(pathname)) {
+    return(NULL);
+  }
+
+  # Gunzip
+  if (gunzip) {
+    if (regexpr("[.]gz$", pathname) != -1) {
+      gunzip(pathname);
+      pathname <- gsub("[.]gz$", "", pathname);
+    }
+  }
 
   verbose && exit(verbose);
 
-  res;
-}, static=TRUE, protected=TRUE) # downloadChipTypeFile()
+  pathname;
+}) # downloadChipTypeFile()
 
 
-setMethodS3("downloadACC", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".acc");
-}, static=TRUE)
+setMethodS3("downloadAll", "AromaRepository", function(this, ...) {
+  suffixes <- c(".acc", ".acm", ".acp", ".acs", ".cdf", ".ufl", ".ugp");
+  pathnames <- lapply(suffixes, FUN=function(suffix) {
+    downloadChipTypeFile(this, ..., suffix=suffix);
+  });
+  names(pathnames) <- suffixes;
+  pathnames;
+})
 
-setMethodS3("downloadACM", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".acm");
-}, static=TRUE)
 
-setMethodS3("downloadACP", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".acp");
-}, static=TRUE)
+setMethodS3("downloadACC", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".acc");
+})
 
-setMethodS3("downloadACS", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".acs");
-}, static=TRUE)
+setMethodS3("downloadACM", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".acm");
+})
 
-setMethodS3("downloadUFL", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".ufl");
-}, static=TRUE)
+setMethodS3("downloadACP", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".acp");
+})
 
-setMethodS3("downloadUGP", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".ugp");
-}, static=TRUE)
+setMethodS3("downloadACS", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".acs");
+})
 
-setMethodS3("downloadCDF", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".cdf");
-}, static=TRUE)
+setMethodS3("downloadCDF", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".cdf");
+})
 
-setMethodS3("downloadTXT", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=".txt");
-}, static=TRUE)
+setMethodS3("downloadUFL", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".ufl");
+})
 
-setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(static, ...) {
-  downloadChipTypeFile(static, ..., suffix=",probeSeqs.txt");
-}, static=TRUE)
+setMethodS3("downloadUGP", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".ugp");
+})
+
+setMethodS3("downloadTXT", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=".txt");
+})
+
+setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., suffix=",probeSeqs.txt");
+})
 
 
 ######################################################################
 # HISTORY:
+# 2012-08-22
+# o Added downloadAll().
+# o Now all methods are non-static.
+# o Now downloadFile() precheck which files are available, by
+#   querying listFiles().
+# o Added listFiles() for AromaReposity.
+# o Added some Rdoc help.
 # 2011-09-29
 # o The purpose of this class is to simplify downloading of
 #   data files needed in the Aroma Framework.
