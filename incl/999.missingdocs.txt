@@ -533,9 +533,8 @@ loadAll loadAll.SampleAnnotationSet
 getChromosomeLabels getChromosomeLabels.ChromosomeExplorer
 cat getOption
 append lapply sapply
-  AromaRepository downloadACS downloadACS.AromaRepository downloadCDF
+  downloadACS downloadACS.AromaRepository downloadCDF
   downloadCDF.AromaRepository downloadChipTypeFile
-  downloadChipTypeFile.AromaRepository downloadFile.AromaRepository
   downloadProbeSeqsTXT downloadProbeSeqsTXT.AromaRepository downloadTXT
   downloadTXT.AromaRepository downloadUFL downloadUFL.AromaRepository
   downloadUGP downloadUGP.AromaRepository getUrlPath
@@ -642,3 +641,4 @@ hasTotalCopyNumberRatios.AromaUnitPscnBinaryFile
 writeDataFrame.AromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet
+downloadAll downloadAll.AromaRepository listFiles

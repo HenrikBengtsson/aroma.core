@@ -1092,14 +1092,11 @@
 \alias{append}
 \alias{lapply}
 \alias{sapply}
-\alias{AromaRepository}
 \alias{downloadACS}
 \alias{downloadACS.AromaRepository}
 \alias{downloadCDF}
 \alias{downloadCDF.AromaRepository}
 \alias{downloadChipTypeFile}
-\alias{downloadChipTypeFile.AromaRepository}
-\alias{downloadFile.AromaRepository}
 \alias{downloadProbeSeqsTXT}
 \alias{downloadProbeSeqsTXT.AromaRepository}
 \alias{downloadTXT}
@@ -1286,6 +1283,9 @@
 \alias{writeDataFrame.AromaUnitPscnBinarySet}
 \alias{exportAromaUnitPscnBinarySet}
 \alias{exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet}
+\alias{downloadAll}
+\alias{downloadAll.AromaRepository}
+\alias{listFiles}
 
 \description{
   This page contains aliases for all "non-documented" objects that

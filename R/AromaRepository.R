@@ -93,7 +93,7 @@ setMethodS3("getVerbose", "AromaRepository", function(this, ...) {
 #   @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this)) {
+setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this)) {
   require("R.cache") || throw("Package not loaded: R.cache");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -121,9 +121,11 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, orderBy=c(
   verbose && cat(verbose, "URL to download: ", urlPath);
 
   dirs <- c("aroma.core", "AromaRepository", Sys.Date());
-  key <- list(method="downloadListFiles", class=class(this), urlPath=urlPath, orderBy=orderBy);
+  key <- list(method="downloadListFiles", class=class(this), urlPath=urlPath, full=full, orderBy=orderBy);
   res <- loadCache(key=key, dirs=dirs);
   if (!force && !is.null(res)) {
+    verbose && enter(verbose, "Available files:");
+    verbose && print(verbose, res);
     verbose && exit(verbose);
     return(res);
   }
@@ -161,7 +163,15 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, orderBy=c(
   }
   filenames <- filenames[o];
 
+  if (full) {
+    path <- gsub("/$", "", path);
+    filenames <- file.path(path, filenames);
+  }
+
   saveCache(filenames, key=key, dirs=dirs);
+
+  verbose && enter(verbose, "Available files:");
+  verbose && print(verbose, filenames);
 
   verbose && exit(verbose);
 
@@ -242,13 +252,13 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
   verbose && cat(verbose, "File to download: ", pathnameD);
 
   # The filename and the relative path of the file to be downloaded
-  filename <- basename(pathnameD);
+  filenameD <- basename(pathnameD);
   path <- dirname(pathnameD);
 
   # Get the list of files available for download
   pathnames <- listFiles(this, path=path, verbose=less(verbose,1));
-  verbose && cat(verbose, "Available files:");
-  verbose && print(verbose, pathnames);
+#  verbose && cat(verbose, "Available files:");
+#  verbose && print(verbose, pathnames);
 
   # Is the file available for download?
   if (!is.element(pathnameD, pathnames) && !is.element(pathname, pathnames)) {
@@ -260,11 +270,13 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
   }
 
   # Try to download the file
+  urlPath <- getUrlPath(this);
   tryCatch({
+    url <- file.path(urlPath, pathnameD);
     pathnameD <- downloadFile(url, filename=pathnameDL, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
   }, error = function(ex) {
     # If gzipped file did not exists, try the regular one
-    verbose && cat(verbose, "Failed to download compressed file.");
+    verbose && cat(verbose, "Failed to download compressed file. The reason was: ", ex$message);
     if (gzipped) {
       verbose && enter(verbose, "Trying to download non-compressed file");
       url <- file.path(urlPath, pathname);
@@ -312,6 +324,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #   \item{tags}{Optional tags of the file to be downloaded.}
 #   \item{suffix}{The filename suffix (including any preceeding period) of
 #      the file to be downloaded.}
+#   \item{ext}{The filename extension.}
 #   \item{skip}{If @TRUE, an already downloaded file is skipped.}
 #   \item{overwrite}{If @TRUE, an not skipping, an already downloaded file
 #      is overwritten, otherwise an error is thrown.}
@@ -320,7 +333,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 # }
 #
 # \value{
-#  Returns the pathname of the uncompressed downloaded file.
+#  Returns the relative pathname of the uncompressed downloaded file.
 # }
 #
 # @author
@@ -329,7 +342,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #   @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags="*", suffix, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, verbose=getVerbose(this)) {
+setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags="*", suffix=sprintf(".%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -362,7 +375,7 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
 
   # Download "any" available file?
   if (identical(tags, "*")) {
-    filenames <- listFiles(this, path=path, verbose=less(verbose,1));
+    filenames <- listFiles(this, path=path, full=FALSE, verbose=less(verbose,1));
     # Nothing available?
     if (length(filenames) == 0) return(NULL);
     pattern <- sprintf("^%s.*(%s)(|.gz)$", chipType, suffix);
@@ -381,6 +394,7 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
 
   # Already downloaded?
   if (skip && isFile(pathname)) {
+    verbose && cat(verbose, "Already downloaded: ", pathname);
     return(pathname);
   }
 
@@ -415,35 +429,35 @@ setMethodS3("downloadAll", "AromaRepository", function(this, ...) {
 
 
 setMethodS3("downloadACC", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".acc");
+  downloadChipTypeFile(this, ..., ext="acc");
 })
 
 setMethodS3("downloadACM", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".acm");
+  downloadChipTypeFile(this, ..., ext="acm");
 })
 
 setMethodS3("downloadACP", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".acp");
+  downloadChipTypeFile(this, ..., ext="acp");
 })
 
 setMethodS3("downloadACS", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".acs");
+  downloadChipTypeFile(this, ..., ext="acs");
 })
 
 setMethodS3("downloadCDF", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".cdf");
+  downloadChipTypeFile(this, ..., ext="cdf");
 })
 
 setMethodS3("downloadUFL", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".ufl");
+  downloadChipTypeFile(this, ..., ext="ufl");
 })
 
 setMethodS3("downloadUGP", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".ugp");
+  downloadChipTypeFile(this, ..., ext="ugp");
 })
 
 setMethodS3("downloadTXT", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., suffix=".txt");
+  downloadChipTypeFile(this, ..., ext="txt");
 })
 
 setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
