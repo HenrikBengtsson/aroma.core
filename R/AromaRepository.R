@@ -57,6 +57,13 @@ setMethodS3("getVerbose", "AromaRepository", function(this, ...) {
 }, protected=TRUE)
 
 
+setMethodS3("clearCache", "AromaRepository", function(this, ...) {
+  require("R.cache") || throw("Package not loaded: R.cache");
+  dirs <- c("aroma.core", "AromaRepository", as.character(Sys.Date()));
+  path <- getCachePath(dirs);
+  removeDirectory(path, recursive=TRUE, mustExist=FALSE);
+}, protected=TRUE)
+
 
 
 
@@ -120,7 +127,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
 
   verbose && cat(verbose, "URL to download: ", urlPath);
 
-  dirs <- c("aroma.core", "AromaRepository", Sys.Date());
+  dirs <- c("aroma.core", "AromaRepository", as.character(Sys.Date()));
   key <- list(method="downloadListFiles", class=class(this), urlPath=urlPath, full=full, orderBy=orderBy);
   res <- loadCache(key=key, dirs=dirs);
   if (!force && !is.null(res)) {
@@ -212,13 +219,16 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
 #   @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NULL, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this)) {
+setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NULL, caseSensitive=FALSE, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Arguments 'filename' & 'path':
   pathname <- file.path(path, filename);
   pathnameL <- Arguments$getWritablePathname(pathname, mustNotExist=!skip & !overwrite);
+
+  # Argument 'caseSensitive':
+  caseSensitive <- Arguments$getLogical(caseSensitive);
 
   # Argument 'gzipped':
   gzipped <- Arguments$getLogical(gzipped);
@@ -261,7 +271,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #  verbose && print(verbose, pathnames);
 
   # Is the file available for download?
-  if (!is.element(pathnameD, pathnames) && !is.element(pathname, pathnames)) {
+  if (!any(is.element(c(pathname, pathnameD), pathnames))) {
     msg <- paste("File not available for download: ", pathnameD, sep="");
     verbose && cat(verbose, msg);
     warning(msg);
@@ -419,7 +429,7 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
 
 
 setMethodS3("downloadAll", "AromaRepository", function(this, ...) {
-  suffixes <- c(".acc", ".acm", ".acp", ".acs", ".cdf", ".ufl", ".ugp");
+  suffixes <- c(".acc", ".acm", ".acp", ".acs", ".cdf", ".CDF", ".ufl", ".ugp");
   pathnames <- lapply(suffixes, FUN=function(suffix) {
     downloadChipTypeFile(this, ..., suffix=suffix);
   });
@@ -468,6 +478,7 @@ setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
 ######################################################################
 # HISTORY:
 # 2012-08-22
+# o Added clearCache().
 # o Added downloadAll().
 # o Now all methods are non-static.
 # o Now downloadFile() precheck which files are available, by

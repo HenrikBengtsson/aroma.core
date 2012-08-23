@@ -642,3 +642,4 @@ writeDataFrame.AromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet
 downloadAll downloadAll.AromaRepository listFiles
+clearCache.AromaRepository

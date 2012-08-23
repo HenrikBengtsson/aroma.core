@@ -1286,6 +1286,7 @@
 \alias{downloadAll}
 \alias{downloadAll.AromaRepository}
 \alias{listFiles}
+\alias{clearCache.AromaRepository}
 
 \description{
   This page contains aliases for all "non-documented" objects that
