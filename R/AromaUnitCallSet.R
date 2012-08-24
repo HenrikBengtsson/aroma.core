@@ -27,7 +27,7 @@ setConstructorS3("AromaUnitCallSet", function(...) {
 })
 
 
-setMethodS3("findByName", "AromaUnitCallSet", function(static, ..., paths="callData") {
+setMethodS3("findByName", "AromaUnitCallSet", function(static, ..., paths="callData/") {
   findByName.AromaUnitSignalBinarySet(static, ..., paths=paths);
 }, static=TRUE) 
 
