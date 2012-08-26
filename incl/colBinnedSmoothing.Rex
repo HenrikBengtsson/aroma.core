@@ -67,6 +67,21 @@ YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)
 stopifnot(all(YsT == Y))
 stopifnot(all(attr(YsT, "counts") == 1))
 
+xOut <- attr(YsD, "xOut")
+YsE <- colBinnedSmoothing(YsD, x=xOut, xOut=xOut)
+stopifnot(all(YsE == YsD))
+stopifnot(all(attr(YsE, "xOutRange") == attr(YsD, "xOutRange")))
+stopifnot(all(attr(YsE, "counts") == 1))
+
+# Scramble ordering of loci
+idxs <- sample(x)
+x2 <- x[idxs]
+Y2 <- Y[idxs,,drop=FALSE]
+Y2s <- colBinnedSmoothing(Y2, x=x2, xOut=x2)
+stopifnot(all(attr(Y2s, "xOut") == x2))
+stopifnot(all(attr(Y2s, "counts") == 1))
+stopifnot(all(Y2s == Y2))
+
 xOut <- x[seq(from=2, to=J, by=3)]
 YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)
 stopifnot(all(YsT == Ys3))
@@ -76,3 +91,4 @@ xOut <- x[seq(from=3, to=J, by=5)]
 YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)
 stopifnot(all(YsT == Ys5))
 stopifnot(all(attr(YsT, "counts") == 5))
+

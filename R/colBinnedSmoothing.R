@@ -22,12 +22,12 @@
 #     the J entries.}
 #   \item{xOut}{Optional @numeric @vector of K bin center locations.}
 #   \item{xOutRange}{Optional Kx2 @matrix specifying the boundary
-#     locations for bins.
+#     locations for K bins, where each row represents a bin \eqn{[x0,x1)}.
 #     If not specified, the boundaries are set to be the midpoints
 #     of the bin centers, such that the bins have maximum lengths
 #     without overlapping.
-#     Also, if \code{xOut} is not specified, then it is set to be the
-#     mid points of these boundaries.
+#     Vice verse, if \code{xOut} is not specified, then \code{xOut} is set
+#     to be the mid points of the \code{xOutRange} boundaries.
 #   }
 #   \item{from, to, by, length.out}{
 #     If neither \code{xOut} nor \code{xOutRange} is specified,
@@ -55,6 +55,14 @@
 #         (based solely on argument \code{x}).}
 #    \item{\code{binWidth}}{The \emph{average} bin width.}
 #  }
+# }
+#
+# \details{
+#   Note that all zero-length bins \eqn{[x0,x1)} will get result
+#   in an @NA value, because such bins contain no data points.
+#   This also means that \code{colBinnedSmoothing(Y, x=x, xOut=xOut)}
+#   where \code{xOut} contains duplicated values, will result in
+#   some zero-length bins and hence @NA values.
 # }
 #
 # @examples "../incl/colBinnedSmoothing.Rex"
@@ -293,6 +301,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
   if (wasReordered) {
     xOut <- xOut[ro];
     xOutRange <- xOutRange[ro,,drop=FALSE];
+    Ys <- Ys[ro,,drop=FALSE];
   }
 
   # Average bin width
@@ -323,6 +332,11 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-08-26
+# o BUG FIX: colBinnedSmoothing(..., xOut=xOut) would return binned
+#   values in the incorrect order, iff 'xOut' was not ordered.
+# o DOCUMENTATION: Clarified that when colBinnedSmoothing() is done over
+#   zero-length bins, the output for those bins will be NA.
 # 2012-03-14
 # o Now colNnnSmoothing() returns a matrix with column name as
 #   in argument 'Y'.

@@ -48,6 +48,37 @@ legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Binned smoothing with shuffled loci
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+idxs <- sample(1:nbrOfLoci(cn))
+cnR <- cn[idxs,]
+plot(cnR, col="#999999", ylim=c(-3,3))
+title(main="Binned smoothing (shuffled loci)")
+
+cnSa <- binnedSmoothing(cnR, by=3)
+lines(cnSa, col="blue")
+points(cnSa, col="blue")
+
+cnSb <- binnedSmoothing(cnR, by=9)
+lines(cnSb, col="red")
+points(cnSb, col="red")
+
+legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d]", "Bin(w=3) [n=%d]", "Bin(w=9) [n=%d]"), c(nbrOfLoci(cnR), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+
+
+# When target loci are identical to input ones, and unique,
+# then the binned output should equal the input signals.
+# Extract CNs with unique loci (most likely already the case)
+x <- getPositions(cnR)
+idxs <- which(!duplicated(x))
+cnU <- cnR[idxs,]
+xOut <- getPositions(cnU)
+cnUs <- binnedSmoothing(cnU, xOut=xOut)
+stopifnot(all(getPositions(cnUs) == getPositions(cnU)))
+stopifnot(all(getSignals(cnUs) == getSignals(cnU)))
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Binned smoothing (by count)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 plot(cn, col="#999999", ylim=c(-3,3))

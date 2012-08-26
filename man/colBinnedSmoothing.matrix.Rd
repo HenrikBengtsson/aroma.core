@@ -32,12 +32,12 @@
      the J entries.}
    \item{xOut}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of K bin center locations.}
    \item{xOutRange}{Optional Kx2 \code{\link[base]{matrix}} specifying the boundary
-     locations for bins.
+     locations for K bins, where each row represents a bin \eqn{[x0,x1)}.
      If not specified, the boundaries are set to be the midpoints
      of the bin centers, such that the bins have maximum lengths
      without overlapping.
-     Also, if \code{xOut} is not specified, then it is set to be the
-     mid points of these boundaries.
+     Vice verse, if \code{xOut} is not specified, then \code{xOut} is set
+     to be the mid points of the \code{xOutRange} boundaries.
    }
    \item{from, to, by, length.out}{
      If neither \code{xOut} nor \code{xOutRange} is specified,
@@ -65,6 +65,14 @@
          (based solely on argument \code{x}).}
     \item{\code{binWidth}}{The \emph{average} bin width.}
   }
+ }
+
+ \details{
+   Note that all zero-length bins \eqn{[x0,x1)} will get result
+   in an \code{\link[base]{NA}} value, because such bins contain no data points.
+   This also means that \code{colBinnedSmoothing(Y, x=x, xOut=xOut)}
+   where \code{xOut} contains duplicated values, will result in
+   some zero-length bins and hence \code{\link[base]{NA}} values.
  }
 
  \examples{
@@ -137,6 +145,23 @@ YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)
 stopifnot(all(YsT == Y))
 stopifnot(all(attr(YsT, "counts") == 1))
 
+xOut <- attr(YsD, "xOut")
+YsE <- colBinnedSmoothing(YsD, x=xOut, xOut=xOut)
+stopifnot(all(YsE == YsD))
+stopifnot(all(attr(YsE, "xOutRange") == attr(YsD, "xOutRange")))
+stopifnot(all(attr(YsE, "counts") == 1))
+
+# Scramble ordering of loci
+stopifnot(!any(duplicated(x))) # Here all 'x' should/must be unique
+idxs <- sample(x)
+x2 <- x[idxs]
+Y2 <- Y[idxs,,drop=FALSE]
+Y2s <- colBinnedSmoothing(Y2, x=x2, xOut=x2)
+stopifnot(all(attr(Y2s, "xOut") == x2))
+stopifnot(all(attr(Y2s, "counts") == 1))
+stopifnot(all(Y2s == Y2))
+
+
 xOut <- x[seq(from=2, to=J, by=3)]
 YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)
 stopifnot(all(YsT == Ys3))
@@ -146,6 +171,7 @@ xOut <- x[seq(from=3, to=J, by=5)]
 YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)
 stopifnot(all(YsT == Ys5))
 stopifnot(all(attr(YsT, "counts") == 5))
+
 }
 
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}

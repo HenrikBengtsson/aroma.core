@@ -637,7 +637,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, fields=NULL, 
     Y <- cbind(dataY, w=weights);
     verbose && summary(verbose, Y);
     verbose && cat(verbose, "Arguments:");
-    args <- list(Y=Y, w=weights, ...);
+    args <- list(Y=Y, x=x, w=weights, ...);
     verbose && str(verbose, args);
 
     Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, ..., verbose=less(verbose, 10));
