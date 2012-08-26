@@ -226,7 +226,6 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
     verbose && exit(verbose);
   } # for (kk ...)
-  rm(thetaR);
 
 
   verbose && enter(verbose, "Setting up output data sets");
@@ -242,6 +241,9 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
 ############################################################################
 # HISTORY:
+# 2012-08-26
+# o Dropped an "rm(thetaR)", because it sometimes caused a warning on
+#   "In rm(thetaR) : object 'thetaR' not found".
 # 2011-11-19
 # o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet tried
 #   to call cat(verbose, x) with length(x) > 1.
