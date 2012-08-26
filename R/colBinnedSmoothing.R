@@ -214,7 +214,14 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
 
     # Identify mid points between target locations
     xOutMid <- (xOut[-1L] + xOut[-nOut]) / 2;
-    xOutMid <- c(xOutMid[1L]-avgBinWidth, xOutMid, xOutMid[nOut-1L]+avgBinWidth);
+
+    # The width of the first bin is twice the distance between
+    # the first and the second 'xOut' such that xOut[1] is the
+    # midpoint of (xOutRange[1,1], xOutRange[1,2]).  Likewise
+    # for the last bin. /HB 2012-08-26
+    xOutMidFirst <- xOutMid[1L] - (xOut[2L] - xOut[1L]);
+    xOutMidLast <- xOutMid[nOut-1L] + (xOut[nOut] - xOut[nOut-1L]);
+    xOutMid <- c(xOutMidFirst, xOutMid, xOutMidLast);
 
     naValue <- as.double(NA);
     xOutRange <- matrix(naValue, nrow=nOut, ncol=2);
@@ -225,11 +232,11 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
     if (nrow(xOutRange) != nOut) {
       throw("The number of rows in 'xOutRange' does not match the number of bin: ", ncol(xOutRange), " != ", nOut);
     }
-
-    # Assert that the bin boundaries [x0,x1) contains the target bin.
-    stopifnot(all(xOutRange[,1L] <= xOut));
-    stopifnot(all(xOut <= xOutRange[,2L]));
   }
+
+  # Assert that the bin boundaries [x0,x1) contains the target bin.
+  stopifnot(all(xOutRange[,1L] <= xOut));
+  stopifnot(all(xOut <= xOutRange[,2L]));
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -333,6 +340,8 @@ setMethodS3("binnedSmoothing", "numeric", function(y, ...) {
 ############################################################################
 # HISTORY:
 # 2012-08-26
+# o BUG FIX: colBinnedSmoothing(..., xOut=xOut) could generate bins
+#   at the ends that did not contain the outer most 'xOut' values.
 # o BUG FIX: colBinnedSmoothing(..., xOut=xOut) would return binned
 #   values in the incorrect order, iff 'xOut' was not ordered.
 # o DOCUMENTATION: Clarified that when colBinnedSmoothing() is done over

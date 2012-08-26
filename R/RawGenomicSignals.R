@@ -550,7 +550,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, fields=NULL, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  n <- nbrOfLoci(this); 
+  n <- nbrOfLoci(this);
   # Argument 'weights':
   if (!is.null(weights)) {
     weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf));
