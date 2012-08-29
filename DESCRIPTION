@@ -21,7 +21,6 @@ Description: This package contains core methods and classes used by
         developers.
 License: LGPL (>= 2.1)
 URL: http://www.aroma-project.org/
-PatchURL: http://www.braju.com/R/
 LazyLoad: TRUE
 biocViews: Microarray, OneChannel, TwoChannel, MultiChannel,
         DataImport, DataRepresentation, GUI, Visualization,
