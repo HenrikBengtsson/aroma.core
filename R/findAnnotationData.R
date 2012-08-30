@@ -18,6 +18,8 @@
 #     arguments \code{name} and \code{tags}.}
 #   \item{private}{If @FALSE, files and directories starting 
 #     with a periods are ignored.}
+#   \item{escapes}{A @character @vector specify symbols to be escaped
+#     in argument \code{pattern}.}
 #   \item{...}{Arguments passed to @see "R.utils::findFiles".}
 #   \item{firstOnly}{If @TRUE, only the first matching pathname is returned.}
 #   \item{paths}{A @character @vector of paths to search.
@@ -35,7 +37,7 @@
 #
 # @keyword internal
 #*/###########################################################################
-setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, ..., firstOnly=TRUE, paths=NULL, verbose=FALSE) {
+setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, escapes=c("+"), ..., firstOnly=TRUE, paths=NULL, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -141,6 +143,9 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
     throw("Argument 'tags' must be NULL if argument 'name' is: ", tags);
   }
 
+  # Argument 'escapes':
+  escapes <- Arguments$getCharacters(escapes);
+
   # Argument 'set':
   set <- Arguments$getCharacter(set, length=c(1,1));
 
@@ -161,6 +166,15 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
       pattern <- fullname;
       rm(fullname); # Not need anymore
     }
+  }
+
+  # Escape pattern?
+  if (length(escapes) > 0) {
+    escapes <- unlist(strsplit(escapes, split="", fixed=TRUE), use.names=FALSE);
+    escapes <- unique(escapes);
+    escapePattern <- paste(escapes, collapse="");
+    escapePattern <- sprintf("([%s])", escapePattern);
+    pattern <- gsub(escapePattern, "[\\1]", pattern);
   }
 
   verbose && enter(verbose, "Searching for annotation data file(s)");
@@ -343,6 +357,11 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 
 ############################################################################
 # HISTORY:
+# 2012-08-29
+# o ROBUSTNESS: Added argument 'escape' to findAnnotationData(), which
+#   causes such symbols that exist in argument 'pattern' to be 
+#   automatically be escaped.  This was done in order for chip types
+#   such as "Mapping250K_Nsp+Sty" to work by default.
 # 2012-04-16
 # o CLEANUP: findAnnotationData() no longer needs affxparser, because
 #   findFiles() is in R.utils (>= 1.13.1).

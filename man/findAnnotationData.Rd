@@ -16,7 +16,7 @@
   Locates an annotation data file.
  }
 
- \usage{\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)}
+ \usage{\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, escapes=c("+"), ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)}
 
  \arguments{
    \item{name}{Optional \code{\link[base]{character}} string.}
@@ -27,6 +27,8 @@
      arguments \code{name} and \code{tags}.}
    \item{private}{If \code{\link[base:logical]{FALSE}}, files and directories starting
      with a periods are ignored.}
+   \item{escapes}{A \code{\link[base]{character}} \code{\link[base]{vector}} specify symbols to be escaped
+     in argument \code{pattern}.}
    \item{...}{Arguments passed to \code{\link[R.utils]{findFiles}}.}
    \item{firstOnly}{If \code{\link[base:logical]{TRUE}}, only the first matching pathname is returned.}
    \item{paths}{A \code{\link[base]{character}} \code{\link[base]{vector}} of paths to search.
