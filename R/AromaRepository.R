@@ -335,10 +335,12 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #   \item{suffix}{The filename suffix (including any preceeding period) of
 #      the file to be downloaded.}
 #   \item{ext}{The filename extension.}
+#   \item{...}{Additional arguments passed to @seemethod "downloadFile".}
 #   \item{skip}{If @TRUE, an already downloaded file is skipped.}
 #   \item{overwrite}{If @TRUE, an not skipping, an already downloaded file
 #      is overwritten, otherwise an error is thrown.}
-#   \item{...}{Additional arguments passed to @seemethod "downloadFile".}
+#   \item{mustExist}{If @TRUE, an exception is thrown if no file matching 
+#      is available either locally or on the repository.}
 #   \item{verbose}{See @see "R.utils::Verbose".}
 # }
 #
@@ -352,7 +354,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #   @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags="*", suffix=sprintf(".%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, verbose=getVerbose(this)) {
+setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags="*", suffix=sprintf(".%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -364,6 +366,9 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
 
   # Argument 'suffix':
   suffix <- Arguments$getCharacter(suffix);
+
+  # Argument 'mustExist':
+  mustExist <- Arguments$getLogical(mustExist);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -386,12 +391,8 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
   # Download "any" available file?
   if (identical(tags, "*")) {
     filenames <- listFiles(this, path=path, full=FALSE, verbose=less(verbose,1));
-    # Nothing available?
-    if (length(filenames) == 0) return(NULL);
     pattern <- sprintf("^%s.*(%s)(|.gz)$", chipType, suffix);
     filenames <- grep(pattern, filenames, value=TRUE);
-    # No matching files available?
-    if (length(filenames) == 0) return(NULL);
     # Get the "last" (="any") file
     filename <- filenames[length(filenames)];
     # Drop filename extensions
@@ -399,18 +400,33 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
   } else {
     filename <- sprintf("%s%s", fullname, suffix);
   }
-  pathname <- file.path(path, filename);
-  verbose && cat(verbose, "Pathname: ", pathname);
 
-  # Already downloaded?
-  if (skip && isFile(pathname)) {
-    verbose && cat(verbose, "Already downloaded: ", pathname);
-    return(pathname);
+  pathname <- file.path(path, filename);
+  if (length(pathname) > 0) {
+    verbose && cat(verbose, "Pathname: ", pathname);
+
+    # Already downloaded?
+    if (skip) {
+      # Can't we use R.utils::findFiles() for this? /HB 2012-08-31
+      pattern <- sprintf("^%s$", pathname);
+      pathnames <- list.files(path=path, full.names=TRUE);
+      pathnames <- grep(pattern, pathnames, value=TRUE);
+      pathnameE <- pathnames[length(pathnames)];
+      if (length(pathnameE) > 0) {
+        verbose && cat(verbose, "Already downloaded: ", pathnameE);
+        return(pathnameE);
+      }
+    }
+
+    # Download
+    pathname <- downloadFile(this, filename, path=path, ..., verbose=less(verbose,1));
   }
 
-  # Download
-  pathname <- downloadFile(this, filename, path=path, ..., verbose=less(verbose,1));
-  if (is.null(pathname)) {
+  if (length(pathname) == 0) {
+    if (mustExist) {
+      msg <- sprintf("No such file available (with or without *.gz): %s/%s.*%s", path, fullname, suffix);
+      throw(msg);
+    }
     return(NULL);
   }
 
@@ -429,7 +445,8 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
 
 
 setMethodS3("downloadAll", "AromaRepository", function(this, ...) {
-  suffixes <- c(".acc", ".acm", ".acp", ".acs", ".cdf", ".CDF", ".ufl", ".ugp");
+  suffixes <- c("acc", "acm", "acp", "acs", "(cdf|CDF)", "ufl", "ugp");
+  suffixes <- sprintf("[.]%s", suffixes);
   pathnames <- lapply(suffixes, FUN=function(suffix) {
     downloadChipTypeFile(this, ..., suffix=suffix);
   });
@@ -455,7 +472,7 @@ setMethodS3("downloadACS", "AromaRepository", function(this, ...) {
 })
 
 setMethodS3("downloadCDF", "AromaRepository", function(this, ...) {
-  downloadChipTypeFile(this, ..., ext="cdf");
+  downloadChipTypeFile(this, ..., suffix="[.](cdf|CDF)");
 })
 
 setMethodS3("downloadUFL", "AromaRepository", function(this, ...) {
@@ -477,6 +494,9 @@ setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
 
 ######################################################################
 # HISTORY:
+# 2012-08-31
+# o Added argument 'mustExist=TRUE' to downloadChipTypeFile().
+# o GENERALIZATION: Now downloadCDF() download both *.cdf and *.CDF.
 # 2012-08-22
 # o Added clearCache().
 # o Added downloadAll().
