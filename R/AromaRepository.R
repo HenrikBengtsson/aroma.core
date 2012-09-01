@@ -224,7 +224,11 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Arguments 'filename' & 'path':
-  pathname <- file.path(path, filename);
+  if (is.null(path)) {
+    pathname <- filename;
+  } else {
+    pathname <- file.path(path, filename);
+  }
   pathnameL <- Arguments$getWritablePathname(pathname, mustNotExist=!skip & !overwrite);
 
   # Argument 'caseSensitive':
@@ -318,6 +322,93 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 
 
 
+setMethodS3("findAnnotationDataByChipType", "AromaRepository", function(this, chipType, tags=NULL, pattern=NULL, firstOnly=TRUE, ..., verbose=getVerbose(this)) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  orderByFullName <- function(pathnames, ..., verbose=FALSE) {
+    # Nothing to do?
+    if (length(pathnames) == 0) {
+      return(integer(0));
+    }
+
+    verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
+  
+    # Order located pathnames in increasing length of the fullnames
+    # This is an AD HOC solution for selecting GenomeWideSNP_6 before
+    # GenomeWideSNP_6,Full.
+  
+    # (a) Get filenames
+    filenames <- basename(pathnames);
+  
+    # (b) Get fullnames by dropping filename extension
+    fullnames <- gsub("[.][^.]*$", "", filenames);
+  
+    # (c) Order by length of fullnames
+    o <- order(nchar(fullnames));
+  
+    verbose && cat(verbose, "Order:");
+    verbose && print(verbose, o);
+  
+    verbose && exit(verbose);
+  
+    o;
+  } # orderByFullNames()
+
+
+  sortByFullName <- function(pathnames, ..., verbose=FALSE) {
+    o <- orderByFullName(pathnames, verbose=verbose);
+    pathnames <- pathnames[o];
+    pathnames;
+  } # sortByFullName()
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (!is.null(pattern)) {
+    pattern <- Arguments$getRegularExpression(pattern);
+  }
+
+  # Argument 'firstOnly':
+  firstOnly <- Arguments$getLogical(firstOnly);
+
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  verbose && enter(verbose, "Finding annotation data file by chip type");
+  chipTypeS <- gsub(",.*", "", chipType);
+  path <- file.path("annotationData", "chipTypes", chipTypeS);
+  filenames <- listFiles(this, path=path, full=FALSE, verbose=less(verbose,1));
+
+  # Drop directories
+  filenames <- grep("/$", filenames, value=TRUE, invert=TRUE);
+
+  # Sort files
+  filenames <- sortByFullName(filenames);
+
+  if (!is.null(pattern)) {
+    filenames <- grep(pattern, filenames, value=TRUE);
+  }
+
+  if (firstOnly && length(filenames) > 1) {
+    filenames <- filenames[1L];
+  }
+
+  # Return full pathnames
+  pathnames <- file.path(path, filenames);
+
+  verbose && exit(verbose);
+
+  pathnames;
+}, protected=TRUE) # findAnnotationDataByChipType()
+
+
+
 ###########################################################################/**
 # @RdocMethod downloadChipTypeFile
 #
@@ -354,7 +445,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #   @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags="*", suffix=sprintf(".%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this)) {
+setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags=NULL, suffix=sprintf(".%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -385,50 +476,49 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
   path <- file.path("annotationData", "chipTypes", chipTypeS);
   verbose && cat(verbose, "Path: ", path);
 
-  fullname <- paste(c(chipType, tags), collapse=",");
-  verbose && cat(verbose, "Fullname: ", fullname);
+  chipTypeF <- paste(c(chipType, tags), collapse=",");
+  verbose && cat(verbose, "Full chip type: ", chipTypeF);
 
-  # Download "any" available file?
-  if (identical(tags, "*")) {
-    filenames <- listFiles(this, path=path, full=FALSE, verbose=less(verbose,1));
-    pattern <- sprintf("^%s.*(%s)(|.gz)$", chipType, suffix);
-    filenames <- grep(pattern, filenames, value=TRUE);
-    # Get the "last" (="any") file
-    filename <- filenames[length(filenames)];
-    # Drop filename extensions
-    filename <- gsub("[.]gz$", "", filename);
-  } else {
-    filename <- sprintf("%s%s", fullname, suffix);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # (a) Is file available on local file system?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Searching local file system");
+  pattern <- sprintf("^%s(%s)$", chipTypeF, suffix);
+  pathname <- findAnnotationDataByChipType(chipType, pattern=pattern, verbose=less(verbose,10));
+  if (!is.null(pathname)) {
+    verbose && cat(verbose, "Already downloaded: ", pathname);
+    verbose && exit(verbose);
+    return(pathname);
   }
+  verbose && exit(verbose);
 
-  pathname <- file.path(path, filename);
-  if (length(pathname) > 0) {
-    verbose && cat(verbose, "Pathname: ", pathname);
 
-    # Already downloaded?
-    if (skip) {
-      # Can't we use R.utils::findFiles() for this? /HB 2012-08-31
-      pattern <- sprintf("^%s$", pathname);
-      pathnames <- list.files(path=path, full.names=TRUE);
-      pathnames <- grep(pattern, pathnames, value=TRUE);
-      pathnameE <- pathnames[length(pathnames)];
-      if (length(pathnameE) > 0) {
-        verbose && cat(verbose, "Already downloaded: ", pathnameE);
-        return(pathnameE);
-      }
-    }
-
-    # Download
-    pathname <- downloadFile(this, filename, path=path, ..., verbose=less(verbose,1));
-  }
-
-  if (length(pathname) == 0) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # (b) Is file available on repository?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Searching repository");
+  pattern <- sprintf("^%s(%s)(|.gz)$", chipTypeF, suffix);
+  pathnameR <- findAnnotationDataByChipType(this, chipType, pattern=pattern, verbose=less(verbose,10));
+  if (length(pathnameR) == 0) {
+    msg <- sprintf("No such file available (with or without *.gz): %s/%s", path, pattern);
+    verbose && cat(verbose, msg);
     if (mustExist) {
-      msg <- sprintf("No such file available (with or without *.gz): %s/%s.*%s", path, fullname, suffix);
       throw(msg);
     }
     return(NULL);
+    verbose && exit(verbose);
   }
+
+  verbose && cat(verbose, "File found: ", pathnameR);
+  verbose && exit(verbose);
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # (c) Download
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Downloading");
+  pathname <- downloadFile(this, filename=pathnameR, ..., verbose=less(verbose,1));
+  verbose && cat(verbose, "Downloaded file: ", pathname);
 
   # Gunzip
   if (gunzip) {
@@ -442,6 +532,7 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
 
   pathname;
 }) # downloadChipTypeFile()
+
 
 
 setMethodS3("downloadAll", "AromaRepository", function(this, ...) {
@@ -495,6 +586,7 @@ setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
 ######################################################################
 # HISTORY:
 # 2012-08-31
+# o Added findAnnotationDataByChipType() for AromaRepository.
 # o Added argument 'mustExist=TRUE' to downloadChipTypeFile().
 # o GENERALIZATION: Now downloadCDF() download both *.cdf and *.CDF.
 # 2012-08-22

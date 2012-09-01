@@ -643,3 +643,4 @@ exportAromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet
 downloadAll downloadAll.AromaRepository listFiles
 clearCache.AromaRepository
+findAnnotationDataByChipType.AromaRepository
