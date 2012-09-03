@@ -230,6 +230,7 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
     verbose && printf(verbose, "hOdd=%.2g\n", hOdd);
     verbose && printf(verbose, "hEven=%.2g\n", hEven);
     hRatio <- log(hOdd/hEven);
+    if (is.na(hRatio)) hRatio <- Inf;
     verbose && printf(verbose, "hRatio=%.2g\n", hRatio);
 
     n <- 2*(ncol(z) %/% 2);
@@ -242,22 +243,17 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
     verbose && printf(verbose, "vOdd=%.2g\n", vOdd);
     verbose && printf(verbose, "vEven=%.2g\n", vEven);
     vRatio <- log(vOdd/vEven);
+    if (is.na(vRatio)) vRatio <- Inf;
     verbose && printf(verbose, "vRatio=%.2g\n", vRatio);
 
     what <- "none";
     if (abs(vRatio) > abs(hRatio)) {
       if (abs(vRatio) > 0.25) {
-        if (vRatio > 0)
-          what <- "v"
-        else
-          what <- "v";
+        what <- "v"
       }
     } else {
       if (abs(hRatio) > 0.25) {
-        if (hRatio > 0)
-          what <- "h"
-        else
-          what <- "h";
+        what <- "h";
       }
     }
     verbose && cat(verbose, "what: ", what);
