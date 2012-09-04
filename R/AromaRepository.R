@@ -574,6 +574,10 @@ setMethodS3("downloadUGP", "AromaRepository", function(this, ...) {
   downloadChipTypeFile(this, ..., ext="ugp");
 })
 
+setMethodS3("downloadUGC", "AromaRepository", function(this, ...) {
+  downloadChipTypeFile(this, ..., ext="ugc");
+})
+
 setMethodS3("downloadTXT", "AromaRepository", function(this, ...) {
   downloadChipTypeFile(this, ..., ext="txt");
 })
@@ -585,6 +589,8 @@ setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
 
 ######################################################################
 # HISTORY:
+# 2012-09-04
+# o Added downloadUGC() for AromaRepository.
 # 2012-08-31
 # o Added findAnnotationDataByChipType() for AromaRepository.
 # o Added argument 'mustExist=TRUE' to downloadChipTypeFile().

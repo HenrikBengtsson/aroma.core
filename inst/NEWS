@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.5.14 [2012-09-04]
+o Added downloadUGC() for AromaRepository.
+
+
 Version: 2.5.13 [2012-09-02]
 o BUG FIX: interleave() for Image and RasterImage could generate
   error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value 
