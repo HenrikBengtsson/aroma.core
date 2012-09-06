@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.0 [2012-09-05]
+o Submitted to CRAN.
+o The package passes all redundancy tests.
+
+
 Version: 2.5.14 [2012-09-04]
 o Added downloadUGC() for AromaRepository.
 

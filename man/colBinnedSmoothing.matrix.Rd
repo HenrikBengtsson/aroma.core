@@ -152,7 +152,6 @@ stopifnot(all(attr(YsE, "xOutRange") == attr(YsD, "xOutRange")))
 stopifnot(all(attr(YsE, "counts") == 1))
 
 # Scramble ordering of loci
-stopifnot(!any(duplicated(x))) # Here all 'x' should/must be unique
 idxs <- sample(x)
 x2 <- x[idxs]
 Y2 <- Y[idxs,,drop=FALSE]
@@ -160,7 +159,6 @@ Y2s <- colBinnedSmoothing(Y2, x=x2, xOut=x2)
 stopifnot(all(attr(Y2s, "xOut") == x2))
 stopifnot(all(attr(Y2s, "counts") == 1))
 stopifnot(all(Y2s == Y2))
-
 
 xOut <- x[seq(from=2, to=J, by=3)]
 YsT <- colBinnedSmoothing(Y, x=x, xOut=xOut)

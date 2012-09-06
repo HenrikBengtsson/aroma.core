@@ -1288,6 +1288,8 @@
 \alias{listFiles}
 \alias{clearCache.AromaRepository}
 \alias{findAnnotationDataByChipType.AromaRepository}
+\alias{downloadUGC}
+\alias{downloadUGC.AromaRepository}
 
 \description{
   This page contains aliases for all "non-documented" objects that

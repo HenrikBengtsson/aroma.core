@@ -54,6 +54,7 @@ extends \link[R.oo]{Object}\cr
  \tab \code{downloadProbeSeqsTXT} \tab  -\cr
  \tab \code{downloadTXT} \tab  -\cr
  \tab \code{downloadUFL} \tab  -\cr
+ \tab \code{downloadUGC} \tab  -\cr
  \tab \code{downloadUGP} \tab  -\cr
 }
 
