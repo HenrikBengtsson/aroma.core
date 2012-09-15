@@ -161,7 +161,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   verbose && cat(verbose, "Exported data set:");
   pattern <- ",pscn[.]asb$";
   ds <- AromaUnitPscnBinarySet$byPath(path, pattern=pattern);
-  ds <- extract(ds, indexOf(ds, names=getNames(dsT)));
+  ds <- extract(ds, getNames(dsT));
   verbose && print(verbose, ds);
 
   # Sanity check
@@ -173,8 +173,23 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   ds;
 })
 
+
+setMethodS3("exportAromaUnitPscnBinarySet", "list", function(dsList, ...) {
+  # Argument 'dsList':
+  if (length(dsList) != 2L) {
+    throw("Argument 'dsList' does not have two elements: ", length(dsList));
+  }
+  exportAromaUnitPscnBinarySet(dsT=dsList[[1]], dsB=dsList[[2]], ...);
+})
+
+
 ############################################################################
 # HISTORY:
+# 2012-09-14
+# o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
+#   would throw an error if the files of the exported data set was
+#   ordered in a non-lexicographic order.
+# o Added exportAromaUnitPscnBinarySet() for list.
 # 2012-07-21
 # o Added exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet.
 # o Created.

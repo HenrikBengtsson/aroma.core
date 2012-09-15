@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.1 [2012-09-14]
+o Added exportAromaUnitPscnBinarySet() for a list.
+o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
+  would throw an error if the files of the exported data set was
+  ordered in a non-lexicographic order.
+
+
 Version: 2.6.0 [2012-09-05]
 o Submitted to CRAN.
 o The package passes all redundancy tests.

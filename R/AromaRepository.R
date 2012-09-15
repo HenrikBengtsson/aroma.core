@@ -141,7 +141,9 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
   filename <- tempfile();
   on.exit(file.remove(filename));
   pathname <- tryCatch({
-    downloadFile(url=urlPath, filename=filename, ...);
+    suppressWarnings({
+      downloadFile(url=urlPath, filename=filename, ...);
+    });
   }, error = function(ex) {
     # Failed to download index file.  Assume directory does not exists.
     return(NULL);
@@ -287,7 +289,9 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
   urlPath <- getUrlPath(this);
   tryCatch({
     url <- file.path(urlPath, pathnameD);
-    pathnameD <- downloadFile(url, filename=pathnameDL, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
+    suppressWarnings({
+      pathnameD <- downloadFile(url, filename=pathnameDL, skip=skip, overwrite=overwrite, ..., verbose=less(verbose,5));
+    });
   }, error = function(ex) {
     # If gzipped file did not exists, try the regular one
     verbose && cat(verbose, "Failed to download compressed file. The reason was: ", ex$message);
@@ -589,6 +593,9 @@ setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
 
 ######################################################################
 # HISTORY:
+# 2012-09-14
+# o Now downloadFile() and listFiles() for AromaRepository no
+#   longer gives a warning if the file does not exists.
 # 2012-09-04
 # o Added downloadUGC() for AromaRepository.
 # 2012-08-31
