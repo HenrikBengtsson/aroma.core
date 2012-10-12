@@ -484,7 +484,7 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
     className <- class(ds)[1];
     verbose && cat(verbose, "Using the same class name as the input data set.");
   }
-  verbose && enter(verbose, "Class: ", className);
+  verbose && cat(verbose, "Class: ", className);
 
   path <- getPath(this);
   verbose && cat(verbose, "Path: ", path);
