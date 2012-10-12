@@ -1283,6 +1283,7 @@
 \alias{writeDataFrame.AromaUnitPscnBinarySet}
 \alias{exportAromaUnitPscnBinarySet}
 \alias{exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet}
+\alias{exportAromaUnitPscnBinarySet.list}
 \alias{downloadAll}
 \alias{downloadAll.AromaRepository}
 \alias{listFiles}

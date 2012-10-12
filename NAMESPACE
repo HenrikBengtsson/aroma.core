@@ -4,10 +4,9 @@
 ##import("utils") # Not yet, because there is a conflict with
 ##                # timestamp() exported by R.utils.
 ##importFrom("utils", packageDescription)
-
+import("R.methodsS3")
+import("R.oo")
 import("R.utils")
-##importFrom(R.utils, cat)
-
 import("R.rsp")
 
 

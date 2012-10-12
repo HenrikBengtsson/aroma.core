@@ -256,6 +256,20 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
   x0 <- xOutRange[,1L, drop=TRUE];
   x1 <- xOutRange[,2L, drop=TRUE];
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Special cases?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+#  if (identical(FUN, colWeightedMeans) && is.null(w) && require("matrixStats")) {
+#    bx <- ...
+#    for (cc in seq(length=ncol(Y))) {
+#      ys <- matrixStats::binMeans(Y[,cc], x, bx=bx, na.rm=na.rm, count=(cc == 1L));
+#      if (cc == 1L) {
+#        counts <- attr(ys, "count");
+#      }
+#      Ys[,cc] <- ys;
+#    } # for (cc ...)
+#  }
+
   verbose && cat(verbose, "Summary of bin widths:");
   verbose && print(verbose, summary(x1-x0));
 

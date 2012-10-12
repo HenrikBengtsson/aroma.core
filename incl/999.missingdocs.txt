@@ -641,6 +641,7 @@ hasTotalCopyNumberRatios.AromaUnitPscnBinaryFile
 writeDataFrame.AromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet
 exportAromaUnitPscnBinarySet.AromaUnitTotalCnBinarySet
+exportAromaUnitPscnBinarySet.list
 downloadAll downloadAll.AromaRepository listFiles
 clearCache.AromaRepository
 findAnnotationDataByChipType.AromaRepository

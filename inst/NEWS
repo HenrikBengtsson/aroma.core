@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.2 [2012-10-11]
+o Now aroma.core imports R.methodsS3 and R.oo.
+  This solves issues such as trim() being overridden by ditto 
+  from the IRanges package, iff loaded.
+
+
 Version: 2.6.1 [2012-09-14]
 o Added exportAromaUnitPscnBinarySet() for a list.
 o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
