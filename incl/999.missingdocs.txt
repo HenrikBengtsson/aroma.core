@@ -646,3 +646,7 @@ downloadAll downloadAll.AromaRepository listFiles
 clearCache.AromaRepository
 findAnnotationDataByChipType.AromaRepository
 downloadUGC downloadUGC.AromaRepository
+AromaUnitGcContentFile  getColumnNames.AromaUnitGcContentFile
+  getExtensionPattern.AromaUnitGcContentFile
+  getFilenameExtension.AromaUnitGcContentFile 
+AromaUgcFile

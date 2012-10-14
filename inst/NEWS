@@ -2,6 +2,7 @@ Package: aroma.core
 ===================
 
 Version: 2.6.3 [2012-10-14]
+o Added AromaUnitGcContentFile (from aroma.affymetrix).
 o CLEANUP: Removed several defunct/obsolete methods and made
   deprecated methods defunct/obsolete. 
 

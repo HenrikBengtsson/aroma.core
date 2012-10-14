@@ -1291,6 +1291,11 @@
 \alias{findAnnotationDataByChipType.AromaRepository}
 \alias{downloadUGC}
 \alias{downloadUGC.AromaRepository}
+\alias{AromaUnitGcContentFile}
+\alias{getColumnNames.AromaUnitGcContentFile}
+\alias{getExtensionPattern.AromaUnitGcContentFile}
+\alias{getFilenameExtension.AromaUnitGcContentFile}
+\alias{AromaUgcFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that
