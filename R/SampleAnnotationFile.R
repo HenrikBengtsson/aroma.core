@@ -26,10 +26,6 @@ setMethodS3("fromPath", "SampleAnnotationFile", function(static, path, pattern=g
 }, static=TRUE, protected=TRUE)
 
 
-setMethodS3("readData", "SampleAnnotationFile", function(this, ...) {
-  readDataFrame(this, ...);
-}, protected=TRUE, deprecated=TRUE)
-
 setMethodS3("readDataFrame", "SampleAnnotationFile", function(this, rows=NULL, force=FALSE, ...) {
   db <- this$.db;
   if (force || is.null(db)) {

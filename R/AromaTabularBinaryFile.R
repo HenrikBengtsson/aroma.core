@@ -1389,7 +1389,6 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 # o Now allocate() takes argument 'footer' as well.
 # 2008-05-16
 # o Added readColumns().
-# o Removed deprecated readData().
 # o Inherits from GenericTabularFile.
 # 2008-05-11
 # o Added extractMatrix() with returns a matrix with one column.  This

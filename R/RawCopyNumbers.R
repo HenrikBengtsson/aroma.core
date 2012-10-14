@@ -30,11 +30,6 @@ setConstructorS3("RawCopyNumbers", function(cn=NULL, ...) {
 })
 
 
-setMethodS3("getPhysicalPositions", "RawCopyNumbers", function(this, ...) {
-  getPositions(this, ...);
-}, protected=TRUE, deprecated=TRUE)
-
-
 setMethodS3("getSignals", "RawCopyNumbers", function(this, ...) {
   this$cn;
 })

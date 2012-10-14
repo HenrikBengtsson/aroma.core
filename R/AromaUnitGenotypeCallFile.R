@@ -415,16 +415,6 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
   invisible(this);
 })
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-# DEPRECATED
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-setMethodS3("isHomozygote", "AromaUnitGenotypeCallFile", function(...) {
-  isHomozygous(...);
-}, private=TRUE, deprecated=TRUE)
-
-setMethodS3("isHeterozygote", "AromaUnitGenotypeCallFile", function(...) {
-  isHeterozygous(...);
-}, private=TRUE, deprecated=TRUE)
 
 
 ############################################################################
