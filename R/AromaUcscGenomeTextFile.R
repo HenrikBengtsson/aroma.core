@@ -4,7 +4,7 @@ setConstructorS3("AromaUcscGenomeTextFile", function(...) {
 
 
 setMethodS3("findByGenome", "AromaUcscGenomeTextFile", function(static, genome, type, tags=NULL, pattern=sprintf("^%s,UCSC(|,%s),%s[.]txt$", genome, paste(tags, collapse=","), type), ...) {
-  findByGenome.AromaGenomeTextFile(static, genome=genome, tags=NULL, pattern=pattern, ...);
+  NextMethod("findByGenome", genome=genome, tags=NULL, pattern=pattern);
 }, static=TRUE)
 
 setMethodS3("readDataFrame", "AromaUcscGenomeTextFile", function(this, colClassPatterns=c("*"=NA), ...) {

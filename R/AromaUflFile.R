@@ -162,8 +162,7 @@ setMethodS3("allocate", "AromaUflFile", function(static, ..., nbrOfEnzymes=1, ty
   # Argument 'nbrOfEnzymes':
   nbrOfEnzymes <- Arguments$getInteger(nbrOfEnzymes, range=c(1,10));
 
-  # NextMethod() not supported here.
-  allocate.AromaUnitChromosomeTabularBinaryFile(static, types=types, sizes=sizes, ...);
+  NextMethod("allocate", types=types, sizes=sizes);
 }, static=TRUE)
 
 

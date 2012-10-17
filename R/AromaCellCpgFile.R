@@ -188,11 +188,7 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
     footer
   );
 
-  res <- allocate.AromaMicroarrayTabularBinaryFile(static, 
-                 nbrOfRows=nbrOfCells, ..., 
-                 types="double", sizes=4, footer=footer);
-
-  res;
+  NextMethod("allocate", nbrOfRows=nbrOfCells, types="double", sizes=4, footer=footer);
 }, static=TRUE)
 
 

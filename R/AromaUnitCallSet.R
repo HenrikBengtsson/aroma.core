@@ -28,15 +28,15 @@ setConstructorS3("AromaUnitCallSet", function(...) {
 
 
 setMethodS3("findByName", "AromaUnitCallSet", function(static, ..., paths="callData/") {
-  findByName.AromaUnitSignalBinarySet(static, ..., paths=paths);
+  NextMethod("findByName", paths=paths);
 }, static=TRUE) 
 
 
 setMethodS3("byPath", "AromaUnitCallSet", function(static, ..., pattern=".*[.]acf$") {
   suppressWarnings({
-    byPath.GenericDataFileSet(static, ..., pattern=pattern);
+    NextMethod("byPath", pattern=pattern);
   })
-})
+}, static=TRUE)
 
 
 setMethodS3("findUnitsTodo", "AromaUnitCallSet", function(this, ...) {

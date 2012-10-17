@@ -57,8 +57,7 @@ setMethodS3("getUnitsOnChromosome", "AromaUgpFile", function(this, ..., region=N
 # BEGIN: File I/O
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("allocate", "AromaUgpFile", function(static, ...) {
-  allocate.AromaUnitChromosomeTabularBinaryFile(static,
-                   types=rep("integer",2), sizes=c(1,4), ...);
+  NextMethod("allocate", types=rep("integer", times=2), sizes=c(1,4));
 }, static=TRUE)
 
 

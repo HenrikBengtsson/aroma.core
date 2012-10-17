@@ -28,7 +28,7 @@ setConstructorS3("AromaUnitGenotypeCallFile", function(...) {
 
 
 setMethodS3("allocate", "AromaUnitGenotypeCallFile", function(static, ..., types=c("integer", "integer")) { 
-  allocate.AromaUnitCallFile(static, ..., types=types);
+  NextMethod("allocate", types=types);
 }, static=TRUE)
 
 

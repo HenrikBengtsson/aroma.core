@@ -3,7 +3,7 @@ setConstructorS3("CbsSegmentationDataSet", function(...) {
 })
 
 setMethodS3("byPath", "CbsSegmentationDataSet", function(static, ..., pattern=",chr[0-9]+,.*[.]xdr$") {
-  byPath.GenericDataFileSet(static, ..., pattern=pattern);
+  NextMethod("byPath", pattern=pattern);
 }, static=TRUE)
 
 
@@ -11,7 +11,7 @@ setMethodS3("byName", "CbsSegmentationDataSet", function(static, ..., chipType, 
   # Argument 'chipType':
   chipType <- Arguments$getCharacter(chipType);
 
-  byName.GenericDataFileSet(static, ..., subdirs=chipType, paths=paths);
+  NextMethod("byName", subdirs=chipType, paths=paths);
 }, static=TRUE)
 
 

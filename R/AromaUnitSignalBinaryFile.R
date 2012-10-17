@@ -97,9 +97,7 @@ setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platf
   chipType <- Arguments$getCharacter(chipType, length=c(1,1));
 
   # Create tabular binary file
-  res <- allocate.AromaTabularBinaryFile(static, generic="allocate", ...,
-                                  types=types, sizes=sizes, signeds=signed);
-
+  res <- NextMethod("allocate", types=types, sizes=sizes, signeds=signed);
 
   # Write attributes to footer
   attrs <- list(

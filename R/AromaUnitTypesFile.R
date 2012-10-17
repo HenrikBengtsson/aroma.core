@@ -43,7 +43,7 @@ setMethodS3("getUnitTypes", "AromaUnitTypesFile", function(this, ...) {
 })
 
 setMethodS3("allocate", "AromaUnitTypesFile", function(static, ..., types=c("integer"), sizes=1) { 
-  allocate.AromaUnitCallFile(static, ..., types=types, sizes=sizes);
+  NextMethod("allocate", types=types, sizes=sizes);
 }, static=TRUE)
 
 

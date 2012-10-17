@@ -208,11 +208,7 @@ setMethodS3("allocate", "AromaCellPositionFile", function(static, ..., nbrOfCell
     footer
   );
 
-  res <- allocate.AromaMicroarrayTabularBinaryFile(static, 
-                 nbrOfRows=nbrOfCells, ..., 
-                 types=rep("integer",2), sizes=c(1,4), footer=footer);
-
-  res;
+  NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("integer",2), sizes=c(1,4), footer=footer);
 }, static=TRUE)
 
 

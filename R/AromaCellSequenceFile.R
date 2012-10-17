@@ -887,12 +887,8 @@ setMethodS3("allocate", "AromaCellSequenceFile", function(static, ..., nbrOfCell
 
   probeLengths <- 25;
   nbrOfColumns <- probeLengths+1;
-  res <- allocate.AromaMicroarrayTabularBinaryFile(static, 
-                 nbrOfRows=nbrOfCells, ..., 
-                 types=rep("raw", nbrOfColumns), sizes=rep(1,nbrOfColumns), 
-                                                            footer=footer);
 
-  res;
+  NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("raw", nbrOfColumns), sizes=rep(1,nbrOfColumns), footer=footer);
 }, static=TRUE)
 
 

@@ -187,7 +187,7 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
   );
 
   # Allocate file
-  allocate.AromaMicroarrayTabularBinaryFile(static, ..., footer=footer);
+  NextMethod("allocate", footer=footer);
 }, static=TRUE)
 
 

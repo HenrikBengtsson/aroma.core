@@ -29,7 +29,7 @@ setConstructorS3("AromaUnitGenotypeCallSet", function(...) {
 
 setMethodS3("byPath", "AromaUnitGenotypeCallSet", function(static, ..., pattern=".*,genotypes[.]acf$") {
   suppressWarnings({
-    byPath.AromaUnitCallSet(static, ..., pattern=pattern);
+    NextMethod("byPath", pattern=pattern);
   })
 })
 

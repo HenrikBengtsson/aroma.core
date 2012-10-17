@@ -28,8 +28,7 @@ setConstructorS3("AromaUnitSignalBinarySet", function(...) {
 
 
 setMethodS3("findByName", "AromaUnitSignalBinarySet", function(static, ..., chipType=NULL) {
-  # NextMethod() does not work here.
-  findByName.GenericDataFileSet(static, ..., subdirs=chipType);
+  NextMethod("findByName", subdirs=chipType);
 }, static=TRUE) 
 
 

@@ -32,7 +32,7 @@ setMethodS3("allocate", "AromaUnitCallFile", function(static, ..., types=c("inte
   nbrOfBits <- 8*sizes[1];
   valueForNA <- as.integer(2^nbrOfBits-1);
 
-  allocate.AromaUnitSignalBinaryFile(static, types=types, sizes=sizes, signed=signed, defaults=valueForNA, ...);
+  NextMethod("allocate", types=types, sizes=sizes, signed=signed, defaults=valueForNA);
 }, static=TRUE)
 
 
