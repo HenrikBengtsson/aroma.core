@@ -415,7 +415,7 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   i <- rows;
   j <- cols;
-##  res <- NextMethod("[", this);
+##  res <- NextMethod("[");
 
   class <- class(this);
   res <- this;
@@ -494,7 +494,7 @@ setMethodS3("[[<-", "RichDataFrame", function(x, name, value) {
     # Assign & preserve attributes
     attrs <- attributes(this);
     tryCatch({
-      this <- NextMethod("[[<-", this);
+      this <- NextMethod("[[<-");
     }, error=function(ex) {
       msg <- sprintf("Failed assign column '%s', because: %s", name, ex$message);
       throw(msg);

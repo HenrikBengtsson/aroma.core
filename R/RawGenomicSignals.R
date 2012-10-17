@@ -426,7 +426,7 @@ setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ..., sort=FALSE) {
     this <- sort(this, ...);
   }
 
-  NextMethod("as.data.frame", this, ...);
+  NextMethod("as.data.frame");
 })
 
 

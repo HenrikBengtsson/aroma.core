@@ -41,7 +41,7 @@ setMethodS3("clearCache", "AromaUnitTabularBinaryFile", function(this, ...) {
   }
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...); 
+  NextMethod("clearCache"); 
 }, private=TRUE)
 
 

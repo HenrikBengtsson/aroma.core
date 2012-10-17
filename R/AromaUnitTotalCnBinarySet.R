@@ -328,7 +328,7 @@ setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySet", fu
 })
 
 setMethodS3("writeDataFrame", "AromaUnitTotalCnBinarySet", function(this, filename=sprintf("%s,total.txt", getFullName(this)), ...) {
-  NextMethod("writeDataFrame", this, filename=filename, ...);
+  NextMethod("writeDataFrame", filename=filename);
 })
 
 

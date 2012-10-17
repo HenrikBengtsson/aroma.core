@@ -35,7 +35,7 @@ setMethodS3("binnedSums", "RawSequenceReads", function(this, ...) {
 
 
 setMethodS3("plot", "RawSequenceReads", function(x, ..., ylim=c(0,10), ylab="Reads") {
-  NextMethod("plot", x, ..., ylim=ylim, ylab=ylab);
+  NextMethod("plot", ylim=ylim, ylab=ylab);
 })
 
 

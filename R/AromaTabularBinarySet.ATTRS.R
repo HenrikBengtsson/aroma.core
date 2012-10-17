@@ -20,7 +20,7 @@ setMethodS3("setAttributesByTags", "AromaTabularBinarySet", function(this, tags=
   # Split tags
   tags <- Arguments$getTags(tags, collapse=NULL);
 
-  newAttrs <- NextMethod("setAttributesByTags", this, tags=tags, ...);
+  newAttrs <- NextMethod("setAttributesByTags", tags=tags);
 
   # Parse XY, XX, XXX etc tags
   values <- grep("^X*Y*$", tags, value=TRUE);

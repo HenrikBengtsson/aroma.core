@@ -8,7 +8,7 @@ setMethodS3("findByGenome", "AromaUcscGenomeTextFile", function(static, genome, 
 }, static=TRUE)
 
 setMethodS3("readDataFrame", "AromaUcscGenomeTextFile", function(this, colClassPatterns=c("*"=NA), ...) {
-  NextMethod("readDataFrame", this, colClassPatterns=colClassPatterns, ...);
+  NextMethod("readDataFrame", colClassPatterns=colClassPatterns);
 })
 
 ############################################################################

@@ -21,7 +21,7 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  s <- NextMethod("as.character", this, ...);
+  s <- NextMethod("as.character");
   class <- class(s);
 
   s <- c(s, sprintf("Chip type(s): %s", getChipType(this)));

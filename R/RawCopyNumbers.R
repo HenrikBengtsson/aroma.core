@@ -80,7 +80,7 @@ setMethodS3("extractRawCopyNumbers", "RawCopyNumbers", function(this, ..., logBa
 
 
 setMethodS3("plot", "RawCopyNumbers", function(x, ..., ylim=c(0,5), ylab="Copy number") {
-  NextMethod("plot", x, ..., ylim=ylim, ylab=ylab);
+  NextMethod("plot", ylim=ylim, ylab=ylab);
 })
 
 

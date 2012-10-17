@@ -37,7 +37,7 @@ setMethodS3("getUnitsOnChromosome", "AromaUgpFile", function(this, ..., region=N
   if (!is.null(region)) {
   }
 
-  units <- NextMethod("getUnitsOnChromosome", this, ...);
+  units <- NextMethod("getUnitsOnChromosome");
 
   # Subset by regions
   if (!is.null(region)) {

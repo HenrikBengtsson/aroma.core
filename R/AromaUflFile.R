@@ -38,7 +38,7 @@ setMethodS3("getColumnNames", "AromaUflFile", function(this, ...) {
 })
 
 setMethodS3("readDataFrame", "AromaUflFile", function(this, ...) {
-  data <- NextMethod("readDataFrame", this, ...);
+  data <- NextMethod("readDataFrame");
 
   # Interpret zeros as NAs
   for (cc in seq(length=ncol(data))) {

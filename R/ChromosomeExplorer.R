@@ -391,7 +391,7 @@ setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename=NULL, 
       filename <- "ChromosomeExplorer5.html";
     }
   }
-  NextMethod("addIndexFile", this, filename=filename, ...);
+  NextMethod("addIndexFile", filename=filename);
 }, protected=TRUE)
 
 
@@ -682,7 +682,7 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
 
 
 setMethodS3("display", "ChromosomeExplorer", function(this, filename="ChromosomeExplorer.html", ...) {
-  NextMethod("display", this, filename=filename, ...);
+  NextMethod("display", filename=filename);
 })
 
 

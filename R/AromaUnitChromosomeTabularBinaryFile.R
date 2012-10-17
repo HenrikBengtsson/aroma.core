@@ -19,7 +19,7 @@ setMethodS3("clearCache", "AromaUnitChromosomeTabularBinaryFile", function(this,
   }
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...); 
+  NextMethod("clearCache"); 
 }, private=TRUE) 
 
 
@@ -74,7 +74,7 @@ setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(th
     on.exit(popState(verbose));
   }
 
-  data <- NextMethod("readDataFrame", this, ..., verbose=less(verbose));
+  data <- NextMethod("readDataFrame", verbose=less(verbose));
 
   if (nrow(data) > 0) {
     verbose && enter(verbose, "Converting zeros to NAs");

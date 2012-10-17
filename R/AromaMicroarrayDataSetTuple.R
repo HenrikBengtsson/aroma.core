@@ -57,7 +57,7 @@ setMethodS3("indexOf", "AromaMicroarrayDataSetTuple", function(this, arrays=NULL
     n <- nbrOfFiles(this);
     arrays <- Arguments$getIndices(arrays, max=n);
   } else {
-    arrays <- NextMethod("indexOf", this, arrays, onMissing="error", ...);
+    arrays <- NextMethod("indexOf", arrays, onMissing="error");
   }
 
   arrays;
@@ -213,7 +213,7 @@ setMethodS3("getChipTypes", "AromaMicroarrayDataSetTuple", function(this, fullna
 
 
 setMethodS3("getSets", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  res <- NextMethod("getSets", this, ...);
+  res <- NextMethod("getSets");
   # Name sets by their chip types
   chipTypes <- sapply(res, FUN=getChipType);
   chipTypes <- gsub(",monocell", "", chipTypes);

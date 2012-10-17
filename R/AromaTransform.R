@@ -68,7 +68,7 @@ setMethodS3("clearCache", "AromaTransform", function(this, ...) {
   }
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...);
+  NextMethod("clearCache");
 }, private=TRUE)
 
 

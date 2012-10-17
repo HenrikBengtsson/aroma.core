@@ -100,9 +100,9 @@ setMethodS3("as.data.frame", "SegmentedGenomicSignalsInterface", function(x, ...
   this <- x;
 
   if (inherits(this, "RichDataFrame")) {
-    df <- NextMethod("as.data.frame", this, virtual=virtual, ...);
+    df <- NextMethod("as.data.frame", virtual=virtual);
   } else {
-    df <- NextMethod("as.data.frame", this, ...);
+    df <- NextMethod("as.data.frame");
     if (virtual) {
       df$state <- getStates(this, x=df$x);
     }
@@ -124,7 +124,7 @@ setMethodS3("getVirtualField", "SegmentedGenomicSignalsInterface", function(this
     if (key == "state") {
       value <- getStates(this, ...);
     } else {
-      value <- NextMethod("getVirtualField", this, key=key, ...);
+      value <- NextMethod("getVirtualField", key=key);
     }
   }
 
@@ -135,7 +135,7 @@ setMethodS3("getVirtualLocusFields", "SegmentedGenomicSignalsInterface", functio
   if (inherits(this, "RichDataFrame")) {
     fields <- getVirtualColumnNames(this, ...);
   } else {
-    fields <- NextMethod("getVirtualLocusFields", this, ...);
+    fields <- NextMethod("getVirtualLocusFields");
     fields <- c(fields, "state");
     fields <- unique(fields);
   }
@@ -494,11 +494,11 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
 
 
 setMethodS3("plot", "SegmentedGenomicSignalsInterface", function(x, ..., col=getStateColors(x)) {
-  NextMethod("plot", ..., col=col);
+  NextMethod("plot", col=col);
 })
 
 setMethodS3("points", "SegmentedGenomicSignalsInterface", function(x, ..., col=getStateColors(x)) {
-  NextMethod("points", ..., col=col);
+  NextMethod("points", col=col);
 })
 
 

@@ -46,7 +46,7 @@ setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  s <- NextMethod("as.character", ...);
+  s <- NextMethod("as.character");
   class <- class(s);
 
   s <- c(s, sprintf("File format: v%d", readHeader(this)$fileVersion));
@@ -73,7 +73,7 @@ setMethodS3("clearCache", "AromaTabularBinaryFile", function(this, ...) {
   }
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...); 
+  NextMethod("clearCache");
 }, private=TRUE)
 
 

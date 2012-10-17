@@ -38,7 +38,7 @@ setMethodS3("as.character", "AromaMicroarrayTabularBinaryFile", function(x, ...)
   # To please R CMD check
   this <- x;
 
-  s <- NextMethod("as.character", ...);
+  s <- NextMethod("as.character");
   class <- class(s);
 
   s <- c(s, sprintf("Platform: %s", getPlatform(this)));

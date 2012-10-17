@@ -55,7 +55,7 @@ setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=N
 
 
 setMethodS3("writeDataFrame", "AromaUnitFracBCnBinarySet", function(this, filename=sprintf("%s,fracB.txt", getFullName(this)), ...) {
-  NextMethod("writeDataFrame", this, filename=filename, ...);
+  NextMethod("writeDataFrame", filename=filename);
 })
 
 

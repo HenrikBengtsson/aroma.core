@@ -35,7 +35,7 @@ setMethodS3("validate", "AromaMicroarrayDataSet", function(this, ...) {
     throw("The located ", class(this)[1], " contains files with different chip types: ", paste(chipTypes, collapse=", "));
   }
 
-  NextMethod("validate", this, ...);
+  NextMethod("validate");
 }, protected=TRUE)
 
 
@@ -45,8 +45,8 @@ setMethodS3("getPlatform", "AromaMicroarrayDataSet", function(this, ...) {
 })
 
 
-setMethodS3("getDefaultFullName", "AromaMicroarrayDataSet", function(this, ...) {
-  NextMethod("getDefaultFullName", this, parent=1, ...);
+setMethodS3("getDefaultFullName", "AromaMicroarrayDataSet", function(this, parent=1L, ...) {
+  NextMethod("getDefaultFullName", parent=parent);
 })
 
 

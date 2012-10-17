@@ -27,15 +27,15 @@ setConstructorS3("UnitAnnotationDataFile", function(...) {
 })
 
 setMethodS3("getChipType", "UnitAnnotationDataFile", function(...) {
-  NextMethod("getChipType", ...);
+  NextMethod("getChipType");
 })
 
 setMethodS3("getPlatform", "UnitAnnotationDataFile", function(...) {
-  NextMethod("getPlatform", ...);
+  NextMethod("getPlatform");
 })
 
 setMethodS3("nbrOfUnits", "UnitAnnotationDataFile", function(...) {
-  NextMethod("nbrOfUnits", ...);
+  NextMethod("nbrOfUnits");
 })
 
 setMethodS3("getDefaultExtension", "UnitAnnotationDataFile", function(static, ...) {

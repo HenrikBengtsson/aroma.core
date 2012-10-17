@@ -40,7 +40,7 @@ setMethodS3("as.character", "AromaUnitSignalBinaryFile", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  s <- NextMethod("as.character", ...);
+  s <- NextMethod("as.character");
   class <- class(s);
 
   s <- c(s, sprintf("Platform: %s", getPlatform(this)));
@@ -116,12 +116,12 @@ setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platf
 
 
 setMethodS3("readDataFrame", "AromaUnitSignalBinaryFile", function(this, units=NULL, ..., rows=units) {
-  NextMethod("readDataFrame", this, rows=rows, ...);
+  NextMethod("readDataFrame", rows=rows);
 })
 
 
 setMethodS3("extractMatrix", "AromaUnitSignalBinaryFile", function(this, units=NULL, rows=units, ...) {
-  NextMethod("extractMatrix", rows=rows, ...);  
+  NextMethod("extractMatrix", rows=rows);  
 })
 
 

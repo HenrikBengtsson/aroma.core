@@ -98,7 +98,7 @@ setMethodS3("clearCache", "ChromosomalModel", function(this, ...) {
   }
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...);
+  NextMethod("clearCache");
 })
 
 

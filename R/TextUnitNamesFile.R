@@ -18,7 +18,7 @@ setMethodS3("clearCache", "TextUnitNamesFile", function(this, ...) {
   }
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...); 
+  NextMethod("clearCache"); 
 }, private=TRUE)
 
 
@@ -26,7 +26,7 @@ setMethodS3("as.character", "TextUnitNamesFile", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  s <- NextMethod("as.character", this, ...);
+  s <- NextMethod("as.character");
   class <- class(s);
   s <- c(s, sprintf("Number units: %d", nbrOfUnits(this, fast=TRUE)));
 
@@ -87,7 +87,7 @@ setMethodS3("getUnitNames", "TextUnitNamesFile", function(this, units=NULL, ...)
 setMethodS3("nbrOfUnits", "TextUnitNamesFile", function(this, ...) {
   nbrOfUnits <- this$.nbrOfUnits;
   if (is.null(nbrOfUnits)) {
-    nbrOfUnits <- NextMethod("nbrOfUnits", this);
+    nbrOfUnits <- NextMethod("nbrOfUnits");
     this$.nbrOfUnits <- nbrOfUnits;
   }
   nbrOfUnits;

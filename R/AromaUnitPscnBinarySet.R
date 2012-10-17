@@ -326,7 +326,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
 
 
 setMethodS3("writeDataFrame", "AromaUnitPscnBinarySet", function(this, filename=sprintf("%s,total.txt", getFullName(this)), ...) {
-  NextMethod("writeDataFrame", this, filename=filename, ...);
+  NextMethod("writeDataFrame", filename=filename);
 })
 
 

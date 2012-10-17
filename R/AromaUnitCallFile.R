@@ -70,7 +70,7 @@ setMethodS3("findUnitsTodo", "AromaUnitCallFile", function(this, units=NULL, ...
 
 
 setMethodS3("extractMatrix", "AromaUnitCallFile", function(this, ...) {
-  data <- NextMethod("extractMatrix", ...);
+  data <- NextMethod("extractMatrix");
 
   hdr <- readHeader(this)$dataHeader;
   nbrOfBits <- 8*hdr$sizes[1];

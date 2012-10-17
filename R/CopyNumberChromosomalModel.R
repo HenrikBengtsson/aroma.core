@@ -228,7 +228,7 @@ setMethodS3("clearCache", "CopyNumberChromosomalModel", function(this, ...) {
     clearCache(this$.refTuple);
 
   # Then for this object
-  NextMethod(generic="clearCache", object=this, ...);
+  NextMethod("clearCache");
 })
 
 
@@ -263,7 +263,7 @@ setMethodS3("getNames", "CopyNumberChromosomalModel", function(this, ...) {
   if (usePairedNames) {
     names <- getPairedNames(this, ...);
   } else {
-    names <- NextMethod("getNames", this, ...);
+    names <- NextMethod("getNames");
   }
 
   names;

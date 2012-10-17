@@ -44,7 +44,7 @@ setMethodS3("save", "RasterImage", function(this, file=NULL, ...) {
     }
   }
 
-  NextMethod("save", this, file=file, ...);
+  NextMethod("save", file=file);
 })
 
 setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE, format=c("auto", "png"), ...) {

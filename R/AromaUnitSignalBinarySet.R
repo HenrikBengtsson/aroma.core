@@ -56,7 +56,7 @@ setMethodS3("validate", "AromaUnitSignalBinarySet", function(this, ...) {
     throw("The located ", class(this)[1], " contains files with different chip types: ", paste(chipTypes, collapse=", "));
   }
 
-  NextMethod("validate", this, ...);
+  NextMethod("validate");
 }, protected=TRUE)
 
 

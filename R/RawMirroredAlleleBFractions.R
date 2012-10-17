@@ -24,7 +24,7 @@ setConstructorS3("RawMirroredAlleleBFractions", function(...) {
 })
 
 setMethodS3("plot", "RawMirroredAlleleBFractions", function(x, ..., ylim=c(0,1/2)+c(-0.2,0.2), ylab="Mirrored Allele B fraction") {
-  NextMethod("plot", x, ..., ylim=ylim, ylab=ylab);
+  NextMethod("plot", ylim=ylim, ylab=ylab);
 })
 
 setMethodS3("extractRawMirroredAlleleBFractions", "default", abstract=TRUE);
