@@ -1,6 +1,20 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.6 [2012-10-18]
+o It is no longer possible to have different *versions* of ArrayExplorer
+  and ChromosomeExplorer under the same reports/ directory structure.
+  If you wish to keep old Explorer reports, rename those reports/ 
+  root directories.
+o ROBUSTNESS/BUG FIX: Some of the HTML and CSS errors in ArrayExplorer
+  and ChromosomeExplorer that was detected by the W3's online validation 
+  services were correct.  New versions are ArrayExplorer v3.5 and
+  ChromosomeExplorer v3.5.
+o BUG FIX: A few errors in the Javascript of ArrayExplorer has been
+  corrected. Thanks Laurent Malvert (ID Business Solutions Ltd; IDBS)
+  for reporting and troubleshooting on this.
+
+
 Version: 2.6.5 [2012-10-17]
 o ROBUSTNESS: Now all static Object methods that calls "next" methods,
   utilizes NextMethod(), which became possible with R.oo v1.10.0.

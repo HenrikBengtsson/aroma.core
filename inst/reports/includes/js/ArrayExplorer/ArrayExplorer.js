@@ -1,7 +1,7 @@
 /****************************************************************
  * ArrayExplorer()
  *
- * Author: Henrik Bengtsson, hb@stat.berkeley.edu
+ * Author: Henrik Bengtsson, henrik.bengtsson@aroma-project.org
  ****************************************************************/
 function ArrayExplorer() {
   /************************************************************************
@@ -214,6 +214,42 @@ function ArrayExplorer() {
 
 
   /************************************************************************
+   * Misc.
+   ************************************************************************/
+  this.getYOfImage2d = function() {
+    var y = findXY(this.image2d.image).y;
+
+    /* Sanity check */
+    if (isNaN(y)) {
+      this.error("Failed to infer 'y' of 'image2d': " + y);
+    }
+
+    return(y);
+  }
+
+  this.getClientHeight = function() {
+    var dh = window.innerHeight;
+
+    /* If NaN, try fallback solution */
+    if (isNaN(dh)) {
+      dh = document.body.clientHeight;
+    }
+
+    /* Sanity check */
+    if (isNaN(dh)) {
+      this.error("Failed to infer 'height' of client: " + dh);
+    }
+
+    return(dh);
+  }
+
+
+  this.error <- function(msg) {
+    alert("ArrayExplorer v3.5 ERROR: " + msg);
+  }
+
+
+  /************************************************************************
    * Main
    ************************************************************************/
   this.samples = new Array();
@@ -298,10 +334,13 @@ function ArrayExplorer() {
   }
 
   this.update = function() {
-    var y = findXY(this.image2d.image).y;
-    var dh = document.body.clientHeight;
-    var dh = window.innerHeight;
+    var y = this.getYOfImage2d();
+    var dh = this.getClientHeight();
     var h = dh - y - 16;
+    /* Sanity check */
+    if (h < 0) {
+      this.error("Trying to set 'height' of 'image2d' to a negative value: " + h + " (=dh-y-16=" + dh + "-" + y + "-16)");
+    }
     this.image2d.container.style.height = h + 'px';
     var ar = this.image2d.getAspectRatio();
     this.nav2d.setRelDimension(1/this.scale, 1/this.scale/ar);
@@ -322,10 +361,14 @@ function ArrayExplorer() {
     this.setScales(new Array('0.5', '1', '2', '4', '8', '16', '32'));
     this.setColorMaps(new Array('gray'));
 
-    var y = findXY(this.image2d.image).y;
-    var dh = document.body.clientHeight;
-    var h = (dh - y - 12) + 'px';
-    this.image2d.container.style.height = h;
+    var y = this.getYOfImage2d();
+    var dh = this.getClientHeight();
+    var h = (dh - y - 12);
+    /* Sanity check */
+    if (h < 0) {
+      this.error("Trying to set 'height' of 'image2d' to a negative value: " + h + " (=dh-y-12=" + dh + "-" + y + "-12)");
+    }
+    this.image2d.container.style.height = h + "px";
 
     this.setChipType(this.chipTypes[0]);
     this.setSample(this.samples[0]);
@@ -338,6 +381,10 @@ function ArrayExplorer() {
 
 /****************************************************************
  HISTORY:
+ 2012-10-18
+ o ROBUSTNESS: Now ArrayExplorer asserts that inferred height
+   of 'image2d' and height of the client are valid.  If not,
+   an informative alert() error is reported.
  2012-03-06
  o Now update() also updates the navigator, which may be needed
    if the windows was resized.

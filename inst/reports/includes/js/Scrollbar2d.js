@@ -1,7 +1,7 @@
 /****************************************************************
  * Scrollbar2d()
  *
- * Author: Henrik Bengtson, hb@stat.berkeley.edu
+ * Author: Henrik Bengtsson, hb@stat.berkeley.edu
  ****************************************************************/
 function Scrollbar2d(id) {
   this.setImage = function(url) {
@@ -38,11 +38,12 @@ function Scrollbar2d(id) {
     this.yOffset = pos.y;
     var w = this.getImageWidth();
     var h = this.getImageHeight();
+    var bw = 2; /* Border width */
     this.marker.style.width = Math.round(w*this.width) + "px";
     this.marker.style.height = Math.round(h*this.height) + "px";
-    this.marker.style.left = Math.round(this.xOffset + w*this.x) + "px";
-    this.marker.style.top = Math.round(this.yOffset + h*this.y) + "px";
-    this.marker.style.border = 'solid; black; 2px';
+    this.marker.style.left = Math.round(this.xOffset + w*this.x - bw) + "px";
+    this.marker.style.top = Math.round(this.yOffset + h*this.y - bw) + "px";
+    this.marker.style.border = bw + 'px solid black';
   }
 
   this.getRegion = function() {
@@ -163,6 +164,9 @@ function Scrollbar2d(id) {
 
 /****************************************************************
  HISTORY:
+ 2012-10-18
+ o BUG FIX: Tried to assign a CSS style with syntax error,
+   i.e. 'solid; black; 2px'. Also adjusting for the border width.
  2012-03-06
  o Update getImageWidth()/getImageHeight() to no longer
    subtract an ad hoc padding/inner margin.
