@@ -32,13 +32,12 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
 
  }
 
- \usage{ChromosomeExplorer(model=NULL, zooms=2^(0:6), version=c("3.4", "3"), ...)}
+ \usage{ChromosomeExplorer(model=NULL, zooms=2^(0:6), ...)}
 
  \arguments{
    \item{model}{A \code{\link{CopyNumberChromosomalModel}} object.}
    \item{zooms}{An positive \code{\link[base]{integer}} \code{\link[base]{vector}} specifying for which zoom
     levels the graphics should be generated.}
-   \item{version}{The version of the Explorer HTML/Javascript generated/used.}
    \item{...}{Not used.}
  }
 

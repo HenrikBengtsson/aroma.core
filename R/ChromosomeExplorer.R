@@ -425,7 +425,8 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
 
   srcPath <- getTemplatePath(this);
   pathT <- file.path(srcPath, "rsp", "ChromosomeExplorer");
-  pathname <- filePath(pathT, "ChromosomeExplorer.onLoad.js.rsp");
+  filenameT <- "setupExplorer.js.rsp";
+  pathname <- filePath(pathT, filenameT);
 
   verbose && enter(verbose, "Compiling ", basename(pathname));
   verbose && cat(verbose, "Source: ", pathname);
