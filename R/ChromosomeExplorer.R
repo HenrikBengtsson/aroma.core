@@ -13,7 +13,6 @@
 #   \item{model}{A @see "CopyNumberChromosomalModel" object.}
 #   \item{zooms}{An positive @integer @vector specifying for which zoom
 #    levels the graphics should be generated.}
-#   \item{version}{The version of the Explorer HTML/Javascript generated/used.}
 #   \item{...}{Not used.}
 # }
 #
@@ -39,7 +38,7 @@
 #  @see "CopyNumberChromosomalModel".
 # }
 #*/###########################################################################
-setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), version=c("3.4", "3"), ...) {
+setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -54,12 +53,9 @@ setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), versi
   } else {
     zooms <- Arguments$getDoubles(zooms, range=c(0, Inf));
   }
+
   
-  # Argument 'version':
-  version <- match.arg(version);
-
-
-  extend(Explorer(version=version, ...), c("ChromosomeExplorer"),
+  extend(Explorer(...), c("ChromosomeExplorer"),
     .model = model,
     .arrays = NULL,
     .plotCytoband = TRUE,
@@ -73,7 +69,6 @@ setMethodS3("as.character", "ChromosomeExplorer", function(x, ...) {
   this <- x;
 
   s <- sprintf("%s:", class(this)[1]);
-  s <- c(s, sprintf("Version: %s", getVersion(this)));
   s <- c(s, sprintf("Name: %s", getName(this)));
   s <- c(s, sprintf("Tags: %s", paste(getTags(this), collapse=",")));
   s <- c(s, sprintf("Number of arrays: %d", nbrOfArrays(this)));
@@ -378,19 +373,7 @@ setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nb
 
 
 
-setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename=NULL, ...) {
-  if (is.null(filename)) {
-    version <- getVersion(this);
-    if (version == "3") {
-      filename <- "ChromosomeExplorer.html";
-    } else if (version == "3.4") {
-      filename <- "ChromosomeExplorer.html";
-    } else if (version == "4") {
-      filename <- "ChromosomeExplorer4.html";
-    } else if (version == "5") {
-      filename <- "ChromosomeExplorer5.html";
-    }
-  }
+setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename="ChromosomeExplorer.html", ...) {
   NextMethod("addIndexFile", filename=filename);
 }, protected=TRUE)
 
@@ -435,27 +418,15 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
     on.exit(popState(verbose));
   }
 
-
-  # Output version
-  version <- getVersion(this);
-  verbose && cat(verbose, "Explorer output version: ", version);
-
-
   path <- getPath(this);
   parentPath <- getParent(path);
   parent2Path <- getParent(parentPath);
   parent3Path <- getParent(parent2Path);
 
   srcPath <- getTemplatePath(this);
-  if (version == "3") {
-    pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer3", "ChromosomeExplorer.onLoad.js.rsp");
-  } else if (version == "3.4") {
-    pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer3.4", "setupExplorer.js.rsp");
-  } else if (version == "4") {
-    pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer4", "ChromosomeExplorer4.onLoad.js.rsp");
-  } else if (version == "5") {
-    pathname <- filePath(srcPath, "rsp", "ChromosomeExplorer5", "ChromosomeExplorer5.onLoad.js.rsp");
-  }
+  pathT <- file.path(srcPath, "rsp", "ChromosomeExplorer");
+  pathname <- filePath(pathT, "ChromosomeExplorer.onLoad.js.rsp");
+
   verbose && enter(verbose, "Compiling ", basename(pathname));
   verbose && cat(verbose, "Source: ", pathname);
   outFile <- gsub("[.]rsp$", "", basename(pathname));
@@ -689,6 +660,8 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 
 ##############################################################################
 # HISTORY:
+# 2012-10-18
+# o CLEANUP: Drop all usage of 'version' in ChromosomeExplorer.
 # 2012-03-06
 # o Dropped setup() for ChromosomeExplorer, because now Explorer has one.
 # o Renamed updateSamplesFile() to updateSetupExplorerFile().
