@@ -3,8 +3,8 @@ setMethodS3("plotRawCopyNumbers", "CopyNumberChromosomalModel", function(this, p
   if (is.null(path)) {
     path <- getReportPath(this);
     path <- filePath(getParent(path), "rawCNs,sampleLayer");
-    path <- Arguments$getWritablePath(path);
   }
+  path <- Arguments$getWritablePath(path);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -13,8 +13,6 @@ setMethodS3("plotRawCopyNumbers", "CopyNumberChromosomalModel", function(this, p
     on.exit(popState(verbose));
   }
 
-
-  mkdirs(path);
 
   # Get chip type (used to annotate the plot)
   chipType <- getChipType(this);

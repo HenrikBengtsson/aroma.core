@@ -92,7 +92,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
   arrayNames <- getNames(this);
 
   path <- getPath(this);
-  mkdirs(path);
+  path <- Arguments$getWritablePath(path);
 
   if (oneFile) {
     filename <- sprintf("%s,regions.%s", fullname, format); 
@@ -222,6 +222,12 @@ ylim <- c(-1,1);
 
 ##############################################################################
 # HISTORY:
+# 2012-10-21
+# o ROBUSTNESS: Now using Arguments$getWritablePath() instead of mkdirs()
+#   whereever applicable.  Soon, when Arguments$getWritablePath() will
+#   assert that (i) the requested path exists/or created, and (ii) allowing
+#   for small delay between creating the path and testing for it's existance
+#   on slow file systems.
 # 2009-05-16
 # o Added getFitFunction().  Removed fitOne().
 # 2007-09-04

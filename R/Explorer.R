@@ -485,12 +485,10 @@ setMethodS3("getMainPath", "Explorer", function(this, ...) {
   if (!isDirectory(path)) {
     if (getParallelSafe(this)) {
       tryCatch({
-        mkdirs(path);
+        path <- Arguments$getWritablePath(path);
       }, error = function(ex) {});
     } else {
-      mkdirs(path);
-      if (!isDirectory(path))
-        throw("Failed to create output directory: ", path);
+      path <- Arguments$getWritablePath(path);
     }
   }
 

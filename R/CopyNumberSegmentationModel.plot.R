@@ -98,9 +98,10 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
   # Output path
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # The report path
-  if (is.null(path))
+  if (is.null(path)) {
     path <- getReportPath(this);
-  mkdirs(path);
+  }
+  path <- Arguments$getWritablePath(path);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Setup the PNG device

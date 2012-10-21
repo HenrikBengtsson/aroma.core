@@ -183,7 +183,7 @@ setMethodS3("plotAxesLayers", "CopyNumberChromosomalModel", function(this, path=
     path <- filePath(getParent(path), "axes,chrLayer");
     path <- Arguments$getWritablePath(path);
   }
-  mkdirs(path);
+  path <- Arguments$getWritablePath(path);
 
 
   plotChromosomesLayers(this, FUN=function(..., zoom, unit, nbrOfBases, pixelsPerMb, verbose=FALSE) {
@@ -207,9 +207,8 @@ setMethodS3("plotGridHorizontalLayers", "CopyNumberChromosomalModel", function(t
   if (is.null(path)) {
     path <- getReportPath(this);
     path <- filePath(getParent(path), "gridH,chrLayer");
-    path <- Arguments$getWritablePath(path);
   }
-  mkdirs(path);
+  path <- Arguments$getWritablePath(path);
 
   plotChromosomesLayers(this, FUN=function(..., verbose=FALSE) {
     verbose && enter(verbose, "Plotting transparent image");
@@ -231,9 +230,8 @@ setMethodS3("plotCytobandLayers", "CopyNumberChromosomalModel", function(this, p
   if (is.null(path)) {
     path <- getReportPath(this);
     path <- filePath(getParent(path), "cytoband,chrLayer");
-    path <- Arguments$getWritablePath(path);
   }
-  mkdirs(path);
+  path <- Arguments$getWritablePath(path);
 
   plotChromosomesLayers(this, FUN=function(..., chromosome, unit=unit, verbose=FALSE) {
     suppressWarnings({

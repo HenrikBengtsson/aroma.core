@@ -120,10 +120,7 @@ setMethodS3("getParentPath", "ChromosomalModel", function(this, ...) {
 
   # Create path?
   if (!isDirectory(path)) {
-    mkdirs(path);
-    if (!isDirectory(path)) {
-      throw("Failed to create directory: ", path);
-    }
+    path <- Arguments$getWritablePath(path);
   }
 
   path;
@@ -140,10 +137,7 @@ setMethodS3("getPath", "ChromosomalModel", function(this, ...) {
 
   # Create path?
   if (!isDirectory(path)) {
-    mkdirs(path);
-    if (!isDirectory(path)) {
-      throw("Failed to create output directory: ", path);
-    }
+    path <- Arguments$getWritablePath(path);
   }
 
   path;

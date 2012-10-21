@@ -184,7 +184,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
   # Setup
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   path <- getPath(this);
-  mkdirs(path);
+  path <- Arguments$getWritablePath(path);
 
   fitFcn <- getFitFunction(this, verbose=less(verbose, 50));
 
@@ -534,7 +534,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
   arrayNames <- getNames(this)[arrays];
 
   path <- getPath(this);
-  mkdirs(path);
+  path <- Arguments$getWritablePath(path);
 
   if (oneFile) {
     filename <- sprintf("%s,regions.%s", fullname, format); 
