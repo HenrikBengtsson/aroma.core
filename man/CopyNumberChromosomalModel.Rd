@@ -59,6 +59,7 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
  \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
  \tab \code{getChromosomeLength} \tab  -\cr
  \tab \code{getNames} \tab  -\cr
+ \tab \code{getReference} \tab  -\cr
  \tab \code{getReferenceSetTuple} \tab  -\cr
  \tab \code{isPaired} \tab  -\cr
  \tab \code{plotAxesLayers} \tab  -\cr

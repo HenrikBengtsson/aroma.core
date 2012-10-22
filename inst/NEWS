@@ -2,6 +2,12 @@ Package: aroma.core
 ===================
 
 Version: 2.6.7 [2012-10-21]
+o Now CopyNumberChromosomalModel() accepts references of type
+  "none", "constant(1)", "constant(2)", and "median", where "none"
+  and "constant(1)" are identical, "constant(2)" uses reference signals
+  that are exactly 2, and "median" uses reference signals are equals
+  the robust average across all samples.  For backward compatibility,
+  NULL is still supported, which equals "median".
 o ROBUSTNESS: Now using Arguments$getWritablePath() everywhere instead
   of mkdirs(), because the former will do a better job in creating
   and asserting directories on slow shared file systems, and when it

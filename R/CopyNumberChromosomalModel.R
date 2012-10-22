@@ -53,97 +53,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   }
 
   # Argument 'refTuple':
-  if (!is.null(refTuple)) {
-    # Is the reference a single file?
-    # AD HOC; Need more specialized class than GenericDataFile.
-    # /HB 2009-11-19
-    if (inherits(refTuple, "GenericDataFile")) {
-      refTuple <- list(refTuple);
-    }
-
-    # Coerce list
-    if (is.list(refTuple)) {
-      refList <- refTuple;
-
-      cesList <- getSets(cesTuple);
-
-      # Assert the number of chip types
-      if (length(refList) != length(cesList)) {
-        throw("The number of chip types in the references (argument 'refTuple') does not match the number of chip types in the sample (argument 'cesTuple'): ", length(refList), " != ", length(cesList));
-      }
-
-      # Coerce single reference files into reference sets
-      for (kk in seq(along=refList)) {
-        ref <- refList[[kk]];
-
-        # If a data file...
-        # AD HOC; Need more specialized class than GenericDataFile.
-        # /HB 2009-11-19
-        if (inherits(ref, "GenericDataFile")) {
-          chipType <- getChipType(ref);
-          chipType <- gsub(",monocell", "", chipType);
-
-          ces <- cesList[[chipType]];
-
-          # Sanity check
-          if (is.null(ces)) {
-            throw("The reference (argument 'refTuple') uses a chip type not used in the sample (argument 'cesTuple'): ", chipType, " not in (", paste(names(cesList), collapse=", "), ")");
-          }
-
-          # Create a data set holding a sequence of one replicated reference file
-          refFiles <- rep(list(ref), nbrOfArrays(ces));
-          refSet <- newInstance(ces, refFiles);
-          rm(refFiles);
-         
-          refList[[kk]] <- refSet;
-          rm(refSet);
-        }
-        rm(ref);
-      } # for (kk ...)
-
-      refTuple <- refList;
-      rm(refList, cesList);
-    } # if (is.list(refTuple))
-
-    # Coerce to CopyNumberDataSetTuple, if needed
-    refTuple <- as.CopyNumberDataSetTuple(refTuple);
-
-    # Assert the same number of chip types in test and reference set
-    if (!identical(getChipTypes(refTuple), getChipTypes(cesTuple))) {
-      throw("The reference tuple has a different set of chip types compared with the test tuple");
-    }
-
-    # Assert that the reference data is of the same format as the sample data
-    if (hasAlleleBFractions(refTuple) != hasAlleleBFractions(cesTuple)) {
-      throw("The reference data (argument 'refTuple') is not compatible with the sample data (argument 'cesTuple'). One provides total copy numbers and the other does not.");
-    }
-    if (hasStrandiness(refTuple) != hasStrandiness(cesTuple)) {
-      throw("The reference data (argument 'refTuple') is not compatible with the sample data (argument 'cesTuple'). One provides strand-specific data and the other does not.");
-    }
-
-
-    # Validate consistency between the data sets and the reference files
-    cesList <- getSets(cesTuple);
-    refList <- getSets(refTuple);
-    for (kk in seq(along=cesList)) {
-      ces <- cesList[[kk]];
-      ref <- refList[[kk]];
-
-      # Assert that the reference and the sample sets are of the same size
-      if (nbrOfArrays(ref) != nbrOfArrays(ces)) {
-        throw("The number of reference files does not match the number of sample files: ", nbrOfArrays(ref), " != ", nbrOfArrays(ces));
-      }
-
-      # Assert that the reference files are compatible with the test files
-      for (jj in seq(length=nbrOfArrays(ces))) {
-        cf <- getFile(ces, jj);
-        rf <- getFile(ref, jj);
-        if (!inherits(rf, class(cf)[1])) {
-          throw(class(ref)[1], " #", kk, " of argument 'refTuple' contains file #", jj, ", that is not of the same class as the paired test file: ", class(rf)[1], " !inherits from ", class(cf)[1]);
-        }
-      } # for (jj ...)
-    } # for (kk in ...)
-  }
+  # Validated it setReference() below.
 
   # Argument 'calculateRatios':
   if (is.character(calculateRatios) && calculateRatios == "auto") {
@@ -159,14 +69,16 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
 
   this <- extend(ChromosomalModel(), "CopyNumberChromosomalModel",
     .cesTuple = cesTuple,
-    .refTuple = refTuple,
-    .paired = (length(refTuple) > 0),
+    .reference = NULL,
+    .refTuple = NULL,
     .calculateRatios = calculateRatios,
     .chromosomes = NULL,
     .tags = tags,
     .genome = genome,
     .optionalArgs = optionalArgs
   );
+
+  this <- setReference(this, refTuple);
 
   # Validate?
   if (!is.null(this$.cesTuple)) {
@@ -190,21 +102,27 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
   chipTypes <- getChipTypes(this);
   nbrOfChipTypes <- length(chipTypes);
   s <- c(s, sprintf("Number of chip types: %d", nbrOfChipTypes));
-  s <- c(s, "Sample & reference file pairs:");
+
   cesList <- getSets(getSetTuple(this));
+
+  reference <- getReference(this);
+  refTag <- sprintf("<%s>", reference);
   refList <- getRefSetTuple(this);
-  if (!is.null(refList))
+  if (!is.null(refList)) {
     refList <- getSets(refList);
+  }
+
+  s <- c(s, "Sample & reference file pairs:");
   for (kk in seq(along=cesList)) {
     s <- c(s, sprintf("Chip type #%d ('%s') of %d:", kk, chipTypes[kk], nbrOfChipTypes));
     s <- c(s, "Sample data set:");
     ces <- cesList[[kk]];
     ref <- refList[[kk]];
     s <- c(s, as.character(ces));
-    s <- c(s, "Reference data set/file:");
     if (is.null(ref)) {
-      s <- c(s, "<average across arrays>");
+      s <- c(s, sprintf("Reference: %s", refTag));
     } else {
+      s <- c(s, "Reference data set/file:");
       s <- c(s, as.character(ref));
     }
   }
@@ -238,17 +156,6 @@ setMethodS3("getOptionalArguments", "CopyNumberChromosomalModel", function(this,
 }, protected=TRUE)
 
 
-setMethodS3("getRefSetTuple", "CopyNumberChromosomalModel", function(this, ...) {
-  this$.refTuple;
-}, protected=TRUE)
-
-
-
-
-
-setMethodS3("isPaired", "CopyNumberChromosomalModel", function(this, ...) {
-  as.logical(this$.paired);
-})
 
 
 setMethodS3("getNames", "CopyNumberChromosomalModel", function(this, ...) {
@@ -267,6 +174,274 @@ setMethodS3("getNames", "CopyNumberChromosomalModel", function(this, ...) {
   }
 
   names;
+})
+
+
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# Methods related to the reference
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, reference, ...) {
+  # Argument 'reference':
+  if (is.null(reference)) {
+    reference <- "median";
+  }
+
+  calculateRatios <- this$.calculateRatios;
+  if (is.character(reference)) {
+    if (reference == "median") {
+    } else if (reference == "none") {
+      calculateRatios <- TRUE;
+    } else if (reference == "constant(1)") {
+      calculateRatios <- TRUE;
+    } else if (reference == "constant(2)") {
+      calculateRatios <- TRUE;
+    } else {
+      throw("Unknown string value of argument 'reference': ", reference);
+    }
+    refTuple <- NULL;
+  } else {
+    refTuple <- reference;
+    reference <- "explicit";
+    # Ignore reference, if 'calculateRatios' is FALSE
+    if (is.logical(calculateRatios) && !calculateRatios) {
+      return(invisible(this));
+    }
+  }
+
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Was an explicit reference data set/tuple was provided?
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (reference == "explicit") {
+    # Is the reference a single file?
+    # AD HOC; Need more specialized class than GenericDataFile.
+    # /HB 2009-11-19
+    if (inherits(refTuple, "GenericDataFile")) {
+      refTuple <- list(refTuple);
+    }
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Coerce reference into a reference tuple?
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    if (is.list(refTuple)) {
+      refList <- refTuple;
+ 
+      # Validate against the test set tuple
+      cesTuple <- getSetTuple(this);
+      cesList <- getSets(cesTuple);
+      nbrOfChipTypes <- length(cesList);
+  
+      # Assert the number of chip types
+      if (length(refList) != nbrOfChipTypes) {
+        throw("The number of chip types in the references (argument 'refTuple') does not match the number of chip types in the sample (argument 'cesTuple'): ", length(refList), " != ", nbrOfChipTypes);
+      }
+  
+      # Coerce single reference files into reference sets
+      for (kk in seq(along=refList)) {
+        ref <- refList[[kk]];
+  
+        # If a data file...
+        # AD HOC; Need more specialized class than GenericDataFile.
+        # /HB 2009-11-19
+        if (inherits(ref, "GenericDataFile")) {
+          chipType <- getChipType(ref);
+          chipType <- gsub(",monocell", "", chipType);
+  
+          ces <- cesList[[chipType]];
+  
+          # Sanity check
+          if (is.null(ces)) {
+            throw("The reference (argument 'refTuple') uses a chip type not used in the sample (argument 'cesTuple'): ", chipType, " not in (", paste(names(cesList), collapse=", "), ")");
+          }
+  
+          # Create a data set holding a sequence of one replicated reference file
+          refFiles <- rep(list(ref), times=nbrOfArrays(ces));
+          refSet <- newInstance(ces, refFiles);
+          rm(refFiles);
+           
+          refList[[kk]] <- refSet;
+          rm(refSet);
+        }
+        rm(ref);
+      } # for (kk ...)
+  
+      refTuple <- refList;
+      rm(refList, cesList);
+    } # if (is.list(refTuple))
+  
+    if (!is.null(refTuple)) {
+      # Coerce to CopyNumberDataSetTuple, if needed
+      refTuple <- as.CopyNumberDataSetTuple(refTuple);
+    }
+
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Validate
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Assert the same number of chip types in test and reference set
+    if (!identical(getChipTypes(refTuple), getChipTypes(cesTuple))) {
+      throw("The reference tuple has a different set of chip types compared with the test tuple");
+    }
+
+    # Assert that the reference data is of the same format as the sample data
+    if (hasAlleleBFractions(refTuple) != hasAlleleBFractions(cesTuple)) {
+      throw("The reference data (argument 'refTuple') is not compatible with the sample data (argument 'cesTuple'). One provides total copy numbers and the other does not.");
+    }
+    if (hasStrandiness(refTuple) != hasStrandiness(cesTuple)) {
+      throw("The reference data (argument 'refTuple') is not compatible with the sample data (argument 'cesTuple'). One provides strand-specific data and the other does not.");
+    }
+
+    # Validate consistency between the data sets and the reference files
+    cesList <- getSets(cesTuple);
+    refList <- getSets(refTuple);
+    for (kk in seq(along=cesList)) {
+      ces <- cesList[[kk]];
+      ref <- refList[[kk]];
+
+      # Assert that the reference and the sample sets are of the same size
+      if (nbrOfArrays(ref) != nbrOfArrays(ces)) {
+        throw("The number of reference files does not match the number of sample files: ", nbrOfArrays(ref), " != ", nbrOfArrays(ces));
+      }
+
+      # Assert that the reference files are compatible with the test files
+      for (jj in seq(length=nbrOfArrays(ces))) {
+        cf <- getFile(ces, jj);
+        rf <- getFile(ref, jj);
+        if (!inherits(rf, class(cf)[1])) {
+          throw(class(ref)[1], " #", kk, " of argument 'refTuple' contains file #", jj, ", that is not of the same class as the paired test file: ", class(rf)[1], " !inherits from ", class(cf)[1]);
+        }
+      } # for (jj ...)
+    } # for (kk in ...)
+  } # if (reference == "explicit")
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Update
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  this$.reference <- reference;
+  this$.refTuple <- refTuple;
+  this$.calculateRatios <- calculateRatios;
+
+  invisible(this);
+}, protected=TRUE)
+
+
+
+setMethodS3("getReference", "CopyNumberChromosomalModel", function(this, ...) {
+  res <- this$.reference;
+
+  # BACKWARD COMPATIBILITY: In case an old object was retrieved from file.
+  # /HB 2012-10-21
+  if (is.null(res)) {
+    refTuple <- this$.refTuple;
+    this <- setReference(this, refTuple);
+    res <- getReference(this);
+  }
+
+  # Sanity check
+  stopifnot(is.character(res));
+  res;
+})
+
+
+setMethodS3("getRefSetTuple", "CopyNumberChromosomalModel", function(this, ...) {
+  this$.refTuple;
+}, protected=TRUE)
+
+
+
+setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this, ..., force=FALSE, verbose=FALSE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
+    pushState(verbose);
+    on.exit(popState(verbose));
+  }
+
+  # Type of reference?
+  ref <- getReference(this);
+
+  # Nothing todo?
+  if (is.element(ref, c("none", "constant(1)", "constant(2)"))) {
+    return(NULL);
+  }
+
+  cesTuple <- getSetTuple(this);
+  cesList <- getSets(cesTuple);
+
+  refTuple <- getRefSetTuple(this);
+  if (!force && inherits(refTuple, class(cesTuple)[1])) {
+    return(refTuple);
+  }
+
+  verbose && enter(verbose, "Building tuple of reference sets");
+
+  # Build a reference set tuple, if missing
+  refList <- vector("list", length(cesList));
+  for (kk in seq(along=cesList)) {
+    ces <- cesList[[kk]];
+    refSet <- refList[[kk]];
+
+    if (force || !inherits(refSet, "CopyNumberDataSet")) {
+      verbose && cat(verbose, "Type of reference: ", ref);
+
+      if (force) {
+        verbose && cat(verbose, "Forced recalculation requested.");
+      } else {
+        verbose && cat(verbose, "No reference available.");
+      }
+
+      if (ref == "median") {
+        verbose && enter(verbose, "Calculating average copy-number signals");
+        refFile <- getAverageFile(ces, force=force, verbose=less(verbose));
+        refSet <- clone(ces);
+        clearCache(refSet);
+        refFiles <- rep(list(refFile), nbrOfArrays(cesTuple));
+        refSet$files <- refFiles;
+        rm(refFiles);
+        verbose && exit(verbose);
+      } else {
+        throw("Non-supported reference: ", ref);
+      }
+
+      refList[[kk]] <- refSet;
+    }
+  } # for (kk ...)
+
+  # Coerce to CopyNumberDataSetTuple, if needed
+  refTuple <- as.CopyNumberDataSetTuple(refList);
+
+  this$.referenceTuple <- refTuple;
+
+  verbose && exit(verbose);
+
+  refTuple;
+}) # getReferenceSetTuple()
+
+
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# Methods related to paired models, e.g. paired tumor-normal segmentation
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+setMethodS3("isPaired", "CopyNumberChromosomalModel", function(this, ...) {
+  # BACKWARD COMPATIBILITY: Assert that the user does not rely on
+  # private field '.paired'. /HB 2012-10-21
+  if (!is.null(this$.paired)) {
+    throw("USER ERROR: Private field '.paired' of ", class(this)[1], " is no longer used/supported. If you do not understand this error message, please contact the mailing list of the package with full details of your script.");
+  }
+
+  ref <- getReference(this, ...);
+  if (is.element(ref, c("none", "constant(1)", "constant(2)"))) {
+    return(FALSE);
+  }
+
+  refTuple <- getReferenceSetTuple(this, ...);
+  (length(refTuple) > 0);
 })
 
 
@@ -292,6 +467,12 @@ setMethodS3("getPairedNames", "CopyNumberChromosomalModel", function(this, ..., 
 
 
   verbose && enter(verbose, "Constructing names of pairs");
+
+  # Sanity check
+  if (!isPaired(this)) {
+    throw(sprintf("Cannot create paired names on a non-paired %s object.", class(this)[1]));
+  }
+
   tuple <- getSetTuple(this);
   arrays <- seq(length=nbrOfFiles(tuple));
 
@@ -359,67 +540,6 @@ setMethodS3("getPairedNames", "CopyNumberChromosomalModel", function(this, ..., 
 
 
 
-
-
-setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this, ..., force=FALSE, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-
-
-  cesTuple <- getSetTuple(this);
-  cesList <- getSets(cesTuple);
-
-  refTuple <- getRefSetTuple(this);
-  if (!force && inherits(refTuple, class(cesTuple)[1])) {
-    return(refTuple);
-  }
-
-  verbose && enter(verbose, "Building tuple of reference sets");
-
-  # Build a reference set tuple, if missing
-  refList <- vector("list", length(cesList));
-  for (kk in seq(along=cesList)) {
-    ces <- cesList[[kk]];
-    refSet <- refList[[kk]];
-
-    if (force || !inherits(refSet, "CopyNumberDataSet")) {
-      if (force) {
-        verbose && cat(verbose, "Forced recalculation requested.");
-      } else {
-        verbose && cat(verbose, "No reference available.");
-      }
-      verbose && enter(verbose, "Calculating average copy-number signals");
-      refFile <- getAverageFile(ces, force=force, verbose=less(verbose));
-      refSet <- clone(ces);
-      clearCache(refSet);
-      refFiles <- rep(list(refFile), nbrOfArrays(cesTuple));
-      refSet$files <- refFiles;
-      rm(refFiles);
-      verbose && exit(verbose);
-      refList[[kk]] <- refSet;
-    }
-  } # for (kk ...)
-
-  # Coerce to CopyNumberDataSetTuple, if needed
-  refTuple <- as.CopyNumberDataSetTuple(refList);
-
-  this$.referenceTuple <- refTuple;
-
-  verbose && exit(verbose);
-
-  refTuple;
-})
-
-
-
 setMethodS3("calculateRatios", "CopyNumberChromosomalModel", function(this, ...) {
   calculateRatios <- this$.calculateRatios;
   if (is.null(calculateRatios)) {
@@ -428,6 +548,7 @@ setMethodS3("calculateRatios", "CopyNumberChromosomalModel", function(this, ...)
   }
   calculateRatios;
 }, protected=TRUE)
+
 
 
 setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, array, ..., verbose=FALSE) {
@@ -451,26 +572,36 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
   verbose && cat(verbose, "Test data sets:");
   verbose && print(verbose, cesTuple);
 
-  refTuple <- getReferenceSetTuple(this);
-  verbose && cat(verbose, "Reference data sets:");
-  verbose && print(verbose, refTuple);
-
   ceList <- getFileList(cesTuple, array, ..., verbose=less(verbose,1));
   verbose && cat(verbose, "Test data files:");
   verbose && print(verbose, ceList);
 
-  rfList <- getFileList(refTuple, array, ..., verbose=less(verbose,1));
+  ref <- getReference(this);
+  verbose && cat(verbose, "Type of reference: ", ref);
 
-  # Sanity check
-  if (!identical(names(ceList), names(rfList))) {
-    verbose && enter(verbose, "Sanity check failed");
-    verbose && cat(verbose, "Test data files:");
-    verbose && print(verbose, ceList);
-    verbose && cat(verbose, "Reference data files:");
-    verbose && print(verbose, rfList);
-    throw("SANITY CHECK ERROR: Target and reference files have non-matching chip types: ", hpaste(names(ceList)), " != ", hpaste(names(rfList)));
-    verbose && exit(verbose);
-  }
+  refTuple <- getReferenceSetTuple(this);
+  if (!is.null(refTuple)) {
+    verbose && cat(verbose, "Reference data sets:");
+    verbose && print(verbose, refTuple);
+
+    rfList <- getFileList(refTuple, array, ..., verbose=less(verbose,1));
+  
+    # Sanity check
+    if (!identical(names(ceList), names(rfList))) {
+      verbose && enter(verbose, "Sanity check failed");
+      verbose && cat(verbose, "Test data files:");
+      verbose && print(verbose, ceList);
+      verbose && cat(verbose, "Reference data files:");
+      verbose && print(verbose, rfList);
+      throw("SANITY CHECK ERROR: Target and reference files have non-matching chip types: ", hpaste(names(ceList)), " != ", hpaste(names(rfList)));
+      verbose && exit(verbose);
+    }
+  } else {
+    # ...otherwise return a list of 'ref strings.
+    rfList <- rep(ref, times=length(ceList));
+    rfList <- as.list(rfList);
+    names(rfList) <- names(ceList);
+  } # if (!is.null(refTuple))
 
   files <- c(ceList, rfList);
   dim(files) <- c(length(ceList), 2);
@@ -501,7 +632,9 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     throw("Argument 'refList' is of a different length than 'cesList': ", length(refList), " != ", length(ceList));
   }
   for (ref in refList) {
-    if (!is.null(ref)) {
+    if (is.character(ref)) {
+      ref <- Arguments$getCharacter(ref, length=c(1L,1L));
+    } else if (!is.null(ref)) {
       ref <- Arguments$getInstanceOf(ref, "CopyNumberDataFile");
     }
   }
@@ -549,16 +682,23 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       if (calculateRatios) {
         ref <- refList[[kk]];
 
-        # AD HOC. /HB 2007-09-29
-        # Hmmm... what is this? /HB 2009-11-18
-        # At least, replaced AffymetrixCelFile 
-        # with CopyNumberDataFile. /HB 2009-11-18
-        if (!inherits(ref, "CopyNumberDataFile")) {
-          ref <- NULL;
+        if (is.character(ref)) {
+        } else {
+          # AD HOC. /HB 2007-09-29
+          # Hmmm... what is this? /HB 2009-11-18
+          # At least, replaced AffymetrixCelFile 
+          # with CopyNumberDataFile. /HB 2009-11-18
+          if (!inherits(ref, "CopyNumberDataFile")) {
+            ref <- "none";  # WAS: ref <- NULL /HB 2012-10-21
+          }
         }
       } else {
-        ref <- NULL;
+        ref <- "none"; # WAS: ref <- NULL /HB 2012-10-21
       }
+
+      # Sanity check
+      stopifnot(!is.null(ref));
+
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # (a) Extract relative chromosomal signals
@@ -587,8 +727,8 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       # Sanity check
       if (fraction > maxNAFraction) {
         sampleTag <- getFullName(ce);
-        if (is.null(ref)) {
-          refTag <- "<none>";
+        if (is.element(ref, c("none", "constant(1)", "constant(2)"))) {
+          refTag <- sprintf("<%s>", ref);
         } else {
           refTag <- getFullName(ref);
         }
@@ -600,39 +740,45 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # (c) Estimate standard errors
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      if (estimateSd) {   
-        sdTheta <- extractMatrix(ref, units=units0, field="sdTheta", 
-                                               drop=TRUE, verbose=verbose);
-  
-        # Estimate the std dev of the raw log2(CN). 
-        # [only if ref is averaged across arrays]
-        if (isAverageFile(ref)) {
-          # Get (theta, sigma) of theta (estimated across all arrays).
-          theta <- extractMatrix(ref, units=units0, field="theta", 
-                                               drop=TRUE, verbose=verbose);
+      if (estimateSd) {
+        # By default, the estimates are missing
+        naValue <- as.double(NA);
+        sdTheta <- sdM <- rep(naValue, times=length(units0));
 
-          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-          # BEGIN: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
-          # (whose are not supported yet /HB 2009-11-18)
-          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-          # Number of arrays used when averaging (per unit)
-          ns <- getNumberOfFilesAveraged(ref, units=units0, verbose=verbose);
+        if (!is.character(ref)) {
+          sdTheta <- extractMatrix(ref, units=units0, field="sdTheta", 
+                                               drop=TRUE, verbose=verbose);
   
-          # Sanity check
-          stopifnot(length(ns) == length(units0));
+          # Estimate the std dev of the raw log2(CN). 
+          # [only if ref is averaged across arrays]
+          if (isAverageFile(ref)) {
+            # Get (theta, sigma) of theta (estimated across all arrays).
+            theta <- extractMatrix(ref, units=units0, field="theta", 
+                                                 drop=TRUE, verbose=verbose);
   
-          # Use Gauss' approximation (since mu and sigma are on the 
-          # intensity scale)
-          sdM <- log2(exp(1)) * sqrt(1+1/ns) * sdTheta / theta;
-  
-          rm(ns, theta);
-          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-          # END: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
-          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        } else {
-          naValue <- as.double(NA);
-          sdM <- rep(naValue, length(units0));
-        } # if (isAverageFile(ref))
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            # BEGIN: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
+            # (which are not supported yet /HB 2009-11-18)
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            # Number of arrays used when averaging (per unit)
+str(ref);
+print(ref);
+            ns <- getNumberOfFilesAveraged(ref, units=units0, verbose=verbose);
+stop("xxxxxxxxxxxxx");
+    
+            # Sanity check
+            stopifnot(length(ns) == length(units0));
+    
+            # Use Gauss' approximation (since mu and sigma are on the 
+            # intensity scale)
+            sdM <- log2(exp(1)) * sqrt(1+1/ns) * sdTheta / theta;
+    
+            rm(ns, theta);
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            # END: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+          } # if (isAverageFile(ref))
+        } # if (!is.character(ref))
 
         # Append stddev estimates
         df0 <- cbind(df0, sdTheta=sdTheta, sdM=sdM);
@@ -642,7 +788,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       rm(ref); # Not needed anymore
 
       # Append chip type, and CDF units.
-      df0 <- cbind(df0, chipType=rep(chipType, length=length(units0)), 
+      df0 <- cbind(df0, chipType=rep(chipType, times=length(units0)),
                                                               unit=units0);
       rm(units0);  
 
@@ -1020,6 +1166,17 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
 ##############################################################################
 # HISTORY:
+# 2012-10-21
+# o Now CopyNumberChromosomalModel() accepts references of type
+#   "none", "constant(1)", "constant(2)", and "median".
+# 2012-10-21
+# o Now getDataFileMatrix() may return character strings in the
+#   "reference" column.  These need to be interpreted by downstream
+#   methods.
+# o Added get- and setReference() for CopyNumberChromosomalModel().
+# o CLEANUP: isPaired() for CopyNumberChromosomalModel() now infers the
+#   value from the reference.  Note that it no longer uses private field
+#   '.paired', which has been dropped.
 # 2012-05-30
 # o Added argument 'calculateRatios' to CopyNumberChromosomalModel().
 #   If 'calculateRatios' is "auto", then it is inferred from the filename

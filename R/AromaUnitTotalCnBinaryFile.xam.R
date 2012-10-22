@@ -6,6 +6,14 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   # Argument 'other':
   if (is.null(other)) {
     # Do not calculate ratios relative to a reference
+    other <- "none";
+  }
+  if (is.character(other)) {
+    choices <- c("none", "constant(1)", "constant(2)");
+    if (!is.element(other, choices)) {
+      throw(sprintf("Argument 'other' should be one of %s: %s", paste(dQuote(choices), collapse=", "), other[1]));
+    }
+    other <- match.arg(other, choices=choices);
   } else {
     other <- Arguments$getInstanceOf(other, "CopyNumberDataFile");
   }
@@ -63,7 +71,22 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get thetas from the other
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (!is.null(other)) {
+  if (is.character(other)) {
+    verbose && enter(verbose, "Calculating special other thetas");
+    verbose && cat(verbose, "Argument 'other': ", other);
+
+    if (other == "none") {
+      thetaR <- 1;
+    } else if (other == "constant(1)") {
+      thetaR <- 1;
+    } else if (other == "constant(2)") {
+      thetaR <- 2;
+    } else {
+      throw("Unknown value of 'other': ", other);
+    }
+
+    verbose && exit(verbose);
+  } else {
     verbose && enter(verbose, "Retrieving other thetas");
   
     # Get the other theta estimates
@@ -79,15 +102,15 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
     } else if (hasTag(other, "logRatio")) {
       logBase0 <- 10;
     }
+
     if (!is.null(logBase0)) {
       thetaR <- logBase0^thetaR;
       verbose && printf(verbose, "Transformed thetaR = %f^thetaR\n", logBase0);
     }
-  
+
     verbose && exit(verbose);
-  } else {
-    thetaR <- 1;
   }
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calculate raw copy numbers relative to the other
@@ -122,11 +145,7 @@ setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromo
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'other':
-  if (is.null(other)) {
-    # Do not calculate ratios relative to a reference
-  } else {
-    other <- Arguments$getInstanceOf(other, "CopyNumberDataFile");
-  }
+  # Validated by getAM() below.
 
   # Argument 'chromosome':
   chromosome <- Arguments$getCharacter(chromosome);  # integer? /HB 2009-05-18
@@ -211,6 +230,10 @@ setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromo
 
 ############################################################################
 # HISTORY:
+# 2012-10-21
+# o Now getAM() accepts values "none", "constant(1)", and "constant(2)"
+#   for argument 'other'.
+# o CLEANUP: Now argument 'other' of getXAM() is validated by getAM().
 # 2009-11-19
 # o Created.
 ############################################################################
