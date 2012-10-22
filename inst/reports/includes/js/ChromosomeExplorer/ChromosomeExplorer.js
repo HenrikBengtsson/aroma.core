@@ -5,6 +5,16 @@
  * Author: Henrik Bengtsson, henrik.bengtsson@aroma-project.org
  ****************************************************************/
 function ChromosomeExplorer() {
+  /************************************************************************
+   * Generic methods
+   ************************************************************************/
+  this.version = "3.5"
+
+  this.error = function(msg) {
+      console.log("ChromosomeExplorer v" + this.version + " ERROR: " + msg);
+  }
+
+
   var chromosomes = new Array('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','X');
   var chipTypes = null;
 

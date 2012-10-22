@@ -23,6 +23,19 @@ function findXY(obj) {
 } /* findXY() */
 
 
+function findViewport() {
+  var e = window;
+  var a = 'inner';
+  if (!('innerWidth' in e)) {
+    a = 'client';
+    e = document.documentElement || document.body;
+  }
+  return {
+    width:e[a+'Width'],
+    height:e[a+'Height']
+  };
+} /* viewport() */
+
 function updateText(obj, str) {
   obj.innerText = str;
   obj.innerHTML = str;
@@ -121,6 +134,8 @@ function padWidthZeros(x, width) {
 
 /****************************************************************
  HISTORY:
+ 2012-10-21
+ o Added findViewport() adopted from http://goo.gl/PDVhF.
  2008-06-23
  o BUG FIX: highlightById() had a trailing semicolon in color.
  2007-02-20

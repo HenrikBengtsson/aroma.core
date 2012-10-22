@@ -5,6 +5,16 @@
  ****************************************************************/
 function ArrayExplorer() {
   /************************************************************************
+   * Generic methods
+   ************************************************************************/
+  this.version = "3.5"
+
+  this.error = function(msg) {
+    console.log("ArrayExplorer v" + this.version + " ERROR: " + msg);
+  }
+
+
+  /************************************************************************
    * Methods for setting up chip types, samples, color maps & scales
    ************************************************************************/
   this.setChipTypes = function(chipTypes) {
@@ -20,7 +30,6 @@ function ArrayExplorer() {
       updateLabel('chipTypeLabel', s);
     }
   }
-
 
   this.setSamples = function(samples) {
     this.samples = samples;
@@ -228,25 +237,15 @@ function ArrayExplorer() {
   }
 
   this.getClientHeight = function() {
-    var dh = window.innerHeight;
-
-    /* If NaN, try fallback solution */
-    if (isNaN(dh)) {
-      dh = document.body.clientHeight;
-    }
-
+    var vp = findViewport();
+    var dh = vp.height;
     /* Sanity check */
     if (isNaN(dh)) {
       this.error("Failed to infer 'height' of client: " + dh);
     }
-
     return(dh);
   }
 
-
-  this.error <- function(msg) {
-    alert("ArrayExplorer v3.5 ERROR: " + msg);
-  }
 
 
   /************************************************************************
@@ -381,6 +380,9 @@ function ArrayExplorer() {
 
 /****************************************************************
  HISTORY:
+ 2012-10-21
+ o Now utilizing new findViewport() to get the height (and
+   width) of the browser window.
  2012-10-18
  o ROBUSTNESS: Now ArrayExplorer asserts that inferred height
    of 'image2d' and height of the client are valid.  If not,
@@ -390,7 +392,7 @@ function ArrayExplorer() {
    if the windows was resized.
  o Now ArrayExplorer v3.4 works with at least Chrome 18, 
    Firefox 10, Internet Explorer 9, and Opera 11.61.
- o BUG FIX: Now update() uses 'window.innerHeigh' instead of
+ o BUG FIX: Now update() uses 'window.innerHeight' instead of
    'document.body.clientHeight' to infer the maximum height
    the loaded image should have in order to fill to the bottom.
  o ROBUSTIFICATION: updateImage() no longer tries to load
