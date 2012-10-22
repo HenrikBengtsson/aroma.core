@@ -106,7 +106,11 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
   cesList <- getSets(getSetTuple(this));
 
   reference <- getReference(this);
-  refTag <- sprintf("<%s>", reference);
+  if (reference == "median") {
+    refTag <- sprintf("<%s of samples>", reference);
+  } else {
+    refTag <- sprintf("<%s>", reference);
+  }
   refList <- getRefSetTuple(this);
   if (!is.null(refList)) {
     refList <- getSets(refList);
@@ -189,10 +193,13 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
 
   calculateRatios <- this$.calculateRatios;
   if (is.character(reference)) {
-    if (reference == "median") {
-    } else if (reference == "none") {
+    # "constant(1)" == "none"
+    if (reference == "constant(1)") {
+      reference <- "none";
+    }
+    if (reference == "none") {
       calculateRatios <- TRUE;
-    } else if (reference == "constant(1)") {
+    } else if (reference == "median") {
       calculateRatios <- TRUE;
     } else if (reference == "constant(2)") {
       calculateRatios <- TRUE;

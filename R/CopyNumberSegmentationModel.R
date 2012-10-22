@@ -134,7 +134,10 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     files <- files[keep];
 
     # Get tags *common* across chip types
-    tags <- lapply(files, FUN=getTags);
+    tags <- lapply(files, FUN=function(file) {
+      if (is.character(file)) return(file);
+      getTags(file);
+    });
     tags <- getCommonListElements(tags);
     tags <- unlist(tags, use.names=FALSE);
     # BEGIN: AFFX
@@ -232,11 +235,18 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     # files explicitly or indirectly.
 
     # Add combined reference name
-    names <- sapply(rfList, FUN=getName);
+    names <- sapply(rfList, FUN=function(file) {
+      if (is.character(file)) return(file);
+      getName(file);
+    });
     names <- mergeByCommonTails(names,"+");
     rfTags <- c(names, rfTags);
-    rfTags <- digest2(rfTags);
+    rfTags <- unique(rfTags);
+    if (length(rfTags) != 1L) {
+      rfTags <- digest2(rfTags);
+    }
     verbose && cat(verbose, "Reference tags: ", paste(rfTags, collapse=","));
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Chromosome by chromosome
