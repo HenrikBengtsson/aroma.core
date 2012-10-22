@@ -663,7 +663,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
 
   # Argument 'maxNAFraction':
   if (!missing(maxNAFraction)) {
-    msg <- sprintf("Argument 'maxNAFraction' to fit() of CopyNumberChromosomalModel is deprecated. Instead, specify when setting up the %s object.", class(this)[1]);
+    msg <- sprintf("Argument 'maxNAFraction' to getRawCnData() of CopyNumberChromosomalModel is deprecated. Instead, specify when setting up the %s object.", class(this)[1]);
     warning(msg);
   }
 

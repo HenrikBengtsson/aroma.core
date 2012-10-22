@@ -290,8 +290,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         # Get (x, M, stddev, chipType, unit) data from all chip types
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         tRead <- processTime();
-        cn <- extractRawCopyNumbers(this, array=array, chromosome=chr, 
-                                                maxNAFraction=maxNAFraction);
+        cn <- extractRawCopyNumbers(this, array=array, chromosome=chr, ...);
         timers$read <- timers$read + (processTime() - tRead);
         verbose && print(verbose, cn);
 
@@ -304,9 +303,15 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         optArgs <- getOptionalArguments(this);
         verbose && cat(verbose, "Optional arguments (may be ignored/may give an error/warning):");
         verbose && str(verbose, optArgs);
+        userArgs <- list(...);
+        excl <- which(names(userArgs) == "maxNAFraction");
+        if (length(excl) > 0L) userArgs <- userArgs[-excl];
+        if (length(userArgs) > 0L) {
+          verbose && cat(verbose, "User arguments (may be ignored/may give an error/warning):");
+          verbose && str(verbose, userArgs);
+        }
         args <- list(cn);
-        args <- c(args, optArgs);
-        args <- c(args, list(...));
+        args <- c(args, optArgs, userArgs);
         verbose && cat(verbose, "All arguments:");
         verbose && str(verbose, args);
         args <- c(args, list(...), list(verbose=less(verbose, 1)));
