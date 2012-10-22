@@ -652,3 +652,4 @@ AromaUnitGcContentFile  getColumnNames.AromaUnitGcContentFile
 AromaUgcFile
 getReference getReference.CopyNumberChromosomalModel
 setReference setReference.CopyNumberChromosomalModel
+getMaxNAFraction getMaxNAFraction.CopyNumberChromosomalModel
