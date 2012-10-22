@@ -1296,6 +1296,10 @@
 \alias{getExtensionPattern.AromaUnitGcContentFile}
 \alias{getFilenameExtension.AromaUnitGcContentFile}
 \alias{AromaUgcFile}
+\alias{getReference}
+\alias{getReference.CopyNumberChromosomalModel}
+\alias{setReference}
+\alias{setReference.CopyNumberChromosomalModel}
 
 \description{
   This page contains aliases for all "non-documented" objects that

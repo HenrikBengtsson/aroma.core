@@ -650,3 +650,5 @@ AromaUnitGcContentFile  getColumnNames.AromaUnitGcContentFile
   getExtensionPattern.AromaUnitGcContentFile
   getFilenameExtension.AromaUnitGcContentFile 
 AromaUgcFile
+getReference getReference.CopyNumberChromosomalModel
+setReference setReference.CopyNumberChromosomalModel
