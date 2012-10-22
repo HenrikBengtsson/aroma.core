@@ -99,8 +99,6 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #    be considered.  If @NULL, all are processed.}
 #   \item{chromosome}{A @vector of chromosomes indices specifying which
 #     chromosomes to be considered.  If @NULL, all are processed.}
-#   \item{maxNAFraction}{A @double in [0,1] indicating how many non-finite
-#     signals are allowed in the sanity checks of the data.}
 #   \item{force}{If @FALSE, the model will not be fitted again if it was
 #     already fitted.}
 #   \item{...}{Additional arguments passed to the segmentation method for
@@ -125,7 +123,7 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=1/5, force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
+setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=getMaxNAFraction(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -173,6 +171,12 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
                                                 range=range(allChromosomes));
 ##    chromosomes[chromosomes == "23"] <- "X";   ## TODO
     chromosomes <- intersect(chromosomes, getChromosomes(this));
+  }
+
+  # Argument 'maxNAFraction':
+  if (!missing(maxNAFraction)) {
+    msg <- sprintf("Argument 'maxNAFraction' to fit() of CopyNumberSegmentationModel is deprecated. Instead, specify when setting up the %s object.", class(this)[1]);
+    warning(msg);
   }
 
   # Argument 'verbose':

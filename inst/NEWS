@@ -2,6 +2,8 @@ Package: aroma.core
 ===================
 
 Version: 2.6.7 [2012-10-21]
+o Added argument 'maxNAFraction' to CopyNumberChromosomalModel, which
+  is now the prefer place to specify it, instead of to fit() etc.
 o Now CopyNumberChromosomalModel() accepts references of type
   "none", "constant(1)", "constant(2)", and "median", where "none"
   and "constant(1)" are identical, "constant(2)" uses reference signals

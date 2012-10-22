@@ -22,6 +22,8 @@
 #   }
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
+#   \item{maxNAFraction}{A @double in [0,1] indicating how many non-finite
+#     signals are allowed in the sanity checks of the data.}
 #   \item{...}{Optional arguments that may be used by some of the
 #      subclass models.}
 # }
@@ -37,7 +39,7 @@
 #
 # @author
 #*/###########################################################################
-setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", ...) {
+setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", maxNAFraction=1/5, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -64,6 +66,9 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   # Argument 'tags':
   tags <- Arguments$getTags(tags, collapse=NULL);
 
+  # Argument 'maxNAFraction':
+  maxNAFraction <- Arguments$getNumeric(maxNAFraction, range=c(0,1));
+
   # Optional arguments
   optionalArgs <- list(...);
 
@@ -75,6 +80,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     .chromosomes = NULL,
     .tags = tags,
     .genome = genome,
+    .maxNAFraction = maxNAFraction,
     .optionalArgs = optionalArgs
   );
 
@@ -157,6 +163,15 @@ setMethodS3("clearCache", "CopyNumberChromosomalModel", function(this, ...) {
 
 setMethodS3("getOptionalArguments", "CopyNumberChromosomalModel", function(this, ...) {
   this$.optionalArgs;
+}, protected=TRUE)
+
+
+setMethodS3("getMaxNAFraction", "CopyNumberChromosomalModel", function(this, default=1/5, ...) {
+  maxNAFraction <- this$.maxNAFraction;
+  if (is.null(maxNAFraction)) {
+    maxNAFraction <- default;
+  }
+  maxNAFraction;
 }, protected=TRUE)
 
 
@@ -621,7 +636,7 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
 
 
 
-setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., maxNAFraction=1/5, estimateSd=TRUE, force=FALSE, verbose=FALSE) {
+setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., maxNAFraction=getMaxNAFraction(this), estimateSd=TRUE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -644,6 +659,12 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     } else if (!is.null(ref)) {
       ref <- Arguments$getInstanceOf(ref, "CopyNumberDataFile");
     }
+  }
+
+  # Argument 'maxNAFraction':
+  if (!missing(maxNAFraction)) {
+    msg <- sprintf("Argument 'maxNAFraction' to fit() of CopyNumberChromosomalModel is deprecated. Instead, specify when setting up the %s object.", class(this)[1]);
+    warning(msg);
   }
 
   # Argument 'verbose':
@@ -1174,6 +1195,7 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 ##############################################################################
 # HISTORY:
 # 2012-10-21
+# o Added argument 'maxNAFraction' to CopyNumberChromosomalModel.
 # o Now CopyNumberChromosomalModel() accepts references of type
 #   "none", "constant(1)", "constant(2)", and "median".
 # 2012-10-21
