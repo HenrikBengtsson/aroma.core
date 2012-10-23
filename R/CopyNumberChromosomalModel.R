@@ -244,6 +244,8 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
       refTuple <- list(refTuple);
     }
 
+    cesTuple <- getSetTuple(this);
+
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Coerce reference into a reference tuple?
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -336,6 +338,9 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
         }
       } # for (jj ...)
     } # for (kk in ...)
+
+    # Not needed anymore
+    rm(cesTuple);
   } # if (reference == "explicit")
 
 
