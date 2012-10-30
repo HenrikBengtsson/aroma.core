@@ -200,7 +200,7 @@ setMethodS3("findByChipType", "AromaMicroarrayTabularBinaryFile", function(stati
     pathname <- do.call("findAnnotationDataByChipType", args=args);
     if (!is.null(pathname)) {
       # ..and expand it
-      pathname <- filePath(pathname, expandLinks="any");
+      pathname <- Arguments$getReadablePathname(pathname, mustExist=FALSE);
       if (!isFile(pathname))
         pathname <- NULL;
     }

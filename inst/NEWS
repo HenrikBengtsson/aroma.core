@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.8 [2012-10-29]
+o CLEANUP: Now using Arguments$get(Read|Writ)ablePath() instead of
+  filePath(..., expandLinks="any"). 
+
+
 Version: 2.6.7 [2012-10-21]
 o Added argument 'maxNAFraction' to CopyNumberChromosomalModel, which
   is now the prefer place to specify it, instead of to fit() etc.

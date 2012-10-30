@@ -237,7 +237,9 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
   }
 
   # Expand any file system links
-  paths <- sapply(paths, FUN=filePath, expandLinks="any");
+  paths <- sapply(paths, FUN=function(path) {
+    Arguments$getReadablePath(path, mustExist=FALSE);
+  });
 
   # Keep only existing search paths
   paths <- paths[sapply(paths, FUN=isDirectory)];
@@ -261,7 +263,9 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 
   # Expand any file system links
   paths <- file.path(paths, set);
-  paths <- sapply(paths, FUN=filePath, expandLinks="any");
+  paths <- sapply(paths, FUN=function(path) {
+    Arguments$getReadablePath(path, mustExist=FALSE);
+  });
 
   verbose && cat(verbose, "Possible <rootPath>/<set>/ paths:");
   verbose && print(verbose, paths);
@@ -290,7 +294,9 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 
     # Expand any file system links
     paths <- file.path(paths, name);
-    paths <- sapply(paths, FUN=filePath, expandLinks="any");
+    paths <- sapply(paths, FUN=function(path) {
+      Arguments$getReadablePath(path, mustExist=FALSE);
+    });
 
     verbose && cat(verbose, "Possible <rootPath>/<set>/<name>/ paths:");
     verbose && print(verbose, paths);

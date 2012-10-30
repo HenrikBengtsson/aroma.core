@@ -481,16 +481,8 @@ setMethodS3("getMainPath", "Explorer", function(this, ...) {
   subname <- getSubname(this);
 
   # The full path
-  path <- filePath(rootPath, name, subname, expandLinks="any");
-  if (!isDirectory(path)) {
-    if (getParallelSafe(this)) {
-      tryCatch({
-        path <- Arguments$getWritablePath(path);
-      }, error = function(ex) {});
-    } else {
-      path <- Arguments$getWritablePath(path);
-    }
-  }
+  path <- filePath(rootPath, name, subname);
+  path <- Arguments$getWritablePath(path);
 
   path;
 }, protected=TRUE)
@@ -512,7 +504,8 @@ setMethodS3("getTemplatePath", "Explorer", function(this, ..., verbose=FALSE) {
   verbose && enter(verbose, "Locating template files for ChromosomeExplorer");
   # Search for template files
   rootPath <- getRootPath(this);
-  path <- filePath(rootPath, "templates", expandLinks="any");
+  path <- filePath(rootPath, "templates");
+  path <- Arguments$getReadablePath(path, mustExist=FALSE);
   if (!isDirectory(path)) {
     path <- system.file("reports", "templates", package="aroma.core");
   }
@@ -747,7 +740,7 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
 
   # The path to the explorer HTML document
   path <- getMainPath(this);
-  pathname <- filePath(path, filename, expandLinks="any");
+  pathname <- Arguments$getReadablePathname(filename, path=path, mustExist=FALSE);
 
   # Just in case, is setup needed?
   if (!isFile(pathname)) {

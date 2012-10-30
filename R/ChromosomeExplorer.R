@@ -200,12 +200,8 @@ setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
   set <- getSetTag(model);
 
   # The full path
-  path <- filePath(mainPath, chipType, set, expandLinks="any");
-
-  # Create path?
-  if (!isDirectory(path)) {
-    path <- Arguments$getWritablePath(path);
-  }
+  path <- filePath(mainPath, chipType, set);
+  path <- Arguments$getWritablePath(path);
 
   path;
 })

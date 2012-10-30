@@ -116,12 +116,8 @@ setMethodS3("getParentPath", "ChromosomalModel", function(this, ...) {
   fullname <- getFullName(this);
 
   # The full path
-  path <- filePath(rootPath, fullname, expandLinks="any");
-
-  # Create path?
-  if (!isDirectory(path)) {
-    path <- Arguments$getWritablePath(path);
-  }
+  path <- filePath(rootPath, fullname);
+  path <- Arguments$getWritablePath(path);
 
   path;
 })
@@ -133,12 +129,8 @@ setMethodS3("getPath", "ChromosomalModel", function(this, ...) {
   chipType <- getChipType(this);
 
   # The full path
-  path <- filePath(path, chipType, expandLinks="any");
-
-  # Create path?
-  if (!isDirectory(path)) {
-    path <- Arguments$getWritablePath(path);
-  }
+  path <- filePath(path, chipType);
+  path <- Arguments$getWritablePath(path);
 
   path;
 })
@@ -159,7 +151,8 @@ setMethodS3("getReportPath", "ChromosomalModel", function(this, ...) {
   set <- getSetTag(this);
 
   # The report path
-  path <- filePath(rootPath, name, tags, chipType, set, expandLinks="any");
+  path <- filePath(rootPath, name, tags, chipType, set);
+  path <- Arguments$getWritablePath(path);
 
   path;
 }, protected=TRUE)
