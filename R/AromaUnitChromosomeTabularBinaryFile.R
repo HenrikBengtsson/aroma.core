@@ -66,7 +66,7 @@ setMethodS3("getChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(t
 })
 
 
-setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(this, ..., verbose=FALSE) {
+setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(this, units=NULL, ..., verbose=FALSE) {
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
@@ -74,7 +74,7 @@ setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(th
     on.exit(popState(verbose));
   }
 
-  data <- NextMethod("readDataFrame", verbose=less(verbose));
+  data <- NextMethod("readDataFrame", rows=units, verbose=less(verbose));
 
   if (nrow(data) > 0) {
     verbose && enter(verbose, "Converting zeros to NAs");
@@ -195,6 +195,9 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 
 ############################################################################
 # HISTORY:
+# 2012-10-31
+# o Added argument 'units' to readDataFrame() for 
+#   AromaUnitChromosomeTabularBinaryFile.
 # 2011-03-03
 # o ROBUSTNESS: Added a return contract/sanity check asserting that
 #   getUnitsOnChromosomes() truly returns valid 'unit' indices.

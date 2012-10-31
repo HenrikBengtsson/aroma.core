@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.9 [2012-10-31]
+o Added argument 'units' to readDataFrame() for 
+  AromaUnitChromosomeTabularBinaryFile.
+
+
 Version: 2.6.8 [2012-10-29]
 o CLEANUP: Now using Arguments$get(Read|Writ)ablePath() instead of
   filePath(..., expandLinks="any"). 
