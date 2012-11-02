@@ -9,6 +9,11 @@ import("R.oo")
 import("R.utils")
 import("R.rsp")
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Additional imports
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+importFrom("PSCBS", "plotTracksManyChromosomes");
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # EXPORTS
