@@ -35,7 +35,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitTotalCnBinaryFileList", functi
   if (dropEmpty) {
     verbose && enter(verbose, "Dropping empty data sets");
     ns <- sapply(cnList, FUN=nbrOfLoci);
-    keep <- whichVector(ns > 0);
+    keep <- which(ns > 0);
     cnList <- cnList[keep];
     ns <- sapply(cnList, FUN=nbrOfLoci);
     nbrOfSources <- length(cnList);

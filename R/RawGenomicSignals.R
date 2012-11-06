@@ -229,7 +229,7 @@ setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, chromos
   assertOneChromosome(rgs);
 
   x <- getPositions(rgs);
-  keep <- whichVector(region[1] <= x & x <= region[2]);
+  keep <- which(region[1] <= x & x <= region[2]);
 
   extractSubset(rgs, keep);
 }) # extractRegion()
@@ -842,7 +842,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
     # Identify target loci with this byValue
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     verbose && enter(verbose, "Extracting subset of (target) loci for this value");
-    idxsOut <- whichVector(is.element(byValuesOut, byValue));
+    idxsOut <- which(is.element(byValuesOut, byValue));
     resSS <- extractSubset(res, idxsOut, verbose=less(verbose,50));
     verbose && print(verbose, resSS);
     xOutSS <- getPositions(resSS);
@@ -863,7 +863,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     verbose && enter(verbose, "Extracting subset of (source) loci with this signal value");
     byValues <- gs[[field]];
-    idxsSS <- whichVector(is.element(byValues, byValue));
+    idxsSS <- which(is.element(byValues, byValue));
     gsSS <- extractSubset(gs, idxsSS);
     verbose && print(verbose, gsSS);
     # Sanity check

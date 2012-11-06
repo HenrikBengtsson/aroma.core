@@ -100,7 +100,7 @@ setMethodS3("writeDataFrame", "AromaUnitTabularBinaryFile", function(this, filen
   columns <- Arguments$getCharacters(columns);
 
   # Expand asterisk columns
-  idxs <- whichVector(columns == "*");
+  idxs <- which(columns == "*");
   if (length(idxs) > 0) {
     columns[idxs] <- paste(fields, collapse="\t");
     columns <- strsplit(columns, split="\t", fixed=TRUE);

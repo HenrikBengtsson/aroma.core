@@ -211,7 +211,7 @@ setMethodS3("readNeighborSequenceMatrix", "AromaCellSequenceFile", function(this
 
   verbose && enter(verbose, "Identifying non-missing sequences");
   # Only need to calculate non-missing sequences
-  rr <- whichVector(seqs[,1] != as.raw(0), na.rm=FALSE);
+  rr <- which(seqs[,1] != as.raw(0));
   verbose && exit(verbose);
 
 
@@ -323,7 +323,7 @@ setMethodS3("readSequences", "AromaCellSequenceFile", function(this, ..., verbos
   verbose && enter(verbose, "Allocating sequence strings");
   # Identify non-missing sequences
   idxs <- (res[,1] != as.raw(0));
-  idxs <- whichVector(idxs, na.rm=FALSE);
+  idxs <- which(idxs);
 
   # Keep only those
   res <- res[idxs,,drop=FALSE];
@@ -360,7 +360,7 @@ setMethodS3("readSequences", "AromaCellSequenceFile", function(this, ..., verbos
     verbose && enter(verbose, sprintf("Value #%d of %d", kk, length(map)));
     verbose && cat(verbose, "Translation: 0x", map[kk], " -> 0x", values[kk]);
     idxsT <- (res == map[kk]);
-    idxsT <- whichVector(idxsT, na.rm=FALSE);
+    idxsT <- which(idxsT);
     verbose && cat(verbose, "Number of occurances: ", length(idxsT));
     res[idxsT] <- values[kk];
     verbose && exit(verbose);
@@ -416,7 +416,7 @@ setMethodS3("readTargetStrands", "AromaCellSequenceFile", function(this, cells=N
 
   # Read data
   verbose && enter(verbose, "Reading data frame");
-  column <- whichVector("targetStrand" == getColumnNames(this));
+  column <- which("targetStrand" == getColumnNames(this));
   res <- readDataFrame(this, rows=cells, columns=column, drop=TRUE, verbose=less(verbose, 5));
   verbose && str(verbose, res);
   verbose && exit(verbose);
@@ -483,7 +483,7 @@ setMethodS3("updateTargetStrands", "AromaCellSequenceFile", function(this, cells
   # Optimize
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Remove duplicated 'cells'
-  keep <- whichVector(!duplicated(cells));
+  keep <- which(!duplicated(cells));
   cells <- cells[keep];
   strands <- strands[keep];
   rm(keep);
@@ -561,7 +561,7 @@ setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cell
   # Optimize
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Remove duplicated 'cells'
-  keep <- whichVector(!duplicated(cells));
+  keep <- which(!duplicated(cells));
   cells <- cells[keep];
   seqs <- seqs[keep,,drop=FALSE];
   rm(keep);
@@ -601,7 +601,7 @@ setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cell
       } else {
         idxs <- (seqs == value);
       }
-      idxs <- whichVector(idxs, na.rm=FALSE);
+      idxs <- which(idxs);
 
       # Update their values
       seqs[idxs] <- map[kk];
@@ -662,7 +662,7 @@ setMethodS3("updateSequences", "AromaCellSequenceFile", function(this, ..., seqs
   from <- charToRaw(" ACGT");
   to <- as.raw(0:4);
   for (kk in 1:5) {
-    idxs <- whichVector(seqs == from[kk]);
+    idxs <- which(seqs == from[kk]);
     seqs[idxs] <- to[kk];
   }
   
@@ -711,7 +711,7 @@ setMethodS3("countBases", "AromaCellSequenceFile", function(this, bases=c("A", "
   counts <- countBasesInternal(this, mode=mode, ...);
 
   # Identify missing sequences
-  isMissing <- whichVector(counts[,1] != zeroValue, na.rm=FALSE);
+  isMissing <- which(counts[,1] != zeroValue);
 
   # Keep only bases of interest
   counts <- counts[,bases,drop=FALSE];
@@ -821,7 +821,7 @@ setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=
     for (bb in seq(length=ncol(counts))) {
       verbose && enter(verbose, sprintf("Nucleotide #%d of %d", bb, ncol(counts)));
       idxs <- (seqs == map[bb]);
-      idxs <- whichVector(idxs, na.rm=FALSE);
+      idxs <- which(idxs);
 
       verbose && cat(verbose, "Increment:");
       countsBB <- counts[idxs,bb];

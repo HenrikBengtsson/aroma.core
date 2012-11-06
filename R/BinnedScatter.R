@@ -167,7 +167,7 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
   # Estimate the (x,y) density
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimate density only from finite data points
-  ok <- whichVector(is.finite(x[,1]) & is.finite(x[,2]));
+  ok <- which(is.finite(x[,1]) & is.finite(x[,2]));
   x <- x[ok,,drop=FALSE];
   rm(ok);
   map <- calcDensity(x, nbin=nbin);

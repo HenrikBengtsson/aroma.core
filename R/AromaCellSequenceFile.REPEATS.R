@@ -55,8 +55,8 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
   verbose && str(verbose, cells);
 
   # Allocate
-  startPosition <- rep(positions[1], nbrOfCells);
-  maxRepeatLength <- rep(as.integer(1), nbrOfCells);
+  startPosition <- rep(positions[1], times=nbrOfCells);
+  maxRepeatLength <- rep(as.integer(1), times=nbrOfCells);
   verbose && str(verbose, startPosition);
   verbose && str(verbose, maxRepeatLength);
 
@@ -67,7 +67,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
   maxRepeatLength[nok] <- naValue;
 
   if (is.null(cells)) {
-    cells <- whichVector(!nok);
+    cells <- which(!nok);
   } else {
     cells <- cells[!nok];
   }
@@ -80,9 +80,9 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
   verbose && str(verbose, cells);
 
   if (length(cells) > 0) {
-    counts <- rep(as.integer(0), length(cells));
-    startPositionT <- rep(as.integer(0), length(cells));
-    maxRepeatLengthT <- rep(as.integer(1), length(cells));
+    counts <- rep(as.integer(0), times=length(cells));
+    startPositionT <- rep(as.integer(0), times=length(cells));
+    maxRepeatLengthT <- rep(as.integer(1), times=length(cells));
 
     for (pp in seq(along=positions)) {
       verbose && enter(verbose, sprintf("Position %d of %d", pp, length(positions)));
@@ -92,7 +92,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
       if (pp == 1) {
         map <- attr(b1, "map");
         basesToKeep <- map[bases];
-        isRepeat <- rep(TRUE, length(cells));
+        isRepeat <- rep(TRUE, times=length(cells));
       } else {
         # Check for repeats
         isRepeat <- (b1 == b0);
@@ -105,7 +105,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
       counts[!isRepeat] <- as.integer(1);
 
       # Check which ones are greater
-      isGreater <- rep(FALSE, length(cells));
+      isGreater <- rep(FALSE, times=length(cells));
       keep <- is.finite(counts);
       isGreater[keep] <- (counts[keep] > maxRepeatLengthT[keep]);
 

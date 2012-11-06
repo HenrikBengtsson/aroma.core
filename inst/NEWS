@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.10 [2012-11-05]
+o CLEANUP: Replaced all whichVector() with which(), because the
+  latter is now the fastest again.
+
+
 Version: 2.6.9 [2012-10-31]
 o Added argument 'units' to readDataFrame() for 
   AromaUnitChromosomeTabularBinaryFile.

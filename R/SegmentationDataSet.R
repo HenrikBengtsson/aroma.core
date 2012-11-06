@@ -99,7 +99,7 @@ setMethodS3("getChromosomes", "SegmentationDataSet", function(this, ..., force=F
       chromosome <- getChromosome(df);
       chromosomes[chromosome] <- TRUE;
     }
-    chromosomes <- whichVector(chromosomes);
+    chromosomes <- which(chromosomes);
     this$.chromosomes <- chromosomes;
   }
 
@@ -113,7 +113,7 @@ setMethodS3("extractByReferenceName", "SegmentationDataSet", function(this, refe
 
   names <- sapply(this, getReferenceName);
   keep <- is.element(names, referenceName);
-  idxs <- whichVector(keep);
+  idxs <- which(keep);
   extract(this, idxs, ...);
 })
 
@@ -124,7 +124,7 @@ setMethodS3("extractBySampleName", "SegmentationDataSet", function(this, sampleN
 
   names <- sapply(this, getSampleName);
   keep <- is.element(names, sampleName);
-  idxs <- whichVector(keep);
+  idxs <- which(keep);
   extract(this, idxs, ...);
 })
 

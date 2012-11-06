@@ -280,7 +280,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
   naValue <- as.double(NA);
   sigmas <- rep(naValue, times=nbrOfRegions);
   for (kk in seq(length=nbrOfRegions)) {
-    keep <- whichVector(regions[kk,1] < x & x <= regions[kk,2]);
+    keep <- which(regions[kk,1] < x & x <= regions[kk,2]);
     t <- y[keep];
     t <- diff(t);
     t <- median(t, na.rm=TRUE)/sqrt(2);

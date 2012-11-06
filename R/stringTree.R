@@ -41,7 +41,7 @@ setMethodS3("stringTree", "character", function(strs, maxDepth=-1, countRemainin
     nbrOfUHeads <- length(uHeads);
 
     # If some strings are completed, then stop.
-    emptyPos <- whichVector(nchar(uHeads) == 0);
+    emptyPos <- which(nchar(uHeads) == 0);
     hasCompleteStrings <- (length(emptyPos) > 0);
     if (hasCompleteStrings) {
       uHeads <- uHeads[-emptyPos];

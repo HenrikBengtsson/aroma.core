@@ -25,7 +25,7 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
   nbrOfValues <- length(map);
   for (kk in seq(length=nbrOfValues)) {
     idxs <- (x == map[kk]);
-    idxs <- whichVector(idxs);
+    idxs <- which(idxs);
     if (length(idxs) > 0) {
       y[idxs] <- values[kk];
     }

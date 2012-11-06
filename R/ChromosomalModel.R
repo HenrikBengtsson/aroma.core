@@ -711,7 +711,7 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
 
   if (any(!keep)) {
     verbose && enter(verbose, "Extract subset of files");
-    keep <- whichVector(keep);
+    keep <- which(keep);
     verbose && cat(verbose, "Keeping indices:");
     verbose && str(verbose, keep);
     fs <- extract(fs, keep);

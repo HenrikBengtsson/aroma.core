@@ -99,7 +99,7 @@ setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, 
   unfUnits <- match(data[,1], unfUnitNames);
 
   # Exclude units that are not in the annotation unit names file
-  keep <- whichVector(!is.na(unfUnits));
+  keep <- which(!is.na(unfUnits));
   unfUnits <- unfUnits[keep];
   if (length(unfUnits) == 0) {
     warning("None of the imported unit names match the ones in the annotation unit names file ('", getPathname(unf), "'). Is the correct file ('", getPathname(src), "'), being imported?");
@@ -191,7 +191,7 @@ setMethodS3("getUnitsAt", "AromaUgpFile", function(this, chromosomes, region=NUL
   allChromosomes <- getChromosomes(this, .chromosomes=data);
 
   keep <- !is.na(data) & (data %in% chromosomes);
-  idxs <- whichVector(keep);
+  idxs <- which(keep);
 
   if (!is.null(region)) {
     data <- this[idxs,2,drop=TRUE];

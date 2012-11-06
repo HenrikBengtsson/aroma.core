@@ -207,7 +207,7 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
 
         if (any(dupsT)) {
           # Identify which to drop
-          dups <- whichVector(dups);
+          dups <- which(dups);
           dups <- dups[dupsT];
 
           verbose && printf(verbose, "Dropping %d files that are identical to other files:\n", length(dups));

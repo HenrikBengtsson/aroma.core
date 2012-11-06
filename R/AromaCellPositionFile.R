@@ -158,7 +158,7 @@ setMethodS3("updatePositions", "AromaCellPositionFile", function(this, cells=NUL
   # Optimize
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Remove duplicated 'cells'
-  keep <- whichVector(!duplicated(cells));
+  keep <- which(!duplicated(cells));
   cells <- cells[keep];
   scores <- scores[keep];
   rm(keep);

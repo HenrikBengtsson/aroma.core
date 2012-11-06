@@ -282,7 +282,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
       verbose && cat(verbose, kk);
 
     # Identify data points within the bin
-    keep <- whichVector(x0[kk] <= x & x < x1[kk]);
+    keep <- which(x0[kk] <= x & x < x1[kk]);
     nKK <- length(keep);
     counts[kk] <- nKK;
 
@@ -302,7 +302,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
     value <- FUN(YBin, w=wBin, na.rm=na.rm);
 
     # Fix: Smoothing over a window with all missing values give zeros, not NA.
-    idxs <- whichVector(value == 0);
+    idxs <- which(value == 0);
     if (length(idxs) > 0) {
       # Are these real zeros or missing values?
       YBin <- YBin[idxs,,drop=FALSE];

@@ -223,7 +223,7 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (identical(indices, "remaining")) {
     values <- res[,1,drop=TRUE];
-    indices <- whichVector(is.na(values) | (values == 0));
+    indices <- which(is.na(values) | (values == 0));
     rm(values); # Not needed anymore.
   }
 

@@ -19,7 +19,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Dropping loci with unknown locations");
   x <- this$x;
-  keep <- whichVector(is.finite(x));
+  keep <- which(is.finite(x));
   nbrOfDropped <- length(x)-length(keep);
   verbose && cat(verbose, "Number of dropped loci: ", nbrOfDropped);
   if (nbrOfDropped > 0) {
@@ -80,7 +80,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
     verbose && str(verbose, y);
     # Sanity check
     stopifnot(is.numeric(y));
-    keep <- whichVector(is.finite(y));
+    keep <- which(is.finite(y));
     nbrOfDropped <- nbrOfLoci-length(keep);
     verbose && cat(verbose, "Number of dropped loci: ", nbrOfDropped);
     if (nbrOfDropped > 0) {
@@ -98,7 +98,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   if (hasWeights && dropZeroWeights) {
     # Dropping loci with non-positive weights
     verbose && enter(verbose, "Dropping loci with non-positive weights");
-    keep <- whichVector(data$w > 0);
+    keep <- which(data$w > 0);
     nbrOfDropped <- nbrOfLoci-length(keep);
     verbose && cat(verbose, "Number of loci dropped: ", nbrOfDropped);
     if (nbrOfDropped > 0) {

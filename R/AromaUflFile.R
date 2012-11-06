@@ -223,7 +223,7 @@ setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, 
   }
 
   # Exclude units that are not in the annotation unit names file
-  keep <- whichVector(!is.na(units));
+  keep <- which(!is.na(units));
   data <- data[keep,, drop=FALSE];
   units <- units[keep];
   rm(keep);  # Not needed anymore

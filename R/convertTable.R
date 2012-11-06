@@ -54,7 +54,7 @@ setMethodS3("convertTable", "default", function(src, dest=NULL, sep="\t", ..., v
 
     # Fill with TABs if too few
     missing <- nbrOfColumns - widths;
-    nok <- whichVector(missing > 0);
+    nok <- which(missing > 0);
     if (length(nok) > 0) {
       lines[nok] <- paste(lines[nok], upad[missing[nok]], sep="");
     }

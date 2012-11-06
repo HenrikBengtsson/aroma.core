@@ -162,7 +162,7 @@ setMethodS3("extractSubsetByState", "SegmentedGenomicSignalsInterface", function
 
   # Subset
   keep <- is.element(signalStates, states);
-  keep <- whichVector(keep);
+  keep <- which(keep);
 
   # Extract this subset
   extractSubset(this, keep, ...);
@@ -221,7 +221,7 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     } else {
       keep <- (states == state);
     }
-    keep <- whichVector(keep);
+    keep <- which(keep);
     statesSS <- states[keep];
     ySS <- y[keep];
     xSS <- x[keep];
@@ -232,7 +232,7 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     } else {
       keep <- (statesOut == state);
     }
-    keep <- whichVector(keep);
+    keep <- which(keep);
     xOutSS <- xOut[keep];
 
     verbose && enter(verbose, "Kernel smoothing");
@@ -385,7 +385,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     # Identify target loci with this state
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     verbose && enter(verbose, "Extracting subset of (target) loci with this signal state");
-    idxsOut <- whichVector(is.element(statesOut, state));
+    idxsOut <- which(is.element(statesOut, state));
     resSS <- extractSubset(res, idxsOut, verbose=less(verbose,50));
     verbose && print(verbose, resSS);
     xOutSS <- getPositions(resSS);

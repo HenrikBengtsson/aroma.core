@@ -138,7 +138,7 @@ setMethodS3("updateCpgs", "AromaCellCpgFile", function(this, cells=NULL, scores,
   # Optimize
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Remove duplicated 'cells'
-  keep <- whichVector(!duplicated(cells));
+  keep <- which(!duplicated(cells));
   cells <- cells[keep];
   scores <- scores[keep];
   rm(keep);

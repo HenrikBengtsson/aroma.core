@@ -38,7 +38,7 @@ setMethodS3("getColumnNames", "AromaUnitChromosomeTabularBinaryFile", abstract=T
 
 
 setMethodS3("indexOfColumn", "AromaUnitChromosomeTabularBinaryFile", function(this, name, ...) {
-  cc <- whichVector(getColumnNames(this) == name);
+  cc <- which(getColumnNames(this) == name);
   cc <- Arguments$getIndex(cc);
   cc;
 }, protected=TRUE)
@@ -112,7 +112,7 @@ setMethodS3("getUnitsOnChromosomes", "AromaUnitChromosomeTabularBinaryFile", fun
 
   res <- vector("list", length(chromosomes));
   for (cc in seq(along=chromosomes)) {
-    units <- whichVector(data == chromosomes[cc]);
+    units <- which(data == chromosomes[cc]);
     res[[cc]] <- units;
   } # for (cc ...)
 

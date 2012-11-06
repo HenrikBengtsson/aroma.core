@@ -125,7 +125,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
   verbose && cat(verbose, "isGenotype:")
   verbose && str(verbose, isGenotype)
 ;
-  idxs <- whichVector(isGenotype[,1] & isGenotype[,2]);
+  idxs <- which(isGenotype[,1] & isGenotype[,2]);
   rm(isGenotype);
   if (length(idxs) > 0) {
     verbose && cat(verbose, "Genotypes identified: ", length(idxs));
@@ -139,7 +139,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       for (uu in seq(along=uCalls)) {
         count <- uCalls[uu];
         callsUU <- paste(rep(allele, times=count), collapse="");
-        idxsUU <- whichVector(callsJJ == count);
+        idxsUU <- which(callsJJ == count);
         resT[idxsUU] <- paste(resT[idxsUU], callsUU, sep="");
       } # for (uu ...)
       rm(callsJJ, idxsUU, uCalls);
@@ -154,14 +154,14 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
 
   # NoCall:s
   valueOnFile <- as.integer(maxValue+1);
-  idxs <- whichVector(calls[,1] == valueOnFile);
+  idxs <- which(calls[,1] == valueOnFile);
   if (length(idxs) > 0) {
      verbose && cat(verbose, "NoCalls identified: ", length(idxs));
      res[idxs] <- noCallValue;
   }
 
   # The remaining are "NA":s
-  idxs <- whichVector(is.na(res));
+  idxs <- which(is.na(res));
   if (length(idxs) > 0) {
     verbose && cat(verbose, "Missing calls identified: ", length(idxs));
     res[idxs] <- naValue;
