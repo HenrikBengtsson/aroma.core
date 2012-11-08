@@ -19,9 +19,9 @@ setMethodS3("getExtensionPattern", "AromaUnitGcContentFile", function(static, ..
 }, static=TRUE, protected=TRUE)
 
 
-setMethodS3("getColumnNames", "AromaUnitGcContentFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaUnitGcContentFile", function(this, ...) {
   "gcContent";
-})
+}, protected=TRUE)
 
 
 setConstructorS3("AromaUgcFile", function(...) {

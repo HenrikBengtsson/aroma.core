@@ -48,10 +48,10 @@ setMethodS3("hasStrandiness", "AromaUnitPscnBinaryFile", function(this, ...) {
   FALSE;
 })
  
-setMethodS3("getColumnNames", "AromaUnitPscnBinaryFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaUnitPscnBinaryFile", function(this, ...) {
  stopifnot(nbrOfColumns(this) == 2L);
  c("total", "fracB");
-})
+}, protected=TRUE)
 
 
 setMethodS3("extractRawCopyNumbers", "AromaUnitPscnBinaryFile", function(this, ..., logBase=2L, clazz=RawCopyNumbers) {

@@ -42,9 +42,9 @@ setMethodS3("getExtensionPattern", "AromaCellPositionFile", function(static, ...
 }, static=TRUE, protected=TRUE)
 
 
-setMethodS3("getColumnNames", "AromaCellPositionFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaCellPositionFile", function(this, ...) {
   c("chromosome", "position");
-})
+}, protected=TRUE)
 
 
 

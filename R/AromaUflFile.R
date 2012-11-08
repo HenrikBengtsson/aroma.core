@@ -28,14 +28,15 @@ setMethodS3("nbrOfEnzymes", "AromaUflFile", function(this, ...) {
 })
 
 
-setMethodS3("getColumnNames", "AromaUflFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaUflFile", function(this, ...) {
   nbrOfColumns <- nbrOfColumns(this);
-  names <- rep("length", nbrOfColumns);
+  names <- rep("length", times=nbrOfColumns);
   tags <- sprintf(".%02d", 1:nbrOfColumns);
   tags[1] <- "";
   names <- paste(names, tags, sep="");
   names;
-})
+}, protected=TRUE)
+
 
 setMethodS3("readDataFrame", "AromaUflFile", function(this, ...) {
   data <- NextMethod("readDataFrame");

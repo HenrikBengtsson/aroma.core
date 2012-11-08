@@ -20,9 +20,10 @@ setMethodS3("getExtensionPattern", "AromaUgpFile", function(static, ...) {
   "[.](ugp)$";
 }, static=TRUE, protected=TRUE)
 
-setMethodS3("getColumnNames", "AromaUgpFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaUgpFile", function(this, ...) {
   c("chromosome", "position");
-})
+}, protected=TRUE)
+
 
 setMethodS3("getPositions", "AromaUgpFile", function(this, units=NULL, ...) {
   # It is possible to pass NULL as an index here.

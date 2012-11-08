@@ -83,9 +83,9 @@ setMethodS3("setAttributesByTags", "AromaTabularBinaryFile", function(this, ...)
 }, protected=TRUE)
 
  
-setMethodS3("getColumnNames", "AromaTabularBinaryFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaTabularBinaryFile", function(this, ...) {
   as.character(seq(length=nbrOfColumns(this)));
-})
+}, protected=TRUE)
 
 
 setMethodS3("dimnames<-", "AromaTabularBinaryFile", function(x, value) {

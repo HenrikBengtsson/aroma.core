@@ -38,9 +38,9 @@ setMethodS3("getDefaultExtension", "AromaCellCpgFile", function(static, ...) {
 }, static=TRUE)
 
 
-setMethodS3("getColumnNames", "AromaCellCpgFile", function(this, ...) {
+setMethodS3("getDefaultColumnNames", "AromaCellCpgFile", function(this, ...) {
   c("cpgDensity");
-})
+}, protected=TRUE)
 
 
 

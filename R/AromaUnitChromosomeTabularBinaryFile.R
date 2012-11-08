@@ -34,7 +34,7 @@ setMethodS3("getGenomeVersion", "AromaUnitChromosomeTabularBinaryFile", function
 setMethodS3("getFilenameExtension", "AromaUnitChromosomeTabularBinaryFile", abstract=TRUE);
 
 
-setMethodS3("getColumnNames", "AromaUnitChromosomeTabularBinaryFile", abstract=TRUE);
+setMethodS3("getDefaultColumnNames", "AromaUnitChromosomeTabularBinaryFile", abstract=TRUE);
 
 
 setMethodS3("indexOfColumn", "AromaUnitChromosomeTabularBinaryFile", function(this, name, ...) {
