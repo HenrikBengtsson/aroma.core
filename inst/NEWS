@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.11 [2012-11-07]
+o CRAN POLICY: Made a few of the examples faster.  Also made
+  some of the system tests faster.
+
+
 Version: 2.6.10 [2012-11-05]
 o CLEANUP: Replaced all whichVector() with which(), because the
   latter is now the fastest again.

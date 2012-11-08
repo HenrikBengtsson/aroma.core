@@ -7,21 +7,21 @@ library("aroma.core")
 stateFcn <- function(data, ...) {
   x <- data$x
   states <- integer(length(x))
-  states[200 <=x & x <= 300] <- -1L
-  states[650 <=x & x <= 800] <- +1L
+  states[100 <=x & x <= 150] <- -1L
+  states[320 <=x & x <= 400] <- +1L
   states
 }
 
 stateFcn <- function(data, ...) {
   x <- data$x
   states <- rep("neutral", time=length(x))
-  states[200 <=x & x <= 300] <- "loss"
-  states[650 <=x & x <= 800] <- "gain"
+  states[100 <=x & x <= 150] <- "loss"
+  states[320 <=x & x <= 400] <- "gain"
   states
 }
 
 # Number of loci
-J <- 1000
+J <- 500
 
 eps <- rnorm(J, sd=1/2)
 mu <- double(J)

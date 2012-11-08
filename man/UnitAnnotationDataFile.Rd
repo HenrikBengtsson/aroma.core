@@ -22,7 +22,7 @@
 \code{~~+--}\code{UnitAnnotationDataFile}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgcFile}, \link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \link[aroma.core]{AromaUnitGcContentFile}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}, \link[aroma.core]{AromaUnitTypesFile}, \link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
+\emph{\link[aroma.core]{AromaUflFile}}, \emph{\link[aroma.core]{AromaUgcFile}}, \emph{\link[aroma.core]{AromaUgpFile}}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitGcContentFile}}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTypesFile}}, \link[aroma.core]{TextUnitNamesFile}, \emph{\link[aroma.core]{UnitNamesFile}}, \emph{\link[aroma.core]{UnitTypesFile}}\cr
 
 public static class \bold{UnitAnnotationDataFile}\cr
 extends \link[R.oo]{Interface}\cr

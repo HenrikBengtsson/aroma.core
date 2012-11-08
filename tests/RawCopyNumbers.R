@@ -4,11 +4,11 @@ library("aroma.core")
 # Simulating copy-number data
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Number of loci
-J <- 1000
+J <- 500
 
 mu <- double(J)
-mu[200:300] <- mu[200:300] + 1
-mu[650:800] <- mu[650:800] - 1
+mu[100:150] <- mu[100:150] + 1
+mu[320:400] <- mu[320:400] - 1
 eps <- rnorm(J, sd=1/2)
 y <- mu + eps
 x <- sort(runif(length(y), max=length(y)))

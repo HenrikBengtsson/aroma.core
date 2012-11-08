@@ -24,7 +24,7 @@
 \code{~~~~~~~+--}\emph{\code{UnitTypesFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\link[aroma.core]{AromaUnitTypesFile}\cr
+\emph{\link[aroma.core]{AromaUnitTypesFile}}\cr
 
 public abstract static class \bold{UnitTypesFile}\cr
 extends \link[aroma.core]{UnitAnnotationDataFile}\cr

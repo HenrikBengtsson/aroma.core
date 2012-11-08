@@ -6,13 +6,13 @@ library("aroma.core")
 # True CN states
 stateFcn <- function(x, ...) {
   states <- integer(length(x))
-  states[200 <=x & x <= 300] <- -1L
-  states[650 <=x & x <= 800] <- +1L
+  states[100 <=x & x <= 200] <- -1L
+  states[320 <=x & x <= 400] <- +1L
   states
 }
 
 # Number of loci
-J <- 1000
+J <- 500
 
 y <- rnorm(J, sd=1/2)
 x <- 1:length(y)

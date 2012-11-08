@@ -4,16 +4,16 @@ library("aroma.core")
 # Simulating copy-number data
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Number of loci
-J <- 1000
+J <- 500
 
 mu <- double(J)
-mu[200:300] <- mu[200:300] + 1
-mu[650:800] <- mu[650:800] - 1
+mu[100:150] <- mu[100:150] + 1
+mu[320:400] <- mu[320:400] - 1
 eps <- rnorm(J, sd=1/2)
 y <- mu + eps
 x <- sort(runif(length(y), max=length(y)))
 w <- runif(J)
-w[650:800] <- 0.001
+w[320:400] <- 0.001
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -29,13 +29,13 @@ print(cn)
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Extracting regions
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-cnR <- extractRegion(cn, region=c(100,700))
+cnR <- extractRegion(cn, region=c(50,350))
 print(cnR)
 
 regions <- data.frame(
   chromosome = c(  0,  0),
-  start      = c(100,400),
-  stop       = c(200,600)
+  start      = c( 50,200),
+  stop       = c(100,300)
 )
 cnR <- extractRegions(cn, regions=regions)
 print(cnR)
