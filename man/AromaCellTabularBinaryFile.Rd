@@ -36,7 +36,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaCellTabularBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\emph{\link[aroma.core]{AromaCellCpgFile}}, \emph{\link[aroma.core]{AromaCellPositionFile}}, \emph{\link[aroma.core]{AromaCellSequenceFile}}\cr
+\link[aroma.core]{AromaCellCpgFile}, \link[aroma.core]{AromaCellPositionFile}, \link[aroma.core]{AromaCellSequenceFile}\cr
 
 public abstract static class \bold{AromaCellTabularBinaryFile}\cr
 extends \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr
@@ -68,7 +68,7 @@ allocate, as.character, byChipType, findByChipType, getChipType, getFilenameExte
 getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
-[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
+[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getDefaultColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
 
  \bold{Methods inherited from GenericTabularFile}:\cr
 as.character, dim, extractMatrix, nbrOfRows, readColumns, readDataFrame

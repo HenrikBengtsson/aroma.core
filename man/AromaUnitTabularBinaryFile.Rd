@@ -38,7 +38,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaUnitTabularBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\emph{\link[aroma.core]{AromaUflFile}}, \emph{\link[aroma.core]{AromaUgcFile}}, \emph{\link[aroma.core]{AromaUgpFile}}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitGcContentFile}}\cr
+\link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgcFile}, \link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \link[aroma.core]{AromaUnitGcContentFile}\cr
 
 public abstract static class \bold{AromaUnitTabularBinaryFile}\cr
 extends \link[aroma.core]{UnitAnnotationDataFile}\cr
@@ -79,7 +79,7 @@ allocate, as.character, byChipType, findByChipType, getChipType, getFilenameExte
 getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
-[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
+[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getDefaultColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
 
  \bold{Methods inherited from GenericTabularFile}:\cr
 as.character, dim, extractMatrix, nbrOfRows, readColumns, readDataFrame

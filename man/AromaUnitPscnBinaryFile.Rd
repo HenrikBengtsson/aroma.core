@@ -64,7 +64,6 @@ extends \emph{\link[aroma.core]{CopyNumberDataFile}}\cr
 \tabular{rll}{
  \tab \code{allocate} \tab  -\cr
  \tab \code{extractRawCopyNumbers} \tab  -\cr
- \tab \code{getColumnNames} \tab  -\cr
  \tab \code{hasAlleleBFractions} \tab  -\cr
  \tab \code{hasStrandiness} \tab  -\cr
  \tab \code{hasTotalCopyNumberRatios} \tab  -\cr
@@ -81,7 +80,7 @@ allocate, allocateFromUnitAnnotationDataFile, allocateFromUnitNamesFile, as.char
 getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
-[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
+[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getDefaultColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
 
  \bold{Methods inherited from GenericTabularFile}:\cr
 as.character, dim, extractMatrix, nbrOfRows, readColumns, readDataFrame

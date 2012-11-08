@@ -1302,6 +1302,15 @@
 \alias{setReference.CopyNumberChromosomalModel}
 \alias{getMaxNAFraction}
 \alias{getMaxNAFraction.CopyNumberChromosomalModel}
+\alias{getDefaultColumnNames.AromaCellCpgFile}
+\alias{getDefaultColumnNames.AromaCellPositionFile}
+\alias{getDefaultColumnNames.AromaCellSequenceFile}
+\alias{getDefaultColumnNames.AromaTabularBinaryFile}
+\alias{getDefaultColumnNames.AromaUflFile}
+\alias{getDefaultColumnNames.AromaUgpFile}
+\alias{getDefaultColumnNames.AromaUnitChromosomeTabularBinaryFile}
+\alias{getDefaultColumnNames.AromaUnitGcContentFile}
+\alias{getDefaultColumnNames.AromaUnitPscnBinaryFile}
 
 \description{
   This page contains aliases for all "non-documented" objects that

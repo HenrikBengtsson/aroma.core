@@ -34,7 +34,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaMicroarrayTabularBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\emph{\link[aroma.core]{AromaCellCpgFile}}, \emph{\link[aroma.core]{AromaCellPositionFile}}, \emph{\link[aroma.core]{AromaCellSequenceFile}}, \emph{\link[aroma.core]{AromaCellTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUflFile}}, \emph{\link[aroma.core]{AromaUgcFile}}, \emph{\link[aroma.core]{AromaUgpFile}}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitGcContentFile}}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}\cr
+\link[aroma.core]{AromaCellCpgFile}, \link[aroma.core]{AromaCellPositionFile}, \link[aroma.core]{AromaCellSequenceFile}, \emph{\link[aroma.core]{AromaCellTabularBinaryFile}}, \link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgcFile}, \link[aroma.core]{AromaUgpFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \link[aroma.core]{AromaUnitGcContentFile}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}\cr
 
 public abstract static class \bold{AromaMicroarrayTabularBinaryFile}\cr
 extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
@@ -67,7 +67,7 @@ extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
 getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
-[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
+[, [[, [<-, allocate, as.character, colMeans, colMedians, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getDefaultColumnNames, getRootName, importFrom, lapply, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
 
  \bold{Methods inherited from GenericTabularFile}:\cr
 as.character, dim, extractMatrix, nbrOfRows, readColumns, readDataFrame

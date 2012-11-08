@@ -30,7 +30,7 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaTabularBinaryFile}}\cr
 
 \bold{Directly known subclasses:}\cr
-\emph{\link[aroma.core]{AromaCellCpgFile}}, \emph{\link[aroma.core]{AromaCellPositionFile}}, \emph{\link[aroma.core]{AromaCellSequenceFile}}, \emph{\link[aroma.core]{AromaCellTabularBinaryFile}}, \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUflFile}}, \emph{\link[aroma.core]{AromaUgcFile}}, \emph{\link[aroma.core]{AromaUgpFile}}, \emph{\link[aroma.core]{AromaUnitCallFile}}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitFracBCnBinaryFile}}, \emph{\link[aroma.core]{AromaUnitGcContentFile}}, \emph{\link[aroma.core]{AromaUnitGenotypeCallFile}}, \emph{\link[aroma.core]{AromaUnitPscnBinaryFile}}, \emph{\link[aroma.core]{AromaUnitSignalBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTotalCnBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTypesFile}}\cr
+\link[aroma.core]{AromaCellCpgFile}, \link[aroma.core]{AromaCellPositionFile}, \link[aroma.core]{AromaCellSequenceFile}, \emph{\link[aroma.core]{AromaCellTabularBinaryFile}}, \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}, \link[aroma.core]{AromaUflFile}, \link[aroma.core]{AromaUgcFile}, \link[aroma.core]{AromaUgpFile}, \link[aroma.core]{AromaUnitCallFile}, \emph{\link[aroma.core]{AromaUnitChromosomeTabularBinaryFile}}, \link[aroma.core]{AromaUnitFracBCnBinaryFile}, \link[aroma.core]{AromaUnitGcContentFile}, \link[aroma.core]{AromaUnitGenotypeCallFile}, \emph{\link[aroma.core]{AromaUnitPscnBinaryFile}}, \link[aroma.core]{AromaUnitSignalBinaryFile}, \emph{\link[aroma.core]{AromaUnitTabularBinaryFile}}, \emph{\link[aroma.core]{AromaUnitTotalCnBinaryFile}}, \link[aroma.core]{AromaUnitTypesFile}\cr
 
 public abstract static class \bold{AromaTabularBinaryFile}\cr
 extends \emph{\link[R.filesets]{GenericTabularFile}}\cr
@@ -62,7 +62,6 @@ extends \emph{\link[R.filesets]{GenericTabularFile}}\cr
  \tab \code{dimnames<-} \tab  -\cr
  \tab \code{getBytesPerColumn} \tab  -\cr
  \tab \code{getColClasses} \tab  -\cr
- \tab \code{getColumnNames} \tab  -\cr
  \tab \code{importFrom} \tab  -\cr
  \tab \code{lapply} \tab  -\cr
  \tab \code{nbrOfColumns} \tab  -\cr
