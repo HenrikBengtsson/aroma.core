@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 2.6.11 [2012-11-07]
+Version: 2.6.11 [2012-11-08]
 o Renamed getColumnNames() to getDefaultColumnNames() for all
   classes inheriting from GenericTabularFile, because of the
   new ColumnNamesInterface interface.
