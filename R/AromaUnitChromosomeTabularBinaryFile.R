@@ -66,7 +66,7 @@ setMethodS3("getChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(t
 })
 
 
-setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(this, units=NULL, ..., verbose=FALSE) {
+setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(this, rows=units, ..., units=NULL, verbose=FALSE) {
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
@@ -74,7 +74,7 @@ setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(th
     on.exit(popState(verbose));
   }
 
-  data <- NextMethod("readDataFrame", rows=units, verbose=less(verbose));
+  data <- NextMethod("readDataFrame", rows=rows, verbose=less(verbose));
 
   if (nrow(data) > 0) {
     verbose && enter(verbose, "Converting zeros to NAs");
@@ -195,6 +195,10 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 
 ############################################################################
 # HISTORY:
+# 2012-11-08
+# o BUG FIX: readDataFrame() must accept argument 'rows', so in order
+#   to also support alias argument 'units', we now do 'rows=units' and
+#   'units=NULL'.
 # 2012-10-31
 # o Added argument 'units' to readDataFrame() for 
 #   AromaUnitChromosomeTabularBinaryFile.
