@@ -462,7 +462,7 @@ setMethodS3("barSequence", "ProbePositionEffects", function(fit, seq, col=NULL, 
   seq <- Arguments$getCharacter(seq, nchar=rep(nrow(rho),2), length=c(1,1));
 
   if (is.null(col)) {
-    col <- seq_leng(ncol(rho));
+    col <- seq_len(ncol(rho));
   } else {
     col <- rep(col, times=ncol(rho));
   }
