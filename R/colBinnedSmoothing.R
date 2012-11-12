@@ -78,7 +78,7 @@
 # @keyword robust
 # @keyword univar 
 #*/###########################################################################
-setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE) {
+setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -261,7 +261,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 #  if (identical(FUN, colWeightedMeans) && is.null(w) && require("matrixStats")) {
 #    bx <- ...
-#    for (cc in seq(length=ncol(Y))) {
+#    for (cc in seq_len(ncol(Y))) {
 #      ys <- matrixStats::binMeans(Y[,cc], x, bx=bx, na.rm=na.rm, count=(cc == 1L));
 #      if (cc == 1L) {
 #        counts <- attr(ys, "count");

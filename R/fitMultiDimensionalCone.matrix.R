@@ -84,7 +84,7 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
   }
 
   M <- fit$M;
-  colnames(M) <- sprintf("dim%d", seq(length=ncol(M)));
+  colnames(M) <- sprintf("dim%d", seq_len(ncol(M)));
   clazz <- class(M);
  
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -106,7 +106,7 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
   # Reorder the vertices accordingly
   o <- order(dims);
   M <- M[o,,drop=FALSE];
-  rownames(M) <- sprintf("vertex%d", seq(length=nrow(M)));
+  rownames(M) <- sprintf("vertex%d", seq_len(nrow(M)));
 
   # Append the ordered vertices to the origin
   M <- rbind(origin, M);

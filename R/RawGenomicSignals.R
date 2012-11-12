@@ -295,7 +295,7 @@ setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, chrom
   chromosome <- this$chromosome;
   x <- getPositions(this);
   keep <- rep(FALSE, times=length(x));
-  for (rr in seq(length=nrow(regions))) {
+  for (rr in seq_len(nrow(regions))) {
     region <- unlist(regions[rr,], use.names=TRUE);
     chr <- region["chromosome"];
     start <- region["start"];
@@ -351,7 +351,7 @@ setMethodS3("getPositions", "RawGenomicSignals", function(this, ...) {
 
   x <- this$x;
   if (is.null(x)) {
-    x <- seq(length=nbrOfLoci(this));
+    x <- seq_len(nbrOfLoci(this));
   }
   x;
 })
@@ -600,7 +600,7 @@ setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, fields=NULL, 
     # Smoothing y and x (and w).
     Y <- cbind(dataY, x=x, w=weights);
     verbose && summary(verbose, Y);
-    xRank <- seq(length=nrow(Y));
+    xRank <- seq_len(nrow(Y));
     verbose && cat(verbose, "Positions (ranks):");
     verbose && str(verbose, xRank);
     verbose && cat(verbose, "Arguments:");
@@ -820,7 +820,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   if (byCount) {
     # Adding ordering along genome
     gs <- sort(this);
-    gs$xOrder <- seq(length=nbrOfLoci(gs));
+    gs$xOrder <- seq_len(nbrOfLoci(gs));
   } else {
     gs <- this;
   }
@@ -831,7 +831,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Binning (target) stratified by field
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (ss in seq(along=setOfValuesOut)) {
+  for (ss in seq_along(setOfValuesOut)) {
     byValue <- setOfValuesOut[ss];
     verbose && enter(verbose, sprintf("Value #%d (%s == '%s') of %d", 
                                         ss, field, byValue, length(setOfValuesOut)));
@@ -904,7 +904,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
         verbose && cat(verbose, "Fields:");
         verbose && print(verbose, fieldsT);
 
-        for (ff in seq(along=fieldsT)) {
+        for (ff in seq_along(fieldsT)) {
           field <- fieldsT[ff];
           verbose && enter(verbose, sprintf("Field #%d ('%s') of %d", ff, field, length(fieldsT)));
           values <- gsSS[[field]];

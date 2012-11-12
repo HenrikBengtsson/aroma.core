@@ -57,7 +57,7 @@ setMethodS3("getChipType", "AromaMicroarrayDataSet", function(this, ...) {
 
 
 setMethodS3("nbrOfArrays", "AromaMicroarrayDataSet", function(this, ...) {
-  nbrOfFiles(this, ...);
+  length(this, ...);
 })
 
 

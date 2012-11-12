@@ -124,7 +124,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # Argument 'units':
   maxNbrOfUnits <- nbrOfUnits(ugp);
   if (is.null(units)) {
-    units <- seq(length=maxNbrOfUnits);
+    units <- seq_len(maxNbrOfUnits);
   } else {
     units <- Arguments$getIndices(units, max=maxNbrOfUnits);
   }
@@ -211,7 +211,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Generate file header
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  nbrOfFiles <- nbrOfFiles(this);
+  nbrOfFiles <- length(this);
   nbrOfUnits <- length(units);
   nbrOfColumnsPerFile <- nbrOfColumns(dfFirst);
   nbrOfColumns <- nbrOfFiles*nbrOfColumnsPerFile;
@@ -336,16 +336,16 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   verbose && cat(verbose, "Number of chunks: ", nbrOfChunks);
 
   unitsLeft <- units;
-  idxsHead <- seq(length=nbrOfUnitsPerChunk);
+  idxsHead <- seq_len(nbrOfUnitsPerChunk);
 
   verbose && cat(verbose, "Units:");
   verbose && str(verbose, unitsLeft);
   
-  for (kk in seq(length=nbrOfChunks)) {
+  for (kk in seq_len(nbrOfChunks)) {
     verbose && enter(verbose, sprintf("Chunk #%d of %d", kk, nbrOfChunks));
 
     if (nbrOfUnitsPerChunk > length(unitsLeft)) {
-      idxsHead <- seq(length=length(unitsLeft));
+      idxsHead <- seq_len(length(unitsLeft));
     }
     unitsKK <- unitsLeft[idxsHead];
 
@@ -354,13 +354,13 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
     verbose && enter(verbose, "Extracting signals");
     dataKK <- NULL;
-    for (ii in seq(length=nbrOfFiles)) {
+    for (ii in seq_len(nbrOfFiles)) {
       df <- getFile(this, ii);
       verbose && enter(verbose, sprintf("File #%d ('%s') of %d", ii, getName(df), nbrOfFiles));
       dataII <- df[unitsKK,,drop=FALSE];
 
       # For each data column
-      for (cc in seq(length=nbrOfColumnsPerFile)) {
+      for (cc in seq_len(nbrOfColumnsPerFile)) {
         values <- dataII[,cc, drop=TRUE];
     
         # Exporting all missing values as "NA" (not NaN).

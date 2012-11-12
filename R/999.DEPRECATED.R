@@ -26,6 +26,15 @@ setMethodS3("readData", "SampleAnnotationFile", function(this, ...) {
 }, protected=TRUE, deprecated=TRUE)
  
 
+
+# 2009-12-30
+# o Dropped nbrOfArrays(); use nbrOfFiles() instead.
+setMethodS3("nbrOfArrays", "AromaMicroarrayDataSetTuple", function(this, ...) {
+  .Deprecated("length");
+  length(this, ...);
+}, protected=TRUE)
+
+
 ############################################################################
 # HISTORY:
 # 2012-10-14

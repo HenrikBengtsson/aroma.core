@@ -235,7 +235,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 ##  y <- data$y;
 ##  naValue <- as.double(NA);
 ##  sigmas <- rep(naValue, times=nbrOfRegions);
-##  for (kk in seq(length=nbrOfRegions)) {
+##  for (kk in seq_len(nbrOfRegions)) {
 ##    keep <- which(regions[kk,1] < x & x <= regions[kk,2]);
 ##    t <- y[keep];
 ##    t <- diff(t);

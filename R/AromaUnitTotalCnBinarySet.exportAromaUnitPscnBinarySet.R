@@ -9,7 +9,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   if (!identical(dsB, "*")) {
     dsB <- Arguments$getInstanceOf(dsB, "AromaUnitFracBCnBinarySet");
     # Sanity check
-    stopifnot(nbrOfFiles(dsB) == nbrOfFiles(dsT));
+    stopifnot(length(dsB) == length(dsT));
     # Reorder
     dsB <- extract(dsB, indexOf(dsB, names=getNames(dsT)));
     # Sanity check
@@ -38,11 +38,11 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     verbose && cat(verbose, "Path: ", path);
     pattern <- ",fracB[.]asb$";
     dsB <- AromaUnitFracBCnBinarySet$byPath(path, pattern=pattern);
-    verbose && cat(verbose, "Number of files: ", nbrOfFiles(dsB));
+    verbose && cat(verbose, "Number of files: ", length(dsB));
     dsB <- extract(dsB, indexOf(dsB, names=getNames(dsT)));
-    verbose && cat(verbose, "Number of files kept: ", nbrOfFiles(dsB));
+    verbose && cat(verbose, "Number of files kept: ", length(dsB));
     # Sanity check
-    stopifnot(nbrOfFiles(dsB) == nbrOfFiles(dsT));
+    stopifnot(length(dsB) == length(dsT));
     verbose && exit(verbose);
   }
 
@@ -65,13 +65,13 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   path <- Arguments$getWritablePath(path);
   verbose && cat(verbose, "Output path: ", path);
 
-  nbrOfArrays <- nbrOfFiles(dsT);
+  nbrOfArrays <- length(dsT);
   verbose && cat(verbose, "Number of arrays: ", nbrOfArrays);
   ugp <- getAromaUgpFile(dsT);
   verbose && cat(verbose, "Chip type: ", getChipType(ugp));
   nbrOfUnits <- nbrOfUnits(ugp);
 
-  for (ii in seq(length=nbrOfArrays)) {
+  for (ii in seq_len(nbrOfArrays)) {
     dfT <- getFile(dsT, ii);
     dfB <- getFile(dsB, ii);
     name <- getName(dfT);
@@ -165,7 +165,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   verbose && print(verbose, ds);
 
   # Sanity check
-  stopifnot(nbrOfFiles(ds) == nbrOfFiles(dsT));
+  stopifnot(length(ds) == length(dsT));
   stopifnot(all(getNames(ds) == getNames(dsT)));
 
   verbose && exit(verbose);

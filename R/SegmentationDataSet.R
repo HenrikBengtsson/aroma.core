@@ -26,7 +26,7 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
 
   s <- c(s, sprintf("Chip type(s): %s", getChipType(this)));
 
-  nf <- nbrOfFiles(this);
+  nf <- length(this);
 
   snames <- getSampleNames(this);
   ns <- length(snames);
@@ -57,7 +57,7 @@ setMethodS3("getReferenceNames", "SegmentationDataSet", function(this, ..., forc
   referenceNames <- this$.referenceNames;
   if (force || is.null(referenceNames)) {
     referenceNames <- c();
-    for (kk in seq(this)) {
+    for (kk in seq_along(this)) {
       df <- getFile(this, kk);
       referenceNames <- c(referenceNames, getReferenceName(df));
     }
@@ -75,7 +75,7 @@ setMethodS3("getSampleNames", "SegmentationDataSet", function(this, ..., force=F
   sampleNames <- this$.sampleNames;
   if (force || is.null(sampleNames)) {
     sampleNames <- c();
-    for (kk in seq(this)) {
+    for (kk in seq_along(this)) {
       df <- getFile(this, kk);
       sampleNames <- c(sampleNames, getSampleName(df));
     }
@@ -94,7 +94,7 @@ setMethodS3("getChromosomes", "SegmentationDataSet", function(this, ..., force=F
 
   if (force || is.null(chromosomes)) {
     chromosomes <- logical(100);
-    for (kk in seq(this)) {
+    for (kk in seq_along(this)) {
       df <- getFile(this, kk);
       chromosome <- getChromosome(df);
       chromosomes[chromosome] <- TRUE;
@@ -145,7 +145,7 @@ setMethodS3("extractCopyNumberRegions", "SegmentationDataSet", function(this, ..
 
   verbose && enter(verbose, "Extracting segmentations");
   res <- list();
-  for (kk in seq(this)) {
+  for (kk in seq_along(this)) {
     df <- getFile(this, kk);
     verbose && enter(verbose, sprintf("Segmentation #%d of %d", kk, length(this)));
     resKK <- extractCopyNumberRegions(df, ...);
@@ -160,7 +160,7 @@ setMethodS3("extractCopyNumberRegions", "SegmentationDataSet", function(this, ..
     verbose && str(verbose, sampleNames);
     uSampleNames <- unique(sampleNames);
     resT <- list();
-    for (ii in seq(along=uSampleNames)) {
+    for (ii in seq_along(uSampleNames)) {
       sampleName <- uSampleNames[ii];
       verbose && enter(verbose, sprintf("Sample #%d ('%s') of %d", ii, sampleName, length(uSampleNames)));
       idxs <- which(sampleNames == sampleName);

@@ -104,7 +104,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
   }
 
   res <- list();
-  for (aa in seq(along=arrays)) {
+  for (aa in seq_along(arrays)) {
     array <- arrays[aa];
     name <- arrayNames[array];
     verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", 
@@ -144,7 +144,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
           df <- df[-tooLong,];
           df <- rbind(df, dfXtra);
           rm(dfXtra);
-          row.names(df) <- seq(length=nrow(df));
+          row.names(df) <- seq_len(nrow(df));
         }
         verbose && exit(verbose);
         # Make sure the items are ordered correctly
@@ -159,7 +159,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
       }
   
       # Apply digits
-      for (cc in seq(length=ncol(df))) {
+      for (cc in seq_len(ncol(df))) {
         value <- df[,cc];
         if (is.double(value)) {
           df[,cc] <- round(value, digits=digits);

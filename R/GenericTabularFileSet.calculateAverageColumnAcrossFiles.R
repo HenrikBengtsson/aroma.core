@@ -43,7 +43,7 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
     rowFcn <- rowMedians;
   }
 
-  nbrOfFiles <- nbrOfFiles(this);
+  nbrOfFiles <- length(this);
   if (nbrOfFiles == 0) {
     throw("Cannot calculate average across data files. No data files in data set: ", getFullName(this));
   }
@@ -51,7 +51,7 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
 
   df <- getFile(this, 1);
   nbrOfRows <- nbrOfRows(df);
-  units <- seq(length=nbrOfRows);
+  units <- seq_len(nbrOfRows);
   nbrOfRows <- length(units);
   verbose && cat(verbose, "Number of rows: ", nbrOfRows);
 

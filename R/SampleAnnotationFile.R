@@ -121,7 +121,7 @@ setMethodS3("apply", "SampleAnnotationFile", function(this, names, FUN, ..., ver
   if (nrow(db) == 0 || ncol(db) == 0)
     return(invisible());
 
-  for (kk in seq(along=res)) {
+  for (kk in seq_along(res)) {
     record <- db[kk,,drop=TRUE];
 
     # Nothing to do?

@@ -50,7 +50,7 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
   if (is.null(x)) {
     x <- array(as.integer(NA), dim=c(dim, 2));
     for (dd in 1:2) {
-      t <- matrix(seq(length=dim[dd]), nrow=dim[1], ncol=dim[2], 
+      t <- matrix(seq_len(dim[dd]), nrow=dim[1], ncol=dim[2], 
                                                              byrow=(dd == 2));
       x[,,dd] <- t;
     }
@@ -100,14 +100,14 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
 
 
   oldSum <- 0;
-  for (ii in seq(length=maxIter)) {
+  for (ii in seq_len(maxIter)) {
     for (dd in 1:2) {
       range <- ranges[[dd]]
       froms <- range[,1]; 
       tos <- range[,2];
       nbrOfBlocks <- length(froms);
   
-      for (kk in seq(length=nbrOfBlocks)) {
+      for (kk in seq_len(nbrOfBlocks)) {
         idxs <- froms[kk]:tos[kk];
     
         # Get data

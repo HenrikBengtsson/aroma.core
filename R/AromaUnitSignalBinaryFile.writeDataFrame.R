@@ -283,7 +283,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   verbose && exit(verbose);
 
   # For each data column
-  for (cc in seq(length=nbrOfColumns)) {
+  for (cc in seq_len(nbrOfColumns)) {
     values <- data[,cc, drop=TRUE];
 
     # Exporting all missing values as "NA" (not NaN).

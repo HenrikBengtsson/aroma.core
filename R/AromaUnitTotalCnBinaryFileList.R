@@ -41,7 +41,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitTotalCnBinaryFileList", functi
     nbrOfSources <- length(cnList);
     verbose && exit(verbose);
   } else {
-    keep <- seq(along=cnList);
+    keep <- seq_along(cnList);
   }
   attr(cnList, "included") <- keep;
 
@@ -143,7 +143,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
     verbose && exit(verbose);
 
     verbose && enter(verbose, "Removing shifts");
-    for (kk in seq(along=cnList)) {
+    for (kk in seq_along(cnList)) {
       # Unshift full resolution data
       cn <- cnList[[kk]];
       cn$y <- cn$y - deltas[kk];
@@ -188,7 +188,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Assign platform specific weights");
-  for (kk in seq(along=cnList)) {
+  for (kk in seq_along(cnList)) {
     cn <- cnList[[kk]];
     cn$weights <- rep(ws[kk], times=nbrOfLoci(cn));
     cnList[[kk]] <- cn;

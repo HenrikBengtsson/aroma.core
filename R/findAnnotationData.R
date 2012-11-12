@@ -89,7 +89,7 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
     # can guarantee that the root paths are search in the correct
     # order according to the aroma search conventions. /HB 2011-03-03
     pathnames <- c();
-    for (kk in seq(along=paths)) {
+    for (kk in seq_along(paths)) {
       path <- paths[kk];
       verbose && enter(verbose, sprintf("Path #%d of %d", kk, length(paths)));
 

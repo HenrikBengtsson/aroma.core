@@ -13,8 +13,8 @@ setMethodS3("fitWHLAPLM", "matrix", function(y, ...) {
   K <- nrow(y);
   I <- ncol(y);
   y <- log2(y);
-  thetaIdxs <- seq(length=I);
-  phiIdxs <- I+seq(length=K);
+  thetaIdxs <- seq_len(I);
+  phiIdxs <- I+seq_len(K);
 
   fit <- fitWHRCModel.matrix(y, ...);
 

@@ -340,7 +340,7 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   colnames <- getColumnNames(this);
   ncol <- length(colnames);
-  cols <- seq(length=ncol);
+  cols <- seq_len(ncol);
   names(cols) <- colnames;
 
 
@@ -348,7 +348,7 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   # Rows
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nrow <- nrow(this);
-  rows <- seq(length=nrow);
+  rows <- seq_len(nrow);
   names(rows) <- rownames(this);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -683,7 +683,7 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
   args <- list(...);
   this <- args[[1]];
   class <- class(this);
-  for (kk in seq(along=args)) {
+  for (kk in seq_along(args)) {
     other <- args[[kk]];
     other <- Arguments$getInstanceOf(other, class[1]);
   } # for (kk ...)

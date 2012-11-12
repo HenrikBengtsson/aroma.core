@@ -60,7 +60,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
 
     # Typically the below only applies to one sample
     verbose && cat(verbose, "Applies to ", length(appliesTo), " sample(s).");
-    for (kk in seq(along=appliesTo)) { 
+    for (kk in seq_along(appliesTo)) { 
       idx <- appliesTo[kk];
       verbose && cat(verbose, "Sample: ", names(appliesTo)[kk]);
 

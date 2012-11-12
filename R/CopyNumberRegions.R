@@ -139,7 +139,7 @@ setMethodS3("applyRows", "CopyNumberRegions", function(this, FUN, ...) {
   if (nrow(data) > 0) {
     o <- order(data[,"chromosome"], data[,"start"]);
     data <- data[o,,drop=FALSE];
-    for (kk in seq(length=nrow(data))) {  
+    for (kk in seq_len(nrow(data))) {  
       res[[kk]] <- FUN(data[kk,,drop=FALSE], ...);
     }
   }

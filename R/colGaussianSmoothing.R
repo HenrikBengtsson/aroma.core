@@ -7,7 +7,7 @@
 # T_i' = M_i' - R'
 #
 # => w*T = w*M + w*R = M' + w*R
-setMethodS3("colGaussianSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w=NULL, xOut=x, sd=1, censorSd=3, na.rm=FALSE, ..., verbose=FALSE) {
+setMethodS3("colGaussianSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NULL, xOut=x, sd=1, censorSd=3, na.rm=FALSE, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

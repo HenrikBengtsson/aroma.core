@@ -652,7 +652,7 @@ setMethodS3("getGenomeData", "ChromosomalModel", function(this, ..., verbose=FAL
   verbose && enter(verbose, "Translating chromosome names");
   chromosomes <- row.names(data);
   map <- c("X"=23, "Y"=24, "Z"=25);
-  for (kk in seq(along=map)) {
+  for (kk in seq_along(map)) {
     chromosomes <- gsub(names(map)[kk], map[kk], chromosomes, fixed=TRUE);
   }
   row.names(data) <- chromosomes;
@@ -690,7 +690,7 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
   path <- getPath(this);
   verbose && cat(verbose, "Path: ", path);
   fs <- GenericDataFileSet$byPath(path, ...);
-  verbose && cat(verbose, "Number of matching files located: ", nbrOfFiles(fs));
+  verbose && cat(verbose, "Number of matching files located: ", length(fs));
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Keep those with fullnames matching the input data set");

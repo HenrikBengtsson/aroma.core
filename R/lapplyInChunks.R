@@ -83,11 +83,11 @@ setMethodS3("splitInChunks", "numeric", function(idxs, chunkSize=1, ...) {
   n <- length(idxs);
   nbrOfChunks <- ceiling(n / chunkSize);
   res <- vector("list", nbrOfChunks);
-  head <- seq(length=chunkSize);
+  head <- seq_len(chunkSize);
   pos <- 1;
   while (length(idxs) > 0) {
     if (length(idxs) < chunkSize)
-      head <- seq(length=length(idxs));
+      head <- seq_along(idxs);
     res[[pos]] <- idxs[head];
     idxs <- idxs[-head];
     pos <- pos + 1;

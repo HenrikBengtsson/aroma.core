@@ -63,7 +63,7 @@
 # @keyword robust
 # @keyword univar 
 #*/###########################################################################
-setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq(length=nrow(Y)), w=NULL, xOut=x, kernel=c("gaussian", "uniform"), h, censorH=3, na.rm=TRUE, robust=FALSE, ..., verbose=FALSE) {
+setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NULL, xOut=x, kernel=c("gaussian", "uniform"), h, censorH=3, na.rm=TRUE, robust=FALSE, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

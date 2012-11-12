@@ -24,7 +24,7 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
 
   # Compute platform specific variance terms.
   sigma2 <- double(K);
-  for(kk in seq(length=K)) {
+  for(kk in seq_len(K)) {
     y <- fit$y[[kk]];
     y <- y[is.finite(y)];
     sigma2[kk] <- compute.var(y);
@@ -34,7 +34,7 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
   # put them in the list "fits".  Now, the list has length 1.
   fits <- vector("list", length=1);
   fits[[1]] <- fit;
-  platform.names <- seq(length=K);
+  platform.names <- seq_len(K);
   stdout <- capture.output({
     res <- cross.platform.consensus(fits, sigma2, platform.names, plots=FALSE);
   });

@@ -68,7 +68,7 @@ setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClass
 ##   verbose && enter(verbose, "Translating chromosome names");
 ##   chromosomes <- row.names(data);
 ##   map <- c("X"=23, "Y"=24, "Z"=25);  # AD HOC; only for the human genome
-##   for (kk in seq(along=map)) {
+##   for (kk in seq_along(map)) {
 ##     chromosomes <- gsub(names(map)[kk], map[kk], chromosomes, fixed=TRUE);
 ##   }
 ##   row.names(data) <- chromosomes;

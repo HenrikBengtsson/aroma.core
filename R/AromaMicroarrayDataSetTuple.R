@@ -54,7 +54,7 @@ setMethodS3("as.character", "AromaMicroarrayDataSetTuple", function(x, ...) {
 setMethodS3("indexOf", "AromaMicroarrayDataSetTuple", function(this, arrays=NULL, ...) {
   # Argument 'arrays':
   if (is.numeric(arrays)) {
-    n <- nbrOfFiles(this);
+    n <- length(this);
     arrays <- Arguments$getIndices(arrays, max=n);
   } else {
     arrays <- NextMethod("indexOf", arrays, onMissing="error");
@@ -63,10 +63,6 @@ setMethodS3("indexOf", "AromaMicroarrayDataSetTuple", function(this, arrays=NULL
   arrays;
 })
 
-
-setMethodS3("nbrOfArrays", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  nbrOfFiles(this, ...);
-})
 
 setMethodS3("getAsteriskTags", "AromaMicroarrayDataSetTuple", function(this, ...) {
   "";

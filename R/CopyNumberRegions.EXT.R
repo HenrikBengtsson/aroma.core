@@ -84,7 +84,7 @@ setMethodS3("+", "CopyNumberRegions", function(e1, e2) {
   for (field in fields) {
     values <- double(length(starts));
 
-    for (rr in seq(along=starts)) {
+    for (rr in seq_along(starts)) {
       region <- c(starts[rr], stops[rr]);
       mu <- sapply(regList, FUN=function(reg) {
         getValueAt(reg, field=field, at=region[1]);
@@ -165,7 +165,7 @@ setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(
   mu <- rep(naValue, times=nbrOfLoci);
 
   data <- as.data.frame(this);
-  for (rr in seq(length=nrow(data))) {
+  for (rr in seq_len(nrow(data))) {
     region <- c(data[rr,"start"], data[rr,"stop"]);
     muRR <- data[rr,"mean"];
     idxs <- which(region[1] <= x & x < region[2]);

@@ -118,7 +118,7 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
   s <- c(s, sprintf("Asterisk ('*') tags: %s", getAsteriskTags(this, collapse=",")));
   s <- c(s, sprintf("Output tags: %s", paste(getTags(this), collapse=",")));
   s <- c(s, sprintf("Number of files: %d (%.2fMB)", 
-                           nbrOfFiles(ds), getFileSize(ds)/1024^2));
+                           length(ds), getFileSize(ds)/1024^2));
   s <- c(s, sprintf("Platform: %s", getPlatform(ds)));
   s <- c(s, sprintf("Chip type: %s", getChipType(ds)));
   params <- paste(getParametersAsString(this), collapse=", ");
@@ -414,7 +414,7 @@ setMethodS3("isDone", "AromaTransform", function(this, ..., verbose=FALSE) {
                                                   verbose=less(verbose,5));
   verbose && exit(verbose);
 
-  (nbrOfFiles(dsOut) == length(fullnames));
+  (length(dsOut) == length(fullnames));
 })
 
 
@@ -616,22 +616,22 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete
   verbose && exit(verbose);
 
 
-  if (nbrOfFiles(dsOut) == nbrOfFiles) {
+  if (length(dsOut) == nbrOfFiles) {
     verbose && cat(verbose, "Output data set is complete (matches the expected data set)");
     # Sanity check
     stopifnot(identical(getFullNames(dsOut), fullnames));
     this$.outputDataSet <- dsOut;
-  } else if (nbrOfFiles(dsOut) < nbrOfFiles) {
+  } else if (length(dsOut) < nbrOfFiles) {
     verbose && cat(verbose, "Too few output files: ", 
-                                 nbrOfFiles(dsOut), " < ", nbrOfFiles);
+                                 length(dsOut), " < ", nbrOfFiles);
     # Return incomplete data set?
     if (!incomplete) {
       verbose && cat(verbose, "Ignoring incomplete output data set.");
       dsOut <- NULL;
     }
-  } else if (nbrOfFiles(dsOut) > nbrOfFiles) {
+  } else if (length(dsOut) > nbrOfFiles) {
     throw("Too many output files identified: ", 
-                                 nbrOfFiles(dsOut), " > ", nbrOfFiles);
+                                 length(dsOut), " > ", nbrOfFiles);
   }
 
   verbose && exit(verbose);

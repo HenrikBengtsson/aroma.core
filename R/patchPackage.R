@@ -66,7 +66,7 @@ setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/",
   deleteOld <- Arguments$getLogical(deleteOld);
 
   # Argument 'paths':
-  for (kk in seq(along=paths)) {
+  for (kk in seq_along(paths)) {
     paths[kk] <- Arguments$getReadablePathname(paths[kk], mustExist=FALSE);
   }
 
@@ -86,7 +86,7 @@ setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/",
 
 
   # 0. Exclude non-existing patch root paths
-  for (kk in seq(along=paths)) {
+  for (kk in seq_along(paths)) {
     if (!isDirectory(paths[kk]))
       paths[kk] <- NA;
   }

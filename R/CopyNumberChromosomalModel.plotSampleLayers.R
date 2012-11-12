@@ -95,7 +95,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
   arrayFullNames <- getFullNames(this)[arrays];
   arrayNames <- getNames(this)[arrays];
   nbrOfArrays <- length(arrayNames);
-  for (aa in seq(length=nbrOfArrays)) {
+  for (aa in seq_len(nbrOfArrays)) {
     array <- arrays[aa]; # A number
     arrayFullName <- arrayFullNames[aa];
     arrayName <- arrayNames[aa];

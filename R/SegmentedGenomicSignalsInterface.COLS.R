@@ -74,7 +74,7 @@ setMethodS3("getStateColors", "SegmentedGenomicSignalsInterface", function(this,
     cols[idxs] <- colorMap["+"];
   }
 
-  for (kk in seq(along=uStates)) {
+  for (kk in seq_along(uStates)) {
     state <- uStates[kk];
     key <- sprintf("%s", state);
 

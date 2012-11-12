@@ -18,7 +18,7 @@ setMethodS3("stextLabels", "AromaMicroarrayDataFile", function(this, others=NULL
 
   # Build text labels
   text <- vector("list", length(objects));
-  for (kk in seq(along=objects)) {
+  for (kk in seq_along(objects)) {
     object <- objects[[kk]];
     if (is.null(object))
       next;

@@ -99,7 +99,7 @@ setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., 
   verbose && cat(verbose, "Number of data sets: ", nbrOfDataSets);
 
   dsList <- vector("list", nbrOfDataSets);
-  for (kk in seq(length=nbrOfDataSets)) {
+  for (kk in seq_len(nbrOfDataSets)) {
     verbose && enter(verbose, sprintf("Data set #%d of %d", kk, nbrOfDataSets));
     argsKK <- args[kk,];
     verbose && cat(verbose, "Arguments:");

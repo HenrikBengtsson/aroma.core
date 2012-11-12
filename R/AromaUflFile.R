@@ -42,7 +42,7 @@ setMethodS3("readDataFrame", "AromaUflFile", function(this, ...) {
   data <- NextMethod("readDataFrame");
 
   # Interpret zeros as NAs
-  for (cc in seq(length=ncol(data))) {
+  for (cc in seq_len(ncol(data))) {
     nas <- (data[,cc] == 0);
     data[nas,cc] <- NA;
   }
@@ -130,10 +130,10 @@ setMethodS3("summaryOfUnits", "AromaUflFile", function(this, enzymeLabels=paste(
   verbose && enter(verbose, "Building (unit, enzyme) classes");
   unitSets <- vector("list", length(unitClasses))
   names(unitSets) <- names(unitClasses);
-  for (ii in seq(along=unitClasses)) {
+  for (ii in seq_along(unitClasses)) {
     unitSet <- vector("list", length(enzymeClasses))
     names(unitSet) <- names(enzymeClasses)
-    for (jj in seq(along=enzymeClasses)) {
+    for (jj in seq_along(enzymeClasses)) {
       units <- intersect(unitClasses[[ii]], enzymeClasses[[jj]])
       unitSet[[jj]] <- units
     }
@@ -234,7 +234,7 @@ setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, 
   }
 
   verbose && enter(verbose, "Updating UFL file");
-  for (cc in seq(length=nbrOfEnzymes)) {
+  for (cc in seq_len(nbrOfEnzymes)) {
     this[units,cc] <- data[,cc, drop=TRUE];
   }
   verbose && exit(verbose);

@@ -210,7 +210,7 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   # Identify states of target loci
   statesOut <- getStates(this, x=xOut);
 
-  for (ss in seq(along=uniqueStates)) {
+  for (ss in seq_along(uniqueStates)) {
     state <- uniqueStates[ss];
     verbose && enter(verbose, sprintf("State #%d ('%d') of %d", 
                                       ss, state, length(uniqueStates)));
@@ -365,7 +365,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     # Adding ordering along genome
     gs <- clone(this);
     gs <- sort(gs);
-    gs$xOrder <- seq(length=nbrOfLoci(gs));
+    gs$xOrder <- seq_len(nbrOfLoci(gs));
   } else {
     gs <- this;
   }
@@ -376,7 +376,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Binning (target) state by state
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (ss in seq(along=uniqueStates)) {
+  for (ss in seq_along(uniqueStates)) {
     state <- uniqueStates[ss];
     verbose && enter(verbose, sprintf("State #%d ('%d') of %d", 
                                         ss, state, length(uniqueStates)));

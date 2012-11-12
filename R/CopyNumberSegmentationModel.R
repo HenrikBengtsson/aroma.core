@@ -211,7 +211,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
   res <- list();
   arrayNames <- getNames(this)[arrays];
   nbrOfArrays <- length(arrayNames);
-  for (aa in seq(length=nbrOfArrays)) {
+  for (aa in seq_len(nbrOfArrays)) {
     array <- arrays[aa];
     arrayName <- arrayNames[aa];
 
@@ -415,7 +415,7 @@ setMethodS3("getLog2Ratios", "CopyNumberSegmentationModel", function(this, ..., 
   res <- lapply(res, FUN=function(arrayFits) {
     df <- NULL;
     # For each chromosome
-    for (kk in seq(along=arrayFits)) {
+    for (kk in seq_along(arrayFits)) {
       fit <- arrayFits[[kk]];
       if (!is.null(fit)) {
         verbose && enter(verbose, "Extracting regions for chromosome #", kk);
@@ -426,7 +426,7 @@ setMethodS3("getLog2Ratios", "CopyNumberSegmentationModel", function(this, ..., 
         verbose && exit(verbose);
       }
     }
-    rownames(df) <- seq(length=nrow(df));
+    rownames(df) <- seq_len(nrow(df));
     df;
   })
   verbose && exit(verbose);
@@ -478,7 +478,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
   res <- lapply(res, FUN=function(arrayFits) {
     df <- NULL;
     # For each chromosome
-    for (kk in seq(along=arrayFits)) {
+    for (kk in seq_along(arrayFits)) {
       fit <- arrayFits[[kk]];
       if (!is.null(fit)) {
         verbose && enter(verbose, "Extracting regions for chromosome #", kk);
@@ -491,7 +491,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
         verbose && exit(verbose);
       }
     }
-    rownames(df) <- seq(length=nrow(df));
+    rownames(df) <- seq_len(nrow(df));
 
     verbose && cat(verbose, "Extracted regions:");
     verbose && str(verbose, df);
@@ -506,7 +506,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
       start[start < 0] <- 0;
       stop <- stop + m;
       urls <- character(nrow(df));
-      for (rr in seq(along=urls)) { 
+      for (rr in seq_along(urls)) { 
         urls[rr] <- url(chromosome[rr], start[rr], stop[rr]);
       }
       df <- cbind(df, url=urls);
@@ -518,11 +518,11 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
 
   if (flat) {
     df <- NULL;
-    for (kk in seq(along=res)) {
+    for (kk in seq_along(res)) {
       df <- rbind(df, cbind(sample=names(res)[kk], res[[kk]]));
       res[[kk]] <- NA;
     }
-    row.names(df) <- seq(length=nrow(df));
+    row.names(df) <- seq_len(nrow(df));
     res <- df;
   }  
 
@@ -565,7 +565,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
   }
 
   res <- list();
-  for (aa in seq(along=arrays)) {
+  for (aa in seq_along(arrays)) {
     array <- arrays[aa];
     name <- arrayNames[aa];
     verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", 
@@ -605,7 +605,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
           df <- df[-tooLong,];
           df <- rbind(df, dfXtra);
           rm(dfXtra);
-          row.names(df) <- seq(length=nrow(df));
+          row.names(df) <- seq_len(nrow(df));
         }
         verbose && exit(verbose);
         # Make sure the items are ordered correctly
@@ -620,7 +620,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
       }
   
       # Apply digits
-      for (cc in seq(length=ncol(df))) {
+      for (cc in seq_len(ncol(df))) {
         value <- df[,cc];
         if (is.double(value)) {
           df[,cc] <- round(value, digits=digits);

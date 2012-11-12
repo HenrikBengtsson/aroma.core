@@ -74,8 +74,8 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
     w <- matrix(1, nrow=K, ncol=I);
   }
 
-  thetaIdxs <- seq(length=I);
-  phiIdxs <- I+seq(length=K);
+  thetaIdxs <- seq_len(I);
+  phiIdxs <- I+seq_len(K);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Iterative re-weighted fit

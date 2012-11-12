@@ -3,7 +3,7 @@ setMethodS3("plotCoverageMap", "AromaUgpFile", function(this, chromosomes=getChr
   x <- this[,2L, drop=TRUE];
   x <- xScale * x;
 
-  yIdxs <- seq(along=chromosomes);
+  yIdxs <- seq_along(chromosomes);
   
 
   if (!add) {
@@ -17,7 +17,7 @@ setMethodS3("plotCoverageMap", "AromaUgpFile", function(this, chromosomes=getChr
     text(x=xx, y=yy, chrLabels, cex=0.8, pos=2, offset=1, xpd=TRUE);
   }
   
-  for (cc in seq(along=chromosomes)) {
+  for (cc in seq_along(chromosomes)) {
     chr <- chromosomes[cc];
     units <- (chromosome == chr);
     xx <- x[units];

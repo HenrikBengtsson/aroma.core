@@ -44,7 +44,7 @@ setMethodS3("byName", "AromaUnitTotalCnBinarySet", function(static, name, tags=N
 }, static=TRUE) 
 
 
-setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=NULL, prefix="average", indices="remaining", mean=c("median", "mean"), sd=c("mad", "sd"), na.rm=TRUE, g=NULL, h=NULL, ..., unitsPerChunk=ram*10^7/nbrOfFiles(this), ram=1, force=FALSE, verbose=FALSE) {
+setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=NULL, prefix="average", indices="remaining", mean=c("median", "mean"), sd=c("mad", "sd"), na.rm=TRUE, g=NULL, h=NULL, ..., unitsPerChunk=ram*10^7/length(this), ram=1, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -162,7 +162,7 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
     verbose && cat(verbose, "Filename: ", filename);
 
     pathname <- NULL;
-    for (kk in seq(along=paths)) {
+    for (kk in seq_along(paths)) {
       path <- paths[kk];
       verbose && enter(verbose, sprintf("Searching path #%d of %d", kk, length(paths)));
 
@@ -268,7 +268,7 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
   # estimate the standard deviation, for each unit we need all data across 
   # arrays at once.  In order to this efficiently, we do this in chunks
 
-  arrays <- seq(length=nbrOfArrays);
+  arrays <- seq_len(nbrOfArrays);
   naValue <- as.double(NA);
   lapplyInChunks(indices, function(idxs, ...) {
     verbose && enter(verbose, "Processing chunk");

@@ -123,7 +123,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
   # Color loci by genotype
   colMu <- c("gray", "black")[(muN == 1/2) + 1];
 
-  for (tt in seq(along=tracks)) {
+  for (tt in seq_along(tracks)) {
     track <- tracks[tt];
     verbose && enter(verbose, sprintf("Track #%d ('%s') of %d", 
                                              tt, track, length(tracks)));

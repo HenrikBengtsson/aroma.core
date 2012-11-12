@@ -114,7 +114,7 @@ setMethodS3("stringTree", "character", function(strs, maxDepth=-1, countRemainin
   # Unique remain string tails
   strs <- substring(strs, first=pos);
 
-  for (kk in seq(along=uHeads)) {
+  for (kk in seq_along(uHeads)) {
     uHead <- uHeads[kk];
     uCommonHead <- uCommonHeads[kk];
     idx <- (heads == uHead);

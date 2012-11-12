@@ -104,7 +104,7 @@ setMethodS3("byChipType", "AromaUnitTabularBinaryFile", function(static, chipTyp
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Look for first possible valid match
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (kk in seq(along=pathnames)) {
+  for (kk in seq_along(pathnames)) {
     pathname <- pathnames[kk];
     verbose && enter(verbose, "File #", kk, " (", pathname, ")");
 

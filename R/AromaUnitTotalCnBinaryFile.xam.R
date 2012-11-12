@@ -20,7 +20,7 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   
   # Argument 'units':
   if (is.null(units)) {
-    units <- seq(length=nbrOfUnits(ugp));
+    units <- seq_len(nbrOfUnits(ugp));
   } else {
     units <- Arguments$getIndices(units, max=nbrOfUnits(ugp));
   }

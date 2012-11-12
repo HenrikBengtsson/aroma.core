@@ -59,13 +59,13 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitCallSet", function(this, ..., dro
 
 
   verbose && enter(verbose, "Extracting genotypes across all arrays");
-  verbose && cat(verbose, "Number of files: ", nbrOfFiles(this));
+  verbose && cat(verbose, "Number of files: ", length(this));
 
   res <- NULL;
-  for (kk in seq(this)) {  
+  for (kk in seq_along(this)) {  
     df <- getFile(this, kk);
     verbose && enter(verbose, sprintf("File #%d ('%s') of %d", 
-                                kk, getName(df), nbrOfFiles(this)));
+                                kk, getName(df), length(this)));
 
     values <- extractGenotypeMatrix(df, ..., drop=FALSE, 
                                             verbose=less(verbose,10));
@@ -73,7 +73,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitCallSet", function(this, ..., dro
 
     if (kk == 1) {
       dim <- dim(values);
-      dim[length(dim)] <- nbrOfFiles(this);
+      dim[length(dim)] <- length(this);
       dimnames <- list(rownames(values), getNames(this));
       res <- array(values[1], dim=dim, dimnames=dimnames);
     }

@@ -31,7 +31,7 @@ setMethodS3("as.CopyNumberDataSet", "CopyNumberDataSet", function(this, ...) {
 })
 
 setMethodS3("hasAlleleBFractions", "CopyNumberDataSet", function(this, ...) {
-  if (nbrOfFiles(this) == 0) {
+  if (length(this) == 0) {
     throw("Cannot infer hasAlleleBFractions(). No data files: ", getFullName(this));
   }
   df <- getFile(this, 1);
@@ -39,7 +39,7 @@ setMethodS3("hasAlleleBFractions", "CopyNumberDataSet", function(this, ...) {
 })
 
 setMethodS3("hasStrandiness", "CopyNumberDataSet", function(this, ...) {
-  if (nbrOfFiles(this) == 0) {
+  if (length(this) == 0) {
     throw("Cannot infer hasStrandiness(). No data files: ", getFullName(this));
   }
   df <- getFile(this, 1);

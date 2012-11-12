@@ -10,7 +10,7 @@ setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySetTuple
 
 
 setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
-  nbrOfFiles(this, ...);
+  length(this, ...);
 })
 
 
@@ -21,7 +21,7 @@ setMethodS3("getListOfUnitNamesFiles", "AromaUnitTotalCnBinarySetTuple", functio
 
 
 setMethodS3("getUnitNamesFile", "AromaUnitTotalCnBinarySet", function(this, ...) {
-  if (nbrOfFiles(this) == 0) {
+  if (length(this) == 0) {
     throw("Cannot locate unit names file. Data set is empty: ", getFullName(this));
   }
 

@@ -89,7 +89,7 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
     verbose && enter(verbose, sprintf("Plotting chromosome %02d [%.2fMB]", chromosome, widthMb));
 
     tryCatch({
-      for (zz in seq(along=zooms)) {
+      for (zz in seq_along(zooms)) {
         zoom <- zooms[zz];
     
         # Create the pathname to the file

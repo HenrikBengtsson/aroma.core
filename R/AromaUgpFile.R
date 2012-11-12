@@ -116,7 +116,7 @@ setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, 
   # Convert chromosome strings to integers
   if (!is.integer(data[,1])) {
     map <- c(X=23, Y=24, Z=25);
-    for (kk in seq(along=map)) {
+    for (kk in seq_along(map)) {
       data[,1] <- gsub(names(map)[kk], map[kk], data[,1]);
     }
     suppressWarnings({

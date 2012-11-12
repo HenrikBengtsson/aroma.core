@@ -55,14 +55,14 @@ setMethodS3("extractPSCNArray", "AromaUnitTotalCnBinarySet", function(dsTCN, dsB
   if (identical(dsBAF, "*")) {
   } else {
     dsBAF <- Arguments$getInstanceOf(dsBAF, "AromaUnitFracBCnBinaryFile");
-    stopifnot(nbrOfFiles(dsBAF) == nbrOfFiles(dsTCN));
+    stopifnot(length(dsBAF) == length(dsTCN));
     stopifnot(all(getNames(dsBAF) == getNames(dsTCN)));
   }
 
   dfBAF <- "*";
   data <- NULL;
   nbrOfArrays <- length(dsTCN);
-  for (ii in seq(length=nbrOfArrays)) {
+  for (ii in seq_len(nbrOfArrays)) {
     dfTCN <- getFile(dsTCN, ii);
     if (!identical(dsBAF, "*")) {
       dfBAF <- getFile(dsBAF, ii);

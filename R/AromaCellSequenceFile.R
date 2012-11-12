@@ -46,7 +46,7 @@ setMethodS3("getProbeLength", "AromaCellSequenceFile", function(this, ...) {
 })
 
 
-setMethodS3("readSequenceMatrix", "AromaCellSequenceFile", function(this, cells=NULL, positions=seq(length=getProbeLength(this)), drop=FALSE, what=c("character", "raw"), ..., verbose=FALSE) {
+setMethodS3("readSequenceMatrix", "AromaCellSequenceFile", function(this, cells=NULL, positions=seq_len(getProbeLength(this)), drop=FALSE, what=c("character", "raw"), ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -356,7 +356,7 @@ setMethodS3("readSequences", "AromaCellSequenceFile", function(this, ..., verbos
   names(values) <- names(map);
   verbose && print(verbose, values);
 
-  for (kk in seq(along=map)) {
+  for (kk in seq_along(map)) {
     verbose && enter(verbose, sprintf("Value #%d of %d", kk, length(map)));
     verbose && cat(verbose, "Translation: 0x", map[kk], " -> 0x", values[kk]);
     idxsT <- (res == map[kk]);
@@ -520,7 +520,7 @@ setMethodS3("updateTargetStrands", "AromaCellSequenceFile", function(this, cells
 
 
 
-setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cells=NULL, positions=seq(length=getProbeLength(this)), seqs, ...) {
+setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cells=NULL, positions=seq_len(getProbeLength(this)), seqs, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -591,7 +591,7 @@ setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cell
     seqs <- charToRaw(seqs);
 
     # Remap
-    for (kk in seq(along=map)) {
+    for (kk in seq_along(map)) {
       # Source value
       value <- names(map)[kk];
 
@@ -615,7 +615,7 @@ setMethodS3("updateSequenceMatrix", "AromaCellSequenceFile", function(this, cell
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Update data file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  for (kk in seq(length=ncol(seqs))) {
+  for (kk in seq_len(ncol(seqs))) {
     pp <- positions[kk];
     this[cells,pp] <- seqs[,kk];
   }
@@ -734,7 +734,7 @@ setMethodS3("countBases", "AromaCellSequenceFile", function(this, bases=c("A", "
   counts;
 })
 
-setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=NULL, positions=seq(length=getProbeLength(this)), mode=c("integer", "raw"), ..., force=FALSE, verbose=FALSE) {
+setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=NULL, positions=seq_len(getProbeLength(this)), mode=c("integer", "raw"), ..., force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -806,7 +806,7 @@ setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=
   counts <- matrix(zeroValue, nrow=nbrOfCells, ncol=5);
 
   map <- NULL;
-  for (kk in seq(along=positions)) {
+  for (kk in seq_along(positions)) {
     pp <- positions[kk];
     verbose && enter(verbose, sprintf("Position #%d (%d) of %d", kk, pp, length(positions)));
     seqs <- readSequenceMatrix(this, cells=cells, positions=pp, what="raw", drop=TRUE, verbose=less(verbose, 20));
@@ -818,7 +818,7 @@ setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=
 
     # Add to counts
     verbose && enter(verbose, "Summing counts");
-    for (bb in seq(length=ncol(counts))) {
+    for (bb in seq_len(ncol(counts))) {
       verbose && enter(verbose, sprintf("Nucleotide #%d of %d", bb, ncol(counts)));
       idxs <- (seqs == map[bb]);
       idxs <- which(idxs);

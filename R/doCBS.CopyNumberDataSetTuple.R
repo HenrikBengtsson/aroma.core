@@ -7,7 +7,7 @@ setMethodS3("doCBS", "CopyNumberDataSetTuple", function(dsTuple, ..., arrays=NUL
 
   # Argument 'arrays':
   if (!is.null(arrays)) {
-    arrays <- Arguments$getIndices(arrays, max=nbrOfFiles(dsTuple));
+    arrays <- Arguments$getIndices(arrays, max=length(dsTuple));
   }
 
   # Argument 'verbose':

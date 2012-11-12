@@ -60,7 +60,7 @@ setMethodS3("getProbePositionEffectDesignMatrix", "raw", function(seqs, B=NULL, 
     gc <- gc();
   }
 
-  for (bb in seq(along=factors)) {
+  for (bb in seq_along(factors)) {
     verbose && enter(verbose, sprintf("Factor #%d ('%s') of %d", 
                                bb, names(factors)[bb], length(factors)));
 
@@ -135,7 +135,7 @@ setMethodS3("getProbePositionEffectDesignMatrix", "character", function(seqs, ..
   names(map) <- c(NA, "A", "C", "G", "T");
   values <- map[2:5];
   from <- charToRaw(paste(names(values), collapse=""));
-  for (kk in seq(along=values)) {
+  for (kk in seq_along(values)) {
     idxs <- which(seqs == from[kk]);
     seqs[idxs] <- values[kk];
   }

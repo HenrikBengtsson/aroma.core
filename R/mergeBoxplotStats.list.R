@@ -49,7 +49,7 @@ setMethodS3("mergeBoxplotStats", "list", function(stats, ...) {
 
 
   # Sanity check
-  for (kk in seq(along=stats)) {
+  for (kk in seq_along(stats)) {
     stat <- stats[[kk]];
     if (!isBoxplotStats(stat)) {
       throw("Element #", kk, " in argument 'stats' is not a list structure returned by boxplot.stats(): ", class(stat)[1]);
@@ -58,7 +58,7 @@ setMethodS3("mergeBoxplotStats", "list", function(stats, ...) {
 
   
   # Append 'group' stats
-  for (kk in seq(along=stats)) {
+  for (kk in seq_along(stats)) {
     stats[[kk]][["group"]] <- rep(kk, times=length(stats[[kk]][["out"]]));
   }
 

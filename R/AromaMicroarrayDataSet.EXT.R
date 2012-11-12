@@ -4,7 +4,7 @@ setMethodS3("as.AromaMicroarrayDataSetTuple", "AromaMicroarrayDataSet", function
   methodNames <- sprintf("as.%s", classNames);
 
   # Try first as.Nnn() method available
-  for (kk in seq(along=methodNames)) {
+  for (kk in seq_along(methodNames)) {
     methodName <- methodNames[kk];
     if (exists(methodName, mode="function")) {
       fcn <- get(methodName, mode="function");
@@ -23,7 +23,7 @@ setMethodS3("as.AromaMicroarrayDataSetList", "AromaMicroarrayDataSet", function(
   methodNames <- sprintf("as.%s", classNames);
 
   # Try first as.Nnn() method available
-  for (kk in seq(along=methodNames)) {
+  for (kk in seq_along(methodNames)) {
     methodName <- methodNames[kk];
     if (exists(methodName, mode="function")) {
       fcn <- get(methodName, mode="function");

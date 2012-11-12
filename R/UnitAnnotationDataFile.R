@@ -109,7 +109,7 @@ setMethodS3("byChipType", "UnitAnnotationDataFile", function(static, chipType, t
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Scanning for a valid file");
 
-  for (kk in seq(along=pathnames)) {
+  for (kk in seq_along(pathnames)) {
     pathname <- pathnames[kk];
     verbose && enter(verbose, "File #", kk, " (", pathname, ")");
 

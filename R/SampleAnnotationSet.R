@@ -50,7 +50,7 @@ setMethodS3("byPathnames", "SampleAnnotationSet", function(static, pathnames, ..
 
   verbose && enter(verbose, "Defining ", length(pathnames), " files");
   files <- list();
-  for (kk in seq(along=pathnames)) {
+  for (kk in seq_along(pathnames)) {
     if (as.logical(verbose)) cat(kk, ", ", sep="");
     df <- newInstance(dfStatic, pathnames[kk]);
     files[[kk]] <- df;
@@ -101,7 +101,7 @@ setMethodS3("fromPath", "SampleAnnotationSet", function(static, path, pattern="[
 
   verbose && enter(verbose, "Defining ", length(pathnames), " files");
   files <- list();
-  for (kk in seq(along=pathnames)) {
+  for (kk in seq_along(pathnames)) {
     if (as.logical(verbose)) cat(kk, ", ", sep="");
     df <- newInstance(dfStatic, pathnames[kk]);
     files[[kk]] <- df;
@@ -192,7 +192,7 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
       ds <- dsList;
 
       # AD HOC: Undoing the above
-      if (reversePaths) ds <- extract(ds, rev(seq(ds)));
+      if (reversePaths) ds <- extract(ds, rev(seq_along(ds)));
 
       fileSizes <- sapply(ds, getFileSize);
       tt <- table(fileSizes);
@@ -215,7 +215,7 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
           ds <- extract(ds, -dups);
 
           # AD HOC: Redoing the above
-          if (reversePaths) ds <- extract(ds, rev(seq(ds)));
+          if (reversePaths) ds <- extract(ds, rev(seq_along(ds)));
 
           dsList <- ds;
 

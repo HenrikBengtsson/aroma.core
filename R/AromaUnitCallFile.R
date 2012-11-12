@@ -102,7 +102,7 @@ setMethodS3("extractCallArray", "AromaUnitCallFile", function(this, units=NULL, 
   nanValue <- as.double(NaN);
 
   res <- NULL;
-  for (cc in seq(length=nbrOfColumns(this))) {  
+  for (cc in seq_len(nbrOfColumns(this))) {  
     values <- extractMatrix(this, units=units, column=cc, drop=TRUE, ...);
 
     # Missing values

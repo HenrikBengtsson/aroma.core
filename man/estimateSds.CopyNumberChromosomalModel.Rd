@@ -20,7 +20,7 @@
  an estimator that is fairly robust for change points.
 }
 
-\usage{\method{estimateSds}{CopyNumberChromosomalModel}(this, arrays=seq(length = nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE)}
+\usage{\method{estimateSds}{CopyNumberChromosomalModel}(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE)}
 
 \arguments{
   \item{arrays}{The arrays to be queried.}

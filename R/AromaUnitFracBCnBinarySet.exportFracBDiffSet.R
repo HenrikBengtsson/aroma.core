@@ -2,7 +2,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  nbrOfFiles <- nbrOfFiles(this);
+  nbrOfFiles <- length(this);
   nbrOfUnits <- nbrOfUnits(getFile(this,1));
   chipType <- getChipType(this);
 
@@ -61,7 +61,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   ratioTag <- "diff";
   typeTags <- paste(c(ratioTag, "fracB"), collapse=",");
 
-  for (kk in seq(this)) {
+  for (kk in seq_along(this)) {
     df <- getFile(this, kk);
     verbose && enter(verbose, sprintf("File %d ('%s') of %d", kk, getName(df), nbrOfFiles));
 

@@ -123,7 +123,7 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
   }
 
   s <- c(s, "Sample & reference file pairs:");
-  for (kk in seq(along=cesList)) {
+  for (kk in seq_along(cesList)) {
     s <- c(s, sprintf("Chip type #%d ('%s') of %d:", kk, chipTypes[kk], nbrOfChipTypes));
     s <- c(s, "Sample data set:");
     ces <- cesList[[kk]];
@@ -263,7 +263,7 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
       }
   
       # Coerce single reference files into reference sets
-      for (kk in seq(along=refList)) {
+      for (kk in seq_along(refList)) {
         ref <- refList[[kk]];
   
         # If a data file...
@@ -320,7 +320,7 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
     # Validate consistency between the data sets and the reference files
     cesList <- getSets(cesTuple);
     refList <- getSets(refTuple);
-    for (kk in seq(along=cesList)) {
+    for (kk in seq_along(cesList)) {
       ces <- cesList[[kk]];
       ref <- refList[[kk]];
 
@@ -330,7 +330,7 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
       }
 
       # Assert that the reference files are compatible with the test files
-      for (jj in seq(length=nbrOfArrays(ces))) {
+      for (jj in seq_along(ces)) {
         cf <- getFile(ces, jj);
         rf <- getFile(ref, jj);
         if (!inherits(rf, class(cf)[1])) {
@@ -410,7 +410,7 @@ setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this,
 
   # Build a reference set tuple, if missing
   refList <- vector("list", length(cesList));
-  for (kk in seq(along=cesList)) {
+  for (kk in seq_along(cesList)) {
     ces <- cesList[[kk]];
     refSet <- refList[[kk]];
 
@@ -501,7 +501,7 @@ setMethodS3("getPairedNames", "CopyNumberChromosomalModel", function(this, ..., 
   }
 
   tuple <- getSetTuple(this);
-  arrays <- seq(length=nbrOfFiles(tuple));
+  arrays <- seq_len(length(tuple));
 
   # Translate function?
   if (translate) {
@@ -527,7 +527,7 @@ setMethodS3("getPairedNames", "CopyNumberChromosomalModel", function(this, ..., 
 
   tupleList <- list(getSetTuple(this), getReferenceSetTuple(this));
   namesList <- list();
-  for (kk in seq(along=tupleList)) {
+  for (kk in seq_along(tupleList)) {
     tuple <- tupleList[[kk]];
     names <- getNames(tuple);
 
@@ -694,7 +694,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
   # Get the chip types as a factor
   chipTypes <- as.factor(chipTypes);
   df <- NULL;
-  for (kk in seq(along=chipTypes)) {
+  for (kk in seq_along(chipTypes)) {
     chipType <- chipTypes[kk];
     verbose && enter(verbose, "Chip type: ", chipType);
     ce <- ceList[[kk]];
@@ -900,7 +900,7 @@ setMethodS3("calculateChromosomeStatistics", "CopyNumberChromosomalModel", funct
   arrayNames <- getNames(this)[arrays];
   nbrOfArrays <- length(arrayNames);
 
-  for (aa in seq(length=nbrOfArrays)) {
+  for (aa in seq_len(nbrOfArrays)) {
     array <- arrays[aa];
     arrayName <- arrayNames[aa];
 
@@ -928,7 +928,7 @@ setMethodS3("calculateChromosomeStatistics", "CopyNumberChromosomalModel", funct
         sd = sd(M, na.rm=TRUE),
         median = median(M, na.rm=TRUE),
         mad = mad(M, na.rm=TRUE),
-        quantiles = quantile(M, probs=seq(0,1,by=0.01), na.rm=TRUE),
+        quantiles = quantile(M, probs=seq(from=0, to=1, by=0.01), na.rm=TRUE),
         sdDiff = sd(diff(M), na.rm=TRUE)/sqrt(2),
         madDiff = mad(diff(M), na.rm=TRUE)/sqrt(2),
         nbrOfLoci = length(M),
@@ -1115,7 +1115,7 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
 #   @seeclass
 # }
 #*/########################################################################### 
-setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=seq(length=nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE) {
+setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1138,12 +1138,12 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
   rownames(res) <- chromosomes;
 
 
-  for (rr in seq(length=nbrOfChromosomes)) {
+  for (rr in seq_len(nbrOfChromosomes)) {
     chromosome <- chromosomes[rr];
     verbose && enter(verbose, sprintf("Chromosome #%d ('Chr%02d') of %d", 
                                           rr, chromosome, nbrOfChromosomes));
 
-    for (cc in seq(along=arrays)) {
+    for (cc in seq_along(arrays)) {
       array <- arrays[cc];
       verbose && enter(verbose, sprintf("Array #%d of %d", cc, length(arrays)));
 

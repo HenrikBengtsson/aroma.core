@@ -148,7 +148,7 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
   df <- length(coefs)/length(factors);
   verbose && cat(verbose, "Degrees of freedom: ", df);
   idxs <- 1:df;
-  for (kk in seq(along=factors)) {
+  for (kk in seq_along(factors)) {
     key <- names(factors)[kk];
     if (is.null(key)) {
       key <- sprintf("factor%02d", kk);
@@ -291,7 +291,7 @@ setMethodS3("predict", "ProbePositionEffects", function(object, seqs, ..., verbo
     phi2 <- double(K2);
     
     # For each position
-    for (pp in seq(length=P)) {
+    for (pp in seq_len(P)) {
       verbose && enter(verbose, sprintf("Probe position #%d of %d", pp, P));
   
       # Get the nucleotides at this position for all sequences
@@ -312,7 +312,7 @@ setMethodS3("predict", "ProbePositionEffects", function(object, seqs, ..., verbo
     # This approach assumes nothing about the 'values'
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # For each position
-    for (pp in seq(length=P)) {
+    for (pp in seq_len(P)) {
       verbose && enter(verbose, sprintf("Probe position #%d of %d", pp, P));
   
       # Get the nucleotides at this position for all sequences
@@ -356,12 +356,12 @@ setMethodS3("plot", "ProbePositionEffects", function(x, type="b", col=NULL, pch=
 
   rho <- getEffects(fit);
   if (is.null(col)) {
-    col <- seq(length=ncol(rho));
+    col <- seq_len(ncol(rho));
   }
   if (is.null(pch)) {
     pch <- colnames(rho);
     if (any(nchar(pch) > 1)) {
-      pch <- seq(along=pch);
+      pch <- seq_along(pch);
     }
   }
   matplot(rho, type=type, 
@@ -386,11 +386,11 @@ setMethodS3("text", "ProbePositionEffects", function(x, labels=NULL, col=NULL, .
   }
 
   if (is.null(col)) {
-    col <- seq(length=ncol(rho));
+    col <- seq_len(ncol(rho));
   }
 
-  xx <- seq(length=nrow(rho));
-  for (cc in seq(length=ncol(rho))) {
+  xx <- seq_len(nrow(rho));
+  for (cc in seq_len(ncol(rho))) {
     yy <- rho[,cc];
     text(xx,yy, labels=labels[cc], col=col[cc], ...);
   }
@@ -406,16 +406,16 @@ setMethodS3("pointsSequence", "ProbePositionEffects", function(fit, seq, col=NUL
   seq <- Arguments$getCharacter(seq, nchar=rep(nrow(rho),2), length=c(1,1));
 
   if (is.null(col)) {
-    col <- seq(length=ncol(rho));
+    col <- seq_len(ncol(rho));
   } else {
-    col <- rep(col, ncol(rho));
+    col <- rep(col, times=ncol(rho));
   }
 
   # Map the sequence to nucleotide indices
   bases <- strsplit(seq, split="", fixed=TRUE)[[1]];
   bases <- match(bases, colnames(rho));
 
-  xx <- seq(length=nrow(rho));
+  xx <- seq_len(nrow(rho));
   yy <- rowCollapse(rho, bases);
   col <- col[bases];
 
@@ -435,16 +435,16 @@ setMethodS3("textSequence", "ProbePositionEffects", function(fit, seq, labels=NU
   }
 
   if (is.null(col)) {
-    col <- seq(length=ncol(rho));
+    col <- seq_len(ncol(rho));
   } else {
-    col <- rep(col, ncol(rho));
+    col <- rep(col, times=ncol(rho));
   }
 
   # Map the sequence to nucleotide indices
   bases <- strsplit(seq, split="", fixed=TRUE)[[1]];
   bases <- match(bases, colnames(rho));
 
-  xx <- seq(length=nrow(rho));
+  xx <- seq_len(nrow(rho));
   yy <- rowCollapse(rho, bases);
   labels <- labels[bases];
   col <- col[bases];
@@ -462,20 +462,20 @@ setMethodS3("barSequence", "ProbePositionEffects", function(fit, seq, col=NULL, 
   seq <- Arguments$getCharacter(seq, nchar=rep(nrow(rho),2), length=c(1,1));
 
   if (is.null(col)) {
-    col <- seq(length=ncol(rho));
+    col <- seq_leng(ncol(rho));
   } else {
-    col <- rep(col, ncol(rho));
+    col <- rep(col, times=ncol(rho));
   }
 
   # Map the sequence to nucleotide indices
   bases <- strsplit(seq, split="", fixed=TRUE)[[1]];
   bases <- match(bases, colnames(rho));
 
-  xx <- seq(length=nrow(rho));
+  xx <- seq_len(nrow(rho));
   yy <- rowCollapse(rho, bases);
   col <- col[bases];
 
-  for (kk in seq(length=nrow(rho))) {
+  for (kk in seq_len(nrow(rho))) {
     x <- xx[kk];
     y <- yy[kk];
     lines(x=c(x,x), y=c(0,y), col=col[kk], ...);

@@ -142,7 +142,7 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
       verbose && cat(verbose, "Known ", className, " subclasses (including itself):");
       classNames <- c(classNames, getName(clazz));
 
-      for (kk in seq(along=classNames)) {
+      for (kk in seq_along(classNames)) {
         className <- classNames[kk];
         verbose && enter(verbose, sprintf("Search #%d of %d using %s$byChipType())", kk, length(classNames), className));
         clazz <- Class$forName(className);

@@ -60,7 +60,7 @@ extends \emph{\link[R.filesets]{TabularTextFile}}\cr
 
 
  \bold{Methods inherited from TabularTextFile}:\cr
-[, as.character, getCommentChar, getDefaultColumnNames, getHeader, getReadArguments, hasColumnHeader, nbrOfLines, nbrOfRows, readColumnNames, readColumns, readDataFrame, readLines, readRawHeader, setCommentChar, writeColumnsToFiles
+[, as.character, getCommentChar, getDefaultColumnClasses, getDefaultColumnClassPatterns, getDefaultColumnNames, getHeader, getReadArguments, hasColumnHeader, nbrOfLines, nbrOfRows, readColumnNames, readColumns, readDataFrame, readLines, readRawHeader, setCommentChar, writeColumnsToFiles
 
  \bold{Methods inherited from GenericTabularFile}:\cr
 as.character, dim, extractMatrix, nbrOfRows, readColumns, readDataFrame

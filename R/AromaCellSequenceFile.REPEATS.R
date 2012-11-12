@@ -84,7 +84,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
     startPositionT <- rep(as.integer(0), times=length(cells));
     maxRepeatLengthT <- rep(as.integer(1), times=length(cells));
 
-    for (pp in seq(along=positions)) {
+    for (pp in seq_along(positions)) {
       verbose && enter(verbose, sprintf("Position %d of %d", pp, length(positions)));
       pos <- positions[pp];
       b1 <- readSequenceMatrix(this, cells=cells, position=pos, what="raw", drop=TRUE);

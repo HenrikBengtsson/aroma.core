@@ -21,7 +21,7 @@
   Kernel smoothing of a matrix column by column.
  }
 
- \usage{\method{colKernelSmoothing}{matrix}(Y, x=seq(length = nrow(Y)), w=NULL, xOut=x, kernel=c("gaussian", "uniform"), h, censorH=3, na.rm=TRUE, robust=FALSE, ..., verbose=FALSE)}
+ \usage{\method{colKernelSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=x, kernel=c("gaussian", "uniform"), h, censorH=3, na.rm=TRUE, robust=FALSE, ..., verbose=FALSE)}
 
  \arguments{
    \item{Y}{A \code{\link[base]{numeric}} JxI \code{\link[base]{matrix}} (or a \code{\link[base]{vector}} of length J.)}

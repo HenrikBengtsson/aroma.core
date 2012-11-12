@@ -58,7 +58,7 @@ setMethodS3("norm2d", "matrix", function(M, MARGIN=c(1,2), spar=0.7, h=20, ...) 
   h <- rep(h, length.out=n);
 
   Mn <- M;
-  for (kk in seq(length=n)) {
+  for (kk in seq_len(n)) {
     mu <- fit2d(Mn, MARGIN=MARGIN[kk], spar=spar[kk], h=h[kk], ...);
     Mn <- Mn-mu;
   }

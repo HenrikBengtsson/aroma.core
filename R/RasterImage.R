@@ -227,7 +227,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     z2 <- array(0, dim=dim2);
 
     # Sum up the signals
-    for (rr in seq(length=nrow)) {
+    for (rr in seq_len(nrow)) {
       rr2 <- destRows[rr];
       z2[rr2,,,] <- z2[rr2,,,] + z[rr,,,];
     }
@@ -260,7 +260,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     z3 <- array(0, dim=dim3);
 
     # Sum up the signals
-    for (cc2 in seq(length=ncol)) {
+    for (cc2 in seq_len(ncol)) {
       cc3 <- destCols[cc2];
       z3[,cc3,,] <- z3[,cc3,,] + z2[,cc2,,];
     }
@@ -272,7 +272,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     counts <- as.integer(table(destCols));
     # Sanity check
     stopifnot(length(counts) == ncol2);
-    for (cc in seq(length=ncol2)) {
+    for (cc in seq_len(ncol2)) {
       z3[,cc,,] <- z3[,cc,,] / counts[cc];
     }
 
@@ -299,7 +299,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     z2 <- array(0, dim=dim2);
 
     # Sum up the signals
-    for (rr2 in seq(length=nrow2)) {
+    for (rr2 in seq_len(nrow2)) {
       rr <- srcRows[rr2];
       z2[rr2,,,] <- z2[rr2,,,] + z[rr,,,];
     }
@@ -325,7 +325,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     z3 <- array(0, dim=dim3);
 
     # Sum up the signals
-    for (cc3 in seq(length=ncol2)) {
+    for (cc3 in seq_len(ncol2)) {
       cc2 <- srcCols[cc3];
       z3[,cc3,,] <- z3[,cc3,,] + z2[,cc2,,];
     }

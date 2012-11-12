@@ -80,7 +80,7 @@ setMethodS3("readDataFrame", "AromaUnitChromosomeTabularBinaryFile", function(th
     verbose && enter(verbose, "Converting zeros to NAs");
     # Interpret zeros as NAs
     if (ncol(data) > 0) {
-      for (cc in seq(length=ncol(data))) {
+      for (cc in seq_len(ncol(data))) {
         nas <- (!is.na(data[,cc]) & (data[,cc] == 0));
         data[nas,cc] <- NA;
       }
@@ -111,7 +111,7 @@ setMethodS3("getUnitsOnChromosomes", "AromaUnitChromosomeTabularBinaryFile", fun
   allChromosomes <- getChromosomes(this, .chromosomes=data);
 
   res <- vector("list", length(chromosomes));
-  for (cc in seq(along=chromosomes)) {
+  for (cc in seq_along(chromosomes)) {
     units <- which(data == chromosomes[cc]);
     res[[cc]] <- units;
   } # for (cc ...)
@@ -148,7 +148,7 @@ setMethodS3("getUnitsOnChromosome", "AromaUnitChromosomeTabularBinaryFile", func
 setMethodS3("extractByChromosome", "AromaUnitChromosomeTabularBinaryFile", function(this, chromosomes=getChromosomes(this), ...) {
   unitsList <- getUnitsOnChromosomes(this, chromosomes=chromosomes, unlist=FALSE);
   data <- readDataFrame(this, ...);
-  data <- cbind(unit=seq(length=nrow(data)), data);
+  data <- cbind(unit=seq_len(nrow(data)), data);
   lapply(unitsList, FUN=function(units) {
     data[units,,drop=FALSE];
   });

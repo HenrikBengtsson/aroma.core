@@ -3,7 +3,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'ref':
-  nbrOfFiles <- nbrOfFiles(this);
+  nbrOfFiles <- length(this);
   nbrOfUnits <- nbrOfUnits(getFile(this,1));
   chipType <- getChipType(this);
 
@@ -84,7 +84,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
   }
   typeTags <- paste(c(ratioTag, "total"), collapse=",");
 
-  for (kk in seq(this)) {
+  for (kk in seq_along(this)) {
     ce <- getFile(this, kk);
     verbose && enter(verbose, sprintf("File %d ('%s') of %d", kk, getName(ce), nbrOfFiles));
 

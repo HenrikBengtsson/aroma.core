@@ -171,7 +171,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
     
       verbose && enter(verbose, sprintf("Plotting %s for chromosome %02d [%.2fMB]", arrayName, chromosome, widthMb));
   
-      for (zz in seq(along=zooms)) {
+      for (zz in seq_along(zooms)) {
         zoom <- zooms[zz];
   
         # Create the pathname to the file

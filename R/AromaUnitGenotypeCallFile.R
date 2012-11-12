@@ -38,7 +38,7 @@ setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., dro
   dim <- dim(calls);
 
   counts <- integer(dim[1]);
-  for (cc in seq(length=dim[2])) {
+  for (cc in seq_len(dim[2])) {
     counts <- counts + (calls[,cc,1] > 0);
   }
   rm(calls);
@@ -136,7 +136,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       allele <- c("A", "B")[jj];
       callsJJ <- calls[idxs,jj];
       uCalls <- sort(unique(callsJJ));
-      for (uu in seq(along=uCalls)) {
+      for (uu in seq_along(uCalls)) {
         count <- uCalls[uu];
         callsUU <- paste(rep(allele, times=count), collapse="");
         idxsUU <- which(callsJJ == count);

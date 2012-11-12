@@ -21,7 +21,7 @@ setMethodS3("extractCopyNumberOutliers", "profileCGH", function(object, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Extract each region
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (rr in seq(along=uRegions)) {
+  for (rr in seq_along(uRegions)) {
     # Get the region ID
     region <- uRegions[rr];
 

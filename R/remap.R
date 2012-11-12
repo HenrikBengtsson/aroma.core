@@ -8,7 +8,7 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
 
   # Argument 'values':
   if (is.null(values)) {
-    values <- seq(along=map);
+    values <- seq_along(map);
     mode(values) <- mode;
   }
 
@@ -23,7 +23,7 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
 
   # Remap
   nbrOfValues <- length(map);
-  for (kk in seq(length=nbrOfValues)) {
+  for (kk in seq_len(nbrOfValues)) {
     idxs <- (x == map[kk]);
     idxs <- which(idxs);
     if (length(idxs) > 0) {

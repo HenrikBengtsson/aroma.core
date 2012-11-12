@@ -6,7 +6,7 @@ getCommonListElements <- function(lst, ignoreEmpty=TRUE) {
   common <- c();
   n <- length(lst);
   first <- TRUE;
-  for (kk in seq(length=n)) {
+  for (kk in seq_len(n)) {
     value <- lst[[kk]];
 
     # Ignoring empty list elements or not?
