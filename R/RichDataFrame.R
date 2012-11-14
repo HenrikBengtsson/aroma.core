@@ -164,7 +164,7 @@ setMethodS3("getTags", "RichDataFrame", function(this, collapse=",", ...) {
     return(tags);
   }
   tags <- unlist(strsplit(tags, split=","));
-  if (collapse) {
+  if (!is.null(collapse)) {
     tags <- paste(tags, collapse=collapse);
   }
   tags;

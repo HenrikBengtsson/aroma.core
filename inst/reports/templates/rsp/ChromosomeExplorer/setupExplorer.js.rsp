@@ -9,7 +9,6 @@ function setupExplorer(explorer) {
 
   /* Samples */
   explorer.setSamples(new Array(<%=paste("'", samples, "'", sep="", collapse=", ")%>));
-  explorer.setSampleAliases(new Array(<%=paste("'", gsub("[,].*$", "", samples), "'", sep="", collapse=", ")%>));
   explorer.setSampleAliases(new Array(<%=paste("'", sampleLabels, "'", sep="", collapse=", ")%>));
  
   /* Detected sets */

@@ -5,6 +5,8 @@ Version: 2.6.13 [2012-11-13]
 o CLEANUP: Properly declared all cached fields, making it possible
   to remove nearly all clearCache() implementations because the one
   for Object takes does the job.
+o CLEANUP: The RSP template for ChromosomeExplorer's setupExplorer.js
+  had a duplicated entry.
 
 
 Version: 2.6.12 [2012-11-12]
