@@ -81,7 +81,8 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
     .tags = tags,
     .genome = genome,
     .maxNAFraction = maxNAFraction,
-    .optionalArgs = optionalArgs
+    .optionalArgs = optionalArgs,
+    "cached:.extractRawCopyNumbersCache" = NULL
   );
 
   this <- setReference(this, refTuple);
@@ -140,24 +141,6 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
   class(s) <- "GenericSummary";
   s;
 }, protected=TRUE)
-
-
-
-setMethodS3("clearCache", "CopyNumberChromosomalModel", function(this, ...) {
-  # Clear all cached values.
-  # /AD HOC. clearCache() in Object should be enough! /HB 2007-01-16
-  for (ff in c(".extractRawCopyNumbersCache")) {
-    this[[ff]] <- NULL;
-  }
-
-  if (!is.null(this$.cesTuple))
-    clearCache(this$.cesTuple);
-  if (!is.null(this$.refTuple))
-    clearCache(this$.refTuple);
-
-  # Then for this object
-  NextMethod("clearCache");
-})
 
 
 

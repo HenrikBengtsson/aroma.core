@@ -139,13 +139,6 @@
 \alias{calculateChromosomeStatistics.CopyNumberChromosomalModel}
 \alias{calculateRatios}
 \alias{calculateRatios.CopyNumberChromosomalModel}
-\alias{clearCache.AromaTabularBinaryFile}
-\alias{clearCache.AromaTransform}
-\alias{clearCache.AromaUnitChromosomeTabularBinaryFile}
-\alias{clearCache.AromaUnitTabularBinaryFile}
-\alias{clearCache.ChromosomalModel}
-\alias{clearCache.CopyNumberChromosomalModel}
-\alias{clearCache.TextUnitNamesFile}
 \alias{cnRange}
 \alias{cnRange.RawCopyNumbers}
 \alias{colGaussianSmoothing}

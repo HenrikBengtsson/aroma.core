@@ -12,16 +12,6 @@ setConstructorS3("AromaUnitChromosomeTabularBinaryFile", function(...) {
 }, abstract=TRUE)
 
 
-setMethodS3("clearCache", "AromaUnitChromosomeTabularBinaryFile", function(this, ...) {
-  # Clear all cached values.
-  for (ff in c(".memoryCache")) {
-    this[[ff]] <- NULL;
-  }
-
-  # Then for this object
-  NextMethod("clearCache"); 
-}, private=TRUE) 
-
 
 setMethodS3("getGenomeVersion", "AromaUnitChromosomeTabularBinaryFile", function(this, ...) {
   tags <- getTags(this, ...);

@@ -44,7 +44,6 @@ extends \link[R.oo]{Object}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{clearCache} \tab  -\cr
  \tab \code{fit} \tab  -\cr
  \tab \code{getAlias} \tab  -\cr
  \tab \code{\link[aroma.core:getChipType.ChromosomalModel]{getChipType}} \tab Gets a label for all chip types merged.\cr

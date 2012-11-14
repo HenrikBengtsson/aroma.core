@@ -56,7 +56,6 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{clearCache} \tab  -\cr
  \tab \code{\link[aroma.core:extractRawCopyNumbers.CopyNumberChromosomalModel]{extractRawCopyNumbers}} \tab Extracts relative copy numbers.\cr
  \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
  \tab \code{getChromosomeLength} \tab  -\cr
@@ -75,7 +74,7 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
 
 
  \bold{Methods inherited from ChromosomalModel}:\cr
-as.character, clearCache, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSets, getSetTuple, getTags, indexOf, nbrOfArrays, nbrOfChipTypes, setGenome
+as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSets, getSetTuple, getTags, indexOf, nbrOfArrays, nbrOfChipTypes, setGenome
 
  \bold{Methods inherited from Object}:\cr
 asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save

@@ -30,20 +30,10 @@
 # %}
 #*/########################################################################### 
 setConstructorS3("AromaUnitTabularBinaryFile", function(...) {
-  extend(AromaMicroarrayTabularBinaryFile(...), c("AromaUnitTabularBinaryFile", uses("UnitAnnotationDataFile")));
+  extend(AromaMicroarrayTabularBinaryFile(...), c("AromaUnitTabularBinaryFile", uses("UnitAnnotationDataFile")),
+    "cached:.unf" = NULL
+  );
 })
-
-
-setMethodS3("clearCache", "AromaUnitTabularBinaryFile", function(this, ...) {
-  # Clear all cached values.
-  for (ff in c(".unf")) {
-    this[[ff]] <- NULL;
-  }
-
-  # Then for this object
-  NextMethod("clearCache"); 
-}, private=TRUE)
-
 
 
 setMethodS3("nbrOfUnits", "AromaUnitTabularBinaryFile", function(this, ...) {
@@ -210,6 +200,8 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
 
 ############################################################################
 # HISTORY:
+# 2012-11-13
+# o Explicitly declared "cached:.unf".
 # 2011-11-19
 # o Now byChipType() for AromaUnitTabularBinaryFile gives an error
 #   message with more information on which file it failed to locate,

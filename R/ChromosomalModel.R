@@ -86,22 +86,6 @@ setMethodS3("as.character", "ChromosomalModel", function(x, ...) {
 }, protected=TRUE)
 
 
-setMethodS3("clearCache", "ChromosomalModel", function(this, ...) {
-  # Clear all cached values.
-  # /AD HOC. clearCache() in Object should be enough! /HB 2007-01-16
-  for (ff in c()) {
-    this[[ff]] <- NULL;
-  }
-
-  if (!is.null(this$.cesTuple)) {
-    clearCache(this$.cesTuple);
-  }
-
-  # Then for this object
-  NextMethod("clearCache");
-})
-
-
 setMethodS3("getRootPath", "ChromosomalModel", function(this, ...) {
   tag <- getAsteriskTags(this)[1];
   sprintf("%sData", tolower(tag));

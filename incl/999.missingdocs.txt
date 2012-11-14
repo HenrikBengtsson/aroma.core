@@ -69,10 +69,6 @@
   calculateChromosomeStatistics
   calculateChromosomeStatistics.CopyNumberChromosomalModel
   calculateRatios calculateRatios.CopyNumberChromosomalModel
-  clearCache.AromaTabularBinaryFile clearCache.AromaTransform
-  clearCache.AromaUnitChromosomeTabularBinaryFile
-  clearCache.AromaUnitTabularBinaryFile clearCache.ChromosomalModel
-  clearCache.CopyNumberChromosomalModel clearCache.TextUnitNamesFile
   cnRange cnRange.RawCopyNumbers colGaussianSmoothing
   colGaussianSmoothing.matrix colMeans colMeans.AromaTabularBinaryFile
   colMeans.default colMedians.AromaTabularBinaryFile colorize

@@ -6,20 +6,9 @@ setConstructorS3("TextUnitNamesFile", function(..., platform=NULL) {
 
   extend(TabularTextFile(...), c("TextUnitNamesFile", uses("UnitNamesFile")),
     .platform = platform,
-    "cache:.unitNames" = NULL
+    "cached:.unitNames" = NULL
   );
 })
-
-
-setMethodS3("clearCache", "TextUnitNamesFile", function(this, ...) {
-  # Clear all cached values.
-  for (ff in c(".unitNames")) {
-    this[[ff]] <- NULL;
-  }
-
-  # Then for this object
-  NextMethod("clearCache"); 
-}, private=TRUE)
 
 
 setMethodS3("as.character", "TextUnitNamesFile", function(x, ...) {

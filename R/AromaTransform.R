@@ -60,19 +60,6 @@ setConstructorS3("AromaTransform", function(dataSet=NULL, tags="*", ..., .reqSet
 }, abstract=TRUE)
 
 
-setMethodS3("clearCache", "AromaTransform", function(this, ...) {
-  # Clear all cached values.
-  # /AD HOC. clearCache() in Object should be enough! /HB 2007-01-16
-  for (ff in c(".outputDataSet")) {
-    this[[ff]] <- NULL;
-  }
-
-  # Then for this object
-  NextMethod("clearCache");
-}, private=TRUE)
-
-
-
 
 setMethodS3("getAsteriskTags", "AromaTransform", function(this, ...) {
   # Create a default asterisk tags for any class by extracting all

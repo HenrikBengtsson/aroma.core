@@ -66,18 +66,6 @@ setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {
 })
 
 
-setMethodS3("clearCache", "AromaTabularBinaryFile", function(this, ...) {
-  # Clear all cached values.
-  for (ff in c(".hdr", ".ftr")) {
-    this[[ff]] <- NULL;
-  }
-
-  # Then for this object
-  NextMethod("clearCache");
-}, private=TRUE)
-
-
-
 setMethodS3("setAttributesByTags", "AromaTabularBinaryFile", function(this, ...) {
   # Does nothing.
 }, protected=TRUE)
