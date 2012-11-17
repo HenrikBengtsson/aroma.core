@@ -213,7 +213,7 @@
   getGenomeVersion.AromaUnitChromosomeTabularBinaryFile
   getHeaderParameters getHeaderParameters.TextUnitNamesFile getImage
   getImage.matrix getIncludePath getIncludePath.Explorer
-  getInputDataSet getLabel.AromaMicroarrayDataFile
+  getInputDataSet 
   getListOfAromaUgpFiles getListOfAromaUgpFiles.ChromosomalModel
   getListOfChipEffectSets getListOfChipEffectSets.ChromosomalModel
   getListOfUnitNamesFiles
@@ -398,7 +398,7 @@
   setAttributesByTags.AromaTabularBinaryFile setAttributeXY
   setAttributeXY.AromaMicroarrayDataFile setCytoband
   setCytoband.ChromosomeExplorer setGenome setGenome.ChromosomalModel
-  setLabel.AromaMicroarrayDataFile setLocusFields
+ setLocusFields
   setLocusFields.RawGenomicSignals setName.RawGenomicSignals
   setParallelSafe setParallelSafe.Explorer setRam setRam.AromaSettings
   setReportPathPattern setReportPathPattern.Explorer setSigma

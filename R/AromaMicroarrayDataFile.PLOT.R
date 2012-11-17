@@ -4,7 +4,7 @@ setMethodS3("stextSize", "AromaMicroarrayDataFile", function(this, side=1, fmtst
 
 
 
-setMethodS3("stextLabel", "AromaMicroarrayDataFile", function(this, side=3, fmtstr="%s", label=getLabel(this), pos=0, cex=0.7, col="black", ...) {
+setMethodS3("stextLabel", "AromaMicroarrayDataFile", function(this, side=3, fmtstr="%s", label=getName(this), pos=0, cex=0.7, col="black", ...) {
   stext(side=side, text=sprintf(fmtstr, label), pos=pos, cex=cex, col=col, ...);
 }, private=TRUE)
 
@@ -22,7 +22,7 @@ setMethodS3("stextLabels", "AromaMicroarrayDataFile", function(this, others=NULL
     object <- objects[[kk]];
     if (is.null(object))
       next;
-    value <- getLabel(object);
+    value <- getName(object);
     str <- NULL;
     tryCatch({ str <- sprintf(fmtstr, value) }, error=function(ex){});
     if (is.null(str))
@@ -41,6 +41,8 @@ setMethodS3("stextLabels", "AromaMicroarrayDataFile", function(this, others=NULL
 
 ############################################################################
 # HISTORY:
+# 2012-11-16
+# o CLEANUP: Now using getName() instead of deprecated getLabel().
 # 2008-05-17
 # o Moved from AffymetrixFile to AromaMicroarrayDataFile.
 # 2006-07-11

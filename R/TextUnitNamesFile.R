@@ -23,27 +23,12 @@ setMethodS3("as.character", "TextUnitNamesFile", function(x, ...) {
   s;
 })
 
-setMethodS3("getHeaderParameters", "TextUnitNamesFile", function(this, ...) {
-  comments <- getHeader(this)$comments;
-  params <- gsub("^#", "", comments);
-  params <- trim(params);
-  params <- strsplit(params, split=":", fixed=TRUE);
-  params <- lapply(params, FUN=trim);
-  keys <- sapply(params, FUN=function(x) x[1]);
-  values <- lapply(params, FUN=function(x) x[-1]);
-  values <- sapply(values, FUN=paste, collapse=":");
-  names(values) <- keys;
-  values;
-}, protected=TRUE)
-
 
 setMethodS3("getPlatform", "TextUnitNamesFile", function(this, ..., force=FALSE) {
   platform <- this$.platform;
   if (force || is.null(platform)) {
-    params <- getHeaderParameters(this, ...);
-    platform <- unname(params["platform"]);
-    if (is.na(platform))
-      platform <- NULL;
+    args <- getHeader(this)$commentArgs;
+    platform <- args[["platform"]];
     this$.platform <- platform;
   }
   platform;
@@ -137,12 +122,15 @@ setMethodS3("findByChipType", "TextUnitNamesFile", function(static, chipType, ta
 
 ############################################################################
 # HISTORY:
+# 2012-10-16
+# o CLEANUP: Dropped getHeaderParameters() for TextUnitNamesFile, which
+#   is now done by getHeader() of TabularTextFile.
 # 2009-05-12
 # o Now TextUnitNamesFile caches all unit names in memory.
 # 2009-05-11
 # o BUG FIX: getPlatform() of TextUnitNamesFile would sometimes return a
 #   list of length one, instead of an single character string.
-# o Added getHeaderParameters();
+# o Added getHeaderParameters().
 # 2009-04-06
 # o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would 
 #   make the object believe there are zero units in the file.

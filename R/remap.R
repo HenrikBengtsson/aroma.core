@@ -18,7 +18,7 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
   }
 
   # Allocate return object
-  y <- vector(mode(values), length(x));
+  y <- vector(mode(values), length=length(x));
   dim(y) <- dim(x);
 
   # Remap
@@ -26,7 +26,7 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
   for (kk in seq_len(nbrOfValues)) {
     idxs <- (x == map[kk]);
     idxs <- which(idxs);
-    if (length(idxs) > 0) {
+    if (length(idxs) > 0L) {
       y[idxs] <- values[kk];
     }
   }

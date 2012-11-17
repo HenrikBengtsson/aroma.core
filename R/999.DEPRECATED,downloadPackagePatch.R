@@ -36,6 +36,8 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("downloadPackagePatch", "default", function(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE) {
+##  .Deprecated(msg="downloadPackagePatch() is deprecated without alternatives.");
+
   require("R.utils") || stop("Package not loaded: R.utils");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -123,7 +125,7 @@ setMethodS3("downloadPackagePatch", "default", function(pkgName, version=NULL, u
   }
 
   invisible(pathnames);
-}) # downloadPackagePatch()
+}, deprecated=TRUE) # downloadPackagePatch()
 
 
 ############################################################################

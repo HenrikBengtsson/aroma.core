@@ -38,20 +38,6 @@ setMethodS3("getPlatform", "AromaMicroarrayDataFile", abstract=TRUE);
 
 setMethodS3("getChipType", "AromaMicroarrayDataFile", abstract=TRUE);
 
-
-setMethodS3("getLabel", "AromaMicroarrayDataFile", function(this, ...) {
-  label <- this$label;
-  if (is.null(label))
-    label <- getName(this, ...);
-  label;
-}, private=TRUE)
-
-
-setMethodS3("setLabel", "AromaMicroarrayDataFile", function(this, label, ...) {
-  this$label <- label;
-  invisible(this);
-}, private=TRUE)
-
  
 setMethodS3("isAverageFile", "AromaMicroarrayDataFile", function(this, ...) {
   name <- getName(this);
@@ -62,6 +48,8 @@ setMethodS3("isAverageFile", "AromaMicroarrayDataFile", function(this, ...) {
 
 ############################################################################
 # HISTORY:
+# 2012-11-16
+# o CLEANUP: Dropped (get|set)Label() for AromaMicroarrayDataFile.
 # 2009-11-18
 # o Added isAverageFile() for AromaMicroarrayDataFile.
 # 2007-09-16
