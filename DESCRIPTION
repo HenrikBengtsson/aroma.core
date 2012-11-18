@@ -1,14 +1,13 @@
 Package: aroma.core
 Version: 2.6.14
-Date: 2012-11-15
+Date: 2012-11-17
 Title: Core methods and classes used by aroma.* packages part of The Aroma Framework
 Author: Henrik Bengtsson <henrikb@braju.com>
 Maintainer: Henrik Bengtsson <henrikb@braju.com>
 Depends: R (>= 2.14.0), utils, R.methodsS3 (>= 1.4.2), R.oo (>= 1.10.1),
-        R.utils (>= 1.18.0), R.devices (>= 2.1.2), R.cache (>= 0.6.4), 
-        R.filesets (>= 1.6.0), R.rsp (>= 0.8.2), matrixStats (>= 0.6.2),
-        digest (>= 0.5.2)
-Imports: utils, R.methodsS3 (>= 1.4.2), R.oo (>= 1.10.1), R.utils (>= 1.18.0), R.filesets (>= 1.6.0), R.rsp (>= 0.8.2), RColorBrewer (>= 1.0-5), PSCBS (>= 0.30.0)
+         R.utils (>= 1.18.0), R.filesets (>= 1.6.0), R.devices (>= 2.1.1),
+         R.rsp (>= 0.8.2), matrixStats (>= 0.6.2)
+Imports: utils, R.methodsS3 (>= 1.4.2), R.oo (>= 1.10.1), R.utils (>= 1.18.0), R.cache (>= 0.7.0), R.rsp (>= 0.8.2), digest (>= 0.5.2), matrixStats (>= 0.6.2), RColorBrewer (>= 1.0-5), PSCBS (>= 0.30.0)
 Suggests: RColorBrewer (>= 1.0-5), png (>= 0.1-4), EBImage (>= 3.9.7),
         Cairo (>= 1.5-1), sfit (>= 0.1.8), expectile (>= 0.2.5), 
         GLAD (>= 1.12.0), DNAcopy (>= 1.24.0), HaarSeg (>= 0.0.2),

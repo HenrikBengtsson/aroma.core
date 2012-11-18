@@ -104,9 +104,6 @@ setMethodS3("getSnpShifts", "AromaCellSequenceFile", function(this, ...) {
 
 
 setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, shifts=0, ..., verbose=FALSE) {
-  # For rowCollapse()
-  require("matrixStats") || throw("Package not loaded: matrixStats");
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

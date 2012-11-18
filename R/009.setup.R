@@ -31,7 +31,7 @@
   # and platforms.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!identical(getOption("aroma.core::assertDigest"), FALSE)) {
-    .assertDigest("error");
+    R.cache:::.assertDigest("error");
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -4,10 +4,13 @@
 ##import("utils") # Not yet, because there is a conflict with
 ##                # timestamp() exported by R.utils.
 ##importFrom("utils", packageDescription)
+importFrom("digest", digest);
 import("R.methodsS3")
 import("R.oo")
 import("R.utils")
+import("R.cache")
 import("R.rsp")
+import("matrixStats")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional imports

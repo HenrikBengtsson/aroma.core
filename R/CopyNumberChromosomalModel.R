@@ -1,4 +1,4 @@
-###########################################################################/**
+##########################################################################/**
 # @RdocClass CopyNumberChromosomalModel
 #
 # @title "The CopyNumberChromosomalModel class"
@@ -1026,7 +1026,7 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
 
 
   key <- list(method="extractRawCopyNumbers", class=class(this), array=array, chromosome=chromosome, ...);
-  id <- digest(key);
+  id <- getChecksum(key);
   cacheList <- this$.extractRawCopyNumbersCache;
   if (!is.list(cacheList))
     cacheList <- list();
@@ -1182,6 +1182,8 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
 ##############################################################################
 # HISTORY:
+# 2012-11-17
+# o Now using getChecksum() instead of digest::digest().
 # 2012-10-21
 # o Added argument 'maxNAFraction' to CopyNumberChromosomalModel.
 # o Now CopyNumberChromosomalModel() accepts references of type

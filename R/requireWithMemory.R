@@ -19,7 +19,7 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
     return(TRUE);
   }
 
-  require("R.cache") || throw("Package not loaded: R.cache");
+##  require("R.cache") || throw("Package not loaded: R.cache");
 
   # Argument 'package'
   package <- Arguments$getCharacter(package);

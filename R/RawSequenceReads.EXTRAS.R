@@ -55,8 +55,8 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
     verbose && enter(verbose, "Smoothing");
     print(verbose, rsr);
     key <- list(method="binnedSums", class=class(rsr)[1], 
-         dataChecksum=digest(as.data.frame(rsr)), by=by, region=region);
-    print(verbose, digest(key));
+         dataChecksum=getChecksum(as.data.frame(rsr)), by=by, region=region);
+    print(verbose, getChecksum(key));
     dirs <- c("aroma.core", className);
     if (!force) {
       res <- loadCache(key=key, dirs=dirs);
@@ -98,6 +98,8 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
 
 ############################################################################
 # HISTORY:
+# 2012-11-17
+# o Now using getChecksum() instead of digest::digest().
 # 2009-11-22
 # o Added argument 'logBase' to extractRawCopyNumbers() of RawSequenceReads.
 # 2009-09-07
