@@ -1,16 +1,20 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # IMPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+importFrom("R.methodsS3", "setMethodS3")
+importFrom("R.methodsS3", "throw")
+import("R.oo")
+
 ##import("utils") # Not yet, because there is a conflict with
 ##                # timestamp() exported by R.utils.
 ##importFrom("utils", packageDescription)
-importFrom("digest", digest);
-import("R.methodsS3")
-import("R.oo")
 import("R.utils")
-import("R.cache")
 import("R.rsp")
 import("matrixStats")
+
+
+importFrom("R.cache", "loadCache")
+importFrom("R.cache", "saveCache")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional imports

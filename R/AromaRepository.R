@@ -58,9 +58,8 @@ setMethodS3("getVerbose", "AromaRepository", function(this, ...) {
 
 
 setMethodS3("clearCache", "AromaRepository", function(this, ...) {
-##  require("R.cache") || throw("Package not loaded: R.cache");
   dirs <- c("aroma.core", "AromaRepository", as.character(Sys.Date()));
-  path <- getCachePath(dirs);
+  path <- R.cache::getCachePath(dirs);
   removeDirectory(path, recursive=TRUE, mustExist=FALSE);
 }, protected=TRUE)
 
@@ -101,8 +100,6 @@ setMethodS3("clearCache", "AromaRepository", function(this, ...) {
 # }
 #*/########################################################################### 
 setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this)) {
-##  require("R.cache") || throw("Package not loaded: R.cache");
-
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
