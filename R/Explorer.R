@@ -78,7 +78,7 @@ setMethodS3("as.character", "Explorer", function(x, ...) {
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
-}, private=TRUE)
+}, protected=TRUE)
 
 
 setMethodS3("getVersion", "Explorer", function(this, ...) {
@@ -234,7 +234,7 @@ setMethodS3("nbrOfArrays", "Explorer", function(this, ...) {
 #*/###########################################################################
 setMethodS3("getAlias", "Explorer", function(this, ...) {
   this$.alias;
-})
+}, protected=TRUE)
 
 
 
@@ -259,7 +259,7 @@ setMethodS3("getAlias", "Explorer", function(this, ...) {
 # }
 #
 # \value{
-#   Returns nothing.
+#   Returns itself invisibly.
 # }
 #
 # @author
@@ -282,7 +282,9 @@ setMethodS3("setAlias", "Explorer", function(this, alias=NULL, ...) {
   }
 
   this$.alias <- alias;
-})
+
+  invisible(this);
+}, protected=TRUE)
 
 
 ###########################################################################/**
@@ -376,11 +378,12 @@ setMethodS3("getTags", "Explorer", function(this, collapse=NULL, ...) {
 
 setMethodS3("getAsteriskTags", "Explorer", function(this, ...) {
   "";
-})
+}, protected=TRUE)
+
 
 setMethodS3("getTagsOfInput", "Explorer", function(this, ...) {
   "";
-})
+}, protected=TRUE)
 
 setMethodS3("getNameOfInput", "Explorer", abstract=TRUE, protected=TRUE);
 
@@ -403,11 +406,12 @@ setMethodS3("setReportPathPattern", "Explorer", function(this, pattern, ...) {
   # Argument 'pattern':
   pattern <- Arguments$getRegularExpression(pattern);
   this$.reportPathPattern <- pattern;
-})
+}, protected=TRUE)
+
 
 setMethodS3("getReportPathPattern", "Explorer", function(this, ...) {
 	this$.reportPathPattern;
-})
+}, protected=TRUE)
 
 setMethodS3("splitByReportPathPattern", "Explorer", function(this, tags, ...) {
   # Argument 'tags':
@@ -423,18 +427,20 @@ setMethodS3("splitByReportPathPattern", "Explorer", function(this, tags, ...) {
     res$sampleLayerPrefix <- gsub(pattern, "\\2", tags);
   }
   res;
-})
+}, protected=TRUE)
+
 
 setMethodS3("getRootPath", "Explorer", function(this, ...) {
   "reports";
-}, private=TRUE)
+})
 
 
 setMethodS3("setSubname", "Explorer", function(this, value, ...) {
   oldValue <- this$.subname;
   this$.subname <- value;
   invisible(oldValue);
-})
+}, protected=TRUE)
+
 
 setMethodS3("getSubname", "Explorer", function(this, ...) {
   # Preset?
@@ -566,7 +572,8 @@ setMethodS3("addIncludes", "Explorer", function(this, ..., force=FALSE, verbose=
   verbose && exit(verbose);
 
   verbose && exit(verbose);
-})
+}, protected=TRUE)
+
 
 
 
@@ -765,7 +772,7 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 setMethodS3("getArrays", "Explorer", function(this, ...) {
   getNames(this, ...);
-}, deprecated=TRUE)
+}, protected=TRUE, deprecated=TRUE)
 
 
 

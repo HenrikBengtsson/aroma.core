@@ -27,7 +27,7 @@ setMethodS3("as.character", "RasterImage", function(x, ...) {
   s <- c(s, sprintf("Pixel intensity range: [%g,%g]", r[1], r[2]));
   class(s) <- c("GenericSummary", class(s));
   s;
-})
+}, protected=TRUE)
 
 
 setMethodS3("writeImage", "RasterImage", function(x, ...) {

@@ -59,7 +59,7 @@ setMethodS3("getUnitsOnChromosome", "AromaUgpFile", function(this, ..., region=N
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("allocate", "AromaUgpFile", function(static, ...) {
   NextMethod("allocate", types=rep("integer", times=2), sizes=c(1,4));
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 

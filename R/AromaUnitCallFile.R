@@ -33,7 +33,7 @@ setMethodS3("allocate", "AromaUnitCallFile", function(static, ..., types=c("inte
   valueForNA <- as.integer(2^nbrOfBits-1);
 
   NextMethod("allocate", types=types, sizes=sizes, signed=signed, defaults=valueForNA);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("findUnitsTodo", "AromaUnitCallFile", function(this, units=NULL, ..., force=FALSE, verbose=FALSE) {

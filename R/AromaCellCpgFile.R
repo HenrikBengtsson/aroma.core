@@ -188,8 +188,8 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
     footer
   );
 
-  NextMethod("allocate", nbrOfRows=nbrOfCells, types="double", sizes=4, footer=footer);
-}, static=TRUE)
+  NextMethod("allocate", nbrOfRows=nbrOfCells, types="double", sizes=4L, footer=footer);
+}, static=TRUE, protected=TRUE)
 
 
 

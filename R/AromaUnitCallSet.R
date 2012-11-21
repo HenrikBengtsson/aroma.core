@@ -29,14 +29,14 @@ setConstructorS3("AromaUnitCallSet", function(...) {
 
 setMethodS3("findByName", "AromaUnitCallSet", function(static, ..., paths="callData/") {
   NextMethod("findByName", paths=paths);
-}, static=TRUE) 
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("byPath", "AromaUnitCallSet", function(static, ..., pattern=".*[.]acf$") {
   suppressWarnings({
     NextMethod("byPath", pattern=pattern);
   })
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("findUnitsTodo", "AromaUnitCallSet", function(this, ...) {

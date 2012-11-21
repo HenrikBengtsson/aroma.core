@@ -234,8 +234,8 @@
   getOutputDataSet0 getOutputDataSet0.AromaTransform getOutputFiles
   getOutputFiles.AromaTransform getPairedNames
   getPairedNames.CopyNumberChromosomalModel getParallelSafe
-  getParallelSafe.Explorer getParameters.AromaTransform
-  getParametersAsString getParametersAsString.AromaTransform
+  getParallelSafe.Explorer 
+  getParametersAsString 
   getParentPath getParentPath.ChromosomalModel getPath.ChromosomalModel
   getPath.ChromosomeExplorer getPath.Explorer getPatterns
   getPatterns.SampleAnnotationFile getPhysicalPositions

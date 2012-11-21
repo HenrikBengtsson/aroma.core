@@ -164,7 +164,7 @@ setMethodS3("allocate", "AromaUflFile", function(static, ..., nbrOfEnzymes=1, ty
   nbrOfEnzymes <- Arguments$getInteger(nbrOfEnzymes, range=c(1,10));
 
   NextMethod("allocate", types=types, sizes=sizes);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 

@@ -157,7 +157,7 @@ setMethodS3("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile", function(
   # Argument 'unf':
   unf <- Arguments$getInstanceOf(unf, "UnitNamesFile");
   allocateFromUnitAnnotationDataFile(static, udf=unf, ...);
-})
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", function(static, udf, path=NULL, tags=NULL, footer=list(), ...) {
@@ -181,7 +181,7 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
   chipType <- getChipType(udf);
 
   # Exclude 'monocell' tags (AD HOC)
-  chipType <- gsub(",monocell", "", chipType);
+  chipType <- gsub(",monocell", "", chipType, fixed=TRUE);
 
   fullname <- paste(c(chipType, tags), collapse=",");
   ext <- getFilenameExtension(static);
@@ -190,7 +190,7 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile", 
   # Create microarray tabular binary file
   allocate(static, filename=filename, path=path, nbrOfRows=nbrOfUnits, 
                                 platform=platform, chipType=chipType, ...);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

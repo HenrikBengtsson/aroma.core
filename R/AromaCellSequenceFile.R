@@ -889,7 +889,7 @@ setMethodS3("allocate", "AromaCellSequenceFile", function(static, ..., nbrOfCell
   nbrOfColumns <- probeLengths + 1L;
 
   NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("raw", times=nbrOfColumns), sizes=rep(1L, times=nbrOfColumns), footer=footer);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 

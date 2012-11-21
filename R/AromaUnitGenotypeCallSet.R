@@ -31,7 +31,7 @@ setMethodS3("byPath", "AromaUnitGenotypeCallSet", function(static, ..., pattern=
   suppressWarnings({
     NextMethod("byPath", pattern=pattern);
   })
-})
+}, protected=TRUE)
 
 
 setMethodS3("byName", "AromaUnitGenotypeCallSet", function(static, name, tags=NULL, ..., chipType=NULL, pattern=".*,genotypes[.]acf$") {

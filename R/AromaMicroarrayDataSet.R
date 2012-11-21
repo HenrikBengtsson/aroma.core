@@ -47,7 +47,7 @@ setMethodS3("getPlatform", "AromaMicroarrayDataSet", function(this, ...) {
 
 setMethodS3("getDefaultFullName", "AromaMicroarrayDataSet", function(this, parent=1L, ...) {
   NextMethod("getDefaultFullName", parent=parent);
-})
+}, protected=TRUE)
 
 
 setMethodS3("getChipType", "AromaMicroarrayDataSet", function(this, ...) {

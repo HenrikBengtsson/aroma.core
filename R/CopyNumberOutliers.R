@@ -22,7 +22,7 @@ setMethodS3("as.character", "CopyNumberOutliers", function(x, ...) {
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
-}, private=TRUE) 
+}, protected=TRUE)
 
 
 setMethodS3("nbrOfRegions", "CopyNumberOutliers", function(this, ...) {
@@ -44,7 +44,7 @@ setMethodS3("applyRegions", "CopyNumberOutliers", function(this, FUN, ...) {
   o <- order(data[,"start"]);
   data <- data[o,,drop=FALSE];
   apply(data, MARGIN=1, FUN=FUN);
-})
+}, protected=TRUE)
 
 
 setMethodS3("drawLevels", "CopyNumberOutliers", function(this, col="red", lwd=2, lty=1, xScale=1e-6, yScale=1, ...) {

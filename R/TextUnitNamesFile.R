@@ -21,7 +21,7 @@ setMethodS3("as.character", "TextUnitNamesFile", function(x, ...) {
 
   class(s) <- class;
   s;
-})
+}, protected=TRUE)
 
 
 setMethodS3("getPlatform", "TextUnitNamesFile", function(this, ..., force=FALSE) {

@@ -431,7 +431,7 @@ setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this,
   verbose && exit(verbose);
 
   refTuple;
-}) # getReferenceSetTuple()
+}, protected=TRUE) # getReferenceSetTuple()
 
 
 

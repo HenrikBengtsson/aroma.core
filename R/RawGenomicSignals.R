@@ -122,13 +122,13 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
   class(s) <- class;
 
   s;
-}, private=TRUE) 
+}, protected=TRUE)
 
 
 
 setMethodS3("print", "RawGenomicSignals", function(x, ...) {
   print(as.character(x));
-})
+}, protected=TRUE)
 
 
 setMethodS3("getSignalColumnNames", "RawGenomicSignals", function(this, translate=TRUE, ...) {
@@ -203,7 +203,7 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   stopifnot(nbrOfLoci(res) == length(subset));
 
   res;
-}) # extractSubset()
+}, protected=TRUE) # extractSubset()
 
 
 
@@ -232,7 +232,7 @@ setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, chromos
   keep <- which(region[1] <= x & x <= region[2]);
 
   extractSubset(rgs, keep);
-}) # extractRegion()
+}, protected=TRUE) # extractRegion()
 
 
 
@@ -307,7 +307,7 @@ setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, chrom
   keep <- which(keep);
 
   extractSubset(this, keep);
-}) # extractRegions()
+}, protected=TRUE) # extractRegions()
 
 
 setMethodS3("extractChromosomes", "RawGenomicSignals", function(this, chromosomes=NULL, ...) {
@@ -327,7 +327,7 @@ setMethodS3("extractChromosomes", "RawGenomicSignals", function(this, chromosome
   keep <- which(keep);
 
   extractSubset(this, keep);
-}) # extractChromosomes()
+}, protected=TRUE) # extractChromosomes()
 
 
 setMethodS3("extractChromosome", "RawGenomicSignals", function(this, chromosome, ...) {
@@ -335,11 +335,11 @@ setMethodS3("extractChromosome", "RawGenomicSignals", function(this, chromosome,
   chromosome <- Arguments$getChromosome(chromosome);
 
   extractChromosomes(this, chromosomes=chromosome, ...);  
-}) # extractChromosome()
+}, protected=TRUE) # extractChromosome()
 
 
 
-setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE);
+setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE, protected=TRUE);
 
 
 
@@ -441,7 +441,7 @@ setMethodS3("getDefaultLocusFields", "RawGenomicSignals", function(this, transla
   defFields <- colnames(data);
 
   defFields;
-}) # getDefaultLocusFields()
+}, protected=TRUE) # getDefaultLocusFields()
 
 
 
@@ -449,7 +449,7 @@ setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
   fields <- c(getDefaultLocusFields(this, ...), getVirtualColumnNames(this, ...));
   fields <- unique(fields);
   fields;
-}) # getLocusFields()
+}, protected=TRUE) # getLocusFields()
 
 
 setMethodS3("sort", "RawGenomicSignals", function(x, ...) {
@@ -979,7 +979,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   verbose && exit(verbose);
 
   res;
-}) # binnedSmoothingByField()
+}, protected=TRUE) # binnedSmoothingByField()
 
 
 

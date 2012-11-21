@@ -178,7 +178,7 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 
   # Allocate file
   NextMethod("allocate", footer=footer);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 

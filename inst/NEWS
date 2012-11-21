@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.15 [2012-11-20]
+o Added ParametersInterface.
+o DOCUMENTATION: Hiding more internal methods.
+
+
 Version: 2.6.14 [2012-11-18]
 o CLEANUP: Dropped getHeaderParameters() for TextUnitNamesFile, which
   is now done by getHeader() of TabularTextFile.

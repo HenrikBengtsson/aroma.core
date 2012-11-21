@@ -8,7 +8,7 @@ setMethodS3("getDefaultFullName", "SegmentationDataSet", function(this, ...) {
   path <- getPath(this);
   path <- getParent(path);
   basename(path);
-})
+}, protected=TRUE)
 
 
 setMethodS3("getChipType", "SegmentationDataSet", function(this, ...) {
@@ -45,11 +45,11 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
 
   class(s) <- class;
   s;
-})
+}, protected=TRUE)
 
 
 
-setMethodS3("byPath", "SegmentationDataSet", abstract=TRUE, static=TRUE);
+setMethodS3("byPath", "SegmentationDataSet", abstract=TRUE, static=TRUE, protected=TRUE);
 
 
 
@@ -115,7 +115,7 @@ setMethodS3("extractByReferenceName", "SegmentationDataSet", function(this, refe
   keep <- is.element(names, referenceName);
   idxs <- which(keep);
   extract(this, idxs, ...);
-})
+}, protected=TRUE)
 
 
 setMethodS3("extractBySampleName", "SegmentationDataSet", function(this, sampleName, ...) {
@@ -126,7 +126,7 @@ setMethodS3("extractBySampleName", "SegmentationDataSet", function(this, sampleN
   keep <- is.element(names, sampleName);
   idxs <- which(keep);
   extract(this, idxs, ...);
-})
+}, protected=TRUE)
 
 
 

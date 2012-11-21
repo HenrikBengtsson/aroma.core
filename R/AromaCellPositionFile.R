@@ -208,8 +208,8 @@ setMethodS3("allocate", "AromaCellPositionFile", function(static, ..., nbrOfCell
     footer
   );
 
-  NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("integer",2), sizes=c(1,4), footer=footer);
-}, static=TRUE)
+  NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("integer", times=2L), sizes=c(1L,4L), footer=footer);
+}, static=TRUE, protected=TRUE)
 
 
 

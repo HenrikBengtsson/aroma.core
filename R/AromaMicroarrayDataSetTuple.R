@@ -61,7 +61,7 @@ setMethodS3("indexOf", "AromaMicroarrayDataSetTuple", function(this, arrays=NULL
   }
 
   arrays;
-})
+}, protected=TRUE)
 
 
 setMethodS3("getAsteriskTags", "AromaMicroarrayDataSetTuple", function(this, ...) {
@@ -219,7 +219,7 @@ setMethodS3("getSets", "AromaMicroarrayDataSetTuple", function(this, ...) {
 
 
 
-setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE);
+setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE, protected=TRUE)
 
 
 

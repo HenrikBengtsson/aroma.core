@@ -63,7 +63,7 @@ setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {
 
   class(s) <- class;
   s;
-})
+}, protected=TRUE)
 
 
 setMethodS3("setAttributesByTags", "AromaTabularBinaryFile", function(this, ...) {
@@ -81,7 +81,7 @@ setMethodS3("dimnames<-", "AromaTabularBinaryFile", function(x, value) {
   this <- x;
 
   throw("Dimension names of an ", class(this)[1], " are read only.");
-}, createGeneric=FALSE, appendVarArgs=FALSE)
+}, createGeneric=FALSE, appendVarArgs=FALSE, protected=TRUE)
 
 
 setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ..., force=FALSE) {
@@ -1146,7 +1146,7 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   
   # Return
   res;
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 
@@ -1198,7 +1198,7 @@ setMethodS3("[[", "AromaTabularBinaryFile", function(this, i) {
     throw("Argument 'i' must be a single value: ", length(i));
 
   readDataFrame(this, columns=i)[[1]];
-})
+}, protected=TRUE)
 
 
 
@@ -1286,7 +1286,8 @@ setMethodS3("colStats", "AromaTabularBinaryFile", function(this, FUN, ...) {
   res <- lapply(this, FUN=FUN, ...);
   res <- unlist(res, use.names=FALSE);
   res;
-})
+}, protected=TRUE)
+
 
 setMethodS3("colSums", "AromaTabularBinaryFile", function(x, ...) {
   colStats(x, FUN=sum, ...);

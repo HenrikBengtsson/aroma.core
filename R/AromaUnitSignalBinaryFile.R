@@ -48,7 +48,7 @@ setMethodS3("as.character", "AromaUnitSignalBinaryFile", function(x, ...) {
 
   class(s) <- class;
   s;
-})
+}, protected=TRUE)
 
 
 setMethodS3("fromFile", "AromaUnitSignalBinaryFile", function(static, filename, path=NULL, ..., verbose=FALSE, .checkArgs=TRUE) {
@@ -69,7 +69,7 @@ setMethodS3("fromFile", "AromaUnitSignalBinaryFile", function(static, filename, 
   res <- newInstance(static, filename=pathname, path=NULL, ...);
 
   res;
-})
+}, protected=TRUE)
 
 
 
@@ -89,7 +89,7 @@ setMethodS3("nbrOfUnits", "AromaUnitSignalBinaryFile", function(this, ...) {
 })
 
 
-setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platform, chipType, types="double", sizes=4, signed=TRUE, footer=list()) {
+setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platform, chipType, types="double", sizes=4L, signed=TRUE, footer=list()) {
   # Argument 'platform':
   platform <- Arguments$getCharacter(platform, length=c(1,1));
 
@@ -109,7 +109,7 @@ setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platf
   writeFooter(res, footer);
 
   res;
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 
@@ -276,7 +276,7 @@ setMethodS3("allocateFromUnitNamesFile", "AromaUnitSignalBinaryFile", function(s
   unf <- Arguments$getInstanceOf(unf, "UnitAnnotationDataFile");
 
   allocateFromUnitAnnotationDataFile(static, udf=unf, ...);
-})
+}, static=TRUE, protected=TRUE)
 
 setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", function(static, udf, ...) {
   # Argument 'udf':
@@ -287,7 +287,7 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", f
   nbrOfRows <- nbrOfUnits(udf);
   
   allocate(static, ..., nbrOfRows=nbrOfRows, platform=platform, chipType=chipType);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., validate=FALSE, force=FALSE) {

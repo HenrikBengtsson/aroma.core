@@ -225,7 +225,7 @@ setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromo
   verbose && exit(verbose);
 
   xam;
-}) # getXAM()
+}, protected=TRUE) # getXAM()
 
 
 ############################################################################

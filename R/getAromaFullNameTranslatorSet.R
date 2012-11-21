@@ -49,11 +49,11 @@ setMethodS3("getAromaFullNameTranslatorSet", "character", function(dataSet, ...,
 
 setMethodS3("getAromaFullNameTranslatorSet", "AromaMicroarrayDataSet", function(this, ...) {
   getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...);
-})
+}, protected=TRUE)
 
 setMethodS3("getAromaFullNameTranslatorSet", "AromaUnitSignalBinarySet", function(this, ...) {
   getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...);
-})
+}, protected=TRUE)
 
 
 

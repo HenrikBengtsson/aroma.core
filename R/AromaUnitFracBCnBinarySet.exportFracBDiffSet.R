@@ -171,7 +171,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   verbose && exit(verbose);
 
   invisible(res);
-}) # exportFracBDiff()
+}, protected=TRUE) # exportFracBDiff()
 
 
 ############################################################################

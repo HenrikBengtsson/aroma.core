@@ -48,7 +48,7 @@ setMethodS3("as.character", "AromaMicroarrayTabularBinaryFile", function(x, ...)
 
   class(s) <- class;
   s;
-})
+}, protected=TRUE)
 
 
 setMethodS3("getFilenameExtension", "AromaMicroarrayTabularBinaryFile", static=TRUE, abstract=TRUE);
@@ -224,7 +224,7 @@ setMethodS3("allocate", "AromaMicroarrayTabularBinaryFile", function(static, pla
   writeFooter(res, footer);
 
   res;
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 

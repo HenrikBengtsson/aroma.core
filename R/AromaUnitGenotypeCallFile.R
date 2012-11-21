@@ -29,7 +29,7 @@ setConstructorS3("AromaUnitGenotypeCallFile", function(...) {
 
 setMethodS3("allocate", "AromaUnitGenotypeCallFile", function(static, ..., types=c("integer", "integer")) { 
   NextMethod("allocate", types=types);
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., drop=FALSE) {

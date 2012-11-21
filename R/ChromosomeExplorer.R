@@ -76,7 +76,7 @@ setMethodS3("as.character", "ChromosomeExplorer", function(x, ...) {
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
-}, private=TRUE)
+}, protected=TRUE)
 
 
 setMethodS3("setCytoband", "ChromosomeExplorer", function(this, status=TRUE, ...) {
@@ -258,7 +258,7 @@ setMethodS3("getChromosomeLabels", "ChromosomeExplorer", function(this, ...) {
   }
 
   chrsL;
-})
+}, protected=TRUE)
 
 
 setMethodS3("getZooms", "ChromosomeExplorer", function(this, ...) {
@@ -286,7 +286,7 @@ setMethodS3("setZooms", "ChromosomeExplorer", function(this, zooms=NULL, ...) {
 setMethodS3("getSampleLabels", "ChromosomeExplorer", function(this, ...) {
   labels <- getNames(this, ...);
   labels;
-})
+}, protected=TRUE)
 
 
 setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {

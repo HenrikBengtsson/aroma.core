@@ -94,7 +94,7 @@ setMethodS3("allocate", "AromaUnitPscnBinaryFile", function(static, ..., platfor
   writeFooter(res, footer);
 
   res;
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 ############################################################################

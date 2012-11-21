@@ -29,7 +29,7 @@ setConstructorS3("AromaUnitSignalBinarySet", function(...) {
 
 setMethodS3("findByName", "AromaUnitSignalBinarySet", function(static, ..., chipType=NULL) {
   NextMethod("findByName", subdirs=chipType);
-}, static=TRUE) 
+}, static=TRUE, protected=TRUE) 
 
 
 setMethodS3("byName", "AromaUnitSignalBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=NULL, pattern="[.]asb$") {

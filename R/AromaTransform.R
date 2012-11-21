@@ -48,7 +48,7 @@ setConstructorS3("AromaTransform", function(dataSet=NULL, tags="*", ..., .reqSet
   }
 
 
-  this <- extend(Object(), "AromaTransform", 
+  this <- extend(Object(), c("AromaTransform", uses("ParametersInterface")),
     .tags = tags,
     .inputDataSet = dataSet,
     "cached:.outputDataSet" = NULL
@@ -88,8 +88,7 @@ setMethodS3("getAsteriskTags", "AromaTransform", function(this, ...) {
 
 setMethodS3("getRootPath", "AromaTransform", function(this, ...) {
   sprintf("pp%s", capitalize(class(this)[1]));
-}, private=TRUE)
-
+})
 
 
 setMethodS3("as.character", "AromaTransform", function(x, ...) {
@@ -115,7 +114,7 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
-}, private=TRUE)
+}, protected=TRUE)
 
 
 ###########################################################################/**
@@ -240,24 +239,6 @@ setMethodS3("getFullName", "AromaTransform", function(this, ...) {
   fullname <- gsub("[,]$", "", fullname);
   fullname;
 })
-
-
-
-setMethodS3("getParametersAsString", "AromaTransform", function(this, ...) {
-  params <- getParameters(this, expand=FALSE);
-  params <- trim(capture.output(str(params)))[-1];
-  params <- gsub("^[$][ ]*", "", params);
-  params <- gsub(" [ ]*", " ", params);
-  params <- gsub("[ ]*:", ":", params);
-  params;
-}, private=TRUE)
-
-
-
-setMethodS3("getParameters", "AromaTransform", function(this, ...) {
-  NULL;
-}, private=TRUE)
-
 
 
 
@@ -664,6 +645,8 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2012-11-20
+# o CLEANUP: Now AromaTransform extends the ParametersInterface.
 # 2009-06-08
 # o BUG FIX: getOutputDataSet() of AromaTransform failed to identify the
 #   output files if (and only if) a filename translator was applied to

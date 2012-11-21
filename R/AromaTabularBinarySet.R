@@ -30,7 +30,7 @@ setConstructorS3("AromaTabularBinarySet", function(files=NULL, ...) {
 
 setMethodS3("getDefaultFullName", "AromaTabularBinarySet", function(this, parent=1L, ...) {
   NextMethod("getDefaultFullName", parent=parent);
-})
+}, protected=TRUE)
 
 
 ############################################################################

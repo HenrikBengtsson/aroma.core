@@ -89,7 +89,7 @@ setMethodS3("as.character", "ChromosomalModel", function(x, ...) {
 setMethodS3("getRootPath", "ChromosomalModel", function(this, ...) {
   tag <- getAsteriskTags(this)[1];
   sprintf("%sData", tolower(tag));
-})
+}, protected=TRUE)
 
 
 setMethodS3("getParentPath", "ChromosomalModel", function(this, ...) {
@@ -104,7 +104,8 @@ setMethodS3("getParentPath", "ChromosomalModel", function(this, ...) {
   path <- Arguments$getWritablePath(path);
 
   path;
-})
+}, protected=TRUE)
+
 
 setMethodS3("getPath", "ChromosomalModel", function(this, ...) {
   path <- getParentPath(this, ...);
@@ -246,7 +247,7 @@ setMethodS3("getListOfAromaUgpFiles", "ChromosomalModel", function(this, ..., ve
   verbose && exit(verbose);
 
   ugpList;
-})
+}, protected=TRUE)
 
 
 setMethodS3("getListOfUnitTypesFiles", "ChromosomalModel", function(this, ...) {
@@ -365,7 +366,7 @@ setMethodS3("getFullNames", "ChromosomalModel", function(this, ...) {
 setMethodS3("getTableOfArrays", "ChromosomalModel", function(this, ...) {
   tuple <- getSetTuple(this);
   getTableOfArrays(tuple, ...);
-}, deprecated=TRUE)
+}, protected=TRUE, deprecated=TRUE)
 
 
 setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ..., onMissing=c("error", "NA")) {
@@ -714,12 +715,12 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
 
 setMethodS3("getAlias", "ChromosomalModel", function(this, ...) {
   this$.alias;
-})
+}, protected=TRUE)
 
 
 setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
   getNames(this, ...);
-}, deprecated=TRUE)
+}, protected=TRUE, deprecated=TRUE)
 
 
 

@@ -128,7 +128,7 @@ setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags
   verbose && exit(verbose);
 
   pathname;
-}, static=TRUE)
+}, static=TRUE, protected=TRUE)
 
 
 setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., mustExist=TRUE, verbose=FALSE) {

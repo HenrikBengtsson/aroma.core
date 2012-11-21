@@ -41,13 +41,13 @@ setMethodS3("getName", "AromaPlatform", function(this, ...) {
   name;
 })
 
-setMethodS3("findUnitNamesFile", "AromaPlatform", abstract=TRUE);
+setMethodS3("findUnitNamesFile", "AromaPlatform", abstract=TRUE, protected=TRUE)
 
-setMethodS3("getUnitNamesFile", "AromaPlatform", abstract=TRUE);
+setMethodS3("getUnitNamesFile", "AromaPlatform", abstract=TRUE)
 
-setMethodS3("findUnitTypesFile", "AromaPlatform", abstract=TRUE);
+setMethodS3("findUnitTypesFile", "AromaPlatform", abstract=TRUE, protected=TRUE)
 
-setMethodS3("getUnitTypesFile", "AromaPlatform", abstract=TRUE);
+setMethodS3("getUnitTypesFile", "AromaPlatform", abstract=TRUE)
 
 
 setMethodS3("getAromaUgpFile", "AromaPlatform", function(static, ...) {
