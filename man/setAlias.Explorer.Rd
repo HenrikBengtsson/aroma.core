@@ -31,7 +31,7 @@
 }
 
 \value{
-  Returns nothing.
+  Returns itself invisibly.
 }
 
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}

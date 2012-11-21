@@ -57,20 +57,12 @@ extends \link[aroma.core]{RichDataFrame}\cr
  \tab \code{append} \tab  -\cr
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothing} \tab  -\cr
- \tab \code{binnedSmoothingByField} \tab  -\cr
  \tab \code{divideBy} \tab  -\cr
  \tab \code{drawDensity} \tab  -\cr
  \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
- \tab \code{extractChromosome} \tab  -\cr
- \tab \code{extractChromosomes} \tab  -\cr
- \tab \code{extractRegion} \tab  -\cr
- \tab \code{extractRegions} \tab  -\cr
- \tab \code{extractSubset} \tab  -\cr
  \tab \code{gaussianSmoothing} \tab  -\cr
  \tab \code{getChromosome} \tab  -\cr
  \tab \code{getChromosomes} \tab  -\cr
- \tab \code{getDefaultLocusFields} \tab  -\cr
- \tab \code{getLocusFields} \tab  -\cr
  \tab \code{getPositions} \tab  -\cr
  \tab \code{getSigma} \tab  -\cr
  \tab \code{getSignalColumnName} \tab  -\cr
@@ -87,7 +79,6 @@ extends \link[aroma.core]{RichDataFrame}\cr
  \tab \code{nbrOfLoci} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
- \tab \code{print} \tab  -\cr
  \tab \code{\link[aroma.core:segmentByCBS.RawGenomicSignals]{segmentByCBS}} \tab Segment copy numbers using the CBS method.\cr
  \tab \code{\link[aroma.core:segmentByGLAD.RawGenomicSignals]{segmentByGLAD}} \tab Segment copy numbers using the GLAD method.\cr
  \tab \code{\link[aroma.core:segmentByHaarSeg.RawGenomicSignals]{segmentByHaarSeg}} \tab Segment copy numbers using the HaarSeg method.\cr

@@ -45,19 +45,15 @@ extends \link[R.oo]{Object}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{fit} \tab  -\cr
- \tab \code{getAlias} \tab  -\cr
  \tab \code{\link[aroma.core:getChipType.ChromosomalModel]{getChipType}} \tab Gets a label for all chip types merged.\cr
  \tab \code{getChipTypes} \tab  -\cr
  \tab \code{\link[aroma.core:getChromosomes.ChromosomalModel]{getChromosomes}} \tab Gets the chromosomes available.\cr
  \tab \code{getFullName} \tab  -\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getGenome} \tab  -\cr
- \tab \code{getListOfAromaUgpFiles} \tab  -\cr
  \tab \code{getName} \tab  -\cr
  \tab \code{\link[aroma.core:getNames.ChromosomalModel]{getNames}} \tab Gets the names of the arrays.\cr
- \tab \code{getParentPath} \tab  -\cr
  \tab \code{getPath} \tab  -\cr
- \tab \code{getRootPath} \tab  -\cr
  \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
  \tab \code{indexOf} \tab  -\cr
@@ -68,7 +64,7 @@ extends \link[R.oo]{Object}\cr
 
 
  \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, print
 
 
  }

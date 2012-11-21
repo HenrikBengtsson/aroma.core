@@ -425,7 +425,6 @@
 \alias{getIncludePath}
 \alias{getIncludePath.Explorer}
 \alias{getInputDataSet}
-\alias{getLabel.AromaMicroarrayDataFile}
 \alias{getListOfAromaUgpFiles}
 \alias{getListOfAromaUgpFiles.ChromosomalModel}
 \alias{getListOfChipEffectSets}
@@ -465,9 +464,7 @@
 \alias{getPairedNames.CopyNumberChromosomalModel}
 \alias{getParallelSafe}
 \alias{getParallelSafe.Explorer}
-\alias{getParameters.AromaTransform}
 \alias{getParametersAsString}
-\alias{getParametersAsString.AromaTransform}
 \alias{getParentPath}
 \alias{getParentPath.ChromosomalModel}
 \alias{getPath.ChromosomalModel}
@@ -798,7 +795,6 @@
 \alias{setCytoband.ChromosomeExplorer}
 \alias{setGenome}
 \alias{setGenome.ChromosomalModel}
-\alias{setLabel.AromaMicroarrayDataFile}
 \alias{setLocusFields}
 \alias{setLocusFields.RawGenomicSignals}
 \alias{setName.RawGenomicSignals}

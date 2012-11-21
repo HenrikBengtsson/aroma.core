@@ -51,15 +51,10 @@ extends \emph{\link[R.filesets]{GenericTabularFile}}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{[} \tab  -\cr
- \tab \code{[[} \tab  -\cr
  \tab \code{[<-} \tab  -\cr
- \tab \code{\link[aroma.core:allocate.AromaTabularBinaryFile]{allocate}} \tab Creates an AromaTabularBinaryFile.\cr
- \tab \code{as.character} \tab  -\cr
  \tab \code{colMeans} \tab  -\cr
  \tab \code{colMedians} \tab  -\cr
- \tab \code{colStats} \tab  -\cr
  \tab \code{colSums} \tab  -\cr
- \tab \code{dimnames<-} \tab  -\cr
  \tab \code{getBytesPerColumn} \tab  -\cr
  \tab \code{getColClasses} \tab  -\cr
  \tab \code{importFrom} \tab  -\cr
@@ -87,7 +82,7 @@ getParentName, compareChecksum, copyTo, equals, fromFile, getAttribute, getAttri
 appendFullNameTranslator, appendFullNameTranslatorBycharacter, appendFullNameTranslatorBydata.frame, appendFullNameTranslatorByfunction, appendFullNameTranslatorBylist, appendFullNameTranslatorByNULL, appendFullNameTranslatorByTabularTextFile, appendFullNameTranslatorByTabularTextFileSet, clearFullNameTranslator, clearListOfFullNameTranslators, getDefaultFullName, getFullName, getFullNameTranslator, getListOfFullNameTranslators, getName, getTags, hasTag, hasTags, setFullName, setFullNameTranslator, setListOfFullNameTranslators, setName, setTags, updateFullName
 
  \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, print
 
 
  }

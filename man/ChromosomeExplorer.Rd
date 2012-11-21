@@ -45,13 +45,11 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{display} \tab  -\cr
- \tab \code{getChromosomeLabels} \tab  -\cr
  \tab \code{\link[aroma.core:getChromosomes.ChromosomeExplorer]{getChromosomes}} \tab Gets the chromosomes available.\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{\link[aroma.core:getModel.ChromosomeExplorer]{getModel}} \tab Gets the model.\cr
  \tab \code{getNames} \tab  -\cr
  \tab \code{getPath} \tab  -\cr
- \tab \code{getSampleLabels} \tab  -\cr
  \tab \code{getZooms} \tab  -\cr
  \tab \code{indexOf} \tab  -\cr
  \tab \code{\link[aroma.core:process.ChromosomeExplorer]{process}} \tab Generates image files, scripts and dynamic pages for the explorer.\cr
@@ -62,10 +60,10 @@ extends \emph{\link[aroma.core]{Explorer}}\cr
 
 
  \bold{Methods inherited from Explorer}:\cr
-addIncludes, addIndexFile, display, getAlias, getArraysOfInput, getAsteriskTags, getFullName, getIncludePath, getMainPath, getName, getNameOfInput, getNames, getParallelSafe, getPath, getReportPathPattern, getSampleLayerPrefix, getSubname, getTags, getTagsOfInput, getTemplatePath, getVersion, nbrOfArrays, process, setAlias, setArrays, setParallelSafe, setReportPathPattern, setSubname, setup, splitByReportPathPattern, updateSetupExplorerFile
+addIncludes, addIndexFile, as.character, display, getAlias, getArraysOfInput, getAsteriskTags, getFullName, getIncludePath, getMainPath, getName, getNameOfInput, getNames, getParallelSafe, getPath, getReportPathPattern, getRootPath, getSampleLayerPrefix, getSubname, getTags, getTagsOfInput, getTemplatePath, getVersion, nbrOfArrays, process, setAlias, setArrays, setParallelSafe, setReportPathPattern, setSubname, setup, splitByReportPathPattern, updateSetupExplorerFile
 
  \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, print
 
 
  }

@@ -19,13 +19,15 @@
 
 \code{\link[R.oo]{Object}}\cr
 \code{~~|}\cr
-\code{~~+--}\emph{\code{AromaTransform}}\cr
+\code{~~+--}\code{\link[aroma.core]{ParametersInterface}}\cr
+\code{~~~~~~~|}\cr
+\code{~~~~~~~+--}\emph{\code{AromaTransform}}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
 public abstract static class \bold{AromaTransform}\cr
-extends \link[R.oo]{Object}\cr
+extends \link[aroma.core]{ParametersInterface}\cr
 
 
 
@@ -52,6 +54,7 @@ extends \link[R.oo]{Object}\cr
  \tab \code{\link[aroma.core:getName.AromaTransform]{getName}} \tab Gets the name of the output data set.\cr
  \tab \code{\link[aroma.core:getOutputDataSet.AromaTransform]{getOutputDataSet}} \tab Gets the transformed data set.\cr
  \tab \code{\link[aroma.core:getPath.AromaTransform]{getPath}} \tab Gets the path of the output data set.\cr
+ \tab \code{getRootPath} \tab  -\cr
  \tab \code{\link[aroma.core:getTags.AromaTransform]{getTags}} \tab Gets the tags of the output data set.\cr
  \tab \code{\link[aroma.core:isDone.AromaTransform]{isDone}} \tab Checks if the data set is processed or not.\cr
  \tab \code{\link[aroma.core:process.AromaTransform]{process}} \tab Processes the data set.\cr
@@ -59,8 +62,11 @@ extends \link[R.oo]{Object}\cr
 }
 
 
+ \bold{Methods inherited from ParametersInterface}:\cr
+getParameters, getParametersAsString
+
  \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, print
 
 
  }

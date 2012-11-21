@@ -61,7 +61,6 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
  \tab \code{getChromosomeLength} \tab  -\cr
  \tab \code{getNames} \tab  -\cr
  \tab \code{getReference} \tab  -\cr
- \tab \code{getReferenceSetTuple} \tab  -\cr
  \tab \code{isPaired} \tab  -\cr
  \tab \code{plotAxesLayers} \tab  -\cr
  \tab \code{plotChromosomesLayers} \tab  -\cr
@@ -77,7 +76,7 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
 as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSets, getSetTuple, getTags, indexOf, nbrOfArrays, nbrOfChipTypes, setGenome
 
  \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, print
 
 
  }

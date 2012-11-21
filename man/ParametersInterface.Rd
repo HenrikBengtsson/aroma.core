@@ -39,8 +39,8 @@ extends \link[R.oo]{Interface}\cr
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{getParameters} \tab  -\cr
- \tab \code{getParametersAsString} \tab  -\cr
+ \tab \code{\link[aroma.core:getParameters.ParametersInterface]{getParameters}} \tab Gets a list of parameters.\cr
+ \tab \code{\link[aroma.core:getParametersAsString.ParametersInterface]{getParametersAsString}} \tab Gets the parameters as character.\cr
 }
 
 

@@ -46,12 +46,10 @@ extends \link[R.filesets]{GenericDataFileSetList}\cr
 \tabular{rll}{
  \tab \code{as} \tab  -\cr
  \tab \code{as.AromaMicroarrayDataSetTuple} \tab  -\cr
- \tab \code{byPath} \tab  -\cr
  \tab \code{getChipTypes} \tab  -\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
- \tab \code{indexOf} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfChipTypes.AromaMicroarrayDataSetTuple]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr
 }
 
@@ -63,7 +61,7 @@ as.character, as.data.frame, as, as.GenericDataFileSetList, as.list, assertDupli
 appendFullNameTranslator, appendFullNameTranslatorBycharacter, appendFullNameTranslatorBydata.frame, appendFullNameTranslatorByfunction, appendFullNameTranslatorBylist, appendFullNameTranslatorByNULL, appendFullNameTranslatorByTabularTextFile, appendFullNameTranslatorByTabularTextFileSet, clearFullNameTranslator, clearListOfFullNameTranslators, getDefaultFullName, getFullName, getFullNameTranslator, getListOfFullNameTranslators, getName, getTags, hasTag, hasTags, setFullName, setFullNameTranslator, setListOfFullNameTranslators, setName, setTags, updateFullName
 
  \bold{Methods inherited from Object}:\cr
-asThis, getChecksum, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, print
 
 
  }
