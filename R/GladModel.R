@@ -66,7 +66,7 @@ setConstructorS3("GladModel", function(cesTuple=NULL, ...) {
 
 setMethodS3("getFitFunction", "GladModel", function(this, ...) {
   segmentByGLAD;
-});
+}, protected=TRUE)
 
 
 setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("xls", "wig"), digits=3, ..., oneFile=TRUE, skip=TRUE, verbose=FALSE) {

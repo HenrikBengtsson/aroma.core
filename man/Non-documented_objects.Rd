@@ -469,7 +469,6 @@
 \alias{getParentPath.ChromosomalModel}
 \alias{getPath.ChromosomalModel}
 \alias{getPath.ChromosomeExplorer}
-\alias{getPath.Explorer}
 \alias{getPatterns}
 \alias{getPatterns.SampleAnnotationFile}
 \alias{getPhysicalPositions}
@@ -509,9 +508,7 @@
 \alias{getReportPathPattern}
 \alias{getReportPathPattern.Explorer}
 \alias{getRootPath}
-\alias{getRootPath.AromaTransform}
 \alias{getRootPath.ChromosomalModel}
-\alias{getRootPath.Explorer}
 \alias{getSampleLabels}
 \alias{getSampleLabels.ChromosomeExplorer}
 \alias{getSampleLayerName}

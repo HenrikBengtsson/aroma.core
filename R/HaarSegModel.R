@@ -59,7 +59,7 @@ setMethodS3("getAsteriskTags", "HaarSegModel", function(this, ...) {
 
 setMethodS3("getFitFunction", "HaarSegModel", function(this, ...) {
   segmentByHaarSeg;
-});
+}, protected=TRUE)
 
 
 ##############################################################################

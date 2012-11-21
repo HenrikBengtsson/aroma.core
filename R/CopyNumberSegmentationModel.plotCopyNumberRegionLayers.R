@@ -21,8 +21,7 @@ setMethodS3("plotCopyNumberRegionLayers", "CopyNumberSegmentationModel", functio
       drawLevels(cnRegions, lwd=lwd, col=col, xScale=1/10^unit);
     });
   }, path=path, ...);
-}) # plotCopyNumberRegions()
-
+}, protected=TRUE) # plotCopyNumberRegions()
 
 
 

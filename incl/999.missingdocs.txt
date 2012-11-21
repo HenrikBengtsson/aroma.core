@@ -237,7 +237,7 @@
   getParallelSafe.Explorer 
   getParametersAsString 
   getParentPath getParentPath.ChromosomalModel getPath.ChromosomalModel
-  getPath.ChromosomeExplorer getPath.Explorer getPatterns
+  getPath.ChromosomeExplorer getPatterns
   getPatterns.SampleAnnotationFile getPhysicalPositions
   getPhysicalPositions.RawCopyNumbers getPlatform
   getPlatform.AromaMicroarrayDataFile
@@ -258,8 +258,8 @@
   getRefSetTuple getRefSetTuple.CopyNumberChromosomalModel getRegions
   getRegions.CopyNumberSegmentationModel getReportPath
   getReportPath.ChromosomalModel getReportPathPattern
-  getReportPathPattern.Explorer getRootPath getRootPath.AromaTransform
-  getRootPath.ChromosomalModel getRootPath.Explorer getSampleLabels
+  getReportPathPattern.Explorer getRootPath
+  getRootPath.ChromosomalModel getSampleLabels
   getSampleLabels.ChromosomeExplorer getSampleLayerName
   getSampleLayerName.Explorer getSampleLayerPrefix
   getSampleLayerPrefix.Explorer getSets.AromaMicroarrayDataSetTuple

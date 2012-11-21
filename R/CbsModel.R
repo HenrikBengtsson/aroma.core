@@ -78,7 +78,7 @@ setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
     segmentByCBS(..., seed=seed);
   }
   fitFcn;
-});
+}, protected=TRUE)
 
 
 ##############################################################################

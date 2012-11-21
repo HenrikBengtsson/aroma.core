@@ -156,7 +156,7 @@ setMethodS3("plotFitLayers", "CopyNumberChromosomalModel", function(this, FUN, p
   fit(this, ..., .retResults=FALSE, verbose=verbose);
 
   invisible();
-}) # plotFitLayers()
+}, protected=TRUE) # plotFitLayers()
 
 
 

@@ -45,8 +45,8 @@ extends \link[R.oo]{Object}\cr
  \tab \code{getFullName} \tab  -\cr
  \tab \code{\link[aroma.core:getName.Explorer]{getName}} \tab Gets the name of the explorer.\cr
  \tab \code{\link[aroma.core:getNames.Explorer]{getNames}} \tab Gets the names of the input samples.\cr
- \tab \code{getPath} \tab  -\cr
- \tab \code{getRootPath} \tab  -\cr
+ \tab \code{\link[aroma.core:getPath.Explorer]{getPath}} \tab Gets the path of the output directory.\cr
+ \tab \code{\link[aroma.core:getRootPath.Explorer]{getRootPath}} \tab Gets the root path of the output directory.\cr
  \tab \code{\link[aroma.core:getTags.Explorer]{getTags}} \tab Gets the tags of the explorer.\cr
  \tab \code{getVersion} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfArrays.Explorer]{nbrOfArrays}} \tab Gets the total number of arrays.\cr

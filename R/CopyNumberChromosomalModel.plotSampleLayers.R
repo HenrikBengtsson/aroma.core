@@ -172,7 +172,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
   } # for (aa in ...)
 
   invisible();
-}) # plotSampleLayers()
+}, protected=TRUE) # plotSampleLayers()
 
 
 

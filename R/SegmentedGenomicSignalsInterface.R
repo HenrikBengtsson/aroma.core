@@ -129,7 +129,7 @@ setMethodS3("getVirtualField", "SegmentedGenomicSignalsInterface", function(this
   }
 
   value;
-})
+}, protected=TRUE)
 
 setMethodS3("getVirtualLocusFields", "SegmentedGenomicSignalsInterface", function(this, ...) {
   if (inherits(this, "RichDataFrame")) {
@@ -140,7 +140,7 @@ setMethodS3("getVirtualLocusFields", "SegmentedGenomicSignalsInterface", functio
     fields <- unique(fields);
   }
   fields;
-})
+}, protected=TRUE)
 
 
 setMethodS3("extractSubsetByState", "SegmentedGenomicSignalsInterface", function(this, states, ...) {

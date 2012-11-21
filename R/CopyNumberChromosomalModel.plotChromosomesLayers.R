@@ -142,7 +142,7 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
   verbose && exit(verbose);
 
   invisible();
-}) # plotChromosomesLayers()
+}, protected=TRUE) # plotChromosomesLayers()
 
 
 
@@ -199,7 +199,7 @@ setMethodS3("plotAxesLayers", "CopyNumberChromosomalModel", function(this, path=
       drawXAxisRuler(xrange=c(0,nbrOfBases)/10^unit, ticksBy=ticksBy); 
     });
   }, path=path, ...);
-}) # plotAxesLayers()
+}, protected=TRUE) # plotAxesLayers()
 
 
 setMethodS3("plotGridHorizontalLayers", "CopyNumberChromosomalModel", function(this, path=NULL, cnLevels=c(1/2,1,3/2), col="blue", lty=2, ...) {
@@ -221,7 +221,7 @@ setMethodS3("plotGridHorizontalLayers", "CopyNumberChromosomalModel", function(t
       }
     });
   }, path=path, ...);
-}) # plotGridHorizontalLayers()
+}, protected=TRUE) # plotGridHorizontalLayers()
 
 
 
@@ -242,11 +242,7 @@ setMethodS3("plotCytobandLayers", "CopyNumberChromosomalModel", function(this, p
       drawCytoband(this, chromosome=chromosome, unit=unit);
     });
   }, path=path, ...);
-}) # plotCytobandLayers()
-
-
-
-
+}, protected=TRUE) # plotCytobandLayers()
 
 
 

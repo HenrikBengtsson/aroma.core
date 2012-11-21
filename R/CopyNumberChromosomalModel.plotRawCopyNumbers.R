@@ -50,10 +50,7 @@ setMethodS3("plotRawCopyNumbers", "CopyNumberChromosomalModel", function(this, p
 
     verbose && exit(verbose);
   }, path=path, ...);
-}) # plotRawCopyNumbers()
-
-
-
+}, protected=TRUE) # plotRawCopyNumbers()
 
 
 ##############################################################################

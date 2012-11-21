@@ -137,11 +137,11 @@ setMethodS3("getSignalColumnNames", "RawGenomicSignals", function(this, translat
     names <- translateColumnNames(this, names);
   }
   names;
-})
+}, protected=TRUE)
 
 setMethodS3("getSignalColumnName", "RawGenomicSignals", function(this, ...) {
-  getSignalColumnNames(this, ...)[1];
-})
+  getSignalColumnNames(this, ...)[1L];
+}, protected=TRUE)
 
 
 setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {

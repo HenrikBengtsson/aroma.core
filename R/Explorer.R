@@ -430,6 +430,33 @@ setMethodS3("splitByReportPathPattern", "Explorer", function(this, tags, ...) {
 }, protected=TRUE)
 
 
+###########################################################################/**
+# @RdocMethod getRootPath
+#
+# @title "Gets the root path of the output directory"
+#
+# \description{
+#  @get "title" that is returned by @seemethod "getPath".
+#  A root path is a directory in the current working directory.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character string.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seemethod "getPath".
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getRootPath", "Explorer", function(this, ...) {
   "reports";
 })
@@ -493,6 +520,37 @@ setMethodS3("getMainPath", "Explorer", function(this, ...) {
   path;
 }, protected=TRUE)
 
+
+###########################################################################/**
+# @RdocMethod getPath
+#
+# @title "Gets the path of the output directory"
+#
+# \description{
+#  @get "title".
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{create}{If @TRUE, the path is created, otherwise not.}
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character string.
+# }
+#
+# \details{
+#   Windows Shortcut links are recognized.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getPath", "Explorer", abstract=TRUE);
 
 

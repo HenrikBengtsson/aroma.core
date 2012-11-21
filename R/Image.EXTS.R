@@ -469,6 +469,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
 # }
 #
 # @keyword IO
+# @keyword internal
 #*/###########################################################################
 setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interleaved=c("none", "h", "v", "auto"), scale=1, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

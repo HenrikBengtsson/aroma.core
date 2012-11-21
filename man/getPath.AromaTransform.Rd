@@ -13,12 +13,10 @@
 \alias{getPath,AromaTransform-method}
 
 
-\title{Gets the path of the output data set}
+\title{Gets the path of the output directory}
 
 \description{
- Gets the path of the output data set.
- If non-existing, then the directory is created.
- Windows Shortcut links are recognized.
+ Gets the path of the output directory.
 }
 
 \usage{\method{getPath}{AromaTransform}(this, create=TRUE, ...)}
@@ -30,6 +28,10 @@
 
 \value{
  Returns a \code{\link[base]{character}} string.
+}
+
+\details{
+  Windows Shortcut links are recognized.
 }
 
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}

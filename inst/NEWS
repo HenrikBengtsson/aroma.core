@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 2.6.15 [2012-11-20]
+Version: 2.6.15 [2012-11-21]
 o Added ParametersInterface.
 o DOCUMENTATION: Hiding more internal methods.
 

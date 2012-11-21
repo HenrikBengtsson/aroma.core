@@ -83,9 +83,36 @@ setMethodS3("getAsteriskTags", "AromaTransform", function(this, ...) {
   tags <- name;
 
   tags;
-}, private=TRUE)
+}, protected=TRUE)
 
 
+###########################################################################/**
+# @RdocMethod getRootPath
+#
+# @title "Gets the root path of the output directory"
+#
+# \description{
+#  @get "title" that is returned by @seemethod "getPath".
+#  A root path is a directory in the current working directory.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character string.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seemethod "getPath".
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getRootPath", "AromaTransform", function(this, ...) {
   sprintf("pp%s", capitalize(class(this)[1]));
 })
@@ -245,12 +272,10 @@ setMethodS3("getFullName", "AromaTransform", function(this, ...) {
 ###########################################################################/**
 # @RdocMethod getPath
 #
-# @title "Gets the path of the output data set"
+# @title "Gets the path of the output directory"
 #
 # \description{
 #  @get "title".
-#  If non-existing, then the directory is created.
-#  Windows Shortcut links are recognized.
 # }
 #
 # @synopsis
@@ -262,6 +287,10 @@ setMethodS3("getFullName", "AromaTransform", function(this, ...) {
 #
 # \value{
 #  Returns a @character string.
+# }
+#
+# \details{
+#   Windows Shortcut links are recognized.
 # }
 #
 # @author
@@ -645,6 +674,8 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2012-11-21
+# o Added Rdoc for getRootPath().
 # 2012-11-20
 # o CLEANUP: Now AromaTransform extends the ParametersInterface.
 # 2009-06-08
