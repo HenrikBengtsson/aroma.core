@@ -62,13 +62,6 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
  \tab \code{getNames} \tab  -\cr
  \tab \code{getReference} \tab  -\cr
  \tab \code{isPaired} \tab  -\cr
- \tab \code{plotAxesLayers} \tab  -\cr
- \tab \code{plotChromosomesLayers} \tab  -\cr
- \tab \code{plotCytobandLayers} \tab  -\cr
- \tab \code{plotFitLayers} \tab  -\cr
- \tab \code{plotGridHorizontalLayers} \tab  -\cr
- \tab \code{plotRawCopyNumbers} \tab  -\cr
- \tab \code{plotSampleLayers} \tab  -\cr
 }
 
 

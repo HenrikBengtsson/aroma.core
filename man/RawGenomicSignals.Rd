@@ -65,8 +65,6 @@ extends \link[aroma.core]{RichDataFrame}\cr
  \tab \code{getChromosomes} \tab  -\cr
  \tab \code{getPositions} \tab  -\cr
  \tab \code{getSigma} \tab  -\cr
- \tab \code{getSignalColumnName} \tab  -\cr
- \tab \code{getSignalColumnNames} \tab  -\cr
  \tab \code{getSignals} \tab  -\cr
  \tab \code{getWeights} \tab  -\cr
  \tab \code{getXScale} \tab  -\cr

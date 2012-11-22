@@ -1297,6 +1297,8 @@
 \alias{getDefaultColumnNames.AromaUnitChromosomeTabularBinaryFile}
 \alias{getDefaultColumnNames.AromaUnitGcContentFile}
 \alias{getDefaultColumnNames.AromaUnitPscnBinaryFile}
+\alias{getParameterSets}
+\alias{getParameterSets.ParametersInterface}
 
 \description{
   This page contains aliases for all "non-documented" objects that

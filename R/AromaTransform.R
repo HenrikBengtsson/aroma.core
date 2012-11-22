@@ -134,8 +134,7 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
                            length(ds), getFileSize(ds)/1024^2));
   s <- c(s, sprintf("Platform: %s", getPlatform(ds)));
   s <- c(s, sprintf("Chip type: %s", getChipType(ds)));
-  params <- paste(getParametersAsString(this), collapse=", ");
-  s <- c(s, sprintf("Algorithm parameters: (%s)", params));
+  s <- c(s, sprintf("Algorithm parameters: %s", getParametersAsString(this)));
   s <- c(s, sprintf("Output path: %s", getPath(this)));
   s <- c(s, sprintf("Is done: %s", isDone(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));

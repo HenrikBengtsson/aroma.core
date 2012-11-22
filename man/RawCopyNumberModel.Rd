@@ -45,10 +45,7 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
-\tabular{rll}{
- \tab \code{getAsteriskTags} \tab  -\cr
- \tab \code{getSetTag} \tab  -\cr
-}
+\emph{No methods defined}.
 
 
  \bold{Methods inherited from CopyNumberChromosomalModel}:\cr

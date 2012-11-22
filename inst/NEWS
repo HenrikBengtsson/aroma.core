@@ -1,9 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 2.6.16 [2012-11-21]
+o Now getParametersAsString() handles sets of parameters as well.
+o Added getParameterSets() to ParametersInterface.
+
+
 Version: 2.6.15 [2012-11-21]
 o Added ParametersInterface.
-o DOCUMENTATION: Hiding more internal methods.
+o DOCUMENTATION: Hiding more internal methods from the help indices.
 
 
 Version: 2.6.14 [2012-11-18]

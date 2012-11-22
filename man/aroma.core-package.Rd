@@ -44,9 +44,6 @@
  }
 
  \references{
-  Some of the reference below can be found at
-  \url{http://www.maths.lth.se/bioinformatics/publications/}.\cr
-
  [1] H. Bengtsson, \emph{The R.oo package - Object-Oriented Programming with References Using Standard R Code}, In Kurt Hornik, Friedrich Leisch and Achim Zeileis, editors, Proceedings of the 3rd International Workshop on Distributed Statistical Computing (DSC 2003), March 20-22, Vienna, Austria. \url{http://www.ci.tuwien.ac.at/Conferences/DSC-2003/Proceedings/}
  \cr
  }

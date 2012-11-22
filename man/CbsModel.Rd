@@ -51,9 +51,7 @@ extends \emph{\link[aroma.core]{CopyNumberSegmentationModel}}\cr
 
  \section{Fields and Methods}{
   \bold{Methods:}\cr
-\tabular{rll}{
- \tab \code{getFitFunction} \tab  -\cr
-}
+\emph{No methods defined}.
 
 
  \bold{Methods inherited from CopyNumberSegmentationModel}:\cr
