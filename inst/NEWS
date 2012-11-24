@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.7.0 [2012-11-24]
+o Bumped version for CRAN submission.
+o Bumped up package dependencies.
+o No updates.
+o Package passes all redundancy tests.
+
+
 Version: 2.6.16 [2012-11-21]
 o Now getParametersAsString() handles sets of parameters as well.
 o Added getParameterSets() to ParametersInterface.
