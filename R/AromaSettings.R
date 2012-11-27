@@ -56,7 +56,7 @@ setMethodS3("getRam", "AromaSettings", function(this, default=1, ...) {
   }
   transRule <- getOption(this, "transitionRules/useRamOption", TRUE);
   if (transRule) {
-    ram <- getOption(this, "memory$ram", default);
+    ram <- getOption(this, "memory/ram", default);
   } else {
     ram <- default;
   }
@@ -71,13 +71,16 @@ setMethodS3("setRam", "AromaSettings", function(this, value=1, ...) {
   # Argument 'value':
   value <- Arguments$getDouble(value, range=c(0.001, Inf));
 
-  setOption(this, "memory$ram", value);
+  setOption(this, "memory/ram", value);
 })
 
 
 
 ############################################################################
 # HISTORY:
+# 2012-11-26
+# o BUG FIX: getRam() and setRam() for AromaSettings did not use
+#   'memory/ram'.
 # 2009-02-22
 # o Added argument {get|set}Ram().
 # o Added argument {get|set}Verbose().
