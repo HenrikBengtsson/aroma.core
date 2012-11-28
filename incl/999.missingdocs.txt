@@ -659,3 +659,4 @@ getDefaultColumnNames.AromaUnitChromosomeTabularBinaryFile
 getDefaultColumnNames.AromaUnitGcContentFile
 getDefaultColumnNames.AromaUnitPscnBinaryFile
 getParameterSets getParameterSets.ParametersInterface
+getCacheKey

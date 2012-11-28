@@ -33,6 +33,10 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
   key <- list(method="getMaxRepeatLength", class=class(this)[1], 
               chipType=chipType, tags=getTags(this), 
               cells=cells, ...);
+  if (getOption(aromaSettings, "devel/useCacheKeyInterface", FALSE)) {
+    key <- getCacheKey(this, method="getMaxRepeatLength", chipType=chipType,
+                                     tags=getTags(this), cells=cells, ...);
+  }
   dirs <- c("aroma.affymetrix", chipType);
   if (!force) {
     verbose && enter(verbose, "Checking for cached results");

@@ -28,7 +28,7 @@
 #*/########################################################################### 
 setConstructorS3("AromaTabularBinaryFile", function(...) {
   this <- extend(GenericTabularFile(..., .verify=FALSE), 
-                                                     "AromaTabularBinaryFile",
+                   c("AromaTabularBinaryFile", uses("FileCacheKeyInterface")),
     "cached:.hdr"=NULL,
     "cached:.ftr"=NULL
   );
@@ -39,7 +39,6 @@ setConstructorS3("AromaTabularBinaryFile", function(...) {
 
   this;
 })
-
 
 
 setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {

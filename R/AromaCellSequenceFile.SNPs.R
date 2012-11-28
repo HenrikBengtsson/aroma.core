@@ -28,6 +28,10 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
   key <- list(method="getSnpPositions", class=class(this)[1], 
               version="20110830",
               chipType=chipType, tags=getTags(this), cells=cells, ...);
+  if (getOption(aromaSettings, "devel/useCacheKeyInterface", FALSE)) {
+    key <- getCacheKey(this, method="getSnpPositions", chipType=chipType,
+                                     tags=getTags(this), cells=cells, ...);
+  }
   dirs <- c("aroma.affymetrix", chipType);
   if (!force) {
     verbose && enter(verbose, "Checking for cached results");

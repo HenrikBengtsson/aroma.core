@@ -765,11 +765,14 @@ setMethodS3("countBasesInternal", "AromaCellSequenceFile", function(this, cells=
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Check for cached results
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  key <- list();
   chipType <- getChipType(this);
   key <- list(method="countBases", class=class(this)[1], 
               chipType=chipType, fullname=getFullName(this), 
               cells=cells, positions=positions, mode=mode);
+  if (getOption(aromaSettings, "devel/useCacheKeyInterface", FALSE)) {
+    key <- getCacheKey(this, method="countBases", chipType=chipType,
+                              cells=cells, positions=positions, mode=mode);
+  }
   dirs <- c("aroma.affymetrix", chipType);
   if (!force) {
     counts <- loadCache(key=key, dirs=dirs);
