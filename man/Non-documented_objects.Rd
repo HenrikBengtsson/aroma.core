@@ -1299,6 +1299,7 @@
 \alias{getDefaultColumnNames.AromaUnitPscnBinaryFile}
 \alias{getParameterSets}
 \alias{getParameterSets.ParametersInterface}
+\alias{getCacheKey}
 
 \description{
   This page contains aliases for all "non-documented" objects that

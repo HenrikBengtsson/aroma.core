@@ -1,5 +1,6 @@
 setConstructorS3("SegmentationDataFile", function(...) {
-  extend(GenericDataFile(...), "SegmentationDataFile");
+  extend(GenericDataFile(...), c("SegmentationDataFile"
+                                        , uses("FileCacheKeyInterface")));
 }, abstract=TRUE)
 
 

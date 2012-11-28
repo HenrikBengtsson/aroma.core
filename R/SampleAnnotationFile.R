@@ -1,5 +1,6 @@
 setConstructorS3("SampleAnnotationFile", function(...) {
-  this <- extend(GenericDataFile(...), "SampleAnnotationFile",
+  this <- extend(GenericDataFile(...), c("SampleAnnotationFile",
+                                          uses("FileCacheKeyInterface")),
     "cached:.db" = NULL
   );
 

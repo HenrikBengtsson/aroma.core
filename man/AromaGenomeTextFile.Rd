@@ -29,13 +29,17 @@
 \code{~~~~~~~~~~~~~~~~~~~~~~|}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[R.filesets]{TabularTextFile}}\cr
 \code{~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaGenomeTextFile}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{CacheKeyInterface}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{FileCacheKeyInterface}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaGenomeTextFile}}\cr
 
 \bold{Directly known subclasses:}\cr
 \emph{\link[aroma.core]{AromaUcscGenomeTextFile}}\cr
 
 public abstract static class \bold{AromaGenomeTextFile}\cr
-extends \emph{\link[R.filesets]{TabularTextFile}}\cr
+extends \link[aroma.core]{FileCacheKeyInterface}\cr
 
 
 
@@ -57,6 +61,12 @@ extends \emph{\link[R.filesets]{TabularTextFile}}\cr
  \tab \code{readDataFrame} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from FileCacheKeyInterface}:\cr
+getCacheKey
+
+ \bold{Methods inherited from CacheKeyInterface}:\cr
+getCacheKey
 
  \bold{Methods inherited from TabularTextFile}:\cr
 [, as.character, getCommentChar, getDefaultColumnClasses, getDefaultColumnClassPatterns, getDefaultColumnNames, getHeader, getReadArguments, hasColumnHeader, nbrOfLines, nbrOfRows, readColumnNames, readColumns, readDataFrame, readLines, readRawHeader, setCommentChar, writeColumnsToFiles

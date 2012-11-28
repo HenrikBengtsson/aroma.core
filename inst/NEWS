@@ -2,6 +2,7 @@ Package: aroma.core
 ===================
 
 Version: 2.7.2 [2012-11-28]
+o Made several file classes implement FileCacheKeyInterface.
 o Added CacheKeyInterface and FileCacheKeyInterface.
 
 

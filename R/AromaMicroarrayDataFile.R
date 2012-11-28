@@ -29,7 +29,9 @@
 # }
 #*/###########################################################################
 setConstructorS3("AromaMicroarrayDataFile", function(...) {
-  extend(GenericDataFile(...), "AromaMicroarrayDataFile");
+  extend(GenericDataFile(...), c("AromaMicroarrayDataFile", 
+                                               uses("FileCacheKeyInterface"))
+  );
 }, abstract=TRUE)
 
 

@@ -39,7 +39,8 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaGenomeTextFile", function(...) {
-  extend(TabularTextFile(...), "AromaGenomeTextFile");
+  extend(TabularTextFile(...), c("AromaGenomeTextFile", 
+                                              uses("FileCacheKeyInterface")));
 })
 
 

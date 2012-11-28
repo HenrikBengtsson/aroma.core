@@ -23,13 +23,17 @@
 \code{~~~~~~~|}\cr
 \code{~~~~~~~+--}\code{\link[R.filesets]{GenericDataFile}}\cr
 \code{~~~~~~~~~~~~|}\cr
-\code{~~~~~~~~~~~~+--}\emph{\code{AromaMicroarrayDataFile}}\cr
+\code{~~~~~~~~~~~~+--}\code{\link[aroma.core]{CacheKeyInterface}}\cr
+\code{~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~+--}\code{\link[aroma.core]{FileCacheKeyInterface}}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~|}\cr
+\code{~~~~~~~~~~~~~~~~~~~~~~+--}\emph{\code{AromaMicroarrayDataFile}}\cr
 
 \bold{Directly known subclasses:}\cr
 \cr
 
 public abstract static class \bold{AromaMicroarrayDataFile}\cr
-extends \emph{\link[R.filesets]{GenericDataFile}}\cr
+extends \link[aroma.core]{FileCacheKeyInterface}\cr
 
 
 
@@ -52,6 +56,12 @@ extends \emph{\link[R.filesets]{GenericDataFile}}\cr
  \tab \code{isAverageFile} \tab  -\cr
 }
 
+
+ \bold{Methods inherited from FileCacheKeyInterface}:\cr
+getCacheKey
+
+ \bold{Methods inherited from CacheKeyInterface}:\cr
+getCacheKey
 
  \bold{Methods inherited from GenericDataFile}:\cr
 getParentName, compareChecksum, copyTo, equals, fromFile, getAttribute, getAttributes, getChecksum, getCreatedOn, getDefaultFullName, getExtension, getExtensionPattern, getFilename, getFilenameExtension, getFileSize, getFileType, getLastAccessedOn, getLastModifiedOn, getOutputExtension, getPath, getPathname, gunzip, gzip, hasBeenModified, isFile, readChecksum, renameTo, renameToUpperCaseExt, setAttribute, setAttributes, setAttributesBy, setAttributesByTags, setExtensionPattern, testAttributes, validate, validateChecksum, writeChecksum

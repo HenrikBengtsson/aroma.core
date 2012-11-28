@@ -4,7 +4,8 @@ setConstructorS3("TextUnitNamesFile", function(..., platform=NULL) {
     platform <- Arguments$getCharacter(platform, length=c(1,1));
   }
 
-  extend(TabularTextFile(...), c("TextUnitNamesFile", uses("UnitNamesFile")),
+  extend(TabularTextFile(...), c("TextUnitNamesFile", 
+    uses("UnitNamesFile"), uses("FileCacheKeyInterface")),
     .platform = platform,
     "cached:.unitNames" = NULL
   );
