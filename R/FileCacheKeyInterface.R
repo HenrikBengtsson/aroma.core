@@ -54,6 +54,7 @@ setConstructorS3("FileCacheKeyInterface", function(...) {
 #   \item the class name of the object as a @character string.
 #   \item the file name (aka the basename) as a @character string.
 #   \item the file size as a @numeric scalar.
+#   \item the file checksum as a @character string.
 #  }
 #
 #  Classes extending/implementing this @see "R.oo::Interface" may override 
@@ -70,6 +71,7 @@ setMethodS3("getCacheKey", "FileCacheKeyInterface", function(this, ...) {
   keys <- NextMethod("getCacheKey");
   keys$filename <- getFilename(this);
   keys$filesize <- getFileSize(this);
+  keys$checksum <- getChecksum(this);
   keys;
 })
 
