@@ -37,6 +37,7 @@
   \item the class name of the object as a \code{\link[base]{character}} string.
   \item the file name (aka the basename) as a \code{\link[base]{character}} string.
   \item the file size as a \code{\link[base]{numeric}} scalar.
+  \item the file checksum as a \code{\link[base]{character}} string.
  }
 
  Classes extending/implementing this \code{\link[R.oo]{Interface}} may override

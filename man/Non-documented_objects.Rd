@@ -642,7 +642,8 @@
 \alias{kernelSmoothing.RawGenomicSignals}
 \alias{kernelSmoothingByState}
 \alias{kernelSmoothingByState.SegmentedGenomicSignalsInterface}
-\alias{lapply.AromaTabularBinaryFile}
+\alias{colApply}
+\alias{colApply.AromaTabularBinaryFile}
 \alias{lapplyInChunks}
 \alias{lapplyInChunks.numeric}
 \alias{library}
@@ -1077,7 +1078,6 @@
 \alias{getOption}
 \alias{append}
 \alias{lapply}
-\alias{sapply}
 \alias{downloadACS}
 \alias{downloadACS.AromaRepository}
 \alias{downloadCDF}

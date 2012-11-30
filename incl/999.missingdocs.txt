@@ -329,7 +329,8 @@
   isPaired isPaired.CopyNumberChromosomalModel
   kernelSmoothing.RawGenomicSignals kernelSmoothingByState
   kernelSmoothingByState.SegmentedGenomicSignalsInterface
-  lapply.AromaTabularBinaryFile lapplyInChunks lapplyInChunks.numeric
+  colApply colApply.AromaTabularBinaryFile
+  lapplyInChunks lapplyInChunks.numeric
   library lines.CopyNumberOutliers lines.CopyNumberRegions
   lines.RawGenomicSignals listToXml listToXml.list locallyUnique
   locallyUnique.default log2abs log2center log2neg log2pos
