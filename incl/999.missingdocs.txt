@@ -528,7 +528,7 @@ loadAll loadAll.SampleAnnotationSet
   getAromaGenomeTextFile getAromaGenomeTextFile.ChromosomalModel
 getChromosomeLabels getChromosomeLabels.ChromosomeExplorer
 cat getOption
-append lapply sapply
+append lapply
   downloadACS downloadACS.AromaRepository downloadCDF
   downloadCDF.AromaRepository downloadChipTypeFile
   downloadProbeSeqsTXT downloadProbeSeqsTXT.AromaRepository downloadTXT

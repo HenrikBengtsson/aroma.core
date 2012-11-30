@@ -1268,9 +1268,12 @@ setMethodS3("summary", "AromaTabularBinaryFile", function(object, ...) {
 })
 
 
-setMethodS3("lapply", "AromaTabularBinaryFile", function(X, FUN, ...) {
+setMethodS3("colApply", "AromaTabularBinaryFile", function(X, FUN, ...) {
   # To please R CMD check
   this <- X;
+
+  # Argument 'FUN':
+  FUN <- match.fun(FUN);
 
   nbrOfColumns <- nbrOfColumns(this);
   res <- base::lapply(seq_len(nbrOfColumns), FUN=function(cc) {
@@ -1278,11 +1281,11 @@ setMethodS3("lapply", "AromaTabularBinaryFile", function(X, FUN, ...) {
   });
 
   res;
-})
+}, protected=TRUE)
 
 
 setMethodS3("colStats", "AromaTabularBinaryFile", function(this, FUN, ...) {
-  res <- lapply(this, FUN=FUN, ...);
+  res <- colApply(this, FUN=FUN, ...);
   res <- unlist(res, use.names=FALSE);
   res;
 }, protected=TRUE)
@@ -1323,6 +1326,8 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 
 ############################################################################
 # HISTORY:
+# 2012-11-29
+# o Renamed lapply() for AromaTabularBinaryFile to colApply().
 # 2011-09-24
 # o readHeader(), readRawFooter() and writeRawFooter() of 
 #   AromaTabularBinaryFile would try to read non-signed 4-byte integers,

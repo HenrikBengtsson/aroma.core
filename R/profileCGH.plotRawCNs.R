@@ -1,6 +1,5 @@
 setMethodS3("pointsRawCNs", "default", function(fit, pchSymbol=c(20, 4), unit=6, col=NULL, ...) {
   rawCns <- extractRawCopyNumbers(fit);
-  verbose && print(verbose, rawCns, level=-50);
 
   if (is.null(col)) {
     # TO DO: Bring in colors into a generic framework. /HB 2007-09-04
@@ -188,6 +187,8 @@ setMethodS3("plotRawCNs", "profileCGH", function(fit, chromosome=NULL, unit=0, x
 
 ############################################################################
 # HISTORY:
+# 2012-11-29
+# o Dropped 'verbose' usage in pointsRawCNs() for default.
 # 2007-09-04
 # o Added a default pointsRawCNs().
 # 2007-08-22

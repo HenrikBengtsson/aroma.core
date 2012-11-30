@@ -10,7 +10,7 @@
 ##getOption <- R.utils::getOption;
 ##lapply <- R.utils::lapply;
 append <- R.filesets::append;
-sapply <- R.filesets::sapply;
+##sapply <- R.filesets::sapply;
 
 ##.First.lib <- function(libname, pkgname) {
 .onAttach <- function(libname, pkgname) {

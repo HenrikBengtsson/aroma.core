@@ -235,9 +235,9 @@ setMethodS3("getListOfAromaUgpFiles", "ChromosomalModel", function(this, ..., ve
   ugpList <- NULL;
   tryCatch({
     verbose && enter(verbose, "Retrieving UGP files from unit names files");
-#    ugpList <- lapply(unfList, getAromaUgpFile, verbose=less(verbose));
+#    ugpList <- lapply(unfList, FUN=getAromaUgpFile, verbose=less(verbose));
 #   TODO: Why not do this?  /HB 2010-01-12
-    ugpList <- lapply(tuple, getAromaUgpFile, verbose=less(verbose));
+    ugpList <- lapply(tuple, FUN=getAromaUgpFile, verbose=less(verbose));
     verbose && exit(verbose);
   }, error = function(ex) {
     msg <- sprintf("Failed to located UGP files for one of the chip types (%s). Please note that DChip GenomeInformation files are no longer supported.  The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message);
@@ -527,7 +527,7 @@ setMethodS3("getFullName", "ChromosomalModel", function(this, ...) {
 #*/###########################################################################
 setMethodS3("getChromosomes", "ChromosomalModel", function(this, ...) {
   ugpList <- getListOfAromaUgpFiles(this);
-  chromosomes <- lapply(ugpList, getChromosomes);
+  chromosomes <- lapply(ugpList, FUN=getChromosomes);
   chromosomes <- unlist(chromosomes, use.names=TRUE);
   chromosomes <- sort(unique(chromosomes));
   chromosomes;

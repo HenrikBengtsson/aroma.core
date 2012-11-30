@@ -203,7 +203,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   # Merge and order along genome
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Merge and order along genome");
-  cnM <- Reduce(append, lapply(cnList, clone));
+  cnM <- Reduce(append, lapply(cnList, FUN=clone));
   cnM <- sort(cnM);
   verbose && print(verbose, cnM);
   verbose && exit(verbose);

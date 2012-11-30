@@ -240,7 +240,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   footer <- readFooter(res);
   params <- footer$params;
   if (length(params) == 0L) {
-    srcFiles <- lapply(this, function(df) {
+    srcFiles <- lapply(this, FUN=function(df) {
       list(
         fullname = getFullName(df),
         fileSize = getFileSize(df),

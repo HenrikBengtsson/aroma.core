@@ -68,7 +68,7 @@ setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE,
   pathname <- Arguments$getWritablePathname(file, path=path, mustNotExist=!overwrite, ...);
 
   # Write to a temporary file
-  pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
+  pathnameT <- pushTemporaryFile(pathname);
 
   if (format == "png") {
     if (!isPackageInstalled("png")) {
@@ -110,7 +110,7 @@ setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE,
   pathnameT <- Arguments$getReadablePathname(pathnameT, mustExist=TRUE);
 
   # Rename temporary file
-  pathname <- popTemporaryFile(pathnameT, verbose=verbose);
+  pathname <- popTemporaryFile(pathnameT);
 
   invisible(pathname);
 })
@@ -621,6 +621,8 @@ setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v",
 
 ############################################################################
 # HISTORY:
+# 2012-11-29
+# o Dropped stray usage of 'verbose' in write() for RasterImage.
 # 2012-09-02
 # o BUG FIX: interleave() for Image and RasterImage could generate
 #   error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value 

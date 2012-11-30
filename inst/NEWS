@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.7.3 [2012-11-29]
+o Renamed lapply() for AromaTabularBinaryFile to colApply().
+
+
 Version: 2.7.2 [2012-11-28]
 o Made several file classes implement FileCacheKeyInterface.
 o Added CacheKeyInterface and FileCacheKeyInterface.

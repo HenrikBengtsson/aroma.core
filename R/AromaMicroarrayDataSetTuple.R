@@ -157,7 +157,7 @@ setMethodS3("getFullNames", "AromaMicroarrayDataSetTuple", function(this, arrays
       # To avoid warning on na.omit(NULL)
       if (length(x) > 0) na.omit(x) else x;
     });
-    tags <- base::lapply(tags, setdiff, exclude);
+    tags <- base::lapply(tags, FUN=setdiff, exclude);
     tags <- getCommonListElements(tags);
     tags <- tags[[1]];
     tags <- unlist(tags, use.names=FALSE);

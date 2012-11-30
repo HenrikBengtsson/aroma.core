@@ -1,7 +1,7 @@
 setMethodS3("onFitAddGenotypeCalls", "default", function(fit, ...) {
 }, protected=FALSE)
 
-setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, arrayName, resScale=1e6, ylim=NULL, ...) {
+setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, arrayName, resScale=1e6, ylim=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -12,6 +12,8 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
     return();
   }
 
+  # Argument 'verbose':
+  verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
@@ -92,6 +94,8 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
 
 ##############################################################################
 # HISTORY:
+# 2012-11-29
+# o Added missing 'verbose' argument to onFitAddGenotypeCalls() for GladModel.
 # 2007-09-04
 # o Made plot() of GladModel more generic.  I'm trying to move this method
 #   up to CopyNumberSegmentationModel, which means several of the plot
