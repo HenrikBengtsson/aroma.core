@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.7.4 [2012-12-04]
+o CLEANUP: Dropped inst/reports/templates/html/archive/,
+  inst/reports/templates/rsp/archive/ and inst/archive/, 
+  which all contained old/legacy Explorer versions.
+
+
 Version: 2.7.3 [2012-11-29]
 o Renamed lapply() for AromaTabularBinaryFile to colApply().
 
