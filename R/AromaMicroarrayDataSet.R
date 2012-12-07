@@ -31,8 +31,8 @@ setConstructorS3("AromaMicroarrayDataSet", function(files=NULL, ...) {
 setMethodS3("validate", "AromaMicroarrayDataSet", function(this, ...) {
   chipTypes <- lapply(this, FUN=getChipType);
   chipTypes <- unique(chipTypes);
-  if (length(chipTypes) > 1) {
-    throw("The located ", class(this)[1], " contains files with different chip types: ", paste(chipTypes, collapse=", "));
+  if (length(chipTypes) > 1L) {
+    throw("The located ", class(this)[1L], " contains files with different chip types: ", paste(chipTypes, collapse=", "));
   }
 
   NextMethod("validate");
@@ -40,8 +40,7 @@ setMethodS3("validate", "AromaMicroarrayDataSet", function(this, ...) {
 
 
 setMethodS3("getPlatform", "AromaMicroarrayDataSet", function(this, ...) {
-  file <- getFile(this, 1);
-  getPlatform(file);
+  getPlatform(getOneFile(this, ...));
 })
 
 
@@ -51,8 +50,7 @@ setMethodS3("getDefaultFullName", "AromaMicroarrayDataSet", function(this, paren
 
 
 setMethodS3("getChipType", "AromaMicroarrayDataSet", function(this, ...) {
-  file <- getFile(this, 1);
-  getChipType(file, ...);
+  getChipType(getOneFile(this, ...));
 })
 
 

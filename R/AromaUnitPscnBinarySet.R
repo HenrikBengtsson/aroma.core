@@ -43,6 +43,11 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Argument 'this':
+  if (length(this) == 0L) {
+    throw("Cannot get average file. ", class(this)[1L], " is empty: ", getFullName(this));
+  }
+
   # Argument 'mean':
   if (is.character(mean)) {
     mean <- match.arg(mean);
@@ -92,7 +97,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   }
 
   # Argument 'indices':
-  df <- getFile(this, 1);
+  df <- getOneFile(this);
   nbrOfUnits <- nbrOfUnits(df);
   if (force) {
     if (identical(indices, "remaining")) {

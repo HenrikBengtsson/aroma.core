@@ -3,7 +3,11 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nbrOfFiles <- length(this);
-  nbrOfUnits <- nbrOfUnits(getFile(this,1));
+  if (nbrOfFiles == 0L) {
+    throw("Nothing to export. ", class(this)[1], " is empty: ", getFullName(this));
+  }
+
+  nbrOfUnits <- nbrOfUnits(getOneFile(this));
   chipType <- getChipType(this);
 
   # Argument 'ref':
@@ -17,7 +21,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
     if (getChipType(ref) != chipType) {
       throw("Chip type of argument 'ref' does not match the data set: ", getChipType(ref), " != ", chipType);
     }
-    df <- getFile(ref, 1);
+    df <- getOneFile(ref);
     if (nbrOfUnits(df) != nbrOfUnits) {
       throw("Number of units in argument 'ref' does not match the data set: ", nbrOfUnits(ref), " != ", nbrOfUnits);
     }

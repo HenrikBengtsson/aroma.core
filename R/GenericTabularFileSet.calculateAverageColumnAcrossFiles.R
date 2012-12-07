@@ -2,6 +2,12 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'this':
+  nbrOfFiles <- length(this);
+  if (nbrOfFiles == 0L) {
+    throw("Cannot calculate average across data files. No data files in data set: ", getFullName(this));
+  }
+
   # Argument 'method':
   method <- match.arg(method);
 
@@ -43,13 +49,9 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
     rowFcn <- rowMedians;
   }
 
-  nbrOfFiles <- length(this);
-  if (nbrOfFiles == 0) {
-    throw("Cannot calculate average across data files. No data files in data set: ", getFullName(this));
-  }
   verbose && cat(verbose, "Number of files: ", nbrOfFiles);
 
-  df <- getFile(this, 1);
+  df <- getOneFile(this);
   nbrOfRows <- nbrOfRows(df);
   units <- seq_len(nbrOfRows);
   nbrOfRows <- length(units);

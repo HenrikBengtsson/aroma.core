@@ -443,7 +443,7 @@ setMethodS3("getOutputFiles", "AromaTransform", function(this, pattern=NULL, ...
     # Default filename pattern find non-private (no dot prefix) files with
     # the same file name extension as the input data set.
     ds <- getInputDataSet(this);
-    df <- getFile(ds, 1);
+    df <- getOneFile(ds);
     pattern <- sprintf("^[^.].*[.]%s$", getFilenameExtension(df));
   } else {
     pattern <- Arguments$getRegularExpression(pattern=pattern);
@@ -486,7 +486,7 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
   if (is.null(pattern)) {
     # Default filename pattern find non-private (no dot prefix) files with
     # the same file name extension as the input data set.
-    df <- getFile(ds, 1);
+    df <- getOneFile(ds);
     fileExt <- gsub(".*[.]([^.]*)$", "\\1", getFilename(df));
     fileExt <- c(fileExt, tolower(fileExt), toupper(fileExt));
     fileExt <- sprintf("(%s)", paste(unique(fileExt), collapse="|"));

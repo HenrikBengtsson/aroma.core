@@ -25,8 +25,7 @@ setMethodS3("getUnitNamesFile", "AromaUnitTotalCnBinarySet", function(this, ...)
     throw("Cannot locate unit names file. Data set is empty: ", getFullName(this));
   }
 
-  df <- getFile(this, 1);
-  getUnitNamesFile(df, ...);
+  getUnitNamesFile(getOneFile(this), ...);
 })
 
 

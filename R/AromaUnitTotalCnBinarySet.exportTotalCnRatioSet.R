@@ -2,9 +2,14 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'ref':
+  # Argument 'this':
   nbrOfFiles <- length(this);
-  nbrOfUnits <- nbrOfUnits(getFile(this,1));
+  if (nbrOfFiles == 0L) {
+    throw("Cannot export. ", class(this)[1L], " is empty: ", getFullName(this));
+  }
+
+  # Argument 'ref':
+  nbrOfUnits <- nbrOfUnits(getOneFile(this));
   chipType <- getChipType(this);
 
   if (is.null(ref)) {
@@ -21,7 +26,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     if (getChipType(ref) != chipType) {
       throw("Chip type of argument 'ref' does not match the data set: ", getChipType(ref), " != ", chipType);
     }
-    df <- getFile(ref, 1);
+    df <- getOneFile(ref);
     if (nbrOfUnits(df) != nbrOfUnits) {
       throw("Number of units in argument 'ref' does not match the data set: ", nbrOfUnits(ref), " != ", nbrOfUnits);
     }
@@ -156,7 +161,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
       verbose && enter(verbose, "Calculating reference signals");
       verbose && cat(verbose, "Averaging method: ", refMethod);
       # Sanity check?
-      ce <- getFile(this, 1);
+      ce <- getOneFile(this);
       if (hasTag(ce, "log2ratio")) {
         throw("Cannot estimate reference signals by calculating average across data set. Not implemented for CN ratio data sets.");
       }

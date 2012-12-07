@@ -60,17 +60,17 @@ setMethodS3("validate", "AromaUnitSignalBinarySet", function(this, ...) {
 
 
 setMethodS3("getPlatform", "AromaUnitSignalBinarySet", function(this, ...) {
-  getPlatform(getFile(this, 1), ...);
+  getPlatform(getOneFile(this), ...);
 })
 
 
 setMethodS3("getChipType", "AromaUnitSignalBinarySet", function(this, ...) {
-  getChipType(getFile(this, 1), ...);
+  getChipType(getOneFile(this), ...);
 }) 
 
 
 setMethodS3("getAromaUgpFile", "AromaUnitSignalBinarySet", function(this, ...) {
-  getAromaUgpFile(getFile(this,1), ...);
+  getAromaUgpFile(getOneFile(this), ...);
 })
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

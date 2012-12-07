@@ -114,7 +114,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   } # getColumnTypes()
 
 
-  dfFirst <- getFile(this, 1);
+  dfFirst <- getOneFile(this, mustExist=TRUE);
   fields <- getColumnNames(dfFirst);
   ugp <- getAromaUgpFile(dfFirst);
 
