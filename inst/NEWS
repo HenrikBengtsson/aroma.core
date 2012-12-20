@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.7.6 [2012-12-20]
+o Bumped up package dependencies.
+o Now using argument 'colClasses' (was 'colClassPatterns')
+  for all readDataFrame():s.
+o Utilizing new startupMessage() of R.oo. 
+
+
 Version: 2.7.5 [2012-12-06]
 o ROBUSTNESS: Utilizing new getOneFile() internally.
 

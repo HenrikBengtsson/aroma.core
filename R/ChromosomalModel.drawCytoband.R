@@ -19,9 +19,9 @@ setMethodS3("drawCytoband", "ChromosomalModel", function(this, chromosome=NULL, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Load annotation data file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  colClassPatterns <- c("*"="character", "(start|end)"="integer", 
+  colClasses <- c("*"="character", "(start|end)"="integer", 
                        "intensity"="integer", "isCentromere"="logical");
-  data <- readDataFrame(gf, colClassPatterns=colClassPatterns);
+  data <- readDataFrame(gf, colClasses=colClasses);
 
   # Infer chromosome indices
   data$chromosomeIdx <- Arguments$getChromosomes(data$chromosome);

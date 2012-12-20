@@ -44,8 +44,8 @@ setConstructorS3("AromaGenomeTextFile", function(...) {
 })
 
 
-setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClassPatterns=c("*"="NULL", chromosome="character", nbrOfBases="integer", nbrOfGenes="integer")) {
-  NextMethod("readDataFrame", colClassPatterns=colClassPatterns);
+setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClasses=c("*"="NULL", chromosome="character", nbrOfBases="integer", nbrOfGenes="integer")) {
+  NextMethod("readDataFrame", colClasses=colClasses, ...);
 })
 
 

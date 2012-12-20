@@ -63,7 +63,7 @@ setMethodS3("allocate", "AromaUgpFile", function(static, ...) {
 
 
 
-setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, colClassPatterns=c("*"="NULL", "^Probe Set ID$"="character", "^Chromosome$"="character", "^Physical Position$"="character"), colOrder=NULL, shift=0, con=NULL, ..., verbose=FALSE) {
+setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, colClasses=c("*"="NULL", "^Probe Set ID$"="character", "^Chromosome$"="character", "^Physical Position$"="character"), colOrder=NULL, shift=0, con=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -88,7 +88,7 @@ setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Importing (unitName, chromosome, position) from ", class(src)[1], " file");
 
-  data <- readDataFrame(src, colClassPatterns=colClassPatterns, ..., verbose=less(verbose));
+  data <- readDataFrame(src, colClasses=colClasses, ..., verbose=less(verbose));
 
   # Rearrange columns (optional)
   if (!is.null(colOrder))

@@ -169,7 +169,7 @@ setMethodS3("allocate", "AromaUflFile", function(static, ..., nbrOfEnzymes=1, ty
 
 
 
-setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, colClassPatterns=c("*"="NULL", "^Probe Set ID$"="character", "^Fragment Length$"="integer"), colOrder=NULL, con=NULL, ..., verbose=FALSE) {
+setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, colClasses=c("*"="NULL", "^Probe Set ID$"="character", "^Fragment Length$"="integer"), colOrder=NULL, con=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -196,7 +196,7 @@ setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Importing (unitName, fragmentLength+) from ", class(src)[1], " file");
 
-  data <- readDataFrame(src, colClassPatterns=colClassPatterns, ..., verbose=less(verbose));
+  data <- readDataFrame(src, colClasses=colClasses, ..., verbose=less(verbose));
 
   # Rearrange columns (optional)
   if (!is.null(colOrder)) {
