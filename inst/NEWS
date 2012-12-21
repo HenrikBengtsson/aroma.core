@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.8.0 [2012-12-21]
+o No updates.
+o Bumped version for CRAN submission.
+o Package passes all redundancy tests.
+
+
 Version: 2.7.6 [2012-12-20]
 o Bumped up package dependencies.
 o Now using argument 'colClasses' (was 'colClassPatterns')
