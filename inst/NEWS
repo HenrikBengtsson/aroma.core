@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.8.1 [2013-01-03]
+o CLEANUP: Deprecated nbrOfArrays() for AromaMicroarrayDataSet and
+  AromaUnitTotalCnBinarySet.
+o CLEANUP: Some of the internal aroma.core code still called
+  deprecated methods resulting in unneccessary warnings.
+
+
 Version: 2.8.0 [2012-12-21]
 o No updates.
 o Bumped version for CRAN submission.

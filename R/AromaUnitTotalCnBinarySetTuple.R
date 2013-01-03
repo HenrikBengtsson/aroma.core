@@ -9,11 +9,6 @@ setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySetTuple
 })
 
 
-setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
-  length(this, ...);
-})
-
-
 setMethodS3("getListOfUnitNamesFiles", "AromaUnitTotalCnBinarySetTuple", function(this, ...) {
   sets <- getSets(this);
   lapply(sets, FUN=getUnitNamesFile);

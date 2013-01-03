@@ -35,6 +35,21 @@ setMethodS3("nbrOfArrays", "AromaMicroarrayDataSetTuple", function(this, ...) {
 }, protected=TRUE)
 
 
+# 2013-01-03
+# o Deprecated nbrOfArrays() for AromaMicroarrayDataSet and
+#   AromaUnitTotalCnBinarySet.
+setMethodS3("nbrOfArrays", "AromaMicroarrayDataSet", function(this, ...) {
+  .Deprecated("length");
+  length(this, ...);
+})
+
+setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
+  .Deprecated("length");
+  length(this, ...);
+}, protected=TRUE)
+
+
+
 ############################################################################
 # HISTORY:
 # 2012-10-14

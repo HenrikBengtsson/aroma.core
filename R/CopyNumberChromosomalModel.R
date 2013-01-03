@@ -264,7 +264,7 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
           }
   
           # Create a data set holding a sequence of one replicated reference file
-          refFiles <- rep(list(ref), times=nbrOfArrays(ces));
+          refFiles <- rep(list(ref), times=length(ces));
           refSet <- newInstance(ces, refFiles);
           rm(refFiles);
            
@@ -308,8 +308,8 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
       ref <- refList[[kk]];
 
       # Assert that the reference and the sample sets are of the same size
-      if (nbrOfArrays(ref) != nbrOfArrays(ces)) {
-        throw("The number of reference files does not match the number of sample files: ", nbrOfArrays(ref), " != ", nbrOfArrays(ces));
+      if (length(ref) != length(ces)) {
+        throw("The number of reference files does not match the number of sample files: ", length(ref), " != ", length(ces));
       }
 
       # Assert that the reference files are compatible with the test files
@@ -411,7 +411,7 @@ setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this,
         refFile <- getAverageFile(ces, force=force, verbose=less(verbose));
         refSet <- clone(ces);
         clearCache(refSet);
-        refFiles <- rep(list(refFile), nbrOfArrays(cesTuple));
+        refFiles <- rep(list(refFile), times=length(cesTuple));
         refSet$files <- refFiles;
         rm(refFiles);
         verbose && exit(verbose);
