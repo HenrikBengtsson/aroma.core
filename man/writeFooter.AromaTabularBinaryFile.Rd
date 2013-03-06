@@ -9,9 +9,7 @@
 \name{writeFooter.AromaTabularBinaryFile}
 \alias{writeFooter.AromaTabularBinaryFile}
 \alias{AromaTabularBinaryFile.writeFooter}
-\alias{writeFooter.AromaTabularBinaryFile}
 \alias{writeFooter,AromaTabularBinaryFile-method}
-
 
 \title{Writes a named nested list to the file footer in XML format}
 
@@ -19,7 +17,9 @@
  Writes a named nested list to the file footer in XML format.
 }
 
-\usage{\method{writeFooter}{AromaTabularBinaryFile}(this, footer, ...)}
+\usage{
+\method{writeFooter}{AromaTabularBinaryFile}(this, footer, ...)
+}
 
 \arguments{
   \item{footer}{A named \code{\link[base]{list}} structure.}

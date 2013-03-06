@@ -10,9 +10,7 @@
 \name{estimateStandardDeviation.RawGenomicSignals}
 \alias{estimateStandardDeviation.RawGenomicSignals}
 \alias{RawGenomicSignals.estimateStandardDeviation}
-\alias{estimateStandardDeviation.RawGenomicSignals}
 \alias{estimateStandardDeviation,RawGenomicSignals-method}
-
 
 \title{Estimates the standard deviation of the raw Ys}
 
@@ -21,7 +19,9 @@
  or a first-order difference estimator.
 }
 
-\usage{\method{estimateStandardDeviation}{RawGenomicSignals}(this, field=NULL, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...)}
+\usage{
+\method{estimateStandardDeviation}{RawGenomicSignals}(this, field=NULL, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...)
+}
 
 \arguments{
   \item{field}{A \code{\link[base]{character}} specifying the field to estimate.}

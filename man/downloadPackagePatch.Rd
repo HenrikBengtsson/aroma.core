@@ -17,7 +17,9 @@
   By default, the patches are applied after being downloaded.
  }
 
- \usage{\method{downloadPackagePatch}{default}(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE)}
+ \usage{
+\method{downloadPackagePatch}{default}(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE)
+}
 
  \arguments{
    \item{pkgName}{The name of the package to be patched."}

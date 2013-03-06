@@ -9,9 +9,7 @@
 \name{process.AromaTransform}
 \alias{process.AromaTransform}
 \alias{AromaTransform.process}
-\alias{process.AromaTransform}
 \alias{process,AromaTransform-method}
-
 
 \title{Processes the data set}
 
@@ -19,7 +17,9 @@
  Processes the data set.
 }
 
-\usage{\method{process}{AromaTransform}(...)}
+\usage{
+\method{process}{AromaTransform}(...)
+}
 
 \arguments{
   \item{...}{Not used.}

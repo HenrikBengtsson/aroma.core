@@ -9,9 +9,7 @@
 \name{fit.CopyNumberSegmentationModel}
 \alias{fit.CopyNumberSegmentationModel}
 \alias{CopyNumberSegmentationModel.fit}
-\alias{fit.CopyNumberSegmentationModel}
 \alias{fit,CopyNumberSegmentationModel-method}
-
 
 \title{Fits the model}
 
@@ -19,7 +17,9 @@
  Fits the model.
 }
 
-\usage{\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=getMaxNAFraction(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE)}
+\usage{
+\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=getMaxNAFraction(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE)
+}
 
 \arguments{
   \item{arrays}{A \code{\link[base]{vector}} of array indices specifying which arrays to

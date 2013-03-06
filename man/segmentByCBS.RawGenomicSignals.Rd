@@ -10,9 +10,7 @@
  \name{segmentByCBS.RawGenomicSignals}
 \alias{segmentByCBS.RawGenomicSignals}
 \alias{RawGenomicSignals.segmentByCBS}
-\alias{segmentByCBS.RawGenomicSignals}
 \alias{segmentByCBS,RawGenomicSignals-method}
-
 
  \title{Segment copy numbers using the CBS method}
 
@@ -22,7 +20,9 @@
   see [1,2].
  }
 
- \usage{\method{segmentByCBS}{RawGenomicSignals}(this, ..., seed=NULL, cache=FALSE, force=FALSE, verbose=FALSE)}
+ \usage{
+\method{segmentByCBS}{RawGenomicSignals}(this, ..., seed=NULL, cache=FALSE, force=FALSE, verbose=FALSE)
+}
 
  \arguments{
    \item{...}{Additional arguments passed to the segmentation function.}

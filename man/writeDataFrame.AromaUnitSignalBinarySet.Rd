@@ -10,9 +10,7 @@
 \name{writeDataFrame.AromaUnitSignalBinarySet}
 \alias{writeDataFrame.AromaUnitSignalBinarySet}
 \alias{AromaUnitSignalBinarySet.writeDataFrame}
-\alias{writeDataFrame.AromaUnitSignalBinarySet}
 \alias{writeDataFrame,AromaUnitSignalBinarySet-method}
-
 
 \title{Writes the data set as a tab-delimited text file}
 
@@ -24,7 +22,9 @@
   For more details, see below.
 }
 
-\usage{\method{writeDataFrame}{AromaUnitSignalBinarySet}(this, filename=sprintf("\%s.txt", getFullName(this)), path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this, fullname = FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE)}
+\usage{
+\method{writeDataFrame}{AromaUnitSignalBinarySet}(this, filename=sprintf("\%s.txt", getFullName(this)), path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this, fullname = FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE)
+}
 
 \arguments{
  \item{filename}{The filename of the generated file.}

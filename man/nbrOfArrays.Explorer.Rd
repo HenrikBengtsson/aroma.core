@@ -9,9 +9,7 @@
 \name{nbrOfArrays.Explorer}
 \alias{nbrOfArrays.Explorer}
 \alias{Explorer.nbrOfArrays}
-\alias{nbrOfArrays.Explorer}
 \alias{nbrOfArrays,Explorer-method}
-
 
 \title{Gets the total number of arrays}
 
@@ -19,7 +17,9 @@
  Gets the total number of arrays considered by the explorer.
 }
 
-\usage{\method{nbrOfArrays}{Explorer}(this, ...)}
+\usage{
+\method{nbrOfArrays}{Explorer}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

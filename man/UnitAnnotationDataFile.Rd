@@ -33,7 +33,9 @@ extends \link[R.oo]{Interface}\cr
   of chip type annotation data by units.
  }
 
- \usage{UnitAnnotationDataFile(...)}
+ \usage{
+UnitAnnotationDataFile(...)
+}
 
  \arguments{
    \item{...}{Arguments passed to \code{\link[R.oo]{Interface}}.}

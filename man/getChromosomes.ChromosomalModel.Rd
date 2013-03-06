@@ -9,9 +9,7 @@
 \name{getChromosomes.ChromosomalModel}
 \alias{getChromosomes.ChromosomalModel}
 \alias{ChromosomalModel.getChromosomes}
-\alias{getChromosomes.ChromosomalModel}
 \alias{getChromosomes,ChromosomalModel-method}
-
 
 \title{Gets the chromosomes available}
 
@@ -19,7 +17,9 @@
  Gets the chromosomes available.
 }
 
-\usage{\method{getChromosomes}{ChromosomalModel}(this, ...)}
+\usage{
+\method{getChromosomes}{ChromosomalModel}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

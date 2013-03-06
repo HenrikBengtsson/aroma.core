@@ -9,9 +9,7 @@
 \name{getTags.AromaTransform}
 \alias{getTags.AromaTransform}
 \alias{AromaTransform.getTags}
-\alias{getTags.AromaTransform}
 \alias{getTags,AromaTransform-method}
-
 
 \title{Gets the tags of the output data set}
 
@@ -20,7 +18,9 @@
  of this transformation.
 }
 
-\usage{\method{getTags}{AromaTransform}(this, collapse=NULL, ...)}
+\usage{
+\method{getTags}{AromaTransform}(this, collapse=NULL, ...)
+}
 
 \arguments{
  \item{...}{Not used.}

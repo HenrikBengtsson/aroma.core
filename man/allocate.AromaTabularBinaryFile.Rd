@@ -6,12 +6,11 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\name{allocate.AromaTabularBinaryFile}
+\name{AromaTabularBinaryFile$allocate}
+\alias{AromaTabularBinaryFile$allocate}
 \alias{allocate.AromaTabularBinaryFile}
 \alias{AromaTabularBinaryFile.allocate}
-\alias{allocate.AromaTabularBinaryFile}
 \alias{allocate,AromaTabularBinaryFile-method}
-
 
 \title{Creates an AromaTabularBinaryFile}
 
@@ -19,8 +18,13 @@
  Creates an AromaTabularBinaryFile of a certain dimension and data column types.
 }
 
-\synopsis{allocate.AromaTabularBinaryFile(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)}
-\usage{AromaTabularBinaryFile$allocate(filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)}
+\usage{
+## Static method (use this):
+## AromaTabularBinaryFile$allocate(filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)
+
+## Don't use the below:
+\method{allocate}{AromaTabularBinaryFile}(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)
+}
 
 \arguments{
   \item{filename}{The filename of the new file.}

@@ -9,8 +9,6 @@
 
 \name{doCBS.character}
 \alias{doCBS.character}
-\alias{doCBS.character}
-
 
 \title{Performs CBS segmentation on a data set}
 
@@ -18,7 +16,9 @@
  Performs CBS segmentation on a data set for one or more chip types.
 }
 
-\usage{\method{doCBS}{character}(dataSets, tags=NULL, chipTypes, ..., verbose=FALSE)}
+\usage{
+\method{doCBS}{character}(dataSets, tags=NULL, chipTypes, ..., verbose=FALSE)
+}
 
 \arguments{
   \item{dataSets}{A \code{\link[base]{character}} string specifying the data set(s).}

@@ -32,7 +32,9 @@ extends \link[aroma.core]{CacheKeyInterface}\cr
 
  }
 
- \usage{FileCacheKeyInterface(...)}
+ \usage{
+FileCacheKeyInterface(...)
+}
 
  \arguments{
    \item{...}{Not used.}

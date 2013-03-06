@@ -30,7 +30,9 @@ extends list\cr
 
  }
 
- \usage{BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)}
+ \usage{
+BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
+}
 
  \arguments{
    \item{data}{A Nx2 @numaric \code{\link[base]{matrix}}.}

@@ -9,9 +9,7 @@
 \name{nbrOfChipTypes.AromaMicroarrayDataSetTuple}
 \alias{nbrOfChipTypes.AromaMicroarrayDataSetTuple}
 \alias{AromaMicroarrayDataSetTuple.nbrOfChipTypes}
-\alias{nbrOfChipTypes.AromaMicroarrayDataSetTuple}
 \alias{nbrOfChipTypes,AromaMicroarrayDataSetTuple-method}
-
 
 \title{Gets the number of chip types}
 
@@ -19,7 +17,9 @@
  Gets the number of chip types used in the model.
 }
 
-\usage{\method{nbrOfChipTypes}{AromaMicroarrayDataSetTuple}(this, ...)}
+\usage{
+\method{nbrOfChipTypes}{AromaMicroarrayDataSetTuple}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

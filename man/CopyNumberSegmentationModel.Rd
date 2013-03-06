@@ -36,7 +36,9 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
   This \emph{abstract} class represents a copy-number segmentation model.
  }
 
- \usage{CopyNumberSegmentationModel(...)}
+ \usage{
+CopyNumberSegmentationModel(...)
+}
 
  \arguments{
    \item{...}{Arguments passed to constructor
@@ -62,7 +64,7 @@ as.character, calculateChromosomeStatistics, calculateRatios, estimateSds, extra
 as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSets, getSetTuple, getTags, indexOf, nbrOfArrays, nbrOfChipTypes, setGenome
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+$, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
  }

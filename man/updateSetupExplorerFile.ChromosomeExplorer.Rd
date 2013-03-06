@@ -9,9 +9,7 @@
 \name{updateSetupExplorerFile.ChromosomeExplorer}
 \alias{updateSetupExplorerFile.ChromosomeExplorer}
 \alias{ChromosomeExplorer.updateSetupExplorerFile}
-\alias{updateSetupExplorerFile.ChromosomeExplorer}
 \alias{updateSetupExplorerFile,ChromosomeExplorer-method}
-
 
 \title{Updates the Javascript file}
 
@@ -19,7 +17,9 @@
  Updates the Javascript file.
 }
 
-\usage{\method{updateSetupExplorerFile}{ChromosomeExplorer}(this, ..., verbose=FALSE)}
+\usage{
+\method{updateSetupExplorerFile}{ChromosomeExplorer}(this, ..., verbose=FALSE)
+}
 
 \arguments{
   \item{...}{Not used.}

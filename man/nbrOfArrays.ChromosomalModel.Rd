@@ -9,9 +9,7 @@
 \name{nbrOfArrays.ChromosomalModel}
 \alias{nbrOfArrays.ChromosomalModel}
 \alias{ChromosomalModel.nbrOfArrays}
-\alias{nbrOfArrays.ChromosomalModel}
 \alias{nbrOfArrays,ChromosomalModel-method}
-
 
 \title{Gets the number of arrays}
 
@@ -19,7 +17,9 @@
  Gets the number of arrays used in the model.
 }
 
-\usage{\method{nbrOfArrays}{ChromosomalModel}(this, ...)}
+\usage{
+\method{nbrOfArrays}{ChromosomalModel}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

@@ -10,9 +10,7 @@
  \name{segmentByMPCBS.RawGenomicSignals}
 \alias{segmentByMPCBS.RawGenomicSignals}
 \alias{RawGenomicSignals.segmentByMPCBS}
-\alias{segmentByMPCBS.RawGenomicSignals}
 \alias{segmentByMPCBS,RawGenomicSignals-method}
-
 
  \title{Segment copy numbers using the multi-platform CBS (mpCBS) method}
 
@@ -20,7 +18,9 @@
   Segment copy numbers using the multi-platform CBS (mpCBS) method of the \pkg{mpcbs} package.
  }
 
- \usage{\method{segmentByMPCBS}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)}
+ \usage{
+\method{segmentByMPCBS}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)
+}
 
  \arguments{
    \item{...}{Additional arguments passed to the segmentation function.}

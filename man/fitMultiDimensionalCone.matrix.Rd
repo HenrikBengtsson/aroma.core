@@ -9,8 +9,6 @@
 
  \name{fitMultiDimensionalCone.matrix}
 \alias{fitMultiDimensionalCone.matrix}
-\alias{fitMultiDimensionalCone.matrix}
-
 
  \title{Fits an affine transformation to multi-dimensional data}
 
@@ -18,7 +16,9 @@
   Fits an affine transformation to multi-dimensional data using robust estimators.
  }
 
- \usage{\method{fitMultiDimensionalCone}{matrix}(y, alpha=c(0.1, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ..., flavor=c("sfit", "expectile"))}
+ \usage{
+\method{fitMultiDimensionalCone}{matrix}(y, alpha=c(0.1, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ..., flavor=c("sfit", "expectile"))
+}
 
  \arguments{
    \item{y}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}} with one column for each dimension and

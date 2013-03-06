@@ -9,9 +9,7 @@
 \name{getName.AromaTransform}
 \alias{getName.AromaTransform}
 \alias{AromaTransform.getName}
-\alias{getName.AromaTransform}
 \alias{getName,AromaTransform-method}
-
 
 \title{Gets the name of the output data set}
 
@@ -19,7 +17,9 @@
  Gets the name of the output data set, which is the same as the input data set.
 }
 
-\usage{\method{getName}{AromaTransform}(this, ...)}
+\usage{
+\method{getName}{AromaTransform}(this, ...)
+}
 
 \arguments{
  \item{...}{Not used.}

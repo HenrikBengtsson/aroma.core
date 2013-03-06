@@ -9,9 +9,7 @@
 \name{estimateSds.CopyNumberChromosomalModel}
 \alias{estimateSds.CopyNumberChromosomalModel}
 \alias{CopyNumberChromosomalModel.estimateSds}
-\alias{estimateSds.CopyNumberChromosomalModel}
 \alias{estimateSds,CopyNumberChromosomalModel-method}
-
 
 \title{Estimates the standard deviation of the raw copy numbers (log2-ratios) robustly}
 
@@ -20,7 +18,9 @@
  an estimator that is fairly robust for change points.
 }
 
-\usage{\method{estimateSds}{CopyNumberChromosomalModel}(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE)}
+\usage{
+\method{estimateSds}{CopyNumberChromosomalModel}(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE)
+}
 
 \arguments{
   \item{arrays}{The arrays to be queried.}

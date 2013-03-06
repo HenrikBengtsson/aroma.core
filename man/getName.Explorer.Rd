@@ -9,9 +9,7 @@
 \name{getName.Explorer}
 \alias{getName.Explorer}
 \alias{Explorer.getName}
-\alias{getName.Explorer}
 \alias{getName,Explorer-method}
-
 
 \title{Gets the name of the explorer}
 
@@ -19,7 +17,9 @@
  Gets the name of the explorer, which is the same as the name of the data set.
 }
 
-\usage{\method{getName}{Explorer}(this, ...)}
+\usage{
+\method{getName}{Explorer}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

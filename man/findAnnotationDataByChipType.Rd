@@ -16,7 +16,9 @@
   Locates an annotation data file by its chip type.
  }
 
- \usage{\method{findAnnotationDataByChipType}{default}(chipType, pattern=chipType, ...)}
+ \usage{
+\method{findAnnotationDataByChipType}{default}(chipType, pattern=chipType, ...)
+}
 
  \arguments{
    \item{chipType}{A \code{\link[base]{character}} string.}

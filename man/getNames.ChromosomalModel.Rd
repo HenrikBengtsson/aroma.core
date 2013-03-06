@@ -9,9 +9,7 @@
 \name{getNames.ChromosomalModel}
 \alias{getNames.ChromosomalModel}
 \alias{ChromosomalModel.getNames}
-\alias{getNames.ChromosomalModel}
 \alias{getNames,ChromosomalModel-method}
-
 
 \title{Gets the names of the arrays}
 
@@ -19,7 +17,9 @@
  Gets the names of the arrays available to the model.
 }
 
-\usage{\method{getNames}{ChromosomalModel}(this, ...)}
+\usage{
+\method{getNames}{ChromosomalModel}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

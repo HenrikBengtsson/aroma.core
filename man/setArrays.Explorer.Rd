@@ -9,9 +9,7 @@
 \name{setArrays.Explorer}
 \alias{setArrays.Explorer}
 \alias{Explorer.setArrays}
-\alias{setArrays.Explorer}
 \alias{setArrays,Explorer-method}
-
 
 \title{Sets the arrays}
 
@@ -19,7 +17,9 @@
  Sets the arrays to be processed by the explorer.
 }
 
-\usage{\method{setArrays}{Explorer}(...)}
+\usage{
+\method{setArrays}{Explorer}(...)
+}
 
 \arguments{
   \item{arrays}{A \code{\link[base]{character}} (or \code{\link[base]{integer}}) \code{\link[base]{vector}} of arrays to be

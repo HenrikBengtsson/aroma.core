@@ -9,9 +9,7 @@
 \name{setArrays.ChromosomeExplorer}
 \alias{setArrays.ChromosomeExplorer}
 \alias{ChromosomeExplorer.setArrays}
-\alias{setArrays.ChromosomeExplorer}
 \alias{setArrays,ChromosomeExplorer-method}
-
 
 \title{Sets the arrays}
 
@@ -19,7 +17,9 @@
  Sets the arrays to be processed by the explorer.
 }
 
-\usage{\method{setArrays}{ChromosomeExplorer}(this, ...)}
+\usage{
+\method{setArrays}{ChromosomeExplorer}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

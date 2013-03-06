@@ -9,9 +9,7 @@
 \name{getOutputDataSet.AromaTransform}
 \alias{getOutputDataSet.AromaTransform}
 \alias{AromaTransform.getOutputDataSet}
-\alias{getOutputDataSet.AromaTransform}
 \alias{getOutputDataSet,AromaTransform-method}
-
 
 \title{Gets the transformed data set}
 
@@ -19,7 +17,9 @@
  Gets the transformed data set, if processed.
 }
 
-\usage{\method{getOutputDataSet}{AromaTransform}(this, ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE)}
+\usage{
+\method{getOutputDataSet}{AromaTransform}(this, ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE)
+}
 
 \arguments{
   \item{...}{Arguments passed to static method \code{byPath()} of

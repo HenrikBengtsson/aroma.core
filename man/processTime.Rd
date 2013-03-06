@@ -21,7 +21,9 @@
   For more details, see \code{\link[base]{proc.time}}().
 }
 
-\usage{\method{processTime}{default}(since=NULL, units=c("seconds", "milliseconds", "minutes", "hours", "days"), fmtstr=NULL, ...)}
+\usage{
+\method{processTime}{default}(since=NULL, units=c("seconds", "milliseconds", "minutes", "hours", "days"), fmtstr=NULL, ...)
+}
 
 \arguments{
  \item{since}{An optional \code{\link[base]{numeric}} \code{\link[base]{vector}} to be subtracted from the value

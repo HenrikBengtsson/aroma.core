@@ -9,9 +9,7 @@
 \name{getPath.Explorer}
 \alias{getPath.Explorer}
 \alias{Explorer.getPath}
-\alias{getPath.Explorer}
 \alias{getPath,Explorer-method}
-
 
 \title{Gets the path of the output directory}
 
@@ -19,7 +17,9 @@
  Gets the path of the output directory.
 }
 
-\usage{\method{getPath}{Explorer}(...)}
+\usage{
+\method{getPath}{Explorer}(...)
+}
 
 \arguments{
   \item{create}{If \code{\link[base:logical]{TRUE}}, the path is created, otherwise not.}

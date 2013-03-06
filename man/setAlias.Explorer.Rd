@@ -9,9 +9,7 @@
 \name{setAlias.Explorer}
 \alias{setAlias.Explorer}
 \alias{Explorer.setAlias}
-\alias{setAlias.Explorer}
 \alias{setAlias,Explorer-method}
-
 
 \title{Sets the alias of the output set}
 
@@ -21,7 +19,9 @@
   default.
 }
 
-\usage{\method{setAlias}{Explorer}(this, alias=NULL, ...)}
+\usage{
+\method{setAlias}{Explorer}(this, alias=NULL, ...)
+}
 
 \arguments{
  \item{alias}{A \code{\link[base]{character}} string for the new alias of the output set.

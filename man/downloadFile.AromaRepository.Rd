@@ -9,9 +9,7 @@
 \name{downloadFile.AromaRepository}
 \alias{downloadFile.AromaRepository}
 \alias{AromaRepository.downloadFile}
-\alias{downloadFile.AromaRepository}
 \alias{downloadFile,AromaRepository-method}
-
 
 \title{Download a particular file from the reposity}
 
@@ -19,7 +17,9 @@
  Download a particular file from the reposity by its relative pathname.
 }
 
-\usage{\method{downloadFile}{AromaRepository}(this, filename, path=NULL, caseSensitive=FALSE, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this))}
+\usage{
+\method{downloadFile}{AromaRepository}(this, filename, path=NULL, caseSensitive=FALSE, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this))
+}
 
 \arguments{
   \item{filename, path}{The filename and the relative path of the file

@@ -16,7 +16,9 @@
   Locates an annotation data file.
  }
 
- \usage{\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, escapes=c("+"), ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)}
+ \usage{
+\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, escapes=c("+"), ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)
+}
 
  \arguments{
    \item{name}{Optional \code{\link[base]{character}} string.}

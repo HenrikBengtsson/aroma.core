@@ -9,9 +9,7 @@
 \name{extractRawCopyNumbers.CopyNumberChromosomalModel}
 \alias{extractRawCopyNumbers.CopyNumberChromosomalModel}
 \alias{CopyNumberChromosomalModel.extractRawCopyNumbers}
-\alias{extractRawCopyNumbers.CopyNumberChromosomalModel}
 \alias{extractRawCopyNumbers,CopyNumberChromosomalModel-method}
-
 
 \title{Extracts relative copy numbers}
 
@@ -19,7 +17,9 @@
  Extracts relative copy numbers for a particular array and chromosome.
 }
 
-\usage{\method{extractRawCopyNumbers}{CopyNumberChromosomalModel}(this, array, chromosome, ..., logBase=2, cache=FALSE, force=FALSE, verbose=FALSE)}
+\usage{
+\method{extractRawCopyNumbers}{CopyNumberChromosomalModel}(this, array, chromosome, ..., logBase=2, cache=FALSE, force=FALSE, verbose=FALSE)
+}
 
 \arguments{
   \item{array}{The index of the array to be extracted.}

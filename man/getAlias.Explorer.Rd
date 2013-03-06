@@ -9,9 +9,7 @@
 \name{getAlias.Explorer}
 \alias{getAlias.Explorer}
 \alias{Explorer.getAlias}
-\alias{getAlias.Explorer}
 \alias{getAlias,Explorer-method}
-
 
 \title{Gets the alias of the output set}
 
@@ -19,7 +17,9 @@
   Gets the alias of the output set.
 }
 
-\usage{\method{getAlias}{Explorer}(this, ...)}
+\usage{
+\method{getAlias}{Explorer}(this, ...)
+}
 
 \arguments{
  \item{...}{Not used.}

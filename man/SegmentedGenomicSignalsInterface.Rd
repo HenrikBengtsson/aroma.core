@@ -30,7 +30,9 @@ extends \link[R.oo]{Interface}\cr
 
  }
 
- \usage{SegmentedGenomicSignalsInterface(...)}
+ \usage{
+SegmentedGenomicSignalsInterface(...)
+}
 
  \arguments{
    \item{...}{Not used.}

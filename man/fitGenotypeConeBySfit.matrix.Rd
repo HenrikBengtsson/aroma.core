@@ -9,8 +9,6 @@
 
  \name{fitGenotypeConeBySfit.matrix}
 \alias{fitGenotypeConeBySfit.matrix}
-\alias{fitGenotypeConeBySfit.matrix}
-
 
  \title{Fits an affine transformation to allele A and allele B data}
 
@@ -18,7 +16,9 @@
   Fits an affine transformation to allele A and allele B data using robust estimators.
  }
 
- \usage{\method{fitGenotypeConeBySfit}{matrix}(y, alpha=c(0.1, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ...)}
+ \usage{
+\method{fitGenotypeConeBySfit}{matrix}(y, alpha=c(0.1, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ...)
+}
 
  \arguments{
    \item{y}{A \code{\link[base]{numeric}} Nx2 \code{\link[base]{matrix}} with one column for each allele and

@@ -9,9 +9,7 @@
 \name{getNames.Explorer}
 \alias{getNames.Explorer}
 \alias{Explorer.getNames}
-\alias{getNames.Explorer}
 \alias{getNames,Explorer-method}
-
 
 \title{Gets the names of the input samples}
 
@@ -19,7 +17,9 @@
  Gets the names of the input samples for which the explorer is displaying results.
 }
 
-\usage{\method{getNames}{Explorer}(this, ...)}
+\usage{
+\method{getNames}{Explorer}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

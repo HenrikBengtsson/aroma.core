@@ -10,9 +10,7 @@
  \name{segmentByHaarSeg.RawGenomicSignals}
 \alias{segmentByHaarSeg.RawGenomicSignals}
 \alias{RawGenomicSignals.segmentByHaarSeg}
-\alias{segmentByHaarSeg.RawGenomicSignals}
 \alias{segmentByHaarSeg,RawGenomicSignals-method}
-
 
  \title{Segment copy numbers using the HaarSeg method}
 
@@ -20,7 +18,9 @@
   Segment copy numbers using the HaarSeg method of the \pkg{HaarSeg} package.
  }
 
- \usage{\method{segmentByHaarSeg}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)}
+ \usage{
+\method{segmentByHaarSeg}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)
+}
 
  \arguments{
    \item{...}{Additional arguments passed to the segmentation function.}

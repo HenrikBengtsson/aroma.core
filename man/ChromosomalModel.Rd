@@ -32,7 +32,9 @@ extends \link[R.oo]{Object}\cr
   This \emph{abstract} class represents a chromosomal model.
  }
 
- \usage{ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", ...)}
+ \usage{
+ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", ...)
+}
 
  \arguments{
    \item{cesTuple}{A \code{\link{AromaMicroarrayDataSetTuple}}.}
@@ -64,7 +66,7 @@ extends \link[R.oo]{Object}\cr
 
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+$, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
  }

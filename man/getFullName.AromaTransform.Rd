@@ -9,9 +9,7 @@
 \name{getFullName.AromaTransform}
 \alias{getFullName.AromaTransform}
 \alias{AromaTransform.getFullName}
-\alias{getFullName.AromaTransform}
 \alias{getFullName,AromaTransform-method}
-
 
 \title{Gets the full name of the output data set}
 
@@ -19,7 +17,9 @@
  Gets the full name of the output data set, which is the name with comma separated tags.
 }
 
-\usage{\method{getFullName}{AromaTransform}(this, ...)}
+\usage{
+\method{getFullName}{AromaTransform}(this, ...)
+}
 
 \arguments{
  \item{...}{Not used.}

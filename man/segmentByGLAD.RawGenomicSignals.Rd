@@ -10,9 +10,7 @@
  \name{segmentByGLAD.RawGenomicSignals}
 \alias{segmentByGLAD.RawGenomicSignals}
 \alias{RawGenomicSignals.segmentByGLAD}
-\alias{segmentByGLAD.RawGenomicSignals}
 \alias{segmentByGLAD,RawGenomicSignals-method}
-
 
  \title{Segment copy numbers using the GLAD method}
 
@@ -20,7 +18,9 @@
   Segment copy numbers using the GLAD method of the \pkg{GLAD} package.
  }
 
- \usage{\method{segmentByGLAD}{RawGenomicSignals}(this, ..., flavor=c("glad", "daglad"), cache=FALSE, force=FALSE, verbose=FALSE)}
+ \usage{
+\method{segmentByGLAD}{RawGenomicSignals}(this, ..., flavor=c("glad", "daglad"), cache=FALSE, force=FALSE, verbose=FALSE)
+}
 
  \arguments{
    \item{...}{Additional arguments passed to the segmentation function.}

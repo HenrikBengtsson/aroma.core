@@ -9,9 +9,7 @@
 \name{listFiles.AromaRepository}
 \alias{listFiles.AromaRepository}
 \alias{AromaRepository.listFiles}
-\alias{listFiles.AromaRepository}
 \alias{listFiles,AromaRepository-method}
-
 
 \title{Retrieves the files available on the repository under a particular path}
 
@@ -19,7 +17,9 @@
  Retrieves the files available on the repository under a particular path.
 }
 
-\usage{\method{listFiles}{AromaRepository}(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this))}
+\usage{
+\method{listFiles}{AromaRepository}(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this))
+}
 
 \arguments{
   \item{path}{The relative path to be listed.}

@@ -35,7 +35,9 @@ extends \link[aroma.core]{UnitAnnotationDataFile}\cr
   a given chip type.
  }
 
- \usage{UnitNamesFile(...)}
+ \usage{
+UnitNamesFile(...)
+}
 
  \arguments{
    \item{...}{Arguments passed to \code{\link{UnitAnnotationDataFile}}.}

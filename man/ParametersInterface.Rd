@@ -30,7 +30,9 @@ extends \link[R.oo]{Interface}\cr
 
  }
 
- \usage{ParametersInterface(...)}
+ \usage{
+ParametersInterface(...)
+}
 
  \arguments{
    \item{...}{Not used.}

@@ -9,9 +9,7 @@
 \name{downloadChipTypeFile.AromaRepository}
 \alias{downloadChipTypeFile.AromaRepository}
 \alias{AromaRepository.downloadChipTypeFile}
-\alias{downloadChipTypeFile.AromaRepository}
 \alias{downloadChipTypeFile,AromaRepository-method}
-
 
 \title{Download a particular chip type annotation file}
 
@@ -19,7 +17,9 @@
  Download a particular chip type annotation file by its chip type, tags and suffix.
 }
 
-\usage{\method{downloadChipTypeFile}{AromaRepository}(this, chipType, tags=NULL, suffix=sprintf(".\%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this))}
+\usage{
+\method{downloadChipTypeFile}{AromaRepository}(this, chipType, tags=NULL, suffix=sprintf(".\%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this))
+}
 
 \arguments{
   \item{chipType}{The chip type of the file to be downloaded.}

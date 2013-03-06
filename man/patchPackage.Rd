@@ -16,7 +16,9 @@
   Applies patches for a specific package from the package online reprocitory.
  }
 
- \usage{\method{patchPackage}{default}(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...)}
+ \usage{
+\method{patchPackage}{default}(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...)
+}
 
  \arguments{
    \item{pkgName}{The name of the package to be patched."}

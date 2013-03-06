@@ -9,9 +9,7 @@
 \name{nbrOfChipTypes.ChromosomalModel}
 \alias{nbrOfChipTypes.ChromosomalModel}
 \alias{ChromosomalModel.nbrOfChipTypes}
-\alias{nbrOfChipTypes.ChromosomalModel}
 \alias{nbrOfChipTypes,ChromosomalModel-method}
-
 
 \title{Gets the number of chip types}
 
@@ -19,7 +17,9 @@
  Gets the number of chip types used in the model.
 }
 
-\usage{\method{nbrOfChipTypes}{ChromosomalModel}(this, ...)}
+\usage{
+\method{nbrOfChipTypes}{ChromosomalModel}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

@@ -9,8 +9,6 @@
 
  \name{matrixBlockPolish.matrix}
 \alias{matrixBlockPolish.matrix}
-\alias{matrixBlockPolish.matrix}
-
 
  \title{Applies a polishing function to blocks of rows and columns repeatedly}
 
@@ -18,7 +16,9 @@
   Applies a polishing function to blocks of rows and columns repeatedly.
  }
 
- \usage{\method{matrixBlockPolish}{matrix}(z, x=NULL, blockSizes=c(1, 1), FUN, ..., tol=0.01, maxIter=10, returnEffects=FALSE)}
+ \usage{
+\method{matrixBlockPolish}{matrix}(z, x=NULL, blockSizes=c(1, 1), FUN, ..., tol=0.01, maxIter=10, returnEffects=FALSE)
+}
 
  \arguments{
    \item{z}{A \code{\link[base]{numeric}} KxN \code{\link[base]{matrix}}.}

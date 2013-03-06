@@ -9,9 +9,7 @@
 \name{display.Explorer}
 \alias{display.Explorer}
 \alias{Explorer.display}
-\alias{display.Explorer}
 \alias{display,Explorer-method}
-
 
 \title{Displays the explorer in the default browser}
 
@@ -19,7 +17,9 @@
  Displays the explorer in the default browser.
 }
 
-\usage{\method{display}{Explorer}(this, filename=sprintf("\%s.html", class(this)[1]), ..., verbose=FALSE)}
+\usage{
+\method{display}{Explorer}(this, filename=sprintf("\%s.html", class(this)[1]), ..., verbose=FALSE)
+}
 
 \arguments{
   \item{...}{Not used.}

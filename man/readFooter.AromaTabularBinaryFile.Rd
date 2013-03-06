@@ -9,9 +9,7 @@
 \name{readFooter.AromaTabularBinaryFile}
 \alias{readFooter.AromaTabularBinaryFile}
 \alias{AromaTabularBinaryFile.readFooter}
-\alias{readFooter.AromaTabularBinaryFile}
 \alias{readFooter,AromaTabularBinaryFile-method}
-
 
 \title{Reads the file footer in XML format into a named nested list}
 
@@ -19,7 +17,9 @@
  Reads the file footer in XML format into a named nested list.
 }
 
-\usage{\method{readFooter}{AromaTabularBinaryFile}(this, asXmlString=FALSE, ...)}
+\usage{
+\method{readFooter}{AromaTabularBinaryFile}(this, asXmlString=FALSE, ...)
+}
 
 \arguments{
   \item{asXmlString}{If \code{\link[base:logical]{TRUE}}, the file footer is returned as

@@ -39,7 +39,9 @@ extends \emph{\link[aroma.core]{CopyNumberSegmentationModel}}\cr
   model [1].
  }
 
- \usage{HaarSegModel(cesTuple=NULL, ..., breaksFdrQ=1e-04)}
+ \usage{
+HaarSegModel(cesTuple=NULL, ..., breaksFdrQ=1e-04)
+}
 
  \arguments{
    \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
@@ -64,7 +66,7 @@ as.character, calculateChromosomeStatistics, calculateRatios, estimateSds, extra
 as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipType, getChipTypes, getChromosomes, getFullName, getFullNames, getGenome, getGenomeData, getGenomeFile, getListOfAromaUgpFiles, getName, getNames, getParentPath, getPath, getReportPath, getRootPath, getSets, getSetTuple, getTags, indexOf, nbrOfArrays, nbrOfChipTypes, setGenome
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+$, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
  }

@@ -9,9 +9,7 @@
 \name{getChromosomes.ChromosomeExplorer}
 \alias{getChromosomes.ChromosomeExplorer}
 \alias{ChromosomeExplorer.getChromosomes}
-\alias{getChromosomes.ChromosomeExplorer}
 \alias{getChromosomes,ChromosomeExplorer-method}
-
 
 \title{Gets the chromosomes available}
 
@@ -19,7 +17,9 @@
  Gets the chromosomes available.
 }
 
-\usage{\method{getChromosomes}{ChromosomeExplorer}(this, ...)}
+\usage{
+\method{getChromosomes}{ChromosomeExplorer}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

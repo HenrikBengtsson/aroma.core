@@ -17,7 +17,9 @@
    A binary file holding chromosome/position for each cell.
  }
 
- \usage{AromaCellPositionFile(...)}
+ \usage{
+AromaCellPositionFile(...)
+}
 
  \arguments{
   \item{...}{Arguments passed to constructor of

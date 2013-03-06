@@ -17,7 +17,9 @@
    A binary file holding local CpG density for each cell (probe/feature).
  }
 
- \usage{AromaCellCpgFile(...)}
+ \usage{
+AromaCellCpgFile(...)
+}
 
  \arguments{
   \item{...}{Arguments passed to constructor of

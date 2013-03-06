@@ -30,7 +30,9 @@ extends \link[R.oo]{Interface}\cr
 
  }
 
- \usage{CacheKeyInterface(...)}
+ \usage{
+CacheKeyInterface(...)
+}
 
  \arguments{
    \item{...}{Not used.}

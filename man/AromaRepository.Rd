@@ -33,7 +33,9 @@ extends \link[R.oo]{Object}\cr
   from the Aroma repository.
  }
 
- \usage{AromaRepository(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...)}
+ \usage{
+AromaRepository(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...)
+}
 
  \arguments{
    \item{urlPath}{The URL to the Aroma reposity.}
@@ -60,7 +62,7 @@ extends \link[R.oo]{Object}\cr
 
 
  \bold{Methods inherited from Object}:\cr
-asThis, $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save
+$, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
  }

@@ -9,9 +9,7 @@
 \name{process.Explorer}
 \alias{process.Explorer}
 \alias{Explorer.process}
-\alias{process.Explorer}
 \alias{process,Explorer-method}
-
 
 \title{Generates image files, scripts and dynamic pages for the explorer}
 
@@ -19,7 +17,9 @@
  Generates image files, scripts and dynamic pages for the explorer.
 }
 
-\usage{\method{process}{Explorer}(...)}
+\usage{
+\method{process}{Explorer}(...)
+}
 
 \arguments{
   \item{arrays}{A \code{\link[base]{vector}} of arrays specifying which arrays to

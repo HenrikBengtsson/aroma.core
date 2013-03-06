@@ -9,8 +9,6 @@
 
  \name{colBinnedSmoothing.matrix}
 \alias{colBinnedSmoothing.matrix}
-\alias{colBinnedSmoothing.matrix}
-
  \alias{colBinnedSmoothing}
  \alias{binnedSmoothing}
  \alias{binnedSmoothing.numeric}
@@ -21,7 +19,9 @@
   Binned smoothing of a matrix column by column.
  }
 
- \usage{\method{colBinnedSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm = TRUE), to=max(x, na.rm = TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE)}
+ \usage{
+\method{colBinnedSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm = TRUE), to=max(x, na.rm = TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE)
+}
 
  \arguments{
    \item{Y}{A \code{\link[base]{numeric}} JxI \code{\link[base]{matrix}} (or a \code{\link[base]{vector}} of length J.)}

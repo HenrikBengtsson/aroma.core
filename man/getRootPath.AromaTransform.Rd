@@ -9,9 +9,7 @@
 \name{getRootPath.AromaTransform}
 \alias{getRootPath.AromaTransform}
 \alias{AromaTransform.getRootPath}
-\alias{getRootPath.AromaTransform}
 \alias{getRootPath,AromaTransform-method}
-
 
 \title{Gets the root path of the output directory}
 
@@ -20,7 +18,9 @@
  A root path is a directory in the current working directory.
 }
 
-\usage{\method{getRootPath}{AromaTransform}(this, ...)}
+\usage{
+\method{getRootPath}{AromaTransform}(this, ...)
+}
 
 \arguments{
   \item{...}{Not used.}

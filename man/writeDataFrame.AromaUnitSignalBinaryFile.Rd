@@ -10,9 +10,7 @@
 \name{writeDataFrame.AromaUnitSignalBinaryFile}
 \alias{writeDataFrame.AromaUnitSignalBinaryFile}
 \alias{AromaUnitSignalBinaryFile.writeDataFrame}
-\alias{writeDataFrame.AromaUnitSignalBinaryFile}
 \alias{writeDataFrame,AromaUnitSignalBinaryFile-method}
-
 
 \title{Writes the data file as a tab-delimited text file}
 
@@ -20,7 +18,9 @@
   Writes the data file as a tab-delimited text file with or without file header comments.
 }
 
-\usage{\method{writeDataFrame}{AromaUnitSignalBinaryFile}(this, filename=sprintf("\%s.txt", getFilename(this)), path=file.path(getRootName(this, tags = "*,txt"), getParentName(this), getChipType(this, fullname = FALSE)), ..., columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, columnNamesPrefix=c("fullname", "name", "none"), overwrite=FALSE, verbose=FALSE)}
+\usage{
+\method{writeDataFrame}{AromaUnitSignalBinaryFile}(this, filename=sprintf("\%s.txt", getFilename(this)), path=file.path(getRootName(this, tags = "*,txt"), getParentName(this), getChipType(this, fullname = FALSE)), ..., columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, columnNamesPrefix=c("fullname", "name", "none"), overwrite=FALSE, verbose=FALSE)
+}
 
 \arguments{
  \item{filename}{The filename of the generated file.}
