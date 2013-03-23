@@ -49,7 +49,7 @@
  Returns the write data file as a \code{\link{TabularTextFile}} object.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
  For more information see \code{\link{AromaUnitTabularBinaryFile}}.

@@ -71,5 +71,5 @@ extend, print, uses
    expressioncontrol=7
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 \keyword{classes}

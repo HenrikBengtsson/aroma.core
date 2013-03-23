@@ -89,7 +89,7 @@ for (kk in seq(along=rhos)) {
 }
 }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
    The spatial density is estimated by internal functions of the

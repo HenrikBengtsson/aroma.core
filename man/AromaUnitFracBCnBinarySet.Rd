@@ -95,5 +95,5 @@ $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCa
        Genome Res, 2006.\cr
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 \keyword{classes}

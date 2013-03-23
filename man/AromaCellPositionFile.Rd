@@ -34,5 +34,5 @@ AromaCellPositionFile(...)
    non-rectangular chip types.
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 \keyword{classes}

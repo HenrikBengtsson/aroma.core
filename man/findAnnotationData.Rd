@@ -44,7 +44,7 @@
    Returns \code{\link[base]{NULL}}, one or several matching pathnames.
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
 
 \keyword{internal}

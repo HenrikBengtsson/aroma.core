@@ -77,5 +77,5 @@ $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCa
    Subclasses must implement the \code{process()} method.
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 \keyword{classes}

@@ -34,7 +34,7 @@
   Windows Shortcut links are recognized.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   For more information see \code{\link{AromaTransform}}.

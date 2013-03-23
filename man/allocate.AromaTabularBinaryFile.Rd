@@ -56,7 +56,7 @@
   Valid data types are currently "\code{\link[base]{integer}}" and "\code{\link[base]{double}}".
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   For more information see \code{\link{AromaTabularBinaryFile}}.

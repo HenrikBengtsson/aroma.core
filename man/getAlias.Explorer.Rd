@@ -29,7 +29,7 @@
   Returns a \code{\link[base]{character}}, or \code{\link[base]{NULL}} if no alias is set.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   \code{\link[aroma.core:setAlias.Explorer]{*setAlias}()}.

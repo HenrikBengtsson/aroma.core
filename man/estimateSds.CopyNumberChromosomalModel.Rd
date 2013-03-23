@@ -35,7 +35,7 @@
  and K is the number of arrays (arrays are always the last dimension).
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   For more information see \code{\link{CopyNumberChromosomalModel}}.

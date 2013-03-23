@@ -116,7 +116,7 @@ for (ii in 1:(ndim-1)) {
  }
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
   To backtransform data fitted using this method,

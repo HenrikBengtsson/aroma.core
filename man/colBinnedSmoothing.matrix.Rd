@@ -172,7 +172,7 @@ stopifnot(all(attr(YsT, "counts") == 5))
 
 }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
    \code{\link[aroma.core:colKernelSmoothing.matrix]{*colKernelSmoothing}()}.

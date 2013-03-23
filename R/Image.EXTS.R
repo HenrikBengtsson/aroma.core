@@ -462,7 +462,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
 #   Returns a bitmap image object.
 # }
 #
-# \author{Henrik Bengtsson and Ken Simpson.}
+# @author "HB, KS"
 #
 # \seealso{
 #   @seeclass

@@ -39,7 +39,7 @@
  Returns a non-negative \code{\link[base]{numeric}} value.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   \code{\link[base]{diff}}(), \code{\link[stats]{sd}}, and \code{\link[stats]{mad}}.

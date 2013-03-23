@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.8.3 [2013-03-23]
+o Bumped the package dependencies.
+o Added an Authors@R field to DESCRIPTION.
+
+
 Version: 2.8.2 [2013-03-05]
 o DOCUMENTATION: Updated the help usage section for all static methods. 
 o Bumped up package dependencies.

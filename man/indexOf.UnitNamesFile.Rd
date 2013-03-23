@@ -33,7 +33,7 @@
  in the underlying annotation chip type file.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   \code{\link[aroma.core:getUnitNames.UnitNamesFile]{*getUnitNames}()}.

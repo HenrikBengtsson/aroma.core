@@ -79,7 +79,7 @@ print(range(r2))
 image(r2)
 }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
   \code{\link[stats]{medpolish}}.

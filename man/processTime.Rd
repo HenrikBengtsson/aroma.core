@@ -40,7 +40,7 @@
   For more details, see \code{\link[base]{proc.time}}().
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   \code{\link[base]{proc.time}}().

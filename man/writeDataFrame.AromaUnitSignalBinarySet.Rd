@@ -54,7 +54,7 @@
  more information.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
  To write the data of one file, see \code{writeDataFrame()} for

@@ -35,7 +35,7 @@
   Returns a bitmap image object.
 }
 
-\author{Henrik Bengtsson and Ken Simpson.}
+\author{Henrik Bengtsson, Ken Simpson}
 
 \seealso{
   For more information see \code{\link{matrix}}.

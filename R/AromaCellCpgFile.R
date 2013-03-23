@@ -22,7 +22,7 @@
 #   non-rectangular chip types.
 # }
 #
-# \author{Mark Robinson}
+# @author "MR"
 #*/###########################################################################
 setConstructorS3("AromaCellCpgFile", function(...) {
   extend(AromaCellTabularBinaryFile(...), "AromaCellCpgFile");

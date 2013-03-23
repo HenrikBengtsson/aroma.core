@@ -86,7 +86,7 @@ for (ii in 1:I) {
 }
 }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
    \code{\link[aroma.core:colBinnedSmoothing.matrix]{*colBinnedSmoothing}()}.

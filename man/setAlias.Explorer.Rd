@@ -34,7 +34,7 @@
   Returns itself invisibly.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   \code{\link[aroma.core:getAlias.Explorer]{*getAlias}()}.

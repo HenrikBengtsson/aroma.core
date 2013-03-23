@@ -33,7 +33,7 @@
  Returns a \code{\link[base]{list}} of \code{\link[base]{character}} \code{\link[base]{vector}}s, or a \code{\link[base]{character}} \code{\link[base]{vector}}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \seealso{
   For more information see \code{\link{ParametersInterface}}.

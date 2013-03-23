@@ -7,18 +7,16 @@
 #   This package is a support package for \pkg{aroma.affymetrix}.
 #   This package should be considered to be in an alpha or beta phase.
 #   You should expect the API to be changing over time.
-#   Consider this package a private package.
+#   For practical purposes, consider this package a private package.
 # }
 #
 # \section{Installation and updates}{
 #
-#   To install this package, see instructions at 
-#   \url{@eval "getUrl(aroma.core)"}.
-# } 
-#
-# \author{
-#   Henrik Bengtsson.
+#   This package is available on CRAN, i.e. to install do
+#   \code{install.packages("aroma.core")}. 
 # }
+#
+# @author "HB"
 #
 # \section{License}{
 #   The releases of this package is licensed under 
