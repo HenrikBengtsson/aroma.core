@@ -213,7 +213,7 @@
   getGenomeVersion.AromaUnitChromosomeTabularBinaryFile
   getHeaderParameters getHeaderParameters.TextUnitNamesFile getImage
   getImage.matrix getIncludePath getIncludePath.Explorer
-  getInputDataSet 
+  getInputDataSet
   getListOfAromaUgpFiles getListOfAromaUgpFiles.ChromosomalModel
   getListOfChipEffectSets getListOfChipEffectSets.ChromosomalModel
   getListOfUnitNamesFiles
@@ -234,8 +234,8 @@
   getOutputDataSet0 getOutputDataSet0.AromaTransform getOutputFiles
   getOutputFiles.AromaTransform getPairedNames
   getPairedNames.CopyNumberChromosomalModel getParallelSafe
-  getParallelSafe.Explorer 
-  getParametersAsString 
+  getParallelSafe.Explorer
+  getParametersAsString
   getParentPath getParentPath.ChromosomalModel getPath.ChromosomalModel
   getPath.ChromosomeExplorer getPatterns
   getPatterns.SampleAnnotationFile getPhysicalPositions
@@ -415,7 +415,7 @@
   smoothWRMA smoothWRMA.matrix smoothWSA smoothWSA.matrix
   sort.RawGenomicSignals splitByReportPathPattern
   splitByReportPathPattern.Explorer splitInChunks splitInChunks.numeric
-  sqrtabs sqrtcenter sqrtneg sqrtpos stextChipType
+  sqrtabs sqrtcenter sqrtneg sqrtpos sqrtsign stextChipType
   stextChipType.character stextLabel stextLabel.AromaMicroarrayDataFile
   stextLabels stextLabels.AromaMicroarrayDataFile stextSize
   stextSize.AromaMicroarrayDataFile stringTree stringTree.character
@@ -427,7 +427,7 @@
   updateData updateData.AromaTabularBinaryFile updateDataColumn
   updateDataColumn.AromaTabularBinaryFile updateGenotypes
   updateGenotypes.AromaUnitGenotypeCallFile updatePositions
-  updatePositions.AromaCellPositionFile 
+  updatePositions.AromaCellPositionFile
   updateSequenceMatrix updateSequenceMatrix.AromaCellSequenceFile
   updateSequences updateSequences.AromaCellSequenceFile
   updateTargetStrands updateTargetStrands.AromaCellSequenceFile
@@ -447,13 +447,13 @@
   xmlToList.character xRange xRange.RawGenomicSignals xSeq
   xSeq.RawGenomicSignals yellow.colors yMax yMax.RawGenomicSignals yMin
   yMin.RawGenomicSignals yRange yRange.RawGenomicSignals
-  getDefaultFullName.AromaMicroarrayDataSet 
+  getDefaultFullName.AromaMicroarrayDataSet
   getDefaultFullName.AromaTabularBinarySet
   drawCnRegions.MPCBS extractCopyNumberRegions.MPCBS segmentByMPCBS
   getAromaUgpFile.AromaPlatformInterface isCompatibleWith
   isCompatibleWith.AromaPlatformInterface
 getTags.Arguments
-  doCBS doCBS.CopyNumberDataSet 
+  doCBS doCBS.CopyNumberDataSet
   doCBS.CopyNumberDataSetTuple
   getOutputSet
   getOutputSet.ChromosomalModel setAttributesBy.AromaTabularBinarySet
@@ -508,7 +508,7 @@ xMax.CopyNumberRegions xMin.CopyNumberRegions
   readDataFrame.AromaGenomeTextFile
   -.RawGenomicSignals *.RawGenomicSignals +.RawGenomicSignals
   drawDensity drawDensity.CopyNumberRegions
-  drawDensity.RawGenomicSignals 
+  drawDensity.RawGenomicSignals
  getDensity getDensity.CopyNumberRegions getLength
  getLength.CopyNumberRegions
 getOptionalArguments getOptionalArguments.CopyNumberChromosomalModel
@@ -626,7 +626,7 @@ setPlatform.AbstractCNData
 normalizeTumorBoost
 callNaiveGenotypes
 getNumberOfFilesAveraged.AromaUnitSignalBinaryFile
-allocate.AromaUnitPscnBinaryFile 
+allocate.AromaUnitPscnBinaryFile
 byName.AromaUnitPscnBinarySet
 extractRawCopyNumbers.AromaUnitPscnBinaryFile
 getAverageFile.AromaUnitPscnBinarySet
@@ -645,7 +645,7 @@ findAnnotationDataByChipType.AromaRepository
 downloadUGC downloadUGC.AromaRepository
 AromaUnitGcContentFile  getColumnNames.AromaUnitGcContentFile
   getExtensionPattern.AromaUnitGcContentFile
-  getFilenameExtension.AromaUnitGcContentFile 
+  getFilenameExtension.AromaUnitGcContentFile
 AromaUgcFile
 getReference getReference.CopyNumberChromosomalModel
 setReference setReference.CopyNumberChromosomalModel

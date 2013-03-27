@@ -841,6 +841,7 @@
 \alias{sqrtcenter}
 \alias{sqrtneg}
 \alias{sqrtpos}
+\alias{sqrtsign}
 \alias{stextChipType}
 \alias{stextChipType.character}
 \alias{stextLabel}

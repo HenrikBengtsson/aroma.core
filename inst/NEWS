@@ -1,13 +1,21 @@
 Package: aroma.core
 ===================
 
+Version: 2.8.4 [2013-03-28]
+o Added the sqrtsign() transform.  This makes it possible to plot
+  log2 PLM residuals (in aroma.affymetrix) on a blue-to-red scale using
+  setColorMaps(.., "log2,sqrtsigned,bluewhitered") where
+  bluewhitered <- colorRampPalette(c("blue", "white", "red")).
+o Bumped the package dependencies.
+
+
 Version: 2.8.3 [2013-03-23]
 o Bumped the package dependencies.
 o Added an Authors@R field to DESCRIPTION.
 
 
 Version: 2.8.2 [2013-03-05]
-o DOCUMENTATION: Updated the help usage section for all static methods. 
+o DOCUMENTATION: Updated the help usage section for all static methods.
 o Bumped up package dependencies.
 
 
@@ -28,7 +36,7 @@ Version: 2.7.6 [2012-12-20]
 o Bumped up package dependencies.
 o Now using argument 'colClasses' (was 'colClassPatterns')
   for all readDataFrame():s.
-o Utilizing new startupMessage() of R.oo. 
+o Utilizing new startupMessage() of R.oo.
 
 
 Version: 2.7.5 [2012-12-06]
@@ -37,7 +45,7 @@ o ROBUSTNESS: Utilizing new getOneFile() internally.
 
 Version: 2.7.4 [2012-12-04]
 o CLEANUP: Dropped inst/reports/templates/html/archive/,
-  inst/reports/templates/rsp/archive/ and inst/archive/, 
+  inst/reports/templates/rsp/archive/ and inst/archive/,
   which all contained old/legacy Explorer versions.
 
 
@@ -93,7 +101,7 @@ o CLEANUP: The RSP template for ChromosomeExplorer's setupExplorer.js
 Version: 2.6.12 [2012-11-12]
 o CLEANUP: Now seq_along(x) instead of seq(along=x) everywhere.
   Similarly, seq(ds) where 'ds' is GenericDataFileSet is now
-  replaced by seq_along(ds).  Likewise, seq_len(x) replaces 
+  replaced by seq_along(ds).  Likewise, seq_len(x) replaces
   seq(length=x), and length(ds) replaces nbrOfFiles(ds).
 
 
@@ -111,13 +119,13 @@ o CLEANUP: Replaced all whichVector() with which(), because the
 
 
 Version: 2.6.9 [2012-10-31]
-o Added argument 'units' to readDataFrame() for 
+o Added argument 'units' to readDataFrame() for
   AromaUnitChromosomeTabularBinaryFile.
 
 
 Version: 2.6.8 [2012-10-29]
 o CLEANUP: Now using Arguments$get(Read|Writ)ablePath() instead of
-  filePath(..., expandLinks="any"). 
+  filePath(..., expandLinks="any").
 
 
 Version: 2.6.7 [2012-10-21]
@@ -133,17 +141,17 @@ o ROBUSTNESS: Now using Arguments$getWritablePath() everywhere instead
   of mkdirs(), because the former will do a better job in creating
   and asserting directories on slow shared file systems, and when it
   fails it gives a more informative error message.
-o BUG FIX: Scrolling in the ChromosomeExplorer by dragging the 
+o BUG FIX: Scrolling in the ChromosomeExplorer by dragging the
   navigator bar was broken.
 
 
 Version: 2.6.6 [2012-10-18]
 o It is no longer possible to have different *versions* of ArrayExplorer
   and ChromosomeExplorer under the same reports/ directory structure.
-  If you wish to keep old Explorer reports, rename those reports/ 
+  If you wish to keep old Explorer reports, rename those reports/
   root directories.
 o ROBUSTNESS/BUG FIX: Some of the HTML and CSS errors in ArrayExplorer
-  and ChromosomeExplorer that were detected by the W3's online validation 
+  and ChromosomeExplorer that were detected by the W3's online validation
   services were correct.
 o BUG FIX: A few errors in the Javascript of ArrayExplorer has been
   corrected. It also does a better job of inferring the height of the
@@ -158,19 +166,19 @@ o ROBUSTNESS: Now all static Object methods that calls "next" methods,
 
 Version: 2.6.4 [2012-10-16]
 o ROBUSTNESS/BUG FIX: No longer passing '...' to NextMethod(), cf.
-  R-devel thread 'Do *not* pass '...' to NextMethod() - it'll do it 
+  R-devel thread 'Do *not* pass '...' to NextMethod() - it'll do it
   for you; missing documentation, a bug or just me?' on Oct 16, 2012.
 
 
 Version: 2.6.3 [2012-10-14]
 o Added AromaUnitGcContentFile (from aroma.affymetrix).
 o CLEANUP: Removed several defunct/obsolete methods and made
-  deprecated methods defunct/obsolete. 
+  deprecated methods defunct/obsolete.
 
 
 Version: 2.6.2 [2012-10-11]
 o Now aroma.core imports R.methodsS3 and R.oo.
-  This solves issues such as trim() being overridden by ditto 
+  This solves issues such as trim() being overridden by ditto
   from the IRanges package, iff loaded.
 
 
@@ -192,7 +200,7 @@ o Added downloadUGC() for AromaRepository.
 
 Version: 2.5.13 [2012-09-02]
 o BUG FIX: interleave() for Image and RasterImage could generate
-  error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value 
+  error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value
   where TRUE/FALSE needed' if odd/even cell intensity columns (rows)
   contained all NAs.
 
@@ -204,7 +212,7 @@ o GENERALIZATION: Now downloadCDF() for AromaRepository downloads
 
 Version: 2.5.11 [2012-08-29]
 o ROBUSTNESS: Added argument 'escape' to findAnnotationData(), which
-  causes such symbols that exist in argument 'pattern' to be 
+  causes such symbols that exist in argument 'pattern' to be
   automatically be escaped.
 
 
@@ -226,7 +234,7 @@ Version: 2.5.8 [2012-08-21]
 o ROBUSTNESS: Now the package startup message is outputted at the
   very end.  Previously it was done before some additional setup,
   which could potentially fail.
-o ROBUSTNESS: fitWRMA() and fitWHRCModel() now call rcModelWPLM() 
+o ROBUSTNESS: fitWRMA() and fitWHRCModel() now call rcModelWPLM()
   of preprocessCore instead of .Call(..., PACKAGE="preprocessCore").
   Doing so will somewhat slow down the speed, because rcModelWPLM()
   introduces some non-needed validation of the arguments.
@@ -267,7 +275,7 @@ o Added argument 'calculateRatios' to CopyNumberChromosomalModel().
 
 
 Version: 2.5.1 [2012-04-16]
-o CLEANUP: Package now only depends/imports on CRAN package, which 
+o CLEANUP: Package now only depends/imports on CRAN package, which
   simplifies the installation of aroma.core, and indirectly any
   packages that depends on it.  Note, there are still "suggested"
   non-CRAN packages, which are required by some/optional methods.
@@ -322,7 +330,7 @@ o GENERALIZATION: The new ArrayExplorer v3.4 will work with most
 Version: 2.4.9 [2012-03-06]
 o ROBUSTNESS: Now all writeDataFrame() methods will add quotation
   marks around column names that contain a comment character ('#').
-  This will make the written file readable with read.table() even 
+  This will make the written file readable with read.table() even
   when there are header comments with prefix '#'.  This issue was
   reported by Yu Song at Oakland University.
 o Now createImage() for matrix creates images of type "png::array"
@@ -372,18 +380,18 @@ o Forgot to include require.js in v2.4.4, which is needed by the
 Version: 2.4.4 [2012-02-01]
 o GENERALIZATION: The new ChromosomeExplorer v3.3 will work with most
   commonly used web browsers including Mozilla Firefox, Google Chrome,
-  Microsoft Internet Explorer, Apple Safari and Opera.  This far it has 
-  been tested with the following browsers: Firefox v3.6/v9.01/v10.0, 
+  Microsoft Internet Explorer, Apple Safari and Opera.  This far it has
+  been tested with the following browsers: Firefox v3.6/v9.01/v10.0,
   Chrome v17.0, IE v7.x/v9.0, and Safari 5.
   NOTE: To update an existing ChromosomeExplorer report, call
   setup(ce, force=TRUE) where 'ce' is your ChromosomeExplorer object.
   Thanks to Keith Ching at ConsultChing for the initial troubleshooting
-  [http://consultching.com/root/?p=64] leading me on the right track 
+  [http://consultching.com/root/?p=64] leading me on the right track
   on how update ChromosomeExplorer.
 
 
 Version: 2.4.3 [2012-01-17]
-o ROBUSTNESS: Now findPngDevice() tries all the available settings for 
+o ROBUSTNESS: Now findPngDevice() tries all the available settings for
   argument "type" of png(), for the current platform.  This will
   increase the chances for finding a PNG device that really works.
 o SPEEDUP: Now findPngDevice() memoizes the results throughout the
@@ -397,7 +405,7 @@ o BUG FIX: drawCytoband() for ChromosomalModel failed to locate the
   genome annotation data file containing cytoband information, e.g.
   Human,cytobands,<tags>.txt.  Thanks to Kai Wang at Pfizer for
   reporting on this.
-o Added tag 'hg17' to Human,cytobands,hg17,GLADv2.4.0,HB20100219.txt 
+o Added tag 'hg17' to Human,cytobands,hg17,GLADv2.4.0,HB20100219.txt
   in annotationData/genomes/Human/.
 
 
@@ -414,7 +422,7 @@ o Updated package dependencies.
 
 Version: 2.3.7 [2011-12-22]
 o BUG FIX: The overridden library() would always return an invisible()
-  object, even if base::library() wouldn't.  This caused plain library() 
+  object, even if base::library() wouldn't.  This caused plain library()
   to not list installed packaged.  Thanks Venkat Seshan at MSKCC for
   reporting on this.
 
@@ -437,13 +445,13 @@ o Added plotCoverageMap() for AromaUgpFile.
 
 Version: 2.3.4 [2011-11-19]
 o Now byChipType() for UnitAnnotationDataFile and derivatives give an
-  error message with more information on which file it failed to 
+  error message with more information on which file it failed to
   locate, e.g. by specifying filename extension it looked for.
 o Added default getDefaultExtension() for UnitAnnotationDataFile,
   which guesses the filename extension from the class name, unless
   overridden by a subclass.
-o CLEANUP: Now getFullNames() for AromaMicroarrayDataSetTuple no 
-  longer produces a warning on "is.na() applied to non-(list or 
+o CLEANUP: Now getFullNames() for AromaMicroarrayDataSetTuple no
+  longer produces a warning on "is.na() applied to non-(list or
   vector) of type 'NULL'".
 o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet and
   exportFracBDiffSet() for AromaUnitTotalCnBinarySet tried to call
@@ -476,7 +484,7 @@ o Added alpha version of the AromaRepository class.
 
 
 Version: 2.2.1 [2011-09-24]
-o readHeader(), readRawFooter() and writeRawFooter() of 
+o readHeader(), readRawFooter() and writeRawFooter() of
   AromaTabularBinaryFile would try to read non-signed 4-byte integers,
   which is not supported and would instead be read as signed integers.
   From R v2.13.1 this would generated warnings.
@@ -527,11 +535,11 @@ o No updates.  Submitted to CRAN.
 
 
 Version: 2.0.8 [2011-04-03]
-o CLEANUP: Utilizing hpaste() internally wherever applicable. 
+o CLEANUP: Utilizing hpaste() internally wherever applicable.
 
 
 Version: 2.0.7 [2011-03-28]
-o BUG FIX: allocateFromUnitAnnotationDataFile() for 
+o BUG FIX: allocateFromUnitAnnotationDataFile() for
   AromaUnitTabularBinaryFile would include chip type tags in the
   path, e.g. annotationData/chipTypes/GenomeWidesSNP_6,Full.
 
@@ -553,27 +561,27 @@ o Updated the default filename patterns used by findByGenome() for
   AromaGenomeTextFile to "^%s,chromosomes(|,.*)*[.]txt$".
 o Now getGenomeFile() for ChromosomalModel utilizes byGenome() for
   AromaGenomeTextFile to locate the genome annotation file.
-o GENERALIZATION: Now findByGenome() for AromaGenomeTextFile follows 
+o GENERALIZATION: Now findByGenome() for AromaGenomeTextFile follows
   the new aroma search conventions.
 o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
-  findAnnotationData() can also search <rootPath>/<set>/ by not 
+  findAnnotationData() can also search <rootPath>/<set>/ by not
   specifying argument 'name' (or setting it to NULL).  Also, if it
   cannot locate any files, it falls back to annotation data available
   in any of the aroma.* packages.
 o ROBUSTNESS: Added a return contract/sanity check asserting that
   getUnitsOnChromosomes() for AromaUnitChromosomeTabularBinaryFile
-  truly returns valid 'unit' indices.  Thanks to Emilie Sohier, 
+  truly returns valid 'unit' indices.  Thanks to Emilie Sohier,
   France for reporting on a problem related to this.
 
 
 Version: 2.0.3 [2011-03-02]
-o GENERALIZATION: Now the default for createImage() for matrix is to 
+o GENERALIZATION: Now the default for createImage() for matrix is to
   test to create images according to aroma settings option
   'output/ImageClasses'.
 o GENERALIZATION: getAverageFile() for AromaUnitTotalCnBinarySet first
   searches for an existing result file according to the new search
   conventions.  If not found, then it's created.
-o STANDARDIZATION: Now the default output path for all 
+o STANDARDIZATION: Now the default output path for all
   allocateFromUnitAnnotationDataFile() is
   annotationData/chipTypes/<chipType>/.  Before it was the same
   directory as the original annotation data file, which may for
@@ -591,11 +599,11 @@ o BUG FIX: colorize() for Image tried to call createImage() using a
   vector instead of a matrix.
 o BUG FIX: createImage() for matrix would not return the first possible
   image created (when testing different image classes) but instead
-  continue trying to create image for all possible classes. 
+  continue trying to create image for all possible classes.
   For instance, this meant that although you had the 'EBImage' package
   installed, but not the 'png' package, it would still in the end try
   to (also) use 'png' package.  If writing PNG images to file, say via
-  ArrayExplorer, this would result in "Error in loadNamespace(name) : 
+  ArrayExplorer, this would result in "Error in loadNamespace(name) :
   there is no package called 'png'".  Thanks Richard Beyer at
   University of Washington for reporting on this.
 
@@ -617,19 +625,19 @@ o No updates.  Submitted to CRAN.
 
 Version: 1.9.4 [2011-02-07]
 o CLARIFICATION: Now the exception thrown by getRawCopyNumbers() for
-  CopyNumberSegmentationModel, when there are too many non-finite 
-  signals, gives a more informative error message containing 
+  CopyNumberSegmentationModel, when there are too many non-finite
+  signals, gives a more informative error message containing
   information also on which sample, reference and chromosome the
   problem was detected on.
-o BUG FIX: Now fit() for CopyNumberSegmentationModel passes 
+o BUG FIX: Now fit() for CopyNumberSegmentationModel passes
   down argument 'maxNAFraction' to the internal sanity test
   as it used to do before aroma.core v1.3.4 (November 2009).
 
 
 Version: 1.9.3 [2011-02-01]
 o GENERALIZATION: Now spatial PNG image files can also be created
-  utilizing the 'png' package as an alternative to the 'EBImage' 
-  package.  The EBImage package can be tricky to install on 
+  utilizing the 'png' package as an alternative to the 'EBImage'
+  package.  The EBImage package can be tricky to install on
   some OSes, e.g. Windows 7 64-bit.
 o Added alpha version of an internal RasterImage class.
 o Added an internal writeImage() for Image objects as defined by
@@ -668,7 +676,7 @@ o Added genome annotation file Mouse,chromosomes.txt to
 
 
 Version: 1.8.2 [2010-12-07]
-o ROBUSTNESS: Whenever the GLAD package is tried to be loaded and it 
+o ROBUSTNESS: Whenever the GLAD package is tried to be loaded and it
   fails due to failure of loading a shared library, then this will be
   remembered for 24 hours while it will not be loaded again.
 o Added requireWithMemory().
@@ -705,17 +713,17 @@ o Now optional arguments '...' to CopyNumberChromosomalModel are recorded.
 
 
 Version: 1.7.4 [2010-10-13]
-o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate 
+o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate
   chromosomal plots with cytobands tries to utilize GLAD package,
   if available.  However, even when GLAD is installed it may still be
-  broken due to missing dynamic libraries, e.g. 'Error in 
+  broken due to missing dynamic libraries, e.g. 'Error in
   library.dynam(lib, package, package.lib) : DLL 'GLAD' not found: maybe
   not installed for this architecture?'.  We now avoid this too.
 
 
 Version: 1.7.3 [2010-09-12]
 o Added drawDensity() for CopyNumberRegions and RawGenomicSignals.
-o Added getDensity() for CopyNumberRegions which returns the 
+o Added getDensity() for CopyNumberRegions which returns the
   empirical density of the mean levels weighted by the region lengths.
 o Added getLength() for CopyNumberRegions, which returns a vector
   of region lengths.
@@ -743,7 +751,7 @@ o Committed to CRAN. No updates.
 
 
 Version: 1.6.8 [2010-07-24]
-o Added several methods for CopyNumberRegions, e.g. xRange(), prune(), 
+o Added several methods for CopyNumberRegions, e.g. xRange(), prune(),
   simulateRawCopyNumbers(), "+"(), "-"() and "*"().
 
 
@@ -761,7 +769,7 @@ o Added extractRegions() for RawGenomicSignals.
 
 
 Version: 1.6.5 [2010-07-08]
-o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would 
+o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would
   write the same data chunk over and over.
 
 
@@ -769,7 +777,7 @@ Version: 1.6.4 [2010-07-06]
 o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
   pattern contained parenthesis '(' and ')'.  There was a similar issue
   in indexOf() for GenericDataFileSet/List in R.filesets, which was
-  solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel 
+  solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel
   utilizes ditto for GenericDataFileSet for its solution.
 
 
@@ -779,7 +787,7 @@ o BUG FIX: as.GrayscaleImage(..., transforms=NULL) for 'matrix' would
 
 
 Version: 1.6.2 [2010-06-02]
-o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would 
+o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would
   censor *signed integers* incorrectly; it should censor at/to
   [-(n+1),n], but did it at [-n,(n+1)] ("two's complement").
   This caused it to write too large values as n+1, which then
@@ -801,14 +809,14 @@ o Package pass R CMD check on R v2.11.0 and v2.12.0 devel.
 
 
 Version: 1.5.8 [2010-05-13]
-o Now argument 'path' of all writeDataFrame() methods defaults 
+o Now argument 'path' of all writeDataFrame() methods defaults
   to <rootPath>,txt/<dataSet>/<chipType>/.
 
 
 Version: 1.5.7 [2010-04-27]
 o Added writeDataFrame() for AromaUnitTabularBinaryFile.
 o Added argument 'columnNamesPrefix' to all writeDataFrame().
-o AD HOC: Now getUnitAnnotationDataFile() of AromaPlatformInterface 
+o AD HOC: Now getUnitAnnotationDataFile() of AromaPlatformInterface
   load aroma.affymetrix if needed and if installed.
 
 
@@ -841,7 +849,7 @@ Version: 1.5.1 [2010-03-02]
 o Now segmentByMPCBS() can be used to segment data from a single source.
 o CHANGE: Argument 'arrays' of doCBS() for CopyNumberDataSet no longer
   subset the input data set, but instead is passed to the fit() function
-  of the segmentation model.  This way all arrays in the input data set 
+  of the segmentation model.  This way all arrays in the input data set
   are still used for calculating the pooled reference.
 o ROBUSTNESS: Added more sanity checks to segmentByMPCBS() for
   RawGenomicSignals.
@@ -864,8 +872,8 @@ o SIMPLIFICATION: Now it is possible to use ChromosomeExplorer without
   having to install the GLAD package (used before for cytobands).
 o SIMPLIFICATION: Now it is possible to plot cytobands without having
   to install the GLAD package.
-o Argument 'zooms' of ChromosomeExplorer now default to 2^(0:6), 
-  instead of 2^(0:7), because the images for zoom 2^7=128 would not 
+o Argument 'zooms' of ChromosomeExplorer now default to 2^(0:6),
+  instead of 2^(0:7), because the images for zoom 2^7=128 would not
   display in Firefox for the largest chromosomes.
 o Updated getGenomeFile() for ChromosomalModel such that it can be used
   to locate other types of genome annotation files as well, files that
@@ -877,7 +885,7 @@ o Added alpha version of a doCBS().
 
 
 Version: 1.4.5 [2010-02-10]
-o ROBUSTNESS: Now also patches for R.filesets and R.utils are loaded, 
+o ROBUSTNESS: Now also patches for R.filesets and R.utils are loaded,
   if available, when aroma.core is loaded.
 o CLEANUP: Removed debug print() statements in isCompatibleWith().
 
@@ -891,19 +899,19 @@ o Package passes R CMD check and all redundancy tests.
 
 Version: 1.4.3 [2010-01-25]
 o ROBUSTNESS: Added a sanity check getChromosomes() for class
-  AromaUnitChromosomeTabularBinaryFile validating that the file 
+  AromaUnitChromosomeTabularBinaryFile validating that the file
   has a 'chromosome' column.
 o CLEANUP: Using new Arguments$getTags() where ever possible.
 
 
 Version: 1.4.2 [2010-01-13]
 o ChromosomalModel:s (and and the ChromosomeExplorer) no
-  longer require unit names files. 
-o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via 
-  getListOfUnitNamesFiles().  This opens up the possibility to work 
+  longer require unit names files.
+o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via
+  getListOfUnitNamesFiles().  This opens up the possibility to work
   with data files without unit names files, e.g. smoothed CN data.
 o Added getAromaUgpFile() for AromaPlatformInterface.
-o Now getUnitNamesFile() for AromaPlatformInterface utilizes the 
+o Now getUnitNamesFile() for AromaPlatformInterface utilizes the
   generic getUnitAnnotationDataFile() method.
 
 
@@ -913,8 +921,8 @@ o Added argument 'defaults' to allocate() of AromaTabularBinaryFile.
 
 Version: 1.4.0 [2010-01-04]
 o Added trial version of segmentByMPCBS() via the 'mpcbs' package.
-o BUG FIX: Added getDefaultFullName() for AromaMicroarrayDataSet and 
-  AromaTabularBinarySet in order to override (parent=1) the new default 
+o BUG FIX: Added getDefaultFullName() for AromaMicroarrayDataSet and
+  AromaTabularBinarySet in order to override (parent=1) the new default
   of GenericDataFileSet in R.filesets v0.7.0, which would return the
   chip type (parent=0) as the name.
 o Package passes R CMD check on R v2.10.1 and R v2.11.0 devel and
@@ -938,13 +946,13 @@ o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
 o ROBUSTNESS: Using new Arguments$getInstanceOf() were possible.
 o ROBUSTNESS: Now CopyNumberChromosomalModel() asserts that none of the
   test samples have duplicated names.
-o ROBUSTNESS: Now all index arguments are validated correctly 
+o ROBUSTNESS: Now all index arguments are validated correctly
   using the new 'max' argument of Arguments$getIndices().  Before
-  the case where "max == 0" was not handled correctly. 
+  the case where "max == 0" was not handled correctly.
 o BUG FIX: translateFullNames() of ChromosomeExplorer would translate the
   full names, but return the original ones.
-o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in 
-  UseMethod("translateFullNames") : no applicable method for 
+o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in
+  UseMethod("translateFullNames") : no applicable method for
   'translateFullNames' applied to an object of class "character".
 
 
@@ -953,7 +961,7 @@ o BUG FIX: extractMatrix() of AromaUnitCallFile did not recognize NoCalls.
 
 
 Version: 1.3.5 [2009-12-02]
-o BUG FIX: extractRawCopyNumbers() for RawCopyNumbers would give 
+o BUG FIX: extractRawCopyNumbers() for RawCopyNumbers would give
   an error if the internal logBase was NULL.
 
 
@@ -961,21 +969,21 @@ Version: 1.3.4 [2009-11-24]
 o Moved ChromosomeExplorer to aroma.core from aroma.affymetrix.
 o Moved several method for 'profileCGH' objects to aroma.core
   from aroma.affymetrix.
-o Added extractRawCopyNumbers(, ...logBase=2) to RawCopyNumbers, 
-  which can be used to change the logarithmic base of CN ratios, 
+o Added extractRawCopyNumbers(, ...logBase=2) to RawCopyNumbers,
+  which can be used to change the logarithmic base of CN ratios,
   if any.
 o Added getAverageFile() for AromaUnitTotalCnBinarySet.
 o Now all chromosome plot functions have xScale=1e-6 by default.
 
 
 Version: 1.3.3 [2009-11-19]
-o ALPHA: First successful run of segmentation with CbsModel 
+o ALPHA: First successful run of segmentation with CbsModel
   with AromaUnitTotalCnBinarySet data sets.
 o Added isAverageFile() for AromaUnitSignalBinaryFile.
 o Added class AromaUnitTotalCnBinarySetTuple.
 o GENERALIZATION: Moved CbsModel, GladModel and HaarSegModel
   (all segmentation models) of aroma.affymetrix to here.
-o GENERALIZATION: Moved all (generalized) ChromosomalModel, 
+o GENERALIZATION: Moved all (generalized) ChromosomalModel,
   CopyNumberChromosomalModel, and CopyNumberSegmentationModel
   from aroma.affymetrix to here.
 o Added interfaces CopyNumberDataFile, CopyNumberDataSet,
@@ -988,8 +996,8 @@ o Added getAromaUflFile() to UnitAnnotationDataFile.
 o Moved AromaUflFile to aroma.core (from aroma.affymetrix).
 o BUG FIX: importFrom(ufl, dat, ...) where 'ufl' was an
   AromaUflFile and 'dat' a GenericTabularFile gave an
-  error reporting that importFromGenericTabularFile() 
-  is abstract/not defined for AromaUflFile:s.  
+  error reporting that importFromGenericTabularFile()
+  is abstract/not defined for AromaUflFile:s.
   Thanks Paolo Guarnieri for reporting this.
 
 
@@ -1000,7 +1008,7 @@ o Replaced Rd cross references to sfit and HaarSeg packages with
 
 
 Version: 1.3.0 [2009-11-01]
-o New public release. 
+o New public release.
 o More recent dependencies on Bioconductor packages.
 o Package passes R CMD check on R v2.10.0 and all redundancy tests.
 
@@ -1020,7 +1028,7 @@ o CLEAN UP: Move the Interface class to the R.oo package.
 
 
 Version: 1.2.0 [2009-09-09]
-o New public release. 
+o New public release.
 o Fixed broken/missing Rd links.
 o Package passes R CMD check on R v2.9.2 and all redundancy tests.
 
@@ -1033,10 +1041,10 @@ o Now getUnitsOnChromosomes() for AromaUnitChromosomeTabularBinaryFile
 Version: 1.1.6 [2009-09-07]
 o Added yRange(), yMin() and yMax() for RawGenomicSignals.
 o Added extractRawCopyNumbers() for RawSequenceReads.
-o BUG FIX/WORKAROUND: smoothScatter(), which is used in for 
-  instance aroma.affymetrix, is in the graphics package from 
+o BUG FIX/WORKAROUND: smoothScatter(), which is used in for
+  instance aroma.affymetrix, is in the graphics package from
   R v2.9.0.  It was previously in geneplotter v1.2.4 and before(!).
-  The code imported it from geneplotter would therefore give an 
+  The code imported it from geneplotter would therefore give an
   error of a missing function with geneplotter v1.2.5.  We
   are now assuming R v2.9.0 by default, but if not available,
   but geneplotter v1.2.4 or earlier is, geneplotter is loaded.
@@ -1060,12 +1068,12 @@ o Now uses() for Interface takes multiple Interface:s.
 
 Version: 1.1.3 [2009-07-03]
 o Added class RawSequenceReads.
-o Added support for argument 'byCount' to binnedSmoothingByState() of 
+o Added support for argument 'byCount' to binnedSmoothingByState() of
   SegmentedCopyNumbers.  It is rather complex how it works, but we tried
   to immitate how it works with byCount=FALSE.
-o Now binnedSmoothing() of RawGenomicSignals demark locus fields 
+o Now binnedSmoothing() of RawGenomicSignals demark locus fields
   that were not binned to be regular fields.  Ideally all locus fields
-  (including custom ones) should be binned, but we leave that for a 
+  (including custom ones) should be binned, but we leave that for a
   future implementation.
 o Added get-, setStateColorMap(), and getStateColors() for class
   SegmentedGenomicSignalsInterface.
@@ -1077,21 +1085,21 @@ o Added argument keepUnits=FALSE to extractRawGenomicSignals() of
 o Now RawGenomicSignals(y=rgs) sets all locus fields in 'rgs' if it is
   a RawGenomicSignals object.
 o BUG FIX: exportTotalCnRatioSet() would return a AromaUnitFracBCnBinarySet.
-o Updated examples() that requires "suggested" packages to be ran 
+o Updated examples() that requires "suggested" packages to be ran
   conditionally, so that it does not throw an error (in R CMD check)
   if the packages is not available.  This is required for a package
   to be put on CRAN.
 
 
 Version: 1.1.1 [2009-06-10]
-o ADDED: Added support for "birdseed" encoding in extractGenotypes() 
+o ADDED: Added support for "birdseed" encoding in extractGenotypes()
   and updateGenotypes() of AromaUnitGenotypeCallFile.
 o SPEED UP: updateGenotypes() of AromaUnitGenotypeCallFile is now much
   faster in counting A:s and B:s.
-o Added SegmentedGenomicSignalsInterface, which implements all the 
+o Added SegmentedGenomicSignalsInterface, which implements all the
   methods for SegmentedCopyNumbers and the new SegmentedAlleleBFractions.
 o Added getFields() to Interface as an ad hoc solutions to avoid
-  print(<Interface>) throwing 'Error in UseMethod("getFields") : no 
+  print(<Interface>) throwing 'Error in UseMethod("getFields") : no
   applicable method for "getFields"'.
 o GRAMMAR FIX: is(Homo|Hetero)zygous(), not is(Homo|Hetero)zygote().
 o BUG FIX: isHomozygote() of AromaUnitGenotypeCallFile was not correct.
@@ -1116,31 +1124,31 @@ o Added extractRawAlleleBFractions() for AromaUnitFracBCnBinaryFile.
 o Added exportFracBDiffSet() for AromaUnitFracBCnBinarySet.
 o Moved the Explorer class and its support files under inst/ from
   aroma.affymetrix to aroma.core.
-o Moved the AromaCellPositionFile class from aroma.affymetrix 
+o Moved the AromaCellPositionFile class from aroma.affymetrix
   to aroma.core.
 o ADDED: Now all segmentByNnn() for RawGenomicSignals also returns
-  so called 'aromaEstimates', which are additional parameter 
+  so called 'aromaEstimates', which are additional parameter
   estimates, e.g. robust estimates of the standard deviation of
   all full-resolution CNs as well as per identified region.
 o CLEAN UP: Moved all file set specific classes and methods to
   the new R.filesets package.
 o MEMORY OPTIMIZATION: Where ever possible/applicable, we now use
   Arguments$getNumerics(), which, in R utils v1.1.5 and new, corces
-  to doubles only if the input is not already doubles.  This will 
+  to doubles only if the input is not already doubles.  This will
   lower the memory usage in some cases since an integers use 4 bytes
   and doubles 8 bytes.  This also save disk space if object is saved
-  to disk, e.g. a DNAcopy fit object with integer genomic positions 
+  to disk, e.g. a DNAcopy fit object with integer genomic positions
   instead of double ones, save approx 5-7% disk space.
 o ROBUSTNESS: Now allocate() for AromaTabularBinaryFile first allocates
   a temporary file which is then renamed.  This makes the file allocation
   more atomic, and therefore less error prone to interrupts etc.
 o ROBUSTNESS: Now indexOf() for UnitNamesFile assert that exactly one
-  of the 'pattern' and 'names' arguments is given.  It also gives an 
+  of the 'pattern' and 'names' arguments is given.  It also gives an
   informative error message if 'pattern' is a vector.
 o ROBUSTNESS: Now all arguments that are expected to be exactly one
   character string (not an empty vector or a vector of length two)
   are asserted to be that too.  This closes some potential bugs.
-o EXCEPTION HANDLING: All methods that modifies an existing file, are 
+o EXCEPTION HANDLING: All methods that modifies an existing file, are
   now asserting that the file permissions allow modifying it, and if not
   gives a clear error message that this is the case.
 o BUG FIX: allocateFromUnitNamesFile() for AromaUnitSignalBinaryFile
@@ -1156,9 +1164,9 @@ Version: 1.0.6 [2009-05-14]
 o Now binnedSmoothing() of RawGenomicSignals uses weighted estimates
   (by default) if weights exists.
 o Added RawAlleleBFractions() extending RawGenomicSignals.
-o Added extractCopyNumberRegions() for profileCGH, DNAcopy, and 
+o Added extractCopyNumberRegions() for profileCGH, DNAcopy, and
   HaarSeg segmentation object. Before they were in aroma.affymetrix.
-o Added segmentByCBS(), segmentByGLAD(), and segmentByHarSeeg() 
+o Added segmentByCBS(), segmentByGLAD(), and segmentByHarSeeg()
   to RawGenomicSignals, which all support weights if the underlying
   segmentation method does.  To date, it is only CBS and HaarSeg
   that supports weights.  These methods also support memoization.
@@ -1167,7 +1175,7 @@ o Added getWeights() and hasWeights() to RawGenomicSignals.
 o Added {add,subtract,multiply,divide}By() for RawGenomicSignals all
   utilizing support method applyBinaryOperator().
 o ALPHA: Added classes GenericDataFile{Set}List.
-o ALPHA: Added class AromaUnitTotalCnBinaryFileList with methods 
+o ALPHA: Added class AromaUnitTotalCnBinaryFileList with methods
   extractRawCopyNumbers() and extractMergedRawCopyNumbers().
 o SPEED UP: Now TextUnitNamesFile caches all unit names in memory.
 o BUG FIX: Now aroma.core works with the IRanges and grid packages,
@@ -1182,7 +1190,7 @@ Version: 1.0.5 [2009-05-10]
 o Now getOutputDataSet() of AromaTransform returns a data set with files
   ordered such that the fullnames are ordered the same way as the input
   data set.  Suggested by Xin (Victoria) Wang at UC Berkeley.
-o Now getOutputDataSet() of AromaTransform scans for the output data 
+o Now getOutputDataSet() of AromaTransform scans for the output data
   files with fullnames matching those of the input data set.  This is
   one step closer to being able to batch process subsets of data sets
   when the method is, say, a single-array method.
@@ -1203,8 +1211,8 @@ o BUG FIX: Our internal interleave() for Image (defined by EBImage) gave
   because internal image structure of the Image class changed (back) to
   being a 2-dim array. Now interleave() handles both 2d and 3d arrays.
 o BUG FIX: lines() of RawGenomicSignals did not recognize x/yScale.
-o BUG FIX: as.character() of GenericDataFile would throw 
-  'Error in sprintf("%d", getFileSize(db, "numeric")) : use 
+o BUG FIX: as.character() of GenericDataFile would throw
+  'Error in sprintf("%d", getFileSize(db, "numeric")) : use
   format %f, %e, %g or %a for numeric objects' whenever the
   file size is returned as a double, which happens for very
   large files (> 2^31-1 bytes).
@@ -1214,14 +1222,14 @@ o Package passes R CMD check on R v2.9.0.
 
 
 Version: 1.0.4 [2009-04-07]
-o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would 
-  make the object believe there are zero units in the file. 
-  Thanks Shermane Teo at the National University of Singapore 
+o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would
+  make the object believe there are zero units in the file.
+  Thanks Shermane Teo at the National University of Singapore
   for reporting this.
-o BUG FIX: binnedSmoothing(..., byCount=TRUE) of RawGenomicSignals 
+o BUG FIX: binnedSmoothing(..., byCount=TRUE) of RawGenomicSignals
   would give error "[...] object "ys" not found".
 o BUG FIX: When passing a single data points to colBinnedSmoothing(),
-  it would throw the exception: "Range of argument 'by' is out 
+  it would throw the exception: "Range of argument 'by' is out
   of range [0,0]: [<by>,<by>]".
 
 
@@ -1242,16 +1250,16 @@ o Added hasBeenModified() to GenericDataFile.
 o Now hasTags(..., tags) of GenericData{File|Set} splits the
   'tags' argument.
 o Now RawCopyNumbers() takes RawCopyNumbers objects as input.
-o Now getChecksum() of GenericDataFile caches results unless the 
+o Now getChecksum() of GenericDataFile caches results unless the
   file has been modified since last time.
-o Now as.character() of GenericDataFile also reports the exact file 
-  size in case the file size is reported in kB, MB, etc.  It also 
+o Now as.character() of GenericDataFile also reports the exact file
+  size in case the file size is reported in kB, MB, etc.  It also
   tries to report the relative pathname rather than the absolute.
 
 
 
 Version: 1.0.1 [2009-02-12]
-o Now byName() of AromaUnit(FracB|Total)CnBinarySet searches 
+o Now byName() of AromaUnit(FracB|Total)CnBinarySet searches
   rawCnData/ then cnData/.
 o Added SegmentedCopyNumbers class.
 o Added various smoothing methods to RawCopyNumbers.
@@ -1260,20 +1268,20 @@ o Added getAromaUgpFile() to UnitNamesFile.
 o Added shakyText().
 o Added static byChipType() to UnitNamesFile.
 o Added argument 'fullname' to getChipType() of AromaUnitSignalBinaryFile.
-o Now argument 'files' in extract() of GenericDataFileSet can 
+o Now argument 'files' in extract() of GenericDataFileSet can
   also be a vector of string.
 o ROBUSTNESS: Added support for optional validation/selection by the
   number of units/cells to all static byChipType() methods.  This is
   done by specifying argument nbrOfUnits/nbrOfCells.  This is intend
   for internal use only.
 o ROBUSTNESS: Added a sanity check to getAromaUgpFile() of
-  UnitNamesFile and AromaUnitSignalBinaryFile, which asserts that 
+  UnitNamesFile and AromaUnitSignalBinaryFile, which asserts that
   the number of units in the located UGP file match that the number
   of units in the data file.
-o ROBUSTNESS: Now findAnnotationData() always returns pathnames 
-  ordered by the length of their fullnames. Before this was only 
+o ROBUSTNESS: Now findAnnotationData() always returns pathnames
+  ordered by the length of their fullnames. Before this was only
   done if 'firstOnly=TRUE'.
-o ALPHA: Added support for "smart" (e.g. "*") subdirectories in static 
+o ALPHA: Added support for "smart" (e.g. "*") subdirectories in static
   findByName() of GenericDataFileSet.
 
 
@@ -1293,7 +1301,7 @@ o BUG FIX: getAttributes() for GenericDataFile:s would give an error
 
 Version: 0.9.6 [2008-12-04]
 o SPEED UP: Now predict() of ProbePositionEffects is 6-7 times faster.
-o SPEED UP: Now the result of isMissing() for AromaCellSequenceFile 
+o SPEED UP: Now the result of isMissing() for AromaCellSequenceFile
   can be cached.
 o ALPHA: Added the BinnedScatter class with methods.
 o CLEAN UP: readDataFrame() of AromaTabularBinaryFile would forget to
@@ -1339,7 +1347,7 @@ o Public release.  Package passes R CMD check on R v2.7.1
 
 
 Version: 0.9.3.4 [2008-07-24]
-o SPEED UP: Added patch for base::serialize() on Windows, 
+o SPEED UP: Added patch for base::serialize() on Windows,
   which in turn will speed up digest::digest() and all
   methods that use the latter to generate hashcodes.
 o SPEED UP: Now as.character() for GenericTabularFile:s
@@ -1353,9 +1361,9 @@ o Added getCreatedOn(), getLastModifiedOn(), and
 
 
 Version: 0.9.3.3 [2008-07-21]
-o Now countBases() of AromaCellSequenceFile returns "raw" 
+o Now countBases() of AromaCellSequenceFile returns "raw"
   counts if argument 'mode="raw"'.
-o Now updateDataColumn() coerce values to doubles before 
+o Now updateDataColumn() coerce values to doubles before
   censoring them for raw and integer columns.
 o Now findByName() assert that the data set name is not empty.
 o ALPHA: Added setFullName() and setName() to GenericDataFile
@@ -1365,7 +1373,7 @@ o BETA: Added setFullNameTranslator() to GenericDataFileSet.
 
 
 Version: 0.9.3.2 [2008-07-16]
-o BETA: Added setFullNamesTranslator() (for the files) 
+o BETA: Added setFullNamesTranslator() (for the files)
   to AromaGenericFileSet.
 o ALPHA: Added protected update2() to GenericDataFileSet.
 o ALPHA: Added private ProbePositionEffects et al.
@@ -1381,7 +1389,7 @@ o Added a general importFrom() for AromaTabularBinaryFile, which
 o Added support for 'raw' data columns in AromaTabularBinaryFile.
 o BETA: Added readTableHeader().
 o BETA: Added AromaCellSequenceFile.
-o BETA: Added classes AromaMicroarrayTabularBinaryFile and 
+o BETA: Added classes AromaMicroarrayTabularBinaryFile and
   AromaCellTabularBinaryFile.
 
 
@@ -1408,7 +1416,7 @@ o Added argument 'xOut' to gaussianSmoothing() in order to specify
 
 Version: 0.9.2.3 [2008-05-21]
 o Now findPngDevice() search for a working PNG device in the following
-  order: png(..., type="cairo"), png(..., type="cairo1"), 
+  order: png(..., type="cairo"), png(..., type="cairo1"),
   Cairo::CairoPNG(), R.utils::png2(), and finally plain png().
 o Added gzip()/gunzip() to GenericDataFile.
 o Added static findByName() and byName() to GenericDataFileSet.
@@ -1417,28 +1425,28 @@ o Added static getFileClass() to GenericDataFileSet.  This makes it
   the validation of argument 'files' of their constructors.
 o Added validate() to GenericDataFileSet, which is called at the
   end of fromFiles(..., .validate=TRUE).
-o Added extractMatrix to GenericTabular(File|Set) and 
+o Added extractMatrix to GenericTabular(File|Set) and
   AromaTabularBinary(File|Set).
 o Added equals() and hasFile() to GenericDataFileSet.
 o Added classes GenericTabularFileSet and AromaTabularBinarySet.
 o Added stextChipType() for strings.
-o CLEAN UP: Moved more classes and methods from aroma.affymetrix to 
+o CLEAN UP: Moved more classes and methods from aroma.affymetrix to
   aroma.core: RawCopyNumbers, CopyNumberRegions, CopyNumberOutliers.
-  Moved attribute methods from AffymetrixCel{File|Set} to 
+  Moved attribute methods from AffymetrixCel{File|Set} to
   AromaMicroarrayDataSet.  Moved stextNnn() methods from AffymetrixFile
   to AffymetrixMicroarrayDataSet.
   Created superclass AromaMicroarrayDataSetTuple of AffymetrixCelSetTuple.
-o BUG FIX: readDataFrame() did not read the first data row if there 
+o BUG FIX: readDataFrame() did not read the first data row if there
   was no column header; it was eaten up by a preceeding readHeader().
-o BUG FIX: findAnnotationDataByChipType(chipType="GenomeWideSNP_6", 
-  pattern="^GenomeWideSNP_6.*[.]ugp$") would find file 
+o BUG FIX: findAnnotationDataByChipType(chipType="GenomeWideSNP_6",
+  pattern="^GenomeWideSNP_6.*[.]ugp$") would find file
   'GenomeWideSNP_6,Full,na24.ugp' before 'GenomeWideSNP_6,na24.ugp'.
   Now we return the one with the shortest full name.
-o ALPHA: Now equals() for GenericDataFile:s uses the class, 
-  pathname, file size and file-contents checksum to do the 
-  comparison.  Similarly, for GenericDataFileSet:s, the class, 
-  path, number of files, pathnames, and finally equals() for 
-  each file pair is used for the comparison.  
+o ALPHA: Now equals() for GenericDataFile:s uses the class,
+  pathname, file size and file-contents checksum to do the
+  comparison.  Similarly, for GenericDataFileSet:s, the class,
+  path, number of files, pathnames, and finally equals() for
+  each file pair is used for the comparison.
 o ALPHA: Added full name translation for GenericDataFile:s.
 o ALPHA: Added UnitNamesFile.
 o Package passes R CMD check on R v2.7.0 patched.
@@ -1449,10 +1457,10 @@ o Took all core classes and core methods in aroma.affymetrix that
   are independent of the Affymetrix platform and placed the here.
 o The version is numbered starting from the current version of
   aroma.affymetrix.
-o BUG FIX: interleave() for Image gave 'Error in z[idxOdd, ] : 
+o BUG FIX: interleave() for Image gave 'Error in z[idxOdd, ] :
   incorrect number of dimensions'.  The internal image structure
   is a 3-dim array.
-o BUG FIX: When searching with 'firstOnly=FALSE', findAnnotationData() 
+o BUG FIX: When searching with 'firstOnly=FALSE', findAnnotationData()
   was identifying files that are in "private" directory.  This is how
   affxparser::findFiles() works.  Such files are now filtered out.
 o Created.

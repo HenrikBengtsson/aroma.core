@@ -9,22 +9,21 @@ log2center <- function(x) {
   x;
 }
 
-
-log2neg <- function(x) { 
+log2neg <- function(x) {
   x <- -x;
-  x[x <= 0] <- NA; 
-  log2(x); 
+  x[x <= 0] <- NA;
+  log2(x);
 }
 
-log2pos <- function(x) { 
-  x[x <= 0] <- NA; 
-  log2(x); 
+log2pos <- function(x) {
+  x[x <= 0] <- NA;
+  log2(x);
 }
 
-log2abs <- function(x) { 
+log2abs <- function(x) {
   x <- abs(x);
-  x[x <= 0] <- NA; 
-  log2(x); 
+  x[x <= 0] <- NA;
+  log2(x);
 }
 
 
@@ -39,24 +38,37 @@ sqrtcenter <- function(x) {
 
 sqrtneg <- function(x) {
   x <- -x;
-  x[x <= 0] <- NA; 
-  sqrt(x); 
+  x[x <= 0] <- NA;
+  sqrt(x);
 }
 
-sqrtpos <- function(x) { 
-  x[x <= 0] <- NA; 
-  sqrt(x); 
+sqrtpos <- function(x) {
+  x[x <= 0] <- NA;
+  sqrt(x);
 }
 
-sqrtabs <- function(x) { 
+sqrtabs <- function(x) {
   x <- abs(x);
-  x[x <= 0] <- NA; 
-  sqrt(x); 
+  x[x <= 0] <- NA;
+  sqrt(x);
+}
+
+# "signed" sqrt()
+sqrtsign <- function(x) {
+  zero <- which(x == 0);
+  neg <- which(x < 0);
+  pos <- which(x > 0);
+  x[zero] <- NA;
+  x[pos] <-  sqrt( x[pos]);
+  x[neg] <- -sqrt(-x[neg]);
+  x;
 }
 
 
 ############################################################################
 # HISTORY:
+# 2013-03-28
+# o Added sqrtsign().
 # 2008-03-17
 # o Added log2center() and sqrtcenter().
 # 2007-02-14
