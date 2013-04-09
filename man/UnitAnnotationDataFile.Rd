@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{UnitAnnotationDataFile}
+\name{UnitAnnotationDataFile}
 \docType{class}
 \alias{UnitAnnotationDataFile}
 
 
- \title{The UnitAnnotationDataFile interface class}
+\title{The UnitAnnotationDataFile interface class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class UnitAnnotationDataFile}\cr
 
 \code{\link[R.oo]{Interface}}\cr
@@ -29,20 +29,20 @@ extends \link[R.oo]{Interface}\cr
 
 
 
-  A UnitAnnotationDataFile provides methods for querying certain types
-  of chip type annotation data by units.
- }
+ A UnitAnnotationDataFile provides methods for querying certain types
+ of chip type annotation data by units.
+}
 
- \usage{
+\usage{
 UnitAnnotationDataFile(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link[R.oo]{Interface}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link[R.oo]{Interface}}.}
+}
 
- \section{Methods}{
-  \bold{Methods:}\cr
+\section{Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{byChipType} \tab  -\cr
  \tab \code{getAromaUflFile} \tab  -\cr
@@ -57,7 +57,7 @@ UnitAnnotationDataFile(...)
 extend, print, uses
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}
