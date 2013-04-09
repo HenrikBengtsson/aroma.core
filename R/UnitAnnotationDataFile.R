@@ -9,7 +9,7 @@
 #  A UnitAnnotationDataFile provides methods for querying certain types
 #  of chip type annotation data by units.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -74,14 +74,14 @@ setMethodS3("byChipType", "UnitAnnotationDataFile", function(static, chipType, t
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Scan for all possible matches
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  pathnames <- findByChipType(static, chipType=chipType, tags=tags, 
-                             firstOnly=FALSE, ..., verbo=less(verbose, 5));
+  pathnames <- findByChipType(static, chipType=chipType, tags=tags,
+                           firstOnly=FALSE, ..., verbose=less(verbose, 5));
   if (is.null(pathnames)) {
     ext <- getDefaultExtension(static);
     note <- attr(ext, "note");
@@ -99,7 +99,7 @@ setMethodS3("byChipType", "UnitAnnotationDataFile", function(static, chipType, t
     throw(msg);
   }
 
-  verbose && cat(verbose, "Number of ", class(static)[1], " located: ", 
+  verbose && cat(verbose, "Number of ", class(static)[1], " located: ",
                                                         length(pathnames));
   verbose && print(verbose, pathnames);
 
@@ -167,9 +167,9 @@ setMethodS3("getAromaUgpFile", "UnitAnnotationDataFile", function(this, ..., val
     this$.ugp <- ugp;
   }
   ugp;
-}) 
+})
 
- 
+
 
 setMethodS3("getAromaUflFile", "UnitAnnotationDataFile", function(this, ..., validate=FALSE, force=FALSE) {
   ufl <- this$.ufl;
@@ -183,9 +183,9 @@ setMethodS3("getAromaUflFile", "UnitAnnotationDataFile", function(this, ..., val
     this$.ufl <- ufl;
   }
   ufl;
-}) 
+})
 
- 
+
 
 ############################################################################
 # HISTORY:

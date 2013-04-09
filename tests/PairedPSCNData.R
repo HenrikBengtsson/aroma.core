@@ -1,5 +1,5 @@
 # Only run this test in full testing mode
-if (Sys.getenv("_R_CHECK_FULL_") != "") { 
+if (Sys.getenv("_R_CHECK_FULL_") != "") {
 
 library("aroma.core");
 library("PSCBS");
@@ -10,8 +10,8 @@ setOption("digits", 2);
 # Loading data
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 verbose && enter(verbose, "Loading SNP data");
-pathname <- system.file("data-ex/PairedPSCBS,exData,chr01.Rbin", package="PSCBS")
-data <- R.utils::loadObject(pathname)
+data("paired.chr01", package="PSCBS.data")
+data <- paired.chr01
 verbose && str(verbose, data);
 verbose && exit(verbose);
 
