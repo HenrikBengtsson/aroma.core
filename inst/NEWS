@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.8.6 [2013-04-21]
+o CLEANUP: Made is(Homo|Hetero)zygote() and getPhysicalPositions()
+  defunct.
+
+
 Version: 2.8.5 [2013-04-08]
 o Updated package dependencies.
 

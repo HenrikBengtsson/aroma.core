@@ -11,8 +11,7 @@ setOption("digits", 2);
 # Loading data
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 verbose && enter(verbose, "Loading SNP data");
-data("paired.chr01", package="PSCBS.data")
-data <- paired.chr01
+data <- PSCBS::exampleData("paired.chr01");
 verbose && str(verbose, data);
 verbose && exit(verbose);
 

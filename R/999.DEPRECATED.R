@@ -1,19 +1,20 @@
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 2009-06-09
 # o Grammar fix: is(Homo|Hetero)zygous(), not is(Homo|Hetero)zygote().
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("isHomozygote", "AromaUnitGenotypeCallFile", function(...) {
-  .Deprecated("isHomozygous");
+  .Defunct("isHomozygous");
   isHomozygous(...);
 }, private=TRUE, deprecated=TRUE)
 
 setMethodS3("isHeterozygote", "AromaUnitGenotypeCallFile", function(...) {
-  .Deprecated("isHeterozygous");
+  .Defunct("isHeterozygous");
   isHeterozygous(...);
 }, private=TRUE, deprecated=TRUE)
 
+
 setMethodS3("getPhysicalPositions", "RawCopyNumbers", function(this, ...) {
-  .Deprecated("getPositions");
+  .Defunct("getPositions");
   getPositions(this, ...);
 }, protected=TRUE, deprecated=TRUE)
 
@@ -24,7 +25,7 @@ setMethodS3("readData", "SampleAnnotationFile", function(this, ...) {
   .Deprecated("readDataFrame");
   readDataFrame(this, ...);
 }, protected=TRUE, deprecated=TRUE)
- 
+
 
 
 # 2009-12-30
@@ -52,6 +53,8 @@ setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
 
 ############################################################################
 # HISTORY:
+# 2013-04-20
+# o CLEANUP: Made is(Homo|Hetero)zygote() defunct.
 # 2012-10-14
 # o Created 999.DEPRECATED.R.
 # 2011-02-18
