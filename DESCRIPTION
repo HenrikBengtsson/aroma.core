@@ -1,7 +1,7 @@
 Package: aroma.core
-Version: 2.8.6
+Version: 2.8.7
 Depends: R (>= 2.14.0), utils, R.oo (>= 1.13.0), R.utils (>= 1.23.2),
-         R.filesets (>= 2.0.1), R.cache (>= 0.6.5), R.devices (>= 2.2.2),
+         R.filesets (>= 2.0.1), R.devices (>= 2.2.2),
          R.rsp (>= 0.8.2), matrixStats (>= 0.6.2)
 Imports: utils, R.methodsS3 (>= 1.4.2), R.oo (>= 1.13.0), R.utils (>= 1.23.2), R.cache (>= 0.6.5), R.rsp (>= 0.8.2), matrixStats (>= 0.6.2), RColorBrewer (>= 1.0-5), PSCBS (>= 0.34.8)
 Suggests: RColorBrewer (>= 1.0-5), png (>= 0.1-4), EBImage (>= 3.12.0),

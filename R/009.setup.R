@@ -1,13 +1,5 @@
 .setupAromaCore <- function(pkg, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Apply downloaded patches
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  patchPackage("aroma.core");
-  patchPackage("R.filesets");
-  patchPackage("R.utils");
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read settings file ".<name>Settings" and store it in package
   # variable '<name>Settings'.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -36,12 +28,12 @@
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Fix the search path every time a package is loaded
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   setHook("base::library:onLoad", function(...) {
     # Fix the search path
     pkgs <- fixSearchPath(aroma.core);
     if (length(pkgs) > 0) {
-      warning("Packages reordered in search path: ", 
+      warning("Packages reordered in search path: ",
                                             paste(pkgs, collapse=", "));
     }
   }, action="append");
@@ -51,6 +43,9 @@
 
 ############################################################################
 # HISTORY:
+# 2012-04-22
+# o CLEANUP: Package no longer try to apply package patches, which was
+#   only possible when namespaces where not used.
 # 2012-01-12
 # o CLEANUP: Dropped internal patch of base::serialize(), because it
 #   was only applied to R (< 2.12.0) anyway and this package now
@@ -75,7 +70,7 @@
 # 2008-07-24
 # o Added patch for serialize() on Windows.
 # 2008-02-14
-# o Renamed existing threshold hold to 'timestampsThreshold', 
+# o Renamed existing threshold hold to 'timestampsThreshold',
 #   'medianPolishThreshold', and 'skipThreshold'.
 # 2008-02-12
 # o Added default values for settings 'models$RmaPlm$...'.
@@ -87,7 +82,7 @@
 # o Added settings for 'checkForPatches' and 'checkInterval'.
 # o Now the settings are set according to a tempate, if missing.
 # 2007-08-30
-# o Added "patch" to make sure that there is rowMedians() supporting 
+# o Added "patch" to make sure that there is rowMedians() supporting
 #   missing values.
 # 2007-07-04
 # o Removed the patch for digest(); digest v0.3.0 solved the problem.

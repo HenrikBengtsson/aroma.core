@@ -17,6 +17,14 @@ setMethodS3("colMeans", "default", function(...) {
 #colnames.default <- function(...) base::colnames(...);
 
 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Add generic process().
+# NB: process() is defined in R.rsp (>= 0.9.1)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+setGenericS3("process", overwrite=TRUE);
+
+
 ############################################################################
 # HISTORY:
 # 2012-03-01 [HB]
@@ -28,9 +36,9 @@ setMethodS3("colMeans", "default", function(...) {
 #   Extra care has to be taken for functions that have arguments whose
 #   values are dependent on the call environment/closure.
 # 2007-02-27 [HB]
-# o BUG FIX: Removed explicit reference to 'base' etc again. The reason is 
-#   that if a previous package already modified, say, write(), to become a 
-#   generic function, that was overwritten again when this package was 
+# o BUG FIX: Removed explicit reference to 'base' etc again. The reason is
+#   that if a previous package already modified, say, write(), to become a
+#   generic function, that was overwritten again when this package was
 #   loaded.
 # 2007-02-23 [KS]
 # o Make explicit reference to 'base' - this is safer, in case of colMeans()
