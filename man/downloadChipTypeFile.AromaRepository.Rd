@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{downloadChipTypeFile}{AromaRepository}(this, chipType, tags=NULL, suffix=sprintf(".\%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this))
+\method{downloadChipTypeFile}{AromaRepository}(this, chipType, tags=NULL, suffix=sprintf(".\%s", ext), ext=NULL,
+  ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this))
 }
 
 \arguments{

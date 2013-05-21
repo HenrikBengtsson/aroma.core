@@ -18,7 +18,9 @@
 }
 
 \usage{
-\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=getMaxNAFraction(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE)
+\method{fit}{CopyNumberSegmentationModel}(this, arrays=NULL, chromosomes=getChromosomes(this),
+  maxNAFraction=getMaxNAFraction(this), force=FALSE, ..., .retResults=FALSE,
+  verbose=FALSE)
 }
 
 \arguments{

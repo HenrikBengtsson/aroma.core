@@ -25,7 +25,9 @@ plot(cn, ylim=c(-3,3))
 title(main="Complete and subsetted loci")
 points(cn2, col="red", pch=176, cex=2)
 
-legend("topright", pch=c(19,176), col=c("#999999", "red"), sprintf(c("raw [n=%d]", "every 5th [n=%d]"), c(nbrOfLoci(cn), nbrOfLoci(cn2))), bty="n")
+legend("topright", pch=c(19,176), col=c("#999999", "red"), 
+       sprintf(c("raw [n=%d]", "every 5th [n=%d]"), 
+               c(nbrOfLoci(cn), nbrOfLoci(cn2))), bty="n")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -42,7 +44,9 @@ cnSb <- binnedSmoothing(cn, by=9)
 lines(cnSb, col="red")
 points(cnSb, col="red")
 
-legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d]", "Bin(w=3) [n=%d]", "Bin(w=9) [n=%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+legend("topright", pch=19, col=c("#999999", "blue", "red"), 
+       sprintf(c("raw [n=%d]", "Bin(w=3) [n=%d]", "Bin(w=9) [n=%d]"), 
+       c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -59,7 +63,9 @@ cnSb <- binnedSmoothing(cn, by=9, byCount=TRUE)
 lines(cnSb, col="red")
 points(cnSb, col="red")
 
-legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d]", "BinO(w=3) [n=%d]", "BinO(w=9) [n=%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+legend("topright", pch=19, col=c("#999999", "blue", "red"),
+       sprintf(c("raw [n=%d]", "BinO(w=3) [n=%d]", "BinO(w=9) [n=%d]"), 
+       c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -74,7 +80,9 @@ points(cnSa, col="blue")
 cnSb <- kernelSmoothing(cn, h=5)
 points(cnSb, col="red")
 
-legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d]", "N(.,sd=2) [n=%d]", "N(.,sd=5) [n=%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+legend("topright", pch=19, col=c("#999999", "blue", "red"),
+       sprintf(c("raw [n=%d]", "N(.,sd=2) [n=%d]", "N(.,sd=5) [n=%d]"),
+       c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -92,4 +100,6 @@ cnSb <- kernelSmoothing(cn, xOut=xOut, kernel="uniform", h=5)
 lines(cnSb, col="red")
 points(cnSb, col="red")
 
-legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d]", "U(w=2) [n=%d]", "U(w=5) [n=%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+legend("topright", pch=19, col=c("#999999", "blue", "red"),
+       sprintf(c("raw [n=%d]", "U(w=2) [n=%d]", "U(w=5) [n=%d]"),
+       c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")

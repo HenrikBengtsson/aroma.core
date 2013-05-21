@@ -17,7 +17,8 @@
  }
 
  \usage{
-\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE, escapes=c("+"), ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)
+\method{findAnnotationData}{default}(name=NULL, tags=NULL, set, pattern=NULL, private=FALSE,
+  escapes=c("+"), ..., firstOnly=TRUE, paths=NULL, verbose=FALSE)
 }
 
  \arguments{

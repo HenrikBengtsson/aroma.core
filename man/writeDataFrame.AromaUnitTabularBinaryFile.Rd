@@ -19,7 +19,11 @@
 }
 
 \usage{
-\method{writeDataFrame}{AromaUnitTabularBinaryFile}(this, filename=sprintf("\%s.txt", getFilename(this)), path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this, fullname = FALSE)), ..., columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, columnNamesPrefix=c("fullname", "name", "none"), overwrite=FALSE, verbose=FALSE)
+\method{writeDataFrame}{AromaUnitTabularBinaryFile}(this, filename=sprintf("\%s.txt", getFilename(this)),
+  path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this,
+  fullname = FALSE)), ..., columns=c("unitName", "*"), sep="\t", addHeader=TRUE,
+  createdBy=NULL, nbrOfDecimals=4L, columnNamesPrefix=c("fullname", "name", "none"),
+  overwrite=FALSE, verbose=FALSE)
 }
 
 \arguments{

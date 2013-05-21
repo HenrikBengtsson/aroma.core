@@ -17,7 +17,8 @@
  }
 
  \usage{
-\method{matrixBlockPolish}{matrix}(z, x=NULL, blockSizes=c(1, 1), FUN, ..., tol=0.01, maxIter=10, returnEffects=FALSE)
+\method{matrixBlockPolish}{matrix}(z, x=NULL, blockSizes=c(1, 1), FUN, ..., tol=0.01, maxIter=10,
+  returnEffects=FALSE)
 }
 
  \arguments{

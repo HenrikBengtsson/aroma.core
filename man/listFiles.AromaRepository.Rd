@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{listFiles}{AromaRepository}(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this))
+\method{listFiles}{AromaRepository}(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE,
+  verbose=getVerbose(this))
 }
 
 \arguments{

@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{process}{ChromosomeExplorer}(this, arrays=NULL, chromosomes=NULL, ..., zooms=getZooms(this), layers=FALSE, verbose=FALSE)
+\method{process}{ChromosomeExplorer}(this, arrays=NULL, chromosomes=NULL, ..., zooms=getZooms(this), layers=FALSE,
+  verbose=FALSE)
 }
 
 \arguments{

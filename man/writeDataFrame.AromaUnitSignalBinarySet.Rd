@@ -23,7 +23,11 @@
 }
 
 \usage{
-\method{writeDataFrame}{AromaUnitSignalBinarySet}(this, filename=sprintf("\%s.txt", getFullName(this)), path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this, fullname = FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="	", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE)
+\method{writeDataFrame}{AromaUnitSignalBinarySet}(this, filename=sprintf("\%s.txt", getFullName(this)),
+  path=file.path(getRootName(this, tags = "*,txt"), getFullName(this), getChipType(this,
+  fullname = FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="\t",
+  addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, ram=1,
+  columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE)
 }
 
 \arguments{

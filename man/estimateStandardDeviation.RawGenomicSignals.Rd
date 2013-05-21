@@ -20,7 +20,8 @@
 }
 
 \usage{
-\method{estimateStandardDeviation}{RawGenomicSignals}(this, field=NULL, method=c("diff", "direct"), estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...)
+\method{estimateStandardDeviation}{RawGenomicSignals}(this, field=NULL, method=c("diff", "direct"),
+  estimator=c("mad", "sd"), na.rm=TRUE, weights=getWeights(this), ...)
 }
 
 \arguments{

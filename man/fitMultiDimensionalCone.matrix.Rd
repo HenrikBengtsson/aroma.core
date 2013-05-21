@@ -17,7 +17,8 @@
  }
 
  \usage{
-\method{fitMultiDimensionalCone}{matrix}(y, alpha=c(0.1, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ..., flavor=c("sfit", "expectile"))
+\method{fitMultiDimensionalCone}{matrix}(y, alpha=c(0.1, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ...,
+  flavor=c("sfit", "expectile"))
 }
 
  \arguments{

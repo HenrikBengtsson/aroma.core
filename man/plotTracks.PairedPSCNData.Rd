@@ -22,7 +22,10 @@
  }
 
  \usage{
-\method{plotTracks}{PairedPSCNData}(x, tracks=c("tcn", "dh", "tcn,c1,c2", "tcn,c1", "tcn,c2", "c1,c2", "betaN", "betaT", "betaTN")[1:3], pch=".", col=NULL, cex=1, grid=FALSE, xlim=NULL, Clim=c(0, 6), Blim=c(0, 1), xScale=1e-06, ..., add=FALSE, subplots=!add && (length(tracks) > 1), verbose=FALSE)
+\method{plotTracks}{PairedPSCNData}(x, tracks=c("tcn", "dh", "tcn,c1,c2", "tcn,c1", "tcn,c2", "c1,c2", "betaN",
+  "betaT", "betaTN")[1:3], pch=".", col=NULL, cex=1, grid=FALSE, xlim=NULL, Clim=c(0, 6),
+  Blim=c(0, 1), xScale=1e-06, ..., add=FALSE, subplots=!add && (length(tracks) > 1),
+  verbose=FALSE)
 }
 
  \arguments{

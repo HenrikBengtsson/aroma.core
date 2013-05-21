@@ -20,7 +20,9 @@
  }
 
  \usage{
-\method{colKernelSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=x, kernel=c("gaussian", "uniform"), h, censorH=3, na.rm=TRUE, robust=FALSE, ..., verbose=FALSE)
+\method{colKernelSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=x,
+  kernel=c("gaussian", "uniform"), h, censorH=3, na.rm=TRUE, robust=FALSE, ...,
+  verbose=FALSE)
 }
 
  \arguments{

@@ -17,7 +17,8 @@
  }
 
  \usage{
-\method{patchPackage}{default}(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...)
+\method{patchPackage}{default}(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE,
+  ...)
 }
 
  \arguments{

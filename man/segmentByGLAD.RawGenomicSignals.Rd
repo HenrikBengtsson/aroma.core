@@ -19,7 +19,8 @@
  }
 
  \usage{
-\method{segmentByGLAD}{RawGenomicSignals}(this, ..., flavor=c("glad", "daglad"), cache=FALSE, force=FALSE, verbose=FALSE)
+\method{segmentByGLAD}{RawGenomicSignals}(this, ..., flavor=c("glad", "daglad"), cache=FALSE, force=FALSE,
+  verbose=FALSE)
 }
 
  \arguments{

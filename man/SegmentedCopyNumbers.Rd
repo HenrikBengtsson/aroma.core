@@ -66,7 +66,7 @@ cnRange, extractRawCopyNumbers, getCNs, getCn, getSignals, plot
 $, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNames, getColumnNamesTranslator, getFullName, getName, getTags, getVirtualColumn, getVirtualColumnFunction, getVirtualColumnNames, hasColumn, hasColumns, hasVirtualColumn, hasVirtualColumns, length, names, newInstance, print, rbind, setAttributes, setColumnNamesMap, setColumnNamesTranslator, setName, setTags, setVirtualColumn, subset, translateColumnNames
 
  \bold{Methods inherited from data.frame}:\cr
-$<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, as.profileCGH, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, merge, na.exclude, na.omit, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
+$, $<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, as.profileCGH, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, merge, na.exclude, na.omit, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
  }
@@ -107,7 +107,9 @@ cnS <- extractSubsetByState(cn, states=c(0,+1L))
 print(cnS)
 points(cnS, pch=21, cex=1.2, lwd=2, col="purple")
 
-legend("topright", pch=c(19, 21), col=c("#999999", "purple"), sprintf(c("raw [n=\%d]", "CN in {0,1} [n=\%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnS))), bty="n")
+legend("topright", pch=c(19, 21), col=c("#999999", "purple"),
+       sprintf(c("raw [n=\%d]", "CN in {0,1} [n=\%d]"),
+       c(nbrOfLoci(cn), nbrOfLoci(cnS))), bty="n")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -122,7 +124,9 @@ points(cnSa, col="blue")
 cnSb <- kernelSmoothingByState(cn, h=5)
 points(cnSb, col="red")
 
-legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=\%d]", "N(.,sd=2) [n=\%d]", "N(.,sd=5) [n=\%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+legend("topright", pch=19, col=c("#999999", "blue", "red"),
+       sprintf(c("raw [n=\%d]", "N(.,sd=2) [n=\%d]", "N(.,sd=5) [n=\%d]"),
+       c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -139,7 +143,9 @@ cnSb <- binnedSmoothingByState(cn, by=9, verbose=-1)
 lines(cnSb, col="red")
 points(cnSb, col="red")
 
-legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=\%d]", "Bin(w=3) [n=\%d]", "Bin(w=9) [n=\%d]"), c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
+legend("topright", pch=19, col=c("#999999", "blue", "red"),
+       sprintf(c("raw [n=\%d]", "Bin(w=3) [n=\%d]", "Bin(w=9) [n=\%d]"),
+       c(nbrOfLoci(cn), nbrOfLoci(cnSa), nbrOfLoci(cnSb))), bty="n")
 }
 
  \author{Henrik Bengtsson}

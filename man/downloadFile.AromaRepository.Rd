@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{downloadFile}{AromaRepository}(this, filename, path=NULL, caseSensitive=FALSE, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this))
+\method{downloadFile}{AromaRepository}(this, filename, path=NULL, caseSensitive=FALSE, gzipped=TRUE, skip=TRUE,
+  overwrite=FALSE, ..., verbose=getVerbose(this))
 }
 
 \arguments{

@@ -20,7 +20,9 @@
  }
 
  \usage{
-\method{colBinnedSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL, from=min(x, na.rm = TRUE), to=max(x, na.rm = TRUE), by=NULL, length.out=length(x), na.rm=TRUE, FUN="median", ..., verbose=FALSE)
+\method{colBinnedSmoothing}{matrix}(Y, x=seq_len(nrow(Y)), w=NULL, xOut=NULL, xOutRange=NULL,
+  from=min(x, na.rm = TRUE), to=max(x, na.rm = TRUE), by=NULL, length.out=length(x),
+  na.rm=TRUE, FUN="median", ..., verbose=FALSE)
 }
 
  \arguments{

@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{extractRawCopyNumbers}{CopyNumberChromosomalModel}(this, array, chromosome, ..., logBase=2, cache=FALSE, force=FALSE, verbose=FALSE)
+\method{extractRawCopyNumbers}{CopyNumberChromosomalModel}(this, array, chromosome, ..., logBase=2, cache=FALSE, force=FALSE,
+  verbose=FALSE)
 }
 
 \arguments{

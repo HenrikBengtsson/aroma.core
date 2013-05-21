@@ -19,7 +19,8 @@
 }
 
 \usage{
-\method{estimateSds}{CopyNumberChromosomalModel}(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE)
+\method{estimateSds}{CopyNumberChromosomalModel}(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this),
+  ..., verbose=FALSE)
 }
 
 \arguments{

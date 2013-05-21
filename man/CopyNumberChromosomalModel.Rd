@@ -35,7 +35,8 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
  }
 
  \usage{
-CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", maxNAFraction=1/5, ...)
+CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*",
+  genome="Human", maxNAFraction=1/5, ...)
 }
 
  \arguments{

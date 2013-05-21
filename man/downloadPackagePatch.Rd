@@ -18,7 +18,8 @@
  }
 
  \usage{
-\method{downloadPackagePatch}{default}(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE)
+\method{downloadPackagePatch}{default}(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches",
+  pkgVer=NULL, ..., verbose=FALSE)
 }
 
  \arguments{

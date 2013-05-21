@@ -22,7 +22,8 @@
 }
 
 \usage{
-\method{processTime}{default}(since=NULL, units=c("seconds", "milliseconds", "minutes", "hours", "days"), fmtstr=NULL, ...)
+\method{processTime}{default}(since=NULL, units=c("seconds", "milliseconds", "minutes", "hours", "days"),
+  fmtstr=NULL, ...)
 }
 
 \arguments{

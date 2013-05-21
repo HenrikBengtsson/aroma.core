@@ -17,7 +17,8 @@
 }
 
 \usage{
-\method{as.GrayscaleImage}{matrix}(z, transforms=NULL, interleaved=c("none", "h", "v", "auto"), scale=1, ..., verbose=FALSE)
+\method{as.GrayscaleImage}{matrix}(z, transforms=NULL, interleaved=c("none", "h", "v", "auto"), scale=1,
+  ..., verbose=FALSE)
 }
 
 \arguments{

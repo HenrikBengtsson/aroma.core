@@ -20,10 +20,13 @@
 
 \usage{
 ## Static method (use this):
-## AromaTabularBinaryFile$allocate(filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)
+## AromaTabularBinaryFile$allocate(filename, path=NULL, nbrOfRows, types, sizes,
+##   signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(),
+##   ..., verbose=FALSE)
 
 ## Don't use the below:
-\method{allocate}{AromaTabularBinaryFile}(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)
+\method{allocate}{AromaTabularBinaryFile}(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA,
+  comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE)
 }
 
 \arguments{
