@@ -15,6 +15,8 @@ import("matrixStats")
 
 importFrom("R.cache", "loadCache")
 importFrom("R.cache", "saveCache")
+importFrom("R.cache", "getChecksum")
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional imports
@@ -26,7 +28,7 @@ importFrom("PSCBS", "plotTracksManyChromosomes");
 # EXPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Object that must exported explicitly
-export(.conflicts.OK) 
+export(.conflicts.OK)
 export(.Machine)
 
 # Export all public methods, that is, those without a preceeding dot
