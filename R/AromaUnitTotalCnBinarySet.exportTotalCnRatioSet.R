@@ -55,7 +55,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     pushState(verbose);
     on.exit(popState(verbose));
   }
- 
+
 
   verbose && enter(verbose, "Calculating CN ratios");
   dataSet <- getFullName(this);
@@ -98,7 +98,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if (!is.null(refSet)) {
       ceR <- getFile(refSet, kk);
-      refName <- getFullName(ceR); 
+      refName <- getFullName(ceR);
       refName <- gsub(",(total|log2ratio)", "", refName);
       refTag <- sprintf("ref=%s", refName);
     } else {
@@ -128,7 +128,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     asb <- AromaUnitSignalBinaryFile$allocate(pathnameT, nbrOfRows=nbrOfUnits(ce), platform=platform, chipType=chipType);
     verbose && print(verbose, asb);
     verbose && exit(verbose);
-  
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Calculating relative CNs
@@ -205,10 +205,10 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
         dataSet=dataSet,
         fullName=getFullName(ceR),
         filename=getFilename(ceR),
-        checksum=getChecksum(ceR) 
+        checksum=getChecksum(ceR)
       );
     } else {
-      refFile <- list(thetaR=digest2(thetaR));
+      refFile <- list(thetaR=getChecksum(thetaR));
     }
 
     footer <- readFooter(asb);
@@ -217,7 +217,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
         dataSet=dataSet,
         fullName=getFullName(ce),
         filename=getFilename(ce),
-        checksum=getChecksum(ce) 
+        checksum=getChecksum(ce)
       ),
       refFile = refFile
     );
@@ -255,7 +255,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 # 2009-09-24
 # o Added more verbose output.
 # 2009-06-13
-# o BUG FIX: exportTotalCnRatioSet() would return a 
+# o BUG FIX: exportTotalCnRatioSet() would return a
 #   AromaUnitFracBCnBinarySet.
 # 2009-05-17
 # o BUG FIX: exportTotalCnRatioSet() would return any signal file.

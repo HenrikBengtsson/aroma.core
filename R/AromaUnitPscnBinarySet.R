@@ -6,10 +6,10 @@
 # \description{
 #  @classhierarchy
 #
-#  An AromaUnitPscnBinarySet object represents a set of 
+#  An AromaUnitPscnBinarySet object represents a set of
 #  @see "AromaUnitPscnBinaryFile"s with \emph{identical} chip types.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -19,7 +19,7 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitPscnBinarySet", function(...) {
@@ -29,14 +29,14 @@ setConstructorS3("AromaUnitPscnBinarySet", function(...) {
 
 setMethodS3("byName", "AromaUnitPscnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData"), pattern=".*,pscn[.]asb$") {
   suppressWarnings({
-    path <- findByName(static, name=name, tags=tags, chipType=chipType, 
+    path <- findByName(static, name=name, tags=tags, chipType=chipType,
                                            ..., paths=paths, mustExist=TRUE);
   })
 
   suppressWarnings({
     byPath(static, path=path, ..., pattern=pattern);
   })
-}, static=TRUE) 
+}, static=TRUE)
 
 
 setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL, prefix="average", indices="remaining", mean=c("median", "mean"), sd=c("mad", "sd"), na.rm=TRUE, g=NULL, h=NULL, ..., unitsPerChunk=ram*10^7/length(this), ram=1, force=FALSE, verbose=FALSE) {
@@ -75,13 +75,13 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   } else if (is.function(sd)) {
     sdName <- "customSd";
   } else {
-    throw("Argument 'sd' must be either a character or a function: ", 
+    throw("Argument 'sd' must be either a character or a function: ",
                                                            mode(sd));
   }
 
   # Argument 'name':
   if (is.null(name)) {
-    key <- list(method="getAverageFile", class=class(this)[1], 
+    key <- list(method="getAverageFile", class=class(this)[1],
                 arrays=sort(getNames(this)), mean=meanName, sd=sdName);
     # assign mean and sd to an empty environment so that digest() doesn't
     # pick up any "promised" objects from the original environment.
@@ -91,7 +91,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
         environment(x) <- emptyenv();
       x;
     })
-    id <- digest2(key);
+    id <- getChecksum(key);
     field <- "signals";
     name <- sprintf("%s-%s-%s-%s,%s", prefix, field, meanName, sdName, id);
   }
@@ -106,7 +106,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   }
 
   if (is.null(indices)) {
-    indices <- 1:nbrOfUnits; 
+    indices <- 1:nbrOfUnits;
   } else if (identical(indices, "remaining")) {
   } else {
     indices <- Arguments$getIndices(indices, max=nbrOfUnits);
@@ -258,7 +258,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
     );
     srcDetails <- list(
       nbrOfFiles = length(srcFiles),
-      checkSum = digest2(srcFiles)
+      checkSum = getChecksum(srcFiles)
     );
     footer$srcDetails <- srcDetails;
     footer$params <- params;
@@ -266,7 +266,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   }
 
   # Since we might want to do this robustly, but also because we want to
-  # estimate the standard deviation, for each unit we need all data across 
+  # estimate the standard deviation, for each unit we need all data across
   # arrays at once.  In order to this efficiently, we do this in chunks
 
   arrays <- seq_len(nbrOfArrays);
@@ -286,36 +286,36 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
         X[,kk] <- df[idxs,cc, drop=TRUE];
       }
       verbose && exit(verbose);
-  
+
       if (!is.null(g)) {
         verbose && enter(verbose, "Transforming data using y = g(x)");
         X <- g(X);
         verbose && exit(verbose);
       }
-  
+
       verbose && enter(verbose, "Estimating averages and standard deviations");
       if (na.rm) {
         n <- base::apply(X, MARGIN=1, FUN=function(x) { sum(!is.na(x)) });
       }
-      # Calculate the mean signal    
+      # Calculate the mean signal
       mu <- mean(X, na.rm=na.rm);          # Special mean()!
       # Calculate the standard deviation of the signals
       sigma <- sd(X, mean=mu, na.rm=na.rm);   # Special sd()!
       verbose && exit(verbose);
-  
+
       if (!is.null(h)) {
         verbose && enter(verbose, "Back-transforming estimates using x = h(y)");
         mu <- h(mu);
         sigma <- h(sigma);
         verbose && exit(verbose);
       }
-  
+
       # Write estimates to result file
       verbose && enter(verbose, "Writing estimates");
       res[idxs,cc] <- mu;
       ## Only mu is supported. \HB 2009-11-19 ##, stdvs=sigma, pixels=n);
       verbose && exit(verbose);
-  
+
       verbose && exit(verbose);
     } # for (cc ...)
 
@@ -326,7 +326,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
 
   verbose && exit(verbose);
 
-  res;  
+  res;
 }) # getAverageFile()
 
 

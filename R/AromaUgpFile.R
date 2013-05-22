@@ -158,9 +158,9 @@ setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, 
 # OBSOLETE?
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("getUnitsAt", "AromaUgpFile", function(this, chromosomes, region=NULL, ..., force=FALSE, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument '...':
   args <- list(...);
   if ("chromosome" %in% names(args)) {
@@ -176,9 +176,9 @@ setMethodS3("getUnitsAt", "AromaUgpFile", function(this, chromosomes, region=NUL
 
 
   # Cached in memory?
-  key <- list(method="getUnitsAt", class="AromaUgpFile", 
+  key <- list(method="getUnitsAt", class="AromaUgpFile",
                   chromosomes=chromosomes, region=region);
-  key <- digest2(key);
+  key <- getChecksum(key);
   if (!force) {
     res <- this$.memoryCache[["getUnitsAt"]][[key]];
     if (!is.null(res))
@@ -188,7 +188,7 @@ setMethodS3("getUnitsAt", "AromaUgpFile", function(this, chromosomes, region=NUL
   # Stratify by chromosome
   data <- this[,1,drop=TRUE];
 
-  # Update known chromosomes, if not already done.  
+  # Update known chromosomes, if not already done.
   allChromosomes <- getChromosomes(this, .chromosomes=data);
 
   keep <- !is.na(data) & (data %in% chromosomes);
@@ -206,7 +206,7 @@ setMethodS3("getUnitsAt", "AromaUgpFile", function(this, chromosomes, region=NUL
 
   cache <- list(idxs); names(cache) <- key;
   this$.memoryCache[["getUnitsAt"]] <- cache;
-  
+
   idxs;
 }, protected=TRUE)
 
@@ -236,9 +236,9 @@ setMethodS3("getUnitsAt", "AromaUgpFile", function(this, chromosomes, region=NUL
 # 2008-04-29
 # o BUG FIX: Name clash in getUnitsAt() after new argument 'chromosomes'.
 # 2008-04-17
-# o Renamed argument 'chromosome' of getUnitsAt() of AromaUgpFile to 
-#   'chromosomes'.  This was done in order to make it consistent with 
-#   getUnitsOnChromosome() of GenomeInformation. Thanks Tim Keighley at 
+# o Renamed argument 'chromosome' of getUnitsAt() of AromaUgpFile to
+#   'chromosomes'.  This was done in order to make it consistent with
+#   getUnitsOnChromosome() of GenomeInformation. Thanks Tim Keighley at
 #   CSIRO for pointing this out.
 # 2008-04-14
 # o Renamed readData() to readDataFrame() for AromaTabularBinaryFile.

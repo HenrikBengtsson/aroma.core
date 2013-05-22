@@ -8,11 +8,11 @@
 #
 #  This \emph{abstract} class represents a copy-number segmentation model.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
-#   \item{...}{Arguments passed to constructor 
+#   \item{...}{Arguments passed to constructor
 #      @see "CopyNumberChromosomalModel".}
 # }
 #
@@ -29,7 +29,7 @@ setConstructorS3("CopyNumberSegmentationModel", function(...) {
 
 setMethodS3("getAsteriskTags", "CopyNumberSegmentationModel", function(this, collapse=NULL, ..., tag=NULL) {
   if (is.null(tag)) {
-    # Infer 'GLAD' from GladModel, 'CBS' from CbsModel, 
+    # Infer 'GLAD' from GladModel, 'CBS' from CbsModel,
     # 'HAARSEG' from HaarSegModel, and so on.
     tag <- class(this)[1];
     tag <- gsub("Model$", "", tag);
@@ -103,7 +103,7 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #     already fitted.}
 #   \item{...}{Additional arguments passed to the segmentation method for
 #     the @see "aroma.core::RawGenomicSignals".}
-#   \item{.retResults}{If @TRUE, the segmentation fit structures are 
+#   \item{.retResults}{If @TRUE, the segmentation fit structures are
 #     returned for each fitted array and chromosome.}
 #   \item{verbose}{A @logical or @see "R.utils::Verbose".}
 # }
@@ -167,7 +167,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
 ##    chromosomes[chromosomes == "23"] <- "X";   ## TODO
     chromosomes <- intersect(chromosomes, allChromosomes);
   } else if (is.character(chromosomes)) {
-    chromosomes <- Arguments$getChromosomes(chromosomes, 
+    chromosomes <- Arguments$getChromosomes(chromosomes,
                                                 range=range(allChromosomes));
 ##    chromosomes[chromosomes == "23"] <- "X";   ## TODO
     chromosomes <- intersect(chromosomes, getChromosomes(this));
@@ -247,7 +247,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     rfTags <- c(names, rfTags);
     rfTags <- unique(rfTags);
     if (length(rfTags) != 1L) {
-      rfTags <- digest2(rfTags);
+      rfTags <- getChecksum(rfTags);
     }
     verbose && cat(verbose, "Reference tags: ", paste(rfTags, collapse=","));
 
@@ -257,8 +257,8 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     res[[arrayName]] <- list();
     for (chr in chromosomes) {
-      verbose && enter(verbose, 
-                          sprintf("Array #%d ('%s') of %d on chromosome %s", 
+      verbose && enter(verbose,
+                          sprintf("Array #%d ('%s') of %d on chromosome %s",
                                            aa, arrayName, nbrOfArrays, chr));
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -356,7 +356,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
 
         # Report time profiling
         totalTime <- processTime() - startTime;
-  
+
         if (verbose) {
           t <- totalTime[3];
           printf(verbose, "Total time for chromosome %d: %.2fs == %.2fmin\n", chr, t, t/60);
@@ -379,7 +379,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         res[[arrayName]][[chr]] <- fit;
 
       rm(fit);
-   
+
       verbose && exit(verbose);
     } # for (chr in ...)
   } # for (aa in ...)
@@ -506,7 +506,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
       start[start < 0] <- 0;
       stop <- stop + m;
       urls <- character(nrow(df));
-      for (rr in seq_along(urls)) { 
+      for (rr in seq_along(urls)) {
         urls[rr] <- url(chromosome[rr], start[rr], stop[rr]);
       }
       df <- cbind(df, url=urls);
@@ -524,7 +524,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
     }
     row.names(df) <- seq_len(nrow(df));
     res <- df;
-  }  
+  }
 
   res;
 })
@@ -556,7 +556,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
   path <- Arguments$getWritablePath(path);
 
   if (oneFile) {
-    filename <- sprintf("%s,regions.%s", fullname, format); 
+    filename <- sprintf("%s,regions.%s", fullname, format);
     pathname <- filePath(path, filename);
     pathname <- Arguments$getWritablePathname(pathname);
     if (!skip && isFile(pathname)) {
@@ -568,7 +568,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
   for (aa in seq_along(arrays)) {
     array <- arrays[aa];
     name <- arrayNames[aa];
-    verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", 
+    verbose && enter(verbose, sprintf("Array #%d ('%s') of %d",
                                                aa, name, length(arrays)));
     df <- getRegions(this, arrays=array, ..., verbose=less(verbose))[[1]];
     names(df) <- gsub("Smoothing", "log2", names(df));
@@ -580,7 +580,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
       } else if (identical(format, "wig")) {
         # Write a four column WIG/BED table
         df <- df[,c("chromosome", "start", "stop", "log2")];
-  
+
         # In the UCSC Genome Browser, the maximum length of one element
         # is 10,000,000 bases.  Chop up long regions in shorter contigs.
         verbose && enter(verbose, sprintf("Chopping up too long segment"));
@@ -598,7 +598,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
               df1 <- df[rr,];
               df1[,"start"] <- x0;
               df1[,"stop"] <- x1;
-              dfXtra <- rbind(dfXtra, df1);          
+              dfXtra <- rbind(dfXtra, df1);
               x0 <- x1+1;
             }
           }
@@ -612,13 +612,13 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
         chrIdx <- as.integer(df[,"chromosome"]);
         o <- order(chrIdx, df[,"start"]);
         df <- df[o,];
-  
+
         # All chromosomes should have prefix 'chr'.
         chrIdx <- as.integer(df[,"chromosome"]);
         ## df[chrIdx == 23,"chromosome"] <- "X"; ## REMOVED 2007-03-15
         df[,"chromosome"] <- paste("chr", df[,"chromosome"], sep="");
       }
-  
+
       # Apply digits
       for (cc in seq_len(ncol(df))) {
         value <- df[,cc];
@@ -630,7 +630,7 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
 
     if (!oneFile) {
       savename <- name;
-      filename <- sprintf("%s,regions.%s", savename, format); 
+      filename <- sprintf("%s,regions.%s", savename, format);
       pathname <- filePath(path, filename);
       if (!oneFile && !skip && isFile(pathname))
         file.remove(pathname);
@@ -647,8 +647,8 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
       # Write track control
       trackAttr <- c(type="wiggle_0");
       trackAttr <- c(trackAttr, name=sprintf("\"%s\"", name));
-      trackAttr <- c(trackAttr, 
-                     group=sprintf("\"%s regions\"", 
+      trackAttr <- c(trackAttr,
+                     group=sprintf("\"%s regions\"",
                                 getAsteriskTags(this, collapse=",")));
       trackAttr <- c(trackAttr, priority=array);
       trackAttr <- c(trackAttr, graphType="bar");
@@ -662,7 +662,7 @@ ylim <- c(-1,1);
         trackAttr <- c(trackAttr, color=col[1], altColor=col[2]);
       }
       if (!is.null(ylim)) {
-        trackAttr <- c(trackAttr, autoScale="off", 
+        trackAttr <- c(trackAttr, autoScale="off",
               viewLimits=sprintf("%.2f:%.2f ", ylim[1], ylim[2]));
       }
       trackAttr <- paste(names(trackAttr), trackAttr, sep="=");
@@ -673,7 +673,7 @@ ylim <- c(-1,1);
 
       # Write data
       verbose && str(verbose, df);
-      write.table(df, file=pathname, sep="\t", col.names=FALSE, 
+      write.table(df, file=pathname, sep="\t", col.names=FALSE,
                   row.names=FALSE, quote=FALSE, append=oneFile);
     }
     verbose && exit(verbose);
@@ -696,7 +696,7 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 
   fullnames <- paste(names, tags, sep=",");
   fullnames <- gsub(",$", "", fullnames);
-  
+
   fullnames;
 })
 
@@ -704,7 +704,7 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 ##############################################################################
 # HISTORY:
 # 2011-02-07
-# o Now fit() for CopyNumberSegmentationModel passes down argument 
+# o Now fit() for CopyNumberSegmentationModel passes down argument
 #   'maxNAFraction' to extractRawCopyNumbers().  This argument used to
 #   work before aroma.core v1.3.4.
 # 2010-10-25
@@ -716,8 +716,8 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 # o Added getFullNames() to CopyNumberSegmentationModel in order to be
 #   backward compatible with previous versions.
 # 2009-12-31
-# o BUG FIX: After the recent updates, the getTags() methods of 
-#   CopyNumberSegmentationModel could give "Error in strsplit(tags, 
+# o BUG FIX: After the recent updates, the getTags() methods of
+#   CopyNumberSegmentationModel could give "Error in strsplit(tags,
 #   split = ",") : non-character argument".
 # 2009-11-22
 # o CLEAN UP: Now extractRawCopyNumbers() is used; not old getRawCnData().
@@ -727,12 +727,12 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 #   that the code of super classes still assumes Affymetrix data.
 # o CLEAN UP: Using getDataFileMatrix() instead of the old name
 #   getMatrixChipEffectFiles().
-# o CLEAN UP: Cleaning up code and comments so it is less specific to 
+# o CLEAN UP: Cleaning up code and comments so it is less specific to
 #   Affymetrix data.
 # 2009-05-16
 # o Added generic getAsteriskTags() for CopyNumberSegmentationModel.
 # o Classes extending CopyNumberSegmentationModel do no longer need to have
-#   a fitOne() method.  Instead, they need to implement a static 
+#   a fitOne() method.  Instead, they need to implement a static
 #   getFitFunction() which should return a segmentByNnn() function for the
 #   RawGenomicSignals class.
 # 2008-03-10
@@ -753,7 +753,7 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 # o Made a better job cleaning out non-needed objects in process().
 # 2007-09-15
 # o Added getGenome() and setGenome().  Now, getGenomeData() searches for a
-#   matching <genome>(,<tags)*,chromosomes.txt in 
+#   matching <genome>(,<tags)*,chromosomes.txt in
 #   annotationData/genomes/<genome>/. As a backup it also searches in the
 #   corrsponding package directory(ies).
 #   hgChromosomes.txt is no longer used.
@@ -766,11 +766,11 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
 #   with everything else, but for now we leave it as it since that works well.
 # 2007-09-04
 # o Now plot() is fully implemented CopyNumberSegmentationModel.  Subclasses
-#   pretty much only have to implement pointsRawCNs() if wanted extra 
+#   pretty much only have to implement pointsRawCNs() if wanted extra
 #   features, e.g. colors and outliers.
 # 2007-08-20
 # o It was actually not much that was hardwired to the GLAD model.
-#   Note that most methods, including fit(), are generic enough to be 
+#   Note that most methods, including fit(), are generic enough to be
 #   defined in the superclass.  Methods that need to be implemented in
 #   subclasses are: fitOne().
 # o Created from GladModel.R.

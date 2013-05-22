@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.9.3 [2013-05-22]
+o CLEANUP: Now using getChecksum() instead of (internal) 
+  R.filesets::digest2() with identical results.
+
+
 Version: 2.9.2 [2013-05-22]
 o BUG FIX: extractRawCopyNumbers() for CopyNumberChromosomalModel 
   would throw 'Error in UseMethod("getChecksum") : no applicable
