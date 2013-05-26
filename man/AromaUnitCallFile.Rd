@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitCallFile}
+\name{AromaUnitCallFile}
 \docType{class}
 \alias{AromaUnitCallFile}
 
 
- \title{The AromaUnitCallFile class}
+\title{The AromaUnitCallFile class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaUnitCallFile}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -47,19 +47,19 @@ extends \link[aroma.core]{AromaUnitSignalBinaryFile}\cr
 
 
 
-  An AromaUnitCallFile is a \code{\link{AromaUnitSignalBinaryFile}}.
- }
+ An AromaUnitCallFile is a \code{\link{AromaUnitSignalBinaryFile}}.
+}
 
- \usage{
+\usage{
 AromaUnitCallFile(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinaryFile}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinaryFile}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{extractCallArray} \tab  -\cr
  \tab \code{extractCalls} \tab  -\cr
@@ -99,7 +99,7 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

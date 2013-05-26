@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -20,7 +20,7 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @examples "../incl/BinnedScatter.Rex"
 #
 # @author
@@ -29,7 +29,7 @@
 #   The spatial density is estimated by internal functions of the
 #   \pkg{smoothScatter} package.
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("BinnedScatter", function(data=NULL, density=NULL, map=NULL, params=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -133,7 +133,8 @@ setMethodS3("subsample", "BinnedScatter", function(object, size=NULL, ...) {
   # Randomized sampling according to weights
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   subset <- resample(1:length(w), size=size, prob=w, replace=FALSE);
-  rm(w);
+  # Not needed anymore
+  w <- NULL;
   res <- subset(object, subset=subset, ...);
 
   res;
@@ -169,7 +170,8 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
   # Estimate density only from finite data points
   ok <- which(is.finite(x[,1]) & is.finite(x[,2]));
   x <- x[ok,,drop=FALSE];
-  rm(ok);
+  # Not needed anymore
+  ok <- NULL;
   map <- calcDensity(x, nbin=nbin);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -230,4 +232,4 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
 # o Added constructor and reorder().
 # 2008-11-14
 # o Created.
-############################################################################ 
+############################################################################

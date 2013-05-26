@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitTotalCnBinarySet}
+\name{AromaUnitTotalCnBinarySet}
 \docType{class}
 \alias{AromaUnitTotalCnBinarySet}
 
 
- \title{The AromaUnitTotalCnBinarySet class}
+\title{The AromaUnitTotalCnBinarySet class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaUnitTotalCnBinarySet}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -41,20 +41,20 @@ extends \link[aroma.core]{CopyNumberDataSet}\cr
 
 
 
-  An AromaUnitTotalCnBinarySet object represents a set of
-  \code{\link{AromaUnitTotalCnBinaryFile}}s with \emph{identical} chip types.
- }
+ An AromaUnitTotalCnBinarySet object represents a set of
+ \code{\link{AromaUnitTotalCnBinaryFile}}s with \emph{identical} chip types.
+}
 
- \usage{
+\usage{
 AromaUnitTotalCnBinarySet(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinarySet}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinarySet}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{as.AromaUnitTotalCnBinarySetTuple} \tab  -\cr
  \tab \code{as.CopyNumberDataSetTuple} \tab  -\cr
@@ -90,7 +90,7 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

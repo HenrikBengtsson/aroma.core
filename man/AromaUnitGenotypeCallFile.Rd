@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitGenotypeCallFile}
+\name{AromaUnitGenotypeCallFile}
 \docType{class}
 \alias{AromaUnitGenotypeCallFile}
 
 
- \title{The AromaUnitGenotypeCallFile class}
+\title{The AromaUnitGenotypeCallFile class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaUnitGenotypeCallFile}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -49,19 +49,19 @@ extends \link[aroma.core]{AromaUnitCallFile}\cr
 
 
 
-  An AromaUnitGenotypeCallFile is a \code{\link{AromaUnitTabularBinaryFile}}.
- }
+ An AromaUnitGenotypeCallFile is a \code{\link{AromaUnitTabularBinaryFile}}.
+}
 
- \usage{
+\usage{
 AromaUnitGenotypeCallFile(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaUnitTabularBinaryFile}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaUnitTabularBinaryFile}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{extractGenotypeMatrix} \tab  -\cr
  \tab \code{extractGenotypes} \tab  -\cr
@@ -105,7 +105,7 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

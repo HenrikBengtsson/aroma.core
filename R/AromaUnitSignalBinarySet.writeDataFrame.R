@@ -8,7 +8,7 @@
 #   @get "title" with or without file header comments.
 #
 #  \emph{We do neither recommend nor encourage the usage of this method;
-#   it is only available due to popular demand}.  
+#   it is only available due to popular demand}.
 #   For more details, see below.
 # }
 #
@@ -33,7 +33,7 @@
 # }
 #
 # \section{Warning}{
-#  There is no limitation in how big the generated file can be. 
+#  There is no limitation in how big the generated file can be.
 #  The bigger the data set is, the greater the file size will be.
 #  Because of this, \emph{we do neither recommend nor encourage the usage
 #  of this method}.  It is available only due to popular demand.
@@ -49,11 +49,11 @@
 #  @see "AromaUnitSignalBinaryFile".
 #  @seeclass
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filename=sprintf("%s.txt", getFullName(this)), path=file.path(getRootName(this, tags="*,txt"), getFullName(this), getChipType(this, fullname=FALSE)), ..., units=NULL, columns=c("unitName", "*"), sep="\t", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, ram=1, columnNamesPrefix=c("fullnames", "names", "none"), overwrite=FALSE, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getAnnotationData <- function(df, columns, ...) {
     res <- list();
 
@@ -72,14 +72,15 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
       verbose && enter(verbose, "Unit names");
       unf <- getUnitNamesFile(ugp);
       verbose && cat(verbose, "Filename: ", getFilename(unf));
-  
+
       unitNames <- getUnitNames(unf);
       verbose && str(verbose, unitNames);
       # Sanity check
       stopifnot(length(unitNames) == nbrOfUnits);
 
       res$unitName <- unitNames;
-      rm(unitNames);
+      # Not needed anymore
+      unitNames <- NULL;
 
       verbose && exit(verbose);
     }
@@ -99,7 +100,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     verbose && str(verbose, res);
 
     verbose && exit(verbose);
-  
+
     res;
   } # getAnnotationData()
 
@@ -152,7 +153,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   overwrite <- Arguments$getLogical(overwrite);
 
   # Argument 'filename' & 'path':
-  pathname <- Arguments$getWritablePathname(filename, path=path, 
+  pathname <- Arguments$getWritablePathname(filename, path=path,
                                                   mustNotExist=!overwrite);
 
   # Argument 'addHeader':
@@ -200,12 +201,13 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # Add annotation data columns?
   adColumnNames <- intersect(knownAnnotationColumnNames, columns);
   if (length(adColumnNames) > 0) {
-    adData <- getAnnotationData(this, columns=adColumnNames, 
+    adData <- getAnnotationData(this, columns=adColumnNames,
                                                  verbose=less(verbose, 5));
   } else {
     adData <- NULL;
   }
-  rm(adColumnNames);
+  # Not needed anymore
+  adColumnNames <- NULL;
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -244,7 +246,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     columnTypes <- rep(columnTypes, times=nbrOfFiles);
 
     # Sanity check
-    columnTypes <- Arguments$getCharacters(columnTypes, 
+    columnTypes <- Arguments$getCharacters(columnTypes,
                                       length=rep(nbrOfColumns, 2));
 
     # Annotation data column types
@@ -275,7 +277,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     }
 
     # Sanity check
-    columnNames <- Arguments$getCharacters(columnNames, 
+    columnNames <- Arguments$getCharacters(columnNames,
                                       length=rep(nbrOfColumns, 2));
 
     # Annotation data column names
@@ -285,7 +287,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     allColumnNames <- c(adColumnNames, columnNames);
     allColumnNamesStr <- paste(allColumnNames, collapse="\t");
     hdr <- c(hdr, sprintf("columnNames: %s", allColumnNamesStr));
-    rm(allColumnNamesStr);
+    # Not needed anymore
+    allColumnNamesStr <- NULL;
 
     # Turn into file comments
     hdr <- paste("# ", hdr, sep="");
@@ -340,7 +343,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
   verbose && cat(verbose, "Units:");
   verbose && str(verbose, unitsLeft);
-  
+
   for (kk in seq_len(nbrOfChunks)) {
     verbose && enter(verbose, sprintf("Chunk #%d of %d", kk, nbrOfChunks));
 
@@ -362,26 +365,27 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
       # For each data column
       for (cc in seq_len(nbrOfColumnsPerFile)) {
         values <- dataII[,cc, drop=TRUE];
-    
+
         # Exporting all missing values as "NA" (not NaN).
         values[is.na(values)] <- NA;
         verbose && cat(verbose, "Signals:");
         verbose && str(verbose, values);
-    
+
         # Sanity check: Don't allow infinite values
         if (any(is.infinite(values))) {
           throw("Detected infinite values: ", sum(is.infinite(values)));
         }
-    
+
         # Round off results?
         if (is.double(values) && nbrOfDecimals < Inf) {
           verbose && cat(verbose, "Number of decimals: ", nbrOfDecimals);
           fmtstr <- sprintf("%%.%df", nbrOfDecimals);
           values <- sprintf(fmtstr, values);
         }
-    
+
         dataII[,cc] <- values;
-        rm(values);
+        # Not needed anymore
+        values <- NULL;
       } # for (cc ...)
 
       if (ii == 1) {
@@ -390,7 +394,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
         dataKK <- cbind(dataKK, dataII);
       }
 
-      rm(dataII, df);
+      # Not needed anymore
+      dataII <- df <- NULL;
       verbose && exit(verbose);
     } # for (ii ...)
     verbose && str(verbose, dataKK);
@@ -409,7 +414,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
       verbose && cat(verbose, "Data with annotation data:");
       verbose && str(verbose, dataKK);
-      rm(adDataKK);
+      # Not needed anymore
+      adDataKK <- NULL;
       verbose && exit(verbose);
     }
 
@@ -417,9 +423,10 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     verbose && exit(verbose);
 
     verbose && enter(verbose, "Writing signals");
-    write.table(file=pathnameT, dataKK, sep=sep, quote=FALSE, row.names=FALSE, 
+    write.table(file=pathnameT, dataKK, sep=sep, quote=FALSE, row.names=FALSE,
                                             col.names=FALSE, append=TRUE);
-    rm(dataKK);
+    # Not needed anymore
+    dataKK <- NULL;
     verbose && exit(verbose);
 
     gc <- gc();
@@ -433,7 +440,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
 
     verbose && exit(verbose);
   } # for (kk ...)
-  rm(adData);
+  # Not needed anymore
+  adData <- NULL;
 
   verbose && exit(verbose);
 

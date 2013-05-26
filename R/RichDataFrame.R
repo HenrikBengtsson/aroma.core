@@ -40,7 +40,7 @@ setMethodS3("getGenericSummary", "RichDataFrame", function(x, ...) {
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   class(s) <- "GenericSummary";
   s;
-}, private=TRUE) 
+}, private=TRUE)
 
 
 setMethodS3("print", "RichDataFrame", function(x, ...) {
@@ -94,7 +94,7 @@ setMethodS3("setColumnNamesMap", "RichDataFrame", function(this, ...) {
 
   setColumnNamesTranslator(this, fcn, ...);
 }) # setColumnNamesMap()
-  
+
 
 setMethodS3("getColumnNamesTranslator", "RichDataFrame", function(this, ...) {
   attr(this, ".columnNamesTranslator");
@@ -261,7 +261,7 @@ setMethodS3("subset", "RichDataFrame", function(x, subset, select, drop=FALSE, e
   }
 
   # Not needed anymore
-  rm(data);
+  data <- NULL;
 
   res <- this[r,, drop=drop];
 
@@ -299,7 +299,8 @@ setMethodS3("as.data.frame", "RichDataFrame", function(x, ..., virtual=TRUE, tra
         data[[name]] <- getVirtualColumn(this, name, data=dataT);
       } # for (name ...)
 
-      rm(dataT);
+      # Not needed anymore
+      dataT <- NULL;
     }
   }
 
@@ -373,7 +374,7 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   }
 
   # Not needed anymore
-  rm(data);
+  data <- NULL;
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -443,7 +444,7 @@ setMethodS3("[[", "RichDataFrame", function(x, name) {
   colnames <- getColumnNames(this);
   ncol <- length(colnames);
 
-  # Argument 'name':  
+  # Argument 'name':
   if (length(name) == 0) {
     throw("attempt to select less than one element");
   }
@@ -697,7 +698,7 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
   class(this) <- "data.frame";
   class(other) <- "data.frame";
   res <- rbind(this, other);
-  class(res) <- class;   
+  class(res) <- class;
 
   # Preserve attributes
   res <- setAttributes(res, attributes(this));

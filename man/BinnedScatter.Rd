@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{BinnedScatter}
+\name{BinnedScatter}
 \docType{class}
 \alias{BinnedScatter}
 
 
- \title{The BinnedScatter class}
+\title{The BinnedScatter class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class BinnedScatter}\cr
 
 \code{list}\cr
@@ -28,22 +28,22 @@ public class \bold{BinnedScatter}\cr
 extends list\cr
 
 
- }
+}
 
- \usage{
+\usage{
 BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
 }
 
- \arguments{
-   \item{data}{A Nx2 @numaric \code{\link[base]{matrix}}.}
-   \item{density}{...}
-   \item{map}{...}
-   \item{params}{A \code{\link[base]{list}} of parameters.}
-   \item{...}{Not used.}
- }
+\arguments{
+  \item{data}{A Nx2 @numaric \code{\link[base]{matrix}}.}
+  \item{density}{...}
+  \item{map}{...}
+  \item{params}{A \code{\link[base]{list}} of parameters.}
+  \item{...}{Not used.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
@@ -57,9 +57,9 @@ BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
 all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, callHooks, exportAromaUnitPscnBinarySet, listToXml, mergeBoxplotStats, relist, within
 
 
- }
+}
 
- \examples{
+\examples{
 # Sample scatter data
 n <- 10e3
 x <- rnorm(n=n)
@@ -89,10 +89,10 @@ for (kk in seq(along=rhos)) {
 }
 }
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   The spatial density is estimated by internal functions of the
-   \pkg{smoothScatter} package.
- }
+\seealso{
+  The spatial density is estimated by internal functions of the
+  \pkg{smoothScatter} package.
+}
 \keyword{classes}

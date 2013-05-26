@@ -2,9 +2,9 @@ setMethodS3("onFitAddGenotypeCalls", "default", function(fit, ...) {
 }, protected=FALSE)
 
 setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, arrayName, resScale=1e6, ylim=NULL, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   gladFit <- Arguments$getInstanceOf(gladFit, "profileCGH");
 
   # Nothing to do?
@@ -20,9 +20,9 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Setup
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Extract data
   pv <- gladFit$profileValues;
 
@@ -37,7 +37,7 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
 
   # Extract the chromosome from the GLAD fit object
   pv <- gladFit$profileValues;
-  
+
   verbose && enter(verbose, "Adding genotype calls");
 
   # Figure out where to put the genotype track?
@@ -73,7 +73,7 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
     call <- as.character(call);
 
     # Get the positions of these calls
-    x <- pv$PosBase[idxs]; 
+    x <- pv$PosBase[idxs];
     x <- x/resScale;
 
     # Plot the homozygote/heterozygote genotype tracks
@@ -83,7 +83,8 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
     y <- y[call];
     points(x,y, pch=".", cex=2, col=callCols[call]);
 
-    rm(idxs, call, callSet, units, x, y);  # Not needed anymore
+    # Not needed anymore
+    idxs <- call <- callSet <- units <- x <- y <- NULL;
   } # for (chipType ...)
 
   verbose && exit(verbose);
@@ -180,8 +181,8 @@ setMethodS3("onFitAddGenotypeCalls", "GladModel", function(gladFit, callList, ar
 # 2006-12-15
 # o This class should be considered temporary, because we might design a
 #   ChipEffectSet class that can contain multiple chip types, but treated as
-#   if it contained one chip type, so it can be passed to the current 
-#   GladModel class.  However, such a class design will require multiple 
+#   if it contained one chip type, so it can be passed to the current
+#   GladModel class.  However, such a class design will require multiple
 #   inheritance etc, which will take time to develope.
 # o Created from GladModel.R with history as below:
 # 2006-11-29

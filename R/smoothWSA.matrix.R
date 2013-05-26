@@ -9,10 +9,10 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
   # Argument 'Y'
   K <- nrow(Y);  # Number of positions
   I <- ncol(Y);  # Number of samples
-  
+
   # Argument 'x'
   if (length(x) != K) {
-    throw("Argument 'x' has different number of values that rows in 'Y': ", 
+    throw("Argument 'x' has different number of values that rows in 'Y': ",
                                                      length(x), " != ", K);
   }
 
@@ -21,16 +21,16 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
     w <- 1; # Uniform prior weights.
   } else if (is.matrix(w)) {
     if (nrow(w) != K) {
-      throw("Argument 'w' has different number of rows than 'Y': ", 
+      throw("Argument 'w' has different number of rows than 'Y': ",
                                                      nrow(w), " != ", K);
     }
     if (ncol(w) != I) {
-      throw("Argument 'w' has different number of columns than 'Y': ", 
+      throw("Argument 'w' has different number of columns than 'Y': ",
                                                      ncol(w), " != ", I);
     }
   } else if (is.vector(w)) {
     if (length(w) != K) {
-      throw("Argument 'w' has different number of values that rows in 'Y': ", 
+      throw("Argument 'w' has different number of values that rows in 'Y': ",
                                                      length(w), " != ", K);
     }
   }
@@ -65,7 +65,7 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
   theta <- matrix(naValue, nrow=K, ncol=I);
   phi <- rep(naValue, times=K);
 
-  # At each position, calculate the weighed average using a 
+  # At each position, calculate the weighed average using a
   # Gaussian kernel.
   cat("Progress: ");
   for (kk in seq_len(K)) {
@@ -77,23 +77,25 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
 
     # Weight matrix
     wM <- matrix(wK, nrow=K, ncol=I);
-    rm(wK);
+    # Not needed anymore
+    wK <- NULL;
 
     # Multiple with prior (row) weights
     wM <- w*wM;
-   
+
     # Give missing values zero weight?
     if (na.rm)
       wM[nas] <- 0;
 
     wMR <- rowSums(wM);
     keep <- which(wMR > 0);
-    rm(wMR);
+    # Not needed anymore
+    wMR <- NULL;
     if (length(keep) > 0) {
       wM <- wM[keep,,drop=FALSE];
       m <- M[keep,,drop=FALSE];
       verbose && print(verbose, list(m=m, wM=wM));
-      
+
       # Standardize wM such that each column sum to one.
       wMs <- colSums(wM, na.rm=TRUE);
       wM <- wM/wMs;
@@ -101,11 +103,13 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
       # Weighted average
       theta[kk,] <- colSums(wM*m);
 
-      rm(m,wMs);
+      # Not needed anymore
+      m <- wMs <- NULL;
     } else {
       # If no data, keep theta:s and phi:s as (allocated) missing values.
     }
-    rm(wM,wMR,keep);
+    # Not needed anymore
+    wM <- wMR <- keep <- NULL;
   }
   cat(kk, "\n", sep="");
 

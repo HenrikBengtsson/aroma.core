@@ -23,7 +23,7 @@ setMethodS3("getProbePositionEffectDesignMatrix", "raw", function(seqs, B=NULL, 
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Setup the design matrix
@@ -61,7 +61,7 @@ setMethodS3("getProbePositionEffectDesignMatrix", "raw", function(seqs, B=NULL, 
   }
 
   for (bb in seq_along(factors)) {
-    verbose && enter(verbose, sprintf("Factor #%d ('%s') of %d", 
+    verbose && enter(verbose, sprintf("Factor #%d ('%s') of %d",
                                bb, names(factors)[bb], length(factors)));
 
     # For every position in the sequences
@@ -78,7 +78,8 @@ setMethodS3("getProbePositionEffectDesignMatrix", "raw", function(seqs, B=NULL, 
         cc <- 1 + df*(bb-1) + jj;
         X[idxs,cc] <- X[idxs,cc] + B[pp,jj];
       }
-      rm(idxs);
+      # Not needed anymore
+      idxs <- NULL;
 
       verbose && exit(verbose);
     } # for (pp ...)
@@ -87,8 +88,9 @@ setMethodS3("getProbePositionEffectDesignMatrix", "raw", function(seqs, B=NULL, 
     verbose && exit(verbose);
   } # for (bb ...)
 
-  rm(seqs);
-  gc <- gc();  
+  # Not needed anymore
+  seqs <- NULL;
+  gc <- gc();
 
   verbose && cat(verbose, "Design matrix:");
   verbose && str(verbose, X);
@@ -118,7 +120,7 @@ setMethodS3("getProbePositionEffectDesignMatrix", "character", function(seqs, ..
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Coercing sequences into a raw sequence matrix

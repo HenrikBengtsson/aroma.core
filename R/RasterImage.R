@@ -164,9 +164,9 @@ setMethodS3("setImageData", "RasterImage", function(this, data, ...) {
 
 
 setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'scale':
   scale <- Arguments$getDouble(scale, range=c(0,Inf));
   if (scale == 0) {
@@ -209,9 +209,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
 
   # Shrink or enlarge?
   if (scale < 1) {
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # (1) Scale by rows
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Map rows
     destRows <- seq(from=1, to=nrow2, length.out=nrow);
     destRows <- round(destRows);
@@ -221,7 +221,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     stopifnot(max(destRows) == nrow2);
     stopifnot(length(unique(destRows)) == nrow2);
 
-    # Allocate nrow2-by-ncol image 
+    # Allocate nrow2-by-ncol image
     dim2 <- dim;
     dim2[1] <- nrow2;
     z2 <- array(0, dim=dim2);
@@ -233,7 +233,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     }
 
     # Not needed anymore
-    rm(z);
+    z <- NULL;
 
     # Rescale intensities
     counts <- as.integer(table(destRows));
@@ -242,9 +242,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     z2 <- z2 / counts;
 
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # (2) Scale by columns
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Map rows
     destCols <- seq(from=1, to=ncol2, length.out=ncol);
     destCols <- round(destCols);
@@ -254,7 +254,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     stopifnot(max(destCols) == ncol2);
     stopifnot(length(unique(destCols)) == ncol2);
 
-    # Allocate nrow2-by-ncol2 image 
+    # Allocate nrow2-by-ncol2 image
     dim3 <- dim2;
     dim3[2] <- ncol2;
     z3 <- array(0, dim=dim3);
@@ -266,7 +266,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     }
 
     # Not needed anymore
-    rm(z2);
+    z2 <- NULL;
 
     # Rescale intensities
     counts <- as.integer(table(destCols));
@@ -279,11 +279,11 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     zN <- z3;
 
     # Not needed anymore
-    rm(z3);
+    z3 <- NULL;
   } else if (scale > 1) {
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # (1) Scale by rows
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Map rows
     srcRows <- seq(from=1, to=nrow, length.out=nrow2);
     srcRows <- round(srcRows);
@@ -293,7 +293,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     stopifnot(max(srcRows) == nrow);
     stopifnot(length(unique(srcRows)) == nrow);
 
-    # Allocate nrow2-by-ncol image 
+    # Allocate nrow2-by-ncol image
     dim2 <- dim;
     dim2[1] <- nrow2;
     z2 <- array(0, dim=dim2);
@@ -305,12 +305,12 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     }
 
     # Not needed anymore
-    rm(z);
+    z <- NULL;
 
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # (2) Scale by columns
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Map columns
     srcCols <- seq(from=1, to=ncol, length.out=ncol2);
     srcCols <- round(srcCols);
@@ -319,7 +319,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     stopifnot(max(srcCols) == ncol);
     stopifnot(length(unique(srcCols)) == ncol);
 
-    # Allocate nrow2-by-ncol2 image 
+    # Allocate nrow2-by-ncol2 image
     dim3 <- dim2;
     dim3[2] <- ncol2;
     z3 <- array(0, dim=dim3);
@@ -333,7 +333,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     zN <- z3;
 
     # Not needed anymore
-    rm(z2, z3);
+    z2 <- z3 <- NULL;
   }
 
   # Sanity check
@@ -345,7 +345,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
   dimN <- dimN[1:ndim];
   dim(zN) <- dimN;
 
-  imgN <- RasterImage(zN, ...);  
+  imgN <- RasterImage(zN, ...);
 
   imgN;
 })
@@ -384,9 +384,9 @@ setMethodS3("display", "RasterImage", function(this, dropAlpha=TRUE, interpolate
 
 
 setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), lim=c(-Inf,Inf), outlierCol="white", ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'this':
 
   # Argument 'lim':
@@ -406,9 +406,9 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
 
   verbose && enter(verbose, "Colorizing image");
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Bin the signals
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Binning image signals");
   # Data
   x <- getImageData(this);
@@ -441,9 +441,9 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
   verbose && summary(verbose, x);
   verbose && exit(verbose);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Assign colors to each bin
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Binning image data to color map");
   # Translate 'palette' of length n into a 4xn (R,G,B,A) matrix
   paletteRGBA <- col2rgb(palette, alpha=TRUE);
@@ -492,10 +492,10 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
   verbose && exit(verbose);
 
 
-  # 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  #
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Create a new Image object
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   img <- RasterImage(z, ...);
   verbose && print(verbose, img);
 
@@ -506,16 +506,16 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
 
 
 setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v", "auto"), ..., verbose=TRUE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   safeMeans <- function(x) {
     mean(x[is.finite(x)]);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'what':
   what <- match.arg(what);
 
@@ -527,9 +527,9 @@ setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v",
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Interleave
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Nothing todo?
   if (what == "none") {
     return(this);
@@ -625,7 +625,7 @@ setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v",
 # o Dropped stray usage of 'verbose' in write() for RasterImage.
 # 2012-09-02
 # o BUG FIX: interleave() for Image and RasterImage could generate
-#   error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value 
+#   error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value
 #   where TRUE/FALSE needed' if odd/even cell intensity columns (rows)
 #   contained all NAs.
 # 2012-03-05
@@ -643,7 +643,7 @@ setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v",
 # o Added "smart" save() for RasterImage that checks if user really
 #   mean to call write() instead.
 # o Added "smart" read() and write() for RasterImage.
-# o Added rescale() for RasterImage.  Works both for shrinking and 
+# o Added rescale() for RasterImage.  Works both for shrinking and
 #   enlarging images.
 # o Added RasterImage class for supporting 'raster' images.
 # o Created.

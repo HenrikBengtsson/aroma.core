@@ -18,7 +18,7 @@
 # \value{
 #  Returns the fit object.
 # }
-# 
+#
 # \details{
 #   Internally \code{mpcbs.mbic()} of the \pkg{mpcbs} package is used
 #   for segmenting the signals.
@@ -34,13 +34,13 @@
 # }
 #
 # @keyword IO
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FALSE, force=FALSE, verbose=FALSE) {
   # To please R CMD check in case 'mpcbs' is not available
   # This might be need in order for it to work on CRAN. /HB 2010-01-04
   if (!isPackageInstalled("mpcbs")) {
     merge.pos <- function(...) {};
-    rm(merge.pos);
+    rm(list="merge.pos");
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -80,7 +80,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 
   # Get the fit function for the segmentation method
   envir <- as.environment(sprintf("package:%s", pkgName));
-  fitFcn <- get(methodName, mode="function", envir=envir); 
+  fitFcn <- get(methodName, mode="function", envir=envir);
   verbose && str(verbose, "Function: ", fitFcn);
   formals <- formals(fitFcn);
   verbose && cat(verbose, "Formals:");
@@ -174,7 +174,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
   # Now, check for cached results
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Looking for cached results");
-  key <- list(method="segmentByMPCBS", class=class(this)[1], 
+  key <- list(method="segmentByMPCBS", class=class(this)[1],
                                                 signatures=signatures);
   dirs <- c("aroma.cn", class(this)[1]);
   if (!force) {
@@ -186,7 +186,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
     }
   }
   verbose && exit(verbose);
- 
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calling segmentation function
@@ -230,7 +230,8 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 ##  cnrData <- as.data.frame(cnr);
 ##  regions <- as.matrix(cnrData[,c("start", "stop")]);
 ##  nbrOfRegions <- nrow(regions);
-##  rm(cnr, cnrData);
+##  # Not needed anymore
+##  cnr <- cnrData <- NULL;
 ##  x <- data$x;
 ##  y <- data$y;
 ##  naValue <- as.double(NA);
@@ -242,7 +243,8 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 ##    t <- median(t, na.rm=TRUE)/sqrt(2);
 ##    sigmas[kk] <- t;
 ##  } # for (kk ...)
-##  rm(x,y,t,keep);
+##  # Not needed anymore
+##  x <- y <- t <- keep <- NULL;
 ##  aromaEstimates <- list(
 ##    stddevAll = sigma,
 ##    stddevRegions = sigmas
@@ -263,7 +265,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 
   verbose && exit(verbose);
 
-  fit;  
+  fit;
 }) # segmentByCBS()
 
 

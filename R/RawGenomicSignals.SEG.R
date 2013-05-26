@@ -25,7 +25,8 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
   if (nbrOfDropped > 0) {
     this <- this[keep,,drop=FALSE];
   }
-  rm(x, keep);
+  # Not needed anymore
+  x <- keep <- NULL;
   verbose && exit(verbose);
 
 
@@ -68,7 +69,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
 
   # Use weights, if they exists?
   hasWeights <- useWeights && (length(data$w) > 0);
-  
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Drop non-finite signals?
@@ -88,7 +89,8 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
       nbrOfLoci <- nrow(data);
 #      verbose && str(verbose, data);
     }
-    rm(keep);
+    # Not needed anymore
+    keep <- NULL;
     verbose && exit(verbose);
   }
 
@@ -106,7 +108,8 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
       nbrOfLoci <- nrow(data);
 #      verbose && str(verbose, data);
     }
-    rm(keep);
+    # Not needed anymore
+    keep <- NULL;
     verbose && exit(verbose);
   }
 
@@ -120,13 +123,14 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
       hasWeights <- FALSE;
       data$w <- NULL;
     }
-    rm(t);
+    # Not needed anymore
+    t <- NULL;
     verbose && exit(verbose);
   }
 
   attr(data, "sampleName") <- sampleName;
   verbose && str(verbose, data);
-  
+
   verbose && exit(verbose);
 
   data;

@@ -7,37 +7,37 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- \name{segmentByMPCBS.RawGenomicSignals}
+\name{segmentByMPCBS.RawGenomicSignals}
 \alias{segmentByMPCBS.RawGenomicSignals}
 \alias{RawGenomicSignals.segmentByMPCBS}
 \alias{segmentByMPCBS,RawGenomicSignals-method}
 
- \title{Segment copy numbers using the multi-platform CBS (mpCBS) method}
+\title{Segment copy numbers using the multi-platform CBS (mpCBS) method}
 
- \description{
-  Segment copy numbers using the multi-platform CBS (mpCBS) method of the \pkg{mpcbs} package.
- }
+\description{
+ Segment copy numbers using the multi-platform CBS (mpCBS) method of the \pkg{mpcbs} package.
+}
 
- \usage{
+\usage{
 \method{segmentByMPCBS}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)
 }
 
- \arguments{
-   \item{...}{Additional arguments passed to the segmentation function.}
-   \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
- }
+\arguments{
+  \item{...}{Additional arguments passed to the segmentation function.}
+  \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
+}
 
- \value{
-  Returns the fit object.
- }
+\value{
+ Returns the fit object.
+}
 
- \details{
-   Internally \code{mpcbs.mbic()} of the \pkg{mpcbs} package is used
-   for segmenting the signals.
-   This segmentation method does not support weighted segmentation.
- }
+\details{
+  Internally \code{mpcbs.mbic()} of the \pkg{mpcbs} package is used
+  for segmenting the signals.
+  This segmentation method does not support weighted segmentation.
+}
 
- \examples{
+\examples{
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Simulating copy-number data from multiple platforms
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -108,11 +108,11 @@ if (length(legend) > 0) {
 }
 }
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   For more information see \code{\link{RawGenomicSignals}}.
- }
+\seealso{
+  For more information see \code{\link{RawGenomicSignals}}.
+}
 
 
 \keyword{internal}

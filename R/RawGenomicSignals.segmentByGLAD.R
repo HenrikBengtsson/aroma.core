@@ -20,7 +20,7 @@
 # \value{
 #  Returns the fit object.
 # }
-# 
+#
 # \details{
 #   Internally @see "GLAD::glad" or  @see "GLAD::daglad" is used to
 #   segment the signals.
@@ -34,7 +34,7 @@
 # }
 #
 # @keyword IO
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("glad", "daglad"), cache=FALSE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -130,8 +130,8 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
 
   verbose && enter(verbose, "Setting up ", pkgName, " data structure");
   cnData <- data.frame(
-    LogRatio=data$y, 
-    PosOrder=1:nbrOfLoci, 
+    LogRatio=data$y,
+    PosOrder=1:nbrOfLoci,
     Chromosome=data$chromosome,
     PosBase=data$x
     # Add (chipType, units) identifiers to be able to backtrack SNP IDs etc.
@@ -178,7 +178,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   # Now, check for cached results
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Looking for cached results");
-  key <- list(method="segmentByGLAD", class=class(this)[1], 
+  key <- list(method="segmentByGLAD", class=class(this)[1],
                                                 signatures=signatures);
   dirs <- c("aroma.cn", class(this)[1]);
   if (!force) {
@@ -240,7 +240,8 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   cnrData <- as.data.frame(cnr);
   regions <- as.matrix(cnrData[,c("start", "stop")]);
   nbrOfRegions <- nrow(regions);
-  rm(cnr, cnrData);
+  # Not needed anymore
+  cnr <- cnrData <- NULL;
   x <- data$x;
   y <- data$y;
   naValue <- as.double(NA);
@@ -252,7 +253,8 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
     t <- median(t, na.rm=TRUE)/sqrt(2);
     sigmas[kk] <- t;
   } # for (kk ...)
-  rm(x,y,t,keep);
+  # Not needed anymore
+  x <- y <- t <- keep <- NULL;
   aromaEstimates <- list(
     stddevAll = sigma,
     stddevRegions = sigmas
@@ -273,7 +275,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
 
   verbose && exit(verbose);
 
-  fit;  
+  fit;
 }) # segmentByGLAD()
 
 

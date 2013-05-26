@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{CopyNumberSegmentationModel}
+\name{CopyNumberSegmentationModel}
 \docType{class}
 \alias{CopyNumberSegmentationModel}
 
 
- \title{The CopyNumberSegmentationModel class}
+\title{The CopyNumberSegmentationModel class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class CopyNumberSegmentationModel}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -33,20 +33,20 @@ extends \emph{\link[aroma.core]{CopyNumberChromosomalModel}}\cr
 
 
 
-  This \emph{abstract} class represents a copy-number segmentation model.
- }
+ This \emph{abstract} class represents a copy-number segmentation model.
+}
 
- \usage{
+\usage{
 CopyNumberSegmentationModel(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to constructor
-      \code{\link{CopyNumberChromosomalModel}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to constructor
+     \code{\link{CopyNumberChromosomalModel}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{\link[aroma.core:fit.CopyNumberSegmentationModel]{fit}} \tab Fits the model.\cr
  \tab \code{getFullNames} \tab  -\cr
@@ -67,7 +67,7 @@ as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipTyp
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

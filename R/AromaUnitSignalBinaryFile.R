@@ -8,7 +8,7 @@
 #
 #  An AromaUnitSignalBinaryFile is a @see "AromaTabularBinaryFile".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -18,13 +18,13 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
 #
 # \seealso{
 #   @see "aroma.core::AromaTabularBinaryFile".
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("AromaUnitSignalBinaryFile", function(...) {
   extend(AromaTabularBinaryFile(...), c("AromaUnitSignalBinaryFile",
                                               uses("AromaPlatformInterface")),
@@ -102,7 +102,7 @@ setMethodS3("allocate", "AromaUnitSignalBinaryFile", function(static, ..., platf
   # Write attributes to footer
   attrs <- list(
     createdOn=format(Sys.time(), "%Y%m%d %H:%M:%S", usetz=TRUE),
-    platform=platform, 
+    platform=platform,
     chipType=chipType
   );
   footer <- c(attrs, footer);
@@ -119,7 +119,7 @@ setMethodS3("readDataFrame", "AromaUnitSignalBinaryFile", function(this, units=N
 
 
 setMethodS3("extractMatrix", "AromaUnitSignalBinaryFile", function(this, units=NULL, rows=units, ...) {
-  NextMethod("extractMatrix", rows=rows);  
+  NextMethod("extractMatrix", rows=rows);
 })
 
 
@@ -142,7 +142,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   className <- getName(clazz);
@@ -155,7 +155,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
   verbose && enter(verbose, "Identifying units on chromosome");
   ugp <- getAromaUgpFile(this, ..., verbose=less(verbose,50));
   verbose && print(verbose, ugp);
-  units2 <- getUnitsAt(ugp, chromosome=chromosome, range=range, ..., 
+  units2 <- getUnitsAt(ugp, chromosome=chromosome, range=range, ...,
                                             verbose=less(verbose,5));
   verbose && cat(verbose, "Units:");
   verbose && str(verbose, units2);
@@ -167,18 +167,20 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitSignalBinaryFile", function(th
     verbose && cat(verbose, "Keeping:");
     verbose && summary(verbose, keep);
     units2 <- units2[keep];
-    rm(keep);
+    # Not needed anymore
+    keep <- NULL;
     verbose && cat(verbose, "Units:");
     verbose && str(verbose, units2);
     verbose && exit(verbose);
   }
   units <- units2;
-  rm(units2);
+  # Not needed anymore
+  units2 <- NULL;
 
 
   verbose && cat(verbose, "Genomic positions:");
   pos <- getPositions(ugp, units=units);
-  verbose && str(verbose, pos);  
+  verbose && str(verbose, pos);
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Extracting data");
@@ -285,7 +287,7 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", f
   platform <- getPlatform(udf);
   chipType <- getChipType(udf);
   nbrOfRows <- nbrOfUnits(udf);
-  
+
   allocate(static, ..., nbrOfRows=nbrOfRows, platform=platform, chipType=chipType);
 }, static=TRUE, protected=TRUE)
 
@@ -302,7 +304,7 @@ setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., 
     this$.ugp <- ugp;
   }
   ugp;
-}) 
+})
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

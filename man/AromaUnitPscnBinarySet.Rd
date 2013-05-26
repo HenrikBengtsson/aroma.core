@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitPscnBinarySet}
+\name{AromaUnitPscnBinarySet}
 \docType{class}
 \alias{AromaUnitPscnBinarySet}
 
 
- \title{The AromaUnitPscnBinarySet class}
+\title{The AromaUnitPscnBinarySet class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaUnitPscnBinarySet}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -41,20 +41,20 @@ extends \link[aroma.core]{CopyNumberDataSet}\cr
 
 
 
-  An AromaUnitPscnBinarySet object represents a set of
-  \code{\link{AromaUnitPscnBinaryFile}}s with \emph{identical} chip types.
- }
+ An AromaUnitPscnBinarySet object represents a set of
+ \code{\link{AromaUnitPscnBinaryFile}}s with \emph{identical} chip types.
+}
 
- \usage{
+\usage{
 AromaUnitPscnBinarySet(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinarySet}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaUnitSignalBinarySet}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{byName} \tab  -\cr
  \tab \code{getAverageFile} \tab  -\cr
@@ -84,7 +84,7 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

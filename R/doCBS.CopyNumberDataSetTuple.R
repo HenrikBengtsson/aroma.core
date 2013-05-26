@@ -1,7 +1,7 @@
 setMethodS3("doCBS", "CopyNumberDataSetTuple", function(dsTuple, ..., arrays=NULL, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'dsTuple':
   dsTuple <- as.CopyNumberDataSetTuple(dsTuple);
 
@@ -32,10 +32,10 @@ setMethodS3("doCBS", "CopyNumberDataSetTuple", function(dsTuple, ..., arrays=NUL
   res <- getOutputSet(cbs, verbose=less(verbose, 5));
   verbose && print(verbose, res);
 
-  # Clean up
-  rm(cbs);
+  # Not needed anymore
+  cbs <- NULL;
   gc <- gc();
-  
+
   verbose && exit(verbose);
 
   invisible(res);
@@ -49,7 +49,7 @@ setMethodS3("doCBS", "CopyNumberDataSetTuple", function(dsTuple, ..., arrays=NUL
 # 2010-02-25
 # o CHANGE: Argument 'arrays' of doCBS() for CopyNumberDataSet no longer
 #   subset the input data set, but instead is passed to the fit() function
-#   of the segmentation model.  This way all arrays in the input data set 
+#   of the segmentation model.  This way all arrays in the input data set
 #   are still used for calculating the pooled reference.
 # 2010-02-18
 # o Created.

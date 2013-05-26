@@ -7,13 +7,13 @@
 # \description{
 #  @get "title" using robust estimators.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{y}{A @numeric Nx2 @matrix with one column for each allele and
 #      where N is the number of data points.}
-#   \item{flavor}{A @character string specifying what model/algorithm 
+#   \item{flavor}{A @character string specifying what model/algorithm
 #      should be used to fit the genotype cone.}
 #   \item{...}{Additional arguments passed to the internal fit @function.}
 # }
@@ -27,7 +27,7 @@
 # @author
 #
 # \seealso{
-#  To backtransform data fitted using this method, 
+#  To backtransform data fitted using this method,
 #  see @see "backtransformGenotypeCone".
 #  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
 # }
@@ -37,7 +37,7 @@
 setMethodS3("fitGenotypeCone", "matrix", function(y, flavor=c("sfit", "expectile"), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'flavor':
   flavor <- match.arg(flavor);
 
@@ -53,7 +53,7 @@ setMethodS3("fitGenotypeCone", "matrix", function(y, flavor=c("sfit", "expectile
 
 setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lambda=2, ...) {
   # To please/fool R CMD check (in the case expectile is not installed)
-  fitExpectileCone <- NULL; rm(fitExpectileCone);
+  fitExpectileCone <- NULL; rm(list="fitExpectileCone");
   require("expectile") || throw("Package not loaded: expectile");
 
   dim <- dim(y);
@@ -67,9 +67,10 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
   initSimplex <- matrix(c(0,0, 0,c, c,0), nrow=2, ncol=3);
 
   # Fit cone
-  fit <- fitExpectileCone(y, alpha=alpha, lambda=lambda, 
+  fit <- fitExpectileCone(y, alpha=alpha, lambda=lambda,
                           initSimplex=initSimplex, ...);
-  rm(y);
+  # Not needed anymore
+  y <- NULL;
 
   origin <- fit$X[,1];
   names(origin) <- c("A", "B");
@@ -90,7 +91,7 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
   W <- M[c("AA","BB"),];
   W <- t(W) - origin;
   W <- W / W[1,1];
- 
+
   # Find the inverse
   Winv <- solve(W);
 
@@ -128,7 +129,7 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 # \description{
 #  @get "title" using robust estimators.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -139,7 +140,7 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 #      boundary of the [genotype cone]".  Lowering \code{alpha} expand
 #      the cone.  When \code{alpha} goes to zero, all data points will
 #      be on or inside the cone.}
-#   \item{q,Q}{Percentiles in [0,100] for which data points that are 
+#   \item{q,Q}{Percentiles in [0,100] for which data points that are
 #      below (above) will be assigned zero weight in the fitting of
 #      the parameters.}
 #   \item{...}{Additional arguments passed to the \code{cfit()} of
@@ -153,10 +154,10 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 #      with column \code{origin}, \code{AA}, and \code{BB}.}
 #    \item{Minv}{The inverse of \code{M}.}
 #    \item{origin}{The estimate of the shift.}
-#    \item{W}{The estimate of shear/rotation matrix with columns 
+#    \item{W}{The estimate of shear/rotation matrix with columns
 #             \code{AA} and \code{BB}.}
 #    \item{Winv}{The inverse of \code{W}.}
-#    \item{params}{The parameters used for the fit, i.e. 
+#    \item{params}{The parameters used for the fit, i.e.
 #       \code{alpha}, \code{q}, \code{Q}, and  those passed in \code{...}.}
 #    \item{dimData}{The dimension of the input data.}
 # }
@@ -166,7 +167,7 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 # @author
 #
 # \seealso{
-#  To backtransform data fitted using this method, 
+#  To backtransform data fitted using this method,
 #  see @see "backtransformGenotypeCone".
 #  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
 # }
@@ -197,7 +198,7 @@ setMethodS3("fitGenotypeConeBySfit", "matrix", function(y, alpha=c(0.10, 0.075, 
   W <- M[c("AA","BB"),];
   W <- t(W) - origin;
   W <- W / W[1,1];
- 
+
   # Find the inverse
   Winv <- solve(W);
 

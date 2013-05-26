@@ -31,20 +31,21 @@ setMethodS3("readDataFrame", "SampleAnnotationFile", function(this, rows=NULL, f
   db <- this$.db;
   if (force || is.null(db)) {
     pathname <- getPathname(this);
-  
+
     # Read all non-commented lines
-    bfr <- readLines(pathname); 
+    bfr <- readLines(pathname);
     excl <- grep("^[ ]*#", bfr);
     if (length(excl) > 0)
       bfr <- bfr[-excl];
-  
+
     # Parse these as a DCF
     con <- textConnection(bfr);
     on.exit(close(con));
     db <- read.dcf(con);
     db <- gsub("[\n\r]", "", db);
-    rm(bfr); # Not needed anymore
-  
+    # Not needed anymore
+    bfr <- NULL;
+
     this$.db <- db;
   }
 
@@ -71,7 +72,7 @@ setMethodS3("getPatterns", "SampleAnnotationFile", function(this, ...) {
 setMethodS3("matchPatterns", "SampleAnnotationFile", function(this, names, trim=FALSE, ...) {
   # Scan vector of names for matching patterns
   patterns <- getPatterns(this, ...);
-  res <- base::lapply(patterns, FUN=function(pattern) { 
+  res <- base::lapply(patterns, FUN=function(pattern) {
     idxs <- grep(pattern, names);
     names(idxs) <- names[idxs];
     idxs;
@@ -93,8 +94,8 @@ setMethodS3("apply", "SampleAnnotationFile", function(this, names, FUN, ..., ver
     pushState(verbose);
     on.exit(popState(verbose));
   }
- 
-  
+
+
   allPatterns <- getPatterns(this, ..., verbose=verbose);
 
   res <- matchPatterns(this, names, trim=TRUE);
@@ -103,7 +104,7 @@ setMethodS3("apply", "SampleAnnotationFile", function(this, names, FUN, ..., ver
     return(invisible());
 
   verbose && print(verbose, res);
-  
+
   patterns <- names(res);
   verbose && print(verbose, patterns);
   verbose && print(verbose, allPatterns);
@@ -144,7 +145,7 @@ setMethodS3("apply", "SampleAnnotationFile", function(this, names, FUN, ..., ver
 # o Now SampleAnnotationFile inherits from GenericDataFile and no longer
 #   from AffymetrixFile.
 # 2008-04-14
-# o Renamed readData() to readDataFrame() for SampleAnnotationFile. 
+# o Renamed readData() to readDataFrame() for SampleAnnotationFile.
 # 2007-04-12
 # o BUG FIX: readData() of SampleAnnotationFile would open a text connection
 #   without closing it.

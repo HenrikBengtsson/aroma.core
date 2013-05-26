@@ -22,7 +22,7 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
   if (.loadDeps) {
     require(PACKAGE, character.only=TRUE) || throw("Package not loaded: ", PACKAGE);
   }
-  rcModelWPLM <- NULL; rm(rcModelWPLM); # To please R CMD check
+  rcModelWPLM <- NULL; rm(list="rcModelWPLM"); # To please R CMD check
 
   I <- ncol(y);  # Number of arrays
   K <- nrow(y);  # Number of probes
@@ -107,7 +107,7 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
       res <- fit$Residuals;
       res[isNA] <- NA;  # Missing values were set to zero.
       phiSd <- rowMads(res, centers=0, na.rm=TRUE);
-  
+
       # Downweights by variance (with a small penalty term)
       wV <- 1/(phiSd^2 + tau);
 #      wV <- wV / sum(wV, na.rm=TRUE);

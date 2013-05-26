@@ -11,7 +11,7 @@ setMethodS3("convertTable", "default", function(src, dest=NULL, sep="\t", ..., v
     pushState(verbose);
     on.exit(popState(verbose));
   }
- 
+
 
   verbose && enter(verbose, "Convert tabular file");
   verbose && cat(verbose, "Source: ", src);
@@ -58,10 +58,13 @@ setMethodS3("convertTable", "default", function(src, dest=NULL, sep="\t", ..., v
     if (length(nok) > 0) {
       lines[nok] <- paste(lines[nok], upad[missing[nok]], sep="");
     }
-    rm(missing, nok);
+    # Not needed anymore
+    missing <- nok <- NULL;
 
     writeLines(con=outCon, lines);
-    rm(lines);
+    # Not needed anymore
+    lines <- NULL;
+
     count <- count + 1;
   }
   verbose && exit(verbose);
@@ -78,4 +81,4 @@ setMethodS3("convertTable", "default", function(src, dest=NULL, sep="\t", ..., v
 # 2006-09-15
 # o This methods will probably end up in R.utils at some stage.
 # o Added convertTable().  The different dChip files are ragged rows! :(
-############################################################################  
+############################################################################

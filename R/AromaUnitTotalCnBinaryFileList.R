@@ -17,7 +17,7 @@ setMethodS3("extractRawGenomicSignals", "AromaUnitTotalCnBinaryFileList", functi
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
   dfList <- this;
 
@@ -69,7 +69,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
   # Argument 'unshift':
   unshift <- Arguments$getLogical(unshift);
@@ -103,9 +103,9 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   verbose && exit(verbose);
 
   # Not needed anymore
-  rm(dfList, platforms, chipTypes);
+  dfList <- platforms <- chipTypes <- NULL;
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Remove relative shifts?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (unshift) {
@@ -155,14 +155,14 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
       cnSList[[kk]] <- cnS;
     } # for (kk ...)
     verbose && exit(verbose);
-      
+
     verbose && exit(verbose);
   } # if (unshift)
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimating platform-specific weights based their noise levels
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Estimating platform-specific weights based their noise levels");
   vars <- sapply(cnList, FUN=function(cn) {
     getSigma(cn)^2
@@ -176,10 +176,11 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   ns <- sapply(cnList, FUN=nbrOfLoci);
   verbose && print(verbose, vars/ns);
   verbose && print(verbose, (vars/ns)/(vars/ns)[1]);
-  rm(ns);
+  # Not needed anymore
+  ns <- NULL;
 
   # Standardized weights
-  ws <- 1/vars; 
+  ws <- 1/vars;
   ws <- ws / sum(ws, na.rm=TRUE);
   verbose && cat(verbose, "Weights (per source):");
   verbose && print(verbose, ws);

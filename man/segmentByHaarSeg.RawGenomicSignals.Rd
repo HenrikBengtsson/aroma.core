@@ -7,41 +7,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- \name{segmentByHaarSeg.RawGenomicSignals}
+\name{segmentByHaarSeg.RawGenomicSignals}
 \alias{segmentByHaarSeg.RawGenomicSignals}
 \alias{RawGenomicSignals.segmentByHaarSeg}
 \alias{segmentByHaarSeg,RawGenomicSignals-method}
 
- \title{Segment copy numbers using the HaarSeg method}
+\title{Segment copy numbers using the HaarSeg method}
 
- \description{
-  Segment copy numbers using the HaarSeg method of the \pkg{HaarSeg} package.
- }
+\description{
+ Segment copy numbers using the HaarSeg method of the \pkg{HaarSeg} package.
+}
 
- \usage{
+\usage{
 \method{segmentByHaarSeg}{RawGenomicSignals}(this, ..., cache=FALSE, force=FALSE, verbose=FALSE)
 }
 
- \arguments{
-   \item{...}{Additional arguments passed to the segmentation function.}
-   \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
- }
+\arguments{
+  \item{...}{Additional arguments passed to the segmentation function.}
+  \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
+}
 
- \value{
-  Returns the fit object.
- }
+\value{
+ Returns the fit object.
+}
 
- \details{
-   Internally \code{haarSeg()} of the \pkg{HaarSeg} is used to segment
-   the signals.
-   This segmentation method support weighted segmentation.
- }
+\details{
+  Internally \code{haarSeg()} of the \pkg{HaarSeg} is used to segment
+  the signals.
+  This segmentation method support weighted segmentation.
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   For more information see \code{\link{RawGenomicSignals}}.
- }
+\seealso{
+  For more information see \code{\link{RawGenomicSignals}}.
+}
 
 
 \keyword{internal}

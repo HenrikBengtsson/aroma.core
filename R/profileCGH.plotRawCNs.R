@@ -25,7 +25,7 @@ setMethodS3("pointsRawCNs", "profileCGH", function(fit, variable="LogRatio", chr
   # Argument 'variable':
   if (!variable %in% names(fit$profileValues))
     throw("Argument 'variable' does not specify a known field: ", variable);
-  
+
   # Argument 'chromosome':
   if (is.null(chromosome)) {
     chromosome <- unique(fit$profileValues$Chromosome);
@@ -43,9 +43,9 @@ setMethodS3("pointsRawCNs", "profileCGH", function(fit, variable="LogRatio", chr
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Extract data for the chromosome to be plotted
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   pv <- fit$profileValues;
 
   # Keep only data for the chromosome of interest
@@ -61,9 +61,9 @@ setMethodS3("pointsRawCNs", "profileCGH", function(fit, variable="LogRatio", chr
   pv <- pv[o,];
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Annotate gains, normals, and losses, as well as outliers?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (GNL %in% names(pv)) {
     # Setup color vector
     col <- rep(colDAGLAD[5], length(pv$PosOrder));
@@ -81,9 +81,9 @@ setMethodS3("pointsRawCNs", "profileCGH", function(fit, variable="LogRatio", chr
     pch <- 20;
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot the data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   # Extract the data to plot
   y <- pv[, variable];
@@ -122,24 +122,24 @@ setMethodS3("plotRawCNs", "profileCGH", function(fit, chromosome=NULL, unit=0, x
   flavor <- match.arg(flavor);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get chromosome lengths
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Load data
   # To please R CMD check on R v2.6.0
-  cytoband <- NULL; rm(cytoband);
+  cytoband <- NULL; rm(list="cytoband");
   data("cytoband", envir=sys.frame(sys.nframe()));  # Package 'GLAD'
-  genomeInfo <- aggregate(cytoband$End, list(Chromosome=cytoband$Chromosome, 
+  genomeInfo <- aggregate(cytoband$End, list(Chromosome=cytoband$Chromosome,
                           ChrNumeric=cytoband$ChrNumeric), max, na.rm=TRUE);
   names(genomeInfo) <- c("Chromosome", "ChrNumeric", "Length");
   genomeInfo$Chromosome <- as.character(genomeInfo$Chromosome);
   genomeInfo$ChrNumeric <- as.integer(as.character(genomeInfo$ChrNumeric));
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plotting flavor
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Reset graphical parameters when done
-  opar <- par(no.readonly=TRUE);  
+  opar <- par(no.readonly=TRUE);
   on.exit(opar);
 
   xScale <- 1/(10^unit);
@@ -156,7 +156,7 @@ setMethodS3("plotRawCNs", "profileCGH", function(fit, chromosome=NULL, unit=0, x
 
     # Set the horizontal margins to 'xmargin'.
     dim <- getDeviceResolution(resScale) * par("din");
-    plt <- par("plt");    
+    plt <- par("plt");
     plt[1:2] <- c(xmargin[1], dim[1]-xmargin[2]) / dim[1];
     par("plt"=plt);
 

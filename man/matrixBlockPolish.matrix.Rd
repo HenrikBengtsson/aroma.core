@@ -7,40 +7,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- \name{matrixBlockPolish.matrix}
+\name{matrixBlockPolish.matrix}
 \alias{matrixBlockPolish.matrix}
 
- \title{Applies a polishing function to blocks of rows and columns repeatedly}
+\title{Applies a polishing function to blocks of rows and columns repeatedly}
 
- \description{
-  Applies a polishing function to blocks of rows and columns repeatedly.
- }
+\description{
+ Applies a polishing function to blocks of rows and columns repeatedly.
+}
 
- \usage{
+\usage{
 \method{matrixBlockPolish}{matrix}(z, x=NULL, blockSizes=c(1, 1), FUN, ..., tol=0.01, maxIter=10,
   returnEffects=FALSE)
 }
 
- \arguments{
-   \item{z}{A \code{\link[base]{numeric}} KxN \code{\link[base]{matrix}}.}
-   \item{x}{A optional KxNx2 \code{\link[base]{array}} (or KxN \code{\link[base]{matrix}}).}
-   \item{blockSizes}{A positive \code{\link[base]{integer}} \code{\link[base]{vector}} of length two.}
-   \item{FUN}{A \code{\link[base]{function}} taking \code{\link[base]{numeric}} arguments \code{z} and
-      \code{x} and returns a \code{\link[base]{numeric}} object with either a scalar
-      or the same number of elements as in \code{z}.}
-   \item{...}{Additional arguments passed to the \code{FUN} \code{\link[base]{function}}.}
-   \item{tol}{A positive threshold specifying when the algorithm has
-      converged.}
-   \item{maxIter}{The maximum number of iterations.}
-   \item{returnEffects}{If \code{\link[base:logical]{TRUE}}, the row and column effects are returned,
-      otherwise not.}
- }
+\arguments{
+  \item{z}{A \code{\link[base]{numeric}} KxN \code{\link[base]{matrix}}.}
+  \item{x}{A optional KxNx2 \code{\link[base]{array}} (or KxN \code{\link[base]{matrix}}).}
+  \item{blockSizes}{A positive \code{\link[base]{integer}} \code{\link[base]{vector}} of length two.}
+  \item{FUN}{A \code{\link[base]{function}} taking \code{\link[base]{numeric}} arguments \code{z} and
+     \code{x} and returns a \code{\link[base]{numeric}} object with either a scalar
+     or the same number of elements as in \code{z}.}
+  \item{...}{Additional arguments passed to the \code{FUN} \code{\link[base]{function}}.}
+  \item{tol}{A positive threshold specifying when the algorithm has
+     converged.}
+  \item{maxIter}{The maximum number of iterations.}
+  \item{returnEffects}{If \code{\link[base:logical]{TRUE}}, the row and column effects are returned,
+     otherwise not.}
+}
 
- \value{
-   Returns a named \code{\link[base]{list}}.
- }
+\value{
+  Returns a named \code{\link[base]{list}}.
+}
 
- \examples{
+\examples{
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Example 1: median polish
 # From example(medpolish) in the 'stats' package
@@ -80,12 +80,12 @@ print(range(r2))
 image(r2)
 }
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-  \code{\link[stats]{medpolish}}.
-  \code{\link[aroma.light:medianPolish.matrix]{medianPolish}()}.
- }
+\seealso{
+ \code{\link[stats]{medpolish}}.
+ \code{\link[aroma.light:medianPolish.matrix]{medianPolish}()}.
+}
 
 
 \keyword{methods}

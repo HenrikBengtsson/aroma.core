@@ -30,8 +30,8 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
   # Check for cached results?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   chipType <- getChipType(this);
-  key <- list(method="getMaxRepeatLength", class=class(this)[1], 
-              chipType=chipType, tags=getTags(this), 
+  key <- list(method="getMaxRepeatLength", class=class(this)[1],
+              chipType=chipType, tags=getTags(this),
               cells=cells, ...);
   if (getOption(aromaSettings, "devel/useCacheKeyInterface", FALSE)) {
     key <- getCacheKey(this, method="getMaxRepeatLength", chipType=chipType,
@@ -124,11 +124,13 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
     startPositionT[startPositionT == 0] <- as.integer(-1);
     maxRepeatLength[!nok] <- maxRepeatLengthT;
     startPosition[!nok] <- startPositionT;
-    rm(nok, startPositionT, maxRepeatLengthT);
+    # Not needed anymore
+    nok <- startPositionT <- maxRepeatLengthT <- NULL;
   }
 
   res <- cbind(startPosition, maxRepeatLength);
-  rm(startPosition, maxRepeatLength);
+  # Not needed anymore
+  startPosition <- maxRepeatLength <- NULL;
 
   verbose && cat(verbose, "Results:");
   verbose && str(verbose, res);
@@ -147,7 +149,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
 
   res;
 }) # getMaxLengthRepeats()
- 
+
 
 
 ############################################################################

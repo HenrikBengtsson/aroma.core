@@ -8,7 +8,7 @@
 #
 #  An AromaUnitGenotypeCallFile is a @see "AromaUnitTabularBinaryFile".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -18,16 +18,16 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("AromaUnitGenotypeCallFile", function(...) {
   extend(AromaUnitCallFile(...), "AromaUnitGenotypeCallFile"
   );
 })
 
 
-setMethodS3("allocate", "AromaUnitGenotypeCallFile", function(static, ..., types=c("integer", "integer")) { 
+setMethodS3("allocate", "AromaUnitGenotypeCallFile", function(static, ..., types=c("integer", "integer")) {
   NextMethod("allocate", types=types);
 }, static=TRUE, protected=TRUE)
 
@@ -41,12 +41,14 @@ setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., dro
   for (cc in seq_len(dim[2])) {
     counts <- counts + (calls[,cc,1] > 0);
   }
-  rm(calls);
+  # Not needed anymore
+  calls <- NULL;
 
   naValue <- as.logical(NA);
   res <- array(naValue, dim=dim[-2]);
   res[,1] <- (counts == 1);
-  rm(counts);
+  # Not needed anymore
+  counts <- NULL;
 
   # Drop singleton dimensions?
   if (drop) {
@@ -66,7 +68,8 @@ setMethodS3("isHeterozygous", "AromaUnitGenotypeCallFile", function(this, ..., d
   for (cc in 2:dim[2]) {
     res[,1] <- res[,1] & (calls[,cc,1,drop=FALSE] == calls0);
   }
-  rm(calls, calls0);
+  # Not needed anymore
+  calls <- calls0 <- NULL;
 
   # Drop singleton dimensions?
   if (drop) {
@@ -126,7 +129,8 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
   verbose && str(verbose, isGenotype)
 ;
   idxs <- which(isGenotype[,1] & isGenotype[,2]);
-  rm(isGenotype);
+  # Not needed anymore
+  isGenotype <- NULL;
   if (length(idxs) > 0) {
     verbose && cat(verbose, "Genotypes identified: ", length(idxs));
 
@@ -142,14 +146,16 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
         idxsUU <- which(callsJJ == count);
         resT[idxsUU] <- paste(resT[idxsUU], callsUU, sep="");
       } # for (uu ...)
-      rm(callsJJ, idxsUU, uCalls);
+      # Not needed anymore
+      callsJJ <- idxsUU <- uCalls <- NULL;
     } # for (jj ...)
 
     # Homozygote deletion, i.e. (C_A,C_B) = (0,0)
     resT[(resT == "")] <- emptyValue;
 
     res[idxs] <- resT;
-    rm(resT);
+    # Not needed anymore
+    resT <- NULL;
   }
 
   # NoCall:s
@@ -182,7 +188,8 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       calls[res == "NC"] <- as.integer(0);
       dim(calls) <- dim(res);
       res <- calls;
-      rm(calls);
+      # Not needed anymore
+      calls <- NULL;
     } else if (encoding == "birdseed") {
       naValue <- as.integer(NA);
       calls <- rep(naValue, times=length(res));
@@ -193,7 +200,8 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       calls[res == "NC"] <- as.integer(-1);
       dim(calls) <- dim(res);
       res <- calls;
-      rm(calls);
+      # Not needed anymore
+      calls <- NULL;
     } else if (encoding == "fracB") {
       naValue <- as.double(NA);
       calls <- rep(naValue, times=length(res));
@@ -204,7 +212,8 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       calls[res == "NC"] <- NaN;  # To differentiate from NAs
       dim(calls) <- dim(res);
       res <- calls;
-      rm(calls);
+      # Not needed anymore
+      calls <- NULL;
     }
     verbose && exit(verbose);
   }
@@ -291,7 +300,8 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
     calls2[calls == 3] <- "BB";
     calls2[calls == 0] <- "NC";
     calls <- calls2;
-    rm(calls2);
+    # Not needed anymore
+    calls2 <- NULL;
   } else if (encoding == "birdseed") {
     # Translate Birdseed encoded genotypes to generic ones
     calls2 <- rep("NA", times=length(calls));
@@ -301,7 +311,8 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
     calls2[calls ==  2] <- "BB";
     calls2[calls == -1] <- "NC";
     calls <- calls2;
-    rm(calls2);
+    # Not needed anymore
+    calls2 <- NULL;
   } else if (encoding == "fracB") {
     # Translate Birdseed encoded genotypes to generic ones
     calls2 <- rep("NA", times=length(calls));
@@ -311,7 +322,8 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
     calls2[calls ==    1] <- "BB";
     calls2[is.nan(calls)] <- "NC";
     calls <- calls2;
-    rm(calls2);
+    # Not needed anymore
+    calls2 <- NULL;
   }
   calls[is.na(calls)] <- "NA";
 
@@ -327,10 +339,11 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
     unknown <- unique(unknown);
     unknown <- sort(unknown);
     unknown <- head(unknown);
-    throw("Argument 'calls' contains unknown genotypes: ", 
+    throw("Argument 'calls' contains unknown genotypes: ",
                                         paste(unknown, collapse=", "));
   }
-  rm(unknown);
+  # Not needed anymore
+  unknown <- NULL;
   verbose && exit(verbose);
   verbose && exit(verbose);
 
@@ -386,7 +399,8 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
 
     verbose && enter(verbose, "Counting number of A:s (rest are B:s)");
     callsA <- gsub("B", "", callsT, fixed=TRUE);
-    rm(callsT);
+    # Not needed anymore
+    callsT <- NULL;
     nA <- nchar(callsA);
     verbose && exit(verbose);
 
@@ -396,10 +410,12 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
     for (cc in 1:2) {
       values[idxs,cc] <- countsAB[,cc];
     }
-    rm(countsAB);
+    # Not needed anymore
+    countsAB <- NULL;
     verbose && exit(verbose);
   }
-  rm(idxs);
+  # Not needed anymore
+  idxs <- NULL;
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Storing (C_A,C_B)");
@@ -407,7 +423,8 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
   for (cc in 1:2) {
     this[units,cc] <- values[,cc];
   }
-  rm(values);
+  # Not needed anymore
+  values <- NULL;
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -428,15 +445,15 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
 #   faster in counting A:s and B:s.
 # o Updated extractGenotypeMatrix() of AromaUnitGenotypeCallFile to return
 #   NAs by default.
-# o Added support for "birdseed" and "fracB" encodings in 
-#   extractGenotypeMatrix() and updateGenotypes() of 
+# o Added support for "birdseed" and "fracB" encodings in
+#   extractGenotypeMatrix() and updateGenotypes() of
 #   AromaUnitGenotypeCallFile.
 # 2009-01-12
 # Added isHomozygote() and isHeterozygote().
 # 2009-01-10
 # o Added argument 'encoding' to extract-/updateGenotypes() with support
 #   for oligo nucleotides {1,2,3}.
-# o Now extract-/updateGenotypes() encodes NA=missing value, NC=no call, 
+# o Now extract-/updateGenotypes() encodes NA=missing value, NC=no call,
 #   ''='-'='--'=(0,0), 'A'=(1,0), ..., 'AABBA'=(3,2), ...
 # 2009-01-04
 # o Now inherits from AromaUnitCallFile.

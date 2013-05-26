@@ -6,17 +6,17 @@
 # \description{
 #  @get "title".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{name}{Optional @character string.}
-#   \item{tags}{Optional @character string. 
+#   \item{tags}{Optional @character string.
 #     Only used if argument \code{pattern} is not specified.}
 #   \item{pattern}{A filename pattern to search for.
-#     If @NULL, then defaults to the fullname as defined by 
+#     If @NULL, then defaults to the fullname as defined by
 #     arguments \code{name} and \code{tags}.}
-#   \item{private}{If @FALSE, files and directories starting 
+#   \item{private}{If @FALSE, files and directories starting
 #     with a periods are ignored.}
 #   \item{escapes}{A @character @vector specify symbols to be escaped
 #     in argument \code{pattern}.}
@@ -24,7 +24,7 @@
 #   \item{firstOnly}{If @TRUE, only the first matching pathname is returned.}
 #   \item{paths}{A @character @vector of paths to search.
 #     If @NULL, default paths are used.}
-#   \item{set}{A @character string specifying what type of annotation 
+#   \item{set}{A @character string specifying what type of annotation
 #     to search for.}
 #   \item{verbose}{A @logical or @see "R.utils::Verbose".}
 # }
@@ -48,25 +48,25 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
     }
 
     verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
-  
+
     # Order located pathnames in increasing length of the fullnames
     # This is an AD HOC solution for selecting GenomeWideSNP_6 before
     # GenomeWideSNP_6,Full.
-  
+
     # (a) Get filenames
     filenames <- basename(pathnames);
-  
+
     # (b) Get fullnames by dropping filename extension
     fullnames <- gsub("[.][^.]*$", "", filenames);
-  
+
     # (c) Order by length of fullnames
     o <- order(nchar(fullnames));
-  
+
     verbose && cat(verbose, "Order:");
     verbose && print(verbose, o);
-  
+
     verbose && exit(verbose);
-  
+
     o;
   } # orderByFullNames()
 
@@ -119,7 +119,7 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 ##      pathnamesKK <- sortByFullName(pathnamesKK, verbose=verbose);
 ##      verbose && print(verbose, pathnamesKK);
 ##      verbose && exit(verbose);
-    
+
       pathnames <- c(pathnames, pathnamesKK);
 
       verbose && exit(verbose);
@@ -164,7 +164,6 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
     if (!is.null(name)) {
       fullname <- paste(c(name, tags), collapse=",");
       pattern <- fullname;
-      rm(fullname); # Not need anymore
     }
   }
 
@@ -365,7 +364,7 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 # HISTORY:
 # 2012-08-29
 # o ROBUSTNESS: Added argument 'escape' to findAnnotationData(), which
-#   causes such symbols that exist in argument 'pattern' to be 
+#   causes such symbols that exist in argument 'pattern' to be
 #   automatically be escaped.  This was done in order for chip types
 #   such as "Mapping250K_Nsp+Sty" to work by default.
 # 2012-04-16
@@ -377,7 +376,7 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 # o GENERALIZATION: Now findAnnotationData() falls back to annotation data
 #   available in any of the aroma.* packages.
 # o GENERALIZATION: In addition to search <rootPath>/<set>/<name> paths,
-#   findAnnotationData() can also search <rootPath>/<set>/ by not 
+#   findAnnotationData() can also search <rootPath>/<set>/ by not
 #   specifying argument 'name' (or setting it to NULL).
 # o SPEEDUP: Now findAnnotationData() returns NULL as soon as it knows
 #   there are no root paths, subdir sets etc to search.
@@ -390,12 +389,12 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
 # 2008-05-21
 # o Updated findAnnotationData() to only "import" affxparser.
 # 2008-05-18
-# o BUG FIX: findAnnotationDataByChipType(chipType="GenomeWideSNP_6", 
-#   pattern="^GenomeWideSNP_6.*[.]ugp$") would find file 
+# o BUG FIX: findAnnotationDataByChipType(chipType="GenomeWideSNP_6",
+#   pattern="^GenomeWideSNP_6.*[.]ugp$") would find file
 #   'GenomeWideSNP_6,Full,na24.ugp' before 'GenomeWideSNP_6,na24.ugp'.
 #   Now we return the one with the shortest full name.
 # 2008-05-10
-# o BUG FIX: When searching with 'firstOnly=FALSE', findAnnotationData() 
+# o BUG FIX: When searching with 'firstOnly=FALSE', findAnnotationData()
 #   was identifying files that are in "private" directory.  This is how
 #   affxparser::findFiles() works.  Such files are now filtered out.
 # 2008-05-09

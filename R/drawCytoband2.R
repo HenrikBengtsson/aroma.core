@@ -1,9 +1,9 @@
 # This function originates from the GLAD package (GPL).  We should
 # rewrite it from scratch to avoid license issues. /HB 2010-02-19
 setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, labels=TRUE, height=1, colCytoBand=c("white", "darkblue"), colCentro="red", ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   seqPalette <- NULL;
   # Try to use the palette defined by GLAD
   if (isPackageInstalled("GLAD")) {
@@ -64,54 +64,55 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
     return();
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Cytoband colors
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   color <- unique(cytoband$Color);
-  pal <- seqPalette(from=colCytoBand[1], to=colCytoBand[2], 
+  pal <- seqPalette(from=colCytoBand[1], to=colCytoBand[2],
                                                  length.out=length(color));
 
   info <- data.frame(Color=color, ColorName=I(pal));
   cytoband <- merge(cytoband, info, by="Color");
-  rm(info);
+  # Not needed anymore
+  info <- NULL;
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Extract cytoband information for current chromosome
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   keep <- which(cytoband$Chromosome == chromosome);
   cytoband <- cytoband[keep, ,drop=FALSE];
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Cytoband positions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   CytoPos <- 0.5 * (cytoband$Start + cytoband$End);
   CytoLength <- (cytoband$End - cytoband$Start);
   NbCyto <- length(cytoband[, 1]);
   HeightPlot <- rep(height, NbCyto);
   sizeCyto <- matrix(c(CytoLength, HeightPlot), nrow=NbCyto, ncol=2);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Draw cytobands
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   y0 <- min(unique(y));
   yC <- y0+height/2;
   y1 <- y0+height;
   symbols(x=CytoPos, y=rep(yC, NbCyto), rectangles=sizeCyto,
       inches=FALSE, bg=cytoband$ColorName, add=TRUE, ...);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Highlight the centromere
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # The inverted arrow indicating where the centromere is.
   idxs <- which(cytoband$Centro == 1);
   centroPos <- min(cytoband$End[idxs]);
-  arrows(centroPos, y0, centroPos, y1, col=colCentro, code=2, angle=120, 
+  arrows(centroPos, y0, centroPos, y1, col=colCentro, code=2, angle=120,
                                                                length=0.1);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Labels, e.g. 20q12
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (labels) {
     labels <- paste(cytoband$Chromosome, cytoband$Band, sep="");
 #    axis(side=3, at=CytoPos, labels=labels, las=2);
@@ -121,7 +122,7 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
 }, private=TRUE)
 
 
- 
+
 ############################################################################
 # HISTORY:
 # 2010-12-07
@@ -131,7 +132,7 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
 # o BUG FIX: drawCytoband2() would throw an error if argument 'cytoband'
 #   was an empty data frame.  Now it returns quietly.
 # 2010-10-13
-# o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate 
+# o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate
 #   chromosomal plots with cytobands tries to utilize GLAD package,
 #   if available.  However, even when GLAD is installed it may still be
 #   broken to missing dynamic libraries, e.g. 'Error in library.dynam(lib,
@@ -153,4 +154,4 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
 # 2006-12-20
 # o It is now possible to specify 'xlim' as well as 'ylim'.
 # o Reimplemented, because the cytoband was not displayed correctly.
-############################################################################ 
+############################################################################

@@ -18,13 +18,15 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
       throw("Argument 'seqs' is a list, but does not contain design matrix 'X'.");
     }
     K <- nrow(X);
-    rm(X);
+    # Not needed anymore
+    X <- NULL;
     B <- res$B;
     if (!is.matrix(B)) {
       throw("Argument 'seqs' is a list, but does not contain basis matrix 'B'.");
     }
     P <- nrow(B);
-    rm(B);
+    # Not needed anymore
+    B <- NULL;
 
     factors <- res$factors;
     if (!is.vector(factors)) {
@@ -43,7 +45,7 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   verbose && cat(verbose, "Signals:");
@@ -72,7 +74,8 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
     # Non-missing data points
     nas <- !nas;
     keep <- which(nas);
-    rm(nas);
+    # Not needed anymore
+    nas <- NULL;
 
     # Clean out missing data points
     if (length(keep) < K) {
@@ -89,7 +92,8 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
       }
       gc <- gc();
     }
-    rm(keep);
+    # Not needed anymore
+    keep <- NULL;
   }
 
 
@@ -103,7 +107,7 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
     verbose && printf(verbose, "Sequences (%d):\n", K);
     verbose && str(verbose, seqs);
 
-    res <- getProbePositionEffectDesignMatrix(seqs, ..., 
+    res <- getProbePositionEffectDesignMatrix(seqs, ...,
                             intercept=intercept, verbose=less(verbose, 1));
     verbose && exit(verbose);
   }
@@ -122,7 +126,8 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
   verbose && cat(verbose, "Factors:");
   verbose && str(verbose, factors);
 
-  rm(res);
+  # Not needed anymore
+  res <- NULL;
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -130,10 +135,12 @@ setMethodS3("fitProbePositionEffects", "numeric", function(y, seqs, ..., interce
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Fitting model");
   fit <- lm.fit(X, y);
-  rm(X, y);
+  # Not needed anymore
+  X <- y <- NULL;
   coefs <- coefficients(fit);
   names(coefs) <- NULL;
-  rm(fit);
+  # Not needed anymore
+  fit <- NULL;
   gc <- gc();
   verbose && cat(verbose, "Coeffients:");
   verbose && print(verbose, coefs);
@@ -220,7 +227,7 @@ setMethodS3("predict", "ProbePositionEffects", function(object, seqs, ..., verbo
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   verbose && enter(verbose, "Predicting probe-affinities from probe-position parameters");
@@ -289,24 +296,26 @@ setMethodS3("predict", "ProbePositionEffects", function(object, seqs, ..., verbo
     known <- which(seqs[,1] != as.raw(0));
     K2 <- length(known);
     phi2 <- double(K2);
-    
+
     # For each position
     for (pp in seq_len(P)) {
       verbose && enter(verbose, sprintf("Probe position #%d of %d", pp, P));
-  
+
       # Get the nucleotides at this position for all sequences
       seqsPP <- seqs[known,pp];
-  
+
       seqsPP <- as.integer(seqsPP);
       rhoPP <- rho[pp,];
       names(rhoPP) <- NULL;
       phi2 <- phi2 + rhoPP[seqsPP];
-  
-      rm(seqsPP);
+
+      # Not needed anymore
+      seqsPP <- NULL;
       verbose && exit(verbose);
     } # for (pp ...)
     phi[known] <- phi2;
-    rm(phi2, known, K2);
+    # Not needed anymore
+    phi2 <- known <- K2 <- NULL;
   } else {
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # This approach assumes nothing about the 'values'
@@ -314,35 +323,36 @@ setMethodS3("predict", "ProbePositionEffects", function(object, seqs, ..., verbo
     # For each position
     for (pp in seq_len(P)) {
       verbose && enter(verbose, sprintf("Probe position #%d of %d", pp, P));
-  
+
       # Get the nucleotides at this position for all sequences
       seqsPP <- seqs[,pp];
-  
+
       allIdxs <- 1:length(seqsPP);
       for (bb in 1:ncol(rho)) {
   ##      verbose && enter(verbose, sprintf("Factor #%d ('%s') of %d", bb, factors[bb], ncol(rho)));
-  
+
         # Identify sequences with nucleotide 'bb' at position 'pp'.
   ##      verbose && enter(verbose, "Identifying subset");
         subset <- which(seqsPP == values[bb]);
   ##      verbose && exit(verbose);
-  
+
         # Add the nucleotide effect rho(pp,bb) to the probe-affinity
         idxs <- allIdxs[subset];
         phi[idxs] <- phi[idxs] + rho[pp,bb];
-  
+
         # Skip already found cells
         allIdxs <- allIdxs[-subset];
         seqsPP <- seqsPP[-subset];
-  
+
   ##      verbose && exit(verbose);
       } # for (bb ...)
-  
-      rm(seqsPP);
+
+      # Not needed anymore
+      seqsPP <- NULL;
       verbose && exit(verbose);
     } # for (pp ...)
   }
-  
+
   verbose && exit(verbose);
 
   phi;
@@ -364,11 +374,11 @@ setMethodS3("plot", "ProbePositionEffects", function(x, type="b", col=NULL, pch=
       pch <- seq_along(pch);
     }
   }
-  matplot(rho, type=type, 
-          col=col, lwd=lwd, pch=pch, 
+  matplot(rho, type=type,
+          col=col, lwd=lwd, pch=pch,
           xlab=xlab, ylab=ylab, ...);
   abline(h=0, lty=3);
-  
+
 #  legend("topleft", colnames(rho), pch=pch, col=col);
 }) # plot();
 
@@ -490,7 +500,7 @@ setMethodS3("barSequence", "ProbePositionEffects", function(fit, seq, col=NULL, 
 ############################################################################
 # HISTORY:
 # 2009-05-16
-# o Now fitProbePositionEffects() for numeric uses Arguments$getNumerics(), 
+# o Now fitProbePositionEffects() for numeric uses Arguments$getNumerics(),
 #   not getDoubles(), where possible.  This will save memory in some cases.
 # 2008-12-03
 # o SPEED UP: Now predict() of ProbePositionEffects is 6-7 times faster.

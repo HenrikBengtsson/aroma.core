@@ -23,7 +23,7 @@ setConstructorS3("CopyNumberRegions", function(chromosome=NULL, start=NULL, stop
     }
   }
 
-  extend(Object(), "CopyNumberRegions", 
+  extend(Object(), "CopyNumberRegions",
     chromosome = chromosome,
     start = start,
     stop = stop,
@@ -116,7 +116,7 @@ setMethodS3("extractIGV", "CopyNumberRegions", function(this, ...) {
   data <- cbind(Sample=name, data);
 
   # Reorder for IGV
-  cols <- c("Sample", "Chromosome", "Start Position", 
+  cols <- c("Sample", "Chromosome", "Start Position",
             "End Position", "Num markers", "Seg CN");
   data <- data[,cols,drop=FALSE];
 
@@ -139,7 +139,7 @@ setMethodS3("applyRows", "CopyNumberRegions", function(this, FUN, ...) {
   if (nrow(data) > 0) {
     o <- order(data[,"chromosome"], data[,"start"]);
     data <- data[o,,drop=FALSE];
-    for (kk in seq_len(nrow(data))) {  
+    for (kk in seq_len(nrow(data))) {
       res[[kk]] <- FUN(data[kk,,drop=FALSE], ...);
     }
   }
@@ -201,7 +201,8 @@ setMethodS3("subset", "CopyNumberRegions", function(x, subset, ...) {
   # Get field names.  AD HOC /HB 2010-07-19
   data <- as.data.frame(this);
   fields <- colnames(data);
-  rm(data);
+  # Not needed anymore
+  data <- NULL;
 
   res <- clone(this);
   for (field in fields) {
@@ -229,7 +230,7 @@ setMethodS3("extractCNRs", "default", function(...) {
 # 2010-04-06
 # o Added equals() for CopyNumberRegions.
 # 2009-05-16
-# o Now the constructor CopyNumberRegions() coerce numerics only if 
+# o Now the constructor CopyNumberRegions() coerce numerics only if
 #   necessary, i.e. it keeps integers if integers, otherwise to doubles.
 #   This is a general design of aroma.* that saves some memory.
 # 2009-05-13

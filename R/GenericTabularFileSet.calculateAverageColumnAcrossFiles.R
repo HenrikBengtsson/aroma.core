@@ -1,7 +1,7 @@
 setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", function(this, method=c("mean", "median"), na.rm=TRUE, ..., ram=NULL, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'this':
   nbrOfFiles <- length(this);
   if (nbrOfFiles == 0L) {
@@ -26,9 +26,9 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
   verbose && cat(verbose, "na.rm: ", na.rm);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Check cached results
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   dataSet <- getFullName(this);
   chipType <- getChipType(this);
   key <- list(dataSet=dataSet, chipType=chipType, fullnames=getFullNames(this), method=method, na.rm=na.rm);
@@ -63,7 +63,8 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
   verbose && cat(verbose, "Number of rows per chunk: ", chunkSize);
 
   unitChunks <- splitInChunks(units, chunkSize=chunkSize);
-  rm(units);
+  # Not needed anymore
+  units <- NULL;
 
   res <- lapply(unitChunks, FUN=function(units) {
     data <- extractMatrix(this, units=units, ...);
@@ -72,7 +73,8 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
     stopifnot(length(est) == length(units));
     est;
   });
-  rm(unitChunks);
+  # Not needed anymore
+  unitChunks <- NULL;
 
   res <- unlist(res, use.names=FALSE);
   verbose && str(verbose, res);
@@ -92,4 +94,4 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
 # 2009-02-13
 # o Added support for memoization.
 # o Created.
-############################################################################ 
+############################################################################

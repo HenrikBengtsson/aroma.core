@@ -1,6 +1,6 @@
 ###########################################################################/**
 # @RdocClass "AromaCellCpgFile"
-# 
+#
 # @title "A binary file holding local CpG density for each cell (probe/feature)"
 #
 # \description{
@@ -10,7 +10,7 @@
 # @synopsis
 #
 # \arguments{
-#  \item{...}{Arguments passed to constructor of 
+#  \item{...}{Arguments passed to constructor of
 #             @see "AromaCellTabularBinaryFile".}
 # }
 #
@@ -18,7 +18,7 @@
 #   Note that this class does \emph{not} assume a rectangular chip layout.
 #   In other words, there is no concept of mapping a \emph{spatial}
 #   location on the array to a cell index and vice versa.
-#   The reason for this to be able to use this class also for 
+#   The reason for this to be able to use this class also for
 #   non-rectangular chip types.
 # }
 #
@@ -45,9 +45,9 @@ setMethodS3("getDefaultColumnNames", "AromaCellCpgFile", function(this, ...) {
 
 
 setMethodS3("byChipType", "AromaCellCpgFile",function(static, chipType, tags=NULL, validate=TRUE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'chipType':
   chipType <- Arguments$getCharacter(chipType);
 
@@ -60,7 +60,7 @@ setMethodS3("byChipType", "AromaCellCpgFile",function(static, chipType, tags=NUL
 
   verbose && enter(verbose, "Locating ", class(static)[1]);
 
-  pathname <- findByChipType(static, chipType=chipType, tags=tags, 
+  pathname <- findByChipType(static, chipType=chipType, tags=tags,
                                      firstOnly=TRUE, ...);
   if (is.null(pathname)) {
     ext <- getDefaultExtension(static);
@@ -89,9 +89,9 @@ setMethodS3("byChipType", "AromaCellCpgFile",function(static, chipType, tags=NUL
 
 
 setMethodS3("readCpgs", "AromaCellCpgFile", function(this, cells=NULL, drop=FALSE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
@@ -124,9 +124,9 @@ setMethodS3("readCpgs", "AromaCellCpgFile", function(this, cells=NULL, drop=FALS
 
 
 setMethodS3("updateCpgs", "AromaCellCpgFile", function(this, cells=NULL, scores, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
@@ -134,22 +134,25 @@ setMethodS3("updateCpgs", "AromaCellCpgFile", function(this, cells=NULL, scores,
     nbrOfCells <- length(cells);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Optimize
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Remove duplicated 'cells'
   keep <- which(!duplicated(cells));
   cells <- cells[keep];
   scores <- scores[keep];
-  rm(keep);
+  # Not needed anymore
+  keep <- NULL;
 
   # Order by 'cells'
   srt <- sort(cells, method="quick", index.return=TRUE);
   o <- srt$ix;
   cells <- srt$x;
-  rm(srt);
+  # Not needed anymore
+  srt <- NULL;
   scores <- scores[o];
-  rm(o);
+  # Not needed anymore
+  o <- NULL;
 
   lastColumn <- nbrOfColumns(this);
   this[cells,lastColumn] <- as.integer(scores);
@@ -184,7 +187,7 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
       createdOn=format(Sys.time(), "%Y%m%d %H:%M:%S", usetz=TRUE),
       platform=platform,
       chipType=chipType
-    ), 
+    ),
     footer
   );
 

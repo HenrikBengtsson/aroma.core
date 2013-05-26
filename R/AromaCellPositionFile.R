@@ -1,6 +1,6 @@
 ###########################################################################/**
 # @RdocClass "AromaCellPositionFile"
-# 
+#
 # @title "A binary file holding chromosome/position for each cell"
 #
 # \description{
@@ -10,7 +10,7 @@
 # @synopsis
 #
 # \arguments{
-#  \item{...}{Arguments passed to constructor of 
+#  \item{...}{Arguments passed to constructor of
 #             @see "AromaCellTabularBinaryFile".}
 # }
 #
@@ -18,7 +18,7 @@
 #   Note that this class does \emph{not} assume a rectangular chip layout.
 #   In other words, there is no concept of mapping a \emph{spatial}
 #   location on the array to a cell index and vice versa.
-#   The reason for this to be able to use this class also for 
+#   The reason for this to be able to use this class also for
 #   non-rectangular chip types.
 # }
 #
@@ -69,7 +69,7 @@ setMethodS3("byChipType", "AromaCellPositionFile", function(static, chipType, ta
 
 
   verbose && enter(verbose, "Locating ", class(static)[1]);
-  pathname <- findByChipType(static, chipType=chipType, tags=tags, 
+  pathname <- findByChipType(static, chipType=chipType, tags=tags,
       firstOnly=TRUE, ...);
   if (is.null(pathname)) {
     ext <- getDefaultExtension(static);
@@ -109,9 +109,9 @@ setMethodS3("byChipType", "AromaCellPositionFile", function(static, chipType, ta
 
 
 setMethodS3("readPositions", "AromaCellPositionFile", function(this, cells=NULL, drop=FALSE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
@@ -144,9 +144,9 @@ setMethodS3("readPositions", "AromaCellPositionFile", function(this, cells=NULL,
 
 
 setMethodS3("updatePositions", "AromaCellPositionFile", function(this, cells=NULL, scores, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
   nbrOfCells <- nbrOfCells(this);
   if (!is.null(cells)) {
@@ -154,22 +154,25 @@ setMethodS3("updatePositions", "AromaCellPositionFile", function(this, cells=NUL
     nbrOfCells <- length(cells);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Optimize
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Remove duplicated 'cells'
   keep <- which(!duplicated(cells));
   cells <- cells[keep];
   scores <- scores[keep];
-  rm(keep);
+  # Not needed anymore
+  keep <- NULL;
 
   # Order by 'cells'
   srt <- sort(cells, method="quick", index.return=TRUE);
   o <- srt$ix;
   cells <- srt$x;
-  rm(srt);
+  # Not needed anymore
+  srt <- NULL;
   scores <- scores[o];
-  rm(o);
+  # Not needed anymore
+  o <- NULL;
 
   lastColumn <- nbrOfColumns(this);
   this[cells,lastColumn] <- as.integer(scores);
@@ -204,7 +207,7 @@ setMethodS3("allocate", "AromaCellPositionFile", function(static, ..., nbrOfCell
       createdOn=format(Sys.time(), "%Y%m%d %H:%M:%S", usetz=TRUE),
       platform=platform,
       chipType=chipType
-    ), 
+    ),
     footer
   );
 

@@ -109,12 +109,13 @@ setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., 
     dataSet <- tags <- chipType <- NULL;
     attachLocally(argsKK);
 
-    ds <- AromaUnitTotalCnBinarySet$byName(dataSet, tags=tags, 
+    ds <- AromaUnitTotalCnBinarySet$byName(dataSet, tags=tags,
       chipType=chipType, verbose=less(verbose, 50), .onUnknownArgs="ignore");
     verbose && print(verbose, ds);
-  
+
     dsList[[kk]] <- ds;
-    rm(ds);
+    # Not needed anymore
+    ds <- NULL;
 
     verbose && exit(verbose);
   } # for (kk ...)
@@ -124,7 +125,7 @@ setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., 
   verbose && print(verbose, dsTuple);
 
   # Not needed anymore
-  rm(dsList);
+  dsList <- NULL;
   verbose && exit(verbose);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -132,8 +133,8 @@ setMethodS3("doCBS", "character", function(dataSets, tags=NULL, chipTypes, ..., 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   res <- doCBS(dsTuple, ..., verbose=verbose);
 
-  # Clean up
-  rm(dsTuple);
+  # Not needed anymore
+  dsTuple <- NULL;
   gc <- gc();
 
   verbose && exit(verbose);

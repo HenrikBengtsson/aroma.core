@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitSignalBinaryFile}
+\name{AromaUnitSignalBinaryFile}
 \docType{class}
 \alias{AromaUnitSignalBinaryFile}
 
 
- \title{The AromaUnitSignalBinaryFile class}
+\title{The AromaUnitSignalBinaryFile class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaUnitSignalBinaryFile}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -45,19 +45,19 @@ extends \emph{\link[aroma.core]{AromaPlatformInterface}}\cr
 
 
 
-  An AromaUnitSignalBinaryFile is a \code{\link{AromaTabularBinaryFile}}.
- }
+ An AromaUnitSignalBinaryFile is a \code{\link{AromaTabularBinaryFile}}.
+}
 
- \usage{
+\usage{
 AromaUnitSignalBinaryFile(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaTabularBinaryFile}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaTabularBinaryFile}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{extractMatrix} \tab  -\cr
  \tab \code{getAromaUgpFile} \tab  -\cr
@@ -99,11 +99,11 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   \code{\link[aroma.core]{AromaTabularBinaryFile}}.
- }
+\seealso{
+  \code{\link[aroma.core]{AromaTabularBinaryFile}}.
+}
 \keyword{classes}

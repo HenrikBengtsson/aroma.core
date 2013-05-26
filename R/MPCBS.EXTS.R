@@ -10,7 +10,8 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
   if (!isPackageInstalled("mpcbs")) {
     compute.var <- function(...) {}
     cross.platform.consensus <- function(...) {}
-    rm(compute.var, cross.platform.consensus);
+    # Not needed anymore
+    rm(list=c("compute.var", "cross.platform.consensus"));
   }
 
   require("mpcbs") || throw("Package not loaded: mpcbs");
@@ -39,7 +40,7 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
     res <- cross.platform.consensus(fits, sigma2, platform.names, plots=FALSE);
   });
 
-  # Target loci  
+  # Target loci
   x <- fit$anchor$merged.pos;
 
   # consensus.cn[t] is consensus copy number estimate at x[t]
@@ -73,8 +74,8 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
 
   CopyNumberRegions(
     chromosome=chromosome,
-    start=starts, 
-    stop=ends, 
+    start=starts,
+    stop=ends,
     mean=means,
     count=counts
   );
@@ -85,4 +86,4 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
 # HISTORY:
 # 2010-01-02
 # o Created.
-############################################################################## 
+##############################################################################

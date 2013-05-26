@@ -109,8 +109,8 @@ setMethodS3("importFromGenericTabularFile", "AromaUgpFile", function(this, src, 
   # Assume 'chromosome' is in 2nd column, and 'position' in 3rd.
   data <- data[keep,2:3,drop=FALSE];
 
-  # Garbage collection
-  rm(keep);
+  # Not needed anymore
+  keep <- NULL;
   gc <- gc();
 
   # Convert chromosome strings to integers

@@ -14,7 +14,8 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   if (inherits(ref, "AromaUnitFracBCnBinaryFile")) {
     refList <- rep(list(ref), nbrOfFiles);
     refSet <- AromaUnitFracBCnBinarySet(refList);
-    rm(refList);
+    # Not needed anymore
+    refList <- NULL;
   }
 
   if (inherits(ref, "AromaUnitFracBCnBinarySet")) {
@@ -39,7 +40,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
     pushState(verbose);
     on.exit(popState(verbose));
   }
- 
+
 
   verbose && enter(verbose, "Calculating CN ratios");
   dataSet <- getFullName(this);
@@ -73,7 +74,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
     # Setting up output filename
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     dfR <- getFile(refSet, kk);
-    refName <- getFullName(dfR); 
+    refName <- getFullName(dfR);
     refName <- gsub(",(fracB)", "", refName);
     refTag <- sprintf("ref=%s", refName);
 
@@ -99,7 +100,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
     asb <- AromaUnitSignalBinaryFile$allocate(pathnameT, nbrOfRows=nbrOfUnits(df), platform=platform, chipType=chipType);
     verbose && print(verbose, asb);
     verbose && exit(verbose);
-  
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Calculating relative CNs
@@ -120,7 +121,8 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
 
     dBeta <- beta - betaR;
     verbose && str(verbose, dBeta);
-    rm(beta, betaR);
+    # Not needed anymore
+    beta <- betaR <- NULL;
 
     verbose && exit(verbose);
 
@@ -130,7 +132,8 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
     verbose && enter(verbose, "Updating temporary output file");
     # Store data
     asb[,1] <- dBeta;
-    rm(dBeta);
+    # Not needed anymore
+    dBeta <- NULL;
 
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -140,7 +143,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
       dataSet=dataSet,
       fullName=getFullName(dfR),
       filename=getFilename(dfR),
-      checksum=getChecksum(dfR) 
+      checksum=getChecksum(dfR)
     );
 
     footer <- readFooter(asb);
@@ -149,12 +152,13 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
         dataSet=dataSet,
         fullName=getFullName(df),
         filename=getFilename(df),
-        checksum=getChecksum(df) 
+        checksum=getChecksum(df)
       ),
       refFile = refFile
     );
     writeFooter(asb, footer);
-    rm(footer, refFile);
+    # Not needed anymore
+    footer <- refFile <- NULL;
     verbose && exit(verbose);
 
 

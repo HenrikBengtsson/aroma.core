@@ -6,12 +6,12 @@
 # \description{
 #  @classhierarchy
 #
-#  This abstract class represents a transform (algorithm/operator) that 
-#  transforms data.  A transform has an input data set, which is 
+#  This abstract class represents a transform (algorithm/operator) that
+#  transforms data.  A transform has an input data set, which is
 #  transformed into an output data set.
 # }
-# 
-# @synopsis 
+#
+# @synopsis
 #
 # \arguments{
 #   \item{dataSet}{The input data set as an @see "AromaMicroarrayDataSet".}
@@ -22,9 +22,9 @@
 # }
 #
 # \section{Fields and Methods}{
-#  @allmethods "public"  
+#  @allmethods "public"
 # }
-# 
+#
 # \details{
 #   Subclasses must implement the \code{process()} method.
 # }
@@ -130,7 +130,7 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
   s <- c(s, sprintf("User tags: %s", paste(this$.tags, collapse=",")));
   s <- c(s, sprintf("Asterisk ('*') tags: %s", getAsteriskTags(this, collapse=",")));
   s <- c(s, sprintf("Output tags: %s", paste(getTags(this), collapse=",")));
-  s <- c(s, sprintf("Number of files: %d (%.2fMB)", 
+  s <- c(s, sprintf("Number of files: %d (%.2fMB)",
                            length(ds), getFileSize(ds)/1024^2));
   s <- c(s, sprintf("Platform: %s", getPlatform(ds)));
   s <- c(s, sprintf("Chip type: %s", getChipType(ds)));
@@ -227,7 +227,7 @@ setMethodS3("setTags", "AromaTransform", function(this, tags="*", ...) {
   if (!is.null(tags)) {
     tags <- Arguments$getCharacters(tags, collapse=NULL);
   }
-  
+
   this$.tags <- tags;
 })
 
@@ -307,7 +307,7 @@ setMethodS3("getPath", "AromaTransform", function(this, create=TRUE, ...) {
   # Full name
   fullname <- getFullName(this);
 
-  # Chip type    
+  # Chip type
   ds <- getInputDataSet(this);
   chipType <- getChipType(ds, fullname=FALSE);
 
@@ -406,7 +406,7 @@ setMethodS3("isDone", "AromaTransform", function(this, ..., verbose=FALSE) {
   fullnames <- getExpectedOutputFullnames(this, verbose=less(verbose, 25));
 
   # Scan for matching output files
-  dsOut <- getOutputDataSet(this, incomplete=TRUE, ..., 
+  dsOut <- getOutputDataSet(this, incomplete=TRUE, ...,
                                                   verbose=less(verbose,5));
   verbose && exit(verbose);
 
@@ -502,7 +502,8 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
   args$verbose <- less(verbose);
   staticMethod <- clazz$byPath;
   dsOut <- do.call("staticMethod", args=args);
-  rm(staticMethod, args); # Not needed anymore
+  # Not needed anymore
+  staticMethod <- args <- NULL;
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -542,8 +543,8 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
 # \seealso{
 #   @seeclass
 # }
-#*/########################################################################### 
-setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE) { 
+#*/###########################################################################
+setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -618,7 +619,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete
     stopifnot(identical(getFullNames(dsOut), fullnames));
     this$.outputDataSet <- dsOut;
   } else if (length(dsOut) < nbrOfFiles) {
-    verbose && cat(verbose, "Too few output files: ", 
+    verbose && cat(verbose, "Too few output files: ",
                                  length(dsOut), " < ", nbrOfFiles);
     # Return incomplete data set?
     if (!incomplete) {
@@ -626,7 +627,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete
       dsOut <- NULL;
     }
   } else if (length(dsOut) > nbrOfFiles) {
-    throw("Too many output files identified: ", 
+    throw("Too many output files identified: ",
                                  length(dsOut), " > ", nbrOfFiles);
   }
 
@@ -650,7 +651,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete
 #
 # \arguments{
 #   \item{...}{Not used.}
-#   \item{force}{If @TRUE, data already processed is re-processed, 
+#   \item{force}{If @TRUE, data already processed is re-processed,
 #       otherwise not.}
 #   \item{verbose}{See @see "R.utils::Verbose".}
 # }
@@ -681,16 +682,16 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 # o BUG FIX: getOutputDataSet() of AromaTransform failed to identify the
 #   output files if (and only if) a filename translator was applied to
 #   the input data set.
-# o Added getExpectedOutputFullnames() to AromaTransform.  This should 
+# o Added getExpectedOutputFullnames() to AromaTransform.  This should
 #   (eventually) replace etExpectedOutputFiles().
 # 2009-05-25
-# o Added new getExpectedOutputFiles() and getOutputDataSet0() for 
+# o Added new getExpectedOutputFiles() and getOutputDataSet0() for
 #   AromaTransform.
 # 2009-05-04
 # o Now getOutputDataSet() of AromaTransform returns a data set with files
 #   ordered such that the fullnames are ordered the same way as the input
 #   data set.
-# o Now getOutputDataSet() of AromaTransform scans for the output data 
+# o Now getOutputDataSet() of AromaTransform scans for the output data
 #   files with fullnames matching those of the input data set.
 # 2008-05-31
 # o Updated the default filename pattern for getOutputDataFiles().
@@ -705,7 +706,7 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 # o Removed some dependencies to CDFs.
 # 2007-12-08
 # o getOutputDataSet() of Transform was updated to utilize the new 'cdf'
-#   argument in static fromFiles() of AffymetrixCelSet.  This way the 
+#   argument in static fromFiles() of AffymetrixCelSet.  This way the
 #   default is not queried (in case it does not exist).
 # 2007-09-18
 # o Now getOutputDataSet() of Transform carry down certain arguments from
@@ -722,7 +723,7 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 # o BUG FIX: When getOutputDataSet() retrieved the output data set, the chip
 #   type of the CEL files would be validated against the path name, also when
 #   then CDF of the input set was overriden.  Now the output data set is
-#   setup using 'checkChipType=FALSE'.  Thanks Mark Robinson for 
+#   setup using 'checkChipType=FALSE'.  Thanks Mark Robinson for
 #   troubleshooting this.
 # 2007-03-24
 # o BUG FIX: getPath() created the root path before trying to expand

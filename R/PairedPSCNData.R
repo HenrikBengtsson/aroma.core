@@ -6,10 +6,10 @@
 # \description{
 #  @classhierarchy
 #
-#  A PairedPSCNData object holds paired tumor-normal parent-specific 
+#  A PairedPSCNData object holds paired tumor-normal parent-specific
 #  copy number data.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -24,8 +24,8 @@
 #   \item{betaN}{A @numeric @vector of J matched normal BAFs in [0,1]
 #        (due to noise, values may be slightly outside as well) or @NA
 #        for non-polymorphic loci.}
-#   \item{muN}{An optional @numeric @vector of J genotype calls in 
-#        \{0,1/2,1\} for AA, AB, and BB, respectively, 
+#   \item{muN}{An optional @numeric @vector of J genotype calls in
+#        \{0,1/2,1\} for AA, AB, and BB, respectively,
 #        and @NA for non-polymorphic loci.
 #        If not given, they are estimated from the normal BAFs using
 #        @see "aroma.light::callNaiveGenotypes" as described in [2].}
@@ -71,13 +71,13 @@ setConstructorS3("PairedPSCNData", function(chromosome=NULL, x=NULL, isSNP=NULL,
     # Argument 'CT':
     disallow <- c("Inf");
     CT <- Arguments$getDoubles(CT, disallow=disallow);
-  
+
     nbrOfLoci <- length(CT);
     length2 <- rep(nbrOfLoci, times=2);
-  
+
     # Argument 'betaT':
     betaT <- Arguments$getDoubles(betaT, length=length2, disallow="Inf");
-  
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Mutually optional arguments (that are not validated in superclass)
@@ -86,11 +86,11 @@ setConstructorS3("PairedPSCNData", function(chromosome=NULL, x=NULL, isSNP=NULL,
     if (!is.null(betaN)) {
       betaN <- Arguments$getDoubles(betaN, length=length2, disallow="Inf");
     }
-  
+
     if (is.null(betaN) && is.null(muN)) {
       throw("If argument 'betaN' is not given, then 'muN' must be.");
     }
-  
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Optional arguments
@@ -103,12 +103,12 @@ setConstructorS3("PairedPSCNData", function(chromosome=NULL, x=NULL, isSNP=NULL,
 
     # Argument 'chromosome':
     if (is.null(chromosome)) {
-      chromosome <- 0L; 
+      chromosome <- 0L;
     } else {
       disallow <- c("Inf");
       chromosome <- Arguments$getIntegers(chromosome, range=c(0,Inf), disallow=disallow);
     }
-  
+
     if (length(chromosome) == 1) {
       chromosome <- rep(chromosome, times=nbrOfLoci);
     } else {
@@ -172,7 +172,7 @@ setMethodS3("as.PairedPSCNData", "NonPairedPSCNData", function(T, N, ..., verbos
 
 #  verbose && str(verbose, dataT);
 #  verbose && str(verbose, dataN);
-  
+
   data <- cbind(dataT, dataN);
   names <- colnames(data);
   keep <- !duplicated(names);
@@ -277,7 +277,7 @@ setMethodS3("callNaiveGenotypes", "PairedPSCNData", function(this, force=FALSE, 
   verbose && print(verbose, table(muN));
 
   # Not needed anymore
-  rm(dataN);  
+  dataN <- NULL;
   verbose && exit(verbose);
 
 
@@ -321,7 +321,8 @@ setMethodS3("normalizeTumorBoost", "PairedPSCNData", function(this, preserveScal
   if (any(is.na(betaTN[keep]))) {
     throw("Internal error: normalizeTumorBoost() introduced missing values.");
   }
-  rm(keep);
+  # Not needed anymore
+  keep <- NULL;
 
   data$betaTN <- betaTN;
   verbose && exit(verbose);
@@ -406,7 +407,7 @@ setMethodS3("segmentByCBS", "PairedPSCNData", function(CT, ...) {
   # To please R CMD check
   data <- as.data.frame(CT);
   CT <- 2* data$CT / data$CN;
-  segmentByCBS(y=CT, chromosome=data$chromosome, x=data$x, ...); 
+  segmentByCBS(y=CT, chromosome=data$chromosome, x=data$x, ...);
 }) # segmentByCBS()
 
 
@@ -417,8 +418,8 @@ setMethodS3("segmentByPairedPSCBS", "PairedPSCNData", function(CT, ...) {
   # To please R CMD check
   data <- as.data.frame(CT);
   CT <- 2* data$CT / data$CN;
-  segmentByPairedPSCBS(CT=CT, betaT=data$betaT, betaN=data$betaN, 
-                   muN=data$muN, chromosome=data$chromosome, x=data$x, ...); 
+  segmentByPairedPSCBS(CT=CT, betaT=data$betaT, betaN=data$betaN,
+                   muN=data$muN, chromosome=data$chromosome, x=data$x, ...);
 }) # segmentByPairedPSCBS()
 
 
@@ -434,7 +435,7 @@ setMethodS3("segmentByPairedPSCBS", "PairedPSCNData", function(CT, ...) {
 # o Renamed argument 'mu' to 'muN'.
 # 2012-02-29
 # o Added extractNonPairedPSCNData() for PairedPSCNData.
-# o Added callSegmentationOutliers() and dropSegmentationOutliers() 
+# o Added callSegmentationOutliers() and dropSegmentationOutliers()
 #   for PairedPSCNData.
 # o Added segmentByPairedPSCBS() for PairedPSCNData.
 # o Added as.PairedPSCNData().

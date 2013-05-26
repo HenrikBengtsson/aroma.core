@@ -7,7 +7,7 @@
 # \description{
 #  @get "title" using robust estimators.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -18,12 +18,12 @@
 #      boundary of the [genotype cone]".  Lowering \code{alpha} expand
 #      the cone.  When \code{alpha} goes to zero, all data points will
 #      be on or inside the cone.}
-#   \item{q,Q}{Percentiles in [0,100] for which data points that are 
+#   \item{q,Q}{Percentiles in [0,100] for which data points that are
 #      below (above) will be assigned zero weight in the fitting of
 #      the parameters.}
-#   \item{...}{Additional arguments passed to the \code{cfit()} function 
+#   \item{...}{Additional arguments passed to the \code{cfit()} function
 #      of the \pkg{sfit} package.}
-#   \item{flavor}{A @character string specifying what model/algorithm 
+#   \item{flavor}{A @character string specifying what model/algorithm
 #      should be used to fit the genotype cone.}
 # }
 #
@@ -34,10 +34,10 @@
 #      with column \code{origin}, \code{AA}, and \code{BB}.}
 #    \item{Minv}{The inverse of \code{M}.}
 #    \item{origin}{The estimate of the shift.}
-#    \item{W}{The estimate of shear/rotation matrix with columns 
+#    \item{W}{The estimate of shear/rotation matrix with columns
 #             \code{AA} and \code{BB}.}
 #    \item{Winv}{The inverse of \code{W}.}
-#    \item{params}{The parameters used for the fit, i.e. 
+#    \item{params}{The parameters used for the fit, i.e.
 #       \code{alpha}, \code{q}, \code{Q}, and  those passed in \code{...}.}
 #    \item{dimData}{The dimension of the input data.}
 # }
@@ -51,7 +51,7 @@
 # @author
 #
 # \seealso{
-#  To backtransform data fitted using this method, 
+#  To backtransform data fitted using this method,
 #  see @seemethod "backtransformMultiDimensionalCone".
 #  Internally, the \code{cfit()} function the \pkg{sfit} package is used.
 # }
@@ -67,7 +67,7 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
     require("sfit") || throw("Package not loaded: sfit");
   } else if (flavor == "expectile") {
     # To please/fool R CMD check (in the case expectile is not installed)
-    fitCone <- NULL; rm(fitCone);
+    fitCone <- NULL; rm(list="fitCone");
     require("expectile") || throw("Package not loaded: expectile");
     # Only final 'alpha' is needed by expectile::fitCone().
     alpha <- rev(alpha)[1];
@@ -86,7 +86,7 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
   M <- fit$M;
   colnames(M) <- sprintf("dim%d", seq_len(ncol(M)));
   clazz <- class(M);
- 
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Re-arrange vertices in the order origin, 1st, 2nd, ..., Kth axis.
   # For bi-allele data, this means: (origin, A, B)
@@ -124,7 +124,7 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
 
   # Rescale such that the 1st dimension has value one in the first position.
   W <- W / W[1,1];
- 
+
   # Find the inverse
   Winv <- solve(W);
 

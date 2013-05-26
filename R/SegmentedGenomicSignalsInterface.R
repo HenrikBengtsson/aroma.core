@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -18,7 +18,7 @@
 # }
 #
 # @author
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("SegmentedGenomicSignalsInterface", function(...) {
   extend(Interface(), "SegmentedGenomicSignalsInterface");
 })
@@ -61,16 +61,17 @@ setMethodS3("getStates", "SegmentedGenomicSignalsInterface", function(this, x=NU
       tmp <- newInstance(this, nrow=length(x));
       tmp$x <- x;
       states <- tmp$state;
-      rm(tmp);
+      # Not needed anymore
+      tmp <- NULL;
     }
   } else {
     if (is.null(x)) {
       x <- getPositions(this);
     }
     nbrOfLoci <- length(x);
-  
+
     states <- getBasicField(this, ".states");
-  
+
     if (is.function(states)) {
       fcn <- states;
       chromosome <- getChromosome(this);
@@ -120,7 +121,7 @@ setMethodS3("getVirtualField", "SegmentedGenomicSignalsInterface", function(this
   } else {
     fields <- getVirtualLocusFields(this, ...);
     stopifnot(is.element(key, fields));
-    
+
     if (key == "state") {
       value <- getStates(this, ...);
     } else {
@@ -168,7 +169,7 @@ setMethodS3("extractSubsetByState", "SegmentedGenomicSignalsInterface", function
   extractSubset(this, keep, ...);
 })
 
- 
+
 
 setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", function(this, xOut=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -212,7 +213,7 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
 
   for (ss in seq_along(uniqueStates)) {
     state <- uniqueStates[ss];
-    verbose && enter(verbose, sprintf("State #%d ('%d') of %d", 
+    verbose && enter(verbose, sprintf("State #%d ('%d') of %d",
                                       ss, state, length(uniqueStates)));
 
     # Identifying loci with this state
@@ -242,7 +243,7 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     yOutSS <- kernelSmoothing(y=ySS, x=xSS, xOut=xOutSS, ...);
     verbose && str(verbose, yOutSS);
     verbose && exit(verbose);
-      
+
     yOut[keep] <- yOutSS;
     verbose && exit(verbose);
   } # for (ss ...)
@@ -290,7 +291,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   if (!is.null(length.out)) {
     length.out <- Arguments$getInteger(length.out, range=c(1,Inf));
   }
- 
+
   # Argument 'byCount':
   byCount <- Arguments$getLogical(byCount);
 
@@ -311,10 +312,11 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   if (byCount) {
     verbose && enter(verbose, "By count");
     res <- sort(this); # sort() returns a clone():d object. /HB 2012-03-01
-    resOut <- binnedSmoothing(res, by=by, length.out=length.out, 
+    resOut <- binnedSmoothing(res, by=by, length.out=length.out,
                               byCount=TRUE, verbose=less(verbose, 5));
     xOut <- resOut$x;
-    rm(resOut);
+    # Not needed anymore
+    resOut <- NULL;
     verbose && exit(verbose);
   } else {
     verbose && enter(verbose, "By position");
@@ -345,7 +347,8 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   res$x <- xOut;
   ys <- rep(as.double(NA), times=length(xOut));
   res <- setSignals(res, ys);
-  rm(ys);
+  # Not needed anymore
+  ys <- NULL;
 
   verbose && print(verbose, res);
   verbose && exit(verbose);
@@ -372,15 +375,15 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   verbose && print(verbose, gs);
   verbose && exit(verbose);
 
-  
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Binning (target) state by state
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   for (ss in seq_along(uniqueStates)) {
     state <- uniqueStates[ss];
-    verbose && enter(verbose, sprintf("State #%d ('%d') of %d", 
+    verbose && enter(verbose, sprintf("State #%d ('%d') of %d",
                                         ss, state, length(uniqueStates)));
-  
+
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Identify target loci with this state
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -393,7 +396,8 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     verbose && exit(verbose);
     # Nothing to do? [Should actually never happen!]
     nbrOfBins <- nbrOfLoci(resSS);
-    rm(resSS);
+    # Not needed anymore
+    resSS <- NULL;
     if (nbrOfBins == 0) {
       verbose && cat(verbose, "No bins. Skipping state.");
       verbose && exit(verbose);
@@ -425,7 +429,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       nbrOfLociToAdd <- (gsSS$xOrder[1] %% by) - 1;
       verbose && cat(verbose, "Number of loci to add: ", nbrOfLociToAdd);
       gsSS$xOrder <- NULL;
-      
+
       if (nbrOfLociToAdd > 0) {
         # Allocate the correct size
         nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
@@ -447,7 +451,8 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
           gsSS2[[ff]] <- values;
         } # for (ff ...)
         gsSS <- gsSS2;
-        rm(gsSS2);
+        # Not needed anymore
+        gsSS2 <- NULL;
       } # if (nbrOfLociToAdd > 0)
       verbose && exit(verbose);
     } # if (byCount)
@@ -469,18 +474,20 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
       verbose && str(verbose, args);
       resSS <- binnedSmoothing(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
     } # if (byCount)
-    rm(gsSS, args);
+    # Not needed anymore
+    gsSS <- args <- NULL;
     verbose && print(verbose, resSS);
     verbose && exit(verbose);
 
     # Sanity check
-    stopifnot(length(idxsOut) == nbrOfLoci(resSS));  
+    stopifnot(length(idxsOut) == nbrOfLoci(resSS));
 
     ys <- getSignals(res);
     ys[idxsOut] <- getSignals(resSS);
     res <- setSignals(res, ys);
-    rm(resSS, ys);
-  
+    # Not needed anymore
+    resSS <- ys <- NULL;
+
     verbose && exit(verbose);
   } # for (ss ...)
 
@@ -509,7 +516,7 @@ setMethodS3("points", "SegmentedGenomicSignalsInterface", function(x, ..., col=g
 # o Now binnedSmoothingByState() works also when RawGenomicSignals
 #   extends data.frame.
 # 2009-06-30
-# o Added support for argument 'byCount' to binnedSmoothingByState() of 
+# o Added support for argument 'byCount' to binnedSmoothingByState() of
 #   SegmentedCopyNumbers.  It is rather complex how it works, but we tried
 #   to immitate how it works with byCount=FALSE.
 # 2009-06-10
@@ -520,8 +527,8 @@ setMethodS3("points", "SegmentedGenomicSignalsInterface", function(x, ..., col=g
 #   necessary, i.e. it keeps integers if integers, otherwise to doubles.
 #   This is a general design of aroma.* that saves some memory.
 # 2009-04-06
-# o Now binnedSmoothingByState() of SegmentedCopyNumbers uses 
-#   extractSubsetByState() and then binnedSmoothing() on that object.  
+# o Now binnedSmoothingByState() of SegmentedCopyNumbers uses
+#   extractSubsetByState() and then binnedSmoothing() on that object.
 #   This makes the code slightly less redundant.
 # 2009-02-19
 # o Adopted to make use of new RawGenomicSignals.

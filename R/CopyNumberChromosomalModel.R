@@ -8,13 +8,13 @@
 #
 #  This \emph{abstract} class represents a copy-number model.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{cesTuple}{A @see "CopyNumberDataSetTuple".}
-#   \item{refTuple}{An optional @see "CopyNumberDataFile", 
-#      or @see "CopyNumberDataSet" or @see "CopyNumberDataSetTuple" 
+#   \item{refTuple}{An optional @see "CopyNumberDataFile",
+#      or @see "CopyNumberDataSet" or @see "CopyNumberDataSetTuple"
 #      for pairwise comparisons.}
 #   \item{calculateRatios}{A @logical specifying whether ratios should
 #      be calculated relative to the reference.
@@ -33,7 +33,7 @@
 # }
 #
 # \section{Requirements}{
-#   This class requires genome information annotation files for 
+#   This class requires genome information annotation files for
 #   every chip type.
 # }
 #
@@ -162,7 +162,7 @@ setMethodS3("getMaxNAFraction", "CopyNumberChromosomalModel", function(this, def
 
 setMethodS3("getNames", "CopyNumberChromosomalModel", function(this, ...) {
   # In a future version, we will provide correct paired names.
-  # Until getFullNames() support this (currently the tags for the 
+  # Until getFullNames() support this (currently the tags for the
   # references are dropped), we will only make it available
   # as a hidden feature for getNames().  /HB 2010-01-02
   usePairedNames <- this$.usePairedNames;
@@ -234,50 +234,54 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if (is.list(refTuple)) {
       refList <- refTuple;
- 
+
       # Validate against the test set tuple
       cesTuple <- getSetTuple(this);
       cesList <- getSets(cesTuple);
       nbrOfChipTypes <- length(cesList);
-  
+
       # Assert the number of chip types
       if (length(refList) != nbrOfChipTypes) {
         throw("The number of chip types in the references (argument 'refTuple') does not match the number of chip types in the sample (argument 'cesTuple'): ", length(refList), " != ", nbrOfChipTypes);
       }
-  
+
       # Coerce single reference files into reference sets
       for (kk in seq_along(refList)) {
         ref <- refList[[kk]];
-  
+
         # If a data file...
         # AD HOC; Need more specialized class than GenericDataFile.
         # /HB 2009-11-19
         if (inherits(ref, "GenericDataFile")) {
           chipType <- getChipType(ref);
           chipType <- gsub(",monocell", "", chipType);
-  
+
           ces <- cesList[[chipType]];
-  
+
           # Sanity check
           if (is.null(ces)) {
             throw("The reference (argument 'refTuple') uses a chip type not used in the sample (argument 'cesTuple'): ", chipType, " not in (", paste(names(cesList), collapse=", "), ")");
           }
-  
+
           # Create a data set holding a sequence of one replicated reference file
           refFiles <- rep(list(ref), times=length(ces));
           refSet <- newInstance(ces, refFiles);
-          rm(refFiles);
-           
+          # Not needed anymore
+          refFiles <- NULL;
+
           refList[[kk]] <- refSet;
-          rm(refSet);
+          # Not needed anymore
+          refSet <- NULL;
         }
-        rm(ref);
+        # Not needed anymore
+        ref <- NULL;
       } # for (kk ...)
-  
+
       refTuple <- refList;
-      rm(refList, cesList);
+      # Not needed anymore
+      refList <- cesList <- NULL;
     } # if (is.list(refTuple))
-  
+
     if (!is.null(refTuple)) {
       # Coerce to CopyNumberDataSetTuple, if needed
       refTuple <- as.CopyNumberDataSetTuple(refTuple);
@@ -323,7 +327,7 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
     } # for (kk in ...)
 
     # Not needed anymore
-    rm(cesTuple);
+    cesTuple <- NULL;
   } # if (reference == "explicit")
 
 
@@ -413,7 +417,8 @@ setMethodS3("getReferenceSetTuple", "CopyNumberChromosomalModel", function(this,
         clearCache(refSet);
         refFiles <- rep(list(refFile), times=length(cesTuple));
         refSet$files <- refFiles;
-        rm(refFiles);
+        # Not needed anymore
+        refFiles <- NULL;
         verbose && exit(verbose);
       } else {
         throw("Non-supported reference: ", ref);
@@ -595,7 +600,7 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
     verbose && print(verbose, refTuple);
 
     rfList <- getFileList(refTuple, array, ..., verbose=less(verbose,1));
-  
+
     # Sanity check
     if (!identical(names(ceList), names(rfList))) {
       verbose && enter(verbose, "Sanity check failed");
@@ -619,7 +624,7 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
 
   verbose && exit(verbose);
 
-  files;  
+  files;
 }, protected=TRUE);
 
 
@@ -702,7 +707,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
         } else {
           # AD HOC. /HB 2007-09-29
           # Hmmm... what is this? /HB 2009-11-18
-          # At least, replaced AffymetrixCelFile 
+          # At least, replaced AffymetrixCelFile
           # with CopyNumberDataFile. /HB 2009-11-18
           if (!inherits(ref, "CopyNumberDataFile")) {
             ref <- "none";  # WAS: ref <- NULL /HB 2012-10-21
@@ -719,12 +724,12 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # (a) Extract relative chromosomal signals
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # AD HOC. getXAM() is currently only implemented in the 
+      # AD HOC. getXAM() is currently only implemented in the
       # AffymetrixCelFile class and not defined in any Interface class.
-      # It should be implemented by others too, alternatively be 
+      # It should be implemented by others too, alternatively be
       # replaced by a "better" method, e.g. extractRawCopyNumbers().
       # /HB 2009-11-18.
-      df0 <- getXAM(ce, other=ref, chromosome=chromosome, units=units, 
+      df0 <- getXAM(ce, other=ref, chromosome=chromosome, units=units,
                                                 verbose=less(verbose));
       df0 <- df0[,c("x", "M"), drop=FALSE];
       # Argument 'units' may be NULL
@@ -762,76 +767,82 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
         sdTheta <- sdM <- rep(naValue, times=length(units0));
 
         if (!is.character(ref)) {
-          sdTheta <- extractMatrix(ref, units=units0, field="sdTheta", 
+          sdTheta <- extractMatrix(ref, units=units0, field="sdTheta",
                                                drop=TRUE, verbose=verbose);
-  
-          # Estimate the std dev of the raw log2(CN). 
+
+          # Estimate the std dev of the raw log2(CN).
           # [only if ref is averaged across arrays]
           if (isAverageFile(ref)) {
             # Get (theta, sigma) of theta (estimated across all arrays).
-            theta <- extractMatrix(ref, units=units0, field="theta", 
+            theta <- extractMatrix(ref, units=units0, field="theta",
                                                  drop=TRUE, verbose=verbose);
-  
-            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             # BEGIN: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
             # (which are not supported yet /HB 2009-11-18)
-            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             # Number of arrays used when averaging (per unit)
 str(ref);
 print(ref);
             ns <- getNumberOfFilesAveraged(ref, units=units0, verbose=verbose);
 stop("xxxxxxxxxxxxx");
-    
+
             # Sanity check
             stopifnot(length(ns) == length(units0));
-    
-            # Use Gauss' approximation (since mu and sigma are on the 
+
+            # Use Gauss' approximation (since mu and sigma are on the
             # intensity scale)
             sdM <- log2(exp(1)) * sqrt(1+1/ns) * sdTheta / theta;
-    
-            rm(ns, theta);
-            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+            # Not needed anymore
+            ns <- theta <- NULL;
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             # END: NEED SPECIAL ATTENTION IF ALLELE-SPECIFIC ESTIMATES
-            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
           } # if (isAverageFile(ref))
         } # if (!is.character(ref))
 
         # Append stddev estimates
         df0 <- cbind(df0, sdTheta=sdTheta, sdM=sdM);
-        rm(sdTheta, sdM);
+        # Not needed anymore
+        sdTheta <- sdM <- NULL;
       } # if (estimateSd)
-  
-      rm(ref); # Not needed anymore
+
+      # Not needed anymore
+      ref <- NULL;
 
       # Append chip type, and CDF units.
       df0 <- cbind(df0, chipType=rep(chipType, times=length(units0)),
                                                               unit=units0);
-      rm(units0);  
+      # Not needed anymore
+      units0 <- NULL;
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # (d) Append data to data for previous chip types
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       df <- rbind(df, df0);
       colnames(df) <- colnames(df0);
-      rm(df0);
+      # Not needed anymore
+      df0 <- NULL;
     } else {
       verbose && cat(verbose, "No copy-number estimates available: ", arrayNames[kk]);
     }
 
     # Garbage collect
     gc <- gc();
-    
+
     verbose && exit(verbose);
   } # for (kk in ...)
   verbose && exit(verbose);
-  
+
 
   if (reorder) {
     verbose && enter(verbose, "Re-order by physical position");
     o <- order(df[,"x"]);
     df <- df[o,, drop=FALSE];
     rownames(df) <- NULL;
-    rm(o);
+    # Not needed anymore
+    o <- NULL;
     verbose && exit(verbose);
   }
 
@@ -893,18 +904,19 @@ setMethodS3("calculateChromosomeStatistics", "CopyNumberChromosomalModel", funct
 
     res[[arrayName]] <- list();
     for (chromosome in chromosomes) {
-      verbose && enter(verbose, 
-                         sprintf("Array #%d ('%s') of %d on chromosome %s", 
+      verbose && enter(verbose,
+                         sprintf("Array #%d ('%s') of %d on chromosome %s",
                                   aa, arrayName, nbrOfArrays, chromosome));
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Get (x, M, stddev, chiptype, unit) data from all chip types
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      data <- getRawCnData(this, ceList=ceList, refList=rfList, 
+      data <- getRawCnData(this, ceList=ceList, refList=rfList,
                                chromosome=chromosome, ..., estimateSd=FALSE,
                                                     verbose=less(verbose));
       M <- data[,"M"];
-      rm(data);
+      # Not needed anymore
+      data <- NULL;
 
       fit <- list(
         mean = mean(M, na.rm=TRUE),
@@ -1041,21 +1053,23 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
     files <- getDataFileMatrix(this, array=array, verbose=less(verbose,5));
     ceList <- files[,"test"];
     rfList <- files[,"reference"];
-  
+
     data <- getRawCnData(this, ceList=ceList, refList=rfList,
                                  chromosome=chromosome, ..., estimateSd=FALSE,
                                                        verbose=less(verbose));
-  
-    cn <- RawCopyNumbers(cn=data[,"M"], x=data[,"x"], chromosome=chromosome); 
+
+    cn <- RawCopyNumbers(cn=data[,"M"], x=data[,"x"], chromosome=chromosome);
     cn <- setBasicField(cn, ".yLogBase", 2);
-    rm(data);
+    # Not needed anymore
+    data <- NULL;
   }
 
   # Save to cache?
   if (cache) {
     cacheList[[id]] <- cn;
     this$.extractRawCopyNumbersCache <- cacheList;
-    rm(cacheList);
+    # Not needed anymore
+    cacheList <- NULL;
   }
 
   # Convert to the correct logarithmic base
@@ -1082,13 +1096,13 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
 # \arguments{
 #   \item{arrays}{The arrays to be queried.}
 #   \item{chromosomes}{The chromosomes to be queried.}
-#   \item{...}{Additional arguments passed to 
+#   \item{...}{Additional arguments passed to
 #      @seemethod "extractRawCopyNumbers".}
 #   \item{verbose}{See @see "R.utils::Verbose".}
 # }
 #
 # \value{
-#  Returns a CxK @double @matrix where C is the number of chromosomes, 
+#  Returns a CxK @double @matrix where C is the number of chromosomes,
 #  and K is the number of arrays (arrays are always the last dimension).
 # }
 #
@@ -1097,7 +1111,7 @@ setMethodS3("extractRawCopyNumbers", "CopyNumberChromosomalModel", function(this
 # \seealso{
 #   @seeclass
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=seq_len(nbrOfArrays(this)), chromosomes=getChromosomes(this), ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -1123,7 +1137,7 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
   for (rr in seq_len(nbrOfChromosomes)) {
     chromosome <- chromosomes[rr];
-    verbose && enter(verbose, sprintf("Chromosome #%d ('Chr%02d') of %d", 
+    verbose && enter(verbose, sprintf("Chromosome #%d ('Chr%02d') of %d",
                                           rr, chromosome, nbrOfChromosomes));
 
     for (cc in seq_along(arrays)) {
@@ -1134,7 +1148,8 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
 #      verbose && enter(verbose, "First-order robust variance estimator");
       res[rr,cc] <- estimateStandardDeviation(rawCns);
-      rm(rawCns);
+      # Not needed anymore
+      rawCns <- NULL;
 #      verbose && exit(verbose);
 
       verbose && exit(verbose);
@@ -1168,7 +1183,7 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 
   # Extract the length
   nbrOfBases <- data[chromosome,"nbrOfBases"];
-  
+
   # Sanity check
   disallow <- c("Inf", "NA", "NaN");
   nbrOfBases <- Arguments$getNumeric(nbrOfBases, range=c(0, Inf), disallow=disallow);
@@ -1223,7 +1238,7 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 # o ROBUSTNESS: Now CopyNumberChromosomalModel() asserts that none of the
 #   test samples have duplicated names.
 # o ROBUSTNESS: The error message "The reference (argument 'refTuple')..."
-#   thrown by the constructor when the test and reference sets do not use 
+#   thrown by the constructor when the test and reference sets do not use
 #   the same chip types did not show the correct chip types for the test set.
 # 2009-11-22
 # o CLEAN UP: Added argument 'estimateSd' to getRawCnData(), because stddev
@@ -1231,8 +1246,8 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 # o Added Rdocs for extractRawCopyNumbers().
 # o CLEAN UP: Made getRawCnData() private.  Use extractRawCopyNumbers().
 # 2009-11-18
-# o CLEAN UP: Removed all Affymetrix specific classes/methods; using Interface 
-#   classes almost everywhere.  It is a bit ad hoc design, but we will 
+# o CLEAN UP: Removed all Affymetrix specific classes/methods; using Interface
+#   classes almost everywhere.  It is a bit ad hoc design, but we will
 #   worry about that later; let's get something working first.
 # o BUG FIX: getRawCnData(..., reorder=FALSE, verbose=TRUE) would give an
 #   error because 'nbrOfUnits' would not have  been defined.
@@ -1263,7 +1278,7 @@ setMethodS3("getChromosomeLength", "CopyNumberChromosomalModel", function(this, 
 #   generate nbrOfArrays(ces) instead of nbrOfArrays(cesTuple) reference
 #   files if not reference set was specified.
 # 2008-05-31
-# o BUG FIX: getRawCnData() of CopyNumberChromosomalModel threw "Exception: 
+# o BUG FIX: getRawCnData() of CopyNumberChromosomalModel threw "Exception:
 #   Argument 'ceList' contains a non-ChipEffectFile: NULL" if multiple
 #   ChipEffectSet:s is modelled and one of them don't have all arrays.
 #   Thanks Lavinia Gordon for spotting this.

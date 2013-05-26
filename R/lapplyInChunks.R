@@ -22,7 +22,7 @@ setMethodS3("lapplyInChunks", "numeric", function(idxs, fcn, ..., chunkSize=1, u
   # Nothing todo?
   if (n == 0)
     return(list());
-   
+
   remaining <- 1:n;
   chunk <- 1:chunkSize;
   nbrOfChunks <- ceiling(n / chunkSize);
@@ -56,8 +56,8 @@ setMethodS3("lapplyInChunks", "numeric", function(idxs, fcn, ..., chunkSize=1, u
       names[ii] <- names(resChunk);
     }
 
-    # Not needed anymore   
-    rm(resChunk, ii);
+    # Not needed anymore
+    resChunk <- ii <- NULL;
 
     # Next chunk
     remaining <- remaining[-chunk];
@@ -66,8 +66,8 @@ setMethodS3("lapplyInChunks", "numeric", function(idxs, fcn, ..., chunkSize=1, u
     verbose && exit(verbose);
   } # while(length(idxs) > 0)
 
-  # Not needed anymore   
-  rm(chunk);
+  # Not needed anymore
+  chunk <- NULL;
 
   # Add names?
   if (!is.null(names))
@@ -104,5 +104,5 @@ setMethodS3("splitInChunks", "numeric", function(idxs, chunkSize=1, ...) {
 # 2007-08-17
 # o Added splitInChunks().
 # 2007-02-12
-# o Created. 
+# o Created.
 ############################################################################

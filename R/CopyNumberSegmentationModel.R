@@ -319,7 +319,8 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         fit <- do.call("fitFcn", args);
         verbose && str(verbose, fit);
         timers$fit <- timers$fit + (processTime() - tFit);
-        rm(cn); # Not needed anymore
+        # Not needed anymore
+        cn <- NULL;
 
         verbose && cat(verbose, "Class of fitted object: ", class(fit)[1]);
         verbose && printf(verbose, "Time to fit segmentation model: %.2fmin\n", timers$fit[3]/60);
@@ -335,7 +336,8 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         verbose && printf(verbose, "Robust first-order standard deviation estimate: %g\n", sigmaM);
         cnRegions <- extractCopyNumberRegions(fit);
         verbose && print(verbose, cnRegions);
-        rm(rawCns, cnRegions);  # Not needed anymore
+        # Not needed anymore
+        rawCns <- cnRegions <- NULL;
         verbose && exit(verbose);
 
 
@@ -378,7 +380,8 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
       if (.retResults)
         res[[arrayName]][[chr]] <- fit;
 
-      rm(fit);
+      # Not needed anymore
+      fit <- NULL;
 
       verbose && exit(verbose);
     } # for (chr in ...)
@@ -604,7 +607,8 @@ setMethodS3("writeRegions", "CopyNumberSegmentationModel", function(this, arrays
           }
           df <- df[-tooLong,];
           df <- rbind(df, dfXtra);
-          rm(dfXtra);
+          # Not needed anymore
+          dfXtra <- NULL;
           row.names(df) <- seq_len(nrow(df));
         }
         verbose && exit(verbose);
@@ -692,7 +696,8 @@ setMethodS3("getFullNames", "CopyNumberSegmentationModel", function(this, ...) {
   testTuple <- getSetTuple(this);
   fullnames <- getFullNames(testTuple);
   tags <- gsub("^[^,]*(|,)", "", fullnames);
-  rm(testTuple, fullnames);
+  # Not needed anymore
+  testTuple <- fullnames <- NULL;
 
   fullnames <- paste(names, tags, sep=",");
   fullnames <- gsub(",$", "", fullnames);

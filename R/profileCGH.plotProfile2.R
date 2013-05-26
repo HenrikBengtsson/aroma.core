@@ -13,7 +13,7 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
   # Argument 'variable':
   if (!variable %in% names(fit$profileValues))
     throw("Argument 'variable' does not specify a known field: ", variable);
-  
+
   # Argument 'chromosome':
   if (is.null(chromosome)) {
     chromosome <- unique(fit$profileValues$Chromosome);
@@ -47,14 +47,14 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
   flavor <- match.arg(flavor);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Reset graphical parameters when done
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   xScale <- 1/(10^unit);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Keep only data to be plotted
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   pv <- fit$profileValues;
 
   # Keep only data for the chromosome of interest
@@ -73,36 +73,36 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
   pv <- pv[o,];
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get chromosome lengths
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Load data
   # To please R CMD check on R v2.6.0
-  cytoband <- NULL; rm(cytoband);
+  cytoband <- NULL; rm(list="cytoband");
   data("cytoband", envir=sys.frame(sys.nframe()));  # Package 'GLAD'
-  genomeInfo <- aggregate(cytoband$End, 
-    by=list(Chromosome=cytoband$Chromosome, ChrNumeric=cytoband$ChrNumeric), 
+  genomeInfo <- aggregate(cytoband$End,
+    by=list(Chromosome=cytoband$Chromosome, ChrNumeric=cytoband$ChrNumeric),
     FUN=max, na.rm=TRUE);
   names(genomeInfo) <- c("Chromosome", "ChrNumeric", "Length");
   genomeInfo$Chromosome <- as.character(genomeInfo$Chromosome);
   genomeInfo$ChrNumeric <- as.integer(as.character(genomeInfo$ChrNumeric));
 
   LabelChr <- data.frame(Chromosome=chromosome);
-  LabelChr <- merge(LabelChr, genomeInfo[, c("ChrNumeric", "Length")], 
+  LabelChr <- merge(LabelChr, genomeInfo[, c("ChrNumeric", "Length")],
                          by.x="Chromosome", by.y="ChrNumeric", all.x=TRUE);
 
   LabelChr$Length <- 0;
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Update the plot data with cytoband information
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   pv <- merge(pv, LabelChr, by="Chromosome");
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plotting flavor
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (flavor == "glad") {
   } else if (flavor == "ce") {
   } else if (flavor == "minimal") {
@@ -111,16 +111,16 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Create empty plot figure
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   newPlot(fit, unit=unit, xlim=xlim, ylim=ylim, flavor=flavor, ...);
 #  plot(NA, xlim=xlim, ylim=ylim, xaxt="n", xlab=xlab, ylab=ylab, bty="n");
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Annotate gains, normals, and losses, as well as outliers?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (GNL %in% names(pv)) {
     # Setup color vector
     col <- rep(colDAGLAD[5], length(pv$PosOrder));
@@ -141,9 +141,9 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
     colSmoothing <- "red";
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot main data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Extract the data to plot
   y <- pv[, variable];
   x <- xScale*pv$PosBase;
@@ -154,18 +154,18 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
   pointsRawCNs(fit, unit=unit, ...);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot cytobands?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (plotband) {
-    drawCytoband(fit, chromosome=chromosome, cytobandLabels=TRUE, 
+    drawCytoband(fit, chromosome=chromosome, cytobandLabels=TRUE,
            colCytoBand=colCytoBand, colCentro=colCentro, unit=unit);
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot break points?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (Bkp) {
     if (is.data.frame(fit$BkpInfo)) {
       fit$BkpInfo <- merge(fit$BkpInfo, LabelChr, by="Chromosome");
@@ -176,9 +176,9 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot smoothing values?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(Smoothing)) {
     drawCnRegions(fit, ..., col=colSmoothing, xScale=xScale);
   }

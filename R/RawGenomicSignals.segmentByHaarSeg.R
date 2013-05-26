@@ -18,7 +18,7 @@
 # \value{
 #  Returns the fit object.
 # }
-# 
+#
 # \details{
 #   Internally \code{haarSeg()} of the \pkg{HaarSeg} is used to segment
 #   the signals.
@@ -32,7 +32,7 @@
 # }
 #
 # @keyword IO
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=FALSE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -162,7 +162,7 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
   # Now, check for cached results
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Looking for cached results");
-  key <- list(method="segmentByHaarSeg", class=class(this)[1], 
+  key <- list(method="segmentByHaarSeg", class=class(this)[1],
                                                 signatures=signatures);
   dirs <- c("aroma.cn", class(this)[1]);
   if (!force) {
@@ -210,7 +210,7 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Setting up return HaarSeg object");
   fit <- list(
-    output = fit, 
+    output = fit,
     data   = list(M=data$y, x=data$x, chromosome=chromosome)
   );
   class(fit) <- "HaarSeg";
@@ -231,7 +231,8 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
   cnrData <- as.data.frame(cnr);
   regions <- as.matrix(cnrData[,c("start", "stop")]);
   nbrOfRegions <- nrow(regions);
-  rm(cnr, cnrData);
+  # Not needed anymore
+  cnr <- cnrData <- NULL;
   x <- data$x;
   y <- data$y;
   naValue <- as.double(NA);
@@ -243,7 +244,8 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
     t <- median(t, na.rm=TRUE)/sqrt(2);
     sigmas[kk] <- t;
   } # for (kk ...)
-  rm(x,y,t,keep);
+  # Not needed anymore
+  x <- y <- t <- keep <- NULL;
   aromaEstimates <- list(
     stddevAll = sigma,
     stddevRegions = sigmas
@@ -264,7 +266,7 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
 
   verbose && exit(verbose);
 
-  fit;  
+  fit;
 }) # segmentByCBS()
 
 

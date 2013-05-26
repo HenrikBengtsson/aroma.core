@@ -25,7 +25,7 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
   # Check for cached results?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   chipType <- getChipType(this);
-  key <- list(method="getSnpPositions", class=class(this)[1], 
+  key <- list(method="getSnpPositions", class=class(this)[1],
               version="20110830",
               chipType=chipType, tags=getTags(this), cells=cells, ...);
   if (getOption(aromaSettings, "devel/useCacheKeyInterface", FALSE)) {
@@ -69,7 +69,8 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
   seqsA <- seqs[1,,,drop=FALSE];
   seqsB <- seqs[2,,,drop=FALSE];
   dim(seqsA) <- dim(seqsB) <- c(dim[2], probeLength);
-  rm(seqs);
+  # Not needed anymore
+  seqs <- NULL;
 
   # Identify the *last* difference
   naValue <- as.integer(NA);
@@ -78,7 +79,8 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
     idxs <- which(seqsA[,pp] != seqsB[,pp]);
     pos[idxs] <- pp;
   }
-  rm(idxs, pp);
+  # Not needed anymore
+  idxs <- pp <- NULL;
 
   # Sanity check
   stopifnot(length(pos) == ncol(cells));
@@ -97,7 +99,7 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
 
   pos;
 }) # getSnpPositions()
- 
+
 
 setMethodS3("getSnpShifts", "AromaCellSequenceFile", function(this, ...) {
   pos <- getSnpPositions(this, ...);
@@ -167,7 +169,7 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   # Sanity check
   stopifnot(length(uPos) > 0);
 
-  
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read probe sequences
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -187,7 +189,8 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
     seqsPP <- readSequences(this, cells=cellsPP, positions=positions);
     seqs[,idxs] <- seqsPP;
   }
-  rm(idxs, seqsPP, positions, cellsPP, snpPosition, cells, pos);
+  # Not needed anymore
+  idxs <- seqsPP <- positions <- cellsPP <- snpPosition <- cells <- pos <- NULL;
 
   if (byRow) {
     seqs <- t(seqs);
@@ -199,7 +202,7 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
 
   seqs;
 }) # getSnpNucleotides()
- 
+
 
 
 setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cells, ignoreOrder=TRUE, ..., force=FALSE, verbose=FALSE) {
@@ -226,9 +229,9 @@ setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cel
   # Check for cached results?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   chipType <- getChipType(this);
-  key <- list(method="groupBySnpNucleotides", class=class(this)[1], 
-              chipType=chipType, tags=getTags(this), 
-              cells=cells, ignoreOrder=ignoreOrder, 
+  key <- list(method="groupBySnpNucleotides", class=class(this)[1],
+              chipType=chipType, tags=getTags(this),
+              cells=cells, ignoreOrder=ignoreOrder,
               version="2008-12-04", ...);
   dirs <- c("aroma.affymetrix", chipType);
   if (!force) {
@@ -285,7 +288,7 @@ setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cel
   names(res) <- c(pairsToBuild, "missing");
   for (kk in seq_along(uniquePairs)) {
     pair <- uniquePairs[kk];
-    verbose && enter(verbose, sprintf("Pair %d ('%s') of %d", 
+    verbose && enter(verbose, sprintf("Pair %d ('%s') of %d",
                                           kk, pair, length(uniquePairs)));
 
     idxs <- which(pairNames == pair);
@@ -314,7 +317,8 @@ setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cel
   cellsKK <- cells[,idxs,drop=FALSE];
   if (length(cellsKK) > 0)
     res[["missing"]] <- cellsKK;
-  rm(idxs, cellsKK);
+  # Not needed anymore
+  idxs <- cellsKK <- NULL;
 
   for (kk in seq_along(res)) {
     cells <- res[[kk]];

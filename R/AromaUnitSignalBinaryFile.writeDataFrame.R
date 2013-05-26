@@ -28,7 +28,7 @@
 #  \item{sep}{A @character string specifying the column separator}.
 #  \item{columnNamesPrefix}{A @character string specifying what type
 #    of prefix should be used for column names.}
-#  \item{overwrite}{If @TRUE, an existing destination file will be 
+#  \item{overwrite}{If @TRUE, an existing destination file will be
 #    overwritten, otherwise an exception will be thrown.}
 #   \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
@@ -42,11 +42,11 @@
 # \seealso{
 #  @seeclass
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filename=sprintf("%s.txt", getFilename(this)), path=file.path(getRootName(this, tags="*,txt"), getParentName(this), getChipType(this, fullname=FALSE)), ..., columns=c("unitName", "*"), sep="\t", addHeader=TRUE, createdBy=NULL, nbrOfDecimals=4L, columnNamesPrefix=c("fullname", "name", "none"), overwrite=FALSE, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getAnnotationData <- function(df, columns, ...) {
     res <- list();
 
@@ -65,14 +65,15 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
       verbose && enter(verbose, "Unit names");
       unf <- getUnitNamesFile(ugp);
       verbose && cat(verbose, "Filename: ", getFilename(unf));
-  
+
       unitNames <- getUnitNames(unf);
       verbose && str(verbose, unitNames);
       # Sanity check
       stopifnot(length(unitNames) == nbrOfUnits);
 
       res$unitName <- unitNames;
-      rm(unitNames);
+      # Not needed anymore
+      unitNames <- NULL;
 
       verbose && exit(verbose);
     }
@@ -92,7 +93,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     verbose && str(verbose, res);
 
     verbose && exit(verbose);
-  
+
     res;
   } # getAnnotationData()
 
@@ -135,7 +136,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   overwrite <- Arguments$getLogical(overwrite);
 
   # Argument 'filename' & 'path':
-  pathname <- Arguments$getWritablePathname(filename, path=path, 
+  pathname <- Arguments$getWritablePathname(filename, path=path,
                                                   mustNotExist=!overwrite);
 
   # Argument 'addHeader':
@@ -189,7 +190,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   # Add annotation data columns?
   adColumnNames <- intersect(knownAnnotationColumnNames, columns);
   if (length(adColumnNames) > 0) {
-    adData <- getAnnotationData(this, columns=adColumnNames, 
+    adData <- getAnnotationData(this, columns=adColumnNames,
                                                  verbose=less(verbose, 5));
   } else {
     adData <- NULL;
@@ -200,7 +201,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   # Generate file header
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nbrOfColumns <- nbrOfColumns(this);
- 
+
   hdr <- NULL;
   if (addHeader) {
     verbose && enter(verbose, "Generating file header");
@@ -220,7 +221,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     # Column types
     columnTypes <- getColumnTypes(this);
     # Sanity check
-    columnTypes <- Arguments$getCharacters(columnTypes, 
+    columnTypes <- Arguments$getCharacters(columnTypes,
                                       length=rep(nbrOfColumns, 2));
 
     # Annotation data column types
@@ -252,7 +253,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     }
 
     # Sanity check
-    columnNames <- Arguments$getCharacters(columnNames, 
+    columnNames <- Arguments$getCharacters(columnNames,
                                       length=rep(nbrOfColumns, 2));
 
     # Annotation data column names
@@ -262,7 +263,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     allColumnNames <- c(adColumnNames, columnNames);
     allColumnNamesStr <- paste(allColumnNames, collapse="\t");
     hdr <- c(hdr, sprintf("columnNames: %s", allColumnNamesStr));
-    rm(allColumnNamesStr);
+    # Not needed anymore
+    allColumnNamesStr <- NULL;
 
     # Turn into file comments
     hdr <- paste("# ", hdr, sep="");
@@ -270,7 +272,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
 
     verbose && exit(verbose);
   } # if (addHeader)
-  
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Generate data table
@@ -304,7 +306,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     }
 
     data[,cc] <- values;
-    rm(values);
+    # Not needed anymore
+    values <- NULL;
   } # for (cc ...)
 
   verbose && cat(verbose, "Data without annotation data:");
@@ -320,7 +323,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     verbose && str(verbose, data);
     verbose && exit(verbose);
   }
-  rm(adData);
+  # Not needed anymore
+  adData <- NULL;
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -344,9 +348,10 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   allColumnNamesStr <- paste(allColumnNames, collapse=sep);
   cat(file=pathnameT, allColumnNamesStr, sep="\n", append=TRUE);
 
-  write.table(file=pathnameT, data, sep=sep, quote=FALSE, row.names=FALSE, 
+  write.table(file=pathnameT, data, sep=sep, quote=FALSE, row.names=FALSE,
                                             col.names=FALSE, append=TRUE);
-  rm(data);
+  # Not needed anymore
+  data <- NULL;
   verbose && exit(verbose);
 
   verbose && exit(verbose);

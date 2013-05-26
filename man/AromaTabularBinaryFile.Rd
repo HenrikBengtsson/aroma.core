@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaTabularBinaryFile}
+\name{AromaTabularBinaryFile}
 \docType{class}
 \alias{AromaTabularBinaryFile}
 
 
- \title{The AromaTabularBinaryFile class}
+\title{The AromaTabularBinaryFile class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaTabularBinaryFile}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -41,20 +41,20 @@ extends \link[aroma.core]{FileCacheKeyInterface}\cr
 
 
 
-  A AromaTabularBinaryFile represents a file with a binary format.
-  It has a well defined header, a data section, and a footer.
- }
+ A AromaTabularBinaryFile represents a file with a binary format.
+ It has a well defined header, a data section, and a footer.
+}
 
- \usage{
+\usage{
 AromaTabularBinaryFile(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link[R.filesets]{GenericTabularFile}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link[R.filesets]{GenericTabularFile}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{[} \tab  -\cr
  \tab \code{[<-} \tab  -\cr
@@ -96,11 +96,11 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   \code{\link[R.filesets]{GenericDataFile}}.
- }
+\seealso{
+  \code{\link[R.filesets]{GenericDataFile}}.
+}
 \keyword{classes}

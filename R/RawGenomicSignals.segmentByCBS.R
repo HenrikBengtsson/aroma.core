@@ -6,7 +6,7 @@
 #
 # \description{
 #  @get "title" of the \pkg{DNAcopy} package.
-#  For more details on the Circular Binary Segmentation (CBS) method 
+#  For more details on the Circular Binary Segmentation (CBS) method
 #  see [1,2].
 # }
 #
@@ -14,7 +14,7 @@
 #
 # \arguments{
 #   \item{...}{Additional arguments passed to the segmentation function.}
-#   \item{seed}{An (optional) @integer specifying the random seed to be 
+#   \item{seed}{An (optional) @integer specifying the random seed to be
 #     set before calling the segmentation method.  The random seed is
 #     set to its original state when exiting.  If @NULL, it is not set.}
 #   \item{cache}{If @TRUE, results are cached to file, otherwise not.}
@@ -25,15 +25,15 @@
 # \value{
 #  Returns the fit object.
 # }
-# 
+#
 # \details{
 #   Internally @see "DNAcopy::segment" is used to segment the signals.
 #   This segmentation method support weighted segmentation.
 #
 #   The "DNAcopy::segment" implementation of CBS uses approximation
 #   through random sampling for some estimates.  Because of this,
-#   repeated calls using the same signals may result in slightly 
-#   different results.  
+#   repeated calls using the same signals may result in slightly
+#   different results.
 # }
 #
 # @examples "../incl/RawGenomicSignals.SEG.Rex"
@@ -45,17 +45,17 @@
 # }
 #
 # \references{
-#  [1] A.B. Olshen, E.S. Venkatraman (aka Venkatraman E. Seshan), 
-#      R. Lucito and M. Wigler, \emph{Circular binary segmentation for 
+#  [1] A.B. Olshen, E.S. Venkatraman (aka Venkatraman E. Seshan),
+#      R. Lucito and M. Wigler, \emph{Circular binary segmentation for
 #      the analysis of array-based DNA copy number data},
 #      Biostatistics, 2004.\cr
 #  [2] E.S. Venkatraman and A.B. Olshen, \emph{A faster circular binary
-#      segmentation algorithm for the analysis of array CGH data}. 
+#      segmentation algorithm for the analysis of array CGH data}.
 #      Bioinformatics, 2007.\cr
 # }
 #
 # @keyword IO
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, cache=FALSE, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -147,7 +147,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
 
   verbose && enter(verbose, "Setting up ", pkgName, " data structure");
   cnData <- DNAcopy::CNA(
-    genomdat  = data$y, 
+    genomdat  = data$y,
     chrom     = data$chromosome,
     data.type = "logratio",
     maploc    = data$x,
@@ -193,7 +193,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
   # Now, check for cached results
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Looking for cached results");
-  key <- list(method="segmentByCBS", class=class(this)[1], 
+  key <- list(method="segmentByCBS", class=class(this)[1],
                                                 signatures=signatures);
   dirs <- c("aroma.cn", class(this)[1]);
   if (!force) {
@@ -205,8 +205,9 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
     }
   }
   verbose && exit(verbose);
-  rm(signatures);
- 
+  # Not needed anymore
+  signatures <- NULL;
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Set the random seed
@@ -274,7 +275,8 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
   cnrData <- as.data.frame(cnr);
   regions <- as.matrix(cnrData[,c("start", "stop")]);
   nbrOfRegions <- nrow(regions);
-  rm(cnr, cnrData);
+  # Not needed anymore
+  cnr <- cnrData <- NULL;
   x <- data$x;
   y <- data$y;
   naValue <- as.double(NA);
@@ -286,7 +288,8 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
     t <- median(t, na.rm=TRUE)/sqrt(2);
     sigmas[kk] <- t;
   } # for (kk ...)
-  rm(x,y,t,keep);
+  # Not needed anymore
+  x <- y <- t <- keep <- NULL;
   aromaEstimates <- list(
     stddevAll = sigma,
     stddevRegions = sigmas
@@ -307,7 +310,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
 
   verbose && exit(verbose);
 
-  fit;  
+  fit;
 }) # segmentByCBS()
 
 

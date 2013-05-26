@@ -2,7 +2,7 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
   # Argument 'map':
   mode <- mode(x);
   if (!identical(mode(map), mode)) {
-    throw("Argument 'map' is of a different mode than 'x': ", 
+    throw("Argument 'map' is of a different mode than 'x': ",
                                         mode(map), " != ", mode);
   }
 
@@ -30,7 +30,6 @@ setMethodS3("remap", "default", function(x, map, values=NULL, ...) {
       y[idxs] <- values[kk];
     }
   }
-  rm(idxs);
 
   y;
 }, protected=TRUE)

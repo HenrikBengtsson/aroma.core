@@ -6,17 +6,17 @@
 # \description{
 #  @classhierarchy
 #
-#  This class represents the Gain and Loss Analysis of DNA regions 
+#  This class represents the Gain and Loss Analysis of DNA regions
 #  (GLAD) model [1].
 #  This class can model chip-effect estimates obtained from multiple
 #  chip types, and not all samples have to be available on all chip types.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{cesTuple}{A @see "CopyNumberDataSetTuple".}
-#   \item{...}{Arguments passed to the constructor of 
+#   \item{...}{Arguments passed to the constructor of
 #              @see "CopyNumberSegmentationModel".}
 # }
 #
@@ -35,15 +35,15 @@
 #
 # \section{Benchmarking}{
 #   In high-density copy numbers analysis, the most time consuming step
-#   is fitting the GLAD model.  The complexity of the model grows 
+#   is fitting the GLAD model.  The complexity of the model grows
 #   more than linearly (squared? exponentially?) with the number of data
 #   points in the chromosome and sample being fitted.  This is why it
-#   take much more than twice the time to fit two chip types together 
+#   take much more than twice the time to fit two chip types together
 #   than separately.
 # }
 #
 # @author
-# 
+#
 # \seealso{
 #  @see "CopyNumberSegmentationModel".
 # }
@@ -95,7 +95,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
   path <- Arguments$getWritablePath(path);
 
   if (oneFile) {
-    filename <- sprintf("%s,regions.%s", fullname, format); 
+    filename <- sprintf("%s,regions.%s", fullname, format);
     pathname <- filePath(path, filename);
     pathname <- Arguments$getWritablePathname(pathname);
     if (!skip && isFile(pathname)) {
@@ -107,7 +107,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
   for (aa in seq_along(arrays)) {
     array <- arrays[aa];
     name <- arrayNames[array];
-    verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", 
+    verbose && enter(verbose, sprintf("Array #%d ('%s') of %d",
                                                aa, name, length(arrays)));
     df <- getRegions(this, arrays=array, ..., verbose=less(verbose))[[1]];
     names(df) <- gsub("Smoothing", "log2", names(df));
@@ -119,7 +119,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
       } else if (identical(format, "wig")) {
         # Write a four column WIG/BED table
         df <- df[,c("Chromosome", "start", "stop", "log2")];
-  
+
         # In the UCSC Genome Browser, the maximum length of one element
         # is 10,000,000 bases.  Chop up long regions in shorter contigs.
         verbose && enter(verbose, sprintf("Chopping up too long segment"));
@@ -137,13 +137,14 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
               df1 <- df[rr,];
               df1[,"start"] <- x0;
               df1[,"stop"] <- x1;
-              dfXtra <- rbind(dfXtra, df1);          
+              dfXtra <- rbind(dfXtra, df1);
               x0 <- x1+1;
             }
           }
           df <- df[-tooLong,];
           df <- rbind(df, dfXtra);
-          rm(dfXtra);
+          # Not needed anymore
+          dfXtra <- NULL;
           row.names(df) <- seq_len(nrow(df));
         }
         verbose && exit(verbose);
@@ -151,13 +152,13 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
         chrIdx <- as.integer(df[,"Chromosome"]);
         o <- order(chrIdx, df[,"start"]);
         df <- df[o,];
-  
+
         # All chromosomes should have prefix 'chr'.
         chrIdx <- as.integer(df[,"Chromosome"]);
         ## df[chrIdx == 23,"Chromosome"] <- "X"; ## REMOVED 2007-03-15
         df[,"Chromosome"] <- paste("chr", df[,"Chromosome"], sep="");
       }
-  
+
       # Apply digits
       for (cc in seq_len(ncol(df))) {
         value <- df[,cc];
@@ -169,7 +170,7 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
 
     if (!oneFile) {
       savename <- name;
-      filename <- sprintf("%s,regions.%s", savename, format); 
+      filename <- sprintf("%s,regions.%s", savename, format);
       pathname <- filePath(path, filename);
       if (!oneFile && !skip && isFile(pathname))
         file.remove(pathname);
@@ -199,7 +200,7 @@ ylim <- c(-1,1);
         trackAttr <- c(trackAttr, color=col[1], altColor=col[2]);
       }
       if (!is.null(ylim)) {
-        trackAttr <- c(trackAttr, autoScale="off", 
+        trackAttr <- c(trackAttr, autoScale="off",
               viewLimits=sprintf("%.2f:%.2f ", ylim[1], ylim[2]));
       }
       trackAttr <- paste(names(trackAttr), trackAttr, sep="=");
@@ -312,8 +313,8 @@ ylim <- c(-1,1);
 # 2006-12-15
 # o This class should be considered temporary, because we might design a
 #   ChipEffectSet class that can contain multiple chip types, but treated as
-#   if it contained one chip type, so it can be passed to the current 
-#   GladModel class.  However, such a class design will require multiple 
+#   if it contained one chip type, so it can be passed to the current
+#   GladModel class.  However, such a class design will require multiple
 #   inheritance etc, which will take time to develope.
 # o Created from GladModel.R with history as below:
 # 2006-11-29

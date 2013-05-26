@@ -9,7 +9,7 @@
 #  A AromaTabularBinaryFile represents a file with a binary format.
 #  It has a well defined header, a data section, and a footer.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -19,15 +19,15 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
 #
 # \seealso{
 #   @see "R.filesets::GenericDataFile".
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("AromaTabularBinaryFile", function(...) {
-  this <- extend(GenericTabularFile(..., .verify=FALSE), 
+  this <- extend(GenericTabularFile(..., .verify=FALSE),
                    c("AromaTabularBinaryFile", uses("FileCacheKeyInterface")),
     "cached:.hdr"=NULL,
     "cached:.ftr"=NULL
@@ -50,9 +50,9 @@ setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {
 
   s <- c(s, sprintf("File format: v%d", readHeader(this)$fileVersion));
   s <- c(s, sprintf("Dimensions: %dx%d", nbrOfRows(this), nbrOfColumns(this)));
-  s <- c(s, sprintf("Column classes: %s", 
+  s <- c(s, sprintf("Column classes: %s",
                          paste(getColClasses(this), collapse=", ")));
-  s <- c(s, sprintf("Number of bytes per column: %s", 
+  s <- c(s, sprintf("Number of bytes per column: %s",
                          paste(getBytesPerColumn(this), collapse=", ")));
 
   footer <- readFooter(this, asXmlString=TRUE);
@@ -69,7 +69,7 @@ setMethodS3("setAttributesByTags", "AromaTabularBinaryFile", function(this, ...)
   # Does nothing.
 }, protected=TRUE)
 
- 
+
 setMethodS3("getDefaultColumnNames", "AromaTabularBinaryFile", function(this, ...) {
   as.character(seq_len(nbrOfColumns(this)));
 }, protected=TRUE)
@@ -113,13 +113,13 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
     nbrOfBytes <- readInts(con);
     nbrOfBytes <- Arguments$getInteger(nbrOfBytes, range=c(0,2^20));
     readChar(con=con, nchars=nbrOfBytes);
-  }	
+  }
 
   readDataHeader <- function(con, ...) {
     # Number of elements (rows)
     nbrOfRows <- readInts(con);
     nbrOfRows <- Arguments$getInteger(nbrOfRows, range=c(0,100e6));
-  
+
     # Number of fields (columns)
     nbrOfColumns <- readInts(con);
     nbrOfColumns <- Arguments$getInteger(nbrOfColumns, range=c(0,1000));
@@ -157,13 +157,13 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
 
     # Offset to the footer, which follows immediately after the data
     # section.
-    footerOffset <- dataOffset + dataOffsets[nbrOfColumns] + 
+    footerOffset <- dataOffset + dataOffsets[nbrOfColumns] +
                                                  nbrOfBytes[nbrOfColumns];
     list(
-      nbrOfRows=nbrOfRows, 
-      nbrOfColumns=nbrOfColumns, 
-      types=types, 
-      sizes=sizes, 
+      nbrOfRows=nbrOfRows,
+      nbrOfColumns=nbrOfColumns,
+      types=types,
+      sizes=sizes,
       signeds=signeds,
       nbrOfBytes=nbrOfBytes,
       dataOffsets=dataOffsets,
@@ -188,7 +188,7 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
   magic <- readBin(con=con, what=raw(), n=length(trueMagic));
   if (!identical(magic, trueMagic)) {
     asStr <- function(raw) {
-      paste("[", paste(sprintf("%#0x", as.integer(raw)), collapse=","), 
+      paste("[", paste(sprintf("%#0x", as.integer(raw)), collapse=","),
                                                              "]", sep="");
     }
     throw("File format error. The read \"magic\" does not match the existing one: ", asStr(magic), " != ", asStr(trueMagic));
@@ -272,7 +272,7 @@ setMethodS3("readRawFooter", "AromaTabularBinaryFile", function(this, con=NULL, 
 # @synopsis
 #
 # \arguments{
-#   \item{asXmlString}{If @TRUE, the file footer is returned as 
+#   \item{asXmlString}{If @TRUE, the file footer is returned as
 #      a @character string.}
 #   \item{...}{Not used.}
 # }
@@ -290,7 +290,7 @@ setMethodS3("readRawFooter", "AromaTabularBinaryFile", function(this, con=NULL, 
 #
 # @keyword IO
 # @keyword programming
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("readFooter", "AromaTabularBinaryFile", function(this, asXmlString=FALSE, ...) {
   raw <- readRawFooter(this)$raw;
   if (length(raw) == 0) {
@@ -348,7 +348,7 @@ setMethodS3("readFooter", "AromaTabularBinaryFile", function(this, asXmlString=F
 #
 # @keyword IO
 # @keyword programming
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("writeFooter", "AromaTabularBinaryFile", function(this, footer, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -374,9 +374,9 @@ setMethodS3("writeFooter", "AromaTabularBinaryFile", function(this, footer, ...)
 
 
 setMethodS3("writeRawFooter", "AromaTabularBinaryFile", function(this, raw, con=NULL, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Locale functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   writeInts <- function(con, values, ...) {
     values <- as.integer(values);
     writeBin(con=con, values, size=4, endian="little");
@@ -388,9 +388,9 @@ setMethodS3("writeRawFooter", "AromaTabularBinaryFile", function(this, raw, con=
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
@@ -459,10 +459,10 @@ setMethodS3("readDataFrame", "AromaTabularBinaryFile", function(this, rows=NULL,
 
   # Data header
   hdr <- readHeader(this, con=con)$dataHeader;
-  
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'rows':
   rownames <- NULL;
   if (is.null(rows)) {
@@ -500,9 +500,9 @@ setMethodS3("readDataFrame", "AromaTabularBinaryFile", function(this, rows=NULL,
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Allocate return object
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Allocating data object");
   colClasses <- hdr$types[columns];
   verbose && cat(verbose, "Number of rows: ", length(rows));
@@ -526,7 +526,7 @@ setMethodS3("readDataFrame", "AromaTabularBinaryFile", function(this, rows=NULL,
 
     return(data);
   }
-  
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -562,24 +562,21 @@ setMethodS3("readDataFrame", "AromaTabularBinaryFile", function(this, rows=NULL,
     # Read from first to last row to be read, the discard unwanted.
     # TO DO: Optimize this.
     verbose && enter(verbose, "Reading binary data", level=-20);
-    values <- readBin(con=con, n=nbrOfRows, what=type, size=size, 
+    values <- readBin(con=con, n=nbrOfRows, what=type, size=size,
                                          signed=signed, endian="little");
-#    verbose && str(verbose, values, level=-30);
     verbose && exit(verbose);
 
     values <- values[rows];
-#    verbose && str(verbose, values, level=-30);
 
     # Store data
     data[[o[kk]]] <- values;
 
-    rm(values);
-#    gc <- gc();  # This slows things down. /HB 2008-07-10
-
+    # Not needed anymore
+    values <- NULL;
     verbose && exit(verbose);
   }
   verbose && exit(verbose);
-  
+
   # Add column names
   colnames(data) <- getColumnNames(this)[columns];
 
@@ -603,12 +600,12 @@ setMethodS3("readColumns", "AromaTabularBinaryFile", function(this, ...) {
 
 
 setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NULL, column, values, .con=NULL, .hdr=NULL, .validateArgs=TRUE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   con <- .con;
   if (!is.null(con))
-    seek(con, where=0, offset="start", rw="r"); 
+    seek(con, where=0, offset="start", rw="r");
   hdr <- .hdr;
 
   if (.validateArgs) {
@@ -621,7 +618,7 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
       con <- file(pathname, open="r+b");
       on.exit(close(con));
     }
-  
+
     # Data header
     if (is.null(hdr)) {
       hdr <- readHeader(this, con=con)$dataHeader;
@@ -636,7 +633,7 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
     } else {
       rows <- Arguments$getIndices(rows, max=hdr$nbrOfRows);
     }
-  
+
     # Argument 'column':
     column <- Arguments$getIndex(column, max=hdr$nbrOfColumns);
 
@@ -656,9 +653,9 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
 
   values <- rep(values, length.out=length(rows));
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Prepare data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Optimizing data to be writing");
   verbose && cat(verbose, "Rows and values:");
   verbose && str(verbose, rows);
@@ -670,17 +667,15 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
   dups <- duplicated(rows);
   rows <- rows[!dups];
   values <- values[!dups];
-  rm(dups);
-
-#  verbose && cat(verbose, "Rows and values:");
-#  verbose && str(verbose, rows);
-#  verbose && str(verbose, values);
+  # Not needed anymore
+  dups <- NULL;
 
   # Reorder rows
   o <- order(rows);
   rows <- rows[o];
   values <- values[o];
-  rm(o);
+  # Not needed anymore
+  o <- NULL;
 
   type <- hdr$types[column];
   size <- hdr$sizes[column];
@@ -710,7 +705,7 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
     nL <- length(idxs);
     if (nL > 0) {
       rangeL <- range(values[idxs], na.rm=TRUE);
-      msgL <- sprintf("%d values in [%.0f,%.0f] were too small", 
+      msgL <- sprintf("%d values in [%.0f,%.0f] were too small",
                                        nL, rangeL[1], rangeL[2]);
       values[idxs] <- range[1];
     }
@@ -718,7 +713,7 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
     nH <- length(idxs);
     if (nH > 0) {
       rangeH <- range(values[idxs], na.rm=TRUE);
-      msgH <- sprintf("%d values in [%.0f,%.0f] were too large", 
+      msgH <- sprintf("%d values in [%.0f,%.0f] were too large",
                                        nH, rangeH[1], rangeH[2]);
       values[idxs] <- range[2];
     }
@@ -741,9 +736,9 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
   verbose && exit(verbose);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Write data 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Write data
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Shift rows such that min(rows) == 1.
   firstRow <- rows[1];
   rows <- rows - firstRow + 1;
@@ -759,12 +754,13 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
   oldValues <- readBin(con=con, n=nbrOfRows, what=type, size=size, signed=signed, endian="little");
   verbose && str(verbose, oldValues);
   verbose && exit(verbose);
-  
+
   # 2) Coerce and update the values
   storage.mode(oldValues) <- type;
   oldValues[rows] <- values;
   verbose && str(verbose, oldValues);
-  rm(values, rows);
+  # Not needed anymore
+  values <- rows <- NULL;
 
   # 3) Write back
   verbose && enter(verbose, "Writing updated data");
@@ -792,9 +788,9 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
   # Data header
   hdr <- readHeader(this, con=con)$dataHeader;
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'rows':
   if (is.null(rows)) {
     rows <- seq_len(hdr$nbrOfRows);
@@ -836,9 +832,9 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Update each column
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Update the column in order, because that is faster
   o <- order(columns);
   count <- 0;
@@ -860,7 +856,8 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
 
     updateDataColumn(this, .con=con, .hdr=hdr, rows=rows, column=column, values=theValues, verbose=less(verbose));
 
-    rm(theValues);
+    # Not needed anymore
+    theValues <- NULL;
 
     verbose && exit(verbose);
   } # for (kk ...)
@@ -895,9 +892,9 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
 #      values for each column.}
 #   \item{comment}{An optional @character string written to the file header.}
 #   \item{overwrite}{If @TRUE, an existing file is overwritten, otherwise not.}
-#   \item{skip}{If @TRUE and \code{overwrite=TRUE}, any existing file is 
+#   \item{skip}{If @TRUE and \code{overwrite=TRUE}, any existing file is
 #      returned as is.}
-#   \item{footer}{An optional @list of attributes written (as character 
+#   \item{footer}{An optional @list of attributes written (as character
 #      strings) to the file footer.}
 #   \item{...}{Not used.}
 #   \item{verbose}{@see "R.utils::Verbose".}
@@ -918,7 +915,7 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
 # }
 #
 # @keyword IO
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, path=NULL, nbrOfRows, types, sizes, signeds=TRUE, defaults=NA, comment=NULL, overwrite=FALSE, skip=FALSE, footer=list(), ..., verbose=FALSE) {
   knownDataTypes <- c("integer"=1, "double"=2, "raw"=3);
 
@@ -959,11 +956,11 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   writeDataHeader <- function(con, nbrOfRows, types, sizes, signeds, ...) {
     # Number of elements (rows)
     writeInts(con=con, nbrOfRows);
-  
+
     # Number of fields (columns)
     nbrOfColumns <- length(types);
     writeInts(con=con, nbrOfColumns);
-  
+
     # Types of columns
     types <- knownDataTypes[types];
     writeBytes(con=con, types);
@@ -1056,7 +1053,7 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Main
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  pathname <- Arguments$getWritablePathname(filename, path=path, 
+  pathname <- Arguments$getWritablePathname(filename, path=path,
                                          mustNotExist=(!overwrite && !skip));
   verbose && cat(verbose, "Pathname: ", pathname);
 
@@ -1122,7 +1119,8 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
     default <- defaults[[cc]];
     values <- rep(default, times=nbrOfRows);
     writeBin(con=con, values, size=size, endian="little");
-    rm(values);
+    # Not needed anymore
+    values <- NULL;
   }
 
   # Write empty footer (this may be used to add extra meta data)
@@ -1142,7 +1140,7 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
 
   # Write footer
   writeFooter(res, footer);
-  
+
   # Return
   res;
 }, static=TRUE, protected=TRUE)
@@ -1184,7 +1182,7 @@ setMethodS3("[", "AromaTabularBinaryFile", function(this, i=NULL, j=NULL, drop=F
       data <- data[1,];
     }
   }
-  
+
   data;
 })
 
@@ -1329,14 +1327,14 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 # 2012-11-29
 # o Renamed lapply() for AromaTabularBinaryFile to colApply().
 # 2011-09-24
-# o readHeader(), readRawFooter() and writeRawFooter() of 
+# o readHeader(), readRawFooter() and writeRawFooter() of
 #   AromaTabularBinaryFile would try to read non-signed 4-byte integers,
 #   which is not supported and would be instead read as signed integers.
 #   From R v2.13.1 this would generated warnings.
 # 2011-02-01
 # o ROBUSTNESS: Using argument 'nchars' (not 'nchar') in readChar() calls.
 # 2010-06-02
-# o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would 
+# o BUG FIX: updateDataColumn() of AromaTabularBinaryFile would
 #   censor *signed integers* incorrectly; it should censor at/to
 #   [-(n+1),n], but did it at [-n,(n+1)] ("two's complement").
 #   This caused it to write too large values as n+1, which then
@@ -1354,8 +1352,8 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 # o ROBUSTNESS: Now allocate() for AromaTabularBinaryFile first allocates
 #   a temporary file which is then renamed.  This makes the file allocation
 #   more atomic, and therefore less error prone to interrupts etc.
-# o ROBUSTNESS: Now all "write" methods that updates a file asserts that 
-#   the file exists with isFile(pathname) before open it with 
+# o ROBUSTNESS: Now all "write" methods that updates a file asserts that
+#   the file exists with isFile(pathname) before open it with
 #   file(pathname, open="r+b").
 # 2009-05-03
 # o Now readDataFrame() of AromaTabularBinaryFile accepts rows=integer(0).
@@ -1406,7 +1404,7 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 # 2007-09-11
 # o Added colStats(), colSums(), colMeans(), and colMedians().
 # o Added dim(), nrow(), ncol() and a memory efficient lapply().
-# o Created from AromaGenomeInformationFile.R.  This file type is more 
+# o Created from AromaGenomeInformationFile.R.  This file type is more
 #   general.  There will be an option for a file header too, or rather a
 #   file tail, because that is easier to expand.
 ############################################################################

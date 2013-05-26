@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{CopyNumberChromosomalModel}
+\name{CopyNumberChromosomalModel}
 \docType{class}
 \alias{CopyNumberChromosomalModel}
 
 
- \title{The CopyNumberChromosomalModel class}
+\title{The CopyNumberChromosomalModel class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class CopyNumberChromosomalModel}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -31,33 +31,33 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
 
 
 
-  This \emph{abstract} class represents a copy-number model.
- }
+ This \emph{abstract} class represents a copy-number model.
+}
 
- \usage{
+\usage{
 CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*",
   genome="Human", maxNAFraction=1/5, ...)
 }
 
- \arguments{
-   \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
-   \item{refTuple}{An optional \code{\link{CopyNumberDataFile}},
-      or \code{\link{CopyNumberDataSet}} or \code{\link{CopyNumberDataSetTuple}}
-      for pairwise comparisons.}
-   \item{calculateRatios}{A \code{\link[base]{logical}} specifying whether ratios should
-      be calculated relative to the reference.
-      If \code{\link[base:logical]{FALSE}}, argument \code{refTuple} is ignored.
-   }
-   \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
-   \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
-   \item{maxNAFraction}{A \code{\link[base]{double}} in [0,1] indicating how many non-finite
-     signals are allowed in the sanity checks of the data.}
-   \item{...}{Optional arguments that may be used by some of the
-      subclass models.}
- }
+\arguments{
+  \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
+  \item{refTuple}{An optional \code{\link{CopyNumberDataFile}},
+     or \code{\link{CopyNumberDataSet}} or \code{\link{CopyNumberDataSetTuple}}
+     for pairwise comparisons.}
+  \item{calculateRatios}{A \code{\link[base]{logical}} specifying whether ratios should
+     be calculated relative to the reference.
+     If \code{\link[base:logical]{FALSE}}, argument \code{refTuple} is ignored.
+  }
+  \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
+  \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
+  \item{maxNAFraction}{A \code{\link[base]{double}} in [0,1] indicating how many non-finite
+    signals are allowed in the sanity checks of the data.}
+  \item{...}{Optional arguments that may be used by some of the
+     subclass models.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{\link[aroma.core:extractRawCopyNumbers.CopyNumberChromosomalModel]{extractRawCopyNumbers}} \tab Extracts relative copy numbers.\cr
  \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
@@ -75,12 +75,12 @@ as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipTyp
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \section{Requirements}{
-   This class requires genome information annotation files for
-   every chip type.
- }
+\section{Requirements}{
+  This class requires genome information annotation files for
+  every chip type.
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

@@ -4,7 +4,7 @@ setMethodS3("fit2d", "matrix", function(M, MARGIN=1, spar=0.7, h=20, ...) {
 
   nr <- nrow(M);
   nc <- ncol(M);
-  
+
   if (MARGIN == 1) {
     # Normalize row by row
     n <- nr;
@@ -33,11 +33,12 @@ setMethodS3("fit2d", "matrix", function(M, MARGIN=1, spar=0.7, h=20, ...) {
       Mb <- M[,rr,drop=FALSE];
       Mb <- rowMedians(Mb, na.rm=TRUE);
     }
-    
+
     # Fit smooth curve (1d)
     ok <- which(is.finite(Mb));
     fit <- robustSmoothSpline(x[ok], Mb[ok], spar=spar);
-    rm(ok);
+    # Not needed anymore
+    ok <- NULL;
     Mp <- predict(fit, x=x)$y;
     Mp <- matrix(Mp, nrow=length(rr), ncol=length(Mb), byrow=byrow);
 
@@ -72,14 +73,14 @@ setMethodS3("calcMargins", "matrix", function(M, unshift=FALSE, ...) {
     M <- M - median(M, na.rm=TRUE);
   }
   list(
-    rows=rowMedians(M, na.rm=TRUE), 
+    rows=rowMedians(M, na.rm=TRUE),
     cols=rowMedians(t(M), na.rm=TRUE)
   );
 }, private=TRUE)
 
 
 ############################################################################
-# HISTORY: 
+# HISTORY:
 # 2012-04-16
 # o Now fit2d() explicitly require the 'aroma.light' package.
 # o Dropped internal colMedians() from fit2d(); already in matrixStats.

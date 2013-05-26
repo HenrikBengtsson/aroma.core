@@ -8,7 +8,7 @@
 #
 #  An AromaUnitCallFile is a @see "AromaUnitSignalBinaryFile".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -18,16 +18,16 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("AromaUnitCallFile", function(...) {
   extend(AromaUnitSignalBinaryFile(...), "AromaUnitCallFile"
   );
 })
 
 
-setMethodS3("allocate", "AromaUnitCallFile", function(static, ..., types=c("integer"), sizes=rep(1, length(types)), signed=rep(FALSE, length(types))) { 
+setMethodS3("allocate", "AromaUnitCallFile", function(static, ..., types=c("integer"), sizes=rep(1, length(types)), signed=rep(FALSE, length(types))) {
   # Default call is a missing values
   nbrOfBits <- 8*sizes[1];
   valueForNA <- as.integer(2^nbrOfBits-1);
@@ -62,7 +62,8 @@ setMethodS3("findUnitsTodo", "AromaUnitCallFile", function(this, units=NULL, ...
   isNA <- (calls == valueForNA);
 
   units <- which(isNA);
-  rm(isNA);
+  # Not needed anymore
+  isNA <- NULL;
   verbose && exit(verbose);
 
   units;
@@ -86,7 +87,7 @@ setMethodS3("extractMatrix", "AromaUnitCallFile", function(this, ...) {
   isNaN <- which(data == valueForNC);
   nanValue <- as.double(NaN);
   data[isNaN] <- nanValue;
- 
+
   data;
 })
 
@@ -102,7 +103,7 @@ setMethodS3("extractCallArray", "AromaUnitCallFile", function(this, units=NULL, 
   nanValue <- as.double(NaN);
 
   res <- NULL;
-  for (cc in seq_len(nbrOfColumns(this))) {  
+  for (cc in seq_len(nbrOfColumns(this))) {
     values <- extractMatrix(this, units=units, column=cc, drop=TRUE, ...);
 
     # Missing values

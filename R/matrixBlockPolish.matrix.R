@@ -7,14 +7,14 @@
 # \description{
 #  @get "title".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{z}{A @numeric KxN @matrix.}
 #   \item{x}{A optional KxNx2 @array (or KxN @matrix).}
 #   \item{blockSizes}{A positive @integer @vector of length two.}
-#   \item{FUN}{A @function taking @numeric arguments \code{z} and 
+#   \item{FUN}{A @function taking @numeric arguments \code{z} and
 #      \code{x} and returns a @numeric object with either a scalar
 #      or the same number of elements as in \code{z}.}
 #   \item{...}{Additional arguments passed to the \code{FUN} @function.}
@@ -41,28 +41,28 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1), FUN, ..., tol=0.01, maxIter=10, returnEffects=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   dim <- dim(z);
 
   # Argument 'x':
   if (is.null(x)) {
     x <- array(as.integer(NA), dim=c(dim, 2));
     for (dd in 1:2) {
-      t <- matrix(seq_len(dim[dd]), nrow=dim[1], ncol=dim[2], 
+      t <- matrix(seq_len(dim[dd]), nrow=dim[1], ncol=dim[2],
                                                              byrow=(dd == 2));
       x[,,dd] <- t;
     }
   } else if (is.matrix(x)) {
     if (any(dim(x) != dim)) {
-      stop("Argument 'x' has a different dimension that 'z': ", 
+      stop("Argument 'x' has a different dimension that 'z': ",
         paste(dim(x), collapse="x"), " != ", paste(dim, collapse="x"));
     }
     x <- array(x, dim=c(dim, 1));
   } else if (is.array(x)) {
     if (any(dim(x)[1:2] != dim)) {
-      stop("The dimension of argument 'x' is incompatible with 'z': ", 
+      stop("The dimension of argument 'x' is incompatible with 'z': ",
         paste(dim(x), collapse="x"), " != ", paste(dim, collapse="x"));
     }
   } else {
@@ -85,7 +85,8 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
     idxs2 <- c(idxs1[-1]-1, dim[dd]);
     ranges[[dd]] <- cbind(from=idxs1, to=idxs2);
   }
-  rm(idxs1, idxs2);
+  # Not needed anymore
+  idxs1 <- idxs2 <- NULL;
 
   if (returnEffects) {
     blockSizes <- sapply(ranges, FUN=function(r) r[,2]-r[,1]+1);
@@ -103,13 +104,13 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
   for (ii in seq_len(maxIter)) {
     for (dd in 1:2) {
       range <- ranges[[dd]]
-      froms <- range[,1]; 
+      froms <- range[,1];
       tos <- range[,2];
       nbrOfBlocks <- length(froms);
-  
+
       for (kk in seq_len(nbrOfBlocks)) {
         idxs <- froms[kk]:tos[kk];
-    
+
         # Get data
         if (dd == 1) {
           xB <- x[idxs,,-dd,drop=FALSE];
@@ -122,22 +123,25 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
 
         # Polish data
         zB2 <- FUN(zB, xB, ...);
-        rm(xB);
+        # Not needed anymore
+        xB <- NULL;
         if (returnEffects) {
           effects[[dd]][kk,] <- zB2;
         }
 
         zB <- zB - zB2;
-        rm(zB2);
-    
+        # Not needed anymore
+        zB2 <- NULL;
+
         # Update data
         if (dd == 1) {
           z[idxs,] <- zB;
         } else if (dd == 2) {
           z[,idxs] <- zB;
         }
-    
-        rm(zB);
+
+        # Not needed anymore
+        zB <- NULL;
       } # for (kk ...)
     } # for (dd ...)
 
@@ -162,8 +166,8 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
 
 
 ############################################################################
-# HISTORY: 
+# HISTORY:
 # 2008-04-02
 # o Verified against median polish.
 # o Created.
-############################################################################ 
+############################################################################

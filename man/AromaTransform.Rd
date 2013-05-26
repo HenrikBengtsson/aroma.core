@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaTransform}
+\name{AromaTransform}
 \docType{class}
 \alias{AromaTransform}
 
 
- \title{The AromaTransform class}
+\title{The AromaTransform class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaTransform}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -31,25 +31,25 @@ extends \link[aroma.core]{ParametersInterface}\cr
 
 
 
-  This abstract class represents a transform (algorithm/operator) that
-  transforms data.  A transform has an input data set, which is
-  transformed into an output data set.
- }
+ This abstract class represents a transform (algorithm/operator) that
+ transforms data.  A transform has an input data set, which is
+ transformed into an output data set.
+}
 
- \usage{
+\usage{
 AromaTransform(dataSet=NULL, tags="*", ..., .reqSetClass="AromaMicroarrayDataSet")
 }
 
- \arguments{
-   \item{dataSet}{The input data set as an \code{\link{AromaMicroarrayDataSet}}.}
-   \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags to be appended to the tags of
-      the input data set.}
-   \item{...}{Not used.}
-   \item{.reqSetClass}{Internal argument.}
- }
+\arguments{
+  \item{dataSet}{The input data set as an \code{\link{AromaMicroarrayDataSet}}.}
+  \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags to be appended to the tags of
+     the input data set.}
+  \item{...}{Not used.}
+  \item{.reqSetClass}{Internal argument.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{\link[aroma.core:getFullName.AromaTransform]{getFullName}} \tab Gets the full name of the output data set.\cr
  \tab \code{\link[aroma.core:getInputDataSet.AromaTransform]{getInputDataSet}} \tab Gets the input data set.\cr
@@ -71,11 +71,11 @@ getParameterSets, getParameters, getParametersAsString
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \details{
-   Subclasses must implement the \code{process()} method.
- }
+\details{
+  Subclasses must implement the \code{process()} method.
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

@@ -225,7 +225,8 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   if (identical(indices, "remaining")) {
     values <- res[,nbrOfColumns(res),drop=TRUE];
     indices <- which(is.na(values) | (values == 0));
-    rm(values); # Not needed anymore.
+    # Not needed anymore
+    values <- NULL;
   }
 
   nbrOfIndices <- length(indices);

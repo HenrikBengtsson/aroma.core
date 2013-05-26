@@ -19,7 +19,8 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
   if (inherits(ref, "AromaUnitTotalCnBinaryFile")) {
     refList <- rep(list(ref), nbrOfFiles);
     refSet <- AromaUnitTotalCnBinarySet(refList);
-    rm(refList);
+    # Not needed anymore
+    refList <- NULL;
   }
 
   if (inherits(ref, "AromaUnitTotalCnBinarySet")) {
@@ -177,7 +178,8 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     verbose && cat(verbose, "Copy-number ratios:");
     C <- theta / thetaR;
     verbose && str(verbose, C);
-    rm(theta);
+    # Not needed anymore
+    theta <- NULL;
 
     # Log ratios?
     if (!is.null(logBase)) {
@@ -194,7 +196,8 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     verbose && enter(verbose, "Updating temporary output file");
     # Store data
     asb[,1] <- C;
-    rm(C);
+    # Not needed anymore
+    C <- NULL;
 
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -222,7 +225,8 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
       refFile = refFile
     );
     writeFooter(asb, footer);
-    rm(footer, refFile);
+    # Not needed anymore
+    footer <- refFile <- NULL;
     verbose && exit(verbose);
 
 

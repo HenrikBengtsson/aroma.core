@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{RawGenomicSignals}
+\name{RawGenomicSignals}
 \docType{class}
 \alias{RawGenomicSignals}
 
 
- \title{The RawGenomicSignals class}
+\title{The RawGenomicSignals class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class RawGenomicSignals}\cr
 
 \code{data.frame}\cr
@@ -30,27 +30,27 @@ public class \bold{RawGenomicSignals}\cr
 extends \link[aroma.core]{RichDataFrame}\cr
 
 
- }
+}
 
- \usage{
+\usage{
 RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=0L, name=NULL, ...)
 }
 
- \arguments{
-   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the signal
-     at each locus.}
-   \item{x}{A (optional) \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the
-     position of each locus.}
-   \item{w}{A (optional) non-negative \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J
-     specifying a weight of each locus.}
-   \item{chromosome}{An (optional) \code{\link[base]{integer}} specifying the chromosome for
-     these genomic signals.}
-   \item{name}{An (optional) \code{\link[base]{character}} string specifying the sample name.}
-   \item{...}{Not used.}
- }
+\arguments{
+  \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the signal
+    at each locus.}
+  \item{x}{A (optional) \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the
+    position of each locus.}
+  \item{w}{A (optional) non-negative \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J
+    specifying a weight of each locus.}
+  \item{chromosome}{An (optional) \code{\link[base]{integer}} specifying the chromosome for
+    these genomic signals.}
+  \item{name}{An (optional) \code{\link[base]{character}} string specifying the sample name.}
+  \item{...}{Not used.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{*} \tab  -\cr
  \tab \code{+} \tab  -\cr
@@ -105,10 +105,10 @@ RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=0L, name=NULL, ...)
 $, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNames, getColumnNamesTranslator, getFullName, getName, getTags, getVirtualColumn, getVirtualColumnFunction, getVirtualColumnNames, hasColumn, hasColumns, hasVirtualColumn, hasVirtualColumns, length, names, newInstance, print, rbind, setAttributes, setColumnNamesMap, setColumnNamesTranslator, setName, setTags, setVirtualColumn, subset, translateColumnNames
 
  \bold{Methods inherited from data.frame}:\cr
-$, $<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, merge, na.exclude, na.omit, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
+$<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, merge, na.exclude, na.omit, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

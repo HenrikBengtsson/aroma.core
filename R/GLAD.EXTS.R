@@ -12,7 +12,7 @@ setMethodS3("extractCopyNumberRegions", "profileCGH", function(object, ...) {
   nbrOfRegions <- length(uRegions);
 
   # Columns
-  colClasses <- c(chromosome="character", start="integer", 
+  colClasses <- c(chromosome="character", start="integer",
                   stop="integer", mean="double", nbrOfLoci="integer",
                   call="character");
   df <- dataFrame(colClasses, nrow=nbrOfRegions);
@@ -48,9 +48,9 @@ setMethodS3("extractCopyNumberRegions", "profileCGH", function(object, ...) {
 
   CopyNumberRegions(
     chromosome=df$chromosome,
-    start=df$start, 
-    stop=df$stop, 
-    mean=df$mean, 
+    start=df$start,
+    stop=df$stop,
+    mean=df$mean,
     count=df$nbrOfLoci,
     call=df$call
   );
@@ -98,35 +98,35 @@ setMethodS3("drawCytoband", "profileCGH", function(fit, chromosome=NULL, cytoban
   xScale <- 1/(10^unit);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get chromosome lengths
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Load data
   # To please R CMD check on R v2.6.0
-  cytoband <- NULL; rm(cytoband);
+  cytoband <- NULL; rm(list="cytoband");
   data("cytoband", envir=sys.frame(sys.nframe()));  # Package 'GLAD'
-  genomeInfo <- aggregate(cytoband$End, 
-    by=list(Chromosome=cytoband$Chromosome, ChrNumeric=cytoband$ChrNumeric), 
+  genomeInfo <- aggregate(cytoband$End,
+    by=list(Chromosome=cytoband$Chromosome, ChrNumeric=cytoband$ChrNumeric),
     FUN=max, na.rm=TRUE);
   names(genomeInfo) <- c("Chromosome", "ChrNumeric", "Length");
   genomeInfo$Chromosome <- as.character(genomeInfo$Chromosome);
   genomeInfo$ChrNumeric <- as.integer(as.character(genomeInfo$ChrNumeric));
 
   LabelChr <- data.frame(Chromosome=chromosome);
-  LabelChr <- merge(LabelChr, genomeInfo[, c("ChrNumeric", "Length")], 
+  LabelChr <- merge(LabelChr, genomeInfo[, c("ChrNumeric", "Length")],
                          by.x="Chromosome", by.y="ChrNumeric", all.x=TRUE);
 
   LabelChr$Length <- 0;
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get the cytoband details for the chromosome of interest
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Drop column 'Chromosome'
   ## Gives a NOTE in R CMD check R v2.6.0, which is nothing, but we'll
   ## use a workaround to get a clean result. /HB 2007-06-12
-  Chromosome <- NULL; rm(Chromosome); # dummy
-  cytobandNew <- subset(cytoband, select=-Chromosome); 
-  cytobandNew <- merge(LabelChr, cytobandNew, by.x="Chromosome", 
+  Chromosome <- NULL; rm(list="Chromosome"); # dummy
+  cytobandNew <- subset(cytoband, select=-Chromosome);
+  cytobandNew <- merge(LabelChr, cytobandNew, by.x="Chromosome",
                                                         by.y="ChrNumeric");
   # Rescale x positions according to units
   cytobandNew$Start <- xScale*cytobandNew$Start;
@@ -136,14 +136,14 @@ setMethodS3("drawCytoband", "profileCGH", function(fit, chromosome=NULL, cytoban
   usr <- par("usr");
   dy <- diff(usr[3:4]);
 
-  drawCytoband2(cytobandNew, chromosome=chromosome, 
-    labels=cytobandLabels, y=usr[4]+0.02*dy, height=0.03*dy, 
+  drawCytoband2(cytobandNew, chromosome=chromosome,
+    labels=cytobandLabels, y=usr[4]+0.02*dy, height=0.03*dy,
     colCytoBand=colCytoBand, colCentro=colCentro);
 }, private=TRUE) # drawCytoband()
 
 
 
- 
+
 ############################################################################
 # HISTORY:
 # 2010-02-19
@@ -170,4 +170,4 @@ setMethodS3("drawCytoband", "profileCGH", function(fit, chromosome=NULL, cytoban
 # 2006-12-20
 # o It is now possible to specify 'xlim' as well as 'ylim'.
 # o Reimplemented, because the cytoband was not displayed correctly.
-############################################################################ 
+############################################################################

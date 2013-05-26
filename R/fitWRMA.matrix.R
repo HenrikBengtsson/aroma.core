@@ -6,7 +6,7 @@ setMethodS3("fitWRMA", "matrix", function(y, w, .log2=TRUE, ..., .loadDeps=FALSE
   if (.loadDeps) {
     require(PACKAGE, character.only=TRUE) || throw("Package not loaded: ", PACKAGE);
   }
-  rcModelWPLM <- NULL; rm(rcModelWPLM); # To please R CMD check
+  rcModelWPLM <- NULL; rm(list="rcModelWPLM"); # To please R CMD check
 
   # Transform 'y' to log2 scale?
   if (.log2)

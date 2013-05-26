@@ -54,7 +54,7 @@ setMethodS3("readDataFrame", "AromaUflFile", function(this, ...) {
 setMethodS3("summaryOfUnits", "AromaUflFile", function(this, enzymeLabels=paste("enzyme", 1:nbrOfEnzymes(this), sep=""), unitClasses=c(snp="^SNP_", cnp="^CN_", affxSnp="^AFFX-SNP_"), ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   unf <- getUnitNamesFile(this);
   nbrOfEnzymes <- nbrOfEnzymes(this);
 
@@ -91,10 +91,10 @@ setMethodS3("summaryOfUnits", "AromaUflFile", function(this, enzymeLabels=paste(
   })
   names(unitClasses) <- names(patterns);
   nbrOfUnits <- nbrOfUnits(unf);
-  unitClasses[["other"]] <- setdiff(1:nbrOfUnits, 
+  unitClasses[["other"]] <- setdiff(1:nbrOfUnits,
                               unlist(unitClasses, use.names=FALSE));
   verbose && exit(verbose);
- 
+
   verbose && enter(verbose, "Identifying enzyme classes");
   # Extract enzyme classes of interest
   enzymeClasses <- list();
@@ -140,7 +140,7 @@ setMethodS3("summaryOfUnits", "AromaUflFile", function(this, enzymeLabels=paste(
     unitSets[[ii]] <- unitSet
   }
   verbose && exit(verbose);
- 
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Summary table of different unit types
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -210,7 +210,8 @@ setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, 
   unf <- getUnitNamesFile(this);
   unitNames <- getUnitNames(unf);
   units <- match(data[,1], unitNames);
-  rm(unitNames);  # Not needed anymore
+  # Not needed anymore
+  unitNames <- NULL;
   verbose && str(verbose, units);
   verbose && exit(verbose);
 
@@ -227,7 +228,8 @@ setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, 
   keep <- which(!is.na(units));
   data <- data[keep,, drop=FALSE];
   units <- units[keep];
-  rm(keep);  # Not needed anymore
+  # Not needed anymore
+  keep <- NULL;
 
   if (length(units) == 0) {
     warning("None of the imported unit names match the ones in the annotation unit names file ('", getPathname(unf), "'). Is the correct file ('", getPathname(src), "'), being imported?");
@@ -256,11 +258,11 @@ setMethodS3("importFromGenericTabularFile", "AromaUflFile", function(this, src, 
 #   works.
 # o Added importFromGenericTabularFile() to AromaUflFile.
 # 2009-05-20
-# o Updated summaryOfUnits() to make use of getUnitNamesFile() instead 
+# o Updated summaryOfUnits() to make use of getUnitNamesFile() instead
 #   of getCdf().
 # 2008-09-15
 # o Added argument 'enzymesToUpdate' to importFromAffymetrixNetAffxCsvFile()
-#   in order to make it possible to specify both which enzymes to read 
+#   in order to make it possible to specify both which enzymes to read
 #   and to update.
 # 2008-04-24
 # o Updated importFromAffymetrixNetAffxCsvFile() to read the unit names,

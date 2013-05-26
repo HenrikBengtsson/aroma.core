@@ -1,10 +1,10 @@
 setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", function(dsT, dsB="*", dataSet="*", tags="*", ..., rootPath="totalAndFracBData/", overwrite=!skip, skip=TRUE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'dsT':
   dsT <- Arguments$getInstanceOf(dsT, "AromaUnitTotalCnBinarySet");
- 
+
   # Argument 'dsB':
   if (!identical(dsB, "*")) {
     dsB <- Arguments$getInstanceOf(dsB, "AromaUnitFracBCnBinarySet");
@@ -60,7 +60,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
 
   chipType <- getChipType(dsT, fullname=FALSE);
   verbose && cat(verbose, "Output chip type: ", chipType);
-  
+
   path <- filePath(rootPath, dataSetF, chipType);
   path <- Arguments$getWritablePath(path);
   verbose && cat(verbose, "Output path: ", path);
@@ -99,10 +99,10 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     tagsT <- c(tagsT, ratioTag);
     fullname <- fullname(name, tags=tagsT);
     filename <- sprintf("%s,pscn.asb", fullname);
-    pathname <- Arguments$getWritablePathname(filename, path=path, 
+    pathname <- Arguments$getWritablePathname(filename, path=path,
                                            mustNotExist=(!overwrite && !skip));
     verbose && cat(verbose, "Pathname: ", pathname);
-  
+
     if (isFile(pathname)) {
       if (skip) {
         df <- newInstance(clazz, pathname);
@@ -124,7 +124,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
       file.remove(pathname);
       verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).");
     }
-  
+
     pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
 
     # Read (total,fracB) data
@@ -144,7 +144,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     df[,2L] <- dataB;
 
     # Not needed anymore
-    rm(dataT, dataB);
+    dataT <- dataB <- NULL;
 
     # Write footer
 ##    writeFooter(df, footer);
@@ -154,10 +154,10 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
 
     # Object to be returned
     df <- newInstance(clazz, pathname);
-    
+
     verbose && exit(verbose);
   } # for (ii ...)
-  
+
   verbose && cat(verbose, "Exported data set:");
   pattern <- ",pscn[.]asb$";
   ds <- AromaUnitPscnBinarySet$byPath(path, pattern=pattern);
