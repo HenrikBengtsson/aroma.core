@@ -72,8 +72,8 @@ fit <- matrixBlockPolish(z, FUN=function(z, x, ...) median(z, ...),
 r1 <- residuals(fit)
 
 fit <- matrixBlockPolish(z, FUN=function(z, x, ...) {
-  fit <- smooth.spline(x=x, y=z, ...);
-  predict(fit, x=x)$y;
+  fit <- smooth.spline(x=x, y=z, ...)
+  predict(fit, x=x)$y
 }, spar=0.25)
 r2 <- residuals(fit)
 print(range(r2))

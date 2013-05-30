@@ -60,7 +60,7 @@ mu[100:150] <- mu[100:150] + 1
 mu[320:400] <- mu[320:400] - 1
 eps <- rnorm(J, sd=1/2)
 y <- mu + eps
-x <- sort(runif(length(y), max=length(y))) * 1e5;
+x <- sort(runif(length(y), max=length(y))) * 1e5
 w <- runif(J)
 w[320:400] <- 0.001
 

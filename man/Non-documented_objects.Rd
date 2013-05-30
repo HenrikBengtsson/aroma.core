@@ -930,9 +930,6 @@
 \alias{isCompatibleWith}
 \alias{isCompatibleWith.AromaPlatformInterface}
 \alias{getTags.Arguments}
-\alias{doCBS}
-\alias{doCBS.CopyNumberDataSet}
-\alias{doCBS.CopyNumberDataSetTuple}
 \alias{getOutputSet}
 \alias{getOutputSet.ChromosomalModel}
 \alias{setAttributesBy.AromaTabularBinarySet}

@@ -43,3 +43,6 @@ exportPattern("^[^\\.]")
 S3method("getParameters", "ParametersInterface");
 S3method("getParameterSets", "ParametersInterface");
 S3method("getParametersAsString", "ParametersInterface");
+
+S3method("doCBS", "default");
+

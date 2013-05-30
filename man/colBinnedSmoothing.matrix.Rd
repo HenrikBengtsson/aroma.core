@@ -118,25 +118,25 @@ for (ii in 1:I) {
   plot(NA, xlim=xlim, ylim=ylim)
   points(x, Y[,ii], col="#999999")
 
-  xOut <- attr(Ys3, "xOut");
+  xOut <- attr(Ys3, "xOut")
   lines(xOut, Ys3[,ii], col=2)
   points(xOut, Ys3[,ii], col=2)
 
-  xOut <- attr(Ys5, "xOut");
+  xOut <- attr(Ys5, "xOut")
   lines(xOut, Ys5[,ii], col=3)
   points(xOut, Ys5[,ii], col=3)
 
-  xOut <- attr(YsC, "xOut");
+  xOut <- attr(YsC, "xOut")
   lines(xOut, YsC[,ii], col=4)
   points(xOut, YsC[,ii], col=4, pch=15)
 
-  xOut <- attr(YsD, "xOut");
+  xOut <- attr(YsD, "xOut")
   lines(xOut, YsD[,ii], col=5)
   points(xOut, YsD[,ii], col=5, pch=15)
 
   if (ii == 1) {
     legend("topright", pch=c(19,19,15,15), col=c(2,3,4,5),
-           c("by=3", "by=5", "Custom #1", "Custom #2"), horiz=TRUE, bty="n");
+           c("by=3", "by=5", "Custom #1", "Custom #2"), horiz=TRUE, bty="n")
   }
 }
 
