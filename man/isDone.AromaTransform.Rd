@@ -18,12 +18,11 @@
 }
 
 \usage{
-\method{isDone}{AromaTransform}(this, ..., verbose=FALSE)
+\method{isDone}{AromaTransform}(this, ...)
 }
 
 \arguments{
-  \item{...}{Not used.}
-  \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
+  \item{...}{Arguments passed to \code{\link[aroma.core:findFilesTodo.AromaTransform]{*findFilesTodo}()}.}
 }
 
 \value{

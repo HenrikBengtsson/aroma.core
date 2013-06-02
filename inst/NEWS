@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.9.6 [2013-06-01]
+o Added findFilesTodo() for AromaTransform.
+
+
 Version: 2.9.5 [2013-05-30]
 o DOCUMENTATION: Now help("doCBS") documents all doCBS() methods.
 o Now it's possible to call aroma.core::doCBS() without loading package.

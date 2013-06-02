@@ -363,9 +363,9 @@ setMethodS3("getInputDataSet", "AromaTransform", function(this, ...) {
 
 
 ###########################################################################/**
-# @RdocMethod isDone
+# @RdocMethod findFilesTodo
 #
-# @title "Checks if the data set is processed or not"
+# @title "Finds files in the data set still not processed"
 #
 # \description{
 #  @get "title".
@@ -379,7 +379,8 @@ setMethodS3("getInputDataSet", "AromaTransform", function(this, ...) {
 # }
 #
 # \value{
-#  Returns @TRUE if the data set is processed, otherwise @FALSE.
+#  Returns a named @integer @vector specifying the indices of the files
+#  still not processed.
 # }
 #
 # @author
@@ -388,7 +389,7 @@ setMethodS3("getInputDataSet", "AromaTransform", function(this, ...) {
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("isDone", "AromaTransform", function(this, ..., verbose=FALSE) {
+setMethodS3("findFilesTodo", "AromaTransform", function(this, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -400,17 +401,58 @@ setMethodS3("isDone", "AromaTransform", function(this, ..., verbose=FALSE) {
   }
 
 
-  verbose && enter(verbose, "Checking if data set is \"done\"");
-
+  verbose && enter(verbose, "Checking which data files are not \"done\"");
   # Get the fullnames of the expected output data files
   fullnames <- getExpectedOutputFullnames(this, verbose=less(verbose, 25));
 
   # Scan for matching output files
   dsOut <- getOutputDataSet(this, incomplete=TRUE, ...,
                                                   verbose=less(verbose,5));
+  fullnamesOut <- getFullNames(dsOut);
+
   verbose && exit(verbose);
 
-  (length(dsOut) == length(fullnames));
+  # Missing
+  idxs <- match(fullnames, fullnamesOut);
+  missing <- which(is.na(idxs));
+
+  # Always return sorted and unique set of indices
+  missing <- sort(unique(missing));
+  names(missing) <- fullnames[missing];
+
+  missing;
+}, protected=TRUE) # findFilesTodo()
+
+
+
+###########################################################################/**
+# @RdocMethod isDone
+#
+# @title "Checks if the data set is processed or not"
+#
+# \description{
+#  @get "title".
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Arguments passed to @seemethod "findFilesTodo".}
+# }
+#
+# \value{
+#  Returns @TRUE if the data set is processed, otherwise @FALSE.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
+setMethodS3("isDone", "AromaTransform", function(this, ...) {
+  missing <- findFilesTodo(this, ...);
+  (length(missing) == 0L);
 })
 
 
@@ -674,6 +716,8 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2013-06-01
+# o Added findFilesTodo() for AromaTransform.
 # 2012-11-21
 # o Added Rdoc for getRootPath().
 # 2012-11-20
