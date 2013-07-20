@@ -53,12 +53,12 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
     plotDev <- NULL;
     zooms <- zooms[1];
   } else if (identical(imageFormat, "screen")) {
-    screenDev <- function(pathname, width, height, ..., 
+    screenDev <- function(pathname, width, height, ...,
                                                   xpinch=50, ypinch=xpinch) {
       # Dimensions are in pixels. Rescale to inches
       width <- width/xpinch;
       height <- height/ypinch;
-      x11(width=width, height=height, ...);
+      dev.new(width=width, height=height, ...);
     }
 
     # When plotting to the screen, use only the first zoom
@@ -91,11 +91,11 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
     tryCatch({
       for (zz in seq_along(zooms)) {
         zoom <- zooms[zz];
-    
+
         # Create the pathname to the file
         imgName <- sprintf("chr%02d,x%04d.%s", chromosome, zoom, imageFormat);
         pathname <- filePath(path, imgName);
-  
+
         # pngDev() (that is bitmap()) does not accept spaces in pathnames
         pathname <- gsub(" ", "_", pathname);
         if (!imageFormat %in% c("screen", "current")) {
@@ -112,7 +112,7 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
         verbose && printf(verbose, "Dimensions: %dx%d\n", width, height);
 
         args <- list(cns=this, chromosome=chromosome, xlim=xlim, ylim=ylim, unit=unit, width=width, height=height, zoom=zoom, pixelsPerMb=pixelsPerMb, nbrOfBases=nbrOfBases, ..., verbose=less(verbose,1));
-  
+
         if (!is.null(plotDev))
           plotDev(pathname, width=width, height=height);
 
@@ -165,7 +165,7 @@ setMethodS3("plotAxesLayers", "CopyNumberChromosomalModel", function(this, path=
         axis(side=ss, at=at, tcl=tcl, lwd=lwd, labels=FALSE);
     }
     cxy <- par("cxy");
-    text(x=at, y=par("usr")[3]-0.5*cxy[2], labels=at, srt=90, 
+    text(x=at, y=par("usr")[3]-0.5*cxy[2], labels=at, srt=90,
                                        adj=1, cex=1, xpd=TRUE);
   } # drawXAxisRuler()
 
@@ -190,13 +190,13 @@ setMethodS3("plotAxesLayers", "CopyNumberChromosomalModel", function(this, path=
     # Calculate MBs per ticks
     ticksBy <- 10^ceiling(log10(pixelsPerTick / (zoom * pixelsPerMb)));
     verbose && printf(verbose, "Ticks by: %f\n", ticksBy);
-  
+
     suppressWarnings({
       # Create empty plot
       newPlot(this, ..., xlab="", ylab="", unit=unit, flavor="ce");
 
       # Add ruler
-      drawXAxisRuler(xrange=c(0,nbrOfBases)/10^unit, ticksBy=ticksBy); 
+      drawXAxisRuler(xrange=c(0,nbrOfBases)/10^unit, ticksBy=ticksBy);
     });
   }, path=path, ...);
 }, protected=TRUE) # plotAxesLayers()
@@ -248,6 +248,8 @@ setMethodS3("plotCytobandLayers", "CopyNumberChromosomalModel", function(this, p
 
 ##############################################################################
 # HISTORY:
+# 2013-07-20
+# o CLEANUP: Replaces an x11() with a dev.new().
 # 2010-12-02
 # o CLEANUP: Dropped any usage getChromosomeLength().
 # 2007-10-17
@@ -256,7 +258,7 @@ setMethodS3("plotCytobandLayers", "CopyNumberChromosomalModel", function(this, p
 # o Added plotCytobandLayers().
 # 2007-09-15
 # o Now the cytoband is only drawn for some genomes, which currently is
-#   hardwired to the "Human" genome. 
+#   hardwired to the "Human" genome.
 # 2007-09-04
 # o Finally, now plot() works pretty much the same for GladModel as for
 #   the new CbsModel.
@@ -343,8 +345,8 @@ setMethodS3("plotCytobandLayers", "CopyNumberChromosomalModel", function(this, p
 # 2006-12-15
 # o This class should be considered temporary, because we might design a
 #   ChipEffectSet class that can contain multiple chip types, but treated as
-#   if it contained one chip type, so it can be passed to the current 
-#   GladModel class.  However, such a class design will require multiple 
+#   if it contained one chip type, so it can be passed to the current
+#   GladModel class.  However, such a class design will require multiple
 #   inheritance etc, which will take time to develope.
 # o Created from GladModel.R with history as below:
 # 2006-11-29

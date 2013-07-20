@@ -1299,6 +1299,9 @@
 \alias{getParameterSets.ParametersInterface}
 \alias{getCacheKey}
 \alias{findFilesTodo}
+\alias{colMedians}
+\alias{getParameters}
+\alias{write}
 
 \description{
   This page contains aliases for all "non-documented" objects that

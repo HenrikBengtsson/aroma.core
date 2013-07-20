@@ -16,6 +16,7 @@ setMethodS3("colMeans", "default", function(...) {
 #colnames <- function(...) UseMethod("colnames", ...);
 #colnames.default <- function(...) base::colnames(...);
 
+write <- appendVarArgs(write);
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -27,6 +28,8 @@ setGenericS3("process", overwrite=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2012-07-20 [HB]
+# o Added '...' to write(), because we no longer attach R.rsp.
 # 2012-03-01 [HB]
 # o Replaced all appendVarArgs() for 'base' functions that do .Internal()
 #   calls, because they would then appear as local functions of this

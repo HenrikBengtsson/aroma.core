@@ -8,7 +8,7 @@
 #   @get "title" with or without file header comments.
 # }
 #
-# @usage
+# @synopsis
 #
 # \arguments{
 #  \item{filename}{The filename of the generated file.}

@@ -6,7 +6,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
   # but not the data points and "nicely" catch the error and report it in
   # the verbose output.  This will cause PNGs with no data points.  Thus,
   # here we assert that RColorBrewer is available.
-  # See thread '[aroma.affymetrix] No plot CNV analysis (Myriam)' on 
+  # See thread '[aroma.affymetrix] No plot CNV analysis (Myriam)' on
   # Jun 22-July 1, 2009. /HB 2009-07-01
   require("RColorBrewer") || throw("Package not loaded: RColorBrewer");
 
@@ -29,7 +29,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
         axis(side=ss, at=at, tcl=tcl, lwd=lwd, labels=FALSE);
     }
     cxy <- par("cxy");
-    text(x=at, y=par("usr")[3]-0.5*cxy[2], labels=at, srt=90, 
+    text(x=at, y=par("usr")[3]-0.5*cxy[2], labels=at, srt=90,
                                        adj=1, cex=1, xpd=TRUE);
   } # drawXAxisRuler()
 
@@ -119,7 +119,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
       # Dimensions are in pixels. Rescale to inches
       width <- width/xpinch;
       height <- height/ypinch;
-      x11(width=width, height=height, ...);
+      dev.new(width=width, height=height, ...);
     }
 
     # When plotting to the screen, use only the first zoom
@@ -154,11 +154,11 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
       # Extract the array name from the full name
       arrayFullName <- gsub("^(.*),chr[0-9][0-9].*$", "\\1", fullname);
       arrayName <- gsub("^([^,]*).*$", "\\1", arrayFullName);
-  
+
       # Figure out what chromosome is fitted
 #      chromosome <- unique(fit$profileValues$Chromosome); # Should only be one!
 ##      chromosome[chromosome == "23"] <- "X";  # TODO
-  
+
       # Infer the length (in bases) of the chromosome
 ##      chromosomeIdx <- match(chromosome, getChromosomes(this));
       nbrOfBases <- genome$nbrOfBases[chromosome];
@@ -168,17 +168,17 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
       if (is.null(xlim)) {
         xlim <- c(0, widthMb);
       }
-    
+
       verbose && enter(verbose, sprintf("Plotting %s for chromosome %02d [%.2fMB]", arrayName, chromosome, widthMb));
-  
+
       for (zz in seq_along(zooms)) {
         zoom <- zooms[zz];
-  
+
         # Create the pathname to the file
-        imgName <- sprintf("%s,chr%02d,x%04d.%s", 
+        imgName <- sprintf("%s,chr%02d,x%04d.%s",
                           arrayFullName, chromosome, zoom, imageFormat);
         pathname <- filePath(path, imgName);
-  
+
         # pngDev() (that is bitmap()) does not accept spaces in pathnames
         pathname <- gsub(" ", "_", pathname);
         if (!imageFormat %in% c("screen", "current")) {
@@ -197,7 +197,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
         verbose && printf(verbose, "Pathname: %s\n", pathname);
         verbose && printf(verbose, "Dimensions: %dx%d\n", width, height);
         verbose && printf(verbose, "Ticks by: %f\n", ticksBy);
-  
+
         if (!is.null(plotDev))
           plotDev(pathname, width=width, height=height);
         tryCatch({
@@ -213,16 +213,16 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
             verbose && enter(verbose, "Adding axes and rulers");
             # Add ruler
-            drawXAxisRuler(xrange=c(0,nbrOfBases)/10^unit, ticksBy=ticksBy); 
+            drawXAxisRuler(xrange=c(0,nbrOfBases)/10^unit, ticksBy=ticksBy);
             verbose && exit(verbose);
- 
+
             # Add cytoband to graph (optional; class specific)
             if (!identical(this$.plotCytoband, FALSE)) {
               verbose && enter(verbose, "Adding cytoband");
               drawCytoband(this, chromosome=chromosome, unit=unit);
               verbose && exit(verbose);
             }
-        
+
             # Add CN=1,2,3 lines to graph
             verbose && enter(verbose, "Adding CN grid lines");
             cnLevels <- c(1/2,1,3/2);
@@ -264,7 +264,7 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
           # Add chip-type annotation
           stext(chipType, side=4, pos=1, line=0, cex=0.8);
- 
+
           verbose && exit(verbose);
         }, error = function(ex) {
           print(ex);
@@ -299,6 +299,8 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 
 ##############################################################################
 # HISTORY:
+# 2013-07-20
+# o CLEANUP: Replaces an x11() with a dev.new().
 # 2010-12-02
 # o BUG FIX: plot() for CopyNumberSegmentationModel would throw exception
 #   "Cannot infer number of bases in chromosome. No such chromosome: 25"
@@ -307,12 +309,12 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 # 2010-11-23
 # o Added more verbose output to plot() of CopyNumberSegmentationModel.
 # 2009-07-01
-# o ROBUSTNESS/BUG FIX: Now plot() of CopyNumberSegmentationModel asserts 
+# o ROBUSTNESS/BUG FIX: Now plot() of CopyNumberSegmentationModel asserts
 #   that the RColorBrewer package is avaiable at the very beginning.  This
 #   will avoid generating image files where the data points are missing.
 # 2007-09-15
 # o Now the cytoband is only drawn for some genomes, which currently is
-#   hardwired to the "Human" genome. 
+#   hardwired to the "Human" genome.
 # 2007-09-04
 # o Finally, now plot() works pretty much the same for GladModel as for
 #   the new CbsModel.
@@ -399,8 +401,8 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
 # 2006-12-15
 # o This class should be considered temporary, because we might design a
 #   ChipEffectSet class that can contain multiple chip types, but treated as
-#   if it contained one chip type, so it can be passed to the current 
-#   GladModel class.  However, such a class design will require multiple 
+#   if it contained one chip type, so it can be passed to the current
+#   GladModel class.  However, such a class design will require multiple
 #   inheritance etc, which will take time to develope.
 # o Created from GladModel.R with history as below:
 # 2006-11-29

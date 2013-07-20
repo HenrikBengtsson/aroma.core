@@ -9,7 +9,7 @@
 #  An AromaRepository object provides methods for downloading annotation data
 #  from the Aroma repository.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -23,7 +23,7 @@
 # }
 #
 # @author
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("AromaRepository", function(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -98,7 +98,7 @@ setMethodS3("clearCache", "AromaRepository", function(this, ...) {
 # \seealso{
 #   @seeclass
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE, orderBy=c("name", "time"), ..., force=FALSE, verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -114,7 +114,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
   }
 
 
-  # Get the URL to download  
+  # Get the URL to download
   urlPath <- getUrlPath(this);
   if (!is.null(path)) {
     urlPath <- file.path(urlPath, path);
@@ -198,7 +198,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
 # @synopsis
 #
 # \arguments{
-#   \item{filename, path}{The filename and the relative path of the file 
+#   \item{filename, path}{The filename and the relative path of the file
 #         to be download.}
 #   \item{gzipped}{If @TRUE, a gzipped file is downloaded and decompressed.}
 #   \item{skip}{If @TRUE, an already downloaded file is skipped.}
@@ -217,7 +217,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
 # \seealso{
 #   @seeclass
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NULL, caseSensitive=FALSE, gzipped=TRUE, skip=TRUE, overwrite=FALSE, ..., verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -334,25 +334,25 @@ setMethodS3("findAnnotationDataByChipType", "AromaRepository", function(this, ch
     }
 
     verbose && enter(verbose, "Ordering in increasing lengths of fullnames");
-  
+
     # Order located pathnames in increasing length of the fullnames
     # This is an AD HOC solution for selecting GenomeWideSNP_6 before
     # GenomeWideSNP_6,Full.
-  
+
     # (a) Get filenames
     filenames <- basename(pathnames);
-  
+
     # (b) Get fullnames by dropping filename extension
     fullnames <- gsub("[.][^.]*$", "", filenames);
-  
+
     # (c) Order by length of fullnames
     o <- order(nchar(fullnames));
-  
+
     verbose && cat(verbose, "Order:");
     verbose && print(verbose, o);
-  
+
     verbose && exit(verbose);
-  
+
     o;
   } # orderByFullNames()
 
@@ -431,7 +431,7 @@ setMethodS3("findAnnotationDataByChipType", "AromaRepository", function(this, ch
 #   \item{skip}{If @TRUE, an already downloaded file is skipped.}
 #   \item{overwrite}{If @TRUE, an not skipping, an already downloaded file
 #      is overwritten, otherwise an error is thrown.}
-#   \item{mustExist}{If @TRUE, an exception is thrown if no file matching 
+#   \item{mustExist}{If @TRUE, an exception is thrown if no file matching
 #      is available either locally or on the repository.}
 #   \item{verbose}{See @see "R.utils::Verbose".}
 # }
@@ -445,7 +445,7 @@ setMethodS3("findAnnotationDataByChipType", "AromaRepository", function(this, ch
 # \seealso{
 #   @seeclass
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, tags=NULL, suffix=sprintf(".%s", ext), ext=NULL, ..., gunzip=TRUE, skip=TRUE, overwrite=FALSE, mustExist=TRUE, verbose=getVerbose(this)) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -524,7 +524,7 @@ setMethodS3("downloadChipTypeFile", "AromaRepository", function(this, chipType, 
   # Gunzip
   if (gunzip) {
     if (regexpr("[.]gz$", pathname) != -1) {
-      gunzip(pathname);
+      gunzip(pathname, remove=TRUE);
       pathname <- gsub("[.]gz$", "", pathname);
     }
   }

@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaRepository}
+\name{AromaRepository}
 \docType{class}
 \alias{AromaRepository}
 
 
- \title{The AromaRepository class}
+\title{The AromaRepository class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaRepository}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -29,22 +29,22 @@ extends \link[R.oo]{Object}\cr
 
 
 
-  An AromaRepository object provides methods for downloading annotation data
-  from the Aroma repository.
- }
+ An AromaRepository object provides methods for downloading annotation data
+ from the Aroma repository.
+}
 
- \usage{
+\usage{
 AromaRepository(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...)
 }
 
- \arguments{
-   \item{urlPath}{The URL to the Aroma reposity.}
-   \item{verbose}{The \code{\link[R.utils]{Verbose}} to be used during processing.}
-   \item{...}{Not used.}
- }
+\arguments{
+  \item{urlPath}{The URL to the Aroma reposity.}
+  \item{verbose}{The \code{\link[R.utils]{Verbose}} to be used during processing.}
+  \item{...}{Not used.}
+}
 
- \section{Methods}{
-  \bold{Methods:}\cr
+\section{Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{downloadACC} \tab  -\cr
  \tab \code{downloadACM} \tab  -\cr
@@ -65,7 +65,7 @@ AromaRepository(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...)
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

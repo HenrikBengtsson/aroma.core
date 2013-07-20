@@ -12,7 +12,7 @@
 #   For more details, see below.
 # }
 #
-# @usage
+# @synopsis
 #
 # \arguments{
 #  \item{filename}{The filename of the generated file.}

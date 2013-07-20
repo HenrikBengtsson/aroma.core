@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.9.7 [2013-07-20]
+o CLEANUP: Replaced all internal x11() with dev.new() calls.
+o CLEANUP: Moved more packages from Depends to Imports.
+o Updated package dependences.
+
+
 Version: 2.9.6 [2013-06-01]
 o Added findFilesTodo() for AromaTransform.
 

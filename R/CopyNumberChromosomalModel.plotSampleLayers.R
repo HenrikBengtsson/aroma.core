@@ -6,7 +6,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
   if (identical(arrays, "fitted")) {
   } else {
     arrays <- indexOf(this, arrays);
-  } 
+  }
 
   allChromosomes <- getChromosomes(this);
 
@@ -19,7 +19,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
                                                 range=range(allChromosomes));
     chromosomes <- intersect(chromosomes, allChromosomes);
   } else if (is.character(chromosomes)) {
-    chromosomes <- Arguments$getChromosomes(chromosomes, 
+    chromosomes <- Arguments$getChromosomes(chromosomes,
                                                 range=range(allChromosomes));
     chromosomes <- intersect(chromosomes, getChromosomes(this));
   }
@@ -73,7 +73,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
       # Dimensions are in pixels. Rescale to inches
       width <- width/xpinch;
       height <- height/ypinch;
-      x11(width=width, height=height, ...);
+      dev.new(width=width, height=height, ...);
     }
 
     # When plotting to the screen, use only the first zoom
@@ -105,10 +105,10 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     res[[arrayName]] <- list();
     for (chromosome in chromosomes) {
-      verbose && enter(verbose, 
-                          sprintf("Array #%d ('%s') of %d on chromosome %s", 
-                                    aa, arrayName, nbrOfArrays, chromosome)); 
- 
+      verbose && enter(verbose,
+                          sprintf("Array #%d ('%s') of %d on chromosome %s",
+                                    aa, arrayName, nbrOfArrays, chromosome));
+
       # Infer the length (in bases) of the chromosome
       nbrOfBases <- genome$nbrOfBases[chromosome];
       widthMb <- nbrOfBases / 10^unit;
@@ -124,10 +124,10 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       for (zoom in zooms) {
         # Create the pathname to the file
-        imgName <- sprintf("%s,chr%02d,x%04d.%s", 
+        imgName <- sprintf("%s,chr%02d,x%04d.%s",
                           arrayFullName, chromosome, zoom, imageFormat);
         pathname <- filePath(path, imgName);
-  
+
         # pngDev() (that is bitmap()) does not accept spaces in pathnames
         pathname <- gsub(" ", "_", pathname);
         if (!imageFormat %in% c("screen", "current")) {
@@ -153,10 +153,10 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
         }
 
         tryCatch({
-          args <- list(cncModel=this, array=array, chromosome=chromosome, 
-                       xlim=xlim, ylim=ylim, unit=unit, 
-                       width=width, height=height, 
-                       zoom=zoom, pixelsPerMb=pixelsPerMb, 
+          args <- list(cncModel=this, array=array, chromosome=chromosome,
+                       xlim=xlim, ylim=ylim, unit=unit,
+                       width=width, height=height,
+                       zoom=zoom, pixelsPerMb=pixelsPerMb,
                        nbrOfBases=nbrOfBases, ..., verbose=less(verbose,1));
           do.call("FUN", args=args);
         }, error = function(ex) {
@@ -178,13 +178,15 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
 
 ##############################################################################
 # HISTORY:
+# 2013-07-20
+# o CLEANUP: Replaces an x11() with a dev.new().
 # 2010-12-02
 # o CLEANUP: Dropped any usage getChromosomeLength().
 # 2007-10-09
 # o Added plotCytobandLayers().
 # 2007-09-15
 # o Now the cytoband is only drawn for some genomes, which currently is
-#   hardwired to the "Human" genome. 
+#   hardwired to the "Human" genome.
 # 2007-09-04
 # o Finally, now plot() works pretty much the same for GladModel as for
 #   the new CbsModel.
@@ -271,8 +273,8 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
 # 2006-12-15
 # o This class should be considered temporary, because we might design a
 #   ChipEffectSet class that can contain multiple chip types, but treated as
-#   if it contained one chip type, so it can be passed to the current 
-#   GladModel class.  However, such a class design will require multiple 
+#   if it contained one chip type, so it can be passed to the current
+#   GladModel class.  However, such a class design will require multiple
 #   inheritance etc, which will take time to develope.
 # o Created from GladModel.R with history as below:
 # 2006-11-29

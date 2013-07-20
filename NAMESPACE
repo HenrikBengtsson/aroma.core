@@ -10,13 +10,21 @@ import("R.oo")
 ##importFrom("utils", packageDescription)
 import("R.utils")
 import("R.rsp")
-import("matrixStats")
-
 
 importFrom("R.cache", "loadCache")
 importFrom("R.cache", "saveCache")
 importFrom("R.cache", "getChecksum")
 
+##import("R.filesets")
+##import("R.devices")
+
+import("matrixStats")
+## As soon as matrixStats declares all S3 methods
+## (not the case in matrixStats v0.8.5)
+## importFrom("matrixStats", "colWeightedMeans")
+## importFrom("matrixStats", "colWeightedMedians")
+## importFrom("matrixStats", "colMedians")
+## importFrom("matrixStats", "rowMedians")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional imports
