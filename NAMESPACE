@@ -18,7 +18,7 @@ importFrom("R.cache", "getChecksum")
 ##import("R.devices")
 
 import("matrixStats")
-## As soon as matrixStats declares all S3 methods
+## As soon as 'matrixStats' declares all S3 methods
 ## (not the case in matrixStats v0.8.5)
 ## importFrom("matrixStats", "colWeightedMeans")
 ## importFrom("matrixStats", "colWeightedMedians")
@@ -27,9 +27,6 @@ import("matrixStats")
 
 importFrom("R.rsp", "rspToHtml")
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Additional imports
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 importFrom("PSCBS", "plotTracksManyChromosomes");
 
 
