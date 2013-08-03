@@ -11,9 +11,9 @@
 # }
 #
 # \usage{
-#   \method{doCBS}{default}(dataSet, tags=NULL, chipTypes, arrays=NULL, ..., verbose=FALSE)
-#   \method{doCBS}{CopyNumberDataSet}(ds, arrays=NULL, ...)
-#   \method{doCBS}{CopyNumberDataSetTuple}(dsTuple, arrays=NULL, ..., verbose=FALSE)
+#   @usage doCBS,default
+#   @usage doCBS,CopyNumberDataSet
+#   @usage doCBS,CopyNumberDataSetTuple
 # }
 #
 # \arguments{

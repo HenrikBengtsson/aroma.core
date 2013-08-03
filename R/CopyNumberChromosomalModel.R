@@ -55,7 +55,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   }
 
   # Argument 'refTuple':
-  # Validated it setReference() below.
+  # Validated in setReference() below.
 
   # Argument 'calculateRatios':
   if (is.character(calculateRatios) && calculateRatios == "auto") {

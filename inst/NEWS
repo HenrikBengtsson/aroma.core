@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.10.0 [2013-08-03]
+o Bumped version for CRAN submission.
+o Updated package dependences.
+o Package passes all redundancy tests.
+
+
 Version: 2.9.7 [2013-07-20]
 o CLEANUP: Replaced all internal x11() with dev.new() calls.
 o CLEANUP: Moved more packages from Depends to Imports.

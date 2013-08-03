@@ -1302,6 +1302,7 @@
 \alias{colMedians}
 \alias{getParameters}
 \alias{write}
+\alias{write.default}
 
 \description{
   This page contains aliases for all "non-documented" objects that

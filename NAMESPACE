@@ -9,7 +9,6 @@ import("R.oo")
 ##                # timestamp() exported by R.utils.
 ##importFrom("utils", packageDescription)
 import("R.utils")
-import("R.rsp")
 
 importFrom("R.cache", "loadCache")
 importFrom("R.cache", "saveCache")
@@ -25,6 +24,8 @@ import("matrixStats")
 ## importFrom("matrixStats", "colWeightedMedians")
 ## importFrom("matrixStats", "colMedians")
 ## importFrom("matrixStats", "rowMedians")
+
+importFrom("R.rsp", "rspToHtml")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional imports
