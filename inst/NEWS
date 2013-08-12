@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.10.1 [2013-08-12]
+o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
+  would throw an error on "unknown argument 'names' to indexOf()".
+
+
 Version: 2.10.0 [2013-08-03]
 o Bumped version for CRAN submission.
 o Updated package dependences.

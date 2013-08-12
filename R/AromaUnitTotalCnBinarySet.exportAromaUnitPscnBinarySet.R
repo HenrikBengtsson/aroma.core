@@ -11,7 +11,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     # Sanity check
     stopifnot(length(dsB) == length(dsT));
     # Reorder
-    dsB <- extract(dsB, indexOf(dsB, names=getNames(dsT)));
+    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)));
     # Sanity check
     stopifnot(getNames(dsB) ==  getNames(dsT));
   }
@@ -39,7 +39,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     pattern <- ",fracB[.]asb$";
     dsB <- AromaUnitFracBCnBinarySet$byPath(path, pattern=pattern);
     verbose && cat(verbose, "Number of files: ", length(dsB));
-    dsB <- extract(dsB, indexOf(dsB, names=getNames(dsT)));
+    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)));
     verbose && cat(verbose, "Number of files kept: ", length(dsB));
     # Sanity check
     stopifnot(length(dsB) == length(dsT));
@@ -185,6 +185,9 @@ setMethodS3("exportAromaUnitPscnBinarySet", "list", function(dsList, ...) {
 
 ############################################################################
 # HISTORY:
+# 2013-08-12
+# o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
+#   would throw an error on "unknown argument 'names' to indexOf()".
 # 2012-09-14
 # o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
 #   would throw an error if the files of the exported data set was
