@@ -5,9 +5,7 @@ importFrom("R.methodsS3", "setMethodS3")
 importFrom("R.methodsS3", "throw")
 import("R.oo")
 
-##import("utils") # Not yet, because there is a conflict with
-##                # timestamp() exported by R.utils.
-##importFrom("utils", packageDescription)
+##importFrom("utils", "packageDescription")
 import("R.utils")
 
 importFrom("R.cache", "loadCache")
