@@ -8,7 +8,8 @@ setMethodS3("plot", "CopyNumberSegmentationModel", function(x, xlim=NULL, ..., p
   # here we assert that RColorBrewer is available.
   # See thread '[aroma.affymetrix] No plot CNV analysis (Myriam)' on
   # Jun 22-July 1, 2009. /HB 2009-07-01
-  require("RColorBrewer") || throw("Package not loaded: RColorBrewer");
+  pkg <- "RColorBrewer";
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

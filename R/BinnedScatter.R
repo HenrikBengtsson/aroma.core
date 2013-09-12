@@ -161,7 +161,8 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
   # Identify density estimator
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Used to be a workaround since it used to be in 'geneplotter'.
-  calcDensity <- grDevices:::.smoothScatterCalcDensity;
+  ns <- getNamespace("grDevices");
+  calcDensity <- get(".smoothScatterCalcDensity", mode="function", envir=ns);
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

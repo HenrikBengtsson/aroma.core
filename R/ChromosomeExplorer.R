@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -24,7 +24,7 @@
 #   In order to get better looking graphs, but also to be able to generate
 #   bitmap images on systems without direct bitmap support, which is the case
 #   when running R in batch mode or on Unix without X11 support, images are
-#   created using the @see "R.devices::png2" device (a wrapper for 
+#   created using the @see "R.devices::png2" device (a wrapper for
 #   \code{bitmap()} immitating \code{png()}).  The \code{png()} is only
 #   used if \code{png2()}, which requires Ghostscript, does not.
 #   Note, when images are created using \code{png2()}, the images does
@@ -33,7 +33,7 @@
 # }
 #
 # @author
-# 
+#
 # \seealso{
 #  @see "CopyNumberChromosomalModel".
 # }
@@ -54,7 +54,7 @@ setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ...) 
     zooms <- Arguments$getDoubles(zooms, range=c(0, Inf));
   }
 
-  
+
   extend(Explorer(...), c("ChromosomeExplorer"),
     .model = model,
     .arrays = NULL,
@@ -192,7 +192,7 @@ setMethodS3("getTagsOfInput", "ChromosomeExplorer", function(this, ...) {
 setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
   mainPath <- getMainPath(this);
 
-  # Chip type    
+  # Chip type
   model <- getModel(this);
   chipType <- getChipType(model);
 
@@ -303,7 +303,7 @@ setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {
   model <- getModel(this);
 
   path <- getPath(this);
-  path <- Arguments$getWritablePath(path); 
+  path <- Arguments$getWritablePath(path);
 
   plotband <- this$.plotCytoband;  # Plot cytoband?
   plot(model, path=path, imageFormat="png", plotband=plotband, arrays=arrays, ...);
@@ -337,10 +337,10 @@ setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nb
   verbose && enter(verbose, "Writing CN regions");
 
   path <- getPath(this);
-  path <- Arguments$getWritablePath(path); 
+  path <- Arguments$getWritablePath(path);
 
   dest <- filePath(path, "regions.xls");
-  dest <- Arguments$getWritablePathname(dest); 
+  dest <- Arguments$getWritablePathname(dest);
 
 
   # Extract and write regions
@@ -400,7 +400,8 @@ setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename="Chrom
 # }
 #*/###########################################################################
 setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ..., verbose=FALSE) {
-  require("R.rsp") || throw("Package not loaded: R.rsp");
+  pkg <- "R.rsp";
+  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -426,7 +427,7 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
   verbose && cat(verbose, "Source: ", pathname);
   outFile <- gsub("[.]rsp$", "", basename(pathname));
   outPath <- parent2Path;
-  outPath <- Arguments$getWritablePath(outPath); 
+  outPath <- Arguments$getWritablePath(outPath);
   verbose && cat(verbose, "Output path: ", outPath);
 
   verbose && enter(verbose, "Scanning directories for available chip types");
@@ -438,7 +439,7 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
   model <- getModel(this);
   chipTypes <- c(getChipType(model), getChipTypes(model));
   chipTypes <- intersect(chipTypes, basename(dirs));
-  verbose && cat(verbose, "Detected chip types: ", 
+  verbose && cat(verbose, "Detected chip types: ",
                                            paste(chipTypes, collapse=", "));
   verbose && exit(verbose);
 
@@ -510,13 +511,13 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
 
   if (getParallelSafe(this)) {
     tryCatch({
-      pathname <- rspToHtml(pathname, path=NULL, 
-                            outFile=outFile, outPath=outPath, 
+      pathname <- rspToHtml(pathname, path=NULL,
+                            outFile=outFile, outPath=outPath,
                             overwrite=TRUE, envir=env);
     }, error = function(ex) {})
   } else {
-    pathname <- rspToHtml(pathname, path=NULL, 
-                          outFile=outFile, outPath=outPath, 
+    pathname <- rspToHtml(pathname, path=NULL,
+                          outFile=outFile, outPath=outPath,
                           overwrite=TRUE, envir=env);
   }
 
@@ -524,7 +525,7 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
 
 
   verbose && exit(verbose);
-  
+
   invisible(pathname);
 }, protected=TRUE) # updateSetupExplorerFile()
 
@@ -580,7 +581,7 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
     on.exit(popState(verbose));
   }
 
-  
+
   verbose && enter(verbose, "Generating ChromosomeExplorer report");
 
   # Setup HTML, CSS, Javascript files first
@@ -607,11 +608,11 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
 
     # 2. Sample specific layers
     verbose && enter(verbose, "Sample-specific layers");
-    writeRawCopyNumberLayers(this, arrays=arrays, chromosomes=chromosomes, 
+    writeRawCopyNumberLayers(this, arrays=arrays, chromosomes=chromosomes,
                                      zooms=zooms, ..., verbose=less(verbose));
 
     if (inherits(model, "CopyNumberSegmentationModel")) {
-      writeCopyNumberRegionLayers(this, arrays=arrays, 
+      writeCopyNumberRegionLayers(this, arrays=arrays,
            chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose));
     }
     verbose && exit(verbose);
@@ -619,7 +620,7 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
     verbose && exit(verbose);
   } else {
     # Generate bitmap images
-    writeGraphs(this, arrays=arrays, chromosomes=chromosomes, 
+    writeGraphs(this, arrays=arrays, chromosomes=chromosomes,
                                    zooms=zooms, ..., verbose=less(verbose));
   }
 
@@ -662,13 +663,13 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 # o Renamed updateSamplesFile() to updateSetupExplorerFile().
 # o Now ChromosomeExplorer() passes argument 'version' to Explorer().
 # 2012-02-01
-# o Now getChromosomeLabels() returns "01", "02", ..., instead of 
+# o Now getChromosomeLabels() returns "01", "02", ..., instead of
 #   "1", "2", ..., which makes it easier to use Webcuts.
 # 2011-03-14
 # o Now updateSamplesFile() passes down 'chromosomeLabels' too.
 # o Added getChromosomeLabels() for ChromosomeExplorer.
 # 2009-12-30
-# o CLEAN UP: Now ChromosomeExplorer is unaware of the data set tuple in 
+# o CLEAN UP: Now ChromosomeExplorer is unaware of the data set tuple in
 #   the model.  Instead all queries goes to the model.
 # o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
 # 2009-12-25
@@ -678,8 +679,8 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 # o BUG FIX: translateFullNames() of ChromosomeExplorer would translate the
 #   full names, but return the original ones.
 # 2009-12-22
-# o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in 
-#   UseMethod("translateFullNames") : no applicable method for 
+# o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in
+#   UseMethod("translateFullNames") : no applicable method for
 #   'translateFullNames' applied to an object of class "character".
 # 2009-05-19
 # o Now testing for file permissions for creat-/writ-/updating files/dirs.
@@ -693,7 +694,7 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 # o Now one can pass argument 'aliased=TRUE' to process() which causes the
 #   ChromosomeExplorer and coupled CopyNumberSegmentationModel to return
 #   tags that inferred from aliased full names.
-# o Now updateSamplesFile() of ChromosomeExplorer passes arguments '...' 
+# o Now updateSamplesFile() of ChromosomeExplorer passes arguments '...'
 #   to getFullNames().
 # o Now getFullNames() of ChromosomeExplorer passes arguments '...' along.
 # 2007-10-17
@@ -712,7 +713,7 @@ setMethodS3("display", "ChromosomeExplorer", function(this, filename="Chromosome
 # 2007-09-04
 # o Now ChromosomeExplorer recognizes CopyNumberSegmentationModel:s.
 # 2007-05-08
-# o Added default zoom levels to updateSamplesFile() for ChromosomeExplorer.  
+# o Added default zoom levels to updateSamplesFile() for ChromosomeExplorer.
 #   This is applies the first time process() is called.
 # 2007-03-19
 # o Now ChromosomeExplorer extends Explorer.

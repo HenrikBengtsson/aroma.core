@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -22,7 +22,7 @@
 # \section{Output directory structure}{
 #   The \emph{main directory} of an Explorer report is
 #    \code{reports/<name>/<subname>/}.
-#   The \code{<name>} is typically the same as the name of the input 
+#   The \code{<name>} is typically the same as the name of the input
 #   data set, and the \code{<subname>} is typically the tags of ditto.
 #   This main directory is where main HTML document is stored.
 #
@@ -43,7 +43,7 @@
 # }
 #
 # @author
-# 
+#
 #*/###########################################################################
 setConstructorS3("Explorer", function(tags="*", version="0", ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -155,7 +155,7 @@ setMethodS3("getNames", "Explorer", function(this, ...) {
 # @synopsis
 #
 # \arguments{
-#   \item{arrays}{A @character (or @integer) @vector of arrays to be 
+#   \item{arrays}{A @character (or @integer) @vector of arrays to be
 #      considered. If @NULL, all arrays of the data set are considered.}
 #   \item{...}{Not used.}
 # }
@@ -245,7 +245,7 @@ setMethodS3("getAlias", "Explorer", function(this, ...) {
 #
 # \description{
 #   @get "title".
-#   If specified, the alias overrides the data set name, which is used by 
+#   If specified, the alias overrides the data set name, which is used by
 #   default.
 # }
 #
@@ -485,7 +485,7 @@ setMethodS3("getSubname", "Explorer", function(this, ...) {
   if (is.null(subname))
     throw("ERROR: No subname could be inferred from tags: ", tags);
 
-  subname; 
+  subname;
 }, protected=TRUE)
 
 
@@ -617,14 +617,14 @@ setMethodS3("addIncludes", "Explorer", function(this, ..., force=FALSE, verbose=
   srcPath <- getIncludePath(this);
   verbose && cat(verbose, "Source path: ", srcPath);
   verbose && cat(verbose, "Destination path: ", destPath);
-  
+
   if (getParallelSafe(this)) {
     tryCatch({
-      pathnames <- copyDirectory(from=srcPath, to=destPath, recursive=TRUE, 
+      pathnames <- copyDirectory(from=srcPath, to=destPath, recursive=TRUE,
                                                           overwrite=force);
     }, error = function(ex) {});
   } else {
-    pathnames <- copyDirectory(from=srcPath, to=destPath, recursive=TRUE, 
+    pathnames <- copyDirectory(from=srcPath, to=destPath, recursive=TRUE,
                                                           overwrite=force);
   }
   verbose && exit(verbose);
@@ -664,7 +664,7 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
     } else {
       copyFile(srcPathname, outPathname, overwrite=TRUE);
     }
-  
+
     verbose && exit(verbose);
   }
 }, protected=TRUE)
@@ -672,7 +672,8 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
 
 
 setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., verbose=FALSE) {
-  require("R.rsp") || throw("Package not loaded: R.rsp");
+  pkg <- "R.rsp";
+  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -707,8 +708,8 @@ setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., ver
   verbose && str(verbose, as.list(data));
 
   verbose && enter(verbose, "Compiling RSP");
-  pathname <- rspToHtml(pathname, path=NULL, 
-                        outFile=outFile, outPath=outPath, 
+  pathname <- rspToHtml(pathname, path=NULL,
+                        outFile=outFile, outPath=outPath,
                         overwrite=TRUE, envir=data);
   verbose && exit(verbose);
 
@@ -825,9 +826,9 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
   invisible(res);
 })
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # DEPRECATED
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("getArrays", "Explorer", function(this, ...) {
   getNames(this, ...);
 }, protected=TRUE, deprecated=TRUE)

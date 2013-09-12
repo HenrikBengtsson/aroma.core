@@ -12,10 +12,10 @@ import("R.utils")
 
 importFrom("R.cache", "loadCache")
 importFrom("R.cache", "saveCache")
-importFrom("R.cache", "getChecksum")
+##importFrom("R.cache", "getChecksum")
 
-##import("R.filesets")
-##import("R.devices")
+import("R.filesets")
+importFrom("R.devices", "png2")
 
 import("matrixStats")
 ## As soon as 'matrixStats' declares all S3 methods

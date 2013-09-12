@@ -8,7 +8,7 @@
 #
 #  An AbstractCNData object holds copy number data.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -134,13 +134,14 @@ setMethodS3("orderAlongGenome", "AbstractCNData", function(this, ...) {
 
 
 setMethodS3("findLargeGaps", "AbstractCNData", function(chromosome, ...) {
-  require("PSCBS") || throw("Package not loaded: PSCBS");
+  pkg <- "PSCBS";
+  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
 
   # To please R CMD check
   this <- chromosome;
 
   data <- as.data.frame(this, ...);
-  findLargeGaps(chromosome=data$chromosome, x=data$x, ...); 
+  findLargeGaps(chromosome=data$chromosome, x=data$x, ...);
 }) # findLargeGaps()
 
 

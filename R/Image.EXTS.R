@@ -4,24 +4,20 @@
 #
 # In aroma.affymetrix, the following methods are used:
 # - getImage() for the matrix class.
-# - display(). 
-# - writeImage(). 
+# - display().
+# - writeImage().
 ##############################################################################
 
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # EBImage Image class
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 setMethodS3("display", "Image", function(this, ...) {
   EBImage::display(this, ...);
-}, protected=TRUE) 
+}, protected=TRUE)
 
 
 setMethodS3("writeImage", "Image", function(x, file, ...) {
-  if (packageDescription("EBImage")$Version >= "2.1.23") {
-    EBImage::writeImage(x, files=file, ...);
-  } else {
-    EBImage::write.image(x, files=file, ...);
-  }
+  EBImage::writeImage(x, files=file, ...);
 }, protected=TRUE)
 
 
@@ -39,12 +35,12 @@ setMethodS3("setImageData", "Image", function(this, data, ...) {
 
 
 # given an input Image, transform to new RGB image based
-# on list of colours given in argument 'palette' 
+# on list of colours given in argument 'palette'
 # and lower and upper bounds given in 'lim'.
 setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(-Inf,Inf), outlierCol="white", ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getColorMode <- function(what=c("grayscale", "color"), ...) {
     # Argument 'what':
     what <- match.arg(what);
@@ -52,20 +48,16 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
     if (what == "grayscale") {
       colorMode <- EBImage::Grayscale;
     } else if (what == "color") {
-      colorMode <- tryCatch({
-        EBImage::Color;
-      }, error = function(ex) {
-        EBImage::TrueColor;
-      });
+      colorMode <- EBImage::Color;
     }
 
     colorMode;
   } # getColorMode()
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'this':
   colorMode <- EBImage::colorMode(this);
   if (colorMode != EBImage::Grayscale) {
@@ -174,16 +166,16 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
 
 
 setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto"), ..., verbose=TRUE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   safeMeans <- function(x) {
     mean(x[is.finite(x)]);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'what':
   what <- match.arg(what);
 
@@ -195,9 +187,9 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Interleave
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Nothing todo?
   if (what == "none")
     return(this);
@@ -287,9 +279,9 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
 
 
 setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'scale':
   scale <- Arguments$getNumeric(scale, range=c(0,Inf));
 
@@ -316,9 +308,9 @@ setMethodS3("rescale", "Image", function(this, scale=1, blur=FALSE, ..., verbose
 
 
 
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # Images from matrices
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
   img <- as.GrayscaleImage(z, ...);
 
@@ -332,9 +324,9 @@ setMethodS3("getImage", "matrix", function(z, ..., palette=NULL) {
 
 
 setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "color"), ..., class=NULL, verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'z':
   z <- Arguments$getNumerics(z, range=c(0,1));
 
@@ -369,7 +361,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
   img <- NULL;
 
   for (kk in seq_along(class)) {
-    verbose && enter(verbose, sprintf("Class #%d ('%s') of %d", 
+    verbose && enter(verbose, sprintf("Class #%d ('%s') of %d",
                                         kk, class[kk], length(class)));
 
     if (class[kk] == "EBImage::Image") {
@@ -377,11 +369,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
         if (colorMode == "gray") {
           colormode <- EBImage::Grayscale;
         } else if (colorMode == "color") {
-          colormode <- tryCatch({
-            EBImage::Color;
-          }, error = function(ex) {
-            EBImage::TrueColor;
-          });
+          colormode <- EBImage::Color;
         }
         z <- t(z);
         if (is.null(dim)) {
@@ -397,9 +385,9 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
       }
 
       tryCatch({
-        # You can create a 'RasterImage' object without the 
+        # You can create a 'RasterImage' object without the
         # 'png' package being installed, but we will need it
-        # later if the image should be saved to file. 
+        # later if the image should be saved to file.
         # If only requested to display on screen or save by other
         # means, the 'png' package is not needed.  This calls
         # for an option to specify "what the purpose is".
@@ -415,7 +403,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
 
     # Success?
     if (!is.null(img)) {
-      verbose && cat(verbose, "Image was successfully created (using '%s').", 
+      verbose && cat(verbose, "Image was successfully created (using '%s').",
                                                                   class[kk]);
       verbose && exit(verbose);
       break;
@@ -439,7 +427,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
 # @set "class=matrix"
 # @RdocMethod as.GrayscaleImage
 #
-# @title "Creates a Grayscale (TrueColor) Image from a matrix file"
+# @title "Creates a Grayscale (Color) Image from a matrix file"
 #
 # \description{
 #  @get "title".
@@ -452,7 +440,7 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
 #   \item{transforms}{A @list of transform @functions.}
 #   \item{interleaved}{A @character string specifying how the image data
 #     should be interleaved, if at all.}
-#   \item{scale}{A @numeric scale factor in (0,+Inf) for resizing the 
+#   \item{scale}{A @numeric scale factor in (0,+Inf) for resizing the
 #     imaging. If \code{1}, no resizing is done.}
 #   \item{...}{Passed to \code{colorize()} for the object created.}
 #   \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
@@ -472,9 +460,9 @@ setMethodS3("createImage", "matrix", function(z, dim=NULL, colorMode=c("gray", "
 # @keyword internal
 #*/###########################################################################
 setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interleaved=c("none", "h", "v", "auto"), scale=1, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'transforms':
   if (!is.null(transforms)) {
     if (!is.list(transforms)) {
@@ -484,7 +472,7 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 
   for (transform in transforms) {
     if (!is.function(transform)) {
-      throw("Argument 'transforms' contains a non-function: ", 
+      throw("Argument 'transforms' contains a non-function: ",
                                                         mode(transform));
     }
   }
@@ -503,9 +491,9 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Creating Image object from matrix");
 
   # Transform signals?
@@ -516,7 +504,7 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   }
 
   # Transform into [0,1]
-  # EBImage: "Grayscale values are assumed to be in the range [0,1], 
+  # EBImage: "Grayscale values are assumed to be in the range [0,1],
   # although this is not a requirement in sense of data storage. Although,
   # many image processing functions will assume data in this range or will
   # generate invalid results for the data out of this range."
@@ -530,7 +518,7 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
   z[is.infinite(z)] <- NA;
   verbose && summary(verbose, as.vector(z));
   verbose && exit(verbose);
-  
+
   # Create an Image object
   # Sanity check
   stopifnot(all(z >= 0, na.rm=TRUE));
@@ -555,8 +543,11 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 
 ############################################################################
 # HISTORY:
+# 2013-09-11
+# o CLEANUP: Backward-compatibility code for EBImage (< 2.1.23) was
+#   no longer needed.
 # 2011-03-06
-# o BUG FIX: Update colorize() for Image to work with "newer" 
+# o BUG FIX: Update colorize() for Image to work with "newer"
 #   EBImage (>= 3.9.7), it may break older version fo EBImage.
 # o ROBUSTNESS: Now asserting 'z' is in [0,1] in createImage(z, ...).
 # o CLEANUP: Dropped deprecated as.TrueColorImage() for Image and matrix.
@@ -570,16 +561,16 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 # o BUG FIX: colorize() for Image try to call createImage() using a vector
 #   and not a matrix.
 # 2011-02-24
-# o GENERALIZATION: Now the default for createImage() for matrix is to 
+# o GENERALIZATION: Now the default for createImage() for matrix is to
 #   test to create images according to aroma settings option
 #   'output/ImageClasses'.
 # o BUG FIX: createImage() for matrix would not result the first possible
 #   image created (when testing different image classes) but instead
-#   continue trying to create image for all possible classes. 
+#   continue trying to create image for all possible classes.
 #   For instance, this meant that although you had the 'EBImage' package
 #   installed, but not the 'png' package, it would still in the end try
 #   to (also) use 'png' package.  If writing PNG images to file, say via
-#   ArrayExplorer, this would result in "Error in loadNamespace(name) : 
+#   ArrayExplorer, this would result in "Error in loadNamespace(name) :
 #   there is no package called 'png'".  Thanks Richard Beyer at
 #   University of Washington for reporting on this.
 # 2011-01-31
@@ -595,20 +586,20 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 # o Moved all methods related to the Image class to one source file.
 #   All history has been merged accordingly.
 # 2011-01-30
-# o Added writeImage() in order to clean up aroma.affymetrix, cf. 
-#   writeImage() for AffymetrixCelFile. 
+# o Added writeImage() in order to clean up aroma.affymetrix, cf.
+#   writeImage() for AffymetrixCelFile.
 # 2010-06-22
 # o BUG FIX: as.GrayscaleImage(..., transforms=NULL) for 'matrix' would
 #   throw "Exception: Argument 'transforms' contains a non-function: NULL".
 # 2009-05-16
-# o Now argument 'scale' of as.GrayscaleImage() is validated using 
+# o Now argument 'scale' of as.GrayscaleImage() is validated using
 #   Arguments$getNumeric() [not getDouble()].
-# o Now rescale() for Image uses Arguments$getNumerics(), not 
+# o Now rescale() for Image uses Arguments$getNumerics(), not
 #   getDoubles(), where possible.  This will save memory in some cases.
 # 2009-05-10
 # o Forgot argument 'verbose' for interleave().
-# o BUG FIX: interleave() for Image gave 'Error in z[idxOdd,, ] : incorrect 
-#   number of dimensions'.  The internal image structure is now a 2-dim 
+# o BUG FIX: interleave() for Image gave 'Error in z[idxOdd,, ] : incorrect
+#   number of dimensions'.  The internal image structure is now a 2-dim
 #   matrix, again(?!?).
 # 2008-10-16
 # o BUG FIX: Tried to turn a function passed by 'transforms' to a list using
@@ -619,7 +610,7 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 # 2008-04-14
 # o Added display().
 # 2008-05-10
-# o BUG FIX: interleave() for Image gave 'Error in z[idxOdd, ] : incorrect 
+# o BUG FIX: interleave() for Image gave 'Error in z[idxOdd, ] : incorrect
 #   number of dimensions'.  The internal image structure is a 3-dim array.
 # 2008-03-14
 # o Added rescale() from getImage() of AffymetrixCelFile.

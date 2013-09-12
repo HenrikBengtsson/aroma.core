@@ -82,7 +82,8 @@ setMethodS3("doCBS", "CopyNumberDataSetTuple", function(dsTuple, arrays=NULL, ..
 
 
 setMethodS3("doCBS", "default", function(dataSet, tags=NULL, chipTypes, arrays=NULL, ..., verbose=FALSE) {
-  require("aroma.core") || throw("Package not loaded: aroma.core");
+  pkg <- "aroma.core";
+  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments

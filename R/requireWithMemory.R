@@ -1,10 +1,10 @@
 ############################################################################
 # requireWithMemory() works like require(package).  However, with for
-# instance package="GLAD" the latter will open a modal GUI dialog if there 
+# instance package="GLAD" the latter will open a modal GUI dialog if there
 # are problems with the shared library which each time has to be closed by
 # the user [1].  Since for instance the plotting of ChromosomeExplorer will
 # keep trying to load GLAD that becomes super annoying.  This function will
-# remember the failure and not try to load GLAD until 24 hours later, 
+# remember the failure and not try to load GLAD until 24 hours later,
 # or if GLAD is reinstalled.
 #
 # REFERENCES:
@@ -12,7 +12,8 @@
 #     error condition instead of modal GUI dialog', started on 2010-11-23.
 ############################################################################
 setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=24*3600, force=FALSE) {
-  require("R.utils") || throw("Package not loaded: R.utils");
+  pkg <- "R.utils";
+  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
 
   # If package is already loaded, do nothing
   if (isPackageLoaded(package)) {
@@ -74,7 +75,7 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # If not, then check what should happend next time
   if (!res) {
-    # If cannot load shared library, then don't try again 
+    # If cannot load shared library, then don't try again
     # for a while.
     errorMessage <- paste(errorMessage, collapse="\n");
     if (regexpr("LoadLibrary failure", errorMessage) != -1 ||
@@ -100,4 +101,4 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
 # 2010-12-06
 # o Added requireWithMemory().
 # o Created.
-############################################################################ 
+############################################################################

@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.10.2 [2013-09-11]
+o CLEANUP: Backward-compatibility code for obsolete EBImage was
+  no longer needed.
+o CLEANUP: Updated package dependencies.
+
+
 Version: 2.10.1 [2013-08-12]
 o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
   would throw an error on "unknown argument 'names' to indexOf()".

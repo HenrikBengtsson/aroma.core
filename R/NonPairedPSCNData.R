@@ -10,7 +10,7 @@
 #  Two NonPairedPSCNData objects for a matched tumor-normal pair can
 #  be combined into a @see "PairedPSCNData" object.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -21,8 +21,8 @@
 #   \item{beta}{A @numeric @vector of J tumor allele B fractions (BAFs)
 #        in [0,1] (due to noise, values may be slightly outside as well)
 #        or @NA for non-polymorphic loci.}
-#   \item{mu}{An optional @numeric @vector of J genotype calls in 
-#        \{0,1/2,1\} for AA, AB, and BB, respectively, 
+#   \item{mu}{An optional @numeric @vector of J genotype calls in
+#        \{0,1/2,1\} for AA, AB, and BB, respectively,
 #        and @NA for non-polymorphic loci.
 #        If not given, they are estimated from the normal BAFs using
 #        @see "aroma.light::callNaiveGenotypes" as described in [2].}
@@ -56,7 +56,7 @@ setConstructorS3("NonPairedPSCNData", function(chromosome=NULL, x=NULL, isSNP=NU
       x <- data$x;
       isSNP <- data$isSNP;
       mu <- data$mu;
-      C <- data$C; 
+      C <- data$C;
       beta <- data$beta;
     }
 
@@ -66,10 +66,10 @@ setConstructorS3("NonPairedPSCNData", function(chromosome=NULL, x=NULL, isSNP=NU
     # Argument 'C':
     disallow <- c("Inf");
     C <- Arguments$getDoubles(C, disallow=disallow);
-  
+
     nbrOfLoci <- length(C);
     length2 <- rep(nbrOfLoci, times=2);
-  
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Mutually optional arguments (that are not validated in superclass)
@@ -78,23 +78,23 @@ setConstructorS3("NonPairedPSCNData", function(chromosome=NULL, x=NULL, isSNP=NU
     if (!is.null(beta)) {
       beta <- Arguments$getDoubles(beta, length=length2, disallow="Inf");
     }
-  
+
     if (is.null(beta) && is.null(mu)) {
       throw("If argument 'beta' is not given, then 'mu' must be.");
     }
-  
+
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Optional arguments (that are not validated in superclass)
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Argument 'chromosome':
     if (is.null(chromosome)) {
-      chromosome <- 0L; 
+      chromosome <- 0L;
     } else {
       disallow <- c("Inf");
       chromosome <- Arguments$getIntegers(chromosome, range=c(0,Inf), disallow=disallow);
     }
-  
+
     if (length(chromosome) == 1) {
       chromosome <- rep(chromosome, times=nbrOfLoci);
     } else {
@@ -161,7 +161,7 @@ setMethodS3("callNaiveGenotypes", "NonPairedPSCNData", function(this, censorAt=c
   isSNP <- data$isSNP;
   verbose && print(verbose, table(isSNP));
   verbose && exit(verbose);
- 
+
   # Call genotypes from BAFs
   verbose && cat(verbose, "Allele B fractions (BAFs):");
   verbose && str(verbose, data$beta[isSNP]);
@@ -182,7 +182,8 @@ setMethodS3("callNaiveGenotypes", "NonPairedPSCNData", function(this, censorAt=c
 
 
 setMethodS3("callSegmentationOutliers", "NonPairedPSCNData", function(y, ..., verbose=FALSE) {
-  require("PSCBS") || throw("Package not loaded: PSCBS");
+  pkg <- "PSCBS";
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # To please R CMD check
   this <- y;
@@ -202,7 +203,7 @@ setMethodS3("callSegmentationOutliers", "NonPairedPSCNData", function(y, ..., ve
   res <- callSegmentationOutliers(y=data$C, chromosome=data$chromosome, x=data$x, ...);
 
   verbose && str(verbose, res);
-  verbose && exit(verbose);  
+  verbose && exit(verbose);
 
   res;
 }) # callSegmentationOutliers()
@@ -226,13 +227,14 @@ setMethodS3("dropSegmentationOutliers", "NonPairedPSCNData", function(C, ...) {
 
 
 setMethodS3("segmentByCBS", "NonPairedPSCNData", function(y, ...) {
-  require("PSCBS") || throw("Package not loaded: PSCBS");
+  pkg <- "PSCBS";
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # To please R CMD check
   this <- y;
 
   data <- as.data.frame(this);
-  segmentByCBS(y=data$C, chromosome=data$chromosome, x=data$x, ...); 
+  segmentByCBS(y=data$C, chromosome=data$chromosome, x=data$x, ...);
 }) # segmentByCBS()
 
 
@@ -248,7 +250,7 @@ setMethodS3("segmentByCBS", "NonPairedPSCNData", function(y, ...) {
 # o Now callNaiveGenotypes() for NonPairedPSCNData only calls genotypes
 #   for SNPs.  All other loci, the genotype is set to NA.
 # 2012-02-29
-# o Added callSegmentationOutliers() and dropSegmentationOutliers() 
+# o Added callSegmentationOutliers() and dropSegmentationOutliers()
 #   for NonPairedPSCNData.
 # o Added as.NonPairedPSCNData().
 # o Created.

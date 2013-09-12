@@ -6,8 +6,8 @@
 # \description{
 #  @get "title" from the package online reprocitory.
 # }
-# 
-# @synopsis 
+#
+# @synopsis
 #
 # \arguments{
 #   \item{pkgName}{The name of the package to be patched."}
@@ -32,7 +32,8 @@
 setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...) {
 ##  .Deprecated(msg="patchPackage() is deprecated without alternatives.");
 
-  require("R.utils") || stop("Package not loaded: R.utils");
+  pkg <- "R.utils";
+  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
@@ -46,7 +47,7 @@ setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/",
     }
 
     verbose && enter(verbose, "Root path: ", rootPath);
-  
+
     # Search for patch directories
     pattern <- "^20[0-9][0-9][01][0-9][0-3][0-9](|[abcdefghijklmnopqrstuvwxyz])";
     paths <- list.files(path=rootPath, pattern=pattern, full.names=TRUE);
@@ -56,7 +57,7 @@ setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/",
       verbose && cat(verbose, "No patch directory found in root path: ", rootPath);
       return(c());
     }
-  
+
     paths;
   } # findPatchDirectories()
 
@@ -151,7 +152,7 @@ setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/",
   } else {
     res <- NULL;
   }
-    
+
   invisible(res);
 }, deprecated=TRUE) # patchPackage()
 
