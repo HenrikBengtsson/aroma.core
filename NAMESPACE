@@ -15,13 +15,10 @@ importFrom("R.cache", "saveCache")
 import("R.filesets")
 importFrom("R.devices", "png2")
 
-import("matrixStats")
-## As soon as 'matrixStats' declares all S3 methods
-## (not the case in matrixStats v0.8.5)
-## importFrom("matrixStats", "colWeightedMeans")
-## importFrom("matrixStats", "colWeightedMedians")
-## importFrom("matrixStats", "colMedians")
-## importFrom("matrixStats", "rowMedians")
+importFrom("matrixStats", "colWeightedMeans")
+importFrom("matrixStats", "colWeightedMedians")
+importFrom("matrixStats", "colMedians")
+importFrom("matrixStats", "rowMedians")
 
 importFrom("R.rsp", "rspToHtml")
 
