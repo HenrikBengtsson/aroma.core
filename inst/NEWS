@@ -1,9 +1,10 @@
 Package: aroma.core
 ===================
 
-Version: 2.10.3 [2013-09-16]
+Version: 2.10.3 [2013-09-20]
 o CLEANUP: Now only importing the exact set of methods needed from
   the 'matrixStats' package.
+o ROBUSTNESS: Forgot to import R.methodsS3::appendVarArgs().
 o Updated package dependencies.
 
 
