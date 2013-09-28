@@ -1,6 +1,8 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # IMPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##importFrom("utils", "packageDescription")
+
 importFrom("R.methodsS3", "setMethodS3")
 importFrom("R.methodsS3", "throw")
 importFrom("R.methodsS3", "appendVarArgs")
@@ -27,15 +29,46 @@ importFrom("R.oo", "getPath")
 # Until R.oo (>= 1.15.3) is available
 importFrom("R.oo", "uses.character")
 
-
-##importFrom("utils", "packageDescription")
-import("R.utils")
+importFrom("R.utils", "Arguments")
+importFrom("R.utils", "pushState")
+importFrom("R.utils", "popState")
+importFrom("R.utils", "less")
+importFrom("R.utils", "enter")
+importFrom("R.utils", "exit")
+importFrom("R.utils", "cat")
+importFrom("R.utils", "printf")
+importFrom("R.utils", "hpaste")
+importFrom("R.utils", "insert")
+importFrom("R.utils", "isFile")
+importFrom("R.utils", "isDirectory")
+importFrom("R.utils", "getAbsolutePath")
+importFrom("R.utils", "getFilename")
+importFrom("R.utils", "getParent")
+importFrom("R.utils", "copyFile")
+importFrom("R.utils", "gunzip")
+importFrom("R.utils", "GenericSummary")
+importFrom("R.utils", "isPackageLoaded")
+importFrom("R.utils", "getOption")
+importFrom("R.utils", "patchCode")  # In deprecated code
 
 importFrom("R.cache", "loadCache")
 importFrom("R.cache", "saveCache")
 ##importFrom("R.cache", "getChecksum")
 
 import("R.filesets")
+
+## Already imported from 'R.oo':
+## importFrom("R.filesets", "clearCache")
+## importFrom("R.filesets", "clone")
+## importFrom("R.filesets", "getName")
+## importFrom("R.filesets", "getPath")
+
+## Already imported from 'R.utils':
+## importFrom("R.filesets", "getFilename")
+## importFrom("R.filesets", "gunzip")
+## importFrom("R.filesets", "isFile")
+## importFrom("R.filesets", "")
+
 importFrom("R.devices", "png2")
 
 importFrom("utils", "capture.output")
