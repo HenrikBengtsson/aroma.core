@@ -54,7 +54,7 @@ setMethodS3("setVerbose", "AromaRepository", function(this, ...) {
 
 setMethodS3("getVerbose", "AromaRepository", function(this, ...) {
   this$.verbose;
-}, protected=TRUE)
+}, protected=TRUE, createGeneric=FALSE)
 
 
 setMethodS3("clearCache", "AromaRepository", function(this, ...) {

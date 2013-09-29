@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AbstractCNData}
+\name{AbstractCNData}
 \docType{class}
 \alias{AbstractCNData}
 
 
- \title{The AbstractCNData class}
+\title{The AbstractCNData class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AbstractCNData}\cr
 
 \code{data.frame}\cr
@@ -33,28 +33,28 @@ extends \link[aroma.core]{RawGenomicSignals}\cr
 
 
 
-  An AbstractCNData object holds copy number data.
- }
+ An AbstractCNData object holds copy number data.
+}
 
- \usage{
+\usage{
 AbstractCNData(chromosome=NULL, x=NULL, y=NULL, ..., name=NULL, .virtuals=NULL)
 }
 
- \arguments{
-   \item{chromosome}{(Optional) An \code{\link[base]{integer}} scalar (or a \code{\link[base]{vector}} of length J),
-        which can be used to specify which chromosome each locus belongs to
-        in case multiple chromosomes are segments.
-        This argument is also used for annotation purposes.}
-   \item{x}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of J genomic locations.
-            If \code{\link[base]{NULL}}, index locations \code{1:J} are used.}
-   \item{y}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of J genomic locations.}
-   \item{...}{Optional named locus-specific signal \code{\link[base]{vector}}s of length J.}
-   \item{name}{Optional \code{\link[base]{character}} string.}
-   \item{.virtuals}{(Internal) a \code{\link[base]{list}} with virtual column name \code{\link[base]{function}}s.}
- }
+\arguments{
+  \item{chromosome}{(Optional) An \code{\link[base]{integer}} scalar (or a \code{\link[base]{vector}} of length J),
+       which can be used to specify which chromosome each locus belongs to
+       in case multiple chromosomes are segments.
+       This argument is also used for annotation purposes.}
+  \item{x}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of J genomic locations.
+           If \code{\link[base]{NULL}}, index locations \code{1:J} are used.}
+  \item{y}{Optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of J genomic locations.}
+  \item{...}{Optional named locus-specific signal \code{\link[base]{vector}}s of length J.}
+  \item{name}{Optional \code{\link[base]{character}} string.}
+  \item{.virtuals}{(Internal) a \code{\link[base]{list}} with virtual column name \code{\link[base]{function}}s.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{findLargeGaps} \tab  -\cr
  \tab \code{getChipType} \tab  -\cr
@@ -72,10 +72,10 @@ AbstractCNData(chromosome=NULL, x=NULL, y=NULL, ..., name=NULL, .virtuals=NULL)
 $, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNames, getColumnNamesTranslator, getFullName, getName, getTags, getVirtualColumn, getVirtualColumnFunction, getVirtualColumnNames, hasColumn, hasColumns, hasVirtualColumn, hasVirtualColumns, length, names, newInstance, print, rbind, setAttributes, setColumnNamesMap, setColumnNamesTranslator, setName, setTags, setVirtualColumn, subset, translateColumnNames
 
  \bold{Methods inherited from data.frame}:\cr
-$, $<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, attachLocally, by, cbind, dim, dimnames, dimnames<-, droplevels, duplicated, edit, format, formula, head, is.na, merge, na.exclude, na.omit, plot, print, prompt, rbind, row.names, row.names<-, rowsum, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
+$, $<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, attachLocally, by, callSegmentationOutliers, cbind, dim, dimnames, dimnames<-, dropSegmentationOutliers, droplevels, duplicated, edit, findLargeGaps, format, formula, head, is.na, merge, na.exclude, na.omit, plot, print, prompt, rbind, row.names, row.names<-, rowsum, segmentByCBS, segmentByPairedPSCBS, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

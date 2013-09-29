@@ -10,10 +10,10 @@
 \name{as.GrayscaleImage.matrix}
 \alias{as.GrayscaleImage.matrix}
 
-\title{Creates a Grayscale (TrueColor) Image from a matrix file}
+\title{Creates a Grayscale (Color) Image from a matrix file}
 
 \description{
- Creates a Grayscale (TrueColor) Image from a matrix file.
+ Creates a Grayscale (Color) Image from a matrix file.
 }
 
 \usage{

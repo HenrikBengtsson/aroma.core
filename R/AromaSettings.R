@@ -10,14 +10,14 @@ setConstructorS3("AromaSettings", function(basename=NULL, ...) {
 
 
 setMethodS3("getVerbose", "AromaSettings", function(this, default=FALSE, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Transition rule 'argVerbose': 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Transition rule 'argVerbose':
   # Methods have argument verbose=FALSE by default.  If not overridden,
   # then argument 'default' of this method will be identical to ditto.
   # When this happens, we can choose to either:
   #  (i) keep interpreting this as is (old style), or
   # (ii) have the value to default to the settings.
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   transRule <- getOption(this, "transitionRules/useVerboseOption", FALSE);
   if (transRule) {
     callDepth <- sys.nframe()-1L;
@@ -33,7 +33,7 @@ setMethodS3("getVerbose", "AromaSettings", function(this, default=FALSE, ...) {
 
   verbose <- Arguments$getVerbose(verbose);
   verbose;
-})
+}, createGeneric=FALSE)
 
 
 setMethodS3("setVerbose", "AromaSettings", function(this, ..., timestamp=TRUE) {
@@ -43,14 +43,14 @@ setMethodS3("setVerbose", "AromaSettings", function(this, ..., timestamp=TRUE) {
 
 
 setMethodS3("getRam", "AromaSettings", function(this, default=1, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Transition rule 'argRam': 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Transition rule 'argRam':
   # Methods have argument ram=NULL (or ram=1) by default.  If not overridden,
   # then argument 'default' of this method will be identical to ditto.
   # When this happens, we can choose to either:
   #  (i) keep interpreting this as is (old style), or
   # (ii) have the value to default to the settings.
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (is.null(default)) {
     default <- 1;
   }
@@ -85,4 +85,4 @@ setMethodS3("setRam", "AromaSettings", function(this, value=1, ...) {
 # o Added argument {get|set}Ram().
 # o Added argument {get|set}Verbose().
 # o Created.
-############################################################################ 
+############################################################################

@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{ChromosomeExplorer}
+\name{ChromosomeExplorer}
 \docType{class}
 \alias{ChromosomeExplorer}
 
 
- \title{The ChromosomeExplorer class}
+\title{The ChromosomeExplorer class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class ChromosomeExplorer}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -30,21 +30,21 @@ public static class \bold{ChromosomeExplorer}\cr
 extends \emph{\link[aroma.core]{Explorer}}\cr
 
 
- }
+}
 
- \usage{
+\usage{
 ChromosomeExplorer(model=NULL, zooms=2^(0:6), ...)
 }
 
- \arguments{
-   \item{model}{A \code{\link{CopyNumberChromosomalModel}} object.}
-   \item{zooms}{An positive \code{\link[base]{integer}} \code{\link[base]{vector}} specifying for which zoom
-    levels the graphics should be generated.}
-   \item{...}{Not used.}
- }
+\arguments{
+  \item{model}{A \code{\link{CopyNumberChromosomalModel}} object.}
+  \item{zooms}{An positive \code{\link[base]{integer}} \code{\link[base]{vector}} specifying for which zoom
+   levels the graphics should be generated.}
+  \item{...}{Not used.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{display} \tab  -\cr
  \tab \code{\link[aroma.core:getChromosomes.ChromosomeExplorer]{getChromosomes}} \tab Gets the chromosomes available.\cr
@@ -65,26 +65,26 @@ ChromosomeExplorer(model=NULL, zooms=2^(0:6), ...)
 addIncludes, addIndexFile, as.character, display, getAlias, getArraysOfInput, getAsteriskTags, getFullName, getIncludePath, getMainPath, getName, getNameOfInput, getNames, getParallelSafe, getPath, getReportPathPattern, getRootPath, getSampleLayerPrefix, getSubname, getTags, getTagsOfInput, getTemplatePath, getVersion, nbrOfArrays, process, setAlias, setArrays, setParallelSafe, setReportPathPattern, setSubname, setup, splitByReportPathPattern, updateSetupExplorerFile
 
  \bold{Methods inherited from Object}:\cr
-$, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, registerFinalizer, save, asThis
+$, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save, asThis
 
 
- }
+}
 
- \section{Generating PNG images}{
-   In order to get better looking graphs, but also to be able to generate
-   bitmap images on systems without direct bitmap support, which is the case
-   when running R in batch mode or on Unix without X11 support, images are
-   created using the \code{\link[R.devices]{png2}} device (a wrapper for
-   \code{bitmap()} immitating \code{png()}).  The \code{png()} is only
-   used if \code{png2()}, which requires Ghostscript, does not.
-   Note, when images are created using \code{png2()}, the images does
-   not appear immediately, although the function call is completed,
-   so be patient.
- }
+\section{Generating PNG images}{
+  In order to get better looking graphs, but also to be able to generate
+  bitmap images on systems without direct bitmap support, which is the case
+  when running R in batch mode or on Unix without X11 support, images are
+  created using the \code{\link[R.devices]{png2}} device (a wrapper for
+  \code{bitmap()} immitating \code{png()}).  The \code{png()} is only
+  used if \code{png2()}, which requires Ghostscript, does not.
+  Note, when images are created using \code{png2()}, the images does
+  not appear immediately, although the function call is completed,
+  so be patient.
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-  \code{\link{CopyNumberChromosomalModel}}.
- }
+\seealso{
+ \code{\link{CopyNumberChromosomalModel}}.
+}
 \keyword{classes}
