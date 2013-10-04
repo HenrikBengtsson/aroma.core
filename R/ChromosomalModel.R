@@ -556,7 +556,7 @@ setMethodS3("setChromosomes", "ChromosomalModel", function(this, chromosomes=NUL
     chromosomesA <- unlist(chromosomesA, use.names=TRUE);
     chromosomesA <- sort(unique(chromosomesA));
 
-    unknown <- setdiff(chromosomesA, chromosomes);
+    unknown <- setdiff(chromosomes, chromosomesA);
     if (length(unknown) > 0L) {
       throw(sprintf("Unknown chromosomes detected: %s [%d]", hpaste(unknown), length(unknown)));
     }
