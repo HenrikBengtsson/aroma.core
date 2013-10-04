@@ -22,6 +22,8 @@
 #   }
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
+#   \item{chromosomes}{(optional) A @vector specifying which chromosomes
+#    to process.}
 #   \item{maxNAFraction}{A @double in [0,1] indicating how many non-finite
 #     signals are allowed in the sanity checks of the data.}
 #   \item{...}{Optional arguments that may be used by some of the
@@ -39,7 +41,7 @@
 #
 # @author
 #*/###########################################################################
-setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", maxNAFraction=1/5, ...) {
+setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*", genome="Human", chromosomes=NULL, maxNAFraction=1/5, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -91,6 +93,7 @@ setConstructorS3("CopyNumberChromosomalModel", function(cesTuple=NULL, refTuple=
   if (!is.null(this$.cesTuple)) {
     # Validate genome
     gf <- getGenomeFile(this);
+    this <- setChromosomes(this, chromosomes);
   }
 
   this;
