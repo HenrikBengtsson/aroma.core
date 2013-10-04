@@ -10,11 +10,12 @@
 \alias{getChromosomes.ChromosomalModel}
 \alias{ChromosomalModel.getChromosomes}
 \alias{getChromosomes,ChromosomalModel-method}
+\alias{setChromosomes.ChromosomalModel}
 
-\title{Gets the chromosomes available}
+\title{Gets the chromosomes to be processed}
 
 \description{
- Gets the chromosomes available.
+ Gets the chromosomes to be processed.
 }
 
 \usage{

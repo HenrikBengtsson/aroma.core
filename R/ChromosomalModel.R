@@ -8,13 +8,15 @@
 #
 #  This \emph{abstract} class represents a chromosomal model.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{cesTuple}{A @see "AromaMicroarrayDataSetTuple".}
 #   \item{tags}{A @character @vector of tags.}
 #   \item{genome}{A @character string specifying what genome is process.}
+#   \item{chromosomes}{(optional) A @vector specifying which chromosomes
+#    to process.}
 #   \item{...}{Not used.}
 # }
 #
@@ -23,13 +25,13 @@
 # }
 #
 # \section{Requirements}{
-#   This class requires genome information annotation files for 
+#   This class requires genome information annotation files for
 #   every chip type.
 # }
 #
 # @author
 #*/###########################################################################
-setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="Human", ...) {
+setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="Human", chromosomes=NULL, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -56,6 +58,7 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
   if (!is.null(this$.cesTuple)) {
     # Assert that a genome annotation file exists
     gf <- getGenomeFile(this);
+    this <- setChromosomes(this, chromosomes);
   }
 
   this;
@@ -350,10 +353,10 @@ setMethodS3("getFullNames", "ChromosomalModel", function(this, ...) {
 # }
 #
 # \value{
-#  Returns a \eqn{NxK} @matrix of @integers where \eqn{N} is the total number 
-#  of arrays and \eqn{K} is the number of chip types in the model.  The row 
+#  Returns a \eqn{NxK} @matrix of @integers where \eqn{N} is the total number
+#  of arrays and \eqn{K} is the number of chip types in the model.  The row
 #  names are the names of the arrays, and the column names are the chip types.
-#  If data is available for array \eqn{n} and chip type \eqn{k}, cell 
+#  If data is available for array \eqn{n} and chip type \eqn{k}, cell
 #  \eqn{(n,k)} has value \eqn{n}, otherwise @NA.
 # }
 #
@@ -387,7 +390,7 @@ setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ..., on
   }
 
   # ...otherwise, reuse indexOf() for GenericDataFileSet in R.filesets.
-  indexOf.GenericDataFileSet(this, patterns=patterns, ..., 
+  indexOf.GenericDataFileSet(this, patterns=patterns, ...,
                                                          onMissing=onMissing);
 })
 
@@ -502,8 +505,9 @@ setMethodS3("getFullName", "ChromosomalModel", function(this, ...) {
 
 ###########################################################################/**
 # @RdocMethod getChromosomes
+# @alias setChromosomes.ChromosomalModel
 #
-# @title "Gets the chromosomes available"
+# @title "Gets the chromosomes to be processed"
 #
 # \description{
 #  @get "title".
@@ -526,11 +530,41 @@ setMethodS3("getFullName", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getChromosomes", "ChromosomalModel", function(this, ...) {
+  chromosomes <- this$.chromosomes;
+  if (!is.null(chromosomes)) {
+    return(chromosomes);
+  }
+
+  # The default is to process all available chromosomes
   ugpList <- getListOfAromaUgpFiles(this);
   chromosomes <- lapply(ugpList, FUN=getChromosomes);
   chromosomes <- unlist(chromosomes, use.names=TRUE);
   chromosomes <- sort(unique(chromosomes));
+
   chromosomes;
+})
+
+setMethodS3("setChromosomes", "ChromosomalModel", function(this, chromosomes=NULL, ...) {
+  # Argument 'chromosomes':
+  if (!is.null(chromosomes)) {
+    chromosomes <- Arguments$getVector(chromosomes);
+    chromosomes <- sort(unique(chromosomes));
+
+    # All available chromosomes
+    ugpList <- getListOfAromaUgpFiles(this);
+    chromosomesA <- lapply(ugpList, FUN=getChromosomes);
+    chromosomesA <- unlist(chromosomesA, use.names=TRUE);
+    chromosomesA <- sort(unique(chromosomesA));
+
+    unknown <- setdiff(chromosomesA, chromosomes);
+    if (length(unknown) > 0L) {
+      throw(sprintf("Unknown chromosomes detected: %s [%d]", hpaste(unknown), length(unknown)));
+    }
+  }
+
+  this$.chromosomes <- chromosomes;
+
+  invisible(this);
 })
 
 
@@ -630,7 +664,7 @@ setMethodS3("getGenomeData", "ChromosomalModel", function(this, ..., verbose=FAL
   verbose && enter(verbose, "Reading data file");
   pathname <- getPathname(gf);
   verbose && cat(verbose, "Pathname: ", pathname);
-  data <- readTable(pathname, header=TRUE, 
+  data <- readTable(pathname, header=TRUE,
                             colClasses=c(nbrOfBases="integer"), row.names=1);
   verbose && exit(verbose);
 
@@ -671,7 +705,7 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
   verbose && enter(verbose, "Retrieving output set");
 
   verbose && enter(verbose, "Scanning output path");
-  # Locate all 
+  # Locate all
   path <- getPath(this);
   verbose && cat(verbose, "Path: ", path);
   fs <- GenericDataFileSet$byPath(path, ...);
@@ -682,7 +716,7 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
   fullnames <- getFullNames(fs);
   verbose && cat(verbose, "Full names of *all* files found:");
   verbose && str(verbose, fullnames);
-  
+
   # Drop extranous files
   keepFullnames <- getFullNames(this);
   verbose && cat(verbose, "Full names to be kept:");
@@ -726,8 +760,12 @@ setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2013-10-03
+# o Added argument 'chromosomes' to ChromosomalModel() and setChromosomes()
+#   for the same class.  If not specified, the default is as before to infer
+#   the set of chromosomes from the UGP files.
 # 2011-03-03
-# o Now getAromaGenomeTextFile() for ChromosomalModel utilizes byGenome() 
+# o Now getAromaGenomeTextFile() for ChromosomalModel utilizes byGenome()
 #   for AromaGenomeTextFile to locate and return the AromaGenomeTextFile.
 # o getGenomeFile() calls getAromaGenomeTextFile().
 # 2011-02-28
@@ -739,7 +777,7 @@ setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
 # o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
 #   pattern contained parenthesis '(' and ')'.  There was a similar issue
 #   in indexOf() for GenericDataFileSet/List in R.filesets, which was
-#   solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel 
+#   solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel
 #   utilizes ditto for GenericDataFileSet for its solution.
 # 2010-03-02
 # BUG FIX: Forgot argument 'verbose' of getOutputSet() of ChromosomalModel.
@@ -750,7 +788,7 @@ setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
 # 2010-02-18
 # o Added getOutputSet() for ChromosomalModel.
 # 2010-01-13
-# o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via 
+# o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via
 #   getListOfUnitNamesFiles().  This opens up the possibility to work with
 #   data files without unit names files, e.g. smoothed CN data.
 # 2009-11-18
@@ -767,6 +805,6 @@ setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
 # o Added getListOfAromaUgpFiles() to ChromosomalModel.
 # o Added getListOfUnitNamesFiles() to ChromosomalModel.
 # 2007-09-25
-# o Extracted ChromosomalModel from CopyNumberSegmentationModel.  For 
+# o Extracted ChromosomalModel from CopyNumberSegmentationModel.  For
 #   previous HISTORY, see that class.
 ##############################################################################

@@ -17,7 +17,7 @@ setMethodS3("patch", "AromaPackage", function(this, ..., verbose=FALSE) {
 
   verbose && enter(verbose, "Checking for and install patches");
   verbose && cat(verbose, "Package: ", getName(this));
-  verbose && printf(verbose, "Current version: v%s (%s)\n", 
+  verbose && printf(verbose, "Current version: v%s (%s)\n",
                                         getVersion(this), getDate(this));
 
 
@@ -34,7 +34,7 @@ setMethodS3("patch", "AromaPackage", function(this, ..., verbose=FALSE) {
   })
 
   verbose && cat(verbose, "Package has been patched.");
-  
+
   verbose && exit(verbose);
 
   invisible(state);
@@ -89,7 +89,7 @@ setMethodS3("fixSearchPathInternal", "AromaPackage", function(this, aheadPkgs, b
       to <- match(toPath, search());
       if (from < to) {
         verbose && printf(verbose, "Moving package: %s (%s)\n", pkg, path);
-        pkgsMoved <- c(pkgsMoved, 
+        pkgsMoved <- c(pkgsMoved,
                     moveInSearchPath(from=path, to=toPath, where="after"));
       }
     }

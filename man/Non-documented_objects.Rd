@@ -1303,6 +1303,7 @@
 \alias{getParameters}
 \alias{write}
 \alias{write.default}
+\alias{setChromosomes}
 
 \description{
   This page contains aliases for all "non-documented" objects that

@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{ChromosomalModel}
+\name{ChromosomalModel}
 \docType{class}
 \alias{ChromosomalModel}
 
 
- \title{The ChromosomalModel class}
+\title{The ChromosomalModel class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class ChromosomalModel}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -29,27 +29,29 @@ extends \link[R.oo]{Object}\cr
 
 
 
-  This \emph{abstract} class represents a chromosomal model.
- }
-
- \usage{
-ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", ...)
+ This \emph{abstract} class represents a chromosomal model.
 }
 
- \arguments{
-   \item{cesTuple}{A \code{\link{AromaMicroarrayDataSetTuple}}.}
-   \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
-   \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
-   \item{...}{Not used.}
- }
+\usage{
+ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", chromosomes=NULL, ...)
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\arguments{
+  \item{cesTuple}{A \code{\link{AromaMicroarrayDataSetTuple}}.}
+  \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
+  \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
+  \item{chromosomes}{(optional) A \code{\link[base]{vector}} specifying which chromosomes
+   to process.}
+  \item{...}{Not used.}
+}
+
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{fit} \tab  -\cr
  \tab \code{\link[aroma.core:getChipType.ChromosomalModel]{getChipType}} \tab Gets a label for all chip types merged.\cr
  \tab \code{getChipTypes} \tab  -\cr
- \tab \code{\link[aroma.core:getChromosomes.ChromosomalModel]{getChromosomes}} \tab Gets the chromosomes available.\cr
+ \tab \code{\link[aroma.core:getChromosomes.ChromosomalModel]{getChromosomes}} \tab Gets the chromosomes to be processed.\cr
  \tab \code{getFullName} \tab  -\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getGenome} \tab  -\cr
@@ -61,6 +63,7 @@ ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", ...)
  \tab \code{indexOf} \tab  -\cr
  \tab \code{\link[aroma.core:nbrOfArrays.ChromosomalModel]{nbrOfArrays}} \tab Gets the number of arrays.\cr
  \tab \code{\link[aroma.core:nbrOfChipTypes.ChromosomalModel]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr
+ \tab \code{setChromosomes} \tab  -\cr
  \tab \code{setGenome} \tab  -\cr
 }
 
@@ -69,12 +72,12 @@ ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", ...)
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, gc, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save, asThis
 
 
- }
+}
 
- \section{Requirements}{
-   This class requires genome information annotation files for
-   every chip type.
- }
+\section{Requirements}{
+  This class requires genome information annotation files for
+  every chip type.
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

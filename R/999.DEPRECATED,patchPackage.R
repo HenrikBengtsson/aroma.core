@@ -30,7 +30,7 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...) {
-##  .Deprecated(msg="patchPackage() is deprecated without alternatives.");
+  .Deprecated(msg="patchPackage() is deprecated without alternatives.");
 
   pkg <- "R.utils";
   require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);

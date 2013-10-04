@@ -1,6 +1,15 @@
 Package: aroma.core
 ===================
 
+Version: 2.10.5 [2013-10-03]
+o Added argument 'chromosomes' to ChromosomalModel() and setChromosomes()
+  for the same class.  If not specified, the default is as before to infer
+  the set of chromosomes from the UGP files.
+o HELP: Now the sanity-check error that CopyNumberChromosomalModel throws
+  gives a more informative error message suggesting to adjust argument
+  'maxNAFraction' when setting up the model.
+
+
 Version: 2.10.4 [2013-09-28]
 o Now the 'aroma.core' Package object is also available when the
   package is only loaded (but not attached).
