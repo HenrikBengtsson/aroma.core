@@ -15,7 +15,7 @@
 
 
  \description{
-   This package contains core methods and classes used by         higher-level aroma.* packages part of the Aroma Project, e.g.         aroma.affymetrix and aroma.cn.  Its API should be considered to         be in alpha and beta versions, and is mostly of interest to         developers.
+   This package contains core methods and classes used by         higher-level aroma.* packages part of the Aroma Project, e.g.         aroma.affymetrix and aroma.cn.  Its API is mostly of interest 	to developers and is rarely used by end users directly.
 
    This package is a support package for \pkg{aroma.affymetrix}.
    This package should be considered to be in an alpha or beta phase.

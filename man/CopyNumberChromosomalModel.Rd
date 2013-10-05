@@ -36,7 +36,7 @@ extends \emph{\link[aroma.core]{ChromosomalModel}}\cr
 
 \usage{
 CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, tags="*",
-  genome="Human", maxNAFraction=1/5, ...)
+  genome="Human", chromosomes=NULL, maxNAFraction=1/5, ...)
 }
 
 \arguments{
@@ -50,6 +50,8 @@ CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, t
   }
   \item{tags}{A \code{\link[base]{character}} \code{\link[base]{vector}} of tags.}
   \item{genome}{A \code{\link[base]{character}} string specifying what genome is process.}
+  \item{chromosomes}{(optional) A \code{\link[base]{vector}} specifying which chromosomes
+   to process.}
   \item{maxNAFraction}{A \code{\link[base]{double}} in [0,1] indicating how many non-finite
     signals are allowed in the sanity checks of the data.}
   \item{...}{Optional arguments that may be used by some of the
