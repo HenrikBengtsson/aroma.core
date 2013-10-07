@@ -704,8 +704,7 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
   res <- setAttributes(res, attributes(this));
 
   res;
-}, createGeneric=FALSE) # rbind()
-
+}) # rbind()
 
 
 ############################################################################
