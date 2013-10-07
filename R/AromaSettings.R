@@ -33,7 +33,7 @@ setMethodS3("getVerbose", "AromaSettings", function(this, default=FALSE, ...) {
 
   verbose <- Arguments$getVerbose(verbose);
   verbose;
-}, createGeneric=FALSE)
+})
 
 
 setMethodS3("setVerbose", "AromaSettings", function(this, ..., timestamp=TRUE) {

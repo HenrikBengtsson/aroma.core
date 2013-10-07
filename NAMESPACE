@@ -1,77 +1,172 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # IMPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##importFrom("utils", "packageDescription")
-
 importFrom("R.methodsS3", "setMethodS3")
 importFrom("R.methodsS3", "throw")
 importFrom("R.methodsS3", "appendVarArgs")
-
-importFrom("R.oo", "Package")
-importFrom("R.oo", "startupMessage")
 importFrom("R.oo", "setConstructorS3")
 importFrom("R.oo", "extend")
 importFrom("R.oo", "uses")
-importFrom("R.oo", "Object")
+
+## Importing Classes
+importFrom("R.oo", "BasicObject")
 importFrom("R.oo", "Interface")
-importFrom("R.oo", "Class")
-importFrom("R.oo", "newInstance")
-importFrom("R.oo", "getStaticInstance")
-importFrom("R.oo", "getKnownSubclasses")
-importFrom("R.oo", "objectSize")
-importFrom("R.oo", "trim")
-##importFrom("R.oo", "clearCache") ## Imported via R.filesets
-##importFrom("R.oo", "clone") ## Imported via R.filesets
-importFrom("R.oo", "dimension")
-importFrom("R.oo", "equals")
-##importFrom("R.oo", "getName") ## Imported via R.filesets
-##importFrom("R.oo", "getPath") ## Imported via R.filesets
-# Until R.oo (>= 1.15.3) is available
-importFrom("R.oo", "uses.character")
-
-importFrom("R.utils", "Arguments")
-importFrom("R.utils", "pushState")
-importFrom("R.utils", "popState")
-importFrom("R.utils", "less")
-importFrom("R.utils", "enter")
-importFrom("R.utils", "exit")
-importFrom("R.utils", "cat")
-importFrom("R.utils", "printf")
-importFrom("R.utils", "hpaste")
-importFrom("R.utils", "insert")
-##importFrom("R.utils", "isFile") ## Imported via R.filesets
-importFrom("R.utils", "isDirectory")
-importFrom("R.utils", "getAbsolutePath")
-##importFrom("R.utils", "getFilename") ## Imported via R.filesets
-importFrom("R.utils", "getParent")
-importFrom("R.utils", "copyFile")
-##importFrom("R.utils", "gunzip") ## Imported via R.filesets
-importFrom("R.utils", "downloadFile")
+importFrom("R.oo", "Object")
 importFrom("R.utils", "GenericSummary")
-importFrom("R.utils", "isPackageLoaded")
-importFrom("R.utils", "getOption")
-importFrom("R.utils", "patchCode")  # Used in deprecated code
-importFrom("R.utils", "queryRCmdCheck")
+importFrom("R.filesets", "GenericDataFile")
+importFrom("R.filesets", "GenericDataFileList")
+importFrom("R.filesets", "GenericDataFileSet")
+importFrom("R.filesets", "GenericDataFileSetList")
+importFrom("R.filesets", "GenericTabularFile")
+importFrom("R.filesets", "GenericTabularFileSet")
+importFrom("R.filesets", "TabularTextFile")
+importFrom("R.filesets", "TabularTextFileSet")
 
-importFrom("R.cache", "loadCache")
-importFrom("R.cache", "saveCache")
-##importFrom("R.cache", "getChecksum") ## Imported via R.filesets
+## Importing generics
+importFrom("matrixStats", "colMedians")
+importFrom("R.filesets", "append") ## Multi-sources: R.filesets, PSCBS, base
+importFrom("R.filesets", "byName")
+importFrom("R.filesets", "byPath")
+importFrom("R.filesets", "clearCache") ## Multi-sources: R.filesets, R.oo, R.cache
+importFrom("R.filesets", "clone") ## Multi-sources: R.filesets, R.oo
+importFrom("R.filesets", "extractMatrix")
+importFrom("R.filesets", "findByName")
+importFrom("R.filesets", "fromFile")
+importFrom("R.filesets", "getAsteriskTags")
+importFrom("R.filesets", "getColumnNames")
+importFrom("R.filesets", "getColumnNamesTranslator")
+importFrom("R.filesets", "getDefaultColumnNames")
+importFrom("R.filesets", "getDefaultFullName")
+importFrom("R.filesets", "getExtensionPattern")
+importFrom("R.filesets", "getFilenameExtension")
+importFrom("R.filesets", "getFullName")
+importFrom("R.filesets", "getFullNames")
+importFrom("R.filesets", "getName") ## Multi-sources: R.filesets, R.oo
+importFrom("R.filesets", "getNames")
+importFrom("R.filesets", "getPath") ## Multi-sources: R.filesets, R.oo
+importFrom("R.filesets", "getSets")
+importFrom("R.filesets", "getTags")
+importFrom("R.filesets", "indexOf")
+importFrom("R.filesets", "nbrOfColumns")
+importFrom("R.filesets", "nbrOfRows")
+importFrom("R.filesets", "readColumns")
+importFrom("R.filesets", "readDataFrame")
+importFrom("R.filesets", "setAttributes") ## Multi-sources: R.filesets, R.rsp
+importFrom("R.filesets", "setAttributesBy")
+importFrom("R.filesets", "setAttributesByTags")
+importFrom("R.filesets", "setColumnNamesTranslator")
+importFrom("R.filesets", "setName")
+importFrom("R.filesets", "setTags")
+importFrom("R.filesets", "translateColumnNames")
+importFrom("R.oo", "equals")
+importFrom("R.oo", "getVersion")
+importFrom("R.oo", "newInstance")
+importFrom("R.oo", "save") ## Multi-sources: R.oo, base
+importFrom("R.utils", "downloadFile")
+importFrom("R.utils", "getVerbose")
+importFrom("R.utils", "isDone")
+importFrom("R.utils", "validate") ## Multi-sources: R.utils, R.filesets
+importFrom("R.utils", "writeDataFrame")
+importFrom("utils", "str")
 
-importFrom("R.devices", "png2")
-
-importFrom("utils", "capture.output")
-
+## Importing functions
+## importFrom("aroma.light", "robustSmoothSpline") ## Only suggested for now
+importFrom("matrixStats", "anyMissing")
 importFrom("matrixStats", "colWeightedMeans")
 importFrom("matrixStats", "colWeightedMedians")
-importFrom("matrixStats", "colMedians")
+importFrom("matrixStats", "rowCollapse")
+importFrom("matrixStats", "rowMads")
 importFrom("matrixStats", "rowMedians")
-
+importFrom("PSCBS", "plotTracksManyChromosomes")
+importFrom("R.cache", "loadCache")
+importFrom("R.cache", "saveCache")
+importFrom("R.devices", "png2")
+importFrom("R.filesets", "dropRootPathTags")
+importFrom("R.filesets", "getAttribute") ## Multi-sources: R.filesets, R.rsp
+importFrom("R.filesets", "getChecksum") ## Multi-sources: R.filesets, R.cache
+importFrom("R.filesets", "getFile") ## Multi-sources: R.filesets, R.rsp
+importFrom("R.filesets", "getFileList")
+importFrom("R.filesets", "getFileSize")
+importFrom("R.filesets", "getHeader") ## Multi-sources: R.filesets, R.rsp
+importFrom("R.filesets", "getOneFile")
+importFrom("R.filesets", "getPathname")
+importFrom("R.filesets", "getPathnames")
+importFrom("R.filesets", "hasTag")
+importFrom("R.filesets", "indexOf.GenericDataFileSet")
+importFrom("R.filesets", "readLines") ## Multi-sources: R.filesets, base
+importFrom("R.filesets", "setAttribute") ## Multi-sources: R.filesets, R.rsp
+importFrom("R.oo", "attachLocally")
+importFrom("R.oo", "getDate")
+importFrom("R.oo", "getKnownSubclasses")
+importFrom("R.oo", "getPosition")
+importFrom("R.oo", "getStaticInstance")
+importFrom("R.oo", "isVisible")
+importFrom("R.oo", "ll")
+importFrom("R.oo", "objectSize")
+importFrom("R.oo", "Package")
+importFrom("R.oo", "startupMessage")
+importFrom("R.oo", "trim")
+importFrom("R.rsp", "flush") ## Multi-sources: R.rsp, base
 importFrom("R.rsp", "rspToHtml")
+importFrom("R.rsp", "stop") ## Multi-sources: R.rsp, base
+importFrom("R.utils", "callHooks")
+importFrom("R.utils", "capitalize")
+importFrom("R.utils", "cat") ## Multi-sources: R.utils, base
+importFrom("R.utils", "copyDirectory")
+importFrom("R.utils", "copyFile")
+importFrom("R.utils", "dataFrame")
+importFrom("R.utils", "draw")
+importFrom("R.utils", "enter")
+importFrom("R.utils", "exit")
+importFrom("R.utils", "extract") ## Multi-sources: R.utils, R.filesets
+importFrom("R.utils", "filePath")
+importFrom("R.utils", "findFiles")
+importFrom("R.utils", "getAbsolutePath")
+importFrom("R.utils", "getFilename") ## Multi-sources: R.utils, R.filesets
+importFrom("R.utils", "getOption") ## Multi-sources: R.utils, base
+importFrom("R.utils", "getParent")
+importFrom("R.utils", "gunzip") ## Multi-sources: R.utils, R.filesets
+importFrom("R.utils", "hpaste")
+importFrom("R.utils", "inherits") ## Multi-sources: R.utils, base
+importFrom("R.utils", "insert")
+importFrom("R.utils", "isDirectory")
+importFrom("R.utils", "isFile") ## Multi-sources: R.utils, R.filesets
+importFrom("R.utils", "isPackageInstalled")
+importFrom("R.utils", "isPackageLoaded")
+importFrom("R.utils", "isZero")
+importFrom("R.utils", "less")
+importFrom("R.utils", "loadObject")
+importFrom("R.utils", "mergeByCommonTails")
+importFrom("R.utils", "moveInSearchPath")
+importFrom("R.utils", "parse") ## Multi-sources: R.utils, R.rsp, base
+importFrom("R.utils", "patchCode")  # Used in deprecated code
+importFrom("R.utils", "popState")
+importFrom("R.utils", "popTemporaryFile")
+importFrom("R.utils", "printf")
+importFrom("R.utils", "pushState")
+importFrom("R.utils", "pushTemporaryFile")
+importFrom("R.utils", "queryRCmdCheck")
+importFrom("R.utils", "readTable")
+importFrom("R.utils", "removeDirectory")
+importFrom("R.utils", "resample")
+importFrom("R.utils", "saveObject")
+importFrom("R.utils", "seqToHumanReadable")
+importFrom("R.utils", "setOption")
+importFrom("R.utils", "Settings")
+importFrom("R.utils", "stext")
+importFrom("R.utils", "toCamelCase")
+importFrom("utils", "browseURL")
+importFrom("utils", "capture.output")
+importFrom("utils", "data")
+importFrom("utils", "download.file")
+importFrom("utils", "getFromNamespace")
+importFrom("utils", "head")
+importFrom("utils", "object.size")
+importFrom("utils", "packageDescription")
+importFrom("utils", "write.table")
 
-importFrom("PSCBS", "plotTracksManyChromosomes");
-
-# Finally, import everything from R.filesets
-import("R.filesets")
+## Manual imports
+importFrom("R.utils", "Arguments")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -88,6 +183,8 @@ exportPattern("^[^\\.]")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # DECLARATIONS
+#
+# Note: For R (< 3.0.2) only the max. 500 S3 methods are registered.
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # AbstractCNData
 S3method("findLargeGaps", "AbstractCNData")
@@ -210,9 +307,11 @@ S3method("getFilenameExtension", "AromaMicroarrayTabularBinaryFile")
 S3method("getPlatform", "AromaMicroarrayTabularBinaryFile")
 
 # AromaPackage
-##S3method("fixSearchPath", "AromaPackage")
-##S3method("fixSearchPathInternal", "AromaPackage")
-##S3method("patch", "AromaPackage")
+if (getRversion() >= "3.0.2") {
+  S3method("fixSearchPath", "AromaPackage")
+  S3method("fixSearchPathInternal", "AromaPackage")
+  S3method("patch", "AromaPackage")
+}
 
 # AromaPlatform
 S3method("byName", "AromaPlatform")
@@ -295,9 +394,11 @@ S3method("writeRawFooter", "AromaTabularBinaryFile")
 S3method("getDefaultFullName", "AromaTabularBinarySet")
 S3method("getRootName", "AromaTabularBinarySet")
 S3method("setAttributesBy", "AromaTabularBinarySet")
-###S3method("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet")
-###S3method("setAttributesBySampleAnnotationSet", "AromaTabularBinarySet")
-###S3method("setAttributesByTags", "AromaTabularBinarySet")
+if (getRversion() >= "3.0.2") {
+  S3method("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet")
+  S3method("setAttributesBySampleAnnotationSet", "AromaTabularBinarySet")
+  S3method("setAttributesByTags", "AromaTabularBinarySet")
+}
 
 # AromaTransform
 S3method("as.character", "AromaTransform")
@@ -413,8 +514,10 @@ S3method("getAverageFile", "AromaUnitPscnBinarySet")
 
 # AromaUnitSignalBinaryFile
 S3method("allocate", "AromaUnitSignalBinaryFile")
-###S3method("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile")
-###S3method("allocateFromUnitNamesFile", "AromaUnitSignalBinaryFile")
+if (getRversion() >= "3.0.2") {
+  S3method("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile")
+  S3method("allocateFromUnitNamesFile", "AromaUnitSignalBinaryFile")
+}
 S3method("as.character", "AromaUnitSignalBinaryFile")
 S3method("extractMatrix", "AromaUnitSignalBinaryFile")
 S3method("extractRawGenomicSignals", "AromaUnitSignalBinaryFile")
@@ -441,8 +544,10 @@ S3method("validate", "AromaUnitSignalBinarySet")
 ##S3method("writeDataFrame", "AromaUnitSignalBinarySet")
 
 # AromaUnitTabularBinaryFile
-###S3method("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile")
-###S3method("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile")
+if (getRversion() >= "3.0.2") {
+  S3method("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile")
+  S3method("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile")
+}
 S3method("byChipType", "AromaUnitTabularBinaryFile")
 S3method("indexOfUnits", "AromaUnitTabularBinaryFile")
 S3method("nbrOfUnits", "AromaUnitTabularBinaryFile")
@@ -483,7 +588,9 @@ S3method("allocate", "AromaUnitTypesFile")
 S3method("getChipType", "AromaUnitTypesFile")
 S3method("getPlatform", "AromaUnitTypesFile")
 S3method("getUnitTypes", "AromaUnitTypesFile")
-###S3method("importFromUnitTypesFile", "AromaUnitTypesFile")
+if (getRversion() >= "3.0.2") {
+  S3method("importFromUnitTypesFile", "AromaUnitTypesFile")
+}
 
 # BasicObject
 S3method("asThis", "BasicObject")
@@ -615,13 +722,15 @@ S3method("doCBS", "CopyNumberDataSetTuple")
 S3method("hasAlleleBFractions", "CopyNumberDataSetTuple")
 S3method("hasStrandiness", "CopyNumberDataSetTuple")
 
-### # CopyNumberOutliers
-### S3method("applyRegions", "CopyNumberOutliers")
-### S3method("as.character", "CopyNumberOutliers")
-### S3method("as.data.frame", "CopyNumberOutliers")
-### S3method("drawLevels", "CopyNumberOutliers")
-### S3method("lines", "CopyNumberOutliers")
-### S3method("nbrOfRegions", "CopyNumberOutliers")
+# CopyNumberOutliers
+if (getRversion() >= "3.0.2") {
+  S3method("applyRegions", "CopyNumberOutliers")
+  S3method("as.character", "CopyNumberOutliers")
+  S3method("as.data.frame", "CopyNumberOutliers")
+  S3method("drawLevels", "CopyNumberOutliers")
+  S3method("lines", "CopyNumberOutliers")
+  S3method("nbrOfRegions", "CopyNumberOutliers")
+}
 
 # CopyNumberRegions
 S3method("-", "CopyNumberRegions")
@@ -671,7 +780,9 @@ S3method("colMeans", "default")
 S3method("colSums", "default")
 S3method("convertTable", "default")
 S3method("doCBS", "default")
-###S3method("downloadPackagePatch", "default")
+if (getRversion() >= "3.0.2") {
+  S3method("downloadPackagePatch", "default")
+}
 S3method("drawExtraAnnotations", "default")
 S3method("extractCNRs", "default")
 S3method("extractCopyNumberRegions", "default")
@@ -691,11 +802,13 @@ S3method("pointsRawCNs", "default")
 S3method("remap", "default")
 S3method("shakyText", "default")
 
-### # DNAcopy
-### S3method("drawCnRegions", "DNAcopy")
-### S3method("extractCopyNumberOutliers", "DNAcopy")
-### S3method("extractCopyNumberRegions", "DNAcopy")
-### S3method("extractRawCopyNumbers", "DNAcopy")
+# DNAcopy
+if (getRversion() >= "3.0.2") {
+  S3method("drawCnRegions", "DNAcopy")
+  S3method("extractCopyNumberOutliers", "DNAcopy")
+  S3method("extractCopyNumberRegions", "DNAcopy")
+  S3method("extractRawCopyNumbers", "DNAcopy")
+}
 
 # Explorer
 S3method("addIncludes", "Explorer")
@@ -712,7 +825,9 @@ S3method("getMainPath", "Explorer")
 S3method("getName", "Explorer")
 S3method("getNameOfInput", "Explorer")
 S3method("getNames", "Explorer")
-###S3method("getParallelSafe", "Explorer")
+if (getRversion() >= "3.0.2") {
+  S3method("getParallelSafe", "Explorer")
+}
 S3method("getPath", "Explorer")
 S3method("getReportPathPattern", "Explorer")
 S3method("getRootPath", "Explorer")
@@ -726,360 +841,364 @@ S3method("nbrOfArrays", "Explorer")
 S3method("process", "Explorer")
 S3method("setAlias", "Explorer")
 S3method("setArrays", "Explorer")
-###S3method("setParallelSafe", "Explorer")
+if (getRversion() >= "3.0.2") {
+  S3method("setParallelSafe", "Explorer")
+}
 S3method("setReportPathPattern", "Explorer")
 S3method("setSubname", "Explorer")
 S3method("setup", "Explorer")
 S3method("splitByReportPathPattern", "Explorer")
 S3method("updateSetupExplorerFile", "Explorer")
 
-### # FileCacheKeyInterface
-### S3method("getCacheKey", "FileCacheKeyInterface")
-###
-### # GenericDataFile
-### S3method("getParentName", "GenericDataFile")
-###
-### # GenericDataFileSet
-### S3method("getFullNameTranslatorSet", "GenericDataFileSet")
-### S3method("getParentName", "GenericDataFileSet")
-###
-### # GenericTabularFileSet
-### S3method("calculateAverageColumnAcrossFiles", "GenericTabularFileSet")
-###
-### # GladModel
-### S3method("getFitFunction", "GladModel")
-### S3method("onFitAddGenotypeCalls", "GladModel")
-### S3method("writeRegions", "GladModel")
-###
-### # HaarSeg
-### S3method("drawCnRegions", "HaarSeg")
-### S3method("extractCopyNumberRegions", "HaarSeg")
-### S3method("extractRawCopyNumbers", "HaarSeg")
-###
-### # HaarSegModel
-### S3method("getAsteriskTags", "HaarSegModel")
-### S3method("getFitFunction", "HaarSegModel")
-###
-### # Image
-### S3method("colorize", "Image")
-### S3method("display", "Image")
-### S3method("getImageData", "Image")
-### S3method("interleave", "Image")
-### S3method("rescale", "Image")
-### S3method("setImageData", "Image")
-### S3method("writeImage", "Image")
-###
-### # list
-### S3method("as.CopyNumberDataSetTuple", "list")
-### S3method("exportAromaUnitPscnBinarySet", "list")
-### ##S3method("listToXml", "list")
-### S3method("mergeBoxplotStats", "list")
-###
-### # matrix
-### S3method("as.GrayscaleImage", "matrix")
-### S3method("backtransformGenotypeCone", "matrix")
-### S3method("backtransformMultiDimensionalCone", "matrix")
-### S3method("binScatter", "matrix")
-### S3method("colBinnedSmoothing", "matrix")
-### S3method("colGaussianSmoothing", "matrix")
-### S3method("colKernelSmoothing", "matrix")
-### S3method("createImage", "matrix")
-### S3method("fitGenotypeCone", "matrix")
-### S3method("fitSplineBlockPolish", "matrix")
-### S3method("fitWHLAPLM", "matrix")
-### S3method("fitWHRCModel", "matrix")
-### S3method("fitWLAPLM", "matrix")
-### S3method("fitWRCModel", "matrix")
-### S3method("fitWRMA", "matrix")
-### S3method("gaussianSmoothing", "matrix")
-### S3method("getImage", "matrix")
-### S3method("matrixBlockPolish", "matrix")
-### S3method("smoothWRMA", "matrix")
-### S3method("smoothWSA", "matrix")
-###
-### # MPCBS
-### S3method("drawCnRegions", "MPCBS")
-### S3method("extractCopyNumberRegions", "MPCBS")
-###
-### # NonPairedPSCNData
-### S3method("as.NonPairedPSCNData", "NonPairedPSCNData")
-### S3method("as.PairedPSCNData", "NonPairedPSCNData")
-### S3method("callNaiveGenotypes", "NonPairedPSCNData")
-### S3method("callSegmentationOutliers", "NonPairedPSCNData")
-### S3method("dropSegmentationOutliers", "NonPairedPSCNData")
-### S3method("getSignalColumnNames", "NonPairedPSCNData")
-### S3method("segmentByCBS", "NonPairedPSCNData")
-###
-### # numeric
-### S3method("binnedSmoothing", "numeric")
-### S3method("fitProbePositionEffects", "numeric")
-### S3method("gaussianSmoothing", "numeric")
-### S3method("kernelSmoothing", "numeric")
-### S3method("lapplyInChunks", "numeric")
-### S3method("splitInChunks", "numeric")
-###
-### # Object
-### S3method("asThis", "Object")
-###
-### # PairedPSCNData
-### S3method("as.PairedPSCNData", "PairedPSCNData")
-### S3method("callNaiveGenotypes", "PairedPSCNData")
-### S3method("callSegmentationOutliers", "PairedPSCNData")
-### S3method("dropSegmentationOutliers", "PairedPSCNData")
-### S3method("extractNonPairedPSCNData", "PairedPSCNData")
-### S3method("getSignalColumnNames", "PairedPSCNData")
-### S3method("getTCNs", "PairedPSCNData")
-### S3method("getTotalCopyNumbers", "PairedPSCNData")
-### S3method("normalizeTumorBoost", "PairedPSCNData")
-### S3method("plotTracks", "PairedPSCNData")
-### S3method("segmentByCBS", "PairedPSCNData")
-### S3method("segmentByPairedPSCBS", "PairedPSCNData")
-###
-### # ParametersInterface
-### S3method("getParameters", "ParametersInterface")
-### S3method("getParametersAsString", "ParametersInterface")
-### S3method("getParameterSets", "ParametersInterface")
-###
-### # ProbePositionEffects
-### S3method("barSequence", "ProbePositionEffects")
-### S3method("getEffects", "ProbePositionEffects")
-### S3method("plot", "ProbePositionEffects")
-### S3method("pointsSequence", "ProbePositionEffects")
-### S3method("predict", "ProbePositionEffects")
-### S3method("text", "ProbePositionEffects")
-### S3method("textSequence", "ProbePositionEffects")
-###
-### # profileCGH
-### S3method("drawCnRegions", "profileCGH")
-### S3method("drawExtraAnnotations", "profileCGH")
-### S3method("extractCopyNumberOutliers", "profileCGH")
-### S3method("extractCopyNumberRegions", "profileCGH")
-### S3method("extractRawCopyNumbers", "profileCGH")
-### S3method("plotRawCNs", "profileCGH")
-### S3method("pointsRawCNs", "profileCGH")
-###
-### # RasterImage
-### S3method("[", "RasterImage")
-### S3method("as.character", "RasterImage")
-### S3method("colorize", "RasterImage")
-### S3method("display", "RasterImage")
-### S3method("dropAlpha", "RasterImage")
-### S3method("getImageData", "RasterImage")
-### S3method("interleave", "RasterImage")
-### S3method("read", "RasterImage")
-### S3method("rescale", "RasterImage")
-### S3method("save", "RasterImage")
-### S3method("setImageData", "RasterImage")
-### S3method("str", "RasterImage")
-### S3method("write", "RasterImage")
-### S3method("writeImage", "RasterImage")
-###
-### # raw
-### S3method("getProbePositionEffectDesignMatrix", "raw")
-###
-### # RawAlleleBFractions
-### S3method("extractRawMirroredAlleleBFractions", "RawAlleleBFractions")
-### S3method("plot", "RawAlleleBFractions")
-###
-### # RawCopyNumberModel
-### S3method("getAsteriskTags", "RawCopyNumberModel")
-### S3method("getSetTag", "RawCopyNumberModel")
-###
-### # RawCopyNumbers
-### S3method("cnRange", "RawCopyNumbers")
-### S3method("extractRawCopyNumbers", "RawCopyNumbers")
-### S3method("getCn", "RawCopyNumbers")
-### S3method("getCNs", "RawCopyNumbers")
-### S3method("getPhysicalPositions", "RawCopyNumbers")
-### S3method("getSignals", "RawCopyNumbers")
-### S3method("plot", "RawCopyNumbers")
-###
-### # RawGenomicSignals
-### S3method("-", "RawGenomicSignals")
-### S3method("*", "RawGenomicSignals")
-### S3method("+", "RawGenomicSignals")
-### S3method("addBy", "RawGenomicSignals")
-### S3method("append", "RawGenomicSignals")
-### S3method("applyBinaryOperator", "RawGenomicSignals")
-### S3method("as.character", "RawGenomicSignals")
-### S3method("as.data.frame", "RawGenomicSignals")
-### S3method("assertOneChromosome", "RawGenomicSignals")
-### S3method("binnedSmoothing", "RawGenomicSignals")
-### S3method("binnedSmoothingByField", "RawGenomicSignals")
-### S3method("clearCache", "RawGenomicSignals")
-### S3method("clone", "RawGenomicSignals")
-### S3method("divideBy", "RawGenomicSignals")
-### S3method("drawDensity", "RawGenomicSignals")
-### S3method("estimateStandardDeviation", "RawGenomicSignals")
-### S3method("extractChromosome", "RawGenomicSignals")
-### S3method("extractChromosomes", "RawGenomicSignals")
-### S3method("extractDataForSegmentation", "RawGenomicSignals")
-### S3method("extractRegion", "RawGenomicSignals")
-### S3method("extractRegions", "RawGenomicSignals")
-### S3method("extractSubset", "RawGenomicSignals")
-### S3method("gaussianSmoothing", "RawGenomicSignals")
-### S3method("getBasicField", "RawGenomicSignals")
-### S3method("getChromosome", "RawGenomicSignals")
-### S3method("getChromosomes", "RawGenomicSignals")
-### S3method("getCXY", "RawGenomicSignals")
-### S3method("getDefaultLocusFields", "RawGenomicSignals")
-### S3method("getLocusFields", "RawGenomicSignals")
-### S3method("getPositions", "RawGenomicSignals")
-### S3method("getSigma", "RawGenomicSignals")
-### S3method("getSignalColumnName", "RawGenomicSignals")
-### S3method("getSignalColumnNames", "RawGenomicSignals")
-### S3method("getSignals", "RawGenomicSignals")
-### S3method("getWeights", "RawGenomicSignals")
-### S3method("getXScale", "RawGenomicSignals")
-### S3method("getXY", "RawGenomicSignals")
-### S3method("getYScale", "RawGenomicSignals")
-### S3method("hasWeights", "RawGenomicSignals")
-### S3method("kernelSmoothing", "RawGenomicSignals")
-### S3method("lines", "RawGenomicSignals")
-### S3method("multiplyBy", "RawGenomicSignals")
-### S3method("nbrOfChromosomes", "RawGenomicSignals")
-### S3method("nbrOfLoci", "RawGenomicSignals")
-### S3method("plot", "RawGenomicSignals")
-### S3method("points", "RawGenomicSignals")
-### S3method("print", "RawGenomicSignals")
-### S3method("segmentByCBS", "RawGenomicSignals")
-### S3method("segmentByGLAD", "RawGenomicSignals")
-### S3method("segmentByHaarSeg", "RawGenomicSignals")
-### S3method("segmentByMPCBS", "RawGenomicSignals")
-### S3method("setBasicField", "RawGenomicSignals")
-### S3method("setSigma", "RawGenomicSignals")
-### S3method("setSignals", "RawGenomicSignals")
-### S3method("setWeights", "RawGenomicSignals")
-### S3method("setXScale", "RawGenomicSignals")
-### S3method("setYScale", "RawGenomicSignals")
-### S3method("signalRange", "RawGenomicSignals")
-### S3method("sort", "RawGenomicSignals")
-### S3method("subtractBy", "RawGenomicSignals")
-### S3method("xMax", "RawGenomicSignals")
-### S3method("xMin", "RawGenomicSignals")
-### S3method("xRange", "RawGenomicSignals")
-### S3method("xSeq", "RawGenomicSignals")
-### S3method("yMax", "RawGenomicSignals")
-### S3method("yMin", "RawGenomicSignals")
-### S3method("yRange", "RawGenomicSignals")
-###
-### # RawMirroredAlleleBFractions
-### S3method("plot", "RawMirroredAlleleBFractions")
-###
-### # RawSequenceReads
-### S3method("binnedSums", "RawSequenceReads")
-### S3method("extractRawCopyNumbers", "RawSequenceReads")
-### S3method("nbrOfReads", "RawSequenceReads")
-### S3method("plot", "RawSequenceReads")
-###
-### # RichDataFrame
-### S3method("$", "RichDataFrame")
-### S3method("$<-", "RichDataFrame")
-### S3method("[", "RichDataFrame")
-### S3method("[[", "RichDataFrame")
-### S3method("[[<-", "RichDataFrame")
-### S3method("as.data.frame", "RichDataFrame")
-### S3method("as.list", "RichDataFrame")
-### S3method("dim", "RichDataFrame")
-### S3method("dropVirtualColumn", "RichDataFrame")
-### S3method("getColumnNames", "RichDataFrame")
-### S3method("getColumnNamesTranslator", "RichDataFrame")
-### S3method("getFullName", "RichDataFrame")
-### S3method("getName", "RichDataFrame")
-### S3method("getTags", "RichDataFrame")
-### S3method("getVirtualColumn", "RichDataFrame")
-### S3method("getVirtualColumnFunction", "RichDataFrame")
-### S3method("getVirtualColumnNames", "RichDataFrame")
-### S3method("hasColumn", "RichDataFrame")
-### S3method("hasColumns", "RichDataFrame")
-### S3method("hasVirtualColumn", "RichDataFrame")
-### S3method("hasVirtualColumns", "RichDataFrame")
-### S3method("length", "RichDataFrame")
-### S3method("names", "RichDataFrame")
-### S3method("newInstance", "RichDataFrame")
-### S3method("print", "RichDataFrame")
-### S3method("rbind", "RichDataFrame")
-### S3method("setAttributes", "RichDataFrame")
-### S3method("setColumnNamesMap", "RichDataFrame")
-### S3method("setColumnNamesTranslator", "RichDataFrame")
-### S3method("setName", "RichDataFrame")
-### S3method("setTags", "RichDataFrame")
-### S3method("setVirtualColumn", "RichDataFrame")
-### S3method("subset", "RichDataFrame")
-### S3method("translateColumnNames", "RichDataFrame")
-###
-### # SampleAnnotationFile
-### S3method("apply", "SampleAnnotationFile")
-### S3method("fromPath", "SampleAnnotationFile")
-### S3method("getExtensionPattern", "SampleAnnotationFile")
-### S3method("getPatterns", "SampleAnnotationFile")
-### S3method("matchPatterns", "SampleAnnotationFile")
-### S3method("readData", "SampleAnnotationFile")
-### S3method("readDataFrame", "SampleAnnotationFile")
-###
-### # SampleAnnotationSet
-### S3method("fromPath", "SampleAnnotationSet")
-### S3method("loadAll", "SampleAnnotationSet")
-###
-### # SegmentationDataFile
-### S3method("extractCopyNumberRegions", "SegmentationDataFile")
-### S3method("getChromosome", "SegmentationDataFile")
-### S3method("getReferenceName", "SegmentationDataFile")
-### S3method("getSampleName", "SegmentationDataFile")
-### S3method("loadFit", "SegmentationDataFile")
-###
-### # SegmentationDataSet
-### S3method("as.character", "SegmentationDataSet")
-### S3method("byPath", "SegmentationDataSet")
-### S3method("extractByReferenceName", "SegmentationDataSet")
-### S3method("extractBySampleName", "SegmentationDataSet")
-### S3method("extractCopyNumberRegions", "SegmentationDataSet")
-### S3method("getChipType", "SegmentationDataSet")
-### S3method("getChromosomes", "SegmentationDataSet")
-### S3method("getDefaultFullName", "SegmentationDataSet")
-### S3method("getReferenceNames", "SegmentationDataSet")
-### S3method("getSampleNames", "SegmentationDataSet")
-###
-### # SegmentedGenomicSignalsInterface
-### S3method("as.data.frame", "SegmentedGenomicSignalsInterface")
-### S3method("binnedSmoothingByState", "SegmentedGenomicSignalsInterface")
-### S3method("extractSubsetByState", "SegmentedGenomicSignalsInterface")
-### S3method("getStateColorMap", "SegmentedGenomicSignalsInterface")
-### S3method("getStateColors", "SegmentedGenomicSignalsInterface")
-### S3method("getStates", "SegmentedGenomicSignalsInterface")
-### S3method("getUniqueStates", "SegmentedGenomicSignalsInterface")
-### S3method("getVirtualField", "SegmentedGenomicSignalsInterface")
-### S3method("getVirtualLocusFields", "SegmentedGenomicSignalsInterface")
-### S3method("kernelSmoothingByState", "SegmentedGenomicSignalsInterface")
-### S3method("plot", "SegmentedGenomicSignalsInterface")
-### S3method("points", "SegmentedGenomicSignalsInterface")
-### S3method("setStateColorMap", "SegmentedGenomicSignalsInterface")
-### S3method("setStates", "SegmentedGenomicSignalsInterface")
-###
-### # TextUnitNamesFile
-### S3method("as.character", "TextUnitNamesFile")
-### S3method("findByChipType", "TextUnitNamesFile")
-### S3method("getChipType", "TextUnitNamesFile")
-### S3method("getExtensionPattern", "TextUnitNamesFile")
-### S3method("getFilenameExtension", "TextUnitNamesFile")
-### S3method("getPlatform", "TextUnitNamesFile")
-### S3method("getUnitNames", "TextUnitNamesFile")
-### S3method("nbrOfUnits", "TextUnitNamesFile")
-###
-### # UnitAnnotationDataFile
-### S3method("byChipType", "UnitAnnotationDataFile")
-### S3method("getAromaUflFile", "UnitAnnotationDataFile")
-### S3method("getAromaUgpFile", "UnitAnnotationDataFile")
-### S3method("getChipType", "UnitAnnotationDataFile")
-### S3method("getDefaultExtension", "UnitAnnotationDataFile")
-### S3method("getPlatform", "UnitAnnotationDataFile")
-### S3method("nbrOfUnits", "UnitAnnotationDataFile")
-###
-### # UnitNamesFile
-### S3method("getUnitNames", "UnitNamesFile")
-### S3method("indexOf", "UnitNamesFile")
-### S3method("nbrOfUnits", "UnitNamesFile")
-###
-### # UnitTypesFile
-### S3method("getUnitTypes", "UnitTypesFile")
-### S3method("nbrOfUnits", "UnitTypesFile")
+# FileCacheKeyInterface
+if (getRversion() >= "3.0.2") {
+  S3method("getCacheKey", "FileCacheKeyInterface")
+
+  # GenericDataFile
+  S3method("getParentName", "GenericDataFile")
+
+  # GenericDataFileSet
+  S3method("getFullNameTranslatorSet", "GenericDataFileSet")
+  S3method("getParentName", "GenericDataFileSet")
+
+  # GenericTabularFileSet
+  S3method("calculateAverageColumnAcrossFiles", "GenericTabularFileSet")
+
+  # GladModel
+  S3method("getFitFunction", "GladModel")
+  S3method("onFitAddGenotypeCalls", "GladModel")
+  S3method("writeRegions", "GladModel")
+
+  # HaarSeg
+  S3method("drawCnRegions", "HaarSeg")
+  S3method("extractCopyNumberRegions", "HaarSeg")
+  S3method("extractRawCopyNumbers", "HaarSeg")
+
+  # HaarSegModel
+  S3method("getAsteriskTags", "HaarSegModel")
+  S3method("getFitFunction", "HaarSegModel")
+
+  # Image
+  S3method("colorize", "Image")
+  S3method("display", "Image")
+  S3method("getImageData", "Image")
+  S3method("interleave", "Image")
+  S3method("rescale", "Image")
+  S3method("setImageData", "Image")
+  S3method("writeImage", "Image")
+
+  # list
+  S3method("as.CopyNumberDataSetTuple", "list")
+  S3method("exportAromaUnitPscnBinarySet", "list")
+  ##S3method("listToXml", "list")
+  S3method("mergeBoxplotStats", "list")
+
+  # matrix
+  S3method("as.GrayscaleImage", "matrix")
+  S3method("backtransformGenotypeCone", "matrix")
+  S3method("backtransformMultiDimensionalCone", "matrix")
+  S3method("binScatter", "matrix")
+  S3method("colBinnedSmoothing", "matrix")
+  S3method("colGaussianSmoothing", "matrix")
+  S3method("colKernelSmoothing", "matrix")
+  S3method("createImage", "matrix")
+  S3method("fitGenotypeCone", "matrix")
+  S3method("fitSplineBlockPolish", "matrix")
+  S3method("fitWHLAPLM", "matrix")
+  S3method("fitWHRCModel", "matrix")
+  S3method("fitWLAPLM", "matrix")
+  S3method("fitWRCModel", "matrix")
+  S3method("fitWRMA", "matrix")
+  S3method("gaussianSmoothing", "matrix")
+  S3method("getImage", "matrix")
+  S3method("matrixBlockPolish", "matrix")
+  S3method("smoothWRMA", "matrix")
+  S3method("smoothWSA", "matrix")
+
+  # MPCBS
+  S3method("drawCnRegions", "MPCBS")
+  S3method("extractCopyNumberRegions", "MPCBS")
+
+  # NonPairedPSCNData
+  S3method("as.NonPairedPSCNData", "NonPairedPSCNData")
+  S3method("as.PairedPSCNData", "NonPairedPSCNData")
+  S3method("callNaiveGenotypes", "NonPairedPSCNData")
+  S3method("callSegmentationOutliers", "NonPairedPSCNData")
+  S3method("dropSegmentationOutliers", "NonPairedPSCNData")
+  S3method("getSignalColumnNames", "NonPairedPSCNData")
+  S3method("segmentByCBS", "NonPairedPSCNData")
+
+  # numeric
+  S3method("binnedSmoothing", "numeric")
+  S3method("fitProbePositionEffects", "numeric")
+  S3method("gaussianSmoothing", "numeric")
+  S3method("kernelSmoothing", "numeric")
+  S3method("lapplyInChunks", "numeric")
+  S3method("splitInChunks", "numeric")
+
+  # Object
+  S3method("asThis", "Object")
+
+  # PairedPSCNData
+  S3method("as.PairedPSCNData", "PairedPSCNData")
+  S3method("callNaiveGenotypes", "PairedPSCNData")
+  S3method("callSegmentationOutliers", "PairedPSCNData")
+  S3method("dropSegmentationOutliers", "PairedPSCNData")
+  S3method("extractNonPairedPSCNData", "PairedPSCNData")
+  S3method("getSignalColumnNames", "PairedPSCNData")
+  S3method("getTCNs", "PairedPSCNData")
+  S3method("getTotalCopyNumbers", "PairedPSCNData")
+  S3method("normalizeTumorBoost", "PairedPSCNData")
+  S3method("plotTracks", "PairedPSCNData")
+  S3method("segmentByCBS", "PairedPSCNData")
+  S3method("segmentByPairedPSCBS", "PairedPSCNData")
+
+  # ParametersInterface
+  S3method("getParameters", "ParametersInterface")
+  S3method("getParametersAsString", "ParametersInterface")
+  S3method("getParameterSets", "ParametersInterface")
+
+  # ProbePositionEffects
+  S3method("barSequence", "ProbePositionEffects")
+  S3method("getEffects", "ProbePositionEffects")
+  S3method("plot", "ProbePositionEffects")
+  S3method("pointsSequence", "ProbePositionEffects")
+  S3method("predict", "ProbePositionEffects")
+  S3method("text", "ProbePositionEffects")
+  S3method("textSequence", "ProbePositionEffects")
+
+  # profileCGH
+  S3method("drawCnRegions", "profileCGH")
+  S3method("drawExtraAnnotations", "profileCGH")
+  S3method("extractCopyNumberOutliers", "profileCGH")
+  S3method("extractCopyNumberRegions", "profileCGH")
+  S3method("extractRawCopyNumbers", "profileCGH")
+  S3method("plotRawCNs", "profileCGH")
+  S3method("pointsRawCNs", "profileCGH")
+
+  # RasterImage
+  S3method("[", "RasterImage")
+  S3method("as.character", "RasterImage")
+  S3method("colorize", "RasterImage")
+  S3method("display", "RasterImage")
+  S3method("dropAlpha", "RasterImage")
+  S3method("getImageData", "RasterImage")
+  S3method("interleave", "RasterImage")
+  S3method("read", "RasterImage")
+  S3method("rescale", "RasterImage")
+  S3method("save", "RasterImage")
+  S3method("setImageData", "RasterImage")
+  S3method("str", "RasterImage")
+  S3method("write", "RasterImage")
+  S3method("writeImage", "RasterImage")
+
+  # raw
+  S3method("getProbePositionEffectDesignMatrix", "raw")
+
+  # RawAlleleBFractions
+  S3method("extractRawMirroredAlleleBFractions", "RawAlleleBFractions")
+  S3method("plot", "RawAlleleBFractions")
+
+  # RawCopyNumberModel
+  S3method("getAsteriskTags", "RawCopyNumberModel")
+  S3method("getSetTag", "RawCopyNumberModel")
+
+  # RawCopyNumbers
+  S3method("cnRange", "RawCopyNumbers")
+  S3method("extractRawCopyNumbers", "RawCopyNumbers")
+  S3method("getCn", "RawCopyNumbers")
+  S3method("getCNs", "RawCopyNumbers")
+  S3method("getPhysicalPositions", "RawCopyNumbers")
+  S3method("getSignals", "RawCopyNumbers")
+  S3method("plot", "RawCopyNumbers")
+
+  # RawGenomicSignals
+  S3method("-", "RawGenomicSignals")
+  S3method("*", "RawGenomicSignals")
+  S3method("+", "RawGenomicSignals")
+  S3method("addBy", "RawGenomicSignals")
+  S3method("append", "RawGenomicSignals")
+  S3method("applyBinaryOperator", "RawGenomicSignals")
+  S3method("as.character", "RawGenomicSignals")
+  S3method("as.data.frame", "RawGenomicSignals")
+  S3method("assertOneChromosome", "RawGenomicSignals")
+  S3method("binnedSmoothing", "RawGenomicSignals")
+  S3method("binnedSmoothingByField", "RawGenomicSignals")
+  S3method("clearCache", "RawGenomicSignals")
+  S3method("clone", "RawGenomicSignals")
+  S3method("divideBy", "RawGenomicSignals")
+  S3method("drawDensity", "RawGenomicSignals")
+  S3method("estimateStandardDeviation", "RawGenomicSignals")
+  S3method("extractChromosome", "RawGenomicSignals")
+  S3method("extractChromosomes", "RawGenomicSignals")
+  S3method("extractDataForSegmentation", "RawGenomicSignals")
+  S3method("extractRegion", "RawGenomicSignals")
+  S3method("extractRegions", "RawGenomicSignals")
+  S3method("extractSubset", "RawGenomicSignals")
+  S3method("gaussianSmoothing", "RawGenomicSignals")
+  S3method("getBasicField", "RawGenomicSignals")
+  S3method("getChromosome", "RawGenomicSignals")
+  S3method("getChromosomes", "RawGenomicSignals")
+  S3method("getCXY", "RawGenomicSignals")
+  S3method("getDefaultLocusFields", "RawGenomicSignals")
+  S3method("getLocusFields", "RawGenomicSignals")
+  S3method("getPositions", "RawGenomicSignals")
+  S3method("getSigma", "RawGenomicSignals")
+  S3method("getSignalColumnName", "RawGenomicSignals")
+  S3method("getSignalColumnNames", "RawGenomicSignals")
+  S3method("getSignals", "RawGenomicSignals")
+  S3method("getWeights", "RawGenomicSignals")
+  S3method("getXScale", "RawGenomicSignals")
+  S3method("getXY", "RawGenomicSignals")
+  S3method("getYScale", "RawGenomicSignals")
+  S3method("hasWeights", "RawGenomicSignals")
+  S3method("kernelSmoothing", "RawGenomicSignals")
+  S3method("lines", "RawGenomicSignals")
+  S3method("multiplyBy", "RawGenomicSignals")
+  S3method("nbrOfChromosomes", "RawGenomicSignals")
+  S3method("nbrOfLoci", "RawGenomicSignals")
+  S3method("plot", "RawGenomicSignals")
+  S3method("points", "RawGenomicSignals")
+  S3method("print", "RawGenomicSignals")
+  S3method("segmentByCBS", "RawGenomicSignals")
+  S3method("segmentByGLAD", "RawGenomicSignals")
+  S3method("segmentByHaarSeg", "RawGenomicSignals")
+  S3method("segmentByMPCBS", "RawGenomicSignals")
+  S3method("setBasicField", "RawGenomicSignals")
+  S3method("setSigma", "RawGenomicSignals")
+  S3method("setSignals", "RawGenomicSignals")
+  S3method("setWeights", "RawGenomicSignals")
+  S3method("setXScale", "RawGenomicSignals")
+  S3method("setYScale", "RawGenomicSignals")
+  S3method("signalRange", "RawGenomicSignals")
+  S3method("sort", "RawGenomicSignals")
+  S3method("subtractBy", "RawGenomicSignals")
+  S3method("xMax", "RawGenomicSignals")
+  S3method("xMin", "RawGenomicSignals")
+  S3method("xRange", "RawGenomicSignals")
+  S3method("xSeq", "RawGenomicSignals")
+  S3method("yMax", "RawGenomicSignals")
+  S3method("yMin", "RawGenomicSignals")
+  S3method("yRange", "RawGenomicSignals")
+
+  # RawMirroredAlleleBFractions
+  S3method("plot", "RawMirroredAlleleBFractions")
+
+  # RawSequenceReads
+  S3method("binnedSums", "RawSequenceReads")
+  S3method("extractRawCopyNumbers", "RawSequenceReads")
+  S3method("nbrOfReads", "RawSequenceReads")
+  S3method("plot", "RawSequenceReads")
+
+  # RichDataFrame
+  S3method("$", "RichDataFrame")
+  S3method("$<-", "RichDataFrame")
+  S3method("[", "RichDataFrame")
+  S3method("[[", "RichDataFrame")
+  S3method("[[<-", "RichDataFrame")
+  S3method("as.data.frame", "RichDataFrame")
+  S3method("as.list", "RichDataFrame")
+  S3method("dim", "RichDataFrame")
+  S3method("dropVirtualColumn", "RichDataFrame")
+  S3method("getColumnNames", "RichDataFrame")
+  S3method("getColumnNamesTranslator", "RichDataFrame")
+  S3method("getFullName", "RichDataFrame")
+  S3method("getName", "RichDataFrame")
+  S3method("getTags", "RichDataFrame")
+  S3method("getVirtualColumn", "RichDataFrame")
+  S3method("getVirtualColumnFunction", "RichDataFrame")
+  S3method("getVirtualColumnNames", "RichDataFrame")
+  S3method("hasColumn", "RichDataFrame")
+  S3method("hasColumns", "RichDataFrame")
+  S3method("hasVirtualColumn", "RichDataFrame")
+  S3method("hasVirtualColumns", "RichDataFrame")
+  S3method("length", "RichDataFrame")
+  S3method("names", "RichDataFrame")
+  S3method("newInstance", "RichDataFrame")
+  S3method("print", "RichDataFrame")
+  S3method("rbind", "RichDataFrame")
+  S3method("setAttributes", "RichDataFrame")
+  S3method("setColumnNamesMap", "RichDataFrame")
+  S3method("setColumnNamesTranslator", "RichDataFrame")
+  S3method("setName", "RichDataFrame")
+  S3method("setTags", "RichDataFrame")
+  S3method("setVirtualColumn", "RichDataFrame")
+  S3method("subset", "RichDataFrame")
+  S3method("translateColumnNames", "RichDataFrame")
+
+  # SampleAnnotationFile
+  S3method("apply", "SampleAnnotationFile")
+  S3method("fromPath", "SampleAnnotationFile")
+  S3method("getExtensionPattern", "SampleAnnotationFile")
+  S3method("getPatterns", "SampleAnnotationFile")
+  S3method("matchPatterns", "SampleAnnotationFile")
+  S3method("readData", "SampleAnnotationFile")
+  S3method("readDataFrame", "SampleAnnotationFile")
+
+  # SampleAnnotationSet
+  S3method("fromPath", "SampleAnnotationSet")
+  S3method("loadAll", "SampleAnnotationSet")
+
+  # SegmentationDataFile
+  S3method("extractCopyNumberRegions", "SegmentationDataFile")
+  S3method("getChromosome", "SegmentationDataFile")
+  S3method("getReferenceName", "SegmentationDataFile")
+  S3method("getSampleName", "SegmentationDataFile")
+  S3method("loadFit", "SegmentationDataFile")
+
+  # SegmentationDataSet
+  S3method("as.character", "SegmentationDataSet")
+  S3method("byPath", "SegmentationDataSet")
+  S3method("extractByReferenceName", "SegmentationDataSet")
+  S3method("extractBySampleName", "SegmentationDataSet")
+  S3method("extractCopyNumberRegions", "SegmentationDataSet")
+  S3method("getChipType", "SegmentationDataSet")
+  S3method("getChromosomes", "SegmentationDataSet")
+  S3method("getDefaultFullName", "SegmentationDataSet")
+  S3method("getReferenceNames", "SegmentationDataSet")
+  S3method("getSampleNames", "SegmentationDataSet")
+
+  # SegmentedGenomicSignalsInterface
+  S3method("as.data.frame", "SegmentedGenomicSignalsInterface")
+  S3method("binnedSmoothingByState", "SegmentedGenomicSignalsInterface")
+  S3method("extractSubsetByState", "SegmentedGenomicSignalsInterface")
+  S3method("getStateColorMap", "SegmentedGenomicSignalsInterface")
+  S3method("getStateColors", "SegmentedGenomicSignalsInterface")
+  S3method("getStates", "SegmentedGenomicSignalsInterface")
+  S3method("getUniqueStates", "SegmentedGenomicSignalsInterface")
+  S3method("getVirtualField", "SegmentedGenomicSignalsInterface")
+  S3method("getVirtualLocusFields", "SegmentedGenomicSignalsInterface")
+  S3method("kernelSmoothingByState", "SegmentedGenomicSignalsInterface")
+  S3method("plot", "SegmentedGenomicSignalsInterface")
+  S3method("points", "SegmentedGenomicSignalsInterface")
+  S3method("setStateColorMap", "SegmentedGenomicSignalsInterface")
+  S3method("setStates", "SegmentedGenomicSignalsInterface")
+
+  # TextUnitNamesFile
+  S3method("as.character", "TextUnitNamesFile")
+  S3method("findByChipType", "TextUnitNamesFile")
+  S3method("getChipType", "TextUnitNamesFile")
+  S3method("getExtensionPattern", "TextUnitNamesFile")
+  S3method("getFilenameExtension", "TextUnitNamesFile")
+  S3method("getPlatform", "TextUnitNamesFile")
+  S3method("getUnitNames", "TextUnitNamesFile")
+  S3method("nbrOfUnits", "TextUnitNamesFile")
+
+  # UnitAnnotationDataFile
+  S3method("byChipType", "UnitAnnotationDataFile")
+  S3method("getAromaUflFile", "UnitAnnotationDataFile")
+  S3method("getAromaUgpFile", "UnitAnnotationDataFile")
+  S3method("getChipType", "UnitAnnotationDataFile")
+  S3method("getDefaultExtension", "UnitAnnotationDataFile")
+  S3method("getPlatform", "UnitAnnotationDataFile")
+  S3method("nbrOfUnits", "UnitAnnotationDataFile")
+
+  # UnitNamesFile
+  S3method("getUnitNames", "UnitNamesFile")
+  S3method("indexOf", "UnitNamesFile")
+  S3method("nbrOfUnits", "UnitNamesFile")
+
+  # UnitTypesFile
+  S3method("getUnitTypes", "UnitTypesFile")
+  S3method("nbrOfUnits", "UnitTypesFile")
+} # if (getRversion() > "3.0.2")

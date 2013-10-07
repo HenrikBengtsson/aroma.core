@@ -7,7 +7,7 @@ setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...
     if (is.null(this$id)) {
       this$id <- rep(1L, times=nbrOfLoci(this));
     }
-  
+
     if (is.null(other$id)) {
       nextId <- max(this$id, na.rm=TRUE) + 1L;
       other$id <- rep(nextId, times=nbrOfLoci(other));
@@ -18,7 +18,7 @@ setMethodS3("append", "RawGenomicSignals", function(this, other, addId=TRUE, ...
   res <- rbind(this, other);
 
   res;
-}, createGeneric=FALSE)
+})
 
 ############################################################################
 # HISTORY:

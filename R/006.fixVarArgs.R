@@ -13,9 +13,6 @@ setMethodS3("colMeans", "default", function(...) {
   base::colMeans(...);
 })
 
-# Make sure to use the same generic function as in 'matrixStats'
-colMedians <- matrixStats::colMedians;
-
 #colnames <- function(...) UseMethod("colnames", ...);
 #colnames.default <- function(...) base::colnames(...);
 
@@ -31,6 +28,8 @@ setGenericS3("process", overwrite=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2013-10-07 [HB]
+# o CLEANUP: No longer copying matrixStats::colMedians() as a workaround.
 # 2013-08-03 [HB]
 # o Now aroma.core use the same type of generic colMedians() function
 #   as matrixStats.

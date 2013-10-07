@@ -1299,11 +1299,12 @@
 \alias{getParameterSets.ParametersInterface}
 \alias{getCacheKey}
 \alias{findFilesTodo}
-\alias{colMedians}
 \alias{getParameters}
 \alias{write}
 \alias{write.default}
 \alias{setChromosomes}
+\alias{getAlias}
+\alias{setAlias}
 
 \description{
   This page contains aliases for all "non-documented" objects that

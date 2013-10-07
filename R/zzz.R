@@ -1,7 +1,3 @@
-# WORKAROUND: In order for the package to work with the most recent
-append <- R.filesets::append;
-
-
 .onLoad <- function(libname, pkgname) {
   ns <- getNamespace(pkgname);
   pkg <- AromaCore(pkgname);

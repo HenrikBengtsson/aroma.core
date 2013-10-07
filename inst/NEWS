@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.10.6 [2013-10-07]
+o CLEANUP: Now explicitly importing only what is needed in NAMESPACE.
+o BACKWARD COMPATIBILITY: For R (< 3.0.2) only the maximum of 500 
+  S3 methods are declared in NAMESPACE.
+o Updated package dependencies.
+
+
 Version: 2.10.5 [2013-10-03]
 o Added argument 'chromosomes' to ChromosomalModel() and setChromosomes()
   for the same class.  If not specified, the default is as before to infer

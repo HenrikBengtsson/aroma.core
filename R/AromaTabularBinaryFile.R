@@ -80,7 +80,7 @@ setMethodS3("dimnames<-", "AromaTabularBinaryFile", function(x, value) {
   this <- x;
 
   throw("Dimension names of an ", class(this)[1], " are read only.");
-}, createGeneric=FALSE, appendVarArgs=FALSE, protected=TRUE)
+}, appendVarArgs=FALSE, protected=TRUE)
 
 
 setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ..., force=FALSE) {
