@@ -373,7 +373,7 @@
   points.SegmentedGenomicSignalsInterface pointsRawCNs
   pointsRawCNs.default pointsRawCNs.profileCGH pointsSequence
   pointsSequence.ProbePositionEffects predict.ProbePositionEffects
-  process readColumns.AromaTabularBinaryFile readData
+  readColumns.AromaTabularBinaryFile readData
   readData.SampleAnnotationFile readDataFrame.AromaTabularBinaryFile
   readDataFrame.AromaUflFile
   readDataFrame.AromaUnitChromosomeTabularBinaryFile
@@ -664,3 +664,4 @@ getParameters
 write write.default
 setChromosomes
 getAlias setAlias
+process

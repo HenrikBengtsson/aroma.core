@@ -739,7 +739,6 @@
 \alias{pointsSequence}
 \alias{pointsSequence.ProbePositionEffects}
 \alias{predict.ProbePositionEffects}
-\alias{process}
 \alias{readColumns.AromaTabularBinaryFile}
 \alias{readData}
 \alias{readData.SampleAnnotationFile}
@@ -1305,6 +1304,7 @@
 \alias{setChromosomes}
 \alias{getAlias}
 \alias{setAlias}
+\alias{process}
 
 \description{
   This page contains aliases for all "non-documented" objects that
