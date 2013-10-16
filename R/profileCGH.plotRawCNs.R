@@ -98,7 +98,7 @@ setMethodS3("pointsRawCNs", "profileCGH", function(fit, variable="LogRatio", chr
 # Patch for plotProfile() of class profileCGH so that 'ylim' argument works.
 # Added also par(cex=0.8) - see code.
 setMethodS3("plotRawCNs", "profileCGH", function(fit, chromosome=NULL, unit=0, xlim=NULL, ylim=c(-1,1)*2.5, xlab="Physical position", ylab="Relative copy-number", flavor=c("glad", "ce", "minimal"), xmargin=c(50,50), resScale=1, ..., add=FALSE) {
-  requireWithMemory("GLAD") || stop("Package not loaded: GLAD"); # data("cytoband")
+  requireWithMemory("GLAD") || throw("Package not loaded: GLAD"); # data("cytoband")
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments

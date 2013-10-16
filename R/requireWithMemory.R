@@ -13,7 +13,7 @@
 ############################################################################
 setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=24*3600, force=FALSE) {
   pkg <- "R.utils";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # If package is already loaded, do nothing
   if (isPackageLoaded(package)) {

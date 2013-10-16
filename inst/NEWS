@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.11.0 [2013-10-16]
+o CLEANUP: Minor adjustments of NAMESPACE imports.
+o Updated package dependencies.
+o Now package requires R (>= 2.15.0) [and Bioc (>= 2.10.0)].
+
+
 Version: 2.10.6 [2013-10-07]
 o CLEANUP: Now explicitly importing only what is needed in NAMESPACE.
 o BACKWARD COMPATIBILITY: For R (< 3.0.2) only the maximum of 500 

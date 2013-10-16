@@ -7,9 +7,6 @@
 
 .onAttach <- function(libname, pkgname) {
   pkg <- get(pkgname, envir=getNamespace(pkgname));
-
-  # Setup package
   .setupAromaCore(pkg);
-
   startupMessage(pkg);
 }

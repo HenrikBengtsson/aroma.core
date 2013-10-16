@@ -56,17 +56,17 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
     }
   } else if (is.matrix(x)) {
     if (any(dim(x) != dim)) {
-      stop("Argument 'x' has a different dimension that 'z': ",
+      throw("Argument 'x' has a different dimension that 'z': ",
         paste(dim(x), collapse="x"), " != ", paste(dim, collapse="x"));
     }
     x <- array(x, dim=c(dim, 1));
   } else if (is.array(x)) {
     if (any(dim(x)[1:2] != dim)) {
-      stop("The dimension of argument 'x' is incompatible with 'z': ",
+      throw("The dimension of argument 'x' is incompatible with 'z': ",
         paste(dim(x), collapse="x"), " != ", paste(dim, collapse="x"));
     }
   } else {
-    stop("Argument 'x' must be a matrix, array, or NULL: ", class(x)[1]);
+    throw("Argument 'x' must be a matrix, array, or NULL: ", class(x)[1]);
   }
 
   # Argument 'blockSizes':

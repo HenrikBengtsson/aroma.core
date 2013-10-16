@@ -74,7 +74,7 @@ setMethodS3("drawCnRegions", "profileCGH", function(this, ...) {
 # Patch for plotProfile() of class profileCGH so that 'ylim' argument works.
 # Added also par(cex=0.8) - see code.
 setMethodS3("drawCytoband", "profileCGH", function(fit, chromosome=NULL, cytobandLabels=TRUE, colCytoBand=c("white", "darkblue"), colCentro="red", unit=6, ...) {
-  requireWithMemory("GLAD") || stop("Package not loaded: GLAD");  # data("cytoband")
+  requireWithMemory("GLAD") || throw("Package not loaded: GLAD");  # data("cytoband")
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments

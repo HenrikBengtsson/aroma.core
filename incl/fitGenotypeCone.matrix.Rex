@@ -5,6 +5,7 @@ flavors <- c("sfit", "expectile")
 keep <- sapply(flavors, FUN=require, character.only=TRUE)
 flavors <- flavors[keep]
 cat("Available fitting flavors:", paste(flavors, collapse=", "), "\n")
+hasSfit <- is.element("sfit", flavors);
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,9 +52,11 @@ legend("topright", sprintf("%.3f", alphas), col=cols, lwd=4, title="Alphas")
 for (kk in seq(along=alphas)) {
   for (flavor in flavors) {
     fit <- fitGenotypeCone(Y, alpha=alphas[kk], flavor=flavor)
-    radials(fit$M, lwd=3, col=cols[kk], lty=ifelse(flavor == "sfit", 1,2))
-    drawApex(fit$M, col=cols[kk], pch=19, cex=2)
     YN <- backtransformGenotypeCone(Y, fit=fit)
+    if (hasSfit) {
+      radials(fit$M, lwd=3, col=cols[kk], lty=ifelse(flavor == "sfit", 1,2))
+      drawApex(fit$M, col=cols[kk], pch=19, cex=2)
+    }
     points(YN, col=cols[kk])
   }
 }

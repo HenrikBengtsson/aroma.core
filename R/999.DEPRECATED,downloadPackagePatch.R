@@ -38,13 +38,13 @@
 setMethodS3("downloadPackagePatch", "default", function(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE) {
   .Deprecated(msg="downloadPackagePatch() is deprecated without alternatives.");
   pkg <- "R.utils";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'pkgName':
-  require(pkgName, character.only=TRUE) || stop("Package not loaded: ", pkgName);
+  require(pkgName, character.only=TRUE) || throw("Package not loaded: ", pkgName);
 
   # Argument 'rootPath':
   rootPath <- Arguments$getWritablePath(rootPath);
@@ -89,7 +89,7 @@ setMethodS3("downloadPackagePatch", "default", function(pkgName, version=NULL, u
     source(url, local=TRUE);
   }, error = function(ex) {
     cat("Failed to source: ", url, "\n", sep="");
-    stop(ex$message);
+    throw(ex$message);
   })
 
   if (is.null(files)) {

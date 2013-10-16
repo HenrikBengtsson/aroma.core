@@ -1,5 +1,6 @@
 setMethodS3("plot", "profileCGH", function(x, ylim=c(-1,1)*3, units="Mb", Bkp=FALSE, Smoothing="Smoothing", cnLevels=c(1/2,1,3/2), colDAGLAD=NULL, ticksBy=1, ...) {
-stop("OBSOLETE");
+  .Defunct(msg="plot() for profileCGH in aroma.core is defunct.");
+
   # To please R CMD check.
   this <- x;
 
@@ -7,7 +8,7 @@ stop("OBSOLETE");
   units <- match.arg(units);
 
   # Argument 'colDAGLAD':
-  if (is.null(colDAGLAD)) { 
+  if (is.null(colDAGLAD)) {
     colDAGLAD <- RColorBrewer::brewer.pal(5, "Dark2");
   }
 
@@ -26,16 +27,16 @@ stop("OBSOLETE");
 #    this[[ff]]$PosBase <- this[[ff]]$PosBase / scale;
 #  }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot GLAD fit
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   plotProfile2(this, unit=unit, Bkp=Bkp, Smoothing=Smoothing,
                     colDAGLAD=colDAGLAD, ylim=ylim, ...);
   xlim <- par("usr");
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Add ruler
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   for (kk in 1:3) {
     at <- seq(from=0, to=lastPos, by=ticksBy*c(1,5,10)[kk]);
     keep <- (at >= xlim[1] & at <= xlim[2]);
@@ -46,46 +47,48 @@ stop("OBSOLETE");
       axis(side=ss, at=at, tcl=tcl, lwd=lwd, labels=FALSE);
   }
   cxy <- par("cxy");
-  text(x=at, y=par("usr")[3]-0.5*cxy[2], labels=at, srt=90, 
+  text(x=at, y=par("usr")[3]-0.5*cxy[2], labels=at, srt=90,
                                        adj=1, cex=1, xpd=TRUE);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Add horizontal rulers
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   for (level in cnLevels) {
     abline(h=log2(level), col="blue", lty=2);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Add number of data points
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   n <- nrow(this$profileValues);
   stext(text=sprintf("n=%d", n), side=4, pos=0, line=0, cex=0.8);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Add std dev estimates
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   sdEst <- this$SigmaC$Value;
   text <- substitute(hat(sigma)==x, list(x=sprintf("%.3g", sdEst)));
   stext(text=text, side=3, pos=0.5, line=-2);
-}, private=TRUE)
+}, private=TRUE, deprecated=TRUE)
 
 
 
 
 ############################################################################
 # HISTORY:
+# 2013-10-16
+# o Added a formal .Defunct() to plot() for profileCGH.
 # 2007-06-11
 # o Called substitute() with non-existing argument 'list'.
 # 2007-04-12
-# o Updated plot() of profileCGH class to write the text 'n=%d' in the 
+# o Updated plot() of profileCGH class to write the text 'n=%d' in the
 #   lower-right corner of the graph in black and not lightgray as before.
 # 2006-12-20
 # o Now it is possible to specify the 'xlim' as well as 'ylim' when plotting
 #   GLAD data.  This allows us to zoom in are certain data points for high
 #   density data.
 # o BUG FIX: The plotProfile() of GLAD does not position the cytobands
-#   correctly.  This is because not the same 'xlim' is used for the 
+#   correctly.  This is because not the same 'xlim' is used for the
 #   cytoband panel as the data panel.  Replaced with my own plotProfile2()
 #   for now.
 # 2006-11-29

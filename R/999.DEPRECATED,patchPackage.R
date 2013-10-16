@@ -33,7 +33,7 @@ setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/",
   .Deprecated(msg="patchPackage() is deprecated without alternatives.");
 
   pkg <- "R.utils";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions

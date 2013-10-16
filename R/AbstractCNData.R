@@ -135,7 +135,7 @@ setMethodS3("orderAlongGenome", "AbstractCNData", function(this, ...) {
 
 setMethodS3("findLargeGaps", "AbstractCNData", function(chromosome, ...) {
   pkg <- "PSCBS";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # To please R CMD check
   this <- chromosome;

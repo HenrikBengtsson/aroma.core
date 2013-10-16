@@ -358,7 +358,7 @@ setMethodS3("getTCNs", "PairedPSCNData", function(...) {
 
 setMethodS3("callSegmentationOutliers", "PairedPSCNData", function(y, ..., verbose=FALSE) {
   pkg <- "PSCBS";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # To please R CMD check
   this <- y;

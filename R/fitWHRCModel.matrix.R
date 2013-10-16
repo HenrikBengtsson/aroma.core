@@ -34,7 +34,7 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
     # Argument 'w':
     if (!is.null(w)) {
       if (!identical(dim(w), c(I,K)))
-        stop(sprintf("The dimension of argument 'w' does not match that of 'y': %dx%d != %dx%d", nrow(w), ncol(w), I, K));
+        throw(sprintf("The dimension of argument 'w' does not match that of 'y': %dx%d != %dx%d", nrow(w), ncol(w), I, K));
     }
   }
 

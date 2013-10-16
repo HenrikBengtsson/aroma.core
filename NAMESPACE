@@ -8,7 +8,7 @@ importFrom("R.oo", "setConstructorS3")
 importFrom("R.oo", "extend")
 importFrom("R.oo", "uses")
 
-## Importing Classes
+## Importing Class:es
 importFrom("R.oo", "BasicObject")
 importFrom("R.oo", "Interface")
 importFrom("R.oo", "Object")
@@ -93,7 +93,6 @@ importFrom("R.filesets", "getPathname")
 importFrom("R.filesets", "getPathnames")
 importFrom("R.filesets", "hasTag")
 importFrom("R.filesets", "indexOf.GenericDataFileSet")
-importFrom("R.filesets", "readLines") ## Multi-sources: R.filesets, base
 importFrom("R.filesets", "setAttribute") ## Multi-sources: R.filesets, R.rsp
 importFrom("R.oo", "attachLocally")
 importFrom("R.oo", "getDate")
@@ -106,9 +105,7 @@ importFrom("R.oo", "objectSize")
 importFrom("R.oo", "Package")
 importFrom("R.oo", "startupMessage")
 importFrom("R.oo", "trim")
-importFrom("R.rsp", "flush") ## Multi-sources: R.rsp, base
 importFrom("R.rsp", "rspToHtml")
-importFrom("R.rsp", "stop") ## Multi-sources: R.rsp, base
 importFrom("R.utils", "callHooks")
 importFrom("R.utils", "capitalize")
 importFrom("R.utils", "cat") ## Multi-sources: R.utils, base
@@ -127,7 +124,6 @@ importFrom("R.utils", "getOption") ## Multi-sources: R.utils, base
 importFrom("R.utils", "getParent")
 importFrom("R.utils", "gunzip") ## Multi-sources: R.utils, R.filesets
 importFrom("R.utils", "hpaste")
-importFrom("R.utils", "inherits") ## Multi-sources: R.utils, base
 importFrom("R.utils", "insert")
 importFrom("R.utils", "isDirectory")
 importFrom("R.utils", "isFile") ## Multi-sources: R.utils, R.filesets
@@ -138,7 +134,6 @@ importFrom("R.utils", "less")
 importFrom("R.utils", "loadObject")
 importFrom("R.utils", "mergeByCommonTails")
 importFrom("R.utils", "moveInSearchPath")
-importFrom("R.utils", "parse") ## Multi-sources: R.utils, R.rsp, base
 importFrom("R.utils", "patchCode")  # Used in deprecated code
 importFrom("R.utils", "popState")
 importFrom("R.utils", "popTemporaryFile")
@@ -165,9 +160,18 @@ importFrom("utils", "object.size")
 importFrom("utils", "packageDescription")
 importFrom("utils", "write.table")
 
+## Manually adjusted
+## Cannot import explicitly from 'base';
+## importFrom("base", "flush") ## Multi-sources: R.rsp, base
+## importFrom("base", "parse") ## Multi-sources: R.utils, R.rsp, base
+## importFrom("base", "readLines") ## Multi-sources: R.filesets, base
+
 ## Manual imports
 importFrom("R.utils", "Arguments")
-
+if (packageVersion("R.utils") < "1.27.5") {
+  importFrom("R.utils", "cat.default")
+  importFrom("R.utils", "getOption.default")
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # EXPORTS

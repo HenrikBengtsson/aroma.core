@@ -673,7 +673,7 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
 
 setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., verbose=FALSE) {
   pkg <- "R.rsp";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments

@@ -401,7 +401,7 @@ setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename="Chrom
 #*/###########################################################################
 setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ..., verbose=FALSE) {
   pkg <- "R.rsp";
-  require(pkg, character.only=TRUE) || stop("Package not loaded: ", pkg);
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments

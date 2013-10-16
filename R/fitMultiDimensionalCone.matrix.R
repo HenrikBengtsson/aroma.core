@@ -80,7 +80,7 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
   } else {
     fit <- fitCone(y, alpha=alpha, ...);
     print(fit);
-    stop("The rest is not implemented yet.");
+    throw("The rest is not implemented yet: ", flavor);
   }
 
   M <- fit$M;

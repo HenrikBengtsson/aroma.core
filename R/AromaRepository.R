@@ -150,7 +150,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
     return(NULL);
   }
 
-  # Parse the index fril
+  # Parse the index file
   bfr <- readLines(pathname);
 
   # Extract the filenames

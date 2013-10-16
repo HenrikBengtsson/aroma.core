@@ -788,7 +788,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
 str(ref);
 print(ref);
             ns <- getNumberOfFilesAveraged(ref, units=units0, verbose=verbose);
-stop("xxxxxxxxxxxxx");
+throw("xxxxxxxxxxxxx");
 
             # Sanity check
             stopifnot(length(ns) == length(units0));
