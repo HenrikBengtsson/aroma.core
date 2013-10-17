@@ -59,7 +59,6 @@ AromaTabularBinaryFile(...)
  \tab \code{[} \tab  -\cr
  \tab \code{[<-} \tab  -\cr
  \tab \code{colMeans} \tab  -\cr
- \tab \code{colMedians} \tab  -\cr
  \tab \code{colSums} \tab  -\cr
  \tab \code{getBytesPerColumn} \tab  -\cr
  \tab \code{getColClasses} \tab  -\cr

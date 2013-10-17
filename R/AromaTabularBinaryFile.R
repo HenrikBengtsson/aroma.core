@@ -1297,10 +1297,6 @@ setMethodS3("colMeans", "AromaTabularBinaryFile", function(x, ...) {
   colStats(x, FUN=mean, ...);
 })
 
-setMethodS3("colMedians", "AromaTabularBinaryFile", function(x, ...) {
-  colStats(x, FUN=median, ...);
-})
-
 setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...) {
   methodNames <- sprintf("importFrom%s", class(srcFile));
 

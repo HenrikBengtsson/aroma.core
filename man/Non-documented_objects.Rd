@@ -146,7 +146,6 @@
 \alias{colMeans}
 \alias{colMeans.AromaTabularBinaryFile}
 \alias{colMeans.default}
-\alias{colMedians.AromaTabularBinaryFile}
 \alias{colorize}
 \alias{colorize.Image}
 \alias{colStats}

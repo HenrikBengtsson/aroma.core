@@ -3,6 +3,8 @@ Package: aroma.core
 
 Version: 2.11.0 [2013-10-16]
 o CLEANUP: Minor adjustments of NAMESPACE imports.
+o CLEANUP: Dropped colMedians() for AromaTabularBinaryFile.
+  If needed, there is always colStats().
 o Updated package dependencies.
 o Now package requires R (>= 2.15.0) [and Bioc (>= 2.10.0)].
 

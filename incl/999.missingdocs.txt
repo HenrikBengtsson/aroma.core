@@ -71,7 +71,7 @@
   calculateRatios calculateRatios.CopyNumberChromosomalModel
   cnRange cnRange.RawCopyNumbers colGaussianSmoothing
   colGaussianSmoothing.matrix colMeans colMeans.AromaTabularBinaryFile
-  colMeans.default colMedians.AromaTabularBinaryFile colorize
+  colMeans.default  colorize
   colorize.Image colStats colStats.AromaTabularBinaryFile colSums
   colSums.AromaTabularBinaryFile colSums.default convertTable
   convertTable.default CopyNumberDataFile CopyNumberDataSet
