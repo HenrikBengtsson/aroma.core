@@ -46,8 +46,6 @@ setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {
   this <- x;
 
   s <- NextMethod("as.character");
-  class <- class(s);
-
   s <- c(s, sprintf("File format: v%d", readHeader(this)$fileVersion));
   s <- c(s, sprintf("Dimensions: %dx%d", nbrOfRows(this), nbrOfColumns(this)));
   s <- c(s, sprintf("Column classes: %s",
@@ -59,8 +57,6 @@ setMethodS3("as.character", "AromaTabularBinaryFile", function(x, ...) {
   footer <- gsub(">[\n\r ]*", ">", footer);
   footer <- gsub("^[ ]*", "", footer);
   s <- c(s, sprintf("Footer: %s", footer));
-
-  class(s) <- class;
   s;
 }, protected=TRUE)
 

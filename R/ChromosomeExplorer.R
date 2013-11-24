@@ -74,8 +74,7 @@ setMethodS3("as.character", "ChromosomeExplorer", function(x, ...) {
   s <- c(s, sprintf("Number of arrays: %d", nbrOfArrays(this)));
   s <- c(s, sprintf("Path: %s", getPath(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
-  class(s) <- "GenericSummary";
-  s;
+  GenericSummary(s);
 }, protected=TRUE)
 
 

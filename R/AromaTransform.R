@@ -138,8 +138,7 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
   s <- c(s, sprintf("Output path: %s", getPath(this)));
   s <- c(s, sprintf("Is done: %s", isDone(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
-  class(s) <- "GenericSummary";
-  s;
+  GenericSummary(s);
 }, protected=TRUE)
 
 
@@ -227,8 +226,8 @@ setMethodS3("setTags", "AromaTransform", function(this, tags="*", ...) {
   if (!is.null(tags)) {
     tags <- Arguments$getCharacters(tags, collapse=NULL);
   }
-
   this$.tags <- tags;
+  invisible(this);
 })
 
 
@@ -568,12 +567,20 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
 # @synopsis
 #
 # \arguments{
-#   \item{...}{Arguments passed to static method \code{byPath()} of
-#      the class of the input @see "AromaMicroarrayDataSet".}
-#   \item{incomplete}{If the output data set is incomplete, then @NULL is
-#      returned unless \code{incomplete} is @TRUE.}
-#   \item{force}{If @TRUE, any in-memory cached results are ignored.}
-#   \item{verbose}{See @see "R.utils::Verbose".}
+#  \item{...}{Arguments passed to static method \code{byPath()} of
+#   the class of the input @see "AromaMicroarrayDataSet".}
+#  \item{onMissing}{A @character string specifying how non-processed files
+#   should be returned.
+#   If \code{"drop"}, they are ignored and not part of the returned
+#   data set.
+#   If \code{"dropall"}, @NULL is returned unless all files are processed.
+#   If \code{"NA"}, they are represented as a "missing" file.
+#   If \code{"error"}, they are not accepted and an exception is thrown.
+#  }
+#  \item{incomplete}{[DEPRECATED] If the output data set is incomplete,
+#   then @NULL is returned unless \code{incomplete} is @TRUE.}
+#  \item{force}{If @TRUE, any in-memory cached results are ignored.}
+#  \item{verbose}{See @see "R.utils::Verbose".}
 # }
 #
 # \value{
@@ -586,10 +593,35 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE) {
+setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dropall", "drop", "NA", "error"), ..., incomplete=FALSE, className=NULL, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Backward compatibility /HB 2013-11-15
+  if (missing(onMissing)) {
+    incomplete <- Arguments$getLogical(incomplete);
+    if (incomplete) {
+      onMissing <- "drop";
+    } else {
+      onMissing <- "dropall";
+    }
+  } else if (missing(incomplete)) {
+    onMissing <- match.arg(onMissing);
+    incomplete <- (onMissing != "dropall");
+  }
+
+  # Argument 'onMissing':
+  onMissing <- match.arg(onMissing);
+
+  # Argument 'incomplete':
+  incomplete <- Arguments$getLogical(incomplete);
+
+  # Sanity check /HB 2013-11-15
+  if ((incomplete && onMissing == "dropall") || (!incomplete && onMissing != "dropall")) {
+    throw("INTERNAL ERROR: Detected incompatible arguments 'onMissing' and 'incomplete': ", dQuote(onMissing), " <-> ", incomplete);
+  }
+  incomplete <- NULL;  # Not needed anymore
+
   # Argument 'className':
   if (!is.null(className)) {
     className <- Arguments$getCharacter(className);
@@ -614,69 +646,64 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, ..., incomplete
 
   verbose && enter(verbose, "Retrieving expected set of output files");
   fullnames <- getExpectedOutputFullnames(this);
-  nbrOfFiles <- length(fullnames);
+  verbose && cat(verbose, "Expected fullnames:");
+  verbose && str(verbose, fullnames);
   verbose && exit(verbose);
 
-  if (nbrOfFiles == 0) {
+  nbrOfFiles <- length(fullnames);
+  if (nbrOfFiles == 0L) {
     verbose && cat(verbose, "No output files are expected: Input data set could be empty.");
     verbose && exit(verbose);
     return(NULL);
   }
 
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Identifying existing output files
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Retrieving all existing output files");
   dsOut <- getOutputDataSet0(this, ..., verbose=less(verbose, 10));
   verbose && print(verbose, dsOut);
-  verbose && exit(verbose);
-
-  verbose && enter(verbose, "Identifying matching input and output files");
-  verbose && cat(verbose, "Expected output fullnames:");
-  verbose && str(verbose, fullnames);
-  fullnamesOut <- getFullNames(dsOut);
-  verbose && cat(verbose, "Existing output fullnames:");
-  verbose && str(verbose, fullnamesOut);
-  idxs <- match(fullnames, fullnamesOut);
-  verbose && cat(verbose, "Indices of output files mapped to the expected ones:");
-  verbose && str(verbose, idxs);
-
-  if (anyMissing(idxs)) {
-    verbose && enter(verbose, "Missing output files");
-    isMissing <- is.na(idxs);
-    verbose && cat(verbose, "Number of output files missing: ", sum(isMissing));
-    idxs <- idxs[!isMissing];
-    verbose && cat(verbose, "Number of matching output files: ", length(idxs));
-    verbose && str(verbose, idxs);
-    verbose && exit(verbose);
-  }
-
-  # Extracting matching files (in same order as the expected ones)
-  dsOut <- extract(dsOut, idxs);
-
-  verbose && exit(verbose);
-
-
-  if (length(dsOut) == nbrOfFiles) {
-    verbose && cat(verbose, "Output data set is complete (matches the expected data set)");
-    # Sanity check
-    stopifnot(identical(getFullNames(dsOut), fullnames));
-    this$.outputDataSet <- dsOut;
-  } else if (length(dsOut) < nbrOfFiles) {
-    verbose && cat(verbose, "Too few output files: ",
-                                 length(dsOut), " < ", nbrOfFiles);
-    # Return incomplete data set?
-    if (!incomplete) {
-      verbose && cat(verbose, "Ignoring incomplete output data set.");
-      dsOut <- NULL;
+  # Sanity check
+  stopifnot(!is.null(dsOut))
+  # Special case
+  if (packageVersion("R.filesets") < "2.3.3") {
+    if (length(dsOut) == 0L) {
+      className <- getFileClass(dsOut);
+      clazz <- Class$forName(className);
+      dfOut <- newInstance(clazz, NA_character_, mustExist=FALSE);
+      dsOut <- newInstance(dsOut, list(dfOut));
     }
-  } else if (length(dsOut) > nbrOfFiles) {
-    throw("Too many output files identified: ",
-                                 length(dsOut), " > ", nbrOfFiles);
   }
+  verbose && exit(verbose);
+
+  verbose && enter(verbose, "Map output data set to input data set by fullnames");
+  ## Order according to expected fullnames
+  verbose && cat(verbose, "Expected fullnames:");
+  verbose && str(verbose, fullnames);
+
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Handle missing output files
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  dsOut <- extract(dsOut, fullnames, onMissing=onMissing);
+
+  # Special backward compatible case. /HB 2013-11-15
+  if (onMissing == "dropall" && length(dsOut) == 0L) {
+    dsOut <- NULL;
+  }
+
+  # Sanity check
+  stopifnot(length(dsOut) <= nbrOfFiles);
+
+  verbose && print(verbose, dsOut);
 
   verbose && exit(verbose);
 
   dsOut;
-})
+}) # getOutputDataSet() for AromaTransform
 
 
 
@@ -716,6 +743,11 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2013-11-16
+# o Now setTags() for AromaTransform returns the object itself.
+# 2013-11-15
+# o Added argument 'onMissing' to getOutputDataSet() for AromaTransform.
+#   This will eventually replace argument 'incomplete'.
 # 2013-06-01
 # o Added findFilesTodo() for AromaTransform.
 # 2012-11-21

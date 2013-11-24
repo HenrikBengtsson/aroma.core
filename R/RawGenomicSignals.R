@@ -105,8 +105,6 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
   this <- x;
 
   s <- getGenericSummary(this);
-  class <- class(s);
-
   chrs <- getChromosomes(this);
   nbrOfChrs <- length(chrs);
   s <- c(s, sprintf("Chromosomes: %s [%d]", seqToHumanReadable(chrs), nbrOfChrs));
@@ -118,8 +116,6 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
     dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA);
     s <- c(s, sprintf("Mean distance between loci: %g", dAvg));
   }
-
-  class(s) <- class;
 
   s;
 }, protected=TRUE)

@@ -76,8 +76,7 @@ setMethodS3("as.character", "Explorer", function(x, ...) {
   s <- c(s, sprintf("Tags: %s", getTags(this, collapse=",")));
   s <- c(s, sprintf("Main path: %s", getMainPath(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
-  class(s) <- "GenericSummary";
-  s;
+  GenericSummary(s);
 }, protected=TRUE)
 
 

@@ -42,8 +42,7 @@ setMethodS3("as.character", "CopyNumberRegions", function(x, ...) {
   s <- sprintf("%s:", class(this)[1]);
   s <- c(s, sprintf("Number of regions: %d", nbrOfRegions(this)));
   s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
-  class(s) <- "GenericSummary";
-  s;
+  GenericSummary(s);
 }, protected=TRUE)
 
 

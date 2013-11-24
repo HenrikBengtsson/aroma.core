@@ -41,12 +41,8 @@ setMethodS3("as.character", "AromaUnitSignalBinaryFile", function(x, ...) {
   this <- x;
 
   s <- NextMethod("as.character");
-  class <- class(s);
-
   s <- c(s, sprintf("Platform: %s", getPlatform(this)));
   s <- c(s, sprintf("Chip type: %s", getChipType(this)));
-
-  class(s) <- class;
   s;
 }, protected=TRUE)
 

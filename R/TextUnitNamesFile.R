@@ -4,7 +4,7 @@ setConstructorS3("TextUnitNamesFile", function(..., platform=NULL) {
     platform <- Arguments$getCharacter(platform, length=c(1,1));
   }
 
-  extend(TabularTextFile(...), c("TextUnitNamesFile", 
+  extend(TabularTextFile(...), c("TextUnitNamesFile",
     uses("UnitNamesFile"), uses("FileCacheKeyInterface")),
     .platform = platform,
     "cached:.unitNames" = NULL
@@ -17,10 +17,7 @@ setMethodS3("as.character", "TextUnitNamesFile", function(x, ...) {
   this <- x;
 
   s <- NextMethod("as.character");
-  class <- class(s);
   s <- c(s, sprintf("Number units: %d", nbrOfUnits(this, fast=TRUE)));
-
-  class(s) <- class;
   s;
 }, protected=TRUE)
 
@@ -133,7 +130,7 @@ setMethodS3("findByChipType", "TextUnitNamesFile", function(static, chipType, ta
 #   list of length one, instead of an single character string.
 # o Added getHeaderParameters().
 # 2009-04-06
-# o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would 
+# o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would
 #   make the object believe there are zero units in the file.
 # 2009-03-23
 # o Created.

@@ -9,7 +9,7 @@
 #  An AromaMicroarrayTabularBinaryFile is an abstract
 #  @see "AromaTabularBinaryFile".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -19,13 +19,13 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
 #
 # \seealso{
 #   @see "AromaTabularBinaryFile".
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("AromaMicroarrayTabularBinaryFile", function(...) {
   extend(AromaTabularBinaryFile(...), c("AromaMicroarrayTabularBinaryFile",
                                               uses("AromaPlatformInterface"))
@@ -39,14 +39,10 @@ setMethodS3("as.character", "AromaMicroarrayTabularBinaryFile", function(x, ...)
   this <- x;
 
   s <- NextMethod("as.character");
-  class <- class(s);
-
   s <- c(s, sprintf("Platform: %s", getPlatform(this)));
   s <- c(s, sprintf("Chip type: %s", getChipType(this)));
   n <- length(s);
   s <- s[c(1:(n-2), n, n-1)];
-
-  class(s) <- class;
   s;
 }, protected=TRUE)
 
@@ -60,8 +56,8 @@ setMethodS3("getPlatform", "AromaMicroarrayTabularBinaryFile", function(this, ..
 
   if (is.null(platform)) {
     # AD HOC: If there is no platform information in the file, then assume
-    # it is an Affymetrix platform.  Newer files are allocated with 
-    # platform information.  Older files have only be created for the 
+    # it is an Affymetrix platform.  Newer files are allocated with
+    # platform information.  Older files have only be created for the
     # Affymetrix platform. /HB 2008-05-18.
     platform <- "Affymetrix";
     warning(sprintf("%s does not have a 'platform' footer attribute. Assuming platform 'Affymetrix': %s", class(this)[1], getPathname(this)));
@@ -132,12 +128,12 @@ setMethodS3("byChipType", "AromaMicroarrayTabularBinaryFile", function(static, c
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   verbose && enter(verbose, "Locating ", class(static)[1]);
 
-  pathname <- findByChipType(static, chipType=chipType, tags=tags, 
+  pathname <- findByChipType(static, chipType=chipType, tags=tags,
                                                      firstOnly=TRUE, ...);
   if (is.null(pathname)) {
     ext <- getDefaultExtension(static);

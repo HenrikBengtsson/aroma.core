@@ -22,8 +22,6 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
   this <- x;
 
   s <- NextMethod("as.character");
-  class <- class(s);
-
   s <- c(s, sprintf("Chip type(s): %s", getChipType(this)));
 
   nf <- length(this);
@@ -42,8 +40,6 @@ setMethodS3("as.character", "SegmentationDataSet", function(x, ...) {
   rnames <- getReferenceNames(this);
   nr <- length(rnames);
   s <- c(s, sprintf("Reference names: %s [%d]", hpaste(rnames), nr));
-
-  class(s) <- class;
   s;
 }, protected=TRUE)
 
@@ -140,7 +136,7 @@ setMethodS3("extractCopyNumberRegions", "SegmentationDataSet", function(this, ..
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   verbose && enter(verbose, "Extracting segmentations");

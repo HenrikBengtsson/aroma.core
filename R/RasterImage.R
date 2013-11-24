@@ -25,8 +25,7 @@ setMethodS3("as.character", "RasterImage", function(x, ...) {
   s <- c(s, sprintf("Dimensions: %s", paste(dim(this), collapse="x")));
   r <- range(this, na.rm=TRUE);
   s <- c(s, sprintf("Pixel intensity range: [%g,%g]", r[1], r[2]));
-  class(s) <- c("GenericSummary", class(s));
-  s;
+  GenericSummary(s)
 }, protected=TRUE)
 
 
