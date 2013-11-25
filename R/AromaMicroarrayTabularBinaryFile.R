@@ -42,7 +42,8 @@ setMethodS3("as.character", "AromaMicroarrayTabularBinaryFile", function(x, ...)
   s <- c(s, sprintf("Platform: %s", getPlatform(this)));
   s <- c(s, sprintf("Chip type: %s", getChipType(this)));
   n <- length(s);
-  s <- s[c(1:(n-2), n, n-1)];
+  s <- s[c(1:(n-2), n, n-1)];  # TODO: '[' drops the class.
+  s <- GenericSummary(s);
   s;
 }, protected=TRUE)
 
