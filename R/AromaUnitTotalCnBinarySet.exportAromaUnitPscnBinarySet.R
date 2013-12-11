@@ -9,10 +9,13 @@
 #  @get "title", where each sample is stored in one data file (contrary to the input data sets where each sample is stored in two separated files).
 # }
 #
-# @synopsis
+# \usage{
+#  @usage exportAromaUnitPscnBinarySet,AromaUnitTotalCnBinarySet
+#  @usage exportAromaUnitPscnBinarySet,list
+# }
 #
 # \arguments{
-#   \item{dsT, dsB}{An @see AromaUnitTotalCnBinarySet and an @see AromaUnitFracBCnBinarySet with the coupled sets of samples that match up by name.  If they don't match up, an exception is thrown.  The allele B fraction (BAF) data set \code{dsB} is by default inferred from the total CN data set \code{dsT}.}
+#   \item{dsT, dsB}{An @see AromaUnitTotalCnBinarySet and an @see AromaUnitFracBCnBinarySet with coupled sets of samples that match up by name.  If they don't match up, an exception is thrown.  The allele B fraction (BAF) data set \code{dsB} is by default inferred from the total CN data set \code{dsT}.}
 #   \item{dataSet, tags}{The name and tags of the output data set.
 #     The default is to infer those from the input \code{dsT} data set.}
 #   \item{...}{Not used.}

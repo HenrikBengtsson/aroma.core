@@ -19,11 +19,13 @@
 }
 
 \usage{
-exportAromaUnitPscnBinarySet(...)
+ \method{exportAromaUnitPscnBinarySet}{AromaUnitTotalCnBinarySet}(dsT, dsB="*", dataSet="*", tags="*", ...,
+  rootPath="totalAndFracBData/", overwrite=!skip, skip=TRUE, verbose=FALSE)
+ \method{exportAromaUnitPscnBinarySet}{list}(dsList, ...)
 }
 
 \arguments{
-  \item{dsT, dsB}{An \code{\link{AromaUnitTotalCnBinarySet}} and an \code{\link{AromaUnitFracBCnBinarySet}} with the coupled sets of samples that match up by name.  If they don't match up, an exception is thrown.  The allele B fraction (BAF) data set \code{dsB} is by default inferred from the total CN data set \code{dsT}.}
+  \item{dsT, dsB}{An \code{\link{AromaUnitTotalCnBinarySet}} and an \code{\link{AromaUnitFracBCnBinarySet}} with coupled sets of samples that match up by name.  If they don't match up, an exception is thrown.  The allele B fraction (BAF) data set \code{dsB} is by default inferred from the total CN data set \code{dsT}.}
   \item{dataSet, tags}{The name and tags of the output data set.
     The default is to infer those from the input \code{dsT} data set.}
   \item{...}{Not used.}
