@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.11.2 [2013-12-11]
+o DOCUMENTATION: Added documentation for exportAromaUnitPscnBinarySet().
+
+
 Version: 2.11.1 [2013-11-15]
 o Added argument 'onMissing' to getOutputDataSet() for AromaTransform.
   This replaces argument 'incomplete', which will be dropped in a
