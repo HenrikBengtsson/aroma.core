@@ -1301,6 +1301,8 @@
 \alias{getAlias}
 \alias{setAlias}
 \alias{process}
+\alias{findChangePointsByState}
+\alias{findChangePointsByState.SegmentedGenomicSignalsInterface}
 
 \description{
   This page contains aliases for all "non-documented" objects that

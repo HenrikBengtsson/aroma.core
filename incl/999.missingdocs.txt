@@ -662,3 +662,5 @@ write write.default
 setChromosomes
 getAlias setAlias
 process
+findChangePointsByState
+findChangePointsByState.SegmentedGenomicSignalsInterface

@@ -44,6 +44,7 @@ SegmentedGenomicSignalsInterface(...)
  \tab \code{as.data.frame} \tab  -\cr
  \tab \code{binnedSmoothingByState} \tab  -\cr
  \tab \code{extractSubsetByState} \tab  -\cr
+ \tab \code{findChangePointsByState} \tab  -\cr
  \tab \code{getStateColorMap} \tab  -\cr
  \tab \code{getStateColors} \tab  -\cr
  \tab \code{getStates} \tab  -\cr

@@ -88,12 +88,34 @@ setMethodS3("getStates", "SegmentedGenomicSignalsInterface", function(this, x=NU
 })
 
 
-setMethodS3("getUniqueStates", "SegmentedGenomicSignalsInterface", function(this, ...) {
+setMethodS3("getUniqueStates", "SegmentedGenomicSignalsInterface", function(this, na.rm=FALSE, ...) {
   states <- getStates(this, ...);
   states <- unique(states);
-  states <- sort(states, na.last=TRUE);
+  na.last <- if (na.rm) NA else TRUE;
+  states <- sort(states, na.last=na.last);
   states;
 })
+
+
+setMethodS3("findChangePointsByState", "SegmentedGenomicSignalsInterface", function(this, na.rm=FALSE, ends=FALSE, ...) {
+  x <- this$x;
+  s <- getStates(this, x=x);
+  nas <- is.na(s);
+  if (na.rm) {
+    keep <- which(!nas);
+    s <- s[keep];
+    x <- x[keep];
+  } else {
+    s[nas] <- +Inf;
+  }
+  ds <- diff(s);
+  idxs <- which(ds != 0);
+  xCP <- (x[idxs] + x[idxs+1L]) / 2;
+  if (ends) {
+    xCP <- c(min(x, na.rm=TRUE), xCP, max(x, na.rm=TRUE));
+  }
+  xCP;
+}) # findChangePointsByState()
 
 
 setMethodS3("as.data.frame", "SegmentedGenomicSignalsInterface", function(x, ..., virtual=TRUE) {
@@ -512,6 +534,10 @@ setMethodS3("points", "SegmentedGenomicSignalsInterface", function(x, ..., col=g
 
 ############################################################################
 # HISTORY:
+# 2013-12-12
+# o Added argument 'na.rm' to getUniqueStates().
+# 2013-12-11
+# o Added findChangePointsByState() for SegmentedGenomicSignalsInterface.
 # 2012-03-01
 # o Now binnedSmoothingByState() works also when RawGenomicSignals
 #   extends data.frame.

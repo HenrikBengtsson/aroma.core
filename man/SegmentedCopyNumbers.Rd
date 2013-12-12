@@ -54,7 +54,7 @@ SegmentedCopyNumbers(..., states=NULL)
 
 
  \bold{Methods inherited from SegmentedGenomicSignalsInterface}:\cr
-as.data.frame, binnedSmoothingByState, extractSubsetByState, getStateColorMap, getStateColors, getStates, getUniqueStates, getVirtualField, getVirtualLocusFields, kernelSmoothingByState, plot, points, setStateColorMap, setStates
+as.data.frame, binnedSmoothingByState, extractSubsetByState, findChangePointsByState, getStateColorMap, getStateColors, getStates, getUniqueStates, getVirtualField, getVirtualLocusFields, kernelSmoothingByState, plot, points, setStateColorMap, setStates
 
  \bold{Methods inherited from RawCopyNumbers}:\cr
 cnRange, extractRawCopyNumbers, getCNs, getCn, getSignals, plot

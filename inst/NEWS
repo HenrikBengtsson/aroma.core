@@ -2,6 +2,7 @@ Package: aroma.core
 ===================
 
 Version: 2.11.2 [2013-12-11]
+o Added findChangePointsByState() for SegmentedGenomicSignalsInterface.
 o DOCUMENTATION: Added documentation for exportAromaUnitPscnBinarySet().
 
 
