@@ -11,27 +11,25 @@ setMethodS3("getGenericSummary", "RichDataFrame", function(x, ...) {
   # To please R CMD check
   this <- x;
 
-  s <- sprintf("%s:", class(this)[1]);
+  s <- sprintf("%s:", class(this)[1L]);
   name <- getName(this);
   if (is.null(name)) name <- "<none>";
   s <- c(s, sprintf("Name: %s", as.character(name)));
   s <- c(s, sprintf("Number of rows: %d", nrow(this)));
 
-  data <- this[1,,drop=FALSE];
+  data <- this[integer(0L),,drop=FALSE];
   data <- as.data.frame(data);
   names <- getColumnNames(this);
   vNames <- getVirtualColumnNames(this);
   names <- sapply(names, FUN=function(field) {
     values <- data[[field]];
-    # Sanity check
-    stopifnot(length(values) == 1);
     mode <- mode(values);
     if (is.element(field, vNames)) {
       field <- sprintf("%s*", field);
     }
     sprintf("%s [%s]", field, mode);
   });
-  if (length(names) == 0) names <- "<none>";
+  if (length(names) == 0L) names <- "<none>";
 
   s <- c(s, sprintf("Number of columns: %d", length(names)));
   names <- paste(names, collapse=", ");
@@ -708,6 +706,9 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
 
 ############################################################################
 # HISTORY:
+# 2014-01-16
+# o BUG FIX: getGenericSummary() for RichDataFrame would throw "Error in
+#   data[i, , drop = FALSE] : subscript out of bounds" if it had zero rows.
 # 2012-03-23
 # o Now argument '.virtuals' of RichDataFrame defaults to list().
 # o BUG FIX: "["() for RichDataFrame would loose the class attribute,

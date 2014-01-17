@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.11.3 [2014-01-16]
+o BUG FIX: getGenericSummary() for RichDataFrame would throw "Error in
+  data[i, , drop = FALSE] : subscript out of bounds" if it had zero rows.
+
+
 Version: 2.11.2 [2013-12-11]
 o Added findChangePointsByState() for SegmentedGenomicSignalsInterface.
 o DOCUMENTATION: Added documentation for exportAromaUnitPscnBinarySet().
@@ -131,7 +136,6 @@ o Added the sqrtsign() transform.  This makes it possible to plot
   log2 PLM residuals (in aroma.affymetrix) on a blue-to-red scale using
   setColorMaps(.., "log2,sqrtsigned,bluewhitered") where
   bluewhitered <- colorRampPalette(c("blue", "white", "red")).
-o Bumped the package dependencies.
 
 
 Version: 2.8.3 [2013-03-23]
