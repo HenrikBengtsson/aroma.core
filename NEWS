@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.11.4 [2014-01-17]
+o CLEANUP: Now all Explorer classes utilize R.rsp::rfile() for compiling
+  RSP files instead of the to-be-deprecated rspToHtml().
+
+
 Version: 2.11.3 [2014-01-16]
 o BUG FIX: getGenericSummary() for RichDataFrame would throw "Error in
   data[i, , drop = FALSE] : subscript out of bounds" if it had zero rows.

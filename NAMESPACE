@@ -105,7 +105,7 @@ importFrom("R.oo", "objectSize")
 importFrom("R.oo", "Package")
 importFrom("R.oo", "startupMessage")
 importFrom("R.oo", "trim")
-importFrom("R.rsp", "rspToHtml")
+importFrom("R.rsp", "rfile")
 importFrom("R.utils", "callHooks")
 importFrom("R.utils", "capitalize")
 importFrom("R.utils", "cat") ## Multi-sources: R.utils, base

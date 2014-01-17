@@ -692,6 +692,7 @@ setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., ver
 
   verbose && enter(verbose, "Updating ", outFile);
 
+  # Get RSP-embedded source file
   mainPath <- getMainPath(this);
   setTuple <- getSetTuple(this);
   filename <- sprintf("%s.rsp", outFile);
@@ -699,22 +700,22 @@ setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., ver
   pathname <- filePath(srcPath, "rsp", class(this)[1], filename);
   verbose && cat(verbose, "Source: ", pathname);
 
+  # Output destination
   outPath <- mainPath;
   verbose && cat(verbose, "Output path: ", outPath);
   outPath <- Arguments$getWritablePath(outPath);
 
+  # Input data
   verbose && cat(verbose, "Input data:");
   verbose && str(verbose, as.list(data));
 
   verbose && enter(verbose, "Compiling RSP");
-  pathname <- rspToHtml(pathname, path=NULL,
-                        outFile=outFile, outPath=outPath,
-                        overwrite=TRUE, envir=data);
+  js <- rfile(pathname, workdir=outPath, envir=data, postprocess=FALSE);
   verbose && exit(verbose);
 
   verbose && exit(verbose);
 
-  invisible(pathname);
+  invisible(js);
 }, protected=TRUE) # updateSetupExplorerFile()
 
 
@@ -837,6 +838,9 @@ setMethodS3("getArrays", "Explorer", function(this, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2014-01-17
+# o CLEANUP: Now the Explorer class utilizes R.rsp::rfile() for compiling
+#   RSP files instead of the to-be-deprecated rspToHtml().
 # 2012-02-06
 # o Added implementation of setup() to Explorer.
 # o Added updateSetupExplorerFile() to Explorer.
