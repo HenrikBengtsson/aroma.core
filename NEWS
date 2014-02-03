@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.11.5 [2014-02-03]
+o BUG FIX: readDataFrame() for AromaGenomeTextFile and AromaUcscGenomeTextFile
+  explicitly passed arguments '...' to NextMethod(), which would cause them
+  to be duplicated in certain cases.
+
+
 Version: 2.11.4 [2014-01-17]
 o CLEANUP: Now all Explorer classes utilize R.rsp::rfile() for compiling
   RSP files instead of the to-be-deprecated rspToHtml().

@@ -7,10 +7,10 @@
 #  @classhierarchy
 #
 #  An AromaGenomeTextFile represents a annotation tabular text file that
-#  specifies the number of bases (nucleotides) per chromosome for a 
+#  specifies the number of bases (nucleotides) per chromosome for a
 #  particular genome/organism.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -20,7 +20,7 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # \details{
 #   An AromaGenomeTextFile is a tab-delimited text file with a header
 #   containing (at least) column names 'chromosome' and 'nbrOfBases'.
@@ -39,13 +39,13 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaGenomeTextFile", function(...) {
-  extend(TabularTextFile(...), c("AromaGenomeTextFile", 
+  extend(TabularTextFile(...), c("AromaGenomeTextFile",
                                               uses("FileCacheKeyInterface")));
 })
 
 
 setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClasses=c("*"="NULL", chromosome="character", nbrOfBases="integer", nbrOfGenes="integer")) {
-  NextMethod("readDataFrame", colClasses=colClasses, ...);
+  NextMethod("readDataFrame", colClasses=colClasses);
 })
 
 
@@ -60,12 +60,12 @@ setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClass
 ##     pushState(verbose);
 ##     on.exit(popState(verbose));
 ##   }
-## 
-## 
+##
+##
 ##   verbose && enter(verbose, "Reading genome chromosome annotation file");
-## 
+##
 ##   data <- readDataFrame(this, ..., verbose=less(verbose, 10));
-## 
+##
 ##   verbose && enter(verbose, "Translating chromosome names");
 ##   chromosomes <- row.names(data);
 ##   map <- c("X"=23, "Y"=24, "Z"=25);  # AD HOC; only for the human genome
@@ -74,9 +74,9 @@ setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClass
 ##   }
 ##   row.names(data) <- chromosomes;
 ##   verbose && exit(verbose);
-## 
+##
 ##   verbose && exit(verbose);
-## 
+##
 ##   data;
 ## })
 
@@ -118,8 +118,8 @@ setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags
   verbose && cat(verbose, "Paths:");
   verbose && print(verbose, paths);
 
-  pathname <- findAnnotationData(name=fullname, set="genomes", 
-                                 pattern=patternT, paths=paths, ..., 
+  pathname <- findAnnotationData(name=fullname, set="genomes",
+                                 pattern=patternT, paths=paths, ...,
                                       verbose=less(verbose, 10));
 
   if (!is.null(pathname)) {
@@ -172,6 +172,10 @@ setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., mus
 
 ############################################################################
 # HISTORY:
+# 2014-02-03
+# o BUG FIX: readDataFrame() for AromaGenomeTextFile explicitly passed
+#   arguments '...' to NextMethod(), which would cause them to be
+#   duplicated in certain cases.
 # 2011-03-03
 # o Replaced argument 'onMissing' of byGenome() with 'mustExist'.
 # o Now findByGenome() for AromaGenomeTextFile follows the new aroma
