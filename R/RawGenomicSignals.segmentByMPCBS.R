@@ -157,9 +157,11 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
     }
   }
 
-  # Cleaning out unknown parameters
-  keep <- (names(params) %in% names(formals));
-  params <- params[keep];
+  # Cleaning out unknown parameters?
+  if (!any(names(formals) == "...")) {
+    keep <- (names(params) %in% names(formals));
+    params <- params[keep];
+  }
 
   signatures$data <- cnData;
   signatures$params <- params;
@@ -271,6 +273,9 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 
 ############################################################################
 # HISTORY:
+# 2014-02-17
+# o Now unknown user arguments are only dropped if the segmentation method
+#   does not have a formal argument '...'.
 # 2010-03-02
 # o Now segmentByMPCBS() can be used to segment data from a single source.
 #   Added this to the (single-platform) segmentation example.

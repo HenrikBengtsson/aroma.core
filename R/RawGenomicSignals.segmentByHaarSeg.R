@@ -145,9 +145,11 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
     }
   }
 
-  # Cleaning out unknown parameters
-  keep <- (names(params) %in% names(formals));
-  params <- params[keep];
+  # Cleaning out unknown parameters?
+  if (!any(names(formals) == "...")) {
+    keep <- (names(params) %in% names(formals));
+    params <- params[keep];
+  }
 
   signatures$data <- cnData;
   signatures$params <- params;
@@ -272,6 +274,9 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
 
 ############################################################################
 # HISTORY:
+# 2014-02-17
+# o Now unknown user arguments are only dropped if the segmentation method
+#   does not have a formal argument '...'.
 # 2009-05-10
 # o Created.
 ############################################################################

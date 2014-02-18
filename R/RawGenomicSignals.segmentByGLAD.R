@@ -78,18 +78,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   envir <- as.environment(sprintf("package:%s", pkgName));
   fitFcn <- get(methodName, mode="function", envir=envir);
   verbose && str(verbose, "Function: ", fitFcn);
-  formals <- formals(fitFcn);
-  verbose && cat(verbose, "Formals:");
-  verbose && str(verbose, formals);
   verbose && exit(verbose);
-
-  signatures <- list();
-  signatures$fitFcn <- list(
-    pkgName=pkgName,
-    methodName=methodName,
-    formals=formals,
-    pkgDetails=pkgDetails
-  );
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -110,21 +99,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   verbose && cat(verbose, "Number of loci: ", nbrOfLoci);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Weights
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (hasWeights) {
-    # Verify that weights are supported (not yet)
-    if (!is.element("weights", names(formals))) {
-      hasWeights <- FALSE;
-      msg <- paste("Weights detected but ignored, because the available segmentation function ('", methodName, "()') does not support weights. Check with a more recent version of the package: ", pkgDetails, sep="");
-      verbose && cat(verbose, "WARNING: ", msg);
-      warning(msg);
-    }
-  } # if (hasWeights)
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Setting up arguments to pass to segmentation function
+  # Setting up data argument to pass to segmentation function
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Setting up method arguments");
 
@@ -144,6 +119,42 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   verbose && str(verbose, cnData);
   verbose && exit(verbose);
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Identifying known arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  verbose && enter(verbose, "Identifying known arguments");
+  formals <- formals(fitFcn);
+  if (isS3Generic(fitFcn)) {
+    methods <- methods(methodName);
+    methods <- intersect(methods, sprintf("%s.%s", methodName, c("default", class(cnData))));
+    if (length(methods) > 0L) {
+      formals <- lapply(methods, FUN=formals);
+      formals <- Reduce(append, formals);
+      formals <- formals[!duplicated(names(formals))];
+    }
+  }
+  verbose && cat(verbose, "Formals:");
+  verbose && str(verbose, formals);
+  verbose && exit(verbose);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Weights
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (hasWeights) {
+    # Verify that weights are supported (not yet)
+    if (!is.element("weights", names(formals))) {
+      hasWeights <- FALSE;
+      msg <- paste("Weights detected but ignored, because the available segmentation function ('", methodName, "()') does not support weights. Check with a more recent version of the package: ", pkgDetails, sep="");
+      verbose && cat(verbose, "WARNING: ", msg);
+      warning(msg);
+    }
+  } # if (hasWeights)
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Setting up additional arguments to pass to segmentation function
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   params <- list();
   if (hasWeights) {
     params$weights <- data$w;
@@ -161,10 +172,19 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
     }
   }
 
-  # Cleaning out unknown parameters
-  keep <- (names(params) %in% names(formals));
-  params <- params[keep];
+  # Cleaning out unknown parameters?
+  if (!any(names(formals) == "...")) {
+    keep <- (names(params) %in% names(formals));
+    params <- params[keep];
+  }
 
+  signatures <- list();
+  signatures$fitFcn <- list(
+    pkgName=pkgName,
+    methodName=methodName,
+    formals=formals,
+    pkgDetails=pkgDetails
+  );
   signatures$data <- cnData;
   signatures$params <- params;
 
@@ -281,6 +301,9 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
 
 ############################################################################
 # HISTORY:
+# 2014-02-17
+# o Now unknown user arguments are only dropped if the segmentation method
+#   does not have a formal argument '...'.
 # 2011-01-14
 # o Added 'params' attribute to returned result object.
 # 2011-01-11

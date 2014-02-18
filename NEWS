@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.11.6 [2014-02-17]
+o BUG FIX: The GladModel would not pass user-specified arguments.  Thanks
+  to Hans-Ulrich Klein at University of Münster for reporting on this.
+
+
 Version: 2.11.5 [2014-02-03]
 o BUG FIX: readDataFrame() for AromaGenomeTextFile and AromaUcscGenomeTextFile
   explicitly passed arguments '...' to NextMethod(), which would cause them

@@ -175,9 +175,11 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
     }
   }
 
-  # Cleaning out unknown parameters
-  keep <- (names(params) %in% names(formals));
-  params <- params[keep];
+  # Cleaning out unknown parameters?
+  if (!any(names(formals) == "...")) {
+    keep <- (names(params) %in% names(formals));
+    params <- params[keep];
+  }
 
   signatures$data <- cnData;
   signatures$params <- params;
@@ -316,6 +318,9 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
 
 ############################################################################
 # HISTORY:
+# 2014-02-17
+# o Now unknown user arguments are only dropped if the segmentation method
+#   does not have a formal argument '...'.
 # 2010-04-05
 # o Added argument 'seed' to segmentByCBS().
 # o Added Rdoc references to CBS papers.
