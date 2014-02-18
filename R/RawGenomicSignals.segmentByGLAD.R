@@ -124,7 +124,7 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Identifying known arguments");
   formals <- formals(fitFcn);
-  if (isS3Generic(fitFcn)) {
+  if (isGenericS3(fitFcn)) {
     methods <- methods(methodName);
     methods <- intersect(methods, sprintf("%s.%s", methodName, c("default", class(cnData))));
     if (length(methods) > 0L) {
