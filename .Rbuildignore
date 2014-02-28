@@ -2,4 +2,6 @@
 ^incl
 ^inst/doc/[.].*[.]rsp$
 ^NAMESPACE,.*.txt$
+^nohup
 .HIDE
+
