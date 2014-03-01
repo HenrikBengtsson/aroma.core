@@ -1,7 +1,7 @@
 ###########################################################################/**
 # @RdocDefault downloadPackagePatch
 #
-# @title "Download a package patch"
+# @title "Download a package patch [DEFUNCT]"
 #
 # \description{
 #  @get "title" from the package online reprocitory.
@@ -36,100 +36,14 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("downloadPackagePatch", "default", function(pkgName, version=NULL, url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE) {
-  .Deprecated(msg="downloadPackagePatch() is deprecated without alternatives.");
-  pkg <- "R.utils";
-  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'pkgName':
-  require(pkgName, character.only=TRUE) || throw("Package not loaded: ", pkgName);
-
-  # Argument 'rootPath':
-  rootPath <- Arguments$getWritablePath(rootPath);
-
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Locate the patch URL
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (is.null(url)) {
-    desc <- packageDescription(pkgName);
-    for (field in c("PatchURL", "URL", "ContribURL", "DevelURL")) {
-      url <- desc[[field]];
-      if (!is.null(url))
-        break;
-    }
-    if (is.null(url))
-      throw("Failed to infer patch URL from DESCRIPTION file: ", pkgName);
-  }
-
-  # The complete patch URL
-  rootUrl <- paste(url, "patches", pkgName, sep="/");
-  verbose && cat(verbose, "Patch root URL: ", rootUrl);
-
-  # Get the package version
-  if (is.null(pkgVer)) {
-    pkgVer <- packageDescription(pkgName)$Version;
-  }
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Get the vector of files to be downloaded
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  url <- paste(rootUrl, "download.R", sep="/");
-  files <- NULL;
-  tryCatch({
-    source(url, local=TRUE);
-  }, error = function(ex) {
-    cat("Failed to source: ", url, "\n", sep="");
-    throw(ex$message);
-  })
-
-  if (is.null(files)) {
-    msg <- paste("No patches available for ", pkgName, " v",
-                                              pkgVer, ".", sep="");
-#    verbose && cat(verbose, msg);
-    cat(msg, "\n", sep="");
-    return(invisible(NULL));
-  }
-
-  version <- attr(files, "version");
-  patchUrl <- paste(rootUrl, version, sep="/");
-  verbose && cat(verbose, "Patch URL: ", patchUrl);
-
-  path <- file.path(rootPath, pkgName, version);
-  path <- Arguments$getWritablePath(path);
-  verbose && cat(verbose, "Download directory: ", path);
-
-  verbose && cat(verbose, "Downloading ", length(files), " file(s):");
-  verbose && print(verbose, files);
-
-  for (file in files) {
-    url <- paste(patchUrl, file, sep="/");
-    verbose && enter(verbose, "Downloading ", file);
-    pathname <- file.path(path, file);
-    res <- download.file(url, pathname, cacheOK=FALSE);
-    verbose && exit(verbose);
-  }
-  pathnames <- file.path(path, files);
-
-  if (apply) {
-    patchPackage(pkgName);
-  }
-
-  invisible(pathnames);
+  .Defunct(msg="downloadPackagePatch() is deprecated without alternatives.");
 }, deprecated=TRUE) # downloadPackagePatch()
 
 
 ############################################################################
 # HISTORY:
+# 2014-02-28
+# o CLEANUP: Defuncted previously deprecated downloadPackagePatch().
 # 2008-03-11
 # o Added argument 'pkgVer' allowing us to fake the package version.
 # 2007-12-16

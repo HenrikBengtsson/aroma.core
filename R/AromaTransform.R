@@ -666,15 +666,6 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
   verbose && print(verbose, dsOut);
   # Sanity check
   stopifnot(!is.null(dsOut))
-  # Special case
-  if (packageVersion("R.filesets") < "2.3.3") {
-    if (length(dsOut) == 0L) {
-      className <- getFileClass(dsOut);
-      clazz <- Class$forName(className);
-      dfOut <- newInstance(clazz, NA_character_, mustExist=FALSE);
-      dsOut <- newInstance(dsOut, list(dfOut));
-    }
-  }
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Map output data set to input data set by fullnames");
@@ -743,6 +734,8 @@ setMethodS3("process", "AromaTransform", abstract=TRUE);
 
 ############################################################################
 # HISTORY:
+# 2014-02-28
+# o CLEANUP: Removed R.filesets (< 2.3.3) workaround code.
 # 2013-11-16
 # o Now setTags() for AromaTransform returns the object itself.
 # 2013-11-15

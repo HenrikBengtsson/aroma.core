@@ -1,24 +1,3 @@
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# 2009-06-09
-# o Grammar fix: is(Homo|Hetero)zygous(), not is(Homo|Hetero)zygote().
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-setMethodS3("isHomozygote", "AromaUnitGenotypeCallFile", function(...) {
-  .Defunct("isHomozygous");
-  isHomozygous(...);
-}, private=TRUE, deprecated=TRUE)
-
-setMethodS3("isHeterozygote", "AromaUnitGenotypeCallFile", function(...) {
-  .Defunct("isHeterozygous");
-  isHeterozygous(...);
-}, private=TRUE, deprecated=TRUE)
-
-
-setMethodS3("getPhysicalPositions", "RawCopyNumbers", function(this, ...) {
-  .Defunct("getPositions");
-  getPositions(this, ...);
-}, protected=TRUE, deprecated=TRUE)
-
-
 # 2008-05-16
 # o Removed deprecated readData().
 setMethodS3("readData", "SampleAnnotationFile", function(this, ...) {
@@ -53,8 +32,11 @@ setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
 
 ############################################################################
 # HISTORY:
+# 2014-02-28
+# o CLEANUP: Removed defunct methods, i.e. is(Homo|Hetero)zygote() and
+#   getPhysicalPositions().
 # 2013-04-20
-# o CLEANUP: Made is(Homo|Hetero)zygote() defunct.
+# o CLEANUP: Made is(Homo|Hetero)zygote() & getPhysicalPositions() defunct.
 # 2012-10-14
 # o Created 999.DEPRECATED.R.
 # 2011-02-18
