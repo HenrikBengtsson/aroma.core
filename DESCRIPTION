@@ -1,5 +1,5 @@
 Package: aroma.core
-Version: 2.12.0
+Version: 2.11.7
 Depends: R (>= 2.15.1), R.utils (>= 1.29.8), R.filesets (>= 2.4.0), R.devices (>= 2.8.2)
 Imports: utils, R.methodsS3 (>= 1.6.1), R.oo (>= 1.18.0),
         R.cache (>= 0.9.0), R.rsp (>= 0.15.0), matrixStats (>= 0.8.14),

@@ -3,44 +3,6 @@ setConstructorS3("AromaPackage", function(pkgName="aroma.core", ...) {
 })
 
 
-setMethodS3("patch", "AromaPackage", function(this, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-
-  verbose && enter(verbose, "Checking for and install patches");
-  verbose && cat(verbose, "Package: ", getName(this));
-  verbose && printf(verbose, "Current version: v%s (%s)\n",
-                                        getVersion(this), getDate(this));
-
-
-  state <- 0;
-
-  verbose && enter(verbose, "Trying to download patches");
-  tryCatch({
-    downloadPackagePatch(getName(this), verbose=verbose);
-    state <- 1;
-    verbose && exit(verbose);
-  }, error = function(ex) {
-    verbose && exit(verbose, suffix="failed");
-    throw(ex);
-  })
-
-  verbose && cat(verbose, "Package has been patched.");
-
-  verbose && exit(verbose);
-
-  invisible(state);
-})
-
-
 setMethodS3("fixSearchPathInternal", "AromaPackage", function(this, aheadPkgs, behindPkgs, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validating arguments

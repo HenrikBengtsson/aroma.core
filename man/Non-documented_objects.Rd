@@ -12,6 +12,25 @@
 
 
 % Other missing docs
+\alias{#}
+\alias{DEFUNCT}
+\alias{downloadPackagePatch}
+\alias{downloadPackagePatch.default}
+\alias{patch}
+\alias{patch.AromaPackage}
+\alias{patchPackage}
+\alias{patchPackage.default}
+\alias{DEPRECATED}
+\alias{nbrOfArrays}
+\alias{nbrOfArrays.AromaMicroarrayDataSet}
+\alias{nbrOfArrays.AromaMicroarrayDataSetTuple}
+\alias{nbrOfArrays.AromaUnitTotalCnBinarySet}
+\alias{readData}
+\alias{readData.SampleAnnotationFile}
+\alias{MISC.}
+\alias{apply}
+\alias{apply.default}
+\alias{apply.SampleAnnotationFile}
 \alias{[.AromaTabularBinaryFile}
 \alias{[[.AromaTabularBinaryFile}
 \alias{[<-.AromaTabularBinaryFile}
@@ -42,9 +61,6 @@
 \alias{allocateFromUnitNamesFile.AromaUnitSignalBinaryFile}
 \alias{allocateFromUnitNamesFile.AromaUnitTabularBinaryFile}
 \alias{append.RawGenomicSignals}
-\alias{apply}
-\alias{apply.default}
-\alias{apply.SampleAnnotationFile}
 \alias{applyBinaryOperator}
 \alias{applyBinaryOperator.RawGenomicSignals}
 \alias{applyRegions}
@@ -663,10 +679,6 @@
 \alias{mergeBoxplotStats}
 \alias{multiplyBy}
 \alias{multiplyBy.RawGenomicSignals}
-\alias{nbrOfArrays}
-\alias{nbrOfArrays.AromaMicroarrayDataSet}
-\alias{nbrOfArrays.AromaMicroarrayDataSetTuple}
-\alias{nbrOfArrays.AromaUnitTotalCnBinarySet}
 \alias{nbrOfCells}
 \alias{nbrOfCells.AromaCellTabularBinaryFile}
 \alias{nbrOfChipTypes}
@@ -697,12 +709,9 @@
 \alias{onFitAddGenotypeCalls}
 \alias{onFitAddGenotypeCalls.default}
 \alias{onFitAddGenotypeCalls.GladModel}
-\alias{patch}
-\alias{patch.AromaPackage}
 \alias{plot.BinnedScatter}
 \alias{plot.CopyNumberSegmentationModel}
 \alias{plot.ProbePositionEffects}
-\alias{plot.profileCGH}
 \alias{plot.RawAlleleBFractions}
 \alias{plot.RawCopyNumbers}
 \alias{plot.RawGenomicSignals}
@@ -739,8 +748,6 @@
 \alias{pointsSequence.ProbePositionEffects}
 \alias{predict.ProbePositionEffects}
 \alias{readColumns.AromaTabularBinaryFile}
-\alias{readData}
-\alias{readData.SampleAnnotationFile}
 \alias{readDataFrame.AromaTabularBinaryFile}
 \alias{readDataFrame.AromaUflFile}
 \alias{readDataFrame.AromaUnitChromosomeTabularBinaryFile}

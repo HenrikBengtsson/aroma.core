@@ -1,3 +1,22 @@
+# DEFUNCT
+downloadPackagePatch
+downloadPackagePatch.default
+patch
+patch.AromaPackage
+patchPackage
+patchPackage.default
+
+# DEPRECATED
+nbrOfArrays
+nbrOfArrays.AromaMicroarrayDataSet
+nbrOfArrays.AromaMicroarrayDataSetTuple
+nbrOfArrays.AromaUnitTotalCnBinarySet
+readData
+readData.SampleAnnotationFile 
+
+# MISC.
+  apply apply.default
+  apply.SampleAnnotationFile
   [.AromaTabularBinaryFile [[.AromaTabularBinaryFile
   [<-.AromaTabularBinaryFile addBy addBy.RawGenomicSignals addIncludes
   addIncludes.Explorer addIndexFile addIndexFile.ChromosomeExplorer
@@ -14,8 +33,8 @@
   allocateFromUnitNamesFile
   allocateFromUnitNamesFile.AromaUnitSignalBinaryFile
   allocateFromUnitNamesFile.AromaUnitTabularBinaryFile
-  append.RawGenomicSignals apply apply.default
-  apply.SampleAnnotationFile applyBinaryOperator
+  append.RawGenomicSignals 
+  applyBinaryOperator
   applyBinaryOperator.RawGenomicSignals applyRegions
   applyRegions.CopyNumberOutliers applyRows applyRows.CopyNumberRegions
   AromaCellSequenceFile AromaCore AromaPackage
@@ -335,10 +354,8 @@
   lines.RawGenomicSignals listToXml listToXml.list locallyUnique
   locallyUnique.default log2abs log2center log2neg log2pos
   matchPatterns matchPatterns.SampleAnnotationFile matrixBlockPolish
-  mergeBoxplotStats multiplyBy multiplyBy.RawGenomicSignals nbrOfArrays
-  nbrOfArrays.AromaMicroarrayDataSet
-  nbrOfArrays.AromaMicroarrayDataSetTuple
-  nbrOfArrays.AromaUnitTotalCnBinarySet nbrOfCells
+  mergeBoxplotStats multiplyBy multiplyBy.RawGenomicSignals 
+ nbrOfCells
   nbrOfCells.AromaCellTabularBinaryFile nbrOfChipTypes
   nbrOfColumns.AromaTabularBinaryFile nbrOfEnzymes
   nbrOfEnzymes.AromaUflFile nbrOfLoci nbrOfLoci.RawGenomicSignals
@@ -351,10 +368,10 @@
   nbrOfUnits.UnitTypesFile newPlot newPlot.CopyNumberChromosomalModel
   norm2d norm2d.matrix normalizeGenotypeCone
   normalizeGenotypeCone.matrix onFitAddGenotypeCalls
-  onFitAddGenotypeCalls.default onFitAddGenotypeCalls.GladModel patch
-  patch.AromaPackage plot.BinnedScatter
+  onFitAddGenotypeCalls.default onFitAddGenotypeCalls.GladModel 
+  plot.BinnedScatter
   plot.CopyNumberSegmentationModel plot.ProbePositionEffects
-  plot.profileCGH plot.RawAlleleBFractions plot.RawCopyNumbers
+  plot.RawAlleleBFractions plot.RawCopyNumbers
   plot.RawGenomicSignals plot.RawMirroredAlleleBFractions
   plot.RawSequenceReads plot.SegmentedGenomicSignalsInterface
   plotAxesLayers plotAxesLayers.CopyNumberChromosomalModel
@@ -373,8 +390,8 @@
   points.SegmentedGenomicSignalsInterface pointsRawCNs
   pointsRawCNs.default pointsRawCNs.profileCGH pointsSequence
   pointsSequence.ProbePositionEffects predict.ProbePositionEffects
-  readColumns.AromaTabularBinaryFile readData
-  readData.SampleAnnotationFile readDataFrame.AromaTabularBinaryFile
+  readColumns.AromaTabularBinaryFile
+  readDataFrame.AromaTabularBinaryFile
   readDataFrame.AromaUflFile
   readDataFrame.AromaUnitChromosomeTabularBinaryFile
   readDataFrame.AromaUnitSignalBinaryFile

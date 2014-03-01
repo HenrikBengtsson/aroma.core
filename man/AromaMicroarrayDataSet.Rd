@@ -54,7 +54,6 @@ AromaMicroarrayDataSet(files=NULL, ...)
  \tab \code{getAverageFile} \tab  -\cr
  \tab \code{getChipType} \tab  -\cr
  \tab \code{getPlatform} \tab  -\cr
- \tab \code{nbrOfArrays} \tab  -\cr
 }
 
 

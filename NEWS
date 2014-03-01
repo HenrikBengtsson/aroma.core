@@ -1,16 +1,13 @@
 Package: aroma.core
 ===================
 
-Version: 2.12.0 [2014-02-28]
-o Bumped version for CRAN submission.
-o Updated package dependencies.
-o Package passes all redundancy tests.
-
-
 Version: 2.11.7 [2014-02-28]
 o Now methods that supports searching sibling root directories do so by
   default.  Previously this had to be explicitly enabled via an option.
 o Updated package dependencies.
+o CLEANUP: Defuncted previously deprecated downloadPackagePatch()
+  and patchPackage() as well as patch() for AromaPackage.
+o CLEANUP: Removed defunct methods.
 
 
 Version: 2.11.6 [2014-02-17]
