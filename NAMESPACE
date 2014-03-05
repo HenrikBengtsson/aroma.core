@@ -309,7 +309,7 @@ S3method("getFilenameExtension", "AromaMicroarrayTabularBinaryFile")
 S3method("getPlatform", "AromaMicroarrayTabularBinaryFile")
 
 # AromaPackage
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("fixSearchPath", "AromaPackage")
   S3method("fixSearchPathInternal", "AromaPackage")
   S3method("patch", "AromaPackage")
@@ -395,7 +395,7 @@ S3method("writeRawFooter", "AromaTabularBinaryFile")
 S3method("getDefaultFullName", "AromaTabularBinarySet")
 S3method("getRootName", "AromaTabularBinarySet")
 S3method("setAttributesBy", "AromaTabularBinarySet")
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet")
   S3method("setAttributesBySampleAnnotationSet", "AromaTabularBinarySet")
   S3method("setAttributesByTags", "AromaTabularBinarySet")
@@ -515,7 +515,7 @@ S3method("getAverageFile", "AromaUnitPscnBinarySet")
 
 # AromaUnitSignalBinaryFile
 S3method("allocate", "AromaUnitSignalBinaryFile")
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile")
   S3method("allocateFromUnitNamesFile", "AromaUnitSignalBinaryFile")
 }
@@ -545,7 +545,7 @@ S3method("validate", "AromaUnitSignalBinarySet")
 ##S3method("writeDataFrame", "AromaUnitSignalBinarySet")
 
 # AromaUnitTabularBinaryFile
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("allocateFromUnitAnnotationDataFile", "AromaUnitTabularBinaryFile")
   S3method("allocateFromUnitNamesFile", "AromaUnitTabularBinaryFile")
 }
@@ -589,7 +589,7 @@ S3method("allocate", "AromaUnitTypesFile")
 S3method("getChipType", "AromaUnitTypesFile")
 S3method("getPlatform", "AromaUnitTypesFile")
 S3method("getUnitTypes", "AromaUnitTypesFile")
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("importFromUnitTypesFile", "AromaUnitTypesFile")
 }
 
@@ -724,7 +724,7 @@ S3method("hasAlleleBFractions", "CopyNumberDataSetTuple")
 S3method("hasStrandiness", "CopyNumberDataSetTuple")
 
 # CopyNumberOutliers
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("applyRegions", "CopyNumberOutliers")
   S3method("as.character", "CopyNumberOutliers")
   S3method("as.data.frame", "CopyNumberOutliers")
@@ -800,7 +800,7 @@ S3method("remap", "default")
 S3method("shakyText", "default")
 
 # DNAcopy
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("drawCnRegions", "DNAcopy")
   S3method("extractCopyNumberOutliers", "DNAcopy")
   S3method("extractCopyNumberRegions", "DNAcopy")
@@ -822,7 +822,7 @@ S3method("getMainPath", "Explorer")
 S3method("getName", "Explorer")
 S3method("getNameOfInput", "Explorer")
 S3method("getNames", "Explorer")
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("getParallelSafe", "Explorer")
 }
 S3method("getPath", "Explorer")
@@ -838,7 +838,7 @@ S3method("nbrOfArrays", "Explorer")
 S3method("process", "Explorer")
 S3method("setAlias", "Explorer")
 S3method("setArrays", "Explorer")
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("setParallelSafe", "Explorer")
 }
 S3method("setReportPathPattern", "Explorer")
@@ -848,7 +848,7 @@ S3method("splitByReportPathPattern", "Explorer")
 S3method("updateSetupExplorerFile", "Explorer")
 
 # FileCacheKeyInterface
-if (getRversion() >= "3.0.2") {
+if (getRversion() >= "3.1.0") {
   S3method("getCacheKey", "FileCacheKeyInterface")
 
   # GenericDataFile
@@ -1197,4 +1197,4 @@ if (getRversion() >= "3.0.2") {
   # UnitTypesFile
   S3method("getUnitTypes", "UnitTypesFile")
   S3method("nbrOfUnits", "UnitTypesFile")
-} # if (getRversion() > "3.0.2")
+} # if (getRversion() >= "3.1.0")
