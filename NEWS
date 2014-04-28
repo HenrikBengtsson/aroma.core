@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.12.2 [2014-04-26]
+o SPEEDUP: Minor speedup by replacing repetive <ns>::<fcn>() calls
+  with repetive <fcn>() calls; the '::' operator is fairly expensive.
+
+
 Version: 2.12.1 [2014-03-04]
 o CRAN POLICY: Now limiting the number of registered S3 methods in
   NAMESPACE for R (< 3.1.0).  Used to be R (< 3.0.2).

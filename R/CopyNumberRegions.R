@@ -89,7 +89,7 @@ setMethodS3("as.data.frame", "CopyNumberRegions", function(x, ...) {
   this <- x;
 
   fields <- c("chromosome", "start", "stop", "mean", "count", "call");
-  data <- base::lapply(fields, FUN=function(field) this[[field]]);
+  data <- lapply(fields, FUN=function(field) this[[field]]);
   names(data) <- fields;
   data <- data[!sapply(data, is.null)];
   data <- as.data.frame(data);

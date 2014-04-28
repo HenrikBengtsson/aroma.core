@@ -3,7 +3,7 @@ setMethodS3("setAttributesBy", "AromaTabularBinarySet", function(this, object, .
   if (!exists(methodName, mode="function")) {
     throw("No set function found: ", methodName);
   }
-  
+
   fcn <- get(methodName, mode="function");
   tryCatch({
     fcn(this, object, ...);
@@ -34,14 +34,14 @@ setMethodS3("setAttributesByTags", "AromaTabularBinarySet", function(this, tags=
     values <- gsub("^tri", "", values);
     chromosomes <- Arguments$getChromosomes(values);
     keys <- sprintf("n%02d", chromosomes);
-    newAttrs <- c(newAttrs, base::lapply(keys, FUN=function(key) {
+    newAttrs <- c(newAttrs, lapply(keys, FUN=function(key) {
       setAttribute(this, key, 3);
     }));
   }
 
   # Return nothing
   invisible(newAttrs);
-}, protected=TRUE) 
+}, protected=TRUE)
 
 
 setMethodS3("setAttributesBySampleAnnotationSet", "AromaTabularBinarySet", function(this, sas, ..., verbose=FALSE) {
@@ -50,7 +50,7 @@ setMethodS3("setAttributesBySampleAnnotationSet", "AromaTabularBinarySet", funct
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   res <- lapply(sas, FUN=function(saf) {
@@ -68,7 +68,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  setAttrs <- function(appliesTo, tags=NULL, ..., verbose=FALSE) { 
+  setAttrs <- function(appliesTo, tags=NULL, ..., verbose=FALSE) {
     verbose && enter(verbose, "Applying sample annotations");
     on.exit({verbose && exit(verbose)});
 
@@ -88,7 +88,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
 
     # Typically the below only applies to one sample
     verbose && cat(verbose, "Applies to ", length(appliesTo), " sample(s).");
-    for (kk in seq_along(appliesTo)) { 
+    for (kk in seq_along(appliesTo)) {
       idx <- appliesTo[kk];
       verbose && cat(verbose, "Sample: ", names(appliesTo)[kk]);
 
@@ -116,7 +116,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
   names <- getFullNames(this);
   # AD HOC

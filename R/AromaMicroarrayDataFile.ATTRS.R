@@ -49,7 +49,7 @@ setMethodS3("setAttributesByTags", "AromaMicroarrayDataFile", function(this, tag
     values <- gsub("^tri", "", values);
     chromosomes <- Arguments$getChromosomes(values);
     keys <- sprintf("n%02d", chromosomes);
-    newAttrs <- c(newAttrs, base::lapply(keys, FUN=function(key) {
+    newAttrs <- c(newAttrs, lapply(keys, FUN=function(key) {
       setAttribute(this, key, 3);
     }));
   }
@@ -95,7 +95,7 @@ setMethodS3("getPloidy", "AromaMicroarrayDataFile", function(this, chromosome, d
 # o Removed getSampleName() which gives the same as getName().
 # 2006-12-11
 # o Now the timestamp is also reported for singel CEL files.
-# o BUG FIX: getHeaderV3() would throw an error if there was an empty V3 
+# o BUG FIX: getHeaderV3() would throw an error if there was an empty V3
 #   header fields.  This was the reason why getTimestamp() gave an error
 #   on some 100K chips.
 # 2006-12-01
@@ -114,16 +114,16 @@ setMethodS3("getPloidy", "AromaMicroarrayDataFile", function(this, chromosome, d
 #   for use in the Object class.
 # 2006-08-27
 # o Added nbrOfCells() because it is so common.
-# o Added createFrom() which utilizes new functions copyFile() and 
-#   clearData(). It is also no longer static. This is more generic and 
-#   cleaner.  The new clearData() does also not require the CDF file 
+# o Added createFrom() which utilizes new functions copyFile() and
+#   clearData(). It is also no longer static. This is more generic and
+#   cleaner.  The new clearData() does also not require the CDF file
 #   (in case that should be missing).
 # 2006-08-25
 # o Renamed getIntensities() to getFields() which returns a data frame.
 # o Added image270() and writeSpatial().
 # o Added methods "[" and "[[" mapped to readUnits().
 # 2006-08-24
-# o Added the option to specify an 'cdf' object, making it possible to 
+# o Added the option to specify an 'cdf' object, making it possible to
 #   override the default CDF file according to the CEL header.  It is
 #   important that all methods queries the AffymetrixCdfFile object
 #   from getCdf() and not the one through the CEL header!
@@ -131,7 +131,7 @@ setMethodS3("getPloidy", "AromaMicroarrayDataFile", function(this, chromosome, d
 # 2006-07-21
 # o Added readUnits().
 # 2006-07-05
-# o BUG FIX/WORKAROUND: Currently the affxparser code crash R if the file 
+# o BUG FIX/WORKAROUND: Currently the affxparser code crash R if the file
 #   is not a valid CEL file.  The best we can do now is to test that the
 #   filename has suffix *.CEL.
 # 2006-05-30

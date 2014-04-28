@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -19,7 +19,7 @@
 # }
 #
 # @author
-# 
+#
 #*/###########################################################################
 setConstructorS3("AromaMicroarrayDataSetTuple", function(..., .setClass="AromaMicroarrayDataSet") {
   extend(GenericDataFileSetList(..., .setClass=.setClass), "AromaMicroarrayDataSetTuple");
@@ -94,7 +94,7 @@ setMethodS3("getTags", "AromaMicroarrayDataSetTuple", function(this, collapse=NU
   # Remove empty tags
   tags <- Arguments$getTags(tags, collapse=NULL);
 
-  # Remove duplicated tags 
+  # Remove duplicated tags
   tags <- locallyUnique(tags);
 
   # Collapsed or split?
@@ -150,21 +150,21 @@ setMethodS3("getFullNames", "AromaMicroarrayDataSetTuple", function(this, arrays
     stopifnot(length(names) > 0);
 
     name <- names[1];
-  
+
     # Get chip-effect tags *common* across chip types
     tags <- lapply(cfList, FUN=getTags, ...);
-    tags <- lapply(tags, FUN=function(x) { 
+    tags <- lapply(tags, FUN=function(x) {
       # To avoid warning on na.omit(NULL)
       if (length(x) > 0) na.omit(x) else x;
     });
-    tags <- base::lapply(tags, FUN=setdiff, exclude);
+    tags <- lapply(tags, FUN=setdiff, exclude);
     tags <- getCommonListElements(tags);
     tags <- tags[[1]];
     tags <- unlist(tags, use.names=FALSE);
     tags <- locallyUnique(tags);
-    
+
     fullname <- paste(c(name, tags), collapse=",");
-    
+
     fullname;
   } # getFullNameOfList()
 
@@ -178,7 +178,7 @@ setMethodS3("getFullNames", "AromaMicroarrayDataSetTuple", function(this, arrays
   # Argument 'exclude':
   exclude <- Arguments$getCharacters(exclude);
 
-  
+
   fullnames <- c();
   for (ii in arrays) {
     cfList <- getFileList(this, ii, ...);
@@ -226,8 +226,8 @@ setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE,
 ##############################################################################
 # HISTORY:
 # 2011-11-19
-# o CLEANUP: Now getFullNames() for AromaMicroarrayDataSetTuple no 
-#   longer produces a warning on "is.na() applied to non-(list or 
+# o CLEANUP: Now getFullNames() for AromaMicroarrayDataSetTuple no
+#   longer produces a warning on "is.na() applied to non-(list or
 #   vector) of type 'NULL'".
 # 2009-12-31
 # o getSets() of AromaMicroarrayDataSetTuple overrides the default method
@@ -239,19 +239,19 @@ setMethodS3("byPath", "AromaMicroarrayDataSetTuple", abstract=TRUE, static=TRUE,
 # o Made into a GenericDataFileSetList.
 # o Create from AromaMicroarrayDataSetTuple.R.
 # 2008-06-03
-# o Added argument 'fullnames=FALSE' to getChipTypes() for 
+# o Added argument 'fullnames=FALSE' to getChipTypes() for
 #   AromaMicroarrayDataSetTuple.
 # 2008-05-21
 # o BUG FIX: getFullNames() was not passing down new 'translate' correctly.
 # 2008-05-16
 # o Abstract methods right now: byPath().
 # o Made getChipTypes() platform independent (not querying CDF:s anymore).
-# o Now getFullName() getTableOfArrays(), getArrays(), indexOfArrays(), 
-#   getArrayTuple(), and asMatrixOfFiles() passes down '...' (for the 
+# o Now getFullName() getTableOfArrays(), getArrays(), indexOfArrays(),
+#   getArrayTuple(), and asMatrixOfFiles() passes down '...' (for the
 #   purpose passing down argument 'translate').
 # o Now getFullNames() passes down 'translate'.
 # 2008-03-29
-# o getTableOfArrays() of AromaMicroarrayDataSetTuple returned the incorrect 
+# o getTableOfArrays() of AromaMicroarrayDataSetTuple returned the incorrect
 #   array indices for the 2nd chip type if different arrays in the two sets.
 # 2008-03-11
 # o Renamed getTuple() to getArrayTuple().
