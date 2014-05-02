@@ -283,7 +283,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
       verbose && enter(verbose, "Reading data");
       X <- matrix(naValue, nrow=length(idxs), ncol=nbrOfArrays);
       for (kk in arrays) {
-        df <- getFile(this, kk);
+        df <- this[[kk]];
         X[,kk] <- df[idxs,cc, drop=TRUE];
       }
       verbose && exit(verbose);

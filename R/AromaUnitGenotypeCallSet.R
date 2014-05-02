@@ -6,10 +6,10 @@
 # \description{
 #  @classhierarchy
 #
-#  An AromaUnitGenotypeCallSet object represents a set of 
+#  An AromaUnitGenotypeCallSet object represents a set of
 #  @see "AromaUnitGenotypeCallFile"s with \emph{identical} chip types.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -19,7 +19,7 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitGenotypeCallSet", function(...) {
@@ -36,14 +36,14 @@ setMethodS3("byPath", "AromaUnitGenotypeCallSet", function(static, ..., pattern=
 
 setMethodS3("byName", "AromaUnitGenotypeCallSet", function(static, name, tags=NULL, ..., chipType=NULL, pattern=".*,genotypes[.]acf$") {
   suppressWarnings({
-    path <- findByName(static, name=name, tags=tags, chipType=chipType, 
+    path <- findByName(static, name=name, tags=tags, chipType=chipType,
                                            ..., mustExist=TRUE);
   })
 
   suppressWarnings({
     byPath(static, path=path, ..., pattern=pattern);
   })
-}, static=TRUE) 
+}, static=TRUE)
 
 
 setMethodS3("extractGenotypeMatrix", "AromaUnitCallSet", function(this, ..., drop=FALSE, verbose=FALSE) {
@@ -62,12 +62,12 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitCallSet", function(this, ..., dro
   verbose && cat(verbose, "Number of files: ", length(this));
 
   res <- NULL;
-  for (kk in seq_along(this)) {  
-    df <- getFile(this, kk);
-    verbose && enter(verbose, sprintf("File #%d ('%s') of %d", 
+  for (kk in seq_along(this)) {
+    df <- this[[kk]];
+    verbose && enter(verbose, sprintf("File #%d ('%s') of %d",
                                 kk, getName(df), length(this)));
 
-    values <- extractGenotypeMatrix(df, ..., drop=FALSE, 
+    values <- extractGenotypeMatrix(df, ..., drop=FALSE,
                                             verbose=less(verbose,10));
     verbose && str(verbose, values);
 

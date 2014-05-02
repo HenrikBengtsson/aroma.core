@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 2.12.3 [2014-05-02]
+o CLEANUP: Now using ds[[idx]] instead of getFile(ds, idx) where possible.
+
+
 Version: 2.12.2 [2014-04-26]
 o SPEEDUP: Minor speedup by replacing repetive <ns>::<fcn>() calls
   with repetive <fcn>() calls; the '::' operator is fairly expensive.

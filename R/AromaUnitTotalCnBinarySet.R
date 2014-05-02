@@ -284,7 +284,7 @@ setMethodS3("getAverageFile", "AromaUnitTotalCnBinarySet", function(this, name=N
     verbose && enter(verbose, "Reading data");
     X <- matrix(naValue, nrow=length(idxs), ncol=nbrOfArrays);
     for (kk in arrays) {
-      df <- getFile(this, kk);
+      df <- this[[kk]];
       X[,kk] <- df[idxs,1L, drop=TRUE];
     }
     verbose && exit(verbose);

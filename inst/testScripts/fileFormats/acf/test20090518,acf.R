@@ -42,7 +42,7 @@ print(acf);
 acs <- AromaUnitGenotypeCallSet$byName(dataSet, chipType=chipType);
 print(acs);
 
-acf <- getFile(acs, 1);
+acf <- acs[[1]];
 print(acf);
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -58,8 +58,8 @@ print(extractGenotypes(acf, units=1:12));
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Allocate confidence score files
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-for (kk in seq(acs)) {
-  acf <- getFile(acs, kk);
+for (kk in seq_along(acs)) {
+  acf <- acs[[kk]];
   fullname <- getFullName(acf);
   fullname <- gsub(",genotypes", ",confidenceScores", fullname);
 
@@ -68,13 +68,12 @@ for (kk in seq(acs)) {
   pathname <- Arguments$getWritablePathname(pathname, mustNotExist=FALSE);
 
   asf <- AromaUnitSignalBinaryFile$allocateFromUnitNamesFile(unf, filename=pathname, types="double", size=4, signed=TRUE, footer=list(comment="Hello world!"), overwrite=TRUE);
-  naValue <- as.integer(NA);
-  asf[,1] <- naValue;
+  asf[,1] <- NA_integer_;
 }
 
 ass <- AromaUnitSignalBinarySet$byName(dataSet, chipType=chipType, pattern=",confidenceScores.acf$", paths=rootPath);
 print(ass);
-asf <- getFile(ass, 1);
+asf <- ass[[1]];
 print(asf);
 asf[1:10,1] <- seq(from=0, to=1, length.out=10);
 print(asf[1:12,1]);

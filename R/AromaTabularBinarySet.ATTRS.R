@@ -93,7 +93,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
       verbose && cat(verbose, "Sample: ", names(appliesTo)[kk]);
 
       # Get the CEL file
-      cf <- getFile(this, idx);
+      cf <- this[[idx]];
 
       # Apply the attributes
       setAttributes(cf, ...);
