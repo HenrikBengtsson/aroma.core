@@ -9,12 +9,16 @@
 #  An AromaPlatform provides methods for a given platform, e.g.
 #  Affymetrix, Agilent, Illumina.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #   \item{...}{Not used.}
 # }
+#
+# \examples{\dontrun{
+#  @include "../incl/AromaPlatform.Rex"
+# }}
 #
 # \section{Methods}{
 #  @allmethods "public"
@@ -35,8 +39,7 @@ setMethodS3("byName", "AromaPlatform", function(static, name, ...) {
 
 
 setMethodS3("getName", "AromaPlatform", function(this, ...) {
-  name <- class(this)[1];
-  name <- name[1];
+  name <- class(this)[1L];
   name <- gsub("Platform", "", name);
   name;
 })
