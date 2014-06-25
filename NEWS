@@ -3,6 +3,7 @@ Package: aroma.core
 
 Version: 2.12.5 [2014-06-24]
 o CLEANUP: Dropped getAromaUgpFile() for AromaUnitSignalBinaryFile.
+o CLEANUP: Package does less package reordering.
 o BUG FIX: SampleAnnotationSet$loadAll() would give an error if
   annotationData/samples/ didn't exist or did not contain any SAF
   files.
