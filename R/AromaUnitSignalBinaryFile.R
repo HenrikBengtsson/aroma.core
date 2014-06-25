@@ -288,19 +288,24 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", f
 }, static=TRUE, protected=TRUE)
 
 
-setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., validate=FALSE, force=FALSE) {
-  ugp <- this$.ugp;
-  if (force || is.null(ugp)) {
-    chipType <- getChipType(this, ...);
-    ugp <- AromaUgpFile$byChipType(chipType, nbrOfUnits=nbrOfUnits(this), validate=validate);
-    # Sanity check
-    if (nbrOfUnits(ugp) != nbrOfUnits(this)) {
-      throw("The number of units in located UGP file ('", getPathname(ugp), "') is not compatible with the data file ('", getPathname(this), "'): ", nbrOfUnits(ugp), " != ", nbrOfUnits(this));
-    }
-    this$.ugp <- ugp;
-  }
-  ugp;
-})
+### setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., validate=FALSE, force=FALSE) {
+###   # CLEANUP: Lets try to use the AromaPlatformInterface here.  If it
+###   # works, then we can drop this method implementations. /2014-06-24
+###   ugp <- NextMethod("getAromaUgpFile");
+###   if (!is.null(ugp)) return(ugp);
+###
+###   ugp <- this$.ugp;
+###   if (force || is.null(ugp)) {
+###     chipType <- getChipType(this, ...);
+###     ugp <- AromaUgpFile$byChipType(chipType, nbrOfUnits=nbrOfUnits(this), validate=validate);
+###     # Sanity check
+###     if (nbrOfUnits(ugp) != nbrOfUnits(this)) {
+###       throw("The number of units in located UGP file ('", getPathname(ugp), "') is not compatible with the data file ('", getPathname(this), "'): ", nbrOfUnits(ugp), " != ", nbrOfUnits(this));
+###     }
+###     this$.ugp <- ugp;
+###   }
+###   ugp;
+### })
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

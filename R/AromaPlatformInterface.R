@@ -1,11 +1,89 @@
+###########################################################################/**
+# @RdocClass AromaPlatformInterface
+#
+# @title "The AromaPlatformInterface class"
+#
+# \description{
+#  @classhierarchy
+#
+#  An AromaPlatformInterface provides methods for a given platform, e.g.
+#  Affymetrix, Agilent, Illumina.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \section{Methods}{
+#  @allmethods "public"
+# }
+#
+# @author
+#*/###########################################################################
 setConstructorS3("AromaPlatformInterface", function(...) {
   extend(Interface(), "AromaPlatformInterface");
 })
 
 
+###########################################################################/**
+# @RdocMethod getPlatform
+#
+# @title "Gets the platform"
+#
+# \description{
+#  @get "title" label.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character string.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seemethod "getAromaPlatform".
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getPlatform", "AromaPlatformInterface", abstract=TRUE);
 
 
+
+###########################################################################/**
+# @RdocMethod getAromaPlatform
+#
+# @title "Gets the platform"
+#
+# \description{
+#  @get "title" object.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+#   \item{force}{If @TRUE, any cached results are ignored, otherwise not.}
+# }
+#
+# \value{
+#  Returns an @see "AromaPlatform" object.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seemethod "getPlatform".
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getAromaPlatform", "AromaPlatformInterface", function(this, ..., force=FALSE) {
   ap <- this$.ap;
 
@@ -20,9 +98,35 @@ setMethodS3("getAromaPlatform", "AromaPlatformInterface", function(this, ..., fo
 
 
 
-
-# @title "Checks if a particular unit annotation data file is suitable for this AromaPlatformInterface class"
+###########################################################################/**
+# @RdocMethod isCompatibleWith
+#
+# @title "Checks if a particular unit annotation data file is compatible"
+#
+# \description{
+#  @get "title" with this AromaPlatformInterface class.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{udf}{An unit annotation data file.}
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns @TRUE if compatible and @FALSE otherwise.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seemethod "getPlatform".
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("isCompatibleWith", "AromaPlatformInterface", function(this, udf, ...) {
+  # Argument 'udf':
   if (getPlatform(this) != getPlatform(udf))
     return(FALSE);
   if (getChipType(this, fullname=FALSE) != getChipType(udf, fullname=FALSE))
@@ -39,6 +143,39 @@ setMethodS3("isCompatibleWith", "AromaPlatformInterface", function(this, udf, ..
 
 
 
+###########################################################################/**
+# @RdocMethod getUnitAnnotationDataFile
+# @aliasmethod getUnitNamesFile
+# @aliasmethod getUnitTypesFile
+# @aliasmethod getAromaUgpFile
+#
+# @title "Gets a unit annotation data file of a particular class"
+#
+# \description{
+#  @get "title" for this AromaPlatformInterface.
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Additional arguments passed to \code{byChipType()} for the
+#    class of interest.}
+#   \item{className}{A @character string specifying the class of interest.}
+#   \item{force}{If @TRUE, any cached results are ignored, otherwise not.}
+#   \item{verbose}{The @see "R.utils::Verbose" to be used during processing.}
+# }
+#
+# \value{
+#  Returns @TRUE if compatible and @FALSE otherwise.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seemethod "getPlatform".
+#   @seeclass
+# }
+#*/###########################################################################
 setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this, ..., className, force=FALSE, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -46,12 +183,6 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
   # Argument 'className':
   className <- Arguments$getCharacter(className);
   clazz <- Class$forName(className);
-
-  fcnName <- sprintf("get%s", className);
-  if (!exists(fcnName, mode="function")) {
-    throw(sprintf("No function %s() available: %s", fcnName, className));
-  }
-  FCN <- get(fcnName, mode="function");
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -61,6 +192,7 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
   }
 
 
+  # Get the chip type
   platform <- getPlatform(this);
   chipType <- getChipType(this, fullname=FALSE);
   chipTypeF <- getChipType(this);
@@ -113,14 +245,22 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
 
     if (!is.null(aPlatform)) {
       verbose && enter(verbose, "Searching for ", className);
+
+      # Locate get<ClassName>(), e.g. getAromaUgpFile().
+      fcnName <- sprintf("get%s", className);
+      if (!exists(fcnName, mode="function")) {
+        throw(sprintf("No function %s() available: %s", fcnName, className));
+      }
+      FCN <- get(fcnName, mode="function");
+
       tryCatch({
-        udf <- FCN(aPlatform, chipType=chipTypeF, 
+        udf <- FCN(aPlatform, chipType=chipTypeF,
                         nbrOfUnits=nbrOfUnits, verbose=less(verbose,10));
         if (!isCompatibleWith(this, udf)) {
           udf <- NULL;
         }
       }, error=function(ex) {
-        verbose && cat(verbose, "Could not locate ", className, ": ", 
+        verbose && cat(verbose, "Could not locate ", className, ": ",
                                                              ex$message);
       });
       if (!is.null(udf)) {
@@ -147,7 +287,7 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
         verbose && enter(verbose, sprintf("Search #%d of %d using %s$byChipType())", kk, length(classNames), className));
         clazz <- Class$forName(className);
         tryCatch({
-          udf <- clazz$byChipType(chipType, nbrOfUnits=nbrOfUnits, ..., 
+          udf <- clazz$byChipType(chipType, nbrOfUnits=nbrOfUnits, ...,
                                                verbose=less(verbose,10));
           if (!isCompatibleWith(this, udf)) {
             udf <- NULL;
@@ -182,15 +322,12 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
   stopifnot(isCompatibleWith(this, udf));
 
   udf;
-}, protected=TRUE)
-
-
+}, protected=TRUE) # getUnitAnnotationDataFile()
 
 
 setMethodS3("getUnitNamesFile", "AromaPlatformInterface", function(this, ...) {
   getUnitAnnotationDataFile(this, className="UnitNamesFile", ...);
 })
-
 
 setMethodS3("getUnitTypesFile", "AromaPlatformInterface", function(this, ...) {
   getUnitAnnotationDataFile(this, className="UnitTypesFile", ...);
@@ -201,18 +338,21 @@ setMethodS3("getAromaUgpFile", "AromaPlatformInterface", function(this, ...) {
 })
 
 
-
 ############################################################################
 # HISTORY:
+# 2010-06-24
+# o Now getUnitAnnotationDataFile() only requires a get<ClassName>()
+#   function if there is a corresponding AromaPlatform class.
+# o DOCUMENTATION: Added more Rdoc comments.
 # 2010-04-27
-# o AD HOC: Now getUnitAnnotationDataFile() of AromaPlatformInterface 
+# o AD HOC: Now getUnitAnnotationDataFile() of AromaPlatformInterface
 #   load aroma.affymetrix if needed and if installed.
 # 2010-02-10
 # o CLEANUP: Removed debug print() statements in isCompatibleWith().
 # 2010-01-13
-# o Now getUnitNamesFile() for AromaPlatformInterface utilizes the 
+# o Now getUnitNamesFile() for AromaPlatformInterface utilizes the
 #   generic getUnitAnnotationDataFile() method.
-# o AD HOC: Made getUnitAnnotationDataFile() work also when nbrOfUnits() 
+# o AD HOC: Made getUnitAnnotationDataFile() work also when nbrOfUnits()
 #   does not exist for the class.
 # o Added protected isCompatibleWith() for AromaPlatformInterface.  It
 #   used to be an internal function before.

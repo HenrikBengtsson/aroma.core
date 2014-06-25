@@ -60,7 +60,6 @@ AromaUnitSignalBinaryFile(...)
  \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{extractMatrix} \tab  -\cr
- \tab \code{getAromaUgpFile} \tab  -\cr
  \tab \code{getChipType} \tab  -\cr
  \tab \code{getNumberOfFilesAveraged} \tab  -\cr
  \tab \code{getPlatform} \tab  -\cr

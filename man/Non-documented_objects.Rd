@@ -70,7 +70,6 @@
 \alias{AromaCellSequenceFile}
 \alias{AromaCore}
 \alias{AromaPackage}
-\alias{AromaPlatformInterface}
 \alias{aromaSettings}
 \alias{AromaSettings}
 \alias{AromaUflFile}
@@ -325,7 +324,6 @@
 \alias{getAM}
 \alias{getAM.AromaUnitTotalCnBinaryFile}
 \alias{getAromaPlatform}
-\alias{getAromaPlatform.AromaPlatformInterface}
 \alias{getAromaUflFile}
 \alias{getAromaUflFile.UnitAnnotationDataFile}
 \alias{getAromaUgpFile}
@@ -492,7 +490,6 @@
 \alias{getPlatform.AromaMicroarrayDataFile}
 \alias{getPlatform.AromaMicroarrayDataSet}
 \alias{getPlatform.AromaMicroarrayTabularBinaryFile}
-\alias{getPlatform.AromaPlatformInterface}
 \alias{getPlatform.AromaUnitSignalBinaryFile}
 \alias{getPlatform.AromaUnitSignalBinarySet}
 \alias{getPlatform.AromaUnitTypesFile}
@@ -569,13 +566,10 @@
 \alias{getUniqueStates}
 \alias{getUniqueStates.SegmentedGenomicSignalsInterface}
 \alias{getUnitAnnotationDataFile}
-\alias{getUnitAnnotationDataFile.AromaPlatformInterface}
-\alias{getUnitNames}
 \alias{getUnitNames.TextUnitNamesFile}
 \alias{getUnitNames.UnitNamesFile}
 \alias{getUnitNamesFile}
 \alias{getUnitNamesFile.AromaPlatform}
-\alias{getUnitNamesFile.AromaPlatformInterface}
 \alias{getUnitNamesFile.AromaUnitTotalCnBinarySet}
 \alias{getUnitsAt}
 \alias{getUnitsAt.AromaUgpFile}
@@ -589,7 +583,6 @@
 \alias{getUnitTypes.UnitTypesFile}
 \alias{getUnitTypesFile}
 \alias{getUnitTypesFile.AromaPlatform}
-\alias{getUnitTypesFile.AromaPlatformInterface}
 \alias{getVerbose.AromaSettings}
 \alias{getWeights}
 \alias{getWeights.RawGenomicSignals}
@@ -931,9 +924,7 @@
 \alias{drawCnRegions.MPCBS}
 \alias{extractCopyNumberRegions.MPCBS}
 \alias{segmentByMPCBS}
-\alias{getAromaUgpFile.AromaPlatformInterface}
 \alias{isCompatibleWith}
-\alias{isCompatibleWith.AromaPlatformInterface}
 \alias{getTags.Arguments}
 \alias{getOutputSet}
 \alias{getOutputSet.ChromosomalModel}
@@ -1310,6 +1301,9 @@
 \alias{process}
 \alias{findChangePointsByState}
 \alias{findChangePointsByState.SegmentedGenomicSignalsInterface}
+\alias{as.character.AromaPlatform}
+\alias{equals.AromaPlatform}
+\alias{getUnitNames}
 
 \description{
   This page contains aliases for all "non-documented" objects that
