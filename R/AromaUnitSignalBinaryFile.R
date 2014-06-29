@@ -287,27 +287,6 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", f
   allocate(static, ..., nbrOfRows=nbrOfRows, platform=platform, chipType=chipType);
 }, static=TRUE, protected=TRUE)
 
-
-### setMethodS3("getAromaUgpFile", "AromaUnitSignalBinaryFile", function(this, ..., validate=FALSE, force=FALSE) {
-###   # CLEANUP: Lets try to use the AromaPlatformInterface here.  If it
-###   # works, then we can drop this method implementations. /2014-06-24
-###   ugp <- NextMethod("getAromaUgpFile");
-###   if (!is.null(ugp)) return(ugp);
-###
-###   ugp <- this$.ugp;
-###   if (force || is.null(ugp)) {
-###     chipType <- getChipType(this, ...);
-###     ugp <- AromaUgpFile$byChipType(chipType, nbrOfUnits=nbrOfUnits(this), validate=validate);
-###     # Sanity check
-###     if (nbrOfUnits(ugp) != nbrOfUnits(this)) {
-###       throw("The number of units in located UGP file ('", getPathname(ugp), "') is not compatible with the data file ('", getPathname(this), "'): ", nbrOfUnits(ugp), " != ", nbrOfUnits(this));
-###     }
-###     this$.ugp <- ugp;
-###   }
-###   ugp;
-### })
-
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # END Interface API?
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -315,6 +294,8 @@ setMethodS3("allocateFromUnitAnnotationDataFile", "AromaUnitSignalBinaryFile", f
 
 ############################################################################
 # HISTORY:
+# 2014-06-24
+# o CLEANUP: Dropped getAromaUgpFile() for AromaUnitSignalBinaryFile.
 # 2012-07-21
 # o Now extractRawGenomicSignals(...) for AromaUnitSignalBinaryFile()
 #   passes arguments '...' to extractMatrix(...) as well, which makes it

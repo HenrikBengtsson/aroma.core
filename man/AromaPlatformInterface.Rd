@@ -45,7 +45,9 @@ AromaPlatformInterface(...)
  \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{\link[aroma.core:getAromaPlatform.AromaPlatformInterface]{getAromaPlatform}} \tab Gets the platform.\cr
+ \tab \code{getAromaUflFile} \tab  -\cr
  \tab \code{getAromaUgpFile} \tab  -\cr
+ \tab \code{\link[aroma.core:getChipType.AromaPlatformInterface]{getChipType}} \tab Gets the chip type.\cr
  \tab \code{\link[aroma.core:getPlatform.AromaPlatformInterface]{getPlatform}} \tab Gets the platform.\cr
  \tab \code{getUnitNamesFile} \tab  -\cr
  \tab \code{getUnitTypesFile} \tab  -\cr

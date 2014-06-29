@@ -56,6 +56,34 @@ setConstructorS3("AromaPlatformInterface", function(...) {
 setMethodS3("getPlatform", "AromaPlatformInterface", abstract=TRUE);
 
 
+###########################################################################/**
+# @RdocMethod getChipType
+#
+# @title "Gets the chip type"
+#
+# \description{
+#  @get "title".
+# }
+#
+# @synopsis
+#
+# \arguments{
+#   \item{...}{Not used.}
+# }
+#
+# \value{
+#  Returns a @character string.
+# }
+#
+# @author
+#
+# \seealso{
+#   @seeclass
+# }
+#*/###########################################################################
+setMethodS3("getChipType", "AromaPlatformInterface", abstract=TRUE);
+
+
 
 ###########################################################################/**
 # @RdocMethod getAromaPlatform
@@ -148,6 +176,7 @@ setMethodS3("isCompatibleWith", "AromaPlatformInterface", function(this, udf, ..
 # @aliasmethod getUnitNamesFile
 # @aliasmethod getUnitTypesFile
 # @aliasmethod getAromaUgpFile
+# @aliasmethod getAromaUflFile
 #
 # @title "Gets a unit annotation data file of a particular class"
 #
@@ -337,9 +366,17 @@ setMethodS3("getAromaUgpFile", "AromaPlatformInterface", function(this, ...) {
   getUnitAnnotationDataFile(this, className="AromaUgpFile", ...);
 })
 
+setMethodS3("getAromaUflFile", "AromaPlatformInterface", function(this, ...) {
+  getUnitAnnotationDataFile(this, className="AromaUflFile", ...);
+})
+
 
 ############################################################################
 # HISTORY:
+# 2010-06-28
+# o Added getAromaUflFile() for AromaPlatformInterface.
+# o Added abstract getChipType() method, since it is assumed by the
+#   isCompatibleWith() and getUnitAnnotationDataFile() methods.
 # 2010-06-24
 # o Now getUnitAnnotationDataFile() only requires a get<ClassName>()
 #   function if there is a corresponding AromaPlatform class.

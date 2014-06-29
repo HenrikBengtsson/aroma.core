@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaUnitSignalBinarySet}
+\name{AromaUnitSignalBinarySet}
 \docType{class}
 \alias{AromaUnitSignalBinarySet}
 
 
- \title{The AromaUnitSignalBinarySet class}
+\title{The AromaUnitSignalBinarySet class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaUnitSignalBinarySet}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -37,20 +37,20 @@ extends \link[aroma.core]{AromaTabularBinarySet}\cr
 
 
 
-  An AromaUnitSignalBinarySet object represents a set of
-  \code{\link{AromaUnitSignalBinaryFile}}s with \emph{identical} chip types.
- }
+ An AromaUnitSignalBinarySet object represents a set of
+ \code{\link{AromaUnitSignalBinaryFile}}s with \emph{identical} chip types.
+}
 
- \usage{
+\usage{
 AromaUnitSignalBinarySet(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaTabularBinarySet}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaTabularBinarySet}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{byName} \tab  -\cr
  \tab \code{getAromaUgpFile} \tab  -\cr
@@ -76,7 +76,7 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

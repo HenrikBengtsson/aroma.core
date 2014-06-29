@@ -134,7 +134,7 @@
 \alias{binScatter}
 \alias{binScatter.matrix}
 \alias{byChipType}
-\alias{byChipType.AromaCellPositionFile}
+\alias{byChipType.AromaCellTabularBinaryFile}
 \alias{byChipType.AromaMicroarrayTabularBinaryFile}
 \alias{byChipType.AromaUnitTabularBinaryFile}
 \alias{byChipType.UnitAnnotationDataFile}
@@ -933,7 +933,6 @@
 \alias{setAttributesBySampleAnnotationSet.AromaTabularBinarySet}
 \alias{setAttributesByTags.AromaTabularBinarySet}
 \alias{allocate.AromaCellCpgFile}
-\alias{byChipType.AromaCellCpgFile}
 \alias{getColumnNames.AromaCellCpgFile}
 \alias{getFilenameExtension.AromaCellCpgFile}
 \alias{isMissing.AromaCellCpgFile}

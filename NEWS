@@ -1,7 +1,10 @@
 Package: aroma.core
 ===================
 
-Version: 2.12.5 [2014-06-24]
+Version: 2.12.5 [2014-06-28]
+o Added getAromaUflFile() for AromaPlatformInterface.
+o CLEANUP: Move byChipType() from classes AromaCellCpgFile and
+  AromaCellPositionFile to superclass AromaCellTabularBinaryFile.
 o CLEANUP: Dropped getAromaUgpFile() for AromaUnitSignalBinaryFile.
 o CLEANUP: Package does less package reordering.
 o BUG FIX: SampleAnnotationSet$loadAll() would give an error if

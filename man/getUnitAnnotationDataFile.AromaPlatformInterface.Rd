@@ -22,6 +22,10 @@
 \alias{getAromaUgpFile.AromaPlatformInterface}
 \alias{getAromaUgpFile,AromaPlatformInterface-method}
 
+\alias{AromaPlatformInterface.getAromaUflFile}
+\alias{getAromaUflFile.AromaPlatformInterface}
+\alias{getAromaUflFile,AromaPlatformInterface-method}
+
 
 \title{Gets a unit annotation data file of a particular class}
 

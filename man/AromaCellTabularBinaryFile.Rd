@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaCellTabularBinaryFile}
+\name{AromaCellTabularBinaryFile}
 \docType{class}
 \alias{AromaCellTabularBinaryFile}
 
 
- \title{The AromaCellTabularBinaryFile class}
+\title{The AromaCellTabularBinaryFile class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaCellTabularBinaryFile}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -47,22 +47,23 @@ extends \emph{\link[aroma.core]{AromaMicroarrayTabularBinaryFile}}\cr
 
 
 
-  An AromaCellTabularBinaryFile is an \code{\link{AromaTabularBinaryFile}} with
-  the constraint that the rows map one-to-one to the cells (features)
-  of a microarray.
- }
+ An AromaCellTabularBinaryFile is an \code{\link{AromaTabularBinaryFile}} with
+ the constraint that the rows map one-to-one to the cells (features)
+ of a microarray.
+}
 
- \usage{
+\usage{
 AromaCellTabularBinaryFile(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{AromaTabularBinaryFile}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{AromaTabularBinaryFile}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
+ \tab \code{byChipType} \tab  -\cr
  \tab \code{nbrOfCells} \tab  -\cr
 }
 
@@ -71,7 +72,7 @@ AromaCellTabularBinaryFile(...)
 allocate, as.character, byChipType, findByChipType, getChipType, getFilenameExtension, getPlatform
 
  \bold{Methods inherited from AromaPlatformInterface}:\cr
-getAromaPlatform, getAromaUgpFile, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
+getAromaPlatform, getAromaUflFile, getAromaUgpFile, getChipType, getPlatform, getUnitAnnotationDataFile, getUnitNamesFile, getUnitTypesFile, isCompatibleWith
 
  \bold{Methods inherited from AromaTabularBinaryFile}:\cr
 [, [<-, [[, allocate, as.character, colApply, colMeans, colStats, colSums, dimnames<-, getBytesPerColumn, getColClasses, getDefaultColumnNames, getRootName, importFrom, nbrOfColumns, nbrOfRows, readColumns, readDataFrame, readFooter, readHeader, readRawFooter, setAttributesByTags, subset, summary, updateData, updateDataColumn, writeFooter, writeRawFooter
@@ -98,11 +99,11 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   \code{\link{AromaUnitTabularBinaryFile}}.
- }
+\seealso{
+  \code{\link{AromaUnitTabularBinaryFile}}.
+}
 \keyword{classes}

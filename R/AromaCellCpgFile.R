@@ -43,51 +43,6 @@ setMethodS3("getDefaultColumnNames", "AromaCellCpgFile", function(this, ...) {
 }, protected=TRUE)
 
 
-
-setMethodS3("byChipType", "AromaCellCpgFile",function(static, chipType, tags=NULL, validate=TRUE, ..., verbose=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Argument 'chipType':
-  chipType <- Arguments$getCharacter(chipType);
-
-  # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
-  if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
-  }
-
-  verbose && enter(verbose, "Locating ", class(static)[1]);
-
-  pathname <- findByChipType(static, chipType=chipType, tags=tags,
-                                     firstOnly=TRUE, ...);
-  if (is.null(pathname)) {
-    ext <- getDefaultExtension(static);
-    note <- attr(ext, "note");
-    msg <- sprintf("Failed to create %s object. Could not locate an annotation data file for chip type '%s'", class(static)[1], chipType);
-    if (is.null(tags)) {
-      msg <- sprintf("%s (without requiring any tags)", msg);
-    } else {
-      msg <- sprintf("%s with tags '%s'", msg, paste(tags, collapse=","));
-    }
-    msg <- sprintf("%s and with filename extension '%s'", msg, ext);
-    if (!is.null(note)) {
-      msg <- sprintf("%s (%s)", msg, note);
-    }
-    msg <- sprintf("%s.", msg);
-    throw(msg);
-  }
-  verbose && cat(verbose, "Located file: ", pathname);
-  res <- newInstance(static, pathname);
-
-  verbose && exit(verbose);
-
-  res;
-})
-
-
-
 setMethodS3("readCpgs", "AromaCellCpgFile", function(this, cells=NULL, drop=FALSE, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -198,6 +153,11 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
 
 ############################################################################
 # HISTORY:
+# 2014-06-28
+# o CLEANUP: Move byChipType() from classes AromaCellCpgFile and
+#   AromaCellPositionFile to superclass AromaCellTabularBinaryFile.
+# o Added argument 'nbrOfCells' to byChipType().
+# o CLEANUP: Dropped non-used argument 'validate' from byChipType().
 # 2010-02-19 [MR]
 # o Added begin/end Rdoc comments so that they are compiled into Rd files.
 # o Added file to SVN repository.

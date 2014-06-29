@@ -208,7 +208,6 @@ S3method("getChromosomes", "Arguments")
 
 # AromaCellCpgFile
 S3method("allocate", "AromaCellCpgFile")
-S3method("byChipType", "AromaCellCpgFile")
 S3method("getDefaultColumnNames", "AromaCellCpgFile")
 S3method("getDefaultExtension", "AromaCellCpgFile")
 S3method("getFilenameExtension", "AromaCellCpgFile")
@@ -218,7 +217,6 @@ S3method("updateCpgs", "AromaCellCpgFile")
 
 # AromaCellPositionFile
 S3method("allocate", "AromaCellPositionFile")
-S3method("byChipType", "AromaCellPositionFile")
 S3method("getDefaultColumnNames", "AromaCellPositionFile")
 S3method("getDefaultExtension", "AromaCellPositionFile")
 S3method("getExtensionPattern", "AromaCellPositionFile")
@@ -253,6 +251,7 @@ S3method("updateTargetStrands", "AromaCellSequenceFile")
 
 # AromaCellTabularBinaryFile
 S3method("nbrOfCells", "AromaCellTabularBinaryFile")
+S3method("byChipType", "AromaCellTabularBinaryFile")
 
 # AromaCore
 ###S3method("fixSearchPath", "AromaCore")
@@ -325,13 +324,14 @@ S3method("getUnitNamesFile", "AromaPlatform")
 S3method("getUnitTypesFile", "AromaPlatform")
 
 # AromaPlatformInterface
+S3method("getPlatform", "AromaPlatformInterface")
+S3method("getChipType", "AromaPlatformInterface")
+S3method("isCompatibleWith", "AromaPlatformInterface")
 S3method("getAromaPlatform", "AromaPlatformInterface")
 S3method("getAromaUgpFile", "AromaPlatformInterface")
-S3method("getPlatform", "AromaPlatformInterface")
 S3method("getUnitAnnotationDataFile", "AromaPlatformInterface")
 S3method("getUnitNamesFile", "AromaPlatformInterface")
 S3method("getUnitTypesFile", "AromaPlatformInterface")
-S3method("isCompatibleWith", "AromaPlatformInterface")
 
 # AromaRepository
 S3method("clearCache", "AromaRepository")
