@@ -2,6 +2,8 @@ Package: aroma.core
 ===================
 
 Version: 2.12.6 [2014-08-27]
+o Now 'aromaSettings' are loaded when the packages is loaded.  
+  Previously the package had to be attached.
 o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
 o ROBUSTNESS: Added several missing NAMESPACE imports.
 o BUG FIX: writeDataFrame(..., columnNamesPrefix="none") for
