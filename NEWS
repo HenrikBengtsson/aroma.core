@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.12.6 [2014-08-27]
+o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
+o ROBUSTNESS: Added several missing NAMESPACE imports.
+o BUG FIX: writeDataFrame(..., columnNamesPrefix="none") for
+  AromaUnitSignalBinaryFile would give an error.
+
+
 Version: 2.12.5 [2014-06-28]
 o Added getAromaUflFile() for AromaPlatformInterface.
 o CLEANUP: Move byChipType() from classes AromaCellCpgFile and

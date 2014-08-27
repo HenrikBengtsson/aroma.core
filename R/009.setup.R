@@ -1,3 +1,6 @@
+# Dummy to please R CMD check
+aromaSettings <- NULL
+
 .setupAromaCore <- function(pkg, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read settings file ".<name>Settings" and store it in package

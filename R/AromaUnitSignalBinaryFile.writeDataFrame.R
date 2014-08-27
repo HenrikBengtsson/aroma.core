@@ -222,7 +222,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     columnTypes <- getColumnTypes(this);
     # Sanity check
     columnTypes <- Arguments$getCharacters(columnTypes,
-                                      length=rep(nbrOfColumns, 2));
+                                      length=rep(nbrOfColumns, times=2L));
 
     # Annotation data column types
     adColumnTypes <- unname(sapply(adData, FUN=mode));
@@ -241,9 +241,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
     } else if (columnNamesPrefix == "fullname") {
       prefixes <- rep(getFullName(this), times=nbrOfColumns);
     }
-
     if (is.null(prefixes)) {
-      columnNames <- rep(fields, times=nbrOfFiles);
+      columnNames <- fields;
     } else {
       if (nbrOfColumns == 1 && fields[1] == "1") {
         columnNames <- prefixes;
@@ -374,6 +373,9 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
 
 ############################################################################
 # HISTORY:
+# 2014-08-27
+# o BUG FIX: writeDataFrame(..., columnNamesPrefix="none") for
+#   AromaUnitSignalBinaryFile would give an error.
 # 2010-05-12
 # o Now argument 'path' defaults to <rootPath>,txt/<dataSet>/<chipType>/.
 # 2010-04-27
