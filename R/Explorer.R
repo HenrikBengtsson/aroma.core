@@ -619,12 +619,12 @@ setMethodS3("addIncludes", "Explorer", function(this, ..., force=FALSE, verbose=
 
   if (getParallelSafe(this)) {
     tryCatch({
-      pathnames <- copyDirectory(from=srcPath, to=destPath, recursive=TRUE,
-                                                          overwrite=force);
+      pathnames <- copyDirectory(from=srcPath, to=destPath, copy.mode=FALSE,
+                                 recursive=TRUE, overwrite=force);
     }, error = function(ex) {});
   } else {
-    pathnames <- copyDirectory(from=srcPath, to=destPath, recursive=TRUE,
-                                                          overwrite=force);
+    pathnames <- copyDirectory(from=srcPath, to=destPath, copy.mode=FALSE,
+                               recursive=TRUE, overwrite=force);
   }
   verbose && exit(verbose);
 
@@ -658,10 +658,10 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
 
     if (getParallelSafe(this)) {
       tryCatch({
-        copyFile(srcPathname, outPathname, overwrite=TRUE);
+        copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE);
       }, error = function(ex) {});
     } else {
-      copyFile(srcPathname, outPathname, overwrite=TRUE);
+      copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE);
     }
 
     verbose && exit(verbose);

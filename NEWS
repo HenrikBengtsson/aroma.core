@@ -1,6 +1,13 @@
 Package: aroma.core
 ===================
 
+Version: 2.12.7 [2014-09-04]
+o ROBUSTNESS: Wherever needed, files are now copied without preserving
+  file permissions (e.g. read-only), which became the default in
+  R (>= 2.13.0) [April 2013].
+o Bumped package dependencies.
+
+
 Version: 2.12.6 [2014-08-27]
 o Now 'aromaSettings' are loaded when the packages is loaded.  
   Previously the package had to be attached.
