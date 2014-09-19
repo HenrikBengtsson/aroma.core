@@ -806,7 +806,7 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
 
   # The path to the explorer HTML document
   path <- getMainPath(this);
-  pathname <- Arguments$getReadablePathname(filename, path=path, mustExist=FALSE);
+  pathname <- Arguments$getReadablePathname(filename, path=path, sbsolute=TRUE, mustExist=FALSE);
 
   # Just in case, is setup needed?
   if (!isFile(pathname)) {
@@ -815,10 +815,22 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
       throw("Cannot open ", class(this)[1], ". No such file: ", pathname);
   }
 
-  pathname <- getAbsolutePath(pathname);
-  pathname <- chartr("/", "\\", pathname);
-
   verbose && cat(verbose, "Pathname: ", pathname);
+
+  # WORKAROUND: browseURL('foo/bar.html', browser=NULL), which in turn
+  # calls shell.exec('foo/bar.html'), does not work on Windows, because
+  # the OS expects backslashes.  [Should shell.exec() convert to
+  # backslashes?]  By temporarily setting the working directory to that
+  # of the file, this works around this issue.
+  # Borrowed from R.rsp. /HB 2014-09-19
+  if (isFile(pathname)) {
+    path <- dirname(pathname);
+    pathname <- basename(pathname);
+    opwd <- getwd();
+    on.exit(setwd(opwd));
+    setwd(path);
+  }
+
   res <- browseURL(pathname, ...);
 
   verbose && exit(verbose);
