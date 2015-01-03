@@ -22,7 +22,7 @@ setMethodS3("findSAFs", "SampleAnnotationSet", function(static, path, pattern="[
   pathnames <- rev(pathnames);
 
   pathnames <- unlist(pathnames, use.names=FALSE);
-  
+
   pathnames;
 }, static=TRUE, private=TRUE)
 
@@ -150,8 +150,16 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
   verbose && enter(verbose, "Loading all ", class(static)[1], ":s");
 
   verbose && enter(verbose, "Identifying all directories containing SAF files");
-  pathnames <- findAnnotationData(set="samples", pattern="[.](saf|SAF)$", 
+  pathnames <- findAnnotationData(set="samples", pattern="[.](saf|SAF)$",
                                 firstOnly=FALSE, verbose=less(verbose,5));
+
+  # Nothing to do?
+  if (length(pathnames) == 0L) {
+    verbose && cat(verbose, "No SAF files located.");
+    verbose && exit(verbose);
+    verbose && exit(verbose);
+    return(list());
+  }
 
   # Pathnames are now ordered according to aroma search conventions
   verbose && cat(verbose, "All SAF files located:");
@@ -225,7 +233,7 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
       verbose && exit(verbose);
     }
   } # if (merge)
-  
+
   verbose && exit(verbose);
 
   dsList;
@@ -234,6 +242,10 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
 
 ############################################################################
 # HISTORY:
+# 2014-06-24
+# o BUG FIX: SampleAnnotationSet$loadAll() would give an error if
+#   annotationData/samples/ didn't exist or did not contain any SAF
+#   files.
 # 2011-03-03
 # o Added internal static byPathnames().
 # o Added static loadAll() for SampleAnnotationSet.

@@ -67,13 +67,13 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
   typeTags <- paste(c(ratioTag, "fracB"), collapse=",");
 
   for (kk in seq_along(this)) {
-    df <- getFile(this, kk);
+    df <- this[[kk]];
     verbose && enter(verbose, sprintf("File %d ('%s') of %d", kk, getName(df), nbrOfFiles));
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Setting up output filename
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    dfR <- getFile(refSet, kk);
+    dfR <- refSet[[kk]];
     refName <- getFullName(dfR);
     refName <- gsub(",(fracB)", "", refName);
     refTag <- sprintf("ref=%s", refName);

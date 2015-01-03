@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{AromaMicroarrayDataSetTuple}
+\name{AromaMicroarrayDataSetTuple}
 \docType{class}
 \alias{AromaMicroarrayDataSetTuple}
 
 
- \title{The AromaMicroarrayDataSetTuple class}
+\title{The AromaMicroarrayDataSetTuple class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class AromaMicroarrayDataSetTuple}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -32,19 +32,19 @@ public abstract static class \bold{AromaMicroarrayDataSetTuple}\cr
 extends \link[R.filesets]{GenericDataFileSetList}\cr
 
 
- }
+}
 
- \usage{
+\usage{
 AromaMicroarrayDataSetTuple(..., .setClass="AromaMicroarrayDataSet")
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link[R.filesets]{GenericDataFileSetList}}.}
-   \item{.setClass}{The name of the class of the input set.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link[R.filesets]{GenericDataFileSetList}}.}
+  \item{.setClass}{The name of the class of the input set.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{as} \tab  -\cr
  \tab \code{as.AromaMicroarrayDataSetTuple} \tab  -\cr
@@ -66,7 +66,7 @@ appendFullNameTranslator, appendFullNameTranslatorByNULL, appendFullNameTranslat
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

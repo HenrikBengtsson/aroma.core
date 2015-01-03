@@ -78,32 +78,24 @@ setMethodS3("getChipType", "AromaMicroarrayTabularBinaryFile", function(this, fu
   footer <- readFooter(this);
   chipType <- footer$chipType;
 
-  if (is.null(chipType) && !.old) {
-    throw("File format error: This ", class(this)[1], " file does not contain information on chip type in the file footer.  This is because the file is of an older file format an is no longer supported.  Please update to a more recent version: ", getPathname(this));
+  if (!missing(.old)) {
+    .Deprecated("Argument '.old' is deprecated since January 2008 and will be made defunct in a future version of aroma.core.");
   }
 
-  if (.old) {
-    # Keep backward compatible for a while. /HB 2008-01-19
-    if (fullname) {
-      # Currently these files do not contain fullname chiptype information.
-      # Instead we have to search for a match CDF and use its chip type.
-      # Note, the CDF returned will depend of which CDF exists in the search
-      # path, if at all.  AD HOC! /HB 2007-12-10
-      unf <- getUnitNamesFile(this, ...);
-      chipType <- getChipType(unf, fullname=fullname);
-    } else {
-      chipType <- getName(this, ...);
+  if (is.null(chipType)) {
+    msg <- paste0("File format error: This ", class(this)[1L], " file does not contain information on chip type in the file footer.  This is because the file is of an older file format an is no longer supported.  Please update to a more recent version: ", getPathname(this));
+    if (.old) {
+     msg <- paste0(msg, " [Argument '.old' (== TRUE) is deprecated since January 2008 and now defunct]");
     }
-    chipType <- trim(chipType);
-    if (nchar(chipType) == 0)
-      throw("File format error: The inferred chip type is empty.");
-  } else {
-    if (!fullname) {
-      chipType <- gsub(",.*", "", chipType);
-    }
-    chipType <- trim(chipType);
-    if (nchar(chipType) == 0)
-      throw("File format error: The chip type according to the file footer is empty.");
+    throw(msg);
+  }
+
+  if (!fullname) {
+    chipType <- gsub(",.*", "", chipType);
+  }
+  chipType <- trim(chipType);
+  if (nchar(chipType) == 0L) {
+    throw("File format error: The chip type according to the file footer is empty.");
   }
 
   if (!is.null(chipType)) {
@@ -113,7 +105,7 @@ setMethodS3("getChipType", "AromaMicroarrayTabularBinaryFile", function(this, fu
   }
 
   chipType;
-})
+}) # getChipType()
 
 
 
@@ -227,6 +219,9 @@ setMethodS3("allocate", "AromaMicroarrayTabularBinaryFile", function(static, pla
 
 ############################################################################
 # HISTORY:
+# 2014-06-28
+# o CLEANUP: Deprecated argument '.old' of getChipType() for
+#   AromaMicroarrayTabularBinaryFile.
 # 2008-07-09
 # o Extracted from AromaUnitTabularBinaryFile.R.
 ############################################################################

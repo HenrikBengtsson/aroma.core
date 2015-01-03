@@ -1,6 +1,58 @@
 Package: aroma.core
 ===================
 
+Version: 2.12.8 [2014-09-19]
+o BUG FIX: display() for Explorer would try to open a pathname 
+  in a way that only worked on Windows.  Thanks to Sunghee Oh
+  (S. Korea) for reporting on this.
+
+
+Version: 2.12.7 [2014-09-04]
+o ROBUSTNESS: Wherever needed, files are now copied without preserving
+  file permissions (e.g. read-only), which became the default in
+  R (>= 2.13.0) [April 2013].
+o Bumped package dependencies.
+
+
+Version: 2.12.6 [2014-08-27]
+o Now 'aromaSettings' are loaded when the packages is loaded.  
+  Previously the package had to be attached.
+o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
+o ROBUSTNESS: Added several missing NAMESPACE imports.
+o BUG FIX: writeDataFrame(..., columnNamesPrefix="none") for
+  AromaUnitSignalBinaryFile would give an error.
+
+
+Version: 2.12.5 [2014-06-28]
+o Added getAromaUflFile() for AromaPlatformInterface.
+o CLEANUP: Move byChipType() from classes AromaCellCpgFile and
+  AromaCellPositionFile to superclass AromaCellTabularBinaryFile.
+o CLEANUP: Dropped getAromaUgpFile() for AromaUnitSignalBinaryFile.
+o CLEANUP: Package does less package reordering.
+o BUG FIX: SampleAnnotationSet$loadAll() would give an error if
+  annotationData/samples/ didn't exist or did not contain any SAF
+  files.
+
+
+Version: 2.12.4 [2014-06-09]
+o Package now requires R (>= 3.0.0) and BioC (>= 2.13), which were
+  released April 2013 and are in fact old and it's recommended to
+  use a more recent version of R.
+o Added 'SuggestsNote' field to DESCRIPTION with list of packages
+  that are recommended for the most common use cases.
+o Bumped package dependencies.
+
+
+
+Version: 2.12.3 [2014-05-02]
+o CLEANUP: Now using ds[[idx]] instead of getFile(ds, idx) where possible.
+
+
+Version: 2.12.2 [2014-04-26]
+o SPEEDUP: Minor speedup by replacing repetive <ns>::<fcn>() calls
+  with repetive <fcn>() calls; the '::' operator is fairly expensive.
+
+
 Version: 2.12.1 [2014-03-04]
 o CRAN POLICY: Now limiting the number of registered S3 methods in
   NAMESPACE for R (< 3.1.0).  Used to be R (< 3.0.2).

@@ -3,7 +3,7 @@ setMethodS3("setAttributesBy", "AromaMicroarrayDataSet", function(this, object, 
   if (!exists(methodName, mode="function")) {
     throw("No set function found: ", methodName);
   }
-  
+
   fcn <- get(methodName, mode="function");
   tryCatch({
     fcn(this, object, ...);
@@ -22,7 +22,7 @@ setMethodS3("setAttributesBySampleAnnotationSet", "AromaMicroarrayDataSet", func
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
 
   res <- lapply(sas, FUN=function(saf) {
@@ -40,7 +40,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  setAttrs <- function(appliesTo, tags=NULL, ..., verbose=FALSE) { 
+  setAttrs <- function(appliesTo, tags=NULL, ..., verbose=FALSE) {
     verbose && enter(verbose, "Applying sample annotations");
     on.exit({verbose && exit(verbose)});
 
@@ -60,12 +60,12 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
 
     # Typically the below only applies to one sample
     verbose && cat(verbose, "Applies to ", length(appliesTo), " sample(s).");
-    for (kk in seq_along(appliesTo)) { 
+    for (kk in seq_along(appliesTo)) {
       idx <- appliesTo[kk];
       verbose && cat(verbose, "Sample: ", names(appliesTo)[kk]);
 
       # Get the CEL file
-      cf <- getFile(this, idx);
+      cf <- this[[idx]];
 
       # Apply the attributes
       setAttributes(cf, ...);
@@ -88,7 +88,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
   if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
+  }
 
   names <- getFullNames(this);
   res <- apply(saf, names, FUN=setAttrs, force=force, verbose=verbose);

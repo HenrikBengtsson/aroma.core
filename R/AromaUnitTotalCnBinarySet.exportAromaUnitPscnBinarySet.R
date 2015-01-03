@@ -114,8 +114,8 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   nbrOfUnits <- nbrOfUnits(ugp);
 
   for (ii in seq_len(nbrOfArrays)) {
-    dfT <- getFile(dsT, ii);
-    dfB <- getFile(dsB, ii);
+    dfT <- dsT[[ii]];
+    dfB <- dsB[[ii]];
     name <- getName(dfT);
     verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", ii, name, nbrOfArrays));
     # Sanity check

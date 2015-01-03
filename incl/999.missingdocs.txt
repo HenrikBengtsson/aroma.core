@@ -12,7 +12,7 @@ nbrOfArrays.AromaMicroarrayDataSet
 nbrOfArrays.AromaMicroarrayDataSetTuple
 nbrOfArrays.AromaUnitTotalCnBinarySet
 readData
-readData.SampleAnnotationFile 
+readData.SampleAnnotationFile
 
 # MISC.
   apply apply.default
@@ -33,12 +33,12 @@ readData.SampleAnnotationFile
   allocateFromUnitNamesFile
   allocateFromUnitNamesFile.AromaUnitSignalBinaryFile
   allocateFromUnitNamesFile.AromaUnitTabularBinaryFile
-  append.RawGenomicSignals 
+  append.RawGenomicSignals
   applyBinaryOperator
   applyBinaryOperator.RawGenomicSignals applyRegions
   applyRegions.CopyNumberOutliers applyRows applyRows.CopyNumberRegions
   AromaCellSequenceFile AromaCore AromaPackage
-  AromaPlatformInterface aromaSettings AromaSettings AromaUflFile
+  aromaSettings AromaSettings AromaUflFile
   AromaUgpFile AromaUnitChromosomeTabularBinaryFile
   AromaUnitTotalCnBinaryFileList AromaUnitTotalCnBinarySetTuple
   as.AromaMicroarrayDataSetList
@@ -75,7 +75,7 @@ readData.SampleAnnotationFile
   binnedSmoothingByState
   binnedSmoothingByState.SegmentedGenomicSignalsInterface binnedSums
   binnedSums.RawSequenceReads binScatter binScatter.matrix byChipType
-  byChipType.AromaCellPositionFile
+  byChipType.AromaCellTabularBinaryFile
   byChipType.AromaMicroarrayTabularBinaryFile
   byChipType.AromaUnitTabularBinaryFile
   byChipType.UnitAnnotationDataFile byName.AromaPlatform
@@ -164,7 +164,7 @@ readData.SampleAnnotationFile
   gaussianSmoothing gaussianSmoothing.matrix gaussianSmoothing.numeric
   gaussianSmoothing.RawGenomicSignals gaussKernel
   getAlias.ChromosomalModel getAM getAM.AromaUnitTotalCnBinaryFile
-  getAromaPlatform getAromaPlatform.AromaPlatformInterface
+  getAromaPlatform
   getAromaUflFile getAromaUflFile.UnitAnnotationDataFile
   getAromaUgpFile getAromaUgpFile.AromaPlatform
   getAromaUgpFile.AromaUnitSignalBinaryFile
@@ -262,7 +262,6 @@ readData.SampleAnnotationFile
   getPlatform.AromaMicroarrayDataFile
   getPlatform.AromaMicroarrayDataSet
   getPlatform.AromaMicroarrayTabularBinaryFile
-  getPlatform.AromaPlatformInterface
   getPlatform.AromaUnitSignalBinaryFile
   getPlatform.AromaUnitSignalBinarySet getPlatform.AromaUnitTypesFile
   getPlatform.TextUnitNamesFile getPlatform.UnitAnnotationDataFile
@@ -300,10 +299,8 @@ readData.SampleAnnotationFile
   getTagsOfInput.Explorer getTemplatePath getTemplatePath.Explorer
   getUniqueStates getUniqueStates.SegmentedGenomicSignalsInterface
   getUnitAnnotationDataFile
-  getUnitAnnotationDataFile.AromaPlatformInterface getUnitNames
   getUnitNames.TextUnitNamesFile getUnitNames.UnitNamesFile
   getUnitNamesFile getUnitNamesFile.AromaPlatform
-  getUnitNamesFile.AromaPlatformInterface
   getUnitNamesFile.AromaUnitTotalCnBinarySet getUnitsAt
   getUnitsAt.AromaUgpFile getUnitsOnChromosome
   getUnitsOnChromosome.AromaUgpFile
@@ -313,7 +310,7 @@ readData.SampleAnnotationFile
   getUnitTypes getUnitTypes.AromaUnitTypesFile
   getUnitTypes.UnitTypesFile getUnitTypesFile
   getUnitTypesFile.AromaPlatform
-  getUnitTypesFile.AromaPlatformInterface getVerbose.AromaSettings
+   getVerbose.AromaSettings
   getWeights getWeights.RawGenomicSignals getXAM
   getXAM.AromaMicroarrayDataFile getXAM.AromaUnitTotalCnBinaryFile
   getXScale getXScale.RawGenomicSignals getXY getXY.RawGenomicSignals
@@ -354,7 +351,7 @@ readData.SampleAnnotationFile
   lines.RawGenomicSignals listToXml listToXml.list locallyUnique
   locallyUnique.default log2abs log2center log2neg log2pos
   matchPatterns matchPatterns.SampleAnnotationFile matrixBlockPolish
-  mergeBoxplotStats multiplyBy multiplyBy.RawGenomicSignals 
+  mergeBoxplotStats multiplyBy multiplyBy.RawGenomicSignals
  nbrOfCells
   nbrOfCells.AromaCellTabularBinaryFile nbrOfChipTypes
   nbrOfColumns.AromaTabularBinaryFile nbrOfEnzymes
@@ -368,7 +365,7 @@ readData.SampleAnnotationFile
   nbrOfUnits.UnitTypesFile newPlot newPlot.CopyNumberChromosomalModel
   norm2d norm2d.matrix normalizeGenotypeCone
   normalizeGenotypeCone.matrix onFitAddGenotypeCalls
-  onFitAddGenotypeCalls.default onFitAddGenotypeCalls.GladModel 
+  onFitAddGenotypeCalls.default onFitAddGenotypeCalls.GladModel
   plot.BinnedScatter
   plot.CopyNumberSegmentationModel plot.ProbePositionEffects
   plot.RawAlleleBFractions plot.RawCopyNumbers
@@ -467,15 +464,14 @@ readData.SampleAnnotationFile
   getDefaultFullName.AromaMicroarrayDataSet
   getDefaultFullName.AromaTabularBinarySet
   drawCnRegions.MPCBS extractCopyNumberRegions.MPCBS segmentByMPCBS
-  getAromaUgpFile.AromaPlatformInterface isCompatibleWith
-  isCompatibleWith.AromaPlatformInterface
+   isCompatibleWith
 getTags.Arguments
   getOutputSet
   getOutputSet.ChromosomalModel setAttributesBy.AromaTabularBinarySet
   setAttributesBySampleAnnotationFile.AromaTabularBinarySet
   setAttributesBySampleAnnotationSet.AromaTabularBinarySet
   setAttributesByTags.AromaTabularBinarySet
-  allocate.AromaCellCpgFile byChipType.AromaCellCpgFile
+  allocate.AromaCellCpgFile
   getColumnNames.AromaCellCpgFile getFilenameExtension.AromaCellCpgFile
   isMissing.AromaCellCpgFile readCpgs readCpgs.AromaCellCpgFile
   updateCpgs updateCpgs.AromaCellCpgFile
@@ -681,3 +677,5 @@ getAlias setAlias
 process
 findChangePointsByState
 findChangePointsByState.SegmentedGenomicSignalsInterface
+as.character.AromaPlatform equals.AromaPlatform
+getUnitNames

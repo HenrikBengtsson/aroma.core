@@ -37,8 +37,8 @@ callsT[calls == "NC"] <- "NC";
 callsT[(is.na(calls) | calls == "NA")] <- NA;
 
 units <- seq(from=1, length=length(calls), by=2);
-for (kk in seq(acs)) {
-  acf <- getFile(acs, kk);
+for (kk in seq_along(acs)) {
+  acf <- acs[[kk]];
   updateGenotypes(acf, units=units, calls=calls);
   calls2 <- extractGenotypes(acf, units=units, drop=TRUE);
   stopifnot(identical(calls2, callsT));
