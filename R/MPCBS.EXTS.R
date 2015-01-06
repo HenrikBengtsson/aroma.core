@@ -14,7 +14,10 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
     rm(list=c("compute.var", "cross.platform.consensus"));
   }
 
-  require("mpcbs") || throw("Package not loaded: mpcbs");
+  # Early error, iff package is not installed
+  requireNamespace("mpcbs") || throw("Package not loaded: mpcbs");
+  cross.platform.consensus <- mpcbs::cross.platform.consensus
+  compute.var <- mpcbs::compute.var
 
   # According to example on help("mpcbs-package", package="mpcbs")
   # in mpcbs v1.0.0.

@@ -64,11 +64,11 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
 
   # Argument 'alpha':
   if (flavor == "sfit") {
-    require("sfit") || throw("Package not loaded: sfit");
+    requireNamespace("sfit") || throw("Package not loaded: sfit");
   } else if (flavor == "expectile") {
     # To please/fool R CMD check (in the case expectile is not installed)
     fitCone <- NULL; rm(list="fitCone");
-    require("expectile") || throw("Package not loaded: expectile");
+    requireNamespace("expectile") || throw("Package not loaded: expectile");
     # Only final 'alpha' is needed by expectile::fitCone().
     alpha <- rev(alpha)[1];
   }
@@ -77,8 +77,8 @@ setMethodS3("fitMultiDimensionalCone", "matrix", function(y, alpha=c(0.10, 0.075
   # Fit simplex of (y_1, y_2, ..., y_K)
   if (flavor == "sfit") {
     fit <- sfit::cfit(y, alpha=alpha, q=q, Q=Q, ...);
-  } else {
-    fit <- fitCone(y, alpha=alpha, ...);
+  } else if (flavor == "expectile") {
+    fit <- expectile::fitCone(y, alpha=alpha, ...);
     print(fit);
     throw("The rest is not implemented yet: ", flavor);
   }
