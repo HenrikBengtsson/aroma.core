@@ -2,7 +2,7 @@ setMethodS3("extractPSCNMatrix", "AromaUnitTotalCnBinaryFile", function(dfTCN, d
   # Argument 'dfTCN':
   dfTCN <- Arguments$getInstanceOf(dfTCN, "AromaUnitTotalCnBinaryFile");
   chipType <- getChipType(dfTCN);
-  nbrOfUnits <- nbrOfUnits(dfTCN);  
+  nbrOfUnits <- nbrOfUnits(dfTCN);
 
   # Argument 'dfBAF':
   if (identical(dfBAF, "*")) {
@@ -29,7 +29,7 @@ setMethodS3("extractPSCNMatrix", "AromaUnitTotalCnBinaryFile", function(dfTCN, d
   beta <- dfBAF[units,1,drop=TRUE];
 
   dimnames <- list(NULL, c("total", "fracB"));
-  data <- matrix(c(theta, beta), nrow=nbrOfUnits, ncol=2L, 
+  data <- matrix(c(theta, beta), nrow=nbrOfUnits, ncol=2L,
                              byrow=FALSE, dimnames=dimnames);
 
   data;
@@ -63,9 +63,9 @@ setMethodS3("extractPSCNArray", "AromaUnitTotalCnBinarySet", function(dsTCN, dsB
   data <- NULL;
   nbrOfArrays <- length(dsTCN);
   for (ii in seq_len(nbrOfArrays)) {
-    dfTCN <- getFile(dsTCN, ii);
+    dfTCN <- dsTCN[[ii]];
     if (!identical(dsBAF, "*")) {
-      dfBAF <- getFile(dsBAF, ii);
+      dfBAF <- dsBAF[[ii]];
     }
     dataII <- extractPSCNArray(dfTCN, dfBAF, ..., drop=FALSE, verbose=verbose);
     if (is.null(data)) {

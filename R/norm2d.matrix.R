@@ -1,6 +1,6 @@
 setMethodS3("fit2d", "matrix", function(M, MARGIN=1, spar=0.7, h=20, ...) {
   ## aroma.light::robustSmoothSpline()
-  require("aroma.light") || throw("Package not loaded: aroma.light");
+  use("aroma.light", how="load");
 
   nr <- nrow(M);
   nc <- ncol(M);
@@ -36,7 +36,7 @@ setMethodS3("fit2d", "matrix", function(M, MARGIN=1, spar=0.7, h=20, ...) {
 
     # Fit smooth curve (1d)
     ok <- which(is.finite(Mb));
-    fit <- robustSmoothSpline(x[ok], Mb[ok], spar=spar);
+    fit <- aroma.light::robustSmoothSpline(x[ok], Mb[ok], spar=spar);
     # Not needed anymore
     ok <- NULL;
     Mp <- predict(fit, x=x)$y;
@@ -74,13 +74,17 @@ setMethodS3("calcMargins", "matrix", function(M, unshift=FALSE, ...) {
   }
   list(
     rows=rowMedians(M, na.rm=TRUE),
-    cols=rowMedians(t(M), na.rm=TRUE)
+    cols=colMedians(M, na.rm=TRUE)
   );
 }, private=TRUE)
 
 
 ############################################################################
 # HISTORY:
+# 2014-08-27
+# o SPEEDUP: Now calcMargins() for matrix utilized colMedians().
+# 2012-08-17
+# o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
 # 2012-04-16
 # o Now fit2d() explicitly require the 'aroma.light' package.
 # o Dropped internal colMedians() from fit2d(); already in matrixStats.

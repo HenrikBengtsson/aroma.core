@@ -346,13 +346,13 @@ setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nb
   if (getParallelSafe(this)) {
     tryCatch({
       pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-      res <- copyFile(pathname, dest, overwrite=TRUE);
+      res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE);
       if (!res)
         dest <- NULL;
     }, error = function(ex) {})
   } else {
     pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-    res <- copyFile(pathname, dest, overwrite=TRUE);
+    res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE);
     if (!res)
       dest <- NULL;
   }

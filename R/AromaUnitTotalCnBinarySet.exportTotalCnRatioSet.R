@@ -91,14 +91,14 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
   typeTags <- paste(c(ratioTag, "total"), collapse=",");
 
   for (kk in seq_along(this)) {
-    ce <- getFile(this, kk);
+    ce <- this[[kk]];
     verbose && enter(verbose, sprintf("File %d ('%s') of %d", kk, getName(ce), nbrOfFiles));
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Setting up output filename
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if (!is.null(refSet)) {
-      ceR <- getFile(refSet, kk);
+      ceR <- refSet[[kk]];
       refName <- getFullName(ceR);
       refName <- gsub(",(total|log2ratio)", "", refName);
       refTag <- sprintf("ref=%s", refName);

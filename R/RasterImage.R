@@ -70,9 +70,7 @@ setMethodS3("write", "RasterImage", function(x, file, path=".", overwrite=FALSE,
   pathnameT <- pushTemporaryFile(pathname);
 
   if (format == "png") {
-    if (!isPackageInstalled("png")) {
-      throw("Cannot write PNG to file. Package not installed: png");
-    }
+    use("png")
 
     img <- this;
 #saveObject(img, "img.RData");

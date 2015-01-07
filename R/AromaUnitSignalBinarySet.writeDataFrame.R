@@ -358,7 +358,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     verbose && enter(verbose, "Extracting signals");
     dataKK <- NULL;
     for (ii in seq_len(nbrOfFiles)) {
-      df <- getFile(this, ii);
+      df <- this[[ii]];
       verbose && enter(verbose, sprintf("File #%d ('%s') of %d", ii, getName(df), nbrOfFiles));
       dataII <- df[unitsKK,,drop=FALSE];
 

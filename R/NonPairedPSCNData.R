@@ -135,7 +135,9 @@ setMethodS3("as.NonPairedPSCNData", "data.frame", function(this, ...) {
 setMethodS3("callNaiveGenotypes", "NonPairedPSCNData", function(this, censorAt=c(0,1), force=FALSE, ..., verbose=FALSE) {
   data <- this;
 
-  require("aroma.light") || throw("Package not loaded: aroma.light");
+  requireNamespace("aroma.light") || throw("Package not loaded: aroma.light");
+  callNaiveGenotypes <- aroma.light::callNaiveGenotypes
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -166,8 +168,7 @@ setMethodS3("callNaiveGenotypes", "NonPairedPSCNData", function(this, censorAt=c
   verbose && cat(verbose, "Allele B fractions (BAFs):");
   verbose && str(verbose, data$beta[isSNP]);
 
-  naValue <- as.double(NA);
-  mu <- rep(naValue, times=nrow(data));
+  mu <- rep(NA_real_, times=nrow(data));
   mu[isSNP] <- callNaiveGenotypes(data$beta[isSNP], censorAt=censorAt, ...);
   verbose && cat(verbose, "Called genotypes:");
   verbose && str(verbose, mu[isSNP]);
@@ -216,9 +217,8 @@ setMethodS3("dropSegmentationOutliers", "NonPairedPSCNData", function(C, ...) {
   isOutlier <- callSegmentationOutliers(this, ...);
 
   if (any(isOutlier)) {
-    naValue <- as.double(NA);
     C <- getSignals(this);
-    C[isOutlier] <- naValue;
+    C[isOutlier] <- NA_real_;
     this <- setSignals(this, C);
   }
 

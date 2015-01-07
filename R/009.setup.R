@@ -1,29 +1,35 @@
-.setupAromaCore <- function(pkg, ...) {
+# Dummy to please R CMD check
+aromaSettings <- NULL
+
+.loadSettings <- function(pkgname, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read settings file ".<name>Settings" and store it in package
   # variable '<name>Settings'.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # ...but don't load settings if running R CMD check
-  name <- "aroma";
-  varName <- sprintf("%sSettings", name);
-  basename <- paste(".", varName, sep="");
+  name <- "aroma"
+  varName <- sprintf("%sSettings", name)
+  basename <- paste(".", varName, sep="")
   if (queryRCmdCheck() == "notRunning") {
-    settings <- AromaSettings$loadAnywhere(basename, verbose=TRUE);
+    settings <- AromaSettings$loadAnywhere(basename, verbose=TRUE)
   } else {
-    settings <- NULL;
+    settings <- NULL
   }
   if (is.null(settings)) {
-    settings <- AromaSettings(basename);
+    settings <- AromaSettings(basename)
   }
-  assign(varName, settings, pos=getPosition(pkg));
+
+  assign(varName, settings, envir=getNamespace(pkgname))
+} # .loadSettings()
 
 
+.setupAromaCore <- function(pkg, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Assert that digest() gives a consistent result across R versions
   # and platforms.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!identical(getOption("aroma.core::assertDigest"), FALSE)) {
-    R.cache:::.assertDigest("error");
+    R.cache:::.assertDigest("error")
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -31,18 +37,22 @@
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   setHook("base::library:onLoad", function(...) {
     # Fix the search path
-    pkgs <- fixSearchPath(aroma.core);
-    if (length(pkgs) > 0) {
+    pkgs <- fixSearchPath(aroma.core)
+    if (length(pkgs) > 0L) {
       warning("Packages reordered in search path: ",
-                                            paste(pkgs, collapse=", "));
+                                            paste(pkgs, collapse=", "))
     }
-  }, action="append");
+  }, action="append")
 } # .setupAromaCore()
 
 
 
 ############################################################################
 # HISTORY:
+# 2012-08-26
+# o Added .loadSettings() extracted from .setupAromaCore().  It now
+#   assigned the 'aromaSettings' variable when package is loaded.
+#   Previously it had to be attach.
 # 2012-04-22
 # o CLEANUP: Package no longer try to apply package patches, which was
 #   only possible when namespaces where not used.

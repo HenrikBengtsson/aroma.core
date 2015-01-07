@@ -86,7 +86,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
     # assign mean and sd to an empty environment so that digest() doesn't
     # pick up any "promised" objects from the original environment.
     # A bit ad hoc, but it works for now. /2007-01-03
-    key <- base::lapply(key, FUN=function(x) {
+    key <- lapply(key, FUN=function(x) {
       if (is.function(x))
         environment(x) <- emptyenv();
       x;
@@ -283,7 +283,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
       verbose && enter(verbose, "Reading data");
       X <- matrix(naValue, nrow=length(idxs), ncol=nbrOfArrays);
       for (kk in arrays) {
-        df <- getFile(this, kk);
+        df <- this[[kk]];
         X[,kk] <- df[idxs,cc, drop=TRUE];
       }
       verbose && exit(verbose);

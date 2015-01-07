@@ -27,14 +27,14 @@ getCommonListElements <- function(lst, ignoreEmpty=TRUE) {
 
       # Done?
       if (length(common) == 0)
-        break;     
+        break;
     }
   } # for (kk ...)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Keep only common elements
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  lst <- base::lapply(lst, FUN=function(ss) {
+  lst <- lapply(lst, FUN=function(ss) {
     keep <- (ss %in% common);
     ss[keep];
   });

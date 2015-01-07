@@ -320,8 +320,8 @@ setMethodS3("setReference", "CopyNumberChromosomalModel", function(this, referen
 
       # Assert that the reference files are compatible with the test files
       for (jj in seq_along(ces)) {
-        cf <- getFile(ces, jj);
-        rf <- getFile(ref, jj);
+        cf <- ces[[jj]]
+        rf <- ref[[jj]];
         if (!inherits(rf, class(cf)[1])) {
           throw(class(ref)[1], " #", kk, " of argument 'refTuple' contains file #", jj, ", that is not of the same class as the paired test file: ", class(rf)[1], " !inherits from ", class(cf)[1]);
         }
@@ -1005,6 +1005,13 @@ setMethodS3("fit", "CopyNumberChromosomalModel", abstract=TRUE);
 #
 # \value{
 #  See subclasses.
+# }
+#
+# \section{Parallel processing}{
+#   Except for an in-object caching (\code{cache=TRUE}), this method
+#   access data solely in an read-only fashion.
+#   This method is safe to call with different arrays and/or
+#   chromosomes in parallel.
 # }
 #
 # @author

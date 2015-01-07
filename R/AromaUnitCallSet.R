@@ -6,10 +6,10 @@
 # \description{
 #  @classhierarchy
 #
-#  An AromaUnitCallSet object represents a set of 
+#  An AromaUnitCallSet object represents a set of
 #  @see "AromaUnitCallFile"s with \emph{identical} chip types.
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -19,7 +19,7 @@
 # \section{Fields and Methods}{
 #  @allmethods "public"
 # }
-# 
+#
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitCallSet", function(...) {
@@ -41,15 +41,15 @@ setMethodS3("byPath", "AromaUnitCallSet", function(static, ..., pattern=".*[.]ac
 
 setMethodS3("findUnitsTodo", "AromaUnitCallSet", function(this, ...) {
   # Look into the last chip-effect file since that is updated last
-  df <- getFile(this, length(this));
+  df <- this[[length(this)]];
   findUnitsTodo(df, ...);
 })
 
 
 setMethodS3("extractCallArray", "AromaUnitCallSet", function(this, ..., drop=FALSE) {
   res <- NULL;
-  for (kk in seq_along(this)) {  
-    df <- getFile(this, kk);
+  for (kk in seq_along(this)) {
+    df <- this[[kk]];
     values <- extractCalls(df, ..., drop=FALSE);
 
     if (is.null(res)) {

@@ -54,7 +54,9 @@ setMethodS3("fitGenotypeCone", "matrix", function(y, flavor=c("sfit", "expectile
 setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lambda=2, ...) {
   # To please/fool R CMD check (in the case expectile is not installed)
   fitExpectileCone <- NULL; rm(list="fitExpectileCone");
-  require("expectile") || throw("Package not loaded: expectile");
+
+  requireNamespace("expectile") || throw("Package not loaded: expectile")
+  fitExpectileCone <- expectile::fitExpectileCone
 
   dim <- dim(y);
 
@@ -175,7 +177,7 @@ setMethodS3("fitGenotypeConeByExpectile", "matrix", function(y, alpha=0.01, lamb
 # @keyword internal
 #*/###########################################################################
 setMethodS3("fitGenotypeConeBySfit", "matrix", function(y, alpha=c(0.10, 0.075, 0.05, 0.03, 0.01), q=2, Q=98, ...) {
-  require("sfit") || throw("Package not loaded: sfit");
+  requireNamespace("sfit") || throw("Package not loaded: sfit")
 
   # Fit simplex of (y_A,y_B)
   fit <- sfit::cfit(y, alpha=alpha, q=q, Q=Q, ...);

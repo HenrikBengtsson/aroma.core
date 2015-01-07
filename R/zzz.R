@@ -2,6 +2,8 @@
   ns <- getNamespace(pkgname);
   pkg <- AromaCore(pkgname);
   assign(pkgname, pkg, envir=ns);
+
+  .loadSettings(pkgname)
 } # .onLoad()
 
 
