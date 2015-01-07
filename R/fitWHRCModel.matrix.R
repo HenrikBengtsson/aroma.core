@@ -53,13 +53,12 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
     wNA[isNA] <- 0;
     y[isNA] <- 0; # preprocessCore() only takes real values.
 
-    badCells <- apply(isNA, MARGIN=2, FUN=all);
+    badCells <- colAlls(isNA);
     if (any(badCells)) {
-      naValue <- as.double(NA);
-      return(list(Estimates=rep(naValue, times=I+K),
-                  StdErrors=rep(naValue, times=I+K),
-                  Weights=matrix(naValue, nrow=K, ncol=I),
-                  Residuals=matrix(naValue, nrow=K, ncol=I)
+      return(list(Estimates=rep(NA_real_, times=I+K),
+                  StdErrors=rep(NA_real_, times=I+K),
+                  Weights=matrix(NA_real_, nrow=K, ncol=I),
+                  Residuals=matrix(NA_real_, nrow=K, ncol=I)
                  )
             );
     }
@@ -81,7 +80,7 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
   # Iterative re-weighted fit
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   w0 <- w;
-  dParams <- naValue;
+  dParams <- NA_real_;
   lastParams <- NULL;
 
   nbrOfIterations <- 0;

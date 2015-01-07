@@ -27,6 +27,7 @@ importFrom("R.filesets", "TabularTextFileSet")
 
 ## Importing generics
 importFrom("matrixStats", "anyMissing")
+importFrom("matrixStats", "colAlls")
 importFrom("matrixStats", "colWeightedMeans")
 importFrom("matrixStats", "colWeightedMedians")
 importFrom("matrixStats", "rowCollapse")
