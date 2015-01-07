@@ -1,6 +1,12 @@
 Package: aroma.core
 ===================
 
+Version: 2.13.0 [2015-01-07]
+o Bumped version for CRAN submission.
+o Updated package dependencies.
+o Package passes all redundancy tests.
+
+
 Version: 2.12.8 [2014-09-19]
 o BUG FIX: display() for Explorer would try to open a pathname 
   in a way that only worked on Windows.  Thanks to Sunghee Oh
