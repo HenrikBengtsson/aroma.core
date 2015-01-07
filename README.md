@@ -1,6 +1,6 @@
 # R package: aroma.core
 
-Stable release available via [CRAN](http://cran.r-project.org/package=aroma.core).  Install in R as:
+The stable release is available via [CRAN](http://cran.r-project.org/package=aroma.core).  Install in R as:
 
 ```s
 install.packages('aroma.core')
