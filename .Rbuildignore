@@ -10,5 +10,6 @@
 ^.git
 ^.check
 ^.test
+^cran-comments[.].*$
 ^[^/]*Data/
 README.md
