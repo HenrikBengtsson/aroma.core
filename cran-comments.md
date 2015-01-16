@@ -1,5 +1,7 @@
 # CRAN submission aroma.core 2.13.0
-on 2015-01-07
+on 2015-01-16
+
+This is a re-submission of aroma.core 2.13.0 of my Jan 7 submission, which for unknown reasons vanished from the CRAN upload ftp folders.
 
 I have verified the package and its 5 reverse-dependent packages(*) using `R CMD build` and `R CMD check --as-cran` on
 
@@ -18,38 +20,25 @@ This submission contains changes that are related to updates in R and/or CRAN;
 
  * Now using `Additional_repositories` for packages on non-mainstream repositories.
 
+Note that R CMD check on R (>= 3.1.0) gives the following *false* NOTE:
+
+* checking package namespace information ... NOTE
+R < 3.0.2 had a limit of 500 registered S3 methods: found 782
+
+This NOTE is not correct, since it done on `NAMESPACE` loaded in R (>= 3.1.0), which is different from the one that is loaded in R (< 3.1.0), because in the latter I limit the number of registered S3 methods in `NAMESPACE` using:
+
+    if (getRversion() >= "3.1.0") {
+      ...
+    } 
+
+This exact same approach was taken also in aroma.core 2.12.1, which was accepted in March 7, 2014 (by email from CRAN).
+
 Thank you,
 
 Henrik Bengtsson  
 (maintainer of aroma.core)
 
 Footnotes:  
-(*) The submitted updates cause no issues for any of the following 5 reverse dependencies: aroma.affymetrix 2.12.0, aroma.cn 1.5.0, calmate 0.11.0, MPAgenomics 1.1.2 and NSA 0.0.32.
-
----
-Update 2015-01-08:
-
-I forgot to clarify this in my note to CRAN that this NOTE
-is false.  In the `NAMESPACE` file I limit the number of S3 methods in <
-3.1.0 using:
-
-    if (getRversion() >= "3.1.0") {
-      ...
-    }
-
-This was also the case in my 2.12.1 submission, which was discussed
-and accepted back in March 2014, cf.
-
-"... I've now updated the NAMESPACE file in aroma.core 2.12.1 to
-limit the number of registered S3 methods for R (< 3.1.0) instead
-of R (< 3.0.2) as in aroma.core 2.12.0.  The `R CMD check` message
-on R-devel:
-
-* using R Under development (unstable) (2014-03-03 r65113)
-[...]
-* checking package namespace information ... NOTE
-R < 3.0.2 had a limit of 500 registered S3 methods: found 782
-
-is not correct, since it applies the loaded `NAMESPACE` in R devel but
-apply the check emulating R 3.0.1.  On all other versions `R CMD
-check` passes with all OKs."
+(*) The submitted updates cause no issues for any of the following 5
+reverse dependencies: aroma.affymetrix 2.12.0, aroma.cn 1.5.0,
+calmate 0.11.0, MPAgenomics 1.1.2 and NSA 0.0.32.
