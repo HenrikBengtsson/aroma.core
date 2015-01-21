@@ -9,7 +9,7 @@ install.packages('aroma.core')
 ## Quality assessment
 
 * R CMD check status:
-  - <a href="http://cran.r-project.org/web/checks/check_results_aroma.core.html/">CRAN checks</a>
+  - <a href="http://cran.r-project.org/web/checks/check_results_aroma.core.html">CRAN checks</a>
   - <a href="https://travis-ci.org/HenrikBengtsson/aroma.core"><img
   src="https://travis-ci.org/HenrikBengtsson/aroma.core.svg?branch=master"
   alt="Build status"></a>
