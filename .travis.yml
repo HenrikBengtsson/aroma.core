@@ -47,8 +47,8 @@ before_install:
     fi
 
 install:
-  - $RENV install_deps
   - $RENV bioc_install aroma.light DNAcopy 
+  - $RENV install_deps
 
 script:
   - $RENV run_tests
