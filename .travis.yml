@@ -63,7 +63,7 @@ after_success:
     fi
 
 after_failure:
-  - ./travis-tool.sh dump_logs
+  - $RENV dump_logs
 
 notifications:
   email:
