@@ -1,6 +1,11 @@
 Package: aroma.core
 ===================
 
+Version: 2.13.x [2015-01-21]
+o BUG FIX: extractRawMirroredAlleleBFractions() for RawAlleleBFractions
+  gave "Error in setSignals(res, dh) : object 'res' not found".
+
+
 Version: 2.13.0 [2015-01-07]
 o Bumped version for CRAN submission.
 o Updated package dependencies.
