@@ -686,10 +686,12 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
     dsOut <- NULL;
   }
 
-  # Sanity check
-  stopifnot(length(dsOut) <= nbrOfFiles);
-
   verbose && print(verbose, dsOut);
+
+  # Sanity check
+  if (length(dsOut) > nbrOfFiles) {
+    throw(sprintf("More output files than expected were detected: %d > %d", length(dsOut), nbrOfFiles))
+  }
 
   verbose && exit(verbose);
 
