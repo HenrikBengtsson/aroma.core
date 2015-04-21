@@ -698,7 +698,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
   # Check for duplicated output files
   dups <- gotten[duplicated(gotten)]
   if (length(dups) > 0) {
-    msg <- sprintf("%s Among the output files, %d (%s) have duplicated names, which is an error.", msg, length(dups), hpaste(dups))
+    msg <- sprintf("%s Among the output files, %d (%s) have duplicated names, which is an error.", msg, length(dups), hpaste(unique(dups)))
     isError <- TRUE
   }
 
