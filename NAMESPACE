@@ -168,10 +168,12 @@ importFrom("utils", "packageDescription")
 importFrom("utils", "write.table")
 
 ## Manually adjusted
+importFrom("stats", "reorder")
 ## Cannot import explicitly from 'base';
 ## importFrom("base", "flush") ## Multi-sources: R.rsp, base
 ## importFrom("base", "parse") ## Multi-sources: R.utils, R.rsp, base
 ## importFrom("base", "readLines") ## Multi-sources: R.filesets, base
+
 
 ## Manual imports
 importFrom("R.utils", "Arguments")
@@ -605,7 +607,7 @@ S3method("asThis", "BasicObject")
 # BinnedScatter
 S3method("plot", "BinnedScatter")
 S3method("points", "BinnedScatter")
-##S3method("reorder", "BinnedScatter")
+S3method("reorder", "BinnedScatter")
 S3method("subsample", "BinnedScatter")
 S3method("subset", "BinnedScatter")
 
@@ -853,8 +855,8 @@ S3method("setup", "Explorer")
 S3method("splitByReportPathPattern", "Explorer")
 S3method("updateSetupExplorerFile", "Explorer")
 
-# FileCacheKeyInterface
 if (getRversion() >= "3.1.0") {
+  # FileCacheKeyInterface
   S3method("getCacheKey", "FileCacheKeyInterface")
 
   # GenericDataFile
@@ -1203,4 +1205,85 @@ if (getRversion() >= "3.1.0") {
   # UnitTypesFile
   S3method("getUnitTypes", "UnitTypesFile")
   S3method("nbrOfUnits", "UnitTypesFile")
+} # if (getRversion() >= "3.1.0")
+
+if (getRversion() >= "3.1.0") {
+S3method("stextChipType", "character")
+S3method("stringTree", "character")
+
+S3method("apply", "default")
+S3method("downloadPackagePatch", "default")
+S3method("drawCytoband2", "default")
+S3method("whatDataType", "default")
+S3method("write", "default")
+S3method("patchPackage", "default")
+S3method("processTime", "default")
+S3method("requireWithMemory", "default")
+
+S3method("calcMargins", "matrix")
+S3method("fitGenotypeConeByExpectile", "matrix")
+S3method("fitGenotypeConeBySfit", "matrix")
+S3method("fitMultiDimensionalCone", "matrix")
+S3method("fit2d", "matrix")
+S3method("norm2d", "matrix")
+S3method("normalizeGenotypeCone", "matrix")
+
+S3method("listToXml", "list")
+
+S3method("plotProfile2", "profileCGH")
+S3method("drawCytoband", "profileCGH")
+
+S3method("as.character", "AromaMicroarrayDataSetTuple")
+
+S3method("as.character", "AromaPlatform")
+S3method("equals", "AromaPlatform")
+
+S3method("getAromaUflFile", "AromaPlatformInterface")
+
+S3method("byPathnames", "SampleAnnotationSet")
+S3method("findSAFs", "SampleAnnotationSet")
+
+S3method("fixSearchPath", "AromaCore")
+
+S3method("getLog2Ratios", "CopyNumberSegmentationModel")
+S3method("getRawCnData", "CopyNumberChromosomalModel")
+
+S3method("getSampleLayerName", "Explorer")
+S3method("getVersion", "Explorer")
+
+S3method("getVerbose", "AromaRepository")
+
+S3method("getVerbose", "AromaSettings")
+
+S3method("getGenericSummary", "RichDataFrame")
+S3method("getVirtualColumnFunctions", "RichDataFrame")
+S3method("setVirtualColumnFunctions", "RichDataFrame")
+
+S3method("isDone", "AromaTransform")
+
+S3method("stextLabel", "AromaMicroarrayDataFile")
+S3method("stextLabels", "AromaMicroarrayDataFile")
+S3method("stextSize", "AromaMicroarrayDataFile")
+S3method("writeDataFrame", "AromaUnitFracBCnBinarySet")
+S3method("writeDataFrame", "AromaUnitPscnBinarySet")
+S3method("writeDataFrame", "AromaUnitSignalBinaryFile")
+S3method("writeDataFrame", "AromaUnitSignalBinarySet")
+S3method("writeDataFrame", "AromaUnitTabularBinaryFile")
+S3method("writeDataFrame", "AromaUnitTotalCnBinarySet")
+
+S3method("drawCytoband", "ChromosomalModel")
+S3method("getListOfUnitNamesFiles", "ChromosomalModel")
+S3method("getListOfUnitTypesFiles", "ChromosomalModel")
+S3method("getOutputSet", "ChromosomalModel")
+S3method("getSetTag", "ChromosomalModel")
+
+S3method("writeAxesLayers", "ChromosomeExplorer")
+S3method("writeCopyNumberRegionLayers", "ChromosomeExplorer")
+S3method("writeCytobandLayers", "ChromosomeExplorer")
+S3method("writeGraphs", "ChromosomeExplorer")
+S3method("writeGridHorizontalLayers", "ChromosomeExplorer")
+S3method("writeRawCopyNumberLayers", "ChromosomeExplorer")
+S3method("writeRegions", "ChromosomeExplorer")
+
+S3method("findChangePointsByState", "SegmentedGenomicSignalsInterface")
 } # if (getRversion() >= "3.1.0")
