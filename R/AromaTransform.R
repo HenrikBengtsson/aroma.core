@@ -688,9 +688,21 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
 
   verbose && print(verbose, dsOut);
 
-  # Sanity check
-  if (length(dsOut) > nbrOfFiles) {
-    throw(sprintf("More output files than expected were detected: %d > %d", length(dsOut), nbrOfFiles))
+  # Sanity checks
+  gotten <- getFullNames(dsOut)
+  expected <- fullnames
+  unknown <- setdiff(gotten, expected)
+  missing <- setdiff(expected, gotten)
+  if (length(dsOut) > nbrOfFiles) {  ## Use length(unknown) > 0 instead?
+    msg <- sprintf("Got %d (%s) output file, but expected %d (%s).", length(gotten), hpaste(gotten), length(expected), hpaste(expected))
+
+    if (length(unknown) > 0) {
+      msg <- sprintf("%s Among the output files, %d (%s) were unexpected/non-matching, which is an error.", msg, length(unknown), hpaste(unknown))
+    }
+    if (length(missing) > 0) {
+      msg <- sprintf("%s Also, but not an error, there are %d (%s) missing output files.", msg, length(missing), hpaste(missing))
+    }
+    throw(msg)
   }
 
   verbose && exit(verbose);

@@ -1,7 +1,9 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.x [2015-01-21]
+Version: 2.13.0-9000 [2015-04-21]
+o getOutputDataSet() for AromaTransform gives more informative error
+  messages.
 o BUG FIX: extractRawMirroredAlleleBFractions() for RawAlleleBFractions
   gave "Error in setSignals(res, dh) : object 'res' not found".
 
@@ -13,7 +15,7 @@ o Package passes all redundancy tests.
 
 
 Version: 2.12.8 [2014-09-19]
-o BUG FIX: display() for Explorer would try to open a pathname 
+o BUG FIX: display() for Explorer would try to open a pathname
   in a way that only worked on Windows.  Thanks to Sunghee Oh
   (S. Korea) for reporting on this.
 
@@ -26,7 +28,7 @@ o Bumped package dependencies.
 
 
 Version: 2.12.6 [2014-08-27]
-o Now 'aromaSettings' are loaded when the packages is loaded.  
+o Now 'aromaSettings' are loaded when the packages is loaded.
   Previously the package had to be attached.
 o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
 o ROBUSTNESS: Added several missing NAMESPACE imports.
