@@ -11,6 +11,7 @@ o BUG FIX: getOutputDataSet() for AromaTransform would sometimes given
   Estadual de Campinas, Sao Paulo, Brazil) for reporting on this.
 o BUG FIX: extractRawMirroredAlleleBFractions() for RawAlleleBFractions
   gave "Error in setSignals(res, dh) : object 'res' not found".
+o ROBUSTNESS: Package now declare all S3 methods.
 o Package now requires R (>= 3.1.1) released July 2014. The allows us
   to use BioC (>= 3.0) (October 2014).
 
