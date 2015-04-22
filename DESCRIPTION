@@ -31,16 +31,14 @@ Suggests:
 SuggestsNote: Recommended: aroma.light, preprocessCore, DNAcopy, sfit, png
 Additional_repositories: http://r-forge.r-project.org
 Date: 2015-04-22
-Title: Core Methods and Classes Used by aroma.* Packages Part of The Aroma Framework
+Title: Core Methods and Classes Used by 'aroma.*' Packages Part of The Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                  email="henrikb@braju.com"),
   person("Mark", "Robinson", role="ctb"),
   person("Ken", "Simpson", role="ctb"))
-Description: This package contains core methods and classes used by
-        higher-level aroma.* packages part of the Aroma Project, e.g.
-        aroma.affymetrix and aroma.cn.  Its API is mostly of interest
-	to developers and is rarely used by end users directly.
+Description: Core methods and classes used by higher-level aroma.* packages
+        part of the Aroma Project, e.g. aroma.affymetrix and aroma.cn.
 License: LGPL (>= 2.1)
 URL: http://www.aroma-project.org/, https://github.com/HenrikBengtsson/aroma.core
 BugReports: https://github.com/HenrikBengtsson/aroma.core/issues
