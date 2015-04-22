@@ -29,7 +29,7 @@ Suggests:
   mpcbs (>= 1.1.1)
 SuggestsNote: Recommended: aroma.light, preprocessCore, DNAcopy, sfit, png
 Additional_repositories: http://r-forge.r-project.org
-Date: 2015-04-21
+Date: 2015-04-22
 Title: Core Methods and Classes Used by aroma.* Packages Part of The Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),

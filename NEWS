@@ -1,9 +1,14 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.0-9000 [2015-04-21]
+Version: 2.13.0-9000 [2015-04-22]
 o getOutputDataSet() for AromaTransform gives more informative error
   messages.
+o BUG FIX: getOutputDataSet() for AromaTransform would sometimes given
+  an error due to the same output file being identified more than
+  once, for instance, when the full name of an output file is also
+  the prefix of another file.  Thanks to Benilton Carvalho (Universidade
+  Estadual de Campinas, Sao Paulo, Brazil) for reporting on this.
 o BUG FIX: extractRawMirroredAlleleBFractions() for RawAlleleBFractions
   gave "Error in setSignals(res, dh) : object 'res' not found".
 
