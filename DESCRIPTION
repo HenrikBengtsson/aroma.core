@@ -31,7 +31,7 @@ Suggests:
 SuggestsNote: Recommended: aroma.light, preprocessCore, DNAcopy, sfit, png
 Additional_repositories: http://r-forge.r-project.org
 Date: 2015-04-22
-Title: Core Methods and Classes Used by 'aroma.*' Packages Part of The Aroma Framework
+Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                  email="henrikb@braju.com"),
