@@ -53,7 +53,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     # Sanity check
     stopifnot(length(dsB) == length(dsT));
     # Reorder
-    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)));
+    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error");
     # Sanity check
     stopifnot(getNames(dsB) ==  getNames(dsT));
   }
@@ -81,7 +81,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     pattern <- ",fracB[.]asb$";
     dsB <- AromaUnitFracBCnBinarySet$byPath(path, pattern=pattern);
     verbose && cat(verbose, "Number of files: ", length(dsB));
-    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)));
+    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error");
     verbose && cat(verbose, "Number of files kept: ", length(dsB));
     # Sanity check
     stopifnot(length(dsB) == length(dsT));
@@ -203,7 +203,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   verbose && cat(verbose, "Exported data set:");
   pattern <- ",pscn[.]asb$";
   ds <- AromaUnitPscnBinarySet$byPath(path, pattern=pattern);
-  ds <- extract(ds, getNames(dsT));
+  ds <- extract(ds, getNames(dsT), onDuplicates="error");
   verbose && print(verbose, ds);
 
   # Sanity check

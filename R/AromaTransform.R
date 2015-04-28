@@ -679,7 +679,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Handle missing output files
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  dsOut <- extract(dsOut, fullnames, by="exact", onMissing=onMissing);
+  dsOut <- extract(dsOut, fullnames, by="exact", onMissing=onMissing, onDuplicates="error");
 
   # Special backward compatible case. /HB 2013-11-15
   if (onMissing == "dropall" && length(dsOut) == 0L) {
