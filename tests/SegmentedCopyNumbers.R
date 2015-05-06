@@ -15,9 +15,14 @@ stateFcn <- function(x, ...) {
 # Number of loci
 J <- 500
 
+x <- 1:J
 y <- rnorm(J, sd=1/2)
-x <- 1:length(y)
-x <- sample(1:length(y))
+
+# Reshuffle
+o <- sample(J)
+x <- x[o]
+y <- y[o]
+
 for (state in c(-1,+1)) {
   idxs <- (stateFcn(x) == state)
   y[idxs] <- y[idxs] + state
@@ -34,8 +39,10 @@ cnO <- sort(cn)
 print(cnO)
 
 # Sanity check
+oinv <- order(o)
+stopifnot(all.equal(cn[oinv,], cnO))
 o <- order(cn$x)
-stopifnot(all.equal(cn[o,], cnO))
+stopifnot(identical(o, oinv))
 
 
 
@@ -79,6 +86,10 @@ legend("topright", pch=19, col=c("#999999", "blue", "red"), sprintf(c("raw [n=%d
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 cnSa <- kernelSmoothingByState(cn, h=2)
 cnSb <- kernelSmoothingByState(cn, h=5)
+
+# Sanity check pre and post sorting
+cnOSb <- kernelSmoothingByState(cnO, h=5)
+stopifnot(all.equal(cnOSb, sort(cnSb)))
 
 plot(cn, col="#999999", ylim=c(-3,3))
 title(main="Kernel smoothing stratified by state w/ Gaussian kernel")
