@@ -44,9 +44,11 @@ before_install:
     fi
 
 install:
+ - $RENV install_bioc aroma.light DNAcopy preprocessCore
+ - $RENV install_r png
 
- - $RENV install_bioc aroma.light DNAcopy EBImage GLAD preprocessCore
  - $RENV install_r matrixStats PSCBS R.cache R.devices R.filesets R.methodsS3 R.oo R.rsp R.utils RColorBrewer
+ - $RENV install_bioc aroma.light DNAcopy EBImage GLAD preprocessCore
  - $RENV install_r Cairo png
 
 script:

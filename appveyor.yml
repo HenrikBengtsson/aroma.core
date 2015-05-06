@@ -27,9 +27,11 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
+ - travis-tool.sh install_bioc aroma.light DNAcopy preprocessCore
+ - travis-tool.sh install_r png
 
- - travis-tool.sh install_bioc aroma.light DNAcopy EBImage GLAD preprocessCore
  - travis-tool.sh install_r matrixStats PSCBS R.cache R.devices R.filesets R.methodsS3 R.oo R.rsp R.utils RColorBrewer
+ - travis-tool.sh install_bioc aroma.light DNAcopy EBImage GLAD preprocessCore
  - travis-tool.sh install_r Cairo png
 
 test_script:
