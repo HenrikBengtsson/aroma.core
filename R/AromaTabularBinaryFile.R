@@ -114,7 +114,7 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
   readDataHeader <- function(con, ...) {
     # Number of elements (rows)
     nbrOfRows <- readInts(con);
-    nbrOfRows <- Arguments$getInteger(nbrOfRows, range=c(0,100e6));
+    nbrOfRows <- Arguments$getInteger(nbrOfRows, range=c(0,200e6));
 
     # Number of fields (columns)
     nbrOfColumns <- readInts(con);
@@ -973,7 +973,7 @@ setMethodS3("allocate", "AromaTabularBinaryFile", function(static, filename, pat
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'nbrOfRows':
-  nbrOfRows <- Arguments$getInteger(nbrOfRows, range=c(0,100e6));
+  nbrOfRows <- Arguments$getInteger(nbrOfRows, range=c(0,200e6));
 
   # Argument 'types':
   if (is.character(types))
@@ -1316,6 +1316,9 @@ setMethodS3("importFrom", "AromaTabularBinaryFile", function(this, srcFile, ...)
 
 ############################################################################
 # HISTORY:
+# 2015-05-03
+# o Relaxed sanity checks; now it's possible to allocate Aroma tabular
+#   binary files with 200e6 rows (was 100e6 rows).
 # 2012-11-29
 # o Renamed lapply() for AromaTabularBinaryFile to colApply().
 # 2011-09-24
