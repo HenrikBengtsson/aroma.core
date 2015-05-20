@@ -1,9 +1,11 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.0-9000 [2015-04-22]
+Version: 2.13.0-9000 [2015-05-03]
 o Package now requires R (>= 3.1.1) released July 2014. This allows us
   to use BioC (>= 3.0) (October 2014).
+o Relaxed sanity checks; now it's possible to allocate Aroma tabular
+  binary files with 200e6 rows (was 100e6 rows).
 o getOutputDataSet() for AromaTransform gives more informative error
   messages.
 o ROBUSTNESS: exportAromaUnitPscnBinarySet() asserts that no
