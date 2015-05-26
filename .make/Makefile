@@ -243,6 +243,10 @@ check_Rex:
 	$(R_SCRIPT) -e "if (!file.exists('incl')) quit(status=0); setwd('incl/'); fs <- dir(pattern='[.](R|Rex)$$'); ns <- sapply(fs, function(f) max(nchar(readLines(f)))); ns <- ns[ns > 100]; print(ns); if (length(ns) > 0L) quit(status=1)"
 
 
+covr:
+	$(R_SCRIPT) -e "source('.covr.R'); covr::shine(covr)"
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Install and build binaries
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -383,4 +387,4 @@ README.md: .make/README.md.rsp
 appveyor.yml: .make/appveyor.yml.rsp
 	$(R_SCRIPT) -e "R.rsp::rfile('$<', postprocess=FALSE)"
 
-config: README.md .travis.yml appveyor.yml
+config: .travis.yml appveyor.yml README.md
