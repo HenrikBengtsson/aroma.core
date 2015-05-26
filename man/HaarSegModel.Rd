@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{HaarSegModel}
+\name{HaarSegModel}
 \docType{class}
 \alias{HaarSegModel}
 
 
- \title{The HaarSegModel class}
+\title{The HaarSegModel class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class HaarSegModel}\cr
 
 \code{\link[R.oo]{Object}}\cr
@@ -35,24 +35,24 @@ extends \emph{\link[aroma.core]{CopyNumberSegmentationModel}}\cr
 
 
 
-  This class represents the Haar wavelet-based segmentation (HaarSeg)
-  model [1].
- }
+ This class represents the Haar wavelet-based segmentation (HaarSeg)
+ model [1].
+}
 
- \usage{
+\usage{
 HaarSegModel(cesTuple=NULL, ..., breaksFdrQ=1e-04)
 }
 
- \arguments{
-   \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
-   \item{breaksFdrQ}{Default tuning parameters specific to the HaarSeg
-         algorithm.}
-   \item{...}{Arguments passed to the constructor of
-              \code{\link{CopyNumberSegmentationModel}}.}
- }
+\arguments{
+  \item{cesTuple}{A \code{\link{CopyNumberDataSetTuple}}.}
+  \item{breaksFdrQ}{Default tuning parameters specific to the HaarSeg
+        algorithm.}
+  \item{...}{Arguments passed to the constructor of
+             \code{\link{CopyNumberSegmentationModel}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \emph{No methods defined}.
 
 
@@ -69,16 +69,16 @@ as.character, fit, getAlias, getAromaGenomeTextFile, getAsteriskTags, getChipTyp
 $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCache, clone, detach, equals, extend, finalize, getEnvironment, getFieldModifier, getFieldModifiers, getFields, getInstantiationTime, getStaticInstance, hasField, hashCode, ll, load, objectSize, print, save, asThis
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-  \code{\link{CopyNumberSegmentationModel}}.
- }
+\seealso{
+ \code{\link{CopyNumberSegmentationModel}}.
+}
 
- \references{
-   [1] Ben-Yaacov E. and Eldar YC. \emph{A fast and flexible method for the segmentation of aCGH data}, Bioinformatics, 2008.
-   \url{http://www.ee.technion.ac.il/Sites/People/YoninaEldar/Info/software/HaarSeg.htm}
- }
+\references{
+  [1] Ben-Yaacov E. and Eldar YC. \emph{A fast and flexible method for the segmentation of aCGH data}, Bioinformatics, 2008.
+  \url{http://www.ee.technion.ac.il/Sites/People/YoninaEldar/Info/software/HaarSeg.htm}
+}
 \keyword{classes}

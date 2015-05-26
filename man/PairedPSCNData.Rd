@@ -86,7 +86,7 @@ PairedPSCNData(chromosome=NULL, x=NULL, isSNP=NULL, muN=NULL, CT=NULL, betaT=NUL
  \tab \code{getTCNs} \tab  -\cr
  \tab \code{getTotalCopyNumbers} \tab  -\cr
  \tab \code{normalizeTumorBoost} \tab  -\cr
- \tab \code{\link[aroma.core:plotTracks.PairedPSCNData]{plotTracks}} \tab Plots parental specific copy numbers along the genome.\cr
+ \tab \code{plotTracks} \tab  -\cr
  \tab \code{segmentByCBS} \tab  -\cr
  \tab \code{segmentByPairedPSCBS} \tab  -\cr
 }

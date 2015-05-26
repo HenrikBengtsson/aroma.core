@@ -47,7 +47,7 @@ UnitNamesFile(...)
   \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{getUnitNames} \tab  -\cr
- \tab \code{\link[aroma.core:indexOf.UnitNamesFile]{indexOf}} \tab Gets the indices of units by their names.\cr
+ \tab \code{indexOf} \tab  -\cr
  \tab \code{nbrOfUnits} \tab  -\cr
 }
 
