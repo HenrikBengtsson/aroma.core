@@ -37,6 +37,13 @@
  See subclasses.
 }
 
+\section{Parallel processing}{
+  Except for an in-object caching (\code{cache=TRUE}), this method
+  access data solely in an read-only fashion.
+  This method is safe to call with different arrays and/or
+  chromosomes in parallel.
+}
+
 \author{Henrik Bengtsson}
 
 \seealso{

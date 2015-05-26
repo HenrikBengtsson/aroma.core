@@ -6,15 +6,15 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{RawMirroredAlleleBFractions}
+\name{RawMirroredAlleleBFractions}
 \docType{class}
 \alias{RawMirroredAlleleBFractions}
 
 
- \title{The RawMirroredAlleleBFractions class}
+\title{The RawMirroredAlleleBFractions class}
 
- \description{
-  Package:  aroma.core \cr
+\description{
+ Package:  aroma.core \cr
 \bold{Class RawMirroredAlleleBFractions}\cr
 
 \code{data.frame}\cr
@@ -34,18 +34,18 @@ public class \bold{RawMirroredAlleleBFractions}\cr
 extends \link[aroma.core]{RawAlleleBFractions}\cr
 
 
- }
+}
 
- \usage{
+\usage{
 RawMirroredAlleleBFractions(...)
 }
 
- \arguments{
-   \item{...}{Arguments passed to \code{\link{RawAlleleBFractions}}.}
- }
+\arguments{
+  \item{...}{Arguments passed to \code{\link{RawAlleleBFractions}}.}
+}
 
- \section{Fields and Methods}{
-  \bold{Methods:}\cr
+\section{Fields and Methods}{
+ \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{plot} \tab  -\cr
 }
@@ -64,7 +64,7 @@ $, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNa
 $, $<-, Math, Ops, Summary, [, [<-, [[, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, as.profileCGH, attachLocally, by, callSegmentationOutliers, cbind, dim, dimnames, dimnames<-, dropSegmentationOutliers, droplevels, duplicated, edit, findLargeGaps, format, formula, head, is.na, merge, na.exclude, na.omit, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, segmentByCBS, segmentByPairedPSCBS, split, split<-, stack, str, subset, summary, t, tail, transform, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
- }
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 \keyword{classes}

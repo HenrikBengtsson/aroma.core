@@ -679,17 +679,42 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Handle missing output files
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  dsOut <- extract(dsOut, fullnames, onMissing=onMissing);
+  dsOut <- extract(dsOut, fullnames, by="exact", onMissing=onMissing, onDuplicates="error");
 
   # Special backward compatible case. /HB 2013-11-15
   if (onMissing == "dropall" && length(dsOut) == 0L) {
     dsOut <- NULL;
   }
 
-  # Sanity check
-  stopifnot(length(dsOut) <= nbrOfFiles);
-
   verbose && print(verbose, dsOut);
+
+  # Sanity checks
+  gotten <- getFullNames(dsOut)
+  expected <- fullnames
+
+  isError <- FALSE
+  msg <- sprintf("Got %d (%s) output file, but expected %d (%s).", length(gotten), hpaste(gotten), length(expected), hpaste(expected))
+
+  # Check for duplicated output files
+  dups <- gotten[duplicated(gotten)]
+  if (length(dups) > 0) {
+    msg <- sprintf("%s Among the output files, %d (%s) have duplicated names, which is an error.", msg, length(dups), hpaste(unique(dups)))
+    isError <- TRUE
+  }
+
+  # Check for unexpected and missing files
+  unexpected <- setdiff(gotten, expected)
+  if (length(unexpected) > 0) {
+    msg <- sprintf("%s There were %d (%s) unexpected/non-matching output files, which is an error.", msg, length(unexpected), hpaste(unexpected))
+    isError <- TRUE
+  }
+
+  missing <- setdiff(expected, gotten)
+  if (length(missing) > 0) {
+    msg <- sprintf("%s Also, but not an error, there are %d (%s) missing output files.", msg, length(missing), hpaste(missing))
+  }
+
+  if (isError) throw(msg)
 
   verbose && exit(verbose);
 

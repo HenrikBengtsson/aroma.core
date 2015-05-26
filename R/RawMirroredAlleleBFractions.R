@@ -6,7 +6,7 @@
 # \description{
 #  @classhierarchy
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -18,7 +18,7 @@
 # }
 #
 # @author
-#*/########################################################################### 
+#*/###########################################################################
 setConstructorS3("RawMirroredAlleleBFractions", function(...) {
   extend(RawAlleleBFractions(...), "RawMirroredAlleleBFractions");
 })
@@ -33,6 +33,7 @@ setMethodS3("extractRawMirroredAlleleBFractions", "default", abstract=TRUE);
 setMethodS3("extractRawMirroredAlleleBFractions", "RawAlleleBFractions", function(this, ...) {
   beta <- getSignals(this);
   dh <- abs(beta - 1/2);
+  res <- clone(this);
   res <- setSignals(res, dh);
   class(res) <- c("RawMirroredAlleleBFractions", class(res));
   res;

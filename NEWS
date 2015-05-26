@@ -1,6 +1,25 @@
 Package: aroma.core
 ===================
 
+Version: 2.13.1 [2015-05-25]
+o Package now requires R (>= 3.1.1) released July 2014. This allows us
+  to use BioC (>= 3.0) (October 2014).
+o Relaxed sanity checks; now it's possible to allocate Aroma tabular
+  binary files with 200e6 rows (was 100e6 rows).
+o getOutputDataSet() for AromaTransform gives more informative error
+  messages.
+o ROBUSTNESS: exportAromaUnitPscnBinarySet() asserts that no
+  duplicated files are returned.
+o ROBUSTNESS: Package now declares all S3 methods.
+o BUG FIX: getOutputDataSet() for AromaTransform would sometimes given
+  an error due to the same output file being identified more than
+  once, for instance, when the full name of an output file is also
+  the prefix of another file.  Thanks to Benilton Carvalho (Universidade
+  Estadual de Campinas, Sao Paulo, Brazil) for reporting on this.
+o BUG FIX: extractRawMirroredAlleleBFractions() for RawAlleleBFractions
+  gave "Error in setSignals(res, dh) : object 'res' not found".
+
+
 Version: 2.13.0 [2015-01-07]
 o Bumped version for CRAN submission.
 o Updated package dependencies.
@@ -8,7 +27,7 @@ o Package passes all redundancy tests.
 
 
 Version: 2.12.8 [2014-09-19]
-o BUG FIX: display() for Explorer would try to open a pathname 
+o BUG FIX: display() for Explorer would try to open a pathname
   in a way that only worked on Windows.  Thanks to Sunghee Oh
   (S. Korea) for reporting on this.
 
@@ -21,7 +40,7 @@ o Bumped package dependencies.
 
 
 Version: 2.12.6 [2014-08-27]
-o Now 'aromaSettings' are loaded when the packages is loaded.  
+o Now 'aromaSettings' are loaded when the packages is loaded.
   Previously the package had to be attached.
 o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
 o ROBUSTNESS: Added several missing NAMESPACE imports.
