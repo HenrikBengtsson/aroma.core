@@ -1,7 +1,7 @@
 # CRAN submission aroma.core 2.13.1
 on 2015-05-25
 
-Package now declare all S3 methods.
+Package now declares all S3 methods.
 
 Thanks in advance
 
