@@ -1,11 +1,12 @@
 Package: aroma.core
-Version: 2.13.0-9000
+Version: 2.13.1
 Depends:
   R (>= 3.1.1),
   R.utils (>= 2.0.2),
-  R.filesets (>= 2.7.1),
+  R.filesets (>= 2.7.2),
   R.devices (>= 2.13.0)
-DependsNote: BioC (>= 3.0)
+DependsNote:
+  BioC (>= 3.0)
 Imports:
   stats,
   utils,
@@ -28,9 +29,16 @@ Suggests:
   expectile (>= 0.2.5),
   HaarSeg (>= 0.0.2),
   mpcbs (>= 1.1.1)
-SuggestsNote: Recommended: aroma.light, preprocessCore, DNAcopy, sfit, png
+SuggestsNote:
+  BioC (>= 3.0),
+  Recommended:
+  aroma.light,
+  DNAcopy,
+  png,
+  preprocessCore,
+  sfit
 Additional_repositories: http://r-forge.r-project.org
-Date: 2015-05-03
+Date: 2015-05-25
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
@@ -40,7 +48,7 @@ Authors@R: c(
 Description: Core methods and classes used by higher-level aroma.* packages
         part of the Aroma Project, e.g. aroma.affymetrix and aroma.cn.
 License: LGPL (>= 2.1)
-URL: http://www.aroma-project.org/, https://github.com/HenrikBengtsson/aroma.core
+URL: https://github.com/HenrikBengtsson/aroma.core, http://www.aroma-project.org/
 BugReports: https://github.com/HenrikBengtsson/aroma.core/issues
 LazyLoad: TRUE
 biocViews: Microarray, OneChannel, TwoChannel, MultiChannel,

@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.0-9000 [2015-05-03]
+Version: 2.13.1 [2015-05-25]
 o Package now requires R (>= 3.1.1) released July 2014. This allows us
   to use BioC (>= 3.0) (October 2014).
 o Relaxed sanity checks; now it's possible to allocate Aroma tabular
@@ -10,7 +10,7 @@ o getOutputDataSet() for AromaTransform gives more informative error
   messages.
 o ROBUSTNESS: exportAromaUnitPscnBinarySet() asserts that no
   duplicated files are returned.
-o ROBUSTNESS: Package now declare all S3 methods.
+o ROBUSTNESS: Package now declares all S3 methods.
 o BUG FIX: getOutputDataSet() for AromaTransform would sometimes given
   an error due to the same output file being identified more than
   once, for instance, when the full name of an output file is also
