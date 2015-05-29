@@ -1,3 +1,4 @@
+library("aroma.core")
 library("stats")
 
 x <- matrix(rnorm(1000), ncol=5)
