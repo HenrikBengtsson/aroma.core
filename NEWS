@@ -1,8 +1,8 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.1-9000 [2015-05-29]
-o ...
+Version: 2.13.1-9000 [2015-06-01]
+o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
 
 
 Version: 2.13.1 [2015-05-25]
