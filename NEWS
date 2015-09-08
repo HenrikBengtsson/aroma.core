@@ -1,8 +1,9 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.1-9000 [2015-06-01]
+Version: 2.13.1-9000 [2015-09-07]
 o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
+o BUG FIX: writeRegions(..., format="wig") gave an error.
 
 
 Version: 2.13.1 [2015-05-25]
