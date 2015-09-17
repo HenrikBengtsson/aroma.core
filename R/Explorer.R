@@ -85,21 +85,6 @@ setMethodS3("getVersion", "Explorer", function(this, ...) {
 })
 
 
-setMethodS3("getParallelSafe", "Explorer", function(this, ...) {
-  status <- this$.parallelSafe;
-  status <- identical(status, TRUE);
-  status;
-}, protected=TRUE)
-
-
-setMethodS3("setParallelSafe", "Explorer", function(this, status=TRUE, ...) {
-  oldStatus <- this$.parallelSafe;
-  status <- Arguments$getLogical(status);
-  this$.parallelSafe <- status;
-  invisible(oldStatus);
-}, protected=TRUE)
-
-
 setMethodS3("getArraysOfInput", "Explorer", abstract=TRUE, protected=TRUE);
 
 
@@ -617,15 +602,8 @@ setMethodS3("addIncludes", "Explorer", function(this, ..., force=FALSE, verbose=
   verbose && cat(verbose, "Source path: ", srcPath);
   verbose && cat(verbose, "Destination path: ", destPath);
 
-  if (getParallelSafe(this)) {
-    tryCatch({
-      pathnames <- copyDirectory(from=srcPath, to=destPath, copy.mode=FALSE,
-                                 recursive=TRUE, overwrite=force);
-    }, error = function(ex) {});
-  } else {
-    pathnames <- copyDirectory(from=srcPath, to=destPath, copy.mode=FALSE,
-                               recursive=TRUE, overwrite=force);
-  }
+  pathnames <- copyDirectory(from=srcPath, to=destPath, copy.mode=FALSE,
+                             recursive=TRUE, overwrite=force);
   verbose && exit(verbose);
 
   verbose && exit(verbose);
@@ -656,13 +634,7 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
     if (!isFile(srcPathname))
       throw("File not found: ", srcPathname);
 
-    if (getParallelSafe(this)) {
-      tryCatch({
-        copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE);
-      }, error = function(ex) {});
-    } else {
-      copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE);
-    }
+    copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE);
 
     verbose && exit(verbose);
   }
