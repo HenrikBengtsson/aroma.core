@@ -4,6 +4,7 @@ Package: aroma.core
 Version: 2.13.1-9000 [2015-09-17]
 o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
 o CLEANUP: Drop prototype code never used.
+o CLEANUP: Deprecated internal whatDataType() method.
 o CLEANUP: Defuncted previously deprecated methods: nbrOfArrays() for
   readData() for AromaMicroarrayDataSetTuple, AromaMicroarrayDataSet and
   AromaUnitTotalCnBinarySet, as well as readData() for SampleAnnotationFile.
