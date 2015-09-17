@@ -1,30 +1,39 @@
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## DEFUNCT
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# 2015-09-17
+# o Defunct.
 # 2008-05-16
 # o Removed deprecated readData().
 setMethodS3("readData", "SampleAnnotationFile", function(this, ...) {
-  .Deprecated("readDataFrame");
-  readDataFrame(this, ...);
+  .Defunct("readDataFrame")
+  readDataFrame(this, ...)
 }, protected=TRUE, deprecated=TRUE)
 
 
+# 2015-09-17
+# o Defunct.
 # 2009-12-30
-# o Dropped nbrOfArrays(); use nbrOfFiles() instead.
+# o Dropped nbrOfArrays() use nbrOfFiles() instead.
 setMethodS3("nbrOfArrays", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  .Deprecated("length");
-  length(this, ...);
+  .Defunct("length")
+  length(this, ...)
 }, protected=TRUE, deprecated=TRUE)
 
 
+# 2015-09-17
+# o Defunct.
 # 2013-01-03
 # o Deprecated nbrOfArrays() for AromaMicroarrayDataSet and
 #   AromaUnitTotalCnBinarySet.
 setMethodS3("nbrOfArrays", "AromaMicroarrayDataSet", function(this, ...) {
-  .Deprecated("length");
-  length(this, ...);
+  .Defunct("length")
+  length(this, ...)
 }, protected=TRUE, deprecated=TRUE)
 
 setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
-  .Deprecated("length");
-  length(this, ...);
+  .Defunct("length")
+  length(this, ...)
 }, protected=TRUE, deprecated=TRUE)
 
 

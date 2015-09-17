@@ -1,10 +1,13 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.1-9000 [2015-09-07]
+Version: 2.13.1-9000 [2015-09-17]
 o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
 o CLEANUP: Drop prototype code never used.
-o CLEANUP: Dropped previously (Feb 2014) defunct method patchPackage(),
+o CLEANUP: Defuncted previously deprecated methods: nbrOfArrays() for
+  readData() for AromaMicroarrayDataSetTuple, AromaMicroarrayDataSet and
+  AromaUnitTotalCnBinarySet, as well as readData() for SampleAnnotationFile.
+o CLEANUP: Removed previously (Feb 2014) defunct method patchPackage(),
   patch() and downloadPackagePatch().
 o BUG FIX: writeRegions(..., format="wig") gave an error.
 
