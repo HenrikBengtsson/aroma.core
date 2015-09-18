@@ -1,22 +1,14 @@
-# DEFUNCT
-downloadPackagePatch
-downloadPackagePatch.default
-patch
-patch.AromaPackage
-patchPackage
-patchPackage.default
-
-# DEPRECATED
+# DEFUNCT / DEPRECATED
 nbrOfArrays
 nbrOfArrays.AromaMicroarrayDataSet
 nbrOfArrays.AromaMicroarrayDataSetTuple
 nbrOfArrays.AromaUnitTotalCnBinarySet
 readData
 readData.SampleAnnotationFile
+apply apply.default apply.SampleAnnotationFile
 
 # MISC.
-  apply apply.default
-  apply.SampleAnnotationFile
+  applyTo applyTo.SampleAnnotationFile
   [.AromaTabularBinaryFile [[.AromaTabularBinaryFile
   [<-.AromaTabularBinaryFile addBy addBy.RawGenomicSignals addIncludes
   addIncludes.Explorer addIndexFile addIndexFile.ChromosomeExplorer

@@ -14,12 +14,7 @@
 % Other missing docs
 \alias{#}
 \alias{DEFUNCT}
-\alias{downloadPackagePatch}
-\alias{downloadPackagePatch.default}
-\alias{patch}
-\alias{patch.AromaPackage}
-\alias{patchPackage}
-\alias{patchPackage.default}
+\alias{/}
 \alias{DEPRECATED}
 \alias{nbrOfArrays}
 \alias{nbrOfArrays.AromaMicroarrayDataSet}
@@ -27,10 +22,12 @@
 \alias{nbrOfArrays.AromaUnitTotalCnBinarySet}
 \alias{readData}
 \alias{readData.SampleAnnotationFile}
-\alias{MISC.}
 \alias{apply}
 \alias{apply.default}
 \alias{apply.SampleAnnotationFile}
+\alias{MISC.}
+\alias{applyTo}
+\alias{applyTo.SampleAnnotationFile}
 \alias{[.AromaTabularBinaryFile}
 \alias{[[.AromaTabularBinaryFile}
 \alias{[<-.AromaTabularBinaryFile}

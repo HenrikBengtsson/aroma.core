@@ -1,43 +1,4 @@
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## DEPRECATED
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-setMethodS3("whatDataType", "default", function(type, ...) {
-  .Deprecate(msg="whatDataType() is deprecated (as of aroma.core 2.14.0) with no alternative implementation. Please contact the maintainer of the aroma.core package if you wish that this function should remain available.")
-
-  if (type == "byte") {
-    what <- "integer"
-    size <- 1
-  } else if (type == "short") {
-    what <- "integer"
-    size <- 2
-  } else if (type == "integer") {
-    what <- "integer"
-    size <- 4
-  } else if (type == "long") {
-    what <- "integer"
-    size <- 8
-  } else if (type == "float") {
-    what <- "double"
-    size <- 4
-  } else if (type == "double") {
-    what <- "double"
-    size <- 8
-  } else if (type == "logical") {
-    what <- "integer"
-    size <- 1
-  } else if (type == "raw") {
-    what <- "raw"
-    size <- 1
-  } else {
-    what <- NA
-    size <- NA
-  }
-
-  list(what=what, size=size)
-}, private=TRUE, deprecated=TRUE)
-
-
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEFUNCT
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 2015-09-17
@@ -74,6 +35,56 @@ setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
   .Defunct("length")
   length(this, ...)
 }, protected=TRUE, deprecated=TRUE)
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## DEPRECATED
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+setMethodS3("whatDataType", "default", function(type, ...) {
+  .Deprecated(msg="whatDataType() is deprecated (as of aroma.core 2.14.0) with no alternative implementation. Please contact the maintainer of the aroma.core package if you wish that this function should remain available.")
+
+  if (type == "byte") {
+    what <- "integer"
+    size <- 1
+  } else if (type == "short") {
+    what <- "integer"
+    size <- 2
+  } else if (type == "integer") {
+    what <- "integer"
+    size <- 4
+  } else if (type == "long") {
+    what <- "integer"
+    size <- 8
+  } else if (type == "float") {
+    what <- "double"
+    size <- 4
+  } else if (type == "double") {
+    what <- "double"
+    size <- 8
+  } else if (type == "logical") {
+    what <- "integer"
+    size <- 1
+  } else if (type == "raw") {
+    what <- "raw"
+    size <- 1
+  } else {
+    what <- NA
+    size <- NA
+  }
+
+  list(what=what, size=size)
+}, private=TRUE, deprecated=TRUE)
+
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## TO DEPRECATE
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## 2015-09-18
+setMethodS3("apply", "SampleAnnotationFile", function(...) {
+  .Deprecated("applyTo")
+  applyTo(...)
+}, protected=TRUE)
 
 
 

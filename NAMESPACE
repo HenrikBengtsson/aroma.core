@@ -174,6 +174,18 @@ importFrom("stats", "reorder")
 ## importFrom("base", "parse") ## Multi-sources: R.utils, R.rsp, base
 ## importFrom("base", "readLines") ## Multi-sources: R.filesets, base
 
+importFrom("grDevices",
+           "as.raster", "col2rgb", "dev.new", "dev.off",
+           "gray.colors", "hsv", "png", "rgb")
+
+importFrom("graphics",
+           "abline", "arrows", "axis", "lines", "matplot",
+           "par", "plot", "points", "rasterImage", "symbols", "text")
+
+importFrom("stats",
+           "aggregate", "coefficients", "density", "dnorm",
+           "lm.fit", "mad", "median", "na.omit", "predict", "quantile",
+           "rnorm", "sd", "smooth.spline")
 
 ## Manual imports
 importFrom("R.utils", "Arguments")
@@ -318,7 +330,6 @@ S3method("getPlatform", "AromaMicroarrayTabularBinaryFile")
 # AromaPackage
 S3method("fixSearchPath", "AromaPackage")
 S3method("fixSearchPathInternal", "AromaPackage")
-S3method("patch", "AromaPackage")
 
 # AromaPlatform
 S3method("byName", "AromaPlatform")
@@ -817,7 +828,6 @@ S3method("getMainPath", "Explorer")
 S3method("getName", "Explorer")
 S3method("getNameOfInput", "Explorer")
 S3method("getNames", "Explorer")
-S3method("getParallelSafe", "Explorer")
 S3method("getPath", "Explorer")
 S3method("getReportPathPattern", "Explorer")
 S3method("getRootPath", "Explorer")
@@ -831,7 +841,6 @@ S3method("nbrOfArrays", "Explorer")
 S3method("process", "Explorer")
 S3method("setAlias", "Explorer")
 S3method("setArrays", "Explorer")
-S3method("setParallelSafe", "Explorer")
 S3method("setReportPathPattern", "Explorer")
 S3method("setSubname", "Explorer")
 S3method("setup", "Explorer")
@@ -1113,7 +1122,8 @@ S3method("subset", "RichDataFrame")
 S3method("translateColumnNames", "RichDataFrame")
 
 # SampleAnnotationFile
-S3method("apply", "SampleAnnotationFile")
+S3method("apply", "SampleAnnotationFile") ## To deprecate
+S3method("applyTo", "SampleAnnotationFile")
 S3method("fromPath", "SampleAnnotationFile")
 S3method("getExtensionPattern", "SampleAnnotationFile")
 S3method("getPatterns", "SampleAnnotationFile")
@@ -1191,12 +1201,10 @@ S3method("nbrOfUnits", "UnitTypesFile")
 S3method("stextChipType", "character")
 S3method("stringTree", "character")
 
-S3method("apply", "default")
-S3method("downloadPackagePatch", "default")
+S3method("apply", "default")  ## To deprecate
 S3method("drawCytoband2", "default")
 S3method("whatDataType", "default")
 S3method("write", "default")
-S3method("patchPackage", "default")
 S3method("processTime", "default")
 S3method("requireWithMemory", "default")
 

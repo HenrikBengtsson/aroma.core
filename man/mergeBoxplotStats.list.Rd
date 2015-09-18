@@ -32,7 +32,7 @@
  }
 
  \examples{
-require("stats")
+library("stats")
 
 x <- matrix(rnorm(1000), ncol=5)
 x <- as.data.frame(x)

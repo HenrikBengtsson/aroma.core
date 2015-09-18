@@ -2,6 +2,8 @@ Package: aroma.core
 ===================
 
 Version: 2.13.1-9000 [2015-09-17]
+o ROBUSTNESS: Explicitly importing core R functions.
+o CLEANUP: Renamed apply() for SampleAnnotationFile to applyTo().
 o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
 o CLEANUP: Drop prototype code never used.
 o CLEANUP: Deprecated internal whatDataType() method.

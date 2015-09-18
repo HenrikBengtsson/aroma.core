@@ -88,7 +88,7 @@ setMethodS3("matchPatterns", "SampleAnnotationFile", function(this, names, trim=
 }, protected=TRUE)
 
 
-setMethodS3("apply", "SampleAnnotationFile", function(this, names, FUN, ..., verbose=FALSE) {
+setMethodS3("applyTo", "SampleAnnotationFile", function(this, names, FUN, ..., verbose=FALSE) {
   verbose <- Arguments$getVerbose(verbose);
   if (verbose) {
     pushState(verbose);
@@ -138,6 +138,7 @@ setMethodS3("apply", "SampleAnnotationFile", function(this, names, FUN, ..., ver
     do.call("FUN", args=args);
   }
 }, protected=TRUE)
+
 
 ############################################################################
 # HISTORY:
