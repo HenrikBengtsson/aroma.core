@@ -6,6 +6,7 @@ nbrOfArrays.AromaUnitTotalCnBinarySet
 readData
 readData.SampleAnnotationFile
 apply apply.default apply.SampleAnnotationFile
+patch patch.AromaPackage
 
 # MISC.
   applyTo applyTo.SampleAnnotationFile

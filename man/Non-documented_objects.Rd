@@ -25,6 +25,8 @@
 \alias{apply}
 \alias{apply.default}
 \alias{apply.SampleAnnotationFile}
+\alias{patch}
+\alias{patch.AromaPackage}
 \alias{MISC.}
 \alias{applyTo}
 \alias{applyTo.SampleAnnotationFile}

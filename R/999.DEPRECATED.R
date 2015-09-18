@@ -1,6 +1,11 @@
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEFUNCT
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## Remove after aroma.affymetrix 2.14.0 has been released.
+setMethodS3("patch", "AromaPackage", function(this, ..., verbose=FALSE) {
+  .Defunct(msg="patch() for AromaPackage is deprecated without alternatives.");
+}, protected=TRUE, deprecated=TRUE)
+
 # 2015-09-17
 # o Defunct.
 # 2008-05-16
