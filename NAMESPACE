@@ -139,7 +139,6 @@ importFrom("R.utils", "less")
 importFrom("R.utils", "loadObject")
 importFrom("R.utils", "mergeByCommonTails")
 importFrom("R.utils", "moveInSearchPath")
-importFrom("R.utils", "patchCode")  # Used in deprecated code
 importFrom("R.utils", "popState")
 importFrom("R.utils", "popTemporaryFile")
 importFrom("R.utils", "printf")
@@ -1203,6 +1202,7 @@ S3method("stextChipType", "character")
 S3method("stringTree", "character")
 
 S3method("apply", "default")  ## To deprecate
+S3method("downloadPackagePatch", "default")  ## To deprecate
 S3method("drawCytoband2", "default")
 S3method("whatDataType", "default")
 S3method("write", "default")
