@@ -10,8 +10,8 @@ o CLEANUP: Deprecated internal whatDataType() method.
 o CLEANUP: Defuncted previously deprecated methods: nbrOfArrays() for
   readData() for AromaMicroarrayDataSetTuple, AromaMicroarrayDataSet and
   AromaUnitTotalCnBinarySet, as well as readData() for SampleAnnotationFile.
-o CLEANUP: Removed previously (Feb 2014) defunct method patchPackage(),
-  patch() and downloadPackagePatch().
+o CLEANUP: Removed previously (Feb 2014) defunct method patchPackage()
+  and patch().
 o BUG FIX: writeRegions(..., format="wig") gave an error.
 
 
