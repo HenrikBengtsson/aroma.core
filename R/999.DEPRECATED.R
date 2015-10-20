@@ -8,6 +8,10 @@ url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE) {
   .Defunct(msg="downloadPackagePatch() is deprecated without alternatives.");
 }, protected=TRUE, deprecated=TRUE)
 
+setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...) {
+  .Defunct(msg="patchPackage() is deprecated without alternatives.");
+}, protected=TRUE, deprecated=TRUE)
+
 setMethodS3("patch", "AromaPackage", function(this, ..., verbose=FALSE) {
   .Defunct(msg="patch() for AromaPackage is deprecated without alternatives.");
 }, protected=TRUE, deprecated=TRUE)

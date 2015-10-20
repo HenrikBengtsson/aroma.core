@@ -1206,6 +1206,7 @@ S3method("downloadPackagePatch", "default")  ## To deprecate
 S3method("drawCytoband2", "default")
 S3method("whatDataType", "default")
 S3method("write", "default")
+S3method("patchPackage", "default")  ## To deprecate
 S3method("processTime", "default")
 S3method("requireWithMemory", "default")
 
