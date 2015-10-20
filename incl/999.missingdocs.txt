@@ -8,6 +8,7 @@ readData.SampleAnnotationFile
 apply apply.default apply.SampleAnnotationFile
 patch patch.AromaPackage
 downloadPackagePatch downloadPackagePatch.default
+patchPackage patchPackage.default
 
 # MISC.
   applyTo applyTo.SampleAnnotationFile

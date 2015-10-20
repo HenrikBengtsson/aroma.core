@@ -29,6 +29,8 @@
 \alias{patch.AromaPackage}
 \alias{downloadPackagePatch}
 \alias{downloadPackagePatch.default}
+\alias{patchPackage}
+\alias{patchPackage.default}
 \alias{MISC.}
 \alias{applyTo}
 \alias{applyTo.SampleAnnotationFile}
