@@ -87,15 +87,16 @@ setMethodS3("whatDataType", "default", function(type, ...) {
 }, private=TRUE, deprecated=TRUE)
 
 
-
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## TO DEPRECATE
-## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## 2015-09-18
 setMethodS3("apply", "SampleAnnotationFile", function(...) {
   .Deprecated("applyTo")
   applyTo(...)
 }, protected=TRUE)
+
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## TO DEPRECATE
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
