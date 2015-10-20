@@ -7,8 +7,17 @@ R package aroma.core is available on [CRAN](http://cran.r-project.org/package=ar
 install.packages('aroma.core')
 ```
 
+### Pre-release version
 
-## Software quality
+To install the pre-release version that is available in branch `develop`, use:
+```r
+source('http://callr.org/install#HenrikBengtsson/aroma.core@develop')
+```
+This will install the package from source.  
+
+
+
+## Software status
 
 | Resource:     | CRAN        | Travis CI     | Appveyor         |
 | ------------- | ------------------- | ------------- | ---------------- |
