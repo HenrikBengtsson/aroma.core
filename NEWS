@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 2.13.9-9000 [2015-10-20]
+Version: 2.14.0 [2015-10-20]
 o ROBUSTNESS: Explicitly importing core R functions.
 o CLEANUP: Renamed apply() for SampleAnnotationFile to applyTo().
 o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
