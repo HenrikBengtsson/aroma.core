@@ -1,9 +1,9 @@
 Package: aroma.core
-Version: 2.13.9-9000
+Version: 2.14.0
 Depends:
   R (>= 3.1.1),
   R.utils (>= 2.1.0),
-  R.filesets (>= 2.8.0),
+  R.filesets (>= 2.9.0),
   R.devices (>= 2.13.1)
 DependsNote:
   BioC (>= 3.0)
