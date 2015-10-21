@@ -105,7 +105,7 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
       phi <- params[phiIdxs];
       res <- fit$Residuals;
       res[isNA] <- NA;  # Missing values were set to zero.
-      phiSd <- rowMads(res, centers=0, na.rm=TRUE);
+      phiSd <- rowMads(res, center=0, na.rm=TRUE);
 
       # Downweights by variance (with a small penalty term)
       wV <- 1/(phiSd^2 + tau);

@@ -122,7 +122,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
   # AD HOC
   names <- gsub(",total", "", names, fixed=TRUE);
 print(names);
-  res <- apply(saf, names, FUN=setAttrs, force=force, verbose=verbose);
+  res <- applyTo(saf, names, FUN=setAttrs, force=force, verbose=verbose);
 
   invisible(this);
 }, protected=TRUE)

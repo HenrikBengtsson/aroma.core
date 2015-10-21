@@ -110,7 +110,8 @@ setMethodS3("writeRegions", "GladModel", function(this, arrays=NULL, format=c("x
     verbose && enter(verbose, sprintf("Array #%d ('%s') of %d",
                                                aa, name, length(arrays)));
     df <- getRegions(this, arrays=array, ..., verbose=less(verbose))[[1]];
-    names(df) <- gsub("Smoothing", "log2", names(df));
+    names(df) <- gsub("(Smoothing|mean)", "log2", names(df))
+    verbose && str(verbose, df)
 
     if (nrow(df) > 0) {
       if (identical(format, "xls")) {
@@ -211,7 +212,7 @@ ylim <- c(-1,1);
 
       # Write data
       verbose && str(verbose, df);
-      write.table(df, file=pathname, sep="\t", col.names=FALSE, row.names=FALSE, quote=FALSE, append=oneFile);
+      write.table(df, file=pathname, sep="\t", col.names=FALSE, row.names=FALSE, quote=FALSE, append=TRUE);
     }
     verbose && exit(verbose);
     res[[array]] <- df;

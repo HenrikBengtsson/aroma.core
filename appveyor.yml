@@ -25,18 +25,18 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
- - travis-tool.sh install_bioc aroma.light DNAcopy preprocessCore
- - travis-tool.sh install_r png
-
- - travis-tool.sh install_r matrixStats PSCBS R.cache R.devices R.filesets R.methodsS3 R.oo R.rsp R.utils RColorBrewer
- - travis-tool.sh install_bioc aroma.light DNAcopy EBImage GLAD preprocessCore
- - travis-tool.sh install_r Cairo png
+  - echo Current directory=%CD%
+  - travis-tool.sh install_bioc aroma.light DNAcopy preprocessCore
+  - travis-tool.sh install_r png
+  - travis-tool.sh install_r matrixStats PSCBS R.devices R.filesets R.rsp RColorBrewer
+  - travis-tool.sh install_bioc EBImage GLAD
+  - travis-tool.sh install_r Cairo
 
 test_script:
   - travis-tool.sh run_tests
 
-on_failure:
-  - travis-tool.sh dump_logs
+after_test:
+  - 7z a all-Rout.zip *.Rcheck\**\*.Rout *.Rcheck\**\*.fail
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
@@ -45,14 +45,15 @@ artifacts:
   - path: '*.Rcheck\**\*.out'
     name: Logs
 
-  - path: '*.Rcheck\**\*.fail'
-    name: Logs
-
-  - path: '*.Rcheck\**\*.Rout'
-    name: Logs
+  - path: all-Rout.zip
+    name: AllRout
 
   - path: '\*_*.tar.gz'
     name: Bits
 
   - path: '\*_*.zip'
     name: Bits
+
+on_failure:
+  - 7z a failure.zip *.Rcheck\*
+  - appveyor PushArtifact failure.zip

@@ -1,6 +1,20 @@
 Package: aroma.core
 ===================
 
+Version: 2.14.0 [2015-10-20]
+o ROBUSTNESS: Explicitly importing core R functions.
+o CLEANUP: Renamed apply() for SampleAnnotationFile to applyTo().
+o CLEANUP: One rowMads(..., centers) to rowMads(..., center).
+o CLEANUP: Drop prototype code never used.
+o CLEANUP: Deprecated internal whatDataType() method.
+o CLEANUP: Defuncted previously deprecated methods: nbrOfArrays() for
+  readData() for AromaMicroarrayDataSetTuple, AromaMicroarrayDataSet and
+  AromaUnitTotalCnBinarySet, as well as readData() for SampleAnnotationFile.
+o CLEANUP: Removed previously (Feb 2014) defunct method patchPackage()
+  and patch().
+o BUG FIX: writeRegions(..., format="wig") gave an error.
+
+
 Version: 2.13.1 [2015-05-25]
 o Package now requires R (>= 3.1.1) released July 2014. This allows us
   to use BioC (>= 3.0) (October 2014).

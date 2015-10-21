@@ -91,7 +91,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
   }
 
   names <- getFullNames(this);
-  res <- apply(saf, names, FUN=setAttrs, force=force, verbose=verbose);
+  res <- applyTo(saf, names, FUN=setAttrs, force=force, verbose=verbose);
 
   invisible(this);
 }, protected=TRUE)

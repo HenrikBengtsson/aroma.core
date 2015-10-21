@@ -343,20 +343,10 @@ setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nb
 
 
   # Extract and write regions
-  if (getParallelSafe(this)) {
-    tryCatch({
-      pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-      res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE);
-      if (!res)
-        dest <- NULL;
-    }, error = function(ex) {})
-  } else {
-    pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-    res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE);
-    if (!res)
-      dest <- NULL;
-  }
-
+  pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
+  res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE);
+  if (!res)
+    dest <- NULL;
 
   verbose && exit(verbose);
 
@@ -508,13 +498,7 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
   verbose && cat(verbose, "Full sample names:");
   verbose && print(verbose, env$samples);
 
-  if (getParallelSafe(this)) {
-    tryCatch({
-      js <- rfile(pathname, workdir=outPath, envir=env, postprocess=FALSE);
-    }, error = function(ex) {})
-  } else {
-    js <- rfile(pathname, workdir=outPath, envir=env, postprocess=FALSE);
-  }
+  js <- rfile(pathname, workdir=outPath, envir=env, postprocess=FALSE);
 
   verbose && exit(verbose);
 
@@ -580,13 +564,7 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
   verbose && enter(verbose, "Generating ChromosomeExplorer report");
 
   # Setup HTML, CSS, Javascript files first
-  if (getParallelSafe(this)) {
-    tryCatch({
-      setup(this, ..., verbose=less(verbose));
-    }, error = function(ex) {})
-  } else {
-    setup(this, ..., verbose=less(verbose));
-  }
+  setup(this, ..., verbose=less(verbose));
 
   model <- getModel(this);
 
@@ -620,23 +598,11 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
   }
 
   # Update samples.js
-  if (getParallelSafe(this)) {
-    tryCatch({
-      updateSetupExplorerFile(this, ..., verbose=less(verbose));
-    }, error = function(ex) {})
-  } else {
-    updateSetupExplorerFile(this, ..., verbose=less(verbose));
-  }
+  updateSetupExplorerFile(this, ..., verbose=less(verbose));
 
   # Write regions file
   if (inherits(model, "CopyNumberSegmentationModel")) {
-    if (getParallelSafe(this)) {
-      tryCatch({
-        writeRegions(this, arrays=arrays, chromosomes=chromosomes, ..., verbose=less(verbose));
-      }, error = function(ex) {})
-    } else {
-      writeRegions(this, arrays=arrays, chromosomes=chromosomes, ..., verbose=less(verbose));
-    }
+    writeRegions(this, arrays=arrays, chromosomes=chromosomes, ..., verbose=less(verbose));
   }
 
   verbose && exit(verbose);

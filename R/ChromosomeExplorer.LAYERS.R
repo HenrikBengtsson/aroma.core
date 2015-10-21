@@ -3,17 +3,8 @@ setMethodS3("writeAxesLayers", "ChromosomeExplorer", function(this, ...) {
 
   path <- getPath(this);
   path <- filePath(getParent(path), "axes,chrLayer");
-
-
-  if (getParallelSafe(this)) {
-    tryCatch({
-      path <- Arguments$getWritablePath(path);
-      plotAxesLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
-    }, error = function(ex) {})
-  } else {
-    path <- Arguments$getWritablePath(path);
-    plotAxesLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
-  }
+  path <- Arguments$getWritablePath(path);
+  plotAxesLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
 
   invisible(path);
 }, private=TRUE)
@@ -24,17 +15,8 @@ setMethodS3("writeGridHorizontalLayers", "ChromosomeExplorer", function(this, ..
 
   path <- getPath(this);
   path <- filePath(getParent(path), "gridH,chrLayer");
-
-
-  if (getParallelSafe(this)) {
-    tryCatch({
-      path <- Arguments$getWritablePath(path);
-      plotGridHorizontalLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
-    }, error = function(ex) {})
-  } else {
-    path <- Arguments$getWritablePath(path);
-    plotGridHorizontalLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
-  }
+  path <- Arguments$getWritablePath(path);
+  plotGridHorizontalLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
 
   invisible(path);
 }, private=TRUE)
@@ -50,17 +32,8 @@ setMethodS3("writeCytobandLayers", "ChromosomeExplorer", function(this, ...) {
 
   path <- getPath(this);
   path <- filePath(getParent(path), "cytoband,chrLayer");
-
-
-  if (getParallelSafe(this)) {
-    tryCatch({
-      path <- Arguments$getWritablePath(path);
-      plotCytobandLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
-    }, error = function(ex) {})
-  } else {
-    path <- Arguments$getWritablePath(path);
-    plotCytobandLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
-  }
+  path <- Arguments$getWritablePath(path);
+  plotCytobandLayers(model, path=path, imageFormat="png", transparent=TRUE, ...);
 
   invisible(path);
 }, private=TRUE)
@@ -101,7 +74,7 @@ setMethodS3("writeCopyNumberRegionLayers", "ChromosomeExplorer", function(this, 
   # Not supported?
   if (!inherits(model, "CopyNumberSegmentationModel"))
     return(NULL);
-    
+
   path <- getPath(this);
   tags <- getAsteriskTags(model, collapse=",");
   path <- filePath(getParent(path), sprintf("%s,sampleLayer", tags));
@@ -117,7 +90,7 @@ setMethodS3("writeCopyNumberRegionLayers", "ChromosomeExplorer", function(this, 
 ##############################################################################
 # HISTORY:
 # 2009-12-30
-# o CLEAN UP: Now ChromosomeExplorer is unaware of the data set tuple in 
+# o CLEAN UP: Now ChromosomeExplorer is unaware of the data set tuple in
 #   the model.  Instead all queries goes to the model.
 # o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
 # 2009-12-25
@@ -127,8 +100,8 @@ setMethodS3("writeCopyNumberRegionLayers", "ChromosomeExplorer", function(this, 
 # o BUG FIX: translateFullNames() of ChromosomeExplorer would translate the
 #   full names, but return the original ones.
 # 2009-12-22
-# o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in 
-#   UseMethod("translateFullNames") : no applicable method for 
+# o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in
+#   UseMethod("translateFullNames") : no applicable method for
 #   'translateFullNames' applied to an object of class "character".
 # 2009-05-19
 # o Now testing for file permissions for creat-/writ-/updating files/dirs.
@@ -142,7 +115,7 @@ setMethodS3("writeCopyNumberRegionLayers", "ChromosomeExplorer", function(this, 
 # o Now one can pass argument 'aliased=TRUE' to process() which causes the
 #   ChromosomeExplorer and coupled CopyNumberSegmentationModel to return
 #   tags that inferred from aliased full names.
-# o Now updateSamplesFile() of ChromosomeExplorer passes arguments '...' 
+# o Now updateSamplesFile() of ChromosomeExplorer passes arguments '...'
 #   to getFullNames().
 # o Now getFullNames() of ChromosomeExplorer passes arguments '...' along.
 # 2007-10-17
@@ -161,7 +134,7 @@ setMethodS3("writeCopyNumberRegionLayers", "ChromosomeExplorer", function(this, 
 # 2007-09-04
 # o Now ChromosomeExplorer recognizes CopyNumberSegmentationModel:s.
 # 2007-05-08
-# o Added default zoom levels to updateSamplesFile() for ChromosomeExplorer.  
+# o Added default zoom levels to updateSamplesFile() for ChromosomeExplorer.
 #   This is applies the first time process() is called.
 # 2007-03-19
 # o Now ChromosomeExplorer extends Explorer.
