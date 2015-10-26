@@ -329,7 +329,6 @@ S3method("getPlatform", "AromaMicroarrayTabularBinaryFile")
 # AromaPackage
 S3method("fixSearchPath", "AromaPackage")
 S3method("fixSearchPathInternal", "AromaPackage")
-S3method("patch", "AromaPackage") ## To deprecate
 
 # AromaPlatform
 S3method("byName", "AromaPlatform")
@@ -1202,11 +1201,9 @@ S3method("stextChipType", "character")
 S3method("stringTree", "character")
 
 S3method("apply", "default")  ## To deprecate
-S3method("downloadPackagePatch", "default")  ## To deprecate
 S3method("drawCytoband2", "default")
 S3method("whatDataType", "default")
 S3method("write", "default")
-S3method("patchPackage", "default")  ## To deprecate
 S3method("processTime", "default")
 S3method("requireWithMemory", "default")
 

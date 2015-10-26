@@ -1,21 +1,6 @@
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEFUNCT
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## Remove after aroma.affymetrix 2.14.0 has been released.
-setMethodS3("downloadPackagePatch", "default", function(pkgName, version=NULL,
-url=NULL, apply=TRUE, rootPath="~/.Rpatches", pkgVer=NULL, ..., verbose=FALSE) {
-
-  .Defunct(msg="downloadPackagePatch() is deprecated without alternatives.");
-}, protected=TRUE, deprecated=TRUE)
-
-setMethodS3("patchPackage", "default", function(pkgName, paths=c("~/.Rpatches/", "patches/"), deleteOld=TRUE, verbose=FALSE, ...) {
-  .Defunct(msg="patchPackage() is deprecated without alternatives.");
-}, protected=TRUE, deprecated=TRUE)
-
-setMethodS3("patch", "AromaPackage", function(this, ..., verbose=FALSE) {
-  .Defunct(msg="patch() for AromaPackage is deprecated without alternatives.");
-}, protected=TRUE, deprecated=TRUE)
-
 # 2015-09-17
 # o Defunct.
 # 2008-05-16
