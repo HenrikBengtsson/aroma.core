@@ -426,7 +426,7 @@ setMethodS3("pointsSequence", "ProbePositionEffects", function(fit, seq, col=NUL
   bases <- match(bases, colnames(rho));
 
   xx <- seq_len(nrow(rho));
-  yy <- rowCollapse(rho, bases);
+  yy <- rowCollapse(rho, idxs=bases);
   col <- col[bases];
 
   points(xx,yy, col=col, ...);
@@ -455,7 +455,7 @@ setMethodS3("textSequence", "ProbePositionEffects", function(fit, seq, labels=NU
   bases <- match(bases, colnames(rho));
 
   xx <- seq_len(nrow(rho));
-  yy <- rowCollapse(rho, bases);
+  yy <- rowCollapse(rho, idxs=bases);
   labels <- labels[bases];
   col <- col[bases];
 
@@ -482,7 +482,7 @@ setMethodS3("barSequence", "ProbePositionEffects", function(fit, seq, col=NULL, 
   bases <- match(bases, colnames(rho));
 
   xx <- seq_len(nrow(rho));
-  yy <- rowCollapse(rho, bases);
+  yy <- rowCollapse(rho, idxs=bases);
   col <- col[bases];
 
   for (kk in seq_len(nrow(rho))) {
