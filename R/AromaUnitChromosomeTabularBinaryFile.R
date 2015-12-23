@@ -5,7 +5,8 @@ setConstructorS3("AromaUnitChromosomeTabularBinaryFile", function(...) {
   );
 
   # Parse attributes (all subclasses must call this in the constructor).
-  if (!is.null(this$.pathname))
+  pathname <- getPathname(this)
+  if (!is.null(pathname))
     setAttributesByTags(this);
 
   this;
@@ -51,7 +52,7 @@ setMethodS3("getChromosomes", "AromaUnitChromosomeTabularBinaryFile", function(t
     chromosomes <- sort(chromosomes);
     this$.chromosomes <- chromosomes;
   }
-  
+
   chromosomes;
 })
 
@@ -97,7 +98,7 @@ setMethodS3("getUnitsOnChromosomes", "AromaUnitChromosomeTabularBinaryFile", fun
   cc <- indexOfColumn(this, "chromosome");
   data <- this[,cc,drop=TRUE];
 
-  # Update known chromosomes, if not already done.  
+  # Update known chromosomes, if not already done.
   allChromosomes <- getChromosomes(this, .chromosomes=data);
 
   res <- vector("list", length(chromosomes));
@@ -129,7 +130,7 @@ setMethodS3("getUnitsOnChromosome", "AromaUnitChromosomeTabularBinaryFile", func
   # Argument 'chromosome':
   chromosome <- Arguments$getIndex(chromosome);
 
-  units <- getUnitsOnChromosomes(this, chromosomes=chromosome, 
+  units <- getUnitsOnChromosomes(this, chromosomes=chromosome,
                                  unlist=TRUE, useNames=FALSE);
   units;
 }, protected=TRUE)
@@ -170,9 +171,9 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
   footer <- c(
     list(
       createdOn=format(Sys.time(), "%Y%m%d %H:%M:%S", usetz=TRUE),
-      platform=platform, 
+      platform=platform,
       chipType=chipType
-    ), 
+    ),
     footer
   );
 
@@ -190,7 +191,7 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
 #   to also support alias argument 'units', we now do 'rows=units' and
 #   'units=NULL'.
 # 2012-10-31
-# o Added argument 'units' to readDataFrame() for 
+# o Added argument 'units' to readDataFrame() for
 #   AromaUnitChromosomeTabularBinaryFile.
 # 2011-03-03
 # o ROBUSTNESS: Added a return contract/sanity check asserting that
