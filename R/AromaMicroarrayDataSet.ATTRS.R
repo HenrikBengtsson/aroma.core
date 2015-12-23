@@ -71,9 +71,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
       setAttributes(cf, ...);
 
       # Apply the tags
-      if (!is.null(tags)) {
-        setAttributesByTags(cf, tags);
-      }
+      setAttributesByTags(cf, tags)
     };
   } # setAttrs()
 

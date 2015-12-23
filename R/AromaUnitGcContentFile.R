@@ -2,9 +2,7 @@ setConstructorS3("AromaUnitGcContentFile", function(...) {
   this <- extend(AromaUnitTabularBinaryFile(...), "AromaUnitGcContentFile");
 
   # Parse attributes (all subclasses must call this in the constructor).
-  pathname <- getPathname(this)
-  if (!is.null(pathname))
-    setAttributesByTags(this);
+  setAttributesByTags(this)
 
   this;
 })
@@ -29,9 +27,7 @@ setConstructorS3("AromaUgcFile", function(...) {
   this <- extend(AromaUnitGcContentFile(...), "AromaUgcFile");
 
   # Parse attributes (all subclasses must call this in the constructor).
-  pathname <- getPathname(this)
-  if (!is.null(pathname))
-    setAttributesByTags(this);
+  setAttributesByTags(this)
 
   this;
 })
