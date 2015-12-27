@@ -1,4 +1,4 @@
-###########################################################################/**
+##########################################################################/**
 # @RdocClass CopyNumberSegmentationModel
 #
 # @title "The CopyNumberSegmentationModel class"
@@ -316,7 +316,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         verbose && str(verbose, args);
         args <- c(args, list(...), list(verbose=less(verbose, 1)));
         tFit <- processTime();
-        fit <- do.call("fitFcn", args);
+        fit <- do.call(fitFcn, args);
         verbose && str(verbose, fit);
         timers$fit <- timers$fit + (processTime() - tFit);
         # Not needed anymore

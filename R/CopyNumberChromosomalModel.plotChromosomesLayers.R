@@ -123,7 +123,7 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
         }
 
         tryCatch({
-          do.call("FUN", args=args);
+          do.call(FUN, args=args);
         }, error = function(ex) {
           print(ex);
         }, finally = {

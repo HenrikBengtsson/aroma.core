@@ -542,7 +542,7 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
   verbose && str(verbose, args);
   args$verbose <- less(verbose);
   staticMethod <- clazz$byPath;
-  dsOut <- do.call("staticMethod", args=args);
+  dsOut <- do.call(staticMethod, args=args);
   # Not needed anymore
   staticMethod <- args <- NULL;
   verbose && exit(verbose);

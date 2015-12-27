@@ -134,7 +134,7 @@ setMethodS3("applyTo", "SampleAnnotationFile", function(this, names, FUN, ..., v
     );
     args <- c(args, as.list(record));
     args <- c(args, list(...));
-    do.call("FUN", args=args);
+    do.call(FUN, args=args);
   }
 }, protected=TRUE)
 
