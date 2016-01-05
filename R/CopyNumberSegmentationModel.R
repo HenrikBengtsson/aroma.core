@@ -205,6 +205,11 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
   verbose && print(verbose, refTuple);
 
 
+  ## Call onFit() hook functions later?
+  hookName <- "onFit.CopyNumberSegmentationModel"
+  hasHooks <- (length(getHook(hookName)) > 0)
+
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Array by array
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -372,10 +377,12 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
         }
       }
 
-      hookName <- "onFit.CopyNumberSegmentationModel";
-      verbose && enter(verbose, sprintf("Calling %s() hooks", hookName));
-      callHooks(hookName, fit=fit, chromosome=chr, fullname=fullname);
-      verbose && exit(verbose);
+      ## Call onFit() hooks?
+      if (hasHooks) > 0) {
+        verbose && enter(verbose, sprintf("Calling %s() hooks", hookName))
+        callHooks("onFit.CopyNumberSegmentationModel", fit=fit, chromosome=chr, fullname=fullname)
+        verbose && exit(verbose)
+      }
 
       if (.retResults)
         res[[arrayName]][[chr]] <- fit;
