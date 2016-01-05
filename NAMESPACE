@@ -189,6 +189,9 @@ importFrom("stats",
 ## Manual imports
 importFrom("R.utils", "Arguments")
 
+importFrom("listenv", "listenv")
+importFrom("future", "%<=%")
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # EXPORTS

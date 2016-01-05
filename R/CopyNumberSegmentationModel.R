@@ -213,7 +213,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Array by array
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  res <- list();
+  res <- listenv();
   arrayNames <- getNames(this)[arrays];
   nbrOfArrays <- length(arrayNames);
   for (aa in seq_len(nbrOfArrays)) {
@@ -257,144 +257,150 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     verbose && cat(verbose, "Reference tags: ", paste(rfTags, collapse=","));
 
 
+
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Chromosome by chromosome
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    res[[arrayName]] <- list();
-    for (chr in chromosomes) {
-      verbose && enter(verbose,
-                          sprintf("Array #%d ('%s') of %d on chromosome %s",
-                                           aa, arrayName, nbrOfArrays, chr));
+    res[[arrayName]] %<=% {
+      resArray <- list()
+      for (chr in chromosomes) {
+        verbose && enter(verbose,
+                            sprintf("Array #%d ('%s') of %d on chromosome %s",
+                                             aa, arrayName, nbrOfArrays, chr));
 
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # Get pathname
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # Add tags chrNN,<reference tags>
-      tags <- c(ceTags, sprintf("chr%02d", chr));
-      tags <- c(tags, rfTags);
-      fullname <- paste(c(arrayName, tags), collapse=",");
-      filename <- sprintf("%s.xdr", fullname);
-      pathname <- filePath(path, filename);
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Get pathname
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Add tags chrNN,<reference tags>
+        tags <- c(ceTags, sprintf("chr%02d", chr));
+        tags <- c(tags, rfTags);
+        fullname <- paste(c(arrayName, tags), collapse=",");
+        filename <- sprintf("%s.xdr", fullname);
+        pathname <- filePath(path, filename);
+        verbose && cat(verbose, "Pathname: ", pathname)
 
-      # Already done?
-      if (!force && isFile(pathname)) {
-        verbose && enter(verbose, "Loading results from file");
-        verbose && cat(verbose, "Pathname: ", pathname);
-        fit <- loadObject(pathname);
-        verbose && cat(verbose, "Fit object: ", class(fit)[1]);
-        verbose && exit(verbose);
-      } else {
-        # Time the fitting.
-        startTime <- processTime();
+        # Already done?
+        if (!force && isFile(pathname)) {
+          verbose && cat(verbose, "Already done. Skipping.")
+          fit <- loadObject(pathname)
+        } else {
+          # Time the fitting.
+          startTime <- processTime();
 
-        timers <- list(total=0, read=0, fit=0, write=0, gc=0);
+          timers <- list(total=0, read=0, fit=0, write=0, gc=0);
 
-        tTotal <- processTime();
+          tTotal <- processTime();
 
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Get (x, M, stddev, chipType, unit) data from all chip types
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        tRead <- processTime();
-        cn <- extractRawCopyNumbers(this, array=array, chromosome=chr, ...);
-        timers$read <- timers$read + (processTime() - tRead);
-        verbose && print(verbose, cn);
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          # Get (x, M, stddev, chipType, unit) data from all chip types
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          tRead <- processTime();
+          cn <- extractRawCopyNumbers(this, array=array, chromosome=chr, ...);
+          timers$read <- timers$read + (processTime() - tRead);
+          verbose && print(verbose, cn);
 
 
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Fit segmentation model
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        verbose && enter(verbose, "Calling model fit function");
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          # Fit segmentation model
+          # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          verbose && enter(verbose, "Calling model fit function");
 
-        optArgs <- getOptionalArguments(this);
-        verbose && cat(verbose, "Optional arguments (may be ignored/may give an error/warning):");
-        verbose && str(verbose, optArgs);
-        userArgs <- list(...);
-        excl <- which(names(userArgs) == "maxNAFraction");
-        if (length(excl) > 0L) userArgs <- userArgs[-excl];
-        if (length(userArgs) > 0L) {
-          verbose && cat(verbose, "User arguments (may be ignored/may give an error/warning):");
-          verbose && str(verbose, userArgs);
+          optArgs <- getOptionalArguments(this);
+          verbose && cat(verbose, "Optional arguments (may be ignored/may give an error/warning):");
+          verbose && str(verbose, optArgs);
+          userArgs <- list(...);
+          excl <- which(names(userArgs) == "maxNAFraction");
+          if (length(excl) > 0L) userArgs <- userArgs[-excl];
+          if (length(userArgs) > 0L) {
+            verbose && cat(verbose, "User arguments (may be ignored/may give an error/warning):");
+            verbose && str(verbose, userArgs);
+          }
+          args <- list(cn);
+          args <- c(args, optArgs, userArgs);
+          verbose && cat(verbose, "All arguments:");
+          verbose && str(verbose, args);
+          args <- c(args, list(...), list(verbose=less(verbose, 1)));
+          tFit <- processTime();
+          fit <- do.call(fitFcn, args);
+          verbose && str(verbose, fit);
+          timers$fit <- timers$fit + (processTime() - tFit);
+          # Not needed anymore
+          cn <- NULL;
+
+          verbose && cat(verbose, "Class of fitted object: ", class(fit)[1]);
+          verbose && printf(verbose, "Time to fit segmentation model: %.2fmin\n", timers$fit[3]/60);
+
+          verbose && exit(verbose);
+
+
+          verbose && enter(verbose, "Validate that it can be coerced");
+          rawCns <- extractRawCopyNumbers(fit);
+          nbrOfLoci <- nbrOfLoci(rawCns);
+          verbose && print(verbose, rawCns);
+          sigmaM <- estimateStandardDeviation(rawCns);
+          verbose && printf(verbose, "Robust first-order standard deviation estimate: %g\n", sigmaM);
+          cnRegions <- extractCopyNumberRegions(fit);
+          verbose && print(verbose, cnRegions);
+          # Not needed anymore
+          rawCns <- cnRegions <- NULL;
+          verbose && exit(verbose);
+
+
+          # Garbage collection
+          tGc <- processTime();
+          gc <- gc();
+          timers$gc <- timers$gc + (processTime() - tGc);
+          verbose && print(verbose, gc);
+
+          verbose && enter(verbose, "Saving to file");
+          verbose && cat(verbose, "Pathname: ", pathname);
+          tWrite <- processTime();
+          saveObject(fit, file=pathname);
+          timers$write <- timers$write + (processTime() - tWrite);
+          verbose && exit(verbose);
+
+          timers$total <- timers$total + (processTime() - tTotal);
+
+          # Report time profiling
+          totalTime <- processTime() - startTime;
+
+          if (verbose) {
+            t <- totalTime[3];
+            printf(verbose, "Total time for chromosome %d: %.2fs == %.2fmin\n", chr, t, t/60);
+            t <- totalTime[3]/nbrOfLoci;
+            printf(verbose, "Total time per 1000 locus (with %d loci): %.2fs\n", nbrOfLoci, 1000*t);
+            # Get distribution of what is spend where
+            t <- lapply(timers, FUN=function(timer) unname(timer[3]));
+            t <- unlist(t);
+            t <- 100 * t / t["total"];
+            printf(verbose, "Fraction of time spent on different tasks: Fitting: %.1f%%, Reading: %.1f%%, Writing: %.1f%%, Explicit garbage collection: %.1f%%\n", t["fit"], t["read"], t["write"], t["gc"]);
+          }
         }
-        args <- list(cn);
-        args <- c(args, optArgs, userArgs);
-        verbose && cat(verbose, "All arguments:");
-        verbose && str(verbose, args);
-        args <- c(args, list(...), list(verbose=less(verbose, 1)));
-        tFit <- processTime();
-        fit <- do.call(fitFcn, args);
-        verbose && str(verbose, fit);
-        timers$fit <- timers$fit + (processTime() - tFit);
-        # Not needed anymore
-        cn <- NULL;
 
-        verbose && cat(verbose, "Class of fitted object: ", class(fit)[1]);
-        verbose && printf(verbose, "Time to fit segmentation model: %.2fmin\n", timers$fit[3]/60);
+        ## Record segmentation results?
+        if (.retResults) resArray[[chr]] <- fit
 
-        verbose && exit(verbose);
-
-
-        verbose && enter(verbose, "Validate that it can be coerced");
-        rawCns <- extractRawCopyNumbers(fit);
-        nbrOfLoci <- nbrOfLoci(rawCns);
-        verbose && print(verbose, rawCns);
-        sigmaM <- estimateStandardDeviation(rawCns);
-        verbose && printf(verbose, "Robust first-order standard deviation estimate: %g\n", sigmaM);
-        cnRegions <- extractCopyNumberRegions(fit);
-        verbose && print(verbose, cnRegions);
-        # Not needed anymore
-        rawCns <- cnRegions <- NULL;
-        verbose && exit(verbose);
-
-
-        # Garbage collection
-        tGc <- processTime();
-        gc <- gc();
-        timers$gc <- timers$gc + (processTime() - tGc);
-        verbose && print(verbose, gc);
-
-        verbose && enter(verbose, "Saving to file");
-        verbose && cat(verbose, "Pathname: ", pathname);
-        tWrite <- processTime();
-        saveObject(fit, file=pathname);
-        timers$write <- timers$write + (processTime() - tWrite);
-        verbose && exit(verbose);
-
-        timers$total <- timers$total + (processTime() - tTotal);
-
-        # Report time profiling
-        totalTime <- processTime() - startTime;
-
-        if (verbose) {
-          t <- totalTime[3];
-          printf(verbose, "Total time for chromosome %d: %.2fs == %.2fmin\n", chr, t, t/60);
-          t <- totalTime[3]/nbrOfLoci;
-          printf(verbose, "Total time per 1000 locus (with %d loci): %.2fs\n", nbrOfLoci, 1000*t);
-          # Get distribution of what is spend where
-          t <- lapply(timers, FUN=function(timer) unname(timer[3]));
-          t <- unlist(t);
-          t <- 100 * t / t["total"];
-          printf(verbose, "Fraction of time spent on different tasks: Fitting: %.1f%%, Reading: %.1f%%, Writing: %.1f%%, Explicit garbage collection: %.1f%%\n", t["fit"], t["read"], t["write"], t["gc"]);
+        ## Call onFit() hooks?
+        if (hasHooks) {
+          verbose && enter(verbose, sprintf("Calling %s() hooks", hookName))
+          callHooks("onFit.CopyNumberSegmentationModel", fit=fit, chromosome=chr, fullname=fullname)
+          verbose && exit(verbose)
         }
-      }
 
-      ## Call onFit() hooks?
-      if (hasHooks) > 0) {
-        verbose && enter(verbose, sprintf("Calling %s() hooks", hookName))
-        callHooks("onFit.CopyNumberSegmentationModel", fit=fit, chromosome=chr, fullname=fullname)
-        verbose && exit(verbose)
-      }
+        # Not needed anymore
+        fit <- NULL;
 
-      if (.retResults)
-        res[[arrayName]][[chr]] <- fit;
+        verbose && exit(verbose);
+      } # for (chr in ...)
 
-      # Not needed anymore
-      fit <- NULL;
-
-      verbose && exit(verbose);
-    } # for (chr in ...)
+      resArray
+    } ## %<=%
   } # for (aa in ...)
 
-  invisible(res);
+  ## Resolve futures
+  res <- as.list(res)
+
+  invisible(res)
 })
 
 

@@ -16,7 +16,9 @@ Imports:
   R.rsp (>= 0.21.0),
   matrixStats (>= 0.50.1),
   RColorBrewer (>= 1.1-2),
-  PSCBS (>= 0.60.0)
+  PSCBS (>= 0.60.0),
+  listenv,
+  future 
 Suggests:
   png (>= 0.1-7),
   Cairo (>= 1.5-6),
