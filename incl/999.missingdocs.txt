@@ -1,10 +1,5 @@
 # DEFUNCT / DEPRECATED
 nbrOfArrays
-nbrOfArrays.AromaMicroarrayDataSet
-nbrOfArrays.AromaMicroarrayDataSetTuple
-nbrOfArrays.AromaUnitTotalCnBinarySet
-readData
-readData.SampleAnnotationFile
 apply apply.default apply.SampleAnnotationFile
 
 # MISC.

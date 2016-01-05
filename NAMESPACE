@@ -299,7 +299,6 @@ S3method("getAverageFile", "AromaMicroarrayDataSet")
 S3method("getChipType", "AromaMicroarrayDataSet")
 S3method("getDefaultFullName", "AromaMicroarrayDataSet")
 S3method("getPlatform", "AromaMicroarrayDataSet")
-S3method("nbrOfArrays", "AromaMicroarrayDataSet")
 S3method("setAttributesBy", "AromaMicroarrayDataSet")
 S3method("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet")
 S3method("setAttributesBySampleAnnotationSet", "AromaMicroarrayDataSet")
@@ -314,7 +313,6 @@ S3method("getFullNames", "AromaMicroarrayDataSetTuple")
 S3method("getSets", "AromaMicroarrayDataSetTuple")
 S3method("getTags", "AromaMicroarrayDataSetTuple")
 S3method("indexOf", "AromaMicroarrayDataSetTuple")
-S3method("nbrOfArrays", "AromaMicroarrayDataSetTuple")
 S3method("nbrOfChipTypes", "AromaMicroarrayDataSetTuple")
 
 # AromaMicroarrayTabularBinaryFile
@@ -588,7 +586,6 @@ S3method("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet")
 S3method("extractPSCNArray", "AromaUnitTotalCnBinarySet")
 S3method("getAverageFile", "AromaUnitTotalCnBinarySet")
 S3method("getUnitNamesFile", "AromaUnitTotalCnBinarySet")
-S3method("nbrOfArrays", "AromaUnitTotalCnBinarySet")
 ##S3method("writeDataFrame", "AromaUnitTotalCnBinarySet")
 
 # AromaUnitTotalCnBinarySetTuple
@@ -1127,7 +1124,6 @@ S3method("fromPath", "SampleAnnotationFile")
 S3method("getExtensionPattern", "SampleAnnotationFile")
 S3method("getPatterns", "SampleAnnotationFile")
 S3method("matchPatterns", "SampleAnnotationFile")
-S3method("readData", "SampleAnnotationFile")
 S3method("readDataFrame", "SampleAnnotationFile")
 
 # SampleAnnotationSet

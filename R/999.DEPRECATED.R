@@ -1,40 +1,12 @@
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEFUNCT
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# 2015-09-17
-# o Defunct.
-# 2008-05-16
-# o Removed deprecated readData().
-setMethodS3("readData", "SampleAnnotationFile", function(this, ...) {
-  .Defunct("readDataFrame")
-  readDataFrame(this, ...)
-}, protected=TRUE, deprecated=TRUE)
-
-
-# 2015-09-17
-# o Defunct.
-# 2009-12-30
-# o Dropped nbrOfArrays() use nbrOfFiles() instead.
-setMethodS3("nbrOfArrays", "AromaMicroarrayDataSetTuple", function(this, ...) {
-  .Defunct("length")
-  length(this, ...)
-}, protected=TRUE, deprecated=TRUE)
-
-
-# 2015-09-17
-# o Defunct.
-# 2013-01-03
-# o Deprecated nbrOfArrays() for AromaMicroarrayDataSet and
-#   AromaUnitTotalCnBinarySet.
-setMethodS3("nbrOfArrays", "AromaMicroarrayDataSet", function(this, ...) {
-  .Defunct("length")
-  length(this, ...)
-}, protected=TRUE, deprecated=TRUE)
-
-setMethodS3("nbrOfArrays", "AromaUnitTotalCnBinarySet", function(this, ...) {
-  .Defunct("length")
-  length(this, ...)
-}, protected=TRUE, deprecated=TRUE)
+## 2016-01-05: Defunct
+## 2015-09-18: Deprecated
+setMethodS3("apply", "SampleAnnotationFile", function(...) {
+  .Defunct("applyTo")
+  applyTo(...)
+}, protected=TRUE)
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -75,12 +47,6 @@ setMethodS3("whatDataType", "default", function(type, ...) {
   list(what=what, size=size)
 }, private=TRUE, deprecated=TRUE)
 
-
-## 2015-09-18
-setMethodS3("apply", "SampleAnnotationFile", function(...) {
-  .Deprecated("applyTo")
-  applyTo(...)
-}, protected=TRUE)
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
