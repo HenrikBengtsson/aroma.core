@@ -1,7 +1,7 @@
 Package: aroma.core
 ===================
 
-Version: 2.14.0-9000 [2016-01-05]
+Version: 3.0.0 [2016-01-05]
 o SPEED: Segmentation methods (e.g. CbsModel) now uses futures, which
   means that samples can now be segmented in parallel/distributed.
 o Package requires R (>= 3.1.2) and BioC (>= 3.0) both released in
