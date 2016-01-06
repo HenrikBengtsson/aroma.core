@@ -7,7 +7,7 @@
 # \description{
 #  @get "title".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
@@ -26,11 +26,11 @@
 # @author
 #
 # @keyword internal
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("mergeBoxplotStats", "list", function(stats, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   isBoxplotStats <- function(bxp, ...) {
     if (!is.list(bxp))
       return(FALSE);
@@ -56,7 +56,7 @@ setMethodS3("mergeBoxplotStats", "list", function(stats, ...) {
     }
   }
 
-  
+
   # Append 'group' stats
   for (kk in seq_along(stats)) {
     stats[[kk]][["group"]] <- rep(kk, times=length(stats[[kk]][["out"]]));
@@ -68,7 +68,7 @@ setMethodS3("mergeBoxplotStats", "list", function(stats, ...) {
 
   for (field in names(stats[[1]])) {
     args <- lapply(stats, FUN=.subset2, field);
-    value <- do.call("c", args);
+    value <- do.call(c, args);
     if (field == "stats") {
       value <- matrix(value, nrow=5);
     } else if (field == "conf") {

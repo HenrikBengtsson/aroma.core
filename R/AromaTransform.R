@@ -542,7 +542,7 @@ setMethodS3("getOutputDataSet0", "AromaTransform", function(this, pattern=NULL, 
   verbose && str(verbose, args);
   args$verbose <- less(verbose);
   staticMethod <- clazz$byPath;
-  dsOut <- do.call("staticMethod", args=args);
+  dsOut <- do.call(staticMethod, args=args);
   # Not needed anymore
   staticMethod <- args <- NULL;
   verbose && exit(verbose);
@@ -684,12 +684,13 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
   # Special backward compatible case. /HB 2013-11-15
   if (onMissing == "dropall" && length(dsOut) == 0L) {
     dsOut <- NULL;
+    gotten <- character(0L)
+  } else {
+    gotten <- getFullNames(dsOut)
   }
-
-  verbose && print(verbose, dsOut);
+  verbose && print(verbose, dsOut)
 
   # Sanity checks
-  gotten <- getFullNames(dsOut)
   expected <- fullnames
 
   isError <- FALSE

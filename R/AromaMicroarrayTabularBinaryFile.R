@@ -179,14 +179,14 @@ setMethodS3("findByChipType", "AromaMicroarrayTabularBinaryFile", function(stati
   args$pattern <- pattern;  # Override argument 'pattern'?
 #  args$firstOnly <- FALSE;
 #  str(args);
-  pathname <- do.call("findAnnotationDataByChipType", args=args);
+  pathname <- do.call(findAnnotationDataByChipType, args=args);
 
   # If not found, look for Windows shortcuts
   if (is.null(pathname)) {
     # Search for a Windows shortcut
     pattern <- sprintf("^%s.*[.]%s[.]lnk$", chipType, ext);
     args$pattern <- pattern;
-    pathname <- do.call("findAnnotationDataByChipType", args=args);
+    pathname <- do.call(findAnnotationDataByChipType, args=args);
     if (!is.null(pathname)) {
       # ..and expand it
       pathname <- Arguments$getReadablePathname(pathname, mustExist=FALSE);

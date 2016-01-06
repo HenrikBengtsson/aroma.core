@@ -5,8 +5,7 @@ setConstructorS3("SampleAnnotationFile", function(...) {
   );
 
   # Parse attributes (all subclasses must call this in the constructor).
-  if (!is.null(this$.pathname))
-    setAttributesByTags(this);
+  setAttributesByTags(this)
 
   this;
 })
@@ -135,7 +134,7 @@ setMethodS3("applyTo", "SampleAnnotationFile", function(this, names, FUN, ..., v
     );
     args <- c(args, as.list(record));
     args <- c(args, list(...));
-    do.call("FUN", args=args);
+    do.call(FUN, args=args);
   }
 }, protected=TRUE)
 

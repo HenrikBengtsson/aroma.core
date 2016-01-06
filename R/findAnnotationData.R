@@ -338,7 +338,7 @@ setMethodS3("findAnnotationData", "default", function(name=NULL, tags=NULL, set,
   verbose && cat(verbose, "Arguments to findFiles:");
   verbose && str(verbose, args);
 
-  pathnames <- do.call("localFindFiles", args=args);
+  pathnames <- do.call(localFindFiles, args=args);
 
   verbose && cat(verbose, "All located pathname(s):");
   verbose && print(verbose, pathnames);

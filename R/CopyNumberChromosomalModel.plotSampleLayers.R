@@ -158,7 +158,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
                        width=width, height=height,
                        zoom=zoom, pixelsPerMb=pixelsPerMb,
                        nbrOfBases=nbrOfBases, ..., verbose=less(verbose,1));
-          do.call("FUN", args=args);
+          do.call(FUN, args=args);
         }, error = function(ex) {
           print(ex);
         }, finally = {

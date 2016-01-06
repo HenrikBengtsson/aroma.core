@@ -2,8 +2,7 @@ setConstructorS3("AromaUflFile", function(...) {
   this <- extend(AromaUnitTabularBinaryFile(...), "AromaUflFile");
 
   # Parse attributes (all subclasses must call this in the constructor).
-  if (!is.null(this$.pathname))
-    setAttributesByTags(this);
+  setAttributesByTags(this)
 
   this;
 })

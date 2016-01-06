@@ -99,9 +99,7 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
       setAttributes(cf, ...);
 
       # Apply the tags
-      if (!is.null(tags)) {
-        setAttributesByTags(cf, tags);
-      }
+      setAttributesByTags(cf, tags)
     };
   } # setAttrs()
 
@@ -121,7 +119,6 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
   names <- getFullNames(this);
   # AD HOC
   names <- gsub(",total", "", names, fixed=TRUE);
-print(names);
   res <- applyTo(saf, names, FUN=setAttrs, force=force, verbose=verbose);
 
   invisible(this);
