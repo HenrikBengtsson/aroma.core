@@ -422,9 +422,13 @@ setMethodS3("getLog2Ratios", "CopyNumberSegmentationModel", function(this, ..., 
   # Extract the regions for each of the fits (per array)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Obtaining fits (or fit if missing)");
-  suppressWarnings({
-    res <- fit(this, ..., .retResults=TRUE, verbose=less(verbose,10));
-  })
+  res <- suppressWarnings(local({
+    ## Assume fit() has already been called;
+    ## avoids void asynchroneous processing.
+    oplan <- plan("eager")
+    on.exit(plan(oplan))
+    fit(this, ..., .retResults=TRUE, verbose=less(verbose,10))
+  }))
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Extracting regions from all fits");
@@ -486,9 +490,13 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
   # Extract the regions for each of the CN model fits (per array)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Obtaining CN model fits (or fit if missing)");
-  suppressWarnings({
-    res <- fit(this, ..., .retResults=TRUE, verbose=less(verbose,10));
-  })
+  res <- suppressWarnings(local({
+    ## Assume fit() has already been called;
+    ## avoids void asynchroneous processing.
+    oplan <- plan("eager")
+    on.exit(plan(oplan))
+    fit(this, ..., .retResults=TRUE, verbose=less(verbose,10))
+  }))
   verbose && exit(verbose);
 
   res <- lapply(res, FUN=function(arrayFits) {

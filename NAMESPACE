@@ -191,6 +191,7 @@ importFrom("R.utils", "Arguments")
 
 importFrom("listenv", "listenv")
 importFrom("future", "%<=%")
+importFrom("future", "plan")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
