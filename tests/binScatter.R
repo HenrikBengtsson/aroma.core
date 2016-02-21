@@ -17,12 +17,12 @@ plot(xyd, pch=1)
 
 # Thin scatter data by subsampling
 rhos <- c(1/3, 1/4, 1/6)
-for (kk in seq(along=rhos)) {
+for (kk in seq_along(rhos)) {
   xyd2 <- subsample(xyd, size=rhos[kk])
   points(xyd2, pch=1, col=kk+1)
 }
 
-for (kk in seq(along=rhos)) {
+for (kk in seq_along(rhos)) {
   xyd2 <- subsample(xyd, size=rhos[kk])
   plot(xyd2, pch=1, col=kk+1)
   mtext(side=3, line=0, sprintf("Density: %.1f%%", 100*rhos[kk]))
