@@ -21,7 +21,7 @@
 #   \item{grid}{If @TRUE, horizontal lines are displayed.}
 #   \item{xlim}{(Optional) The genomic range to plot.}
 #   \item{Clim}{The range of copy numbers.}
-#   \item{Blim}{The range of allele B fractions (BAFs) and 
+#   \item{Blim}{The range of allele B fractions (BAFs) and
 #     decrease of heterozygosity (DHs).}
 #   \item{xScale}{The scale factor used for genomic positions.}
 #   \item{...}{Not used.}
@@ -34,20 +34,20 @@
 # \value{
 #   Returns nothing.
 # }
-# 
+#
 # @author
 #
 # @keyword IO
 # @keyword internal
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "tcn,c1,c2", "tcn,c1", "tcn,c2", "c1,c2", "betaN", "betaT", "betaTN")[1:3], pch=".", col=NULL, cex=1, grid=FALSE, xlim=NULL, Clim=c(0,6), Blim=c(0,1), xScale=1e-6, ..., add=FALSE, subplots=!add && (length(tracks) > 1), verbose=FALSE) {
 
   # To please R CMD check
   this <- x;
- 
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'this':
   if (nbrOfChromosomes(this) > 1) {
     return(plotTracksManyChromosomes(this, tracks=tracks, pch=pch, Clim=Clim, Blim=Blim, xScale=xScale, ..., add=add, verbose=verbose));
@@ -125,7 +125,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
 
   for (tt in seq_along(tracks)) {
     track <- tracks[tt];
-    verbose && enter(verbose, sprintf("Track #%d ('%s') of %d", 
+    verbose && enter(verbose, sprintf("Track #%d ('%s') of %d",
                                              tt, track, length(tracks)));
 
     pchT <- pch;
@@ -144,7 +144,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
         }
       }
     }
-  
+
     if (is.element(track, c("tcn,c1,c2", "tcn,c1", "tcn,c2", "c1,c2"))) {
       colT <- ifelse(is.null(colT), "black", colT);
       subtracks <- strsplit(track, split=",", fixed=TRUE)[[1]];
@@ -160,7 +160,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
         }
       }
     }
-  
+
     if (track == "betaN") {
       colT <- ifelse(is.null(colT), colMu, colT);
       if (add) {
@@ -170,7 +170,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
         stext(side=3, pos=1, chrTag);
       }
     }
-  
+
     if (track == "betaT") {
       colT <- ifelse(is.null(colT), colMu, colT);
       if (add) {
@@ -180,7 +180,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
         stext(side=3, pos=1, chrTag);
       }
     }
-  
+
     if (track == "betaTN") {
       colT <- ifelse(is.null(colT), colMu, colT);
       if (add) {
@@ -190,12 +190,11 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
         stext(side=3, pos=1, chrTag);
       }
     }
-  
+
     if (track == "dh") {
       isSnp <- (!is.na(betaTN) & !is.na(muN));
       isHet <- isSnp & (muN == 1/2);
-      naValue <- as.double(NA);
-      rho <- rep(naValue, length=nbrOfLoci);
+      rho <- rep(NA_real_, times=nbrOfLoci);
       rho[isHet] <- 2*abs(betaTN[isHet]-1/2);
       colT <- ifelse(is.null(colT), colMu[isHet], colT);
       if (add) {
@@ -211,14 +210,14 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
 
   verbose && exit(verbose);
 
-  invisible();  
+  invisible();
 }) # plotTracks()
- 
+
 
 ############################################################################
 # HISTORY:
 # 2012-04-16
-# o Added plotTracks() for PairedPSCNData; adopted from ditto for 
+# o Added plotTracks() for PairedPSCNData; adopted from ditto for
 #   PairedPSCBS of the PSCBS package.
 # o Created.
 ############################################################################
