@@ -2,9 +2,9 @@ Package: aroma.core
 Version: 3.0.0-9000
 Depends:
   R (>= 3.1.2),
-  R.utils (>= 2.2.0),
+  R.utils (>= 2.3.0),
   R.filesets (>= 2.10.0),
-  R.devices (>= 2.13.2)
+  R.devices (>= 2.14.0)
 DependsNote:
   BioC (>= 3.0)
 Imports:
@@ -14,11 +14,11 @@ Imports:
   R.oo (>= 1.20.0),
   R.cache (>= 0.12.0),
   R.rsp (>= 0.21.0),
-  matrixStats (>= 0.50.1),
+  matrixStats (>= 0.50.2),
   RColorBrewer (>= 1.1-2),
-  PSCBS (>= 0.60.0),
+  PSCBS (>= 0.61.0),
   listenv,
-  future 
+  future (>= 0.13.0)
 Suggests:
   png (>= 0.1-7),
   Cairo (>= 1.5-6),
@@ -40,7 +40,7 @@ SuggestsNote:
   preprocessCore,
   sfit
 Additional_repositories: http://r-forge.r-project.org
-Date: 2016-01-05
+Date: 2016-04-25
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),

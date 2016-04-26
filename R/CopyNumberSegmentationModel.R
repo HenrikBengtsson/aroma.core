@@ -261,7 +261,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Chromosome by chromosome
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    res[[arrayName]] %<=% {
+    res[[arrayName]] %<-% {
       resArray <- list()
       for (chr in chromosomes) {
         verbose && enter(verbose,
@@ -394,7 +394,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
       } # for (chr in ...)
 
       resArray
-    } ## %<=%
+    } ## %<-%
   } # for (aa in ...)
 
   ## Resolve futures
