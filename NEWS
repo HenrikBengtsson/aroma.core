@@ -1,6 +1,10 @@
 Package: aroma.core
 ===================
 
+Version: 3.0.0-9000 [2016-04-25]
+o CLEANUP: Objects no longer report on memory (RAM) usage.
+
+
 Version: 3.0.0 [2016-01-05]
 o SPEED: Segmentation methods (e.g. CbsModel) now uses futures, which
   means that samples can now be segmented in parallel/distributed.

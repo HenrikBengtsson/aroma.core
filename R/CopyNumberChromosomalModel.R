@@ -140,7 +140,7 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
       s <- c(s, as.character(ref));
     }
   }
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
+
   GenericSummary(s);
 }, protected=TRUE)
 

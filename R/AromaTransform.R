@@ -137,7 +137,7 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
   s <- c(s, sprintf("Algorithm parameters: %s", getParametersAsString(this)));
   s <- c(s, sprintf("Output path: %s", getPath(this)));
   s <- c(s, sprintf("Is done: %s", isDone(this)));
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
+
   GenericSummary(s);
 }, protected=TRUE)
 

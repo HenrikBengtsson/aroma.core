@@ -83,7 +83,6 @@ setMethodS3("as.character", "ChromosomalModel", function(x, ...) {
   s <- c(s, "List of data sets:");
   s <- c(s, as.character(tuple));
 
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   GenericSummary(s);
 }, protected=TRUE)
 

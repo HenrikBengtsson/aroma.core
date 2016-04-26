@@ -35,7 +35,6 @@ setMethodS3("getGenericSummary", "RichDataFrame", function(x, ...) {
   names <- paste(names, collapse=", ");
   s <- c(s, sprintf("Columns: %s", names));
 
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
   GenericSummary(s);
 }, private=TRUE)
 
