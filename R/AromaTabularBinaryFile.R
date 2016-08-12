@@ -131,14 +131,14 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
     ok <- (sizes %in% c(1,2,4,8));
     if (any(!ok)) {
       cc <- which(!ok);
-      throw("File format error. Detect one or more columns with invalid byte sizes, i.e. not in {1,2,4,8}: ", paste(paste(cc, sizes[cc], sep=":"), collapse=", "));
+      throw(sprintf("File format error. Detect one or more columns with invalid byte sizes %s not in {1,2,4,8}", paste(paste(cc, sizes[cc], sep=":"), collapse=", ")))
     }
 
     # Assert that 'raw' columns are only of size one
     nok <- (sizes[types == "raw"] != 1);
     if (any(nok)) {
       cc <- which(nok);
-      throw("File format error. Detect one or more columns of data type 'raw' but of size different from one: ", paste(paste(cc, sizes[cc], sep=":"), collapse=", "));
+      throw(sprintf("File format error. Detect one or more columns of data type 'raw' of size %s, but should all be of size one", paste(paste(cc, sizes[cc], sep=":"), collapse=", ")))
     }
 
     # Are the columns signed or not?
@@ -172,9 +172,11 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Main
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  pathname <- getPathname(this)
+  pathnameT <- if (length(pathname)) sQuote(pathname) else "<pathname unknown>"
+  
   # Open file?
   if (is.null(con)) {
-    pathname <- getPathname(this);
     con <- file(pathname, open="rb");
     on.exit(close(con));
   }
@@ -187,22 +189,22 @@ setMethodS3("readHeader", "AromaTabularBinaryFile", function(this, con=NULL, ...
       paste("[", paste(sprintf("%#0x", as.integer(raw)), collapse=","),
                                                              "]", sep="");
     }
-    throw("File format error. The read \"magic\" does not match the existing one: ", asStr(magic), " != ", asStr(trueMagic));
+    throw(sprintf("File format error. The read \"magic\" %s does not match the expected one %s: %s", asStr(magic), asStr(trueMagic), pathnameT))
   }
 
   version <- readInts(con, n=1);
   if (version < 0) {
-    throw("File format error. Negative file version: ", version);
+    throw(sprintf("File format error. File version (%s) is negative: %s", version, pathnameT))
   }
   if (version > 10e3) {
-    throw("File format error. Ridiculously large file version (>10e3): ", version);
+    throw(sprintf("File format error. File version (%s) is ridiculously large (> 10e3): %s", version, pathnameT))
   }
 
   if (version >= 1 && version <= 1) {
     comment <- readString(con=con);
     dataHeader <- readDataHeader(con=con);
   } else {
-    throw("Unknown file format version: ", version);
+    throw(sprintf("File format error. File version (%s) is unknown: %s", version, pathnameT))
   }
 
   hdr <- list(fileVersion=version, comment=comment, dataHeader=dataHeader);
