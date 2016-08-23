@@ -238,7 +238,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
 
   verbose && enter(verbose, "Setting up output data sets");
-  pattern <- sprintf("%s.asb", typeTags);
+  pattern <- sprintf("%s[.]asb$", typeTags);
   res <- AromaUnitTotalCnBinarySet$byPath(outPath, pattern=pattern);
   verbose && exit(verbose);
 
