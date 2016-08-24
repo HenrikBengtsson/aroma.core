@@ -40,7 +40,7 @@ segFcnList <- list(
 
 methods <- names(cols);
 
-for (kk in seq(along=methods)) {
+for (kk in seq_along(methods)) {
   method <- methods[[kk]];
   cat("Method: ", method, "\n", sep="");
 

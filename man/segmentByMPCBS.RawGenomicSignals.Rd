@@ -58,7 +58,7 @@ as <- c(0, +0.5, -0.5)
 sds <- c(0.5, 0.3, 0.8)
 
 cnList <- list()
-for (kk in seq(along=Js)) {
+for (kk in seq_along(Js)) {
   J <- Js[kk]
   a <- as[kk]
   b <- bs[kk]
