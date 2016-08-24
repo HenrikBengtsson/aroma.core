@@ -1,12 +1,13 @@
 Package: aroma.core
 ===================
 
-Version: 3.0.0-9000 [2016-08-23]
+Version: 3.0.0-9000 [2016-08-24]
 o CLEANUP: Objects no longer report on memory (RAM) usage.
-o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet
-  would return files with file names matching `.asb`, which would
-  also include `.asb.md5` files. Thanks to Thomas Grombacher at
-  the Merck Group for the report (Issue #15).
+o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet and
+  and exportFracBDiffSet() for AromaUnitFracBCnBinarySet would return
+  files with file names matching `.asb`, which would incorrectly also
+  include `.asb.md5` files. Thanks to Thomas Grombacher at the
+  Merck Group for the report (Issue #15).
 
 
 Version: 3.0.0 [2016-01-05]

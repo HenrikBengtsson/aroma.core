@@ -40,7 +40,7 @@ SuggestsNote:
   preprocessCore,
   sfit
 Additional_repositories: http://r-forge.r-project.org
-Date: 2016-08-23
+Date: 2016-08-24
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
