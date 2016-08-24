@@ -15,7 +15,7 @@ setMethodS3("fit2d", "matrix", function(M, MARGIN=1, spar=0.7, h=20, ...) {
     byrow <- FALSE;
   }
 
-  mu <- matrix(NA, nrow=nr, ncol=nc);
+  mu <- matrix(NA_real_, nrow=nr, ncol=nc);
   x <- 1:n;
   nbands <- ceiling(n/h);
   for (kk in 1:nbands) {

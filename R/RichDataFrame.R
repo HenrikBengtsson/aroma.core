@@ -352,7 +352,7 @@ setMethodS3("[", "RichDataFrame", function(x, i, j, drop=NULL) {
   # Subset rows and columns
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Dummy matrix to catch out of bound errors
-  data <- matrix(NA, nrow=nrow, ncol=ncol);
+  data <- matrix(NA_real_, nrow=nrow, ncol=ncol);
   colnames(data) <- names(cols);
   rownames(data) <- names(rows);
 
