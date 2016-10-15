@@ -37,6 +37,8 @@ addons:
     packages:
       ## Needed by Bioc package fftwtools
       libfftw3-dev
+      ## Needed by Bioc package GLAD
+      libgsl-dev
 
 bioc_packages:
   - BiocInstaller
