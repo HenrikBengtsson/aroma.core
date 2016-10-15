@@ -35,10 +35,8 @@ matrix:
 addons:
   apt:
     packages:
-      ## Needed by Bioc package fftwtools
-      libfftw3-dev
-      ## Needed by Bioc package GLAD
-      libgsl-dev
+      - libfftw3-dev  ## Needed by Bioc package fftwtools
+      - libgsl-dev    ## Needed by Bioc package GLAD
 
 bioc_packages:
   - BiocInstaller
