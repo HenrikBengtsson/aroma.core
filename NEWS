@@ -22,6 +22,8 @@ BUG FIXES:
 DEPRECATED AND DEFUNCT:
 
  o Removed previously defunct apply() for SampleAnnotationFile.
+
+ o Default method whatDataType() is now defunct.
  
  o Argument '.old' of getChipType() for AromaMicroarrayTabularBinaryFile is
    now defunct (was deprecated in 2008!).
