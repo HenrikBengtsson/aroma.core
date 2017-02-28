@@ -27,7 +27,11 @@ DEPRECATED AND DEFUNCT:
  
  o Argument '.old' of getChipType() for AromaMicroarrayTabularBinaryFile is
    now defunct (was deprecated in 2008!).
-   
+
+ o Previously deprecated argument 'maxNAFraction' to getRawCnData() of
+   CopyNumberChromosomalModel and for fit() of CopyNumberSegmentationModel
+   is now defunct.
+
 
 Version: 3.0.0 [2016-01-05]
 

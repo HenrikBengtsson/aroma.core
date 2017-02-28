@@ -75,19 +75,14 @@ setMethodS3("getPlatform", "AromaMicroarrayTabularBinaryFile", function(this, ..
 
 
 setMethodS3("getChipType", "AromaMicroarrayTabularBinaryFile", function(this, fullname=TRUE, ...) {
-  footer <- readFooter(this);
-  chipType <- footer$chipType;
-
   if (".old" %in% names(list(...))) {
     .Defunct("Argument '.old' is deprecated since January 2008 and will be made defunct in a future version of aroma.core.")
   }
-
+  
+  footer <- readFooter(this);
+  chipType <- footer$chipType;
   if (is.null(chipType)) {
-    msg <- paste0("File format error: This ", class(this)[1L], " file does not contain information on chip type in the file footer.  This is because the file is of an older file format an is no longer supported.  Please update to a more recent version: ", getPathname(this));
-    if (.old) {
-     msg <- paste0(msg, " [Argument '.old' (== TRUE) is deprecated since January 2008 and now defunct]");
-    }
-    throw(msg);
+    throw("File format error: This ", class(this)[1L], " file does not contain information on chip type in the file footer.  This is because the file is of an older file format an is no longer supported.  Please update to a more recent version: ", getPathname(this))
   }
 
   if (!fullname) {
