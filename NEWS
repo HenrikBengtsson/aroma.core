@@ -8,6 +8,8 @@ NEW FEATURES:
  o Now file sizes are reported using IEC binary prefixes, i.e. bytes, KiB,
    MiB, GiB, TiB, ..., YiB.
 
+ o Now genomic positions / distances are reported in 'Mbp' (was 'MB' and 'Mb').
+
  o CLEANUP: Objects no longer report on memory (RAM) usage.
 
 BUG FIXES:

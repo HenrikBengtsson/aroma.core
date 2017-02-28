@@ -93,7 +93,7 @@ setMethodS3("plotFitLayers", "CopyNumberChromosomalModel", function(this, FUN, p
         xlim <- c(0, widthMb);
       }
 
-      verbose && enter(verbose, sprintf("Plotting %s for chromosome %02d [%.2fMB]", arrayName, chromosome, widthMb));
+      verbose && enter(verbose, sprintf("Plotting %s for chromosome %02d [%.2f Mbp]", arrayName, chromosome, widthMb));
 
       for (zz in seq_along(zooms)) {
         zoom <- zooms[zz];
@@ -111,7 +111,7 @@ setMethodS3("plotFitLayers", "CopyNumberChromosomalModel", function(this, FUN, p
           }
         }
 
-        # Calculate width in pixels from MBs
+        # Calculate width in pixels from Mbps
         width <- round(zoom * widthMb * pixelsPerMb + sum(xmargin));
 
         # Plot to PNG file
