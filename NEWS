@@ -1,26 +1,51 @@
 Package: aroma.core
 ===================
 
-Version: 3.0.0-9000 [2016-08-24]
-o CLEANUP: Objects no longer report on memory (RAM) usage.
-o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet and
-  and exportFracBDiffSet() for AromaUnitFracBCnBinarySet would return
-  files with file names matching `.asb`, which would incorrectly also
-  include `.asb.md5` files. Thanks to Thomas Grombacher at the
-  Merck Group for the report (Issue #15).
+Version: 3.0.0-9000 [2017-02-27]
+
+NEW FEATURES:
+
+ o Now file sizes are reported using IEC binary prefixes, i.e. bytes, KiB,
+   MiB, GiB, TiB, ..., YiB.
+
+ o CLEANUP: Objects no longer report on memory (RAM) usage.
+
+BUG FIXES:
+
+ o exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet and
+   exportFracBDiffSet() for AromaUnitFracBCnBinarySet would return files with
+   file names matching `.asb`, which would incorrectly also include `.asb.md5`
+   files. Thanks to Thomas Grombacher at the Merck Group for the report.
 
 
 Version: 3.0.0 [2016-01-05]
-o SPEED: Segmentation methods (e.g. CbsModel) now uses futures, which
-  means that samples can now be segmented in parallel/distributed.
-o Package requires R (>= 3.1.2) and BioC (>= 3.0) both released in
-  October 2014.
-o ROBUSTNESS: Using do.call(fcn) internally instead of do.call("fcn").
-o ROBUSTNESS: Using getPathname() instead of accessing private field.
-o CLEANUP: Defunct apply() for SampleAnnotationFile; use applyTo().
-o CLEANUP: Drop defunct methods.
-o BUG FIX: getOutputDataSet(..., onMissing="dropall") for AromaTransform
-  would throw error on no applicable method getFullNames() for NULL.
+
+SIGNIFICANT CHANGES:
+
+ o Package requires R (>= 3.1.2) and BioC (>= 3.0) both released in
+   October 2014.
+
+PERFORMANCE:
+
+ o SPEED: Segmentation methods (e.g. CbsModel) now uses futures, which
+   means that samples can now be segmented in parallel/distributed.
+
+SOFTWARE QUALITY:
+
+ o ROBUSTNESS: Using do.call(fcn) internally instead of do.call("fcn").
+ 
+ o ROBUSTNESS: Using getPathname() instead of accessing private field.
+
+BUG FIXES:
+
+ o getOutputDataSet(..., onMissing="dropall") for AromaTransform would throw
+   error on no applicable method getFullNames() for NULL.
+
+DEPRECATED AND DEFUNCT:
+
+ o CLEANUP: Defunct apply() for SampleAnnotationFile; use applyTo().
+
+ o CLEANUP: Drop defunct methods.
 
 
 Version: 2.14.0 [2015-10-20]

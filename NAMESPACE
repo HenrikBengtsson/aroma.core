@@ -75,6 +75,7 @@ importFrom("R.oo", "newInstance")
 importFrom("R.oo", "save") ## Multi-sources: R.oo, base
 importFrom("R.utils", "downloadFile")
 importFrom("R.utils", "getVerbose")
+importFrom("R.utils", "hsize")
 importFrom("R.utils", "isDone")
 importFrom("R.utils", "validate") ## Multi-sources: R.utils, R.filesets
 importFrom("R.utils", "writeDataFrame")
