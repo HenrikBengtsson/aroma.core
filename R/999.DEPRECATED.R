@@ -1,12 +1,6 @@
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## DEFUNCT
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## 2016-01-05: Defunct
-## 2015-09-18: Deprecated
-setMethodS3("apply", "SampleAnnotationFile", function(...) {
-  .Defunct("applyTo")
-  applyTo(...)
-}, protected=TRUE)
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

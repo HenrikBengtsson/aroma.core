@@ -1123,7 +1123,6 @@ S3method("subset", "RichDataFrame")
 S3method("translateColumnNames", "RichDataFrame")
 
 # SampleAnnotationFile
-S3method("apply", "SampleAnnotationFile") ## To deprecate
 S3method("applyTo", "SampleAnnotationFile")
 S3method("fromPath", "SampleAnnotationFile")
 S3method("getExtensionPattern", "SampleAnnotationFile")
@@ -1201,7 +1200,6 @@ S3method("nbrOfUnits", "UnitTypesFile")
 S3method("stextChipType", "character")
 S3method("stringTree", "character")
 
-S3method("apply", "default")  ## To deprecate
 S3method("drawCytoband2", "default")
 S3method("whatDataType", "default")
 S3method("write", "default")

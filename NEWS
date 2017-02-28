@@ -19,6 +19,10 @@ BUG FIXES:
    file names matching `.asb`, which would incorrectly also include `.asb.md5`
    files. Thanks to Thomas Grombacher at the Merck Group for the report.
 
+DEPRECATED AND DEFUNCT:
+
+ o Removed previously defunct apply() for SampleAnnotationFile.
+ 
 
 Version: 3.0.0 [2016-01-05]
 
