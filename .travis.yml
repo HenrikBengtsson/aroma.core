@@ -44,7 +44,7 @@ addons:
   apt:
     packages:
       - libfftw3-dev  ## Needed by Bioc package fftwtools
-      - libgsl-dev    ## Needed by Bioc package GLAD (need whitelisting)
+#      - libgsl-dev    ## Needed by Bioc package GLAD (need whitelisting)
 
 bioc_packages:
   - BiocInstaller
