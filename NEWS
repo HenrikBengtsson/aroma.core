@@ -23,6 +23,9 @@ DEPRECATED AND DEFUNCT:
 
  o Removed previously defunct apply() for SampleAnnotationFile.
  
+ o Argument '.old' of getChipType() for AromaMicroarrayTabularBinaryFile is
+   now defunct (was deprecated in 2008!).
+   
 
 Version: 3.0.0 [2016-01-05]
 

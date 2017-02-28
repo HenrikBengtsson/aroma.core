@@ -74,12 +74,12 @@ setMethodS3("getPlatform", "AromaMicroarrayTabularBinaryFile", function(this, ..
 })
 
 
-setMethodS3("getChipType", "AromaMicroarrayTabularBinaryFile", function(this, fullname=TRUE, .old=FALSE, ...) {
+setMethodS3("getChipType", "AromaMicroarrayTabularBinaryFile", function(this, fullname=TRUE, ...) {
   footer <- readFooter(this);
   chipType <- footer$chipType;
 
-  if (!missing(.old)) {
-    .Deprecated("Argument '.old' is deprecated since January 2008 and will be made defunct in a future version of aroma.core.");
+  if (".old" %in% names(list(...))) {
+    .Defunct("Argument '.old' is deprecated since January 2008 and will be made defunct in a future version of aroma.core.")
   }
 
   if (is.null(chipType)) {
