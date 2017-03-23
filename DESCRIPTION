@@ -20,6 +20,7 @@ Imports:
   listenv,
   future
 Suggests:
+  KernSmooth,
   png (>= 0.1-7),
   Cairo (>= 1.5-9),
   EBImage (>= 4.8.3),
