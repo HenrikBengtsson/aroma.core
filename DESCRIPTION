@@ -57,3 +57,4 @@ LazyLoad: TRUE
 biocViews: Microarray, OneChannel, TwoChannel, MultiChannel,
         DataImport, DataRepresentation, GUI, Visualization,
         Preprocessing, QualityControl, aCGH, CopyNumberVariants
+RoxygenNote: 6.0.1
