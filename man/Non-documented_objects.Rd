@@ -17,9 +17,6 @@
 \alias{/}
 \alias{DEPRECATED}
 \alias{nbrOfArrays}
-\alias{apply}
-\alias{apply.default}
-\alias{apply.SampleAnnotationFile}
 \alias{MISC.}
 \alias{applyTo}
 \alias{applyTo.SampleAnnotationFile}

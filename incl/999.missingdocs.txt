@@ -1,6 +1,5 @@
 # DEFUNCT / DEPRECATED
 nbrOfArrays
-apply apply.default apply.SampleAnnotationFile
 
 # MISC.
   applyTo applyTo.SampleAnnotationFile

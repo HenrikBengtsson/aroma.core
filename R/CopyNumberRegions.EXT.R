@@ -149,7 +149,7 @@ setMethodS3("xMax", "CopyNumberRegions", function(this, ...) {
 })
 
 
-setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(from=xMin(this), to=xMax(this), length=n), n, rfcn=function(n, x, mu, ...) rnorm(n=n, mean=0, sd=sd), sd=0.1, ...) {
+setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(from=xMin(this), to=xMax(this), length.out=n), n, rfcn=function(n, x, mu, ...) rnorm(n=n, mean=0, sd=sd), sd=0.1, ...) {
   # Argument 'x':
   x <- Arguments$getNumerics(x);
 

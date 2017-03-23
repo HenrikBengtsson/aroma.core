@@ -136,7 +136,7 @@ setMethodS3("plotSampleLayers", "CopyNumberChromosomalModel", function(this, arr
           }
         }
 
-        # Calculate width in pixels from MBs
+        # Calculate width in pixels from Mbps
         width <- round(zoom * widthMb * pixelsPerMb + sum(xmargin));
 
         # Plot to PNG file

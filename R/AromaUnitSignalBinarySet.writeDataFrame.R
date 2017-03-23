@@ -433,7 +433,8 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
     verbose && print(verbose, gc);
 
     fileSize <- file.info(pathnameT)$size;
-    verbose && printf(verbose, "Current file size: %.1f MB\n", fileSize/1024^2);
+    verbose && printf(verbose, "Current file size: %s\n",
+                      hsize(fileSize, digits = 2L, standard = "IEC"))
 
     # Next chunk
     unitsLeft <- unitsLeft[-idxsHead];

@@ -86,7 +86,7 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
     if (is.null(xlim)) {
       xlim <- c(0, widthMb);
     }
-    verbose && enter(verbose, sprintf("Plotting chromosome %02d [%.2fMB]", chromosome, widthMb));
+    verbose && enter(verbose, sprintf("Plotting chromosome %02d [%.2f Mbp]", chromosome, widthMb));
 
     tryCatch({
       for (zz in seq_along(zooms)) {
@@ -104,7 +104,7 @@ setMethodS3("plotChromosomesLayers", "CopyNumberChromosomalModel", function(this
           }
         }
 
-        # Calculate width in pixels from MBs
+        # Calculate width in pixels from Mbps
         width <- round(zoom * widthMb * pixelsPerMb + sum(xmargin));
 
         # Plot to PNG file
@@ -187,7 +187,7 @@ setMethodS3("plotAxesLayers", "CopyNumberChromosomalModel", function(this, path=
 
 
   plotChromosomesLayers(this, FUN=function(..., zoom, unit, nbrOfBases, pixelsPerMb, verbose=FALSE) {
-    # Calculate MBs per ticks
+    # Calculate Mbps per ticks
     ticksBy <- 10^ceiling(log10(pixelsPerTick / (zoom * pixelsPerMb)));
     verbose && printf(verbose, "Ticks by: %f\n", ticksBy);
 

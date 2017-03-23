@@ -39,11 +39,11 @@ alphas <- list(
   "heaps"   = c(0.10, 0.075, 0.05, 0.03, 0.01, 0.002, 0.0001)
 )
 
-cols <- 1 + seq(along=alphas)
+cols <- 1 + seq_along(alphas)
 legend("topright", names(alphas), col=cols, lwd=4, title="Alpha seq's:")
 
 if (require("sfit")) {
-  for (kk in seq(along=alphas)) {
+  for (kk in seq_along(alphas)) {
     fit <- fitGenotypeCone(Y, alpha=alphas[[kk]], flavor="sfit")
     lines(fit$M, lwd=4, col=cols[kk])
   }

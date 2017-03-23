@@ -140,7 +140,7 @@ setMethodS3("as.character", "CopyNumberChromosomalModel", function(x, ...) {
       s <- c(s, as.character(ref));
     }
   }
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
+
   GenericSummary(s);
 }, protected=TRUE)
 
@@ -631,7 +631,11 @@ setMethodS3("getDataFileMatrix", "CopyNumberChromosomalModel", function(this, ar
 
 
 
-setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., maxNAFraction=getMaxNAFraction(this), estimateSd=TRUE, force=FALSE, verbose=FALSE) {
+setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList, refList, chromosome, units=NULL, reorder=TRUE, ..., estimateSd=TRUE, force=FALSE, verbose=FALSE) {
+  if ("maxNAFraction" %in% names(list(...))) {
+    .Defunct(msg = sprintf("Argument 'maxNAFraction' to getRawCnData() of CopyNumberChromosomalModel is defunct. Instead, specify when setting up the %s object.", class(this)[1L]))
+  }
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -654,12 +658,6 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
     } else if (!is.null(ref)) {
       ref <- Arguments$getInstanceOf(ref, "CopyNumberDataFile");
     }
-  }
-
-  # Argument 'maxNAFraction':
-  if (!missing(maxNAFraction)) {
-    msg <- sprintf("Argument 'maxNAFraction' to getRawCnData() of CopyNumberChromosomalModel is deprecated. Instead, specify when setting up the %s object.", class(this)[1L]);
-    warning(msg);
   }
 
   # Argument 'verbose':
@@ -748,6 +746,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       # (b) Sanity check of not too many missing values
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Sanity check
+      maxNAFraction <- getMaxNAFraction(this)
       if (fraction > maxNAFraction) {
         sampleTag <- getFullName(ce);
         if (is.element(ref, c("none", "constant(1)", "constant(2)"))) {

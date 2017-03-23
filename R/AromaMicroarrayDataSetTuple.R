@@ -44,7 +44,6 @@ setMethodS3("as.character", "AromaMicroarrayDataSetTuple", function(x, ...) {
   for (ds in dsList) {
     s <- c(s, as.character(ds));
   }
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
 
   GenericSummary(s);
 }, private=TRUE)

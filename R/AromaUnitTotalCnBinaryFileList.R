@@ -117,7 +117,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
     xRange <- sapply(cnList, FUN=xRange);
     xRange <- range(xRange, na.rm=TRUE);
     xRangeStr <- paste(sprintf("%.2f", xRange/1e6), collapse=":");
-    verbose && cat(verbose, "Range (Mb): ", xRangeStr);
+    verbose && cat(verbose, "Range (Mbp): ", xRangeStr);
     cnSList <- lapply(cnList, FUN=function(cn) {
       t <- system.time({
         cnS <- binnedSmoothing(cn, from=xRange[1], to=xRange[2], by=bandwidth);

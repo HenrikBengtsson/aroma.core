@@ -88,7 +88,7 @@ if (require("DNAcopy")) {
   legend <- c(legend, red="CBS")
 }
 
-if (require("GLAD")) {
+if (require("GLAD") && packageVersion("GLAD") != "9.9.9") {
   fit <- segmentByGLAD(cn)
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)

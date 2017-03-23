@@ -102,7 +102,7 @@ alphas <- c(0.075, 0.05, 0.01, 0.03, 0.002, 0.001)
 cols <- seq(from=2, to=length(alphas)+1)
 legend("topright", sprintf("\%.3f", alphas), col=cols, lwd=4, title="Alphas")
 
-for (kk in seq(along=alphas)) {
+for (kk in seq_along(alphas)) {
   for (flavor in flavors) {
     fit <- fitGenotypeCone(Y, alpha=alphas[kk], flavor=flavor)
     YN <- backtransformGenotypeCone(Y, fit=fit)

@@ -123,7 +123,11 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), maxNAFraction=getMaxNAFraction(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
+setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, chromosomes=getChromosomes(this), force=FALSE, ..., .retResults=FALSE, verbose=FALSE) {
+  if ("maxNAFraction" %in% names(list(...))) {
+    .Defunct(msg = sprintf("Argument 'maxNAFraction' to fit() of CopyNumberSegmentationModel is defunct. Instead, specify when setting up the %s object.", class(this)[1L]))
+  }
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -171,12 +175,6 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
                                                 range=range(allChromosomes));
 ##    chromosomes[chromosomes == "23"] <- "X";   ## TODO
     chromosomes <- intersect(chromosomes, getChromosomes(this));
-  }
-
-  # Argument 'maxNAFraction':
-  if (!missing(maxNAFraction)) {
-    msg <- sprintf("Argument 'maxNAFraction' to fit() of CopyNumberSegmentationModel is deprecated. Instead, specify when setting up the %s object.", class(this)[1]);
-    warning(msg);
   }
 
   # Argument 'verbose':
@@ -261,7 +259,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Chromosome by chromosome
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    res[[arrayName]] %<=% {
+    res[[arrayName]] %<-% {
       resArray <- list()
       for (chr in chromosomes) {
         verbose && enter(verbose,
@@ -309,8 +307,6 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
           verbose && cat(verbose, "Optional arguments (may be ignored/may give an error/warning):");
           verbose && str(verbose, optArgs);
           userArgs <- list(...);
-          excl <- which(names(userArgs) == "maxNAFraction");
-          if (length(excl) > 0L) userArgs <- userArgs[-excl];
           if (length(userArgs) > 0L) {
             verbose && cat(verbose, "User arguments (may be ignored/may give an error/warning):");
             verbose && str(verbose, userArgs);
@@ -394,7 +390,7 @@ setMethodS3("fit", "CopyNumberSegmentationModel", function(this, arrays=NULL, ch
       } # for (chr in ...)
 
       resArray
-    } ## %<=%
+    } ## %<-%
   } # for (aa in ...)
 
   ## Resolve futures

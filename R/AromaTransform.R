@@ -130,14 +130,14 @@ setMethodS3("as.character", "AromaTransform", function(x, ...) {
   s <- c(s, sprintf("User tags: %s", paste(this$.tags, collapse=",")));
   s <- c(s, sprintf("Asterisk ('*') tags: %s", getAsteriskTags(this, collapse=",")));
   s <- c(s, sprintf("Output tags: %s", paste(getTags(this), collapse=",")));
-  s <- c(s, sprintf("Number of files: %d (%.2fMB)",
-                           length(ds), getFileSize(ds)/1024^2));
+  s <- c(s, sprintf("Number of files: %d (%s)", length(ds),
+                      hsize(getFileSize(ds), digits = 2L, standard = "IEC")))
   s <- c(s, sprintf("Platform: %s", getPlatform(ds)));
   s <- c(s, sprintf("Chip type: %s", getChipType(ds)));
   s <- c(s, sprintf("Algorithm parameters: %s", getParametersAsString(this)));
   s <- c(s, sprintf("Output path: %s", getPath(this)));
   s <- c(s, sprintf("Is done: %s", isDone(this)));
-  s <- c(s, sprintf("RAM: %.2fMB", objectSize(this)/1024^2));
+
   GenericSummary(s);
 }, protected=TRUE)
 

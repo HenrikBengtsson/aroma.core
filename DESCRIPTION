@@ -1,27 +1,28 @@
 Package: aroma.core
-Version: 3.0.0
+Version: 3.1.0
 Depends:
   R (>= 3.1.2),
-  R.utils (>= 2.2.0),
-  R.filesets (>= 2.10.0),
-  R.devices (>= 2.13.2)
+  R.utils (>= 2.5.0),
+  R.filesets (>= 2.11.0),
+  R.devices (>= 2.15.1)
 DependsNote:
   BioC (>= 3.0)
 Imports:
   stats,
   utils,
-  R.methodsS3 (>= 1.7.0),
-  R.oo (>= 1.19.0),
+  R.methodsS3 (>= 1.7.1),
+  R.oo (>= 1.21.0),
   R.cache (>= 0.12.0),
-  R.rsp (>= 0.21.0),
-  matrixStats (>= 0.50.1),
+  R.rsp (>= 0.40.0),
+  matrixStats (>= 0.51.0),
   RColorBrewer (>= 1.1-2),
-  PSCBS (>= 0.60.0),
+  PSCBS (>= 0.62.0),
   listenv,
-  future 
+  future
 Suggests:
+  KernSmooth,
   png (>= 0.1-7),
-  Cairo (>= 1.5-6),
+  Cairo (>= 1.5-9),
   EBImage (>= 4.8.3),
   preprocessCore (>= 1.28.0),
   aroma.light (>= 2.2.1),
@@ -39,8 +40,10 @@ SuggestsNote:
   png,
   preprocessCore,
   sfit
-Additional_repositories: http://r-forge.r-project.org
-Date: 2016-01-05
+Additional_repositories:
+  http://r-forge.r-project.org,
+  https://HenrikBengtsson.github.io/drat
+Date: 2017-03-22
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
@@ -56,3 +59,4 @@ LazyLoad: TRUE
 biocViews: Microarray, OneChannel, TwoChannel, MultiChannel,
         DataImport, DataRepresentation, GUI, Visualization,
         Preprocessing, QualityControl, aCGH, CopyNumberVariants
+RoxygenNote: 6.0.1
