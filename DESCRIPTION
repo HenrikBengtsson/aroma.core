@@ -40,8 +40,10 @@ SuggestsNote:
   png,
   preprocessCore,
   sfit
-Additional_repositories: http://r-forge.r-project.org
-Date: 2017-02-27
+Additional_repositories:
+  http://r-forge.r-project.org,
+  https://HenrikBengtsson.github.io/drat
+Date: 2017-03-22
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
