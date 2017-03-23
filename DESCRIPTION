@@ -1,5 +1,5 @@
 Package: aroma.core
-Version: 3.0.0-9000
+Version: 3.1.0
 Depends:
   R (>= 3.1.2),
   R.utils (>= 2.5.0),
@@ -40,8 +40,10 @@ SuggestsNote:
   png,
   preprocessCore,
   sfit
-Additional_repositories: http://r-forge.r-project.org
-Date: 2017-02-27
+Additional_repositories:
+  http://r-forge.r-project.org,
+  https://HenrikBengtsson.github.io/drat
+Date: 2017-03-22
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
