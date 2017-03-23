@@ -40,3 +40,4 @@ The package has been verified using `R CMD check --as-cran` on:
 * Platform x86_64-w64-mingw32/x64 (64-bit) [win-builder]:
   - R version 3.3.3 (2017-03-06)
   - R Under development (unstable) (2017-03-21 r72375)
+
