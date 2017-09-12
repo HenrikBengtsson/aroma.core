@@ -1,6 +1,14 @@
 Package: aroma.core
 ===================
 
+Version: 3.1.0-9000 [2017-09-12]
+
+BUG FIXES:
+
+ o getRegions() for CopyNumberSegmentationModel used defunct future strategy
+   'eager' - updated to 'sequential'.
+
+
 Version: 3.1.0 [2017-03-22]
 
 NEW FEATURES:
