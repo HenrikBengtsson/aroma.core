@@ -4,41 +4,42 @@
 
 |setting  |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.3.3 (2017-03-06) |
+|version  |R version 3.4.1 (2017-06-30) |
 |system   |x86_64, linux-gnu            |
 |ui       |X11                          |
 |language |en                           |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Los_Angeles          |
-|date     |2017-03-22                   |
+|date     |2017-09-12                   |
 
 ## Packages
 
-|package        |*  |version |date       |source         |
-|:--------------|:--|:-------|:----------|:--------------|
-|aroma.core     |   |3.0.0   |2016-01-06 |cran (@3.0.0)  |
-|aroma.light    |   |3.4.0   |2017-03-10 |cran (@3.4.0)  |
-|DNAcopy        |   |1.48.0  |2017-03-10 |cran (@1.48.0) |
-|EBImage        |   |4.16.0  |2017-03-23 |cran (@4.16.0) |
-|expectile      |   |0.3.0   |2017-03-23 |cran (@0.3.0)  |
-|future         |   |1.4.0   |2017-03-13 |cran (@1.4.0)  |
-|GLAD           |   |2.38.0  |2017-03-10 |cran (@2.38.0) |
-|HaarSeg        |   |0.0.3   |2017-03-23 |cran (@0.0.3)  |
-|listenv        |   |0.6.0   |2015-12-28 |cran (@0.6.0)  |
-|matrixStats    |   |0.51.0  |2016-10-09 |cran (@0.51.0) |
-|mpcbs          |   |1.1.1   |2017-03-23 |cran (@1.1.1)  |
-|png            |   |0.1-8   |2017-03-23 |cran (@0.1-8)  |
-|preprocessCore |   |1.36.0  |2017-03-10 |cran (@1.36.0) |
-|PSCBS          |   |0.62.0  |2016-11-11 |cran (@0.62.0) |
-|R.cache        |   |0.12.0  |2015-11-12 |cran (@0.12.0) |
-|R.devices      |   |2.15.1  |2016-11-10 |cran (@2.15.1) |
-|R.filesets     |   |2.11.0  |2017-02-28 |cran (@2.11.0) |
-|R.methodsS3    |   |1.7.1   |2016-02-16 |cran (@1.7.1)  |
-|R.oo           |   |1.21.0  |2016-11-01 |cran (@1.21.0) |
-|R.rsp          |   |0.40.0  |2016-12-06 |cran (@0.40.0) |
-|R.utils        |   |2.5.0   |2016-11-07 |cran (@2.5.0)  |
-|RColorBrewer   |   |1.1-2   |2014-12-07 |cran (@1.1-2)  |
-|sfit           |   |0.3.0   |2017-03-23 |cran (@0.3.0)  |
+|package        |*  |version    |date       |source                                |
+|:--------------|:--|:----------|:----------|:-------------------------------------|
+|aroma.core     |   |3.1.0-9000 |2017-09-12 |local (HenrikBengtsson/aroma.core@NA) |
+|aroma.light    |   |3.6.0      |2017-09-12 |cran (@3.6.0)                         |
+|Cairo          |   |1.5-9      |2015-09-26 |cran (@1.5-9)                         |
+|DNAcopy        |   |1.50.1     |2017-09-12 |cran (@1.50.1)                        |
+|EBImage        |   |4.18.2     |2017-09-12 |cran (@4.18.2)                        |
+|expectile      |   |0.3.0      |2017-09-12 |cran (@0.3.0)                         |
+|future         |   |1.6.1      |2017-09-09 |cran (@1.6.1)                         |
+|GLAD           |   |2.40.0     |2017-09-12 |cran (@2.40.0)                        |
+|HaarSeg        |   |0.0.3      |2017-09-12 |cran (@0.0.3)                         |
+|listenv        |   |0.6.0      |2015-12-28 |cran (@0.6.0)                         |
+|matrixStats    |   |0.52.2     |2017-04-14 |cran (@0.52.2)                        |
+|mpcbs          |   |1.1.1      |2017-09-12 |cran (@1.1.1)                         |
+|png            |   |0.1-8      |2017-09-12 |cran (@0.1-8)                         |
+|preprocessCore |   |1.38.1     |2017-09-12 |cran (@1.38.1)                        |
+|PSCBS          |   |0.63.0     |2017-06-28 |cran (@0.63.0)                        |
+|R.cache        |   |0.12.0     |2015-11-12 |cran (@0.12.0)                        |
+|R.devices      |   |2.15.1     |2016-11-10 |cran (@2.15.1)                        |
+|R.filesets     |   |2.11.0     |2017-02-28 |cran (@2.11.0)                        |
+|R.methodsS3    |   |1.7.1      |2016-02-16 |cran (@1.7.1)                         |
+|R.oo           |   |1.21.0     |2016-11-01 |cran (@1.21.0)                        |
+|R.rsp          |   |0.41.0     |2017-04-16 |cran (@0.41.0)                        |
+|R.utils        |   |2.5.0      |2016-11-07 |cran (@2.5.0)                         |
+|RColorBrewer   |   |1.1-2      |2014-12-07 |cran (@1.1-2)                         |
+|sfit           |   |0.3.1      |2017-09-12 |cran (@0.3.1)                         |
 
 # Check results
 
@@ -46,46 +47,121 @@
 
 |package          |version | errors| warnings| notes|
 |:----------------|:-------|------:|--------:|-----:|
-|ACNE             |0.8.1   |      0|        0|     0|
-|aroma.affymetrix |3.0.0   |      0|        0|     0|
-|aroma.cn         |1.6.1   |      0|        0|     0|
-|calmate          |0.12.1  |      0|        0|     0|
-|MPAgenomics      |1.1.2   |      0|        0|     2|
-|NSA              |0.0.32  |      0|        0|     6|
-|PECA             |1.10.0  |      0|        0|     1|
-|Repitools        |1.20.0  |      0|        0|     2|
-|TIN              |1.6.0   |      0|        0|     2|
+|ACNE             |0.8.1   |      0|        1|     0|
+|aroma.affymetrix |3.1.0   |      0|        1|     0|
+|aroma.cn         |1.6.1   |      0|        1|     0|
+|calmate          |0.12.1  |      0|        1|     0|
+|MPAgenomics      |1.1.2   |      0|        1|     2|
+|NSA              |0.0.32  |      0|        1|     6|
+|PECA             |1.13.0  |      0|        0|     2|
+|Repitools        |1.23.0  |      1|        0|     1|
+|TIN              |1.9.0   |      0|        0|     3|
 
 ## ACNE (0.8.1)
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
 Bug reports: https://github.com/HenrikBengtsson/ACNE/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
 
-## aroma.affymetrix (3.0.0)
+```
+checking CRAN incoming feasibility ... WARNING
+Maintainer: ‘Henrik Bengtsson <henrikb@braju.com>’
+
+Insufficient package version (submitted: 0.8.1, existing: 0.8.1)
+
+Possibly mis-spelled words in DESCRIPTION:
+  NMF (16:157)
+  Summarization (9:29)
+  summarization (16:16)
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+```
+
+## aroma.affymetrix (3.1.0)
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
 Bug reports: https://github.com/HenrikBengtsson/aroma.affymetrix/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking CRAN incoming feasibility ... WARNING
+Maintainer: ‘Henrik Bengtsson <henrikb@braju.com>’
+
+Insufficient package version (submitted: 3.1.0, existing: 3.1.0)
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+```
 
 ## aroma.cn (1.6.1)
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
 Bug reports: https://github.com/HenrikBengtsson/aroma.cn/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking CRAN incoming feasibility ... WARNING
+Maintainer: ‘Henrik Bengtsson <henrikb@braju.com>’
+
+Insufficient package version (submitted: 1.6.1, existing: 1.6.1)
+
+Possibly mis-spelled words in DESCRIPTION:
+  MSCN (16:71)
+  TumorBoost (18:41)
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+```
 
 ## calmate (0.12.1)
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
 Bug reports: https://github.com/HenrikBengtsson/calmate/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking CRAN incoming feasibility ... WARNING
+Maintainer: ‘Henrik Bengtsson <henrikb@braju.com>’
+
+Insufficient package version (submitted: 0.12.1, existing: 0.12.1)
+
+Possibly mis-spelled words in DESCRIPTION:
+  ASCNs (10:93)
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+```
 
 ## MPAgenomics (1.1.2)
 Maintainer: Samuel Blanck <samuel.blanck@inria.fr>
 
-0 errors | 0 warnings | 2 notes
+0 errors | 1 warning  | 2 notes
 
 ```
+checking CRAN incoming feasibility ... WARNING
+Maintainer: ‘Samuel Blanck <samuel.blanck@inria.fr>’
+
+Insufficient package version (submitted: 1.1.2, existing: 1.1.2)
+
+Possibly mis-spelled words in DESCRIPTION:
+  MPAgenomics (10:55, 15:23)
+  Preprocess (10:14)
+
+No package encoding and non-ASCII characters in the following R files:
+  R/bivariateSignal.R
+    64: # etrange=c(2,36)#66 semble greff<c3><a9> #7 CN <c3><a9>trange
+  R/cghcall_private.R
+    140:     #TODO v<c3><a9>rifier pertinence correction bug avec segment extreme d'un seul point
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+
 checking dependencies in R code ... NOTE
 'library' or 'require' calls in package code:
   ‘R.devices’ ‘R.filesets’ ‘R.methodsS3’ ‘R.oo’ ‘aroma.affymetrix’
@@ -122,9 +198,22 @@ to your NAMESPACE file.
 ## NSA (0.0.32)
 Maintainer: Maria Ortiz-Estevez <mortizest@gmail.com>
 
-0 errors | 0 warnings | 6 notes
+0 errors | 1 warning  | 6 notes
 
 ```
+checking CRAN incoming feasibility ... WARNING
+Maintainer: ‘Maria Ortiz-Estevez <mortizest@gmail.com>’
+
+Insufficient package version (submitted: 0.0.32, existing: 0.0.32)
+
+The Title field should be in title case, current version then in title case:
+‘Post-normalization of total copy numbers’
+‘Post-Normalization of Total Copy Numbers’
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+
 checking package dependencies ... NOTE
 Depends: includes the non-default packages:
   ‘R.methodsS3’ ‘MASS’ ‘matrixStats’ ‘R.oo’ ‘R.utils’ ‘aroma.core’
@@ -197,12 +286,29 @@ Rd file 'NSANormalization.Rd':
 These lines will be truncated in the PDF manual.
 ```
 
-## PECA (1.10.0)
+## PECA (1.13.0)
 Maintainer: Tomi Suomi <tomi.suomi@utu.fi>
 
-0 errors | 0 warnings | 1 note 
+0 errors | 0 warnings | 2 notes
 
 ```
+checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Tomi Suomi <tomi.suomi@utu.fi>’
+
+Package duplicated from https://bioconductor.org/packages/3.5/bioc
+
+Possibly mis-spelled words in DESCRIPTION:
+  PECA (11:65)
+  mesurements (11:200)
+  peptide (11:186)
+  proteomic (11:162)
+
+The Title field should be in title case, current version then in title case:
+‘Probe-level Expression Change Averaging’
+‘Probe-Level Expression Change Averaging’
+
+This build time stamp is over a month old.
+
 checking Rd line widths ... NOTE
 Rd file 'PECA.Rd':
   \usage lines wider than 90 characters:
@@ -211,65 +317,67 @@ Rd file 'PECA.Rd':
 These lines will be truncated in the PDF manual.
 ```
 
-## Repitools (1.20.0)
+## Repitools (1.23.0)
 Maintainer: Mark Robinson <mark.robinson@imls.uzh.ch>
 
-0 errors | 0 warnings | 2 notes
+1 error  | 0 warnings | 1 note 
 
 ```
-checking R code for possible problems ... NOTE
-Found an obsolete/platform-specific call in the following function:
-  ‘maskOut’
-Found the platform-specific device:
-  ‘windows’
-dev.new() is the preferred way to open a new device, in the unlikely
-event one is needed.
-.cpgBoxplots: no visible global function definition for ‘pdf’
-.cpgBoxplots: no visible global function definition for ‘par’
-.cpgBoxplots: no visible global function definition for ‘dev.off’
-... 291 lines ...
-  rainbow read.table rect str t.test text title verbose
-Consider adding
-  importFrom("grDevices", "dev.off", "pdf", "rainbow")
-  importFrom("graphics", "abline", "axis", "barplot", "bxp", "grid",
-             "layout", "legend", "lines", "matlines", "matplot", "mtext",
-             "par", "persp", "plot", "plot.new", "plot.window", "points",
-             "polygon", "rect", "text", "title")
-  importFrom("stats", "dbeta", "embed", "filter", "kmeans", "lm",
-             "lowess", "p.adjust", "predict", "pt", "qnorm", "t.test")
-  importFrom("utils", "read.table", "str")
-to your NAMESPACE file.
+checking whether package ‘Repitools’ can be installed ... ERROR
+Installation failed.
+See ‘/home/hb/repositories/aroma.core/revdep/checks/Repitools.Rcheck/00install.out’ for details.
 
-checking Rd line widths ... NOTE
-Rd file 'ChromaBlocks.Rd':
-  \usage lines wider than 90 characters:
-     ChromaBlocks(rs.ip, rs.input, organism, chrs, ipWidth=100, inputWidth=500, preset=NULL, blockWidth=NULL, minBlocks=NULL, extend=NULL, c ... [TRUNCATED]
+checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Mark Robinson <mark.robinson@imls.uzh.ch>’
 
-Rd file 'GCbiasPlots.Rd':
-  \usage lines wider than 90 characters:
-                 cex = 0.2, pch.col = "black", line.col = "red", lty = 1, lwd = 2, verbose = TRUE)
+Package duplicated from https://bioconductor.org/packages/3.5/bioc
 
-Rd file 'absoluteCN.Rd':
-... 57 lines ...
+Possibly mis-spelled words in DESCRIPTION:
+  BayMeth (22:9)
+  Epigenomic (4:8)
+  epigenomic (18:57, 20:9)
+  methylation (21:50, 22:33)
+  summarization (19:33)
 
-Rd file 'regionStats.Rd':
-  \usage lines wider than 90 characters:
-     regionStats(x, design = NULL, maxFDR=0.05, n.perm=5, window=600, mean.trim=.1, min.probes=10, max.gap=500, two.sides=TRUE, ndf, return. ... [TRUNCATED]
-     regionStats(x, design = NULL, maxFDR=0.05, n.perm=5, window=600, mean.trim=.1, min.probes=10, max.gap=500, two.sides=TRUE, ind=NULL, re ... [TRUNCATED]
+Found the following (possibly) invalid URLs:
+  URL: http://www.bioinformatics.bbsrc.ac.uk/projects/fastqc/
+    From: man/genQC.Rd
+    Status: 403
+    Message: Forbidden
 
-Rd file 'writeWig.Rd':
-  \usage lines wider than 90 characters:
-     writeWig(rs, seq.len = NULL, design=NULL, sample=20, drop.zero=TRUE, normalize=TRUE, verbose=TRUE)
+The Title field should be in title case, current version then in title case:
+‘Epigenomic tools’
+‘Epigenomic Tools’
 
-These lines will be truncated in the PDF manual.
+The Date field is not in ISO 8601 yyyy-mm-dd format.
+
+This build time stamp is over a month old.
 ```
 
-## TIN (1.6.0)
+## TIN (1.9.0)
 Maintainer: Bjarne Johannessen <bjajoh@rr-research.no>
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 3 notes
 
 ```
+checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Bjarne Johannessen <bjajoh@rr-research.no>’
+
+Package duplicated from https://bioconductor.org/packages/3.5/bioc
+
+Possibly mis-spelled words in DESCRIPTION:
+  Transcriptome (3:8)
+  exon (15:53, 16:29)
+  transcriptome (15:9, 17:52, 19:9)
+
+The Title field should be in title case, current version then in title case:
+‘Transcriptome instability analysis’
+‘Transcriptome Instability Analysis’
+
+The Date field is over a month old.
+
+This build time stamp is over a month old.
+
 checking top-level files ... NOTE
 Non-standard file/directory found at top level:
   ‘doc’

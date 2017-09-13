@@ -421,7 +421,7 @@ setMethodS3("getLog2Ratios", "CopyNumberSegmentationModel", function(this, ..., 
   res <- suppressWarnings(local({
     ## Assume fit() has already been called;
     ## avoids void asynchroneous processing.
-    oplan <- plan("eager")
+    oplan <- plan("sequential")
     on.exit(plan(oplan))
     fit(this, ..., .retResults=TRUE, verbose=less(verbose,10))
   }))
@@ -489,7 +489,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
   res <- suppressWarnings(local({
     ## Assume fit() has already been called;
     ## avoids void asynchroneous processing.
-    oplan <- plan("eager")
+    oplan <- plan("sequential")
     on.exit(plan(oplan))
     fit(this, ..., .retResults=TRUE, verbose=less(verbose,10))
   }))

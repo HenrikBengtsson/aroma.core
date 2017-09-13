@@ -1,5 +1,5 @@
 Package: aroma.core
-Version: 3.1.0
+Version: 3.1.1
 Depends:
   R (>= 3.1.2),
   R.utils (>= 2.5.0),
@@ -14,7 +14,7 @@ Imports:
   R.oo (>= 1.21.0),
   R.cache (>= 0.12.0),
   R.rsp (>= 0.40.0),
-  matrixStats (>= 0.51.0),
+  matrixStats (>= 0.52.2),
   RColorBrewer (>= 1.1-2),
   PSCBS (>= 0.62.0),
   listenv,
@@ -42,8 +42,8 @@ SuggestsNote:
   sfit
 Additional_repositories:
   http://r-forge.r-project.org,
-  https://HenrikBengtsson.github.io/drat
-Date: 2017-03-22
+  https://henrikbengtsson.github.io/drat
+Date: 2017-09-12
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
