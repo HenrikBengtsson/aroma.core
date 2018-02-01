@@ -66,7 +66,7 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
 
     t <- system.time({
       res <- binnedSums(rsr, by=by, from=region[1], to=region[2]);
-    });
+    }, gcFirst = FALSE);
     printf(verbose, "Binning time: %gs = %gms/bin\n", 
                                        t[3], 1000*t[3]/nbrOfLoci(res));
     print(verbose, res);

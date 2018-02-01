@@ -188,7 +188,7 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
     # function is not masked in the search() path.
     t <- system.time({
       fit <- do.call(methodName, args);
-    });
+    }, gcFirst = FALSE);
     attr(fit, "processingTime") <- t;
     attr(fit, "pkgDetails") <- pkgDetails;
   });

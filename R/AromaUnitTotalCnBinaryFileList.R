@@ -121,7 +121,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
     cnSList <- lapply(cnList, FUN=function(cn) {
       t <- system.time({
         cnS <- binnedSmoothing(cn, from=xRange[1], to=xRange[2], by=bandwidth);
-      });
+      }, gcFirst = FALSE);
       verbose && cat(verbose, "Processing time:");
       verbose && print(verbose, t);
       attr(cnS, "processingTime") <- t;

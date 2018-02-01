@@ -201,7 +201,7 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
     # function is not masked in the search() path.
     t <- system.time({
       fit <- do.call(methodName, args);
-    });
+    }, gcFirst = FALSE);
   });
   fit <- list(fit=fit);
   fit$chromosome <- chromosome;
