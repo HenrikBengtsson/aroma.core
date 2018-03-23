@@ -71,10 +71,3 @@ setMethodS3("processTime", "default", function(since=NULL, units=c("seconds", "m
 
   time;
 }, private=TRUE); # processTime()
-
-
-############################################################################
-# HISTORY:
-# 2006-03-09
-# o Created.
-############################################################################

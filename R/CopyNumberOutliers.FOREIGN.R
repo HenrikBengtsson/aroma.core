@@ -67,16 +67,3 @@ setMethodS3("extractCopyNumberOutliers", "DNAcopy", function(object, ...) {
     count=output[["num.mark"]]
   );
 })
-
-
-
-
-############################################################################
-# HISTORY:
-# 2008-05-17
-# o Extracted CopyNumberOutliers.FOREIGN.R after moving CopyNumberOutliers.R
-#   to aroma.core. 
-# 2007-08-22
-# o Created.  Need a generic container for holding copy number regions and
-#   to plot them nicely.
-############################################################################

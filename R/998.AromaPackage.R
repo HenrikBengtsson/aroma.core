@@ -68,13 +68,3 @@ setMethodS3("fixSearchPathInternal", "AromaPackage", function(this, aheadPkgs, b
 
 setMethodS3("fixSearchPath", "AromaPackage", function(this, ...) {
 })
-
-
-
-
-############################################################################
-# HISTORY:
-# 2009-05-13
-# o Added protected fixSearchPathInternal().
-# o Created from 999.AromaAffymetrix.R.
-############################################################################

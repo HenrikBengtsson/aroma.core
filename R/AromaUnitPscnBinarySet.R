@@ -334,12 +334,3 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
 setMethodS3("writeDataFrame", "AromaUnitPscnBinarySet", function(this, filename=sprintf("%s,total.txt", getFullName(this)), ...) {
   NextMethod("writeDataFrame", filename=filename);
 })
-
-
-############################################################################
-# HISTORY:
-# 2012-07-21
-# o Adjusted getAverageFile() to average all columns, although it makes
-#   little sense to average BAFs across arrays.
-# o Created from AromaUnitTotalCnBinarySet.R.
-############################################################################

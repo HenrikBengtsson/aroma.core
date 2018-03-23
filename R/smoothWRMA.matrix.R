@@ -117,17 +117,3 @@ setMethodS3("smoothWRMA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, s
 
   list(theta=theta, phi=phi);
 }) # smoothWRMA()
-
-
-############################################################################
-# HISTORY:
-# 2012-08-08
-# o Now smoothWRMA() passes '...' to fitWRMA().
-# 2007-09-26
-# o Added support for (optional) prior weights (either as row weights or
-#   full matrix weights).
-# 2007-09-24
-# o Now smoothWRMA() returns (theta, phi) on the intensity scale.
-# 2007-09-18
-# o Created from gaussianSmoothing.R.
-############################################################################

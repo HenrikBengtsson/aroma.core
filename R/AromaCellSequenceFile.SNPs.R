@@ -345,37 +345,3 @@ setMethodS3("groupBySnpNucleotides", "AromaCellSequenceFile", function(this, cel
 
   res;
 }) # groupBySnpNucleotides()
-
-
-############################################################################
-# HISTORY:
-# 2011-08-30
-# o ROBUSTNESS: Added more sanity checks to getSnpPositions().
-# o BUG FIX: After introducing a sanity check in aroma.core v2.1.2
-#   (2011-05-11), getSnpPositions() of AromaCellSequenceFile would throw
-#   "Error: length(pos) == ncol(cells) is not TRUE".  However, it was not
-#   until aroma.core v2.1.3 (2011-08-01) was release that some people got
-#   problem with this.  It turns out that the sanity check catches an
-#   error in how getSnpPositions() of AromaCellSequenceFile allocates
-#   the result vector, a bug that has been there for a very long time.
-#   Luckily, this bug has had no effect on the results for anyone.
-#   Thanks to David Goode (Stanford) and Irina Ostrovnaya (MSKCC) for
-#   reporting on this.
-#   DETAILS: The allocation of result vector 'pos' in getSnpPositions()
-#   was such that its length became 2 (nrow(cells) == number of alleles)
-#   instead of the number of cells (ncol(cells)).  When 'pos' was later
-#   populated it caused 'pos' to be expanded, with a final length to
-#   equally the position of the last identified SNP.
-# 2011-05-10
-# o Added more sanity checks and more verbose output to getSnpNucleotides()
-#   for AromaCellSequenceFile.
-# 2008-12-04
-# o BUG FIX: groupBySnpNucleotides() of AromaCellSequenceFile would return
-#   an empty element 'missing' for some chip types, e.g. Mapping10K_Xba142.
-#   Now that empty elements are dropped.
-# 2008-09-02
-# o Added getSnpShifts().
-# o Added groupBySnpNucleotides().
-# o Added getSnpPositions() and getSnpNucleotides().
-# o Created.
-############################################################################

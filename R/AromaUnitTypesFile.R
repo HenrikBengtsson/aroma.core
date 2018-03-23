@@ -70,14 +70,3 @@ setMethodS3("importFromUnitTypesFile", "AromaUnitTypesFile", function(this, utf,
 
   invisible(TRUE);
 }, static=TRUE)
-
-
-
-
-
-
-############################################################################
-# HISTORY:
-# 2009-07-09
-# o Created.
-############################################################################

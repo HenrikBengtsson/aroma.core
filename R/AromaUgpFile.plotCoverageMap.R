@@ -25,11 +25,3 @@ setMethodS3("plotCoverageMap", "AromaUgpFile", function(this, chromosomes=getChr
     points(xx, yy, pch=pch, cex=cex, ...);
   } # for (cc ...)
 }) # plotCoverageMap()
-
-
-############################################################################
-# HISTORY:
-# 2011-12-10
-# o Added plotCoverageMap() for AromaUgpFile.
-# o Created.
-############################################################################

@@ -85,27 +85,3 @@ setMethodS3("findPngDevice", "default", function(transparent=TRUE, ..., force=FA
 
   res;
 }, protected=TRUE)
-
-
-##############################################################################
-# HISTORY:
-# 2012-01-17
-# o Now findPngDevice() tries all the available settings for argument
-#   "type" of png(), for the current platform.
-# o CLEANUP: Now findPngDevice() uses isPackageInstalled("Cairo") instead
-#   of require("Cairo") to avoid loading Cairo if not really used.
-# o SPEEDUP: Now findPngDevice() memoizes the results throughout the
-#   current session.
-# o Now  findPngDevice() passes '...' to System$findGraphicsDevice().
-# o Some minor code cleanup.
-# 2008-05-21
-# o Added png(..., type="cairo") and png(..., type="cairo1") for cases when
-#   png() has argument 'type' and R is v2.7.0 or newer.
-# 2007-11-25
-# o We'll wait a bit making the Cairo PNG device the default *non-transparent*
-#   device; the reason for this is that I still haven't figured out what the
-#   all requirements are and if it is possible to use it in a "nohup" batch
-#   mode without an X11 device.
-# 2007-10-11
-# o Created.
-##############################################################################

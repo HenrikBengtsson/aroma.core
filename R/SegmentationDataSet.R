@@ -173,14 +173,3 @@ setMethodS3("extractCopyNumberRegions", "SegmentationDataSet", function(this, ..
 
   res;
 }, protected=TRUE);
-
-
-
-
-############################################################################
-# HISTORY:
-# 2011-04-03
-# o Updated as.character() to utilize hpaste().
-# 2010-08-05
-# o Created.
-############################################################################

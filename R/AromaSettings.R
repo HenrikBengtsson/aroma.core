@@ -73,16 +73,3 @@ setMethodS3("setRam", "AromaSettings", function(this, value=1, ...) {
 
   setOption(this, "memory/ram", value);
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-11-26
-# o BUG FIX: getRam() and setRam() for AromaSettings did not use
-#   'memory/ram'.
-# 2009-02-22
-# o Added argument {get|set}Ram().
-# o Added argument {get|set}Verbose().
-# o Created.
-############################################################################

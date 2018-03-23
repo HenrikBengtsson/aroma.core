@@ -369,21 +369,3 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   # Return results
   res;
 }) # writeDataFrame()
-
-
-############################################################################
-# HISTORY:
-# 2014-08-27
-# o BUG FIX: writeDataFrame(..., columnNamesPrefix="none") for
-#   AromaUnitSignalBinaryFile would give an error.
-# 2010-05-12
-# o Now argument 'path' defaults to <rootPath>,txt/<dataSet>/<chipType>/.
-# 2010-04-27
-# o Added argument 'columnNamesPrefix'.
-# o Removed explicit dependency on aroma.affymetrix. This is now hidden
-#   inside getUnitAnnotationDataFile() of AromaPlatformInterface.
-# 2010-04-20
-# o Removed dependency on getCdf() for affymetrix platforms.
-# 2010-04-19
-# o Created from aroma.cn::testScripts/system/D9.export/1.export.Rex.
-############################################################################

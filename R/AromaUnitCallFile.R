@@ -134,14 +134,3 @@ setMethodS3("extractCallArray", "AromaUnitCallFile", function(this, units=NULL, 
 setMethodS3("extractCalls", "AromaUnitCallFile", function(this, ...) {
   extractCallArray(this, ...);
 })
-
-
-
-
-############################################################################
-# HISTORY:
-# 2009-12-08
-# o BUG FIX: extractMatrix() of AromaUnitCallFile did not recognize NoCalls.
-# 2009-01-04
-# o Created from AromaGenotypeCallFile.R.
-############################################################################

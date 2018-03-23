@@ -33,10 +33,3 @@ setMethodS3("getAsteriskTags", "RawCopyNumberModel", function(this, ...) {
 setMethodS3("getSetTag", "RawCopyNumberModel", function(this, ...) {
   "raw";
 }, protected=TRUE)
-
-
-##############################################################################
-# HISTORY:
-# 2007-10-18
-# o Created.
-##############################################################################

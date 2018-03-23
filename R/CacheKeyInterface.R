@@ -67,12 +67,3 @@ setConstructorS3("CacheKeyInterface", function(...) {
 setMethodS3("getCacheKey", "CacheKeyInterface", function(this, ...) {
   list(className=class(this)[1], ...);
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-11-28
-# o Added CacheKeyInterface.
-# o Created.
-############################################################################

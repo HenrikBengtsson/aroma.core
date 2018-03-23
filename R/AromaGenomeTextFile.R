@@ -168,22 +168,3 @@ setMethodS3("byGenome", "AromaGenomeTextFile", function(static, genome, ..., mus
 
   res;
 }, static=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2014-02-03
-# o BUG FIX: readDataFrame() for AromaGenomeTextFile explicitly passed
-#   arguments '...' to NextMethod(), which would cause them to be
-#   duplicated in certain cases.
-# 2011-03-03
-# o Replaced argument 'onMissing' of byGenome() with 'mustExist'.
-# o Now findByGenome() for AromaGenomeTextFile follows the new aroma
-#   search conventions.
-# o Updated the default filename patterns used by findByGenome() for
-#   AromaGenomeTextFile to "^%s,chromosomes(|,.*)*[.]txt$".  Before
-#   additional tags were needed.
-# 2010-08-22
-# o Added Rdoc comments and an example.
-# o Created.
-############################################################################

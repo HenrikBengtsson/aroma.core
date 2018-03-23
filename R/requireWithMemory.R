@@ -92,13 +92,3 @@ setMethodS3("requireWithMemory", "default", function(package="GLAD", ..., since=
 
   res;
 }, private=TRUE) # requireWithMemory()
-
-
-############################################################################
-# HISTORY:
-# 2010-12-07
-# o Added argument 'force' to requireWithMemory().
-# 2010-12-06
-# o Added requireWithMemory().
-# o Created.
-############################################################################

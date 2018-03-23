@@ -141,14 +141,3 @@ setMethodS3("getFullNameTranslatorSet", "GenericDataFileSet", function(this, sub
 
   res;
 }, protected=TRUE)
-
-
-#############################################################################
-# HISTORY:
-# 2010-05-26
-# o Added auxillary/genric getFullNameTranslatorSet().  We should ideally 
-#   define a class and corresponding findByName() and byName() for this.
-# o Added auxillary getAromaFullNameTranslatorSet() utilizing
-#   getFullNameTranslatorSet().
-# o Created.
-#############################################################################

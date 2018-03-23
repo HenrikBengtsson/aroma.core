@@ -115,23 +115,3 @@ setMethodS3("findByChipType", "TextUnitNamesFile", function(static, chipType, ta
 
   pathname;
 }, static=TRUE, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2012-10-16
-# o CLEANUP: Dropped getHeaderParameters() for TextUnitNamesFile, which
-#   is now done by getHeader() of TabularTextFile.
-# 2009-05-12
-# o Now TextUnitNamesFile caches all unit names in memory.
-# 2009-05-11
-# o BUG FIX: getPlatform() of TextUnitNamesFile would sometimes return a
-#   list of length one, instead of an single character string.
-# o Added getHeaderParameters().
-# 2009-04-06
-# o BUG FIX: getUnitNames(..., units=NULL) of TextUnitNamesFile would
-#   make the object believe there are zero units in the file.
-# 2009-03-23
-# o Created.
-############################################################################

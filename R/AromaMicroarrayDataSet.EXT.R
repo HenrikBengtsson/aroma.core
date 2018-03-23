@@ -34,13 +34,3 @@ setMethodS3("as.AromaMicroarrayDataSetList", "AromaMicroarrayDataSet", function(
 
   throw("Failed to coerce ", class(this)[1], ", to an AromaMicroarrayDataSetList: ", getFullName(this));
 })
-
-
-##############################################################################
-# HISTORY:
-# 2009-12-30
-# o Added as.AromaMicroarrayDataSetList() to AromaMicroarrayDataSet.
-# 2009-11-18
-# o Created.
-##############################################################################
-

@@ -98,12 +98,3 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitCallSet", function(this, ..., dro
 setMethodS3("extractGenotypes", "AromaUnitGenotypeCallSet", function(this, ...) {
   extractGenotypeMatrix(this, ...);
 })
-
-
-############################################################################
-# HISTORY:
-# 2009-01-10
-# o Fixed extractGenotypesMatrix().
-# 2008-12-09
-# o Created.
-############################################################################

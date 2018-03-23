@@ -4,10 +4,3 @@ setMethodS3("backtransformMultiDimensionalCone", "matrix", function(y, fit, ...)
   attr(x, "fit") <- fit;
   x;
 })
-
-
-############################################################################
-# HISTORY:
-# 2008-08-02
-# o Created from backtransformGenotypeCone.matrix.R.
-############################################################################

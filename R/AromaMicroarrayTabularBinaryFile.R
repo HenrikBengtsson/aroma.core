@@ -209,14 +209,3 @@ setMethodS3("allocate", "AromaMicroarrayTabularBinaryFile", function(static, pla
 
   res;
 }, static=TRUE, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2014-06-28
-# o CLEANUP: Deprecated argument '.old' of getChipType() for
-#   AromaMicroarrayTabularBinaryFile.
-# 2008-07-09
-# o Extracted from AromaUnitTabularBinaryFile.R.
-############################################################################

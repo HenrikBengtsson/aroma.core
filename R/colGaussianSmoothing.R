@@ -142,28 +142,3 @@ setMethodS3("gaussianSmoothing", "numeric", function(y, ...) {
   dim(y) <- NULL;
   y;
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-14
-# o Now colNnnSmoothing() returns a matrix with column name as
-#   in argument 'Y'.
-# 2009-05-16
-# o Now colGaussianSmoothing() uses Arguments$getNumerics(), not 
-#   getDoubles(), where possible.  This will save memory in some cases.
-# 2009-02-08
-# o OBSOLETE? This code is (probably) obsolete, because of the newer
-#   colKernelSmoothing(). Will keep it for a while, just in case.
-# o Made the code of colGaussianSmoothing() more similar to 
-#   colKernelSmoothing().
-# o Renamed/added colGaussianSmoothing().
-# 2008-05-21
-# o Added argument 'censorSd' to sensor the kernel at a given bandwidth.
-# o Added argument 'xOut' to gaussianSmoothing().
-# 2007-04-08
-# o Added Gaussian smoothing for columns in a matrix.
-# 2007-04-02
-# o Created.
-############################################################################

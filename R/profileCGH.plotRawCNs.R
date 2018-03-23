@@ -183,14 +183,3 @@ setMethodS3("plotRawCNs", "profileCGH", function(fit, chromosome=NULL, unit=0, x
   # Plot raw CN data
   pointsRawCNs(fit, chromosome=chromosome, unit=unit, ...);
 }) # plotRawCNs()
-
-
-############################################################################
-# HISTORY:
-# 2012-11-29
-# o Dropped 'verbose' usage in pointsRawCNs() for default.
-# 2007-09-04
-# o Added a default pointsRawCNs().
-# 2007-08-22
-# o Created from plotProfile2().
-############################################################################

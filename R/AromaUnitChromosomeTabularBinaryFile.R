@@ -178,35 +178,3 @@ setMethodS3("allocate", "AromaUnitChromosomeTabularBinaryFile", function(static,
   # Allocate file
   NextMethod("allocate", footer=footer);
 }, static=TRUE, protected=TRUE)
-
-
-
-
-############################################################################
-# HISTORY:
-# 2012-11-08
-# o BUG FIX: readDataFrame() must accept argument 'rows', so in order
-#   to also support alias argument 'units', we now do 'rows=units' and
-#   'units=NULL'.
-# 2012-10-31
-# o Added argument 'units' to readDataFrame() for
-#   AromaUnitChromosomeTabularBinaryFile.
-# 2011-03-03
-# o ROBUSTNESS: Added a return contract/sanity check asserting that
-#   getUnitsOnChromosomes() truly returns valid 'unit' indices.
-# 2010-01-25
-# o ROBUSTNESS: Added a sanity check getChromosomes() for class
-#   AromaUnitChromosomeTabularBinaryFile validating that the file has a
-#   'chromosome' column.
-# 2009-09-07
-# o Now getUnitsOnChromosomes() returns a vector by default (unlist=TRUE).
-# o By default, getUnitsOnChromosomes() now returns names if the return
-#   structure is a list, otherwise not.
-# 2009-05-08
-# o Added allocate() to AromaUnitChromosomeTabularBinaryFile.  This will
-#   enforce all subclasses to specify a platform and chip type.
-# o Added extractByChromosome().
-# o Added indexOfColumn().
-# o Extracted AromaUnitChromosomeTabularBinaryFile from AromaUgpFile, where
-#   the latter now inherits from the former.
-############################################################################

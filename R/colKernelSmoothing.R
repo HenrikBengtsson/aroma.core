@@ -222,35 +222,3 @@ setMethodS3("kernelSmoothing", "numeric", function(y, ...) {
   dim(y) <- NULL;
   y;
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-14
-# o Now colNnnSmoothing() returns a matrix with column name as
-#   in argument 'Y'.
-# 2009-05-16
-# o Now colKernelSmoothing() uses Arguments$getNumerics(), not 
-#   getDoubles(), where possible.  This will save memory in some cases.
-# 2009-02-08
-# o BUG FIX: Argument 'x' had the wrong default value.
-# 2009-02-05
-# o Renames matrix version to colKernelSmoothing().
-# o Now making use of weighted matrix averages of matrixStats.
-# o Added more validation of arguments.
-# o Added Rdoc comments.
-# 2008-11-06
-# o Added argument 'robust' to kernelSmoothing().
-# o Now kernelSmoothing() returns NA for windows with all missing values.
-#   Before such windows would be returned as zero, cf. sum(c()) == 0.
-# 2008-11-05
-# o Created kernelSmoothing() from gaussianSmoothing().
-# 2008-05-21
-# o Added argument 'censorSd' to sensor the kernel at a given bandwidth.
-# o Added argument 'xOut' to gaussianSmoothing().
-# 2007-04-08
-# o Added Gaussian smoothing for columns in a matrix.
-# 2007-04-02
-# o Created.
-############################################################################

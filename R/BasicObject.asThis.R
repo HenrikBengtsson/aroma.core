@@ -23,10 +23,3 @@ setMethodS3("asThis", "BasicObject", function(this, object, ...) {
 setMethodS3("asThis", "Object", function(this, object, ...) {
   asThis.BasicObject(this, object, ...);
 })
-
-
-############################################################################
-# HISTORY:
-# 2009-03-31
-# o Created.
-############################################################################

@@ -201,30 +201,3 @@ setMethodS3("doCBS", "CopyNumberDataSet", function(ds, arrays=NULL, ...) {
 
   invisible(res);
 }) # doCBS()
-
-
-############################################################################
-# HISTORY:
-# 2013-05-30
-# o Now it's possible to call aroma.core::doCBS() without loading package.
-# o Added explicitly 'arrays' argument to all doCBS() for clarification.
-# 2013-05-29
-# o DOCUMENTATION: Now help("doCBS") documents all doCBS() methods.
-# o Turned doCBS() into a default method.
-# 2010-05-25
-# o Created doCBS() for CopyNumberDataSetTuple from ditto for
-#   CopyNumberDataSet.
-# o Now doCBS() for CopyNumberDataSet calls same for CopyNumberDataSetTuple.
-# 2010-10-07
-# o Added Rdoc comments for doCBS() for the 'character' class.
-# 2010-05-25
-# o Added support for data set tuples.
-# o Renamed arguments with plural 's'.
-# 2010-02-25
-# o CHANGE: Argument 'arrays' of doCBS() for CopyNumberDataSet no longer
-#   subset the input data set, but instead is passed to the fit() function
-#   of the segmentation model.  This way all arrays in the input data set
-#   are still used for calculating the pooled reference.
-# 2010-02-18
-# o Created.
-############################################################################

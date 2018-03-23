@@ -149,11 +149,3 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
 
   res;
 }) # getMaxLengthRepeats()
-
-
-
-############################################################################
-# HISTORY:
-# 2008-12-30
-# o Created.
-############################################################################

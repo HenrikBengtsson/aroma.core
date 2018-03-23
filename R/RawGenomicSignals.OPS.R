@@ -109,16 +109,3 @@ setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
 
   res;
 }, appendVarArgs=FALSE, validators=NULL);
-
-
-############################################################################
-# HISTORY:
-# 2011-12-10
-# o ROBUSTNESS: Turned of RCC validation for "+", "-" and "*" methods.
-# 2010-09-11
-# o Added basic support for operators +, - and * to RawGenomicSignals.
-# 2009-05-10
-# o Added {add,subtract,multiply,divide}By() to RawGenomicSignals.
-# o Added applyBinaryOperator().
-# o Created.
-############################################################################

@@ -88,10 +88,3 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
 
   res;
 }, protected=TRUE)
-
-############################################################################
-# HISTORY:
-# 2009-02-13
-# o Added support for memoization.
-# o Created.
-############################################################################

@@ -336,37 +336,3 @@ setMethodS3("as.AromaUnitTotalCnBinarySetTuple", "AromaUnitTotalCnBinarySet", fu
 setMethodS3("writeDataFrame", "AromaUnitTotalCnBinarySet", function(this, filename=sprintf("%s,total.txt", getFullName(this)), ...) {
   NextMethod("writeDataFrame", filename=filename);
 })
-
-
-############################################################################
-# HISTORY:
-# 2011-03-02
-# o BUG FIX: getAverageFile() did not update the pathname of internal
-#   'res' file object, which pointed to a temporary file.
-# 2011-02-28
-# o ROBUSTNESS: Now getAverageFile() for AromaUnitTotalCnBinarySet creates
-#   the result file atomically by writing to a temporary file which is
-#   renamed afterward.
-# o GENERALIZATION: getAverageFile() for AromaUnitTotalCnBinarySet first
-#   searches for an existing result file according to the new aroma search
-#   conventions.  If not found, then it's created.
-# 2010-07-20
-# o Added writeDataFrame() for AromaUnitTotalCnBinarySet to get the
-#   correct filename extension.
-# 2009-12-23
-# o Added argument 'pattern' to byName() AromaUnitTotalCnBinarySet.
-# 2009-11-20
-# o Added getAverageFile() for AromaUnitTotalCnBinarySet.
-# 2009-11-19
-# o Now the class "uses" the CopyNumberDataSetTuple class.
-# o Added as.CopyNumberDataSetTuple().
-# o Added as.AromaUnitTotalCnBinarySetTuple().
-# 2009-08-31
-# o Added totalAndFracBData/ to the search path of byName() of
-#   AromaUnit(FracB|Total)CnBinarySet.
-# 2009-02-09
-# o Now byName() of AromaUnit(FracB|Total)CnBinarySet searches rawCnData/
-#   then cnData/.
-# 2008-05-11
-# o Created.
-############################################################################

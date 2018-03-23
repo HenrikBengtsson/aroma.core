@@ -120,38 +120,3 @@ setMethodS3("drawCytoband2", "default", function(cytoband, chromosome=1, y=-1, l
     text(x=CytoPos, y=y1+dy/2, labels=labels, srt=90, adj=c(0,0.5));
   }
 }, private=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2010-12-07
-# o Now drawCytoband2() utilizes requireWithMemory() to minimize the
-#   annoyances when GLAD fails to load.
-# 2010-12-02
-# o BUG FIX: drawCytoband2() would throw an error if argument 'cytoband'
-#   was an empty data frame.  Now it returns quietly.
-# 2010-10-13
-# o ROBUSTNESS/BUG FIX: The internal drawCytoband2() used to annotate
-#   chromosomal plots with cytobands tries to utilize GLAD package,
-#   if available.  However, even when GLAD is installed it may still be
-#   broken to missing dynamic libraries, e.g. 'Error in library.dynam(lib,
-#   package, package.lib) : DLL 'GLAD' not found: maybe not installed for
-#   this architecture?'.  We now avoid this too.
-# 2010-02-19
-# o Now suppressing the .onLoad() message of GLAD.
-# o Extracted from GLAD.EXT.R.
-# o Now the default drawCytoband2() can work without GLAD, if not installed.
-# 2009-05-10
-# o Moved to aroma.core v1.0.6.  Source files: profileCGH.drawCnRegions.R
-#   and profileCGH.drawCytoband.R.
-# 2007-08-22
-# o Update plotProfile2() to utilizes drawCnRegions().
-# 2007-06-11
-# o Added explicit call to GLAD::myPalette() to please R CMD check R v2.6.0.
-# 2007-01-03
-# o Made the highlighting "arrow" for the centromere smaller.
-# 2006-12-20
-# o It is now possible to specify 'xlim' as well as 'ylim'.
-# o Reimplemented, because the cytoband was not displayed correctly.
-############################################################################

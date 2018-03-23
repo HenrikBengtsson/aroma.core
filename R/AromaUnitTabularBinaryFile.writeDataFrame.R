@@ -337,13 +337,3 @@ setMethodS3("writeDataFrame", "AromaUnitTabularBinaryFile", function(this, filen
   # Return results
   res;
 }) # writeDataFrame()
-
-
-############################################################################
-# HISTORY:
-# 2010-05-12
-# o Now argument 'path' defaults to <rootPath>,txt/<dataSet>/<chipType>/.
-# 2010-04-27
-# o Created from AromaUnitSignalBinaryFile.writeDataFrame.R.
-#   Only minor modifications needed.
-############################################################################

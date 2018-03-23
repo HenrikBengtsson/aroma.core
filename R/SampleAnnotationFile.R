@@ -137,22 +137,3 @@ setMethodS3("applyTo", "SampleAnnotationFile", function(this, names, FUN, ..., v
     do.call(FUN, args=args);
   }
 }, protected=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2008-05-09
-# o Now SampleAnnotationFile inherits from GenericDataFile and no longer
-#   from AffymetrixFile.
-# 2008-04-14
-# o Renamed readData() to readDataFrame() for SampleAnnotationFile.
-# 2007-04-12
-# o BUG FIX: readData() of SampleAnnotationFile would open a text connection
-#   without closing it.
-# 2007-03-13
-# o getPatterns() and matchPatterns() now matches full names.
-# 2007-03-06
-# o Total make over.
-# 2007-01-26
-# o Created.
-############################################################################

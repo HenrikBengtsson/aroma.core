@@ -123,10 +123,3 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaTabularBinarySet", func
 
   invisible(this);
 }, protected=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2010-02-17
-# o Created.
-############################################################################

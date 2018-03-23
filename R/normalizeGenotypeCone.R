@@ -4,11 +4,3 @@ setMethodS3("normalizeGenotypeCone", "matrix", function(y, avg=median, targetAvg
 #  x <- normalizeAverage(x, avg=avg, targetAvg=targetAvg);
   x;
 }, private=TRUE) # normalizeGenotypeCone()
-
-
-
-############################################################################
-# HISTORY:
-# 2006-05-08
-# o Created.
-############################################################################

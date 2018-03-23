@@ -83,13 +83,3 @@ setMethodS3("mergeBoxplotStats", "list", function(stats, ...) {
 
   bxpStats;
 }, protected=TRUE)
-
-
-##########################################################################
-# HISTORY:
-# 2008-02-25
-# o Now it returned the input object if already in the correct format.
-# o Renamed. Added a sanity check. Add Rdoc comments.
-# 2008-02-22 [EP]
-# o Created.
-##########################################################################

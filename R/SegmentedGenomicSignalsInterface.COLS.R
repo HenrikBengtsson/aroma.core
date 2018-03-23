@@ -86,12 +86,3 @@ setMethodS3("getStateColors", "SegmentedGenomicSignalsInterface", function(this,
 
   cols;
 })
-
-
-############################################################################
-# HISTORY:
-# 2009-07-01
-# o BUG FIX: getStateColorMap() with "*" gave all NA colors.
-# 2009-06-29
-# o Created.
-############################################################################

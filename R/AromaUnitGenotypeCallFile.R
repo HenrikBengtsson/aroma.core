@@ -431,35 +431,3 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
 
   invisible(this);
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2009-06-09
-# o Grammar fix: is(Homo|Hetero)zygous(), not is(Homo|Hetero)zygote().
-# o BUG FIX: Dropped by mistake the code for the 'oligo' encoding.
-# 2009-06-08
-# o BUG FIX: isHomozygote() of AromaUnitGenotypeCallFile was not correct.
-# o SPEED UP: updateGenotypes() of AromaUnitGenotypeCallFile is now much
-#   faster in counting A:s and B:s.
-# o Updated extractGenotypeMatrix() of AromaUnitGenotypeCallFile to return
-#   NAs by default.
-# o Added support for "birdseed" and "fracB" encodings in
-#   extractGenotypeMatrix() and updateGenotypes() of
-#   AromaUnitGenotypeCallFile.
-# 2009-01-12
-# Added isHomozygote() and isHeterozygote().
-# 2009-01-10
-# o Added argument 'encoding' to extract-/updateGenotypes() with support
-#   for oligo nucleotides {1,2,3}.
-# o Now extract-/updateGenotypes() encodes NA=missing value, NC=no call,
-#   ''='-'='--'=(0,0), 'A'=(1,0), ..., 'AABBA'=(3,2), ...
-# 2009-01-04
-# o Now inherits from AromaUnitCallFile.
-# 2008-12-08
-# o Recreated.  Now only with columns (genotypeCall, confidenceScore).
-# o Added findUnitsTodo() and extractCalls().
-# 2008-12-05
-# o Created.
-############################################################################

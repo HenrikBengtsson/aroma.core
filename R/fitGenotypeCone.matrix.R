@@ -232,29 +232,3 @@ setMethodS3("fitGenotypeConeBySfit", "matrix", function(y, alpha=c(0.10, 0.075, 
 
   fit;
 }, private=TRUE) # fitGenotypeConeBySfit()
-
-
-
-############################################################################
-# HISTORY:
-# 2008-09-03
-# o Added a hardwired ortogonal initial simplex when fitting the cone with
-#   fitGenotypeConeByExpectile(). Otherwise, some estimates are unstable.
-# 2008-08-31
-# o New fitGenotypeCone() takes flavors 'sfit' and 'expectile'.
-# o Added fitGenotypeConeByExpectile().
-# o Renamed old fitGenotypeCone() to fitGenotypeConeBySfit().
-# 2008-02-14
-# o Added a self-contained example for fitGenotypeCone().
-# 2007-09-08
-# o Added 'dimData' to the return structure.
-# 2007-06-12
-# o Commented the code for re-arranging fit$X (only if retX=TRUE).
-#   Code not really needed since backtransformGenotypeCone() is used.
-# 2007-06-11
-# o Calls sfit::cfit() explicitly.
-# 2007-06-04
-# o Added Rdoc comments.
-# 2006-05-08
-# o Created.
-############################################################################

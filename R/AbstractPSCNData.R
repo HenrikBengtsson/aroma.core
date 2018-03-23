@@ -153,14 +153,3 @@ setMethodS3("callSNPs", "AbstractPSCNData", function(this, method=c("some", "all
 
   data;
 }, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-10
-# o Renames isSNP() to callSNPs().
-# 2012-02-29
-# o Added isSNP() for AbstractPSCNData.
-# o Created.
-############################################################################

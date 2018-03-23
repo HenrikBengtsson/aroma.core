@@ -183,22 +183,3 @@ setMethodS3("plotProfile2", "profileCGH", function(fit, variable="LogRatio", chr
     drawCnRegions(fit, ..., col=colSmoothing, xScale=xScale);
   }
 }, private=TRUE) # plotProfile2()
-
-
-############################################################################
-# HISTORY:
-# 2010-12-07
-# o plotProfile2() for profileCGH now utilizing requireWithMemory()
-#   to decrease the annoyances for users if GLAD fails to load.
-# 2007-09-04
-# o Now data("cytoband") is loaded to the local environment.
-# 2007-08-22
-# o Update plotProfile2() to utilizes drawCnRegions().
-# 2007-06-11
-# o Added explicit call to GLAD::myPalette() to please R CMD check R v2.6.0.
-# 2007-01-03
-# o Made the highlighting "arrow" for the centromere smaller.
-# 2006-12-20
-# o It is now possible to specify 'xlim' as well as 'ylim'.
-# o Reimplemented, because the cytoband was not displayed correctly.
-############################################################################

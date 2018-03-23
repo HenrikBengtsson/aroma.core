@@ -57,23 +57,3 @@ setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=N
 setMethodS3("writeDataFrame", "AromaUnitFracBCnBinarySet", function(this, filename=sprintf("%s,fracB.txt", getFullName(this)), ...) {
   NextMethod("writeDataFrame", filename=filename);
 })
-
-
-############################################################################
-# HISTORY:
-# 2010-07-20
-# o Added writeDataFrame() for AromaUnitFracBCnBinarySet to get the
-#   correct filename extension.
-# 2009-12-23
-# o Added argument 'pattern' to byName() AromaUnitFracBCnBinarySet.
-# 2009-08-31
-# o Added totalAndFracBData/ to the search path of byName() of 
-#   AromaUnit(FracB|Total)CnBinarySet.
-# 2009-02-09
-# o Now byName() of AromaUnit(FracB|Total)CnBinarySet searches rawCnData/
-#   then cnData/.
-# 2009-01-03
-# o Renamed from freqB to fracB, because it is a fraction, not a frequency.
-# 2008-05-11
-# o Created.
-############################################################################

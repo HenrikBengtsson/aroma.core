@@ -216,21 +216,3 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
 
   res;
 }) # binScatter()
-
-
-
-############################################################################
-# HISTORY:
-# 2010-11-04
-# o ROBUSTNESS: Now subsample() for BinnedScatter utilizes resample().
-# 2010-10-27
-# o CLEANUP: Dropped outdated backup import to geneplotter in binScatter().
-# 2009-05-09
-# o UPDATED: Now binScatter() of BinnedScatter don't need the 'geneplotter'
-#   package if R v2.9.0+ is used.
-# 2008-11-26
-# o Added Rdoc comments with an example.
-# o Added constructor and reorder().
-# 2008-11-14
-# o Created.
-############################################################################

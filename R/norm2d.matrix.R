@@ -77,17 +77,3 @@ setMethodS3("calcMargins", "matrix", function(M, unshift=FALSE, ...) {
     cols=colMedians(M, na.rm=TRUE)
   );
 }, private=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2014-08-27
-# o SPEEDUP: Now calcMargins() for matrix utilized colMedians().
-# 2012-08-17
-# o ROBUSTNESS: Now fit2d() for matrix utilizes use() for aroma.light.
-# 2012-04-16
-# o Now fit2d() explicitly require the 'aroma.light' package.
-# o Dropped internal colMedians() from fit2d(); already in matrixStats.
-# 2008-03-19
-# o Created.
-############################################################################

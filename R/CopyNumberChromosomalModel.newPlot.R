@@ -48,15 +48,3 @@ setMethodS3("newPlot", "CopyNumberChromosomalModel", function(this, xlim, ylim=c
 
   invisible(opar);
 }, protected=TRUE) # newPlot()
-
-
-############################################################################
-# HISTORY:
-# 2007-10-17
-# o Renamed to CopyNumberChromosomalModel.
-# 2007-09-04
-# o Created specifically for CopyNumberSegmentationModel.
-# o Updated.  Now independent of 'fit' object.
-# 2007-08-23
-# o Created from profileCGH.plotProfile2.R.
-############################################################################

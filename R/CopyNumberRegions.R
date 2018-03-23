@@ -217,34 +217,3 @@ setMethodS3("extractCopyNumberRegions", "default", abstract=TRUE);
 setMethodS3("extractCNRs", "default", function(...) {
   extractCopyNumberRegions(...);
 })
-
-
-############################################################################
-# HISTORY:
-# 2010-09-12
-# o Added getDensity() for CopyNumberRegions.
-# o Added virtual field 'length'/getLength() for CopyNumberRegions.
-# 2010-07-19
-# o Added subset() for CopyNumberRegions.
-# 2010-04-06
-# o Added equals() for CopyNumberRegions.
-# 2009-05-16
-# o Now the constructor CopyNumberRegions() coerce numerics only if
-#   necessary, i.e. it keeps integers if integers, otherwise to doubles.
-#   This is a general design of aroma.* that saves some memory.
-# 2009-05-13
-# o CLEAN UP: drawLevels() no longer returns a (useless) list structure.
-# 2008-05-17
-# o Added abstract default extractCopyNumberRegions().
-# o Moved to aroma.core.
-# 2008-04-17
-# o BUG FIX: applyRows() and lines() of CopyNumberRegions did not handle
-#   cases with zero regions.
-# 2007-09-04
-# o Now CopyNumberRegions also contains an 'chromosome' field.
-# o BUG FIX: as.data.frame() gave an error if some optional fields were
-#   NULL.
-# 2007-08-22
-# o Created.  Need a generic container for holding copy number regions and
-#   to plot them nicely.
-############################################################################

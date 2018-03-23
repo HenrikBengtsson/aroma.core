@@ -193,17 +193,3 @@ setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(
 ## setMethodS3("simulateGaussian", "CopyNumberRegions", function(this, ..., sd=1) {
 ##  simulate(this, ..., rfcn=function(n, ...) rnorm(n=n, mean=0, sd=sd));
 ## })
-
-
-############################################################################
-# HISTORY:
-# 2011-12-10
-# o ROBUSTNESS: Turned of RCC validation for "+", "-" and "*" methods.
-# 2010-07-24
-# o Added simulateRawCopyNumbers() for CopyNumberRegions.
-# o Added xRange(), xMin() and xMax() for CopyNumberRegions.
-# o Added "*"() to multiple a CopyNumberRegions profile with a scalar.
-# o Added "+"() and "-"() to add two CopyNumberRegions profiles.
-# o Added getMeanAt().
-# o Added prune().
-############################################################################

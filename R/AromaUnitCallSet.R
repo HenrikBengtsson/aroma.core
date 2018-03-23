@@ -73,10 +73,3 @@ setMethodS3("extractCallArray", "AromaUnitCallSet", function(this, ..., drop=FAL
 setMethodS3("extractCalls", "AromaUnitCallSet", function(this, ...) {
   extractCallArray(this, ...);
 })
-
-
-############################################################################
-# HISTORY:
-# 2009-01-04
-# o Created.
-############################################################################

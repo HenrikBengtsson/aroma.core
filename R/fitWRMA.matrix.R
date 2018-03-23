@@ -39,16 +39,3 @@ setMethodS3("fitWRMA", "matrix", function(y, w, .log2=TRUE, ..., .loadDeps=FALSE
 
   list(theta=theta, phi=phi, avgPhi=avgPhi);
 }, protected=TRUE) # fitWRMA()
-
-
-############################################################################
-# HISTORY:
-# 2012-08-21
-# o ROBUSTNESS: fitWRMA() now calls rcModelWPLM() of preprocessCore
-#   instead of internal .Call(..., PACKAGE="preprocessCore") calls.
-# o CLEANUP: Dropped arguments 'psiCode' and 'psiK' from fitWRMA().
-# 2012-08-08
-# o Added argument '.loadDeps' to fitWRMA().
-# 2007-09-18
-# o Created.
-############################################################################

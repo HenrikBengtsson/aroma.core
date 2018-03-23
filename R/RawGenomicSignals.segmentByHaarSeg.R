@@ -270,13 +270,3 @@ setMethodS3("segmentByHaarSeg", "RawGenomicSignals", function(this, ..., cache=F
 
   fit;
 }) # segmentByCBS()
-
-
-############################################################################
-# HISTORY:
-# 2014-02-17
-# o Now unknown user arguments are only dropped if the segmentation method
-#   does not have a formal argument '...'.
-# 2009-05-10
-# o Created.
-############################################################################

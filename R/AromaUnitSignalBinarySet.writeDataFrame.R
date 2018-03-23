@@ -462,24 +462,3 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # Return results
   res;
 }) # writeDataFrame()
-
-
-############################################################################
-# HISTORY:
-# 2011-12-15 [HB]
-# o Added argument 'units' to writeDateFrame() for
-#   AromaUnitSignalBinarySet to make it possible to write any subset
-#   of units and in any order (e.g. genome order).
-# 2010-07-07 [PN]
-# o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet would write the
-#   same data chunk over and over.
-# 2010-05-12
-# o Now argument 'path' defaults to <rootPath>,txt/<dataSet>/<chipType>/.
-# o BUG FIX: writeDateFrame() for AromaUnitSignalBinarySet was not working.
-# 2010-04-27
-# o Added argument 'columnNamesPrefix'.
-# o Removed explicit dependency on aroma.affymetrix. This is now hidden
-#   inside getUnitAnnotationDataFile() of AromaPlatformInterface.
-# 2010-04-22
-# o Created AromaUnitSignalBinaryFile.writeDataFrame.R.
-############################################################################

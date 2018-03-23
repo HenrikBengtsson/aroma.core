@@ -88,26 +88,3 @@ setMethodS3("indexOf", "UnitNamesFile", function(this, pattern=NULL, names=NULL,
 
   idxs;
 })
-
-
-############################################################################
-# HISTORY:
-# 2009-07-08
-# o CORRECTNESS: Added missing abstract getUnitNames().
-# o CLEAN UP: Now UnitNamesFile inherits from UnitAnnotationDataFile.
-# 2009-05-18
-# o Now indexOf() for UnitNamesFile assert that exactly one of the 'pattern'
-#   and 'names' arguments is given.  It also gives an informative error
-#   message if 'pattern' is a vector.
-# 2009-02-10
-# o Added static byChipType() to UnitNamesFile.
-# o Added a sanity check to getAromaUgpFile() of UnitNamesFile,
-#   which asserts that the number of units in the located UGP file match
-#   that of the data file. 
-# 2009-01-26
-# o Added getAromaUgpFile() to UnitNamesFile.
-# 2008-07-21
-# o Renamed UnitNamesInterface to UnitNamesFile.
-# 2008-05-18
-# o Created.
-############################################################################

@@ -614,34 +614,3 @@ setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v",
 
   this;
 }, protected=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2012-11-29
-# o Dropped stray usage of 'verbose' in write() for RasterImage.
-# 2012-09-02
-# o BUG FIX: interleave() for Image and RasterImage could generate
-#   error 'Error in if (abs(vRatio) > abs(hRatio)) { : missing value
-#   where TRUE/FALSE needed' if odd/even cell intensity columns (rows)
-#   contained all NAs.
-# 2012-03-05
-# o BUG FIX: write() for RasterImage would write a transposed image,
-#   and also truncate intensities, because we forgot to rescale [0,65535]
-#   to [0,1] intensities.
-# o Now as.character() for RasterImage also reports on the intensity range.
-# 2011-02-24
-# o Now write() and read() for RasterImage throws an informative error
-#   message explaining that the 'png' package is needed.
-# 2011-01-31
-# o Added interleave() for RasterImage.
-# o Added colorize() for RasterImage.
-# o Now write() is atomic by writing to a temporary file.
-# o Added "smart" save() for RasterImage that checks if user really
-#   mean to call write() instead.
-# o Added "smart" read() and write() for RasterImage.
-# o Added rescale() for RasterImage.  Works both for shrinking and
-#   enlarging images.
-# o Added RasterImage class for supporting 'raster' images.
-# o Created.
-############################################################################

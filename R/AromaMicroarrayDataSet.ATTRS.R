@@ -93,17 +93,3 @@ setMethodS3("setAttributesBySampleAnnotationFile", "AromaMicroarrayDataSet", fun
 
   invisible(this);
 }, protected=TRUE)
-
-
-############################################################################
-# HISTORY:
-# o Moved attribute methods from AffymetrixCelSet to AromaMicroarrayDataSet.
-# 2007-03-24
-# o Now the setAttributeByNnn() methods return itself invisibly.
-# 2007-03-14
-# o Now setAttributesBySampleAnnotationFile() also set attributes.
-# 2007-03-06
-# o Added setAttributesBy().
-# o Added setAttributesBySampleAnnotationFile().
-# o Created.
-############################################################################

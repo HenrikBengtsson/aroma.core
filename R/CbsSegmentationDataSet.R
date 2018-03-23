@@ -13,17 +13,3 @@ setMethodS3("byName", "CbsSegmentationDataSet", function(static, ..., chipType, 
 
   NextMethod("byName", subdirs=chipType, paths=paths);
 }, static=TRUE)
-
-
-
-
-
-
-############################################################################
-# HISTORY:
-# 2010-08-06
-# o Added getDefaultFullName() and getChipType().
-# o Added byName().
-# 2010-08-05
-# o Created.
-############################################################################

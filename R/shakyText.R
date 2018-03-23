@@ -9,12 +9,3 @@ setMethodS3("shakyText", "default", function(x, y, labels, col=NULL, bgcol="whit
   }
   text(x, y, labels, col=col, adj=adj, ...);
 }) # shakyText()
-
-
-############################################################################
-# HISTORY: 
-# 2009-02-02
-# o Turned into an S3 default method.
-# 2008-07-18
-# o Created from old CRMA and CRMA6 scripts.
-############################################################################

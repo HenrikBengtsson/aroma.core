@@ -297,24 +297,3 @@ setMethodS3("segmentByGLAD", "RawGenomicSignals", function(this, ..., flavor=c("
 
   fit;
 }) # segmentByGLAD()
-
-
-############################################################################
-# HISTORY:
-# 2014-02-17
-# o Now unknown user arguments are only dropped if the segmentation method
-#   does not have a formal argument '...'.
-# 2011-01-14
-# o Added 'params' attribute to returned result object.
-# 2011-01-11
-# o Added argument 'flavor' to segmentByGLAD() for RawGenomicSignals,
-#   which makes it possible to specify whether daglad() or glad() of
-#   the GLAD package will be used.
-# 2010-12-07
-# o segmentByGLAD() for RawGenomicSignals now utilizing requireWithMemory()
-#   to decrease the annoyances for users if GLAD fails to load.
-# 2009-06-27
-# o FIX: Updated the cache key to refer to "segmentByCBS" (was HaarSeg).
-# 2009-05-10
-# o Created.
-############################################################################

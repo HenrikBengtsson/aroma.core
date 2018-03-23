@@ -701,24 +701,3 @@ setMethodS3("rbind", "RichDataFrame", function(..., deparse.level=1) {
 
   res;
 }) # rbind()
-
-
-############################################################################
-# HISTORY:
-# 2014-01-16
-# o BUG FIX: getGenericSummary() for RichDataFrame would throw "Error in
-#   data[i, , drop = FALSE] : subscript out of bounds" if it had zero rows.
-# 2012-03-23
-# o Now argument '.virtuals' of RichDataFrame defaults to list().
-# o BUG FIX: "["() for RichDataFrame would loose the class attribute,
-#   unless argument 'drop' was FALSE.
-# 2012-03-14
-# o SPEEDUP: Now "["() no longer uses as.data.frame().
-# o SPEEDUP: Now getColumnNames() no longer uses as.data.frame().
-# o BUG FIX: "["(i,j) would insert NA rows if any row indices 'i' where
-#   duplicated.  Same for columns.
-# o BUG FIX: Had to adopt/paste from subset() for data.frame, because
-#   there are expressions that are evaluated in the "parent.frame()".
-# 2012-03-13
-# o Created RichDataFrame from RawGenomicSignals.
-############################################################################

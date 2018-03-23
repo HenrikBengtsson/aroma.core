@@ -908,25 +908,3 @@ setMethodS3("allocate", "AromaCellSequenceFile", function(static, ..., nbrOfCell
 
   NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("raw", times=nbrOfColumns), sizes=rep(1L, times=nbrOfColumns), footer=footer);
 }, static=TRUE, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2008-08-04
-# o Added support for argument 'positions' to countBases().
-# o BUG FIX: readSequences() translated raw values to incorrect nucleotides.
-# 2008-07-20
-# o Now countBases() returns "raw" counts, if argument 'mode="raw"'.
-# 2008-07-10
-# o Added read- and updateTargetStrands().
-# o Now readNeighborSequenceMatrix() takes what="integer" and "double" too.
-# o Update updateSequences().
-# o Made the decision that for sequences in character mode, missing
-#   sequences/nucleotides are always represented as NA.  A sequence is
-#   defined to be missing if the 1st nucleotide is missing.
-#   For "raw" sequences, the value zero is representing "missing".
-# 2008-07-09
-# o Added updateSequenceMatrix().
-# o Created from AromaUgpFile.R.
-############################################################################

@@ -586,29 +586,3 @@ setMethodS3("downloadTXT", "AromaRepository", function(this, ...) {
 setMethodS3("downloadProbeSeqsTXT", "AromaRepository", function(this, ...) {
   downloadChipTypeFile(this, ..., suffix=",probeSeqs.txt");
 })
-
-
-######################################################################
-# HISTORY:
-# 2012-09-14
-# o Now downloadFile() and listFiles() for AromaRepository no
-#   longer gives a warning if the file does not exists.
-# 2012-09-04
-# o Added downloadUGC() for AromaRepository.
-# 2012-08-31
-# o Added findAnnotationDataByChipType() for AromaRepository.
-# o Added argument 'mustExist=TRUE' to downloadChipTypeFile().
-# o GENERALIZATION: Now downloadCDF() download both *.cdf and *.CDF.
-# 2012-08-22
-# o Added clearCache().
-# o Added downloadAll().
-# o Now all methods are non-static.
-# o Now downloadFile() precheck which files are available, by
-#   querying listFiles().
-# o Added listFiles() for AromaReposity.
-# o Added some Rdoc help.
-# 2011-09-29
-# o The purpose of this class is to simplify downloading of
-#   data files needed in the Aroma Framework.
-# o Created.
-######################################################################

@@ -5,11 +5,3 @@ setMethodS3("drawDensity", "CopyNumberRegions", function(this, field="mean", adj
   # Draw
   draw(d, side=side, lwd=lwd, ...);
 })
-
-
-###########################################################################
-# HISTORY:
-# 2010-09-12
-# o Added drawDensity() for CopyNumberRegions.
-# o Created.
-###########################################################################

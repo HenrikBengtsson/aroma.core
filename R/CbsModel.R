@@ -80,21 +80,3 @@ setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
   }
   fitFcn;
 }, protected=TRUE)
-
-
-##############################################################################
-# HISTORY:
-# 2010-04-12
-# o BUG FIX: getFitFunction() of CbsModel would return a function that
-#   would give "Error in segmentByCBS.RawGenomicSignals(..., seed = seed):
-#   formal argument "seed" matched by multiple actual arguments".
-# 2010-04-06
-# o Added argument 'seed' to CbsModel, which will, if specified, set the
-#   random seed (temporarily) each time (per sample and chromosome) before
-#   calling the segmentation method.
-# o Added protected set- and getRandomSeed().
-# 2009-05-16
-# o Added getFitFunction().  Removed fitOne().
-# 2007-08-20
-# o Created from GladModel.R.
-##############################################################################

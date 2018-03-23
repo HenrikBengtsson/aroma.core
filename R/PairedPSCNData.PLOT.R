@@ -212,12 +212,3 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
 
   invisible();
 }) # plotTracks()
-
-
-############################################################################
-# HISTORY:
-# 2012-04-16
-# o Added plotTracks() for PairedPSCNData; adopted from ditto for
-#   PairedPSCBS of the PSCBS package.
-# o Created.
-############################################################################

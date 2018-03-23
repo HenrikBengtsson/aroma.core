@@ -238,20 +238,3 @@ setMethodS3("loadAll", "SampleAnnotationSet", function(static, paths="annotation
 
   dsList;
 }, static=TRUE, protected=TRUE) # loadAll()
-
-
-############################################################################
-# HISTORY:
-# 2014-06-24
-# o BUG FIX: SampleAnnotationSet$loadAll() would give an error if
-#   annotationData/samples/ didn't exist or did not contain any SAF
-#   files.
-# 2011-03-03
-# o Added internal static byPathnames().
-# o Added static loadAll() for SampleAnnotationSet.
-# 2008-05-09
-# o Now SampleAnnotationSet inherits from GenericDataFileSet and no longer
-#   from AffymetrixFileSet.
-# 2007-03-06
-# o Created.
-############################################################################

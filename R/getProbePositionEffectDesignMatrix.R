@@ -151,17 +151,3 @@ setMethodS3("getProbePositionEffectDesignMatrix", "character", function(seqs, ..
 
   getProbePositionEffectDesignMatrix(seqs, ..., verbose=verbose);
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2008-07-11
-# o Updated to work with the new AromaCellSequenceFile encodings.
-# 2008-07-07
-# o Added predict().
-# o Added getProbePositionEffects().
-# o Added na.rm=TRUE to fitProbePositionEffects().
-# 2008-07-05
-# o Created.
-############################################################################

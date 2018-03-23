@@ -31,18 +31,3 @@ setMethodS3("getParentName", "GenericDataFile", function(this, ..., tags="*") {
   
   fullname;
 }, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2011-03-04
-# o BUG FIX: When recently started use Arguments$getTags() in
-#   getParentName(), we introduced a bug causing asterisk tags ("*")
-#   not to be replaced.  Using 'collapse=NULL' solved it.
-# 2011-02-18
-# o ROBUSTNESS: Now getParentName() for GenericDataFile(Set) utilized
-#   Arguments$getTags().
-# 2010-05-12
-# o Created.
-############################################################################

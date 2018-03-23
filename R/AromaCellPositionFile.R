@@ -152,19 +152,3 @@ setMethodS3("allocate", "AromaCellPositionFile", function(static, ..., nbrOfCell
 
   NextMethod("allocate", nbrOfRows=nbrOfCells, types=rep("integer", times=2L), sizes=c(1L,4L), footer=footer);
 }, static=TRUE, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2014-06-28
-# o CLEANUP: Move byChipType() from classes AromaCellCpgFile and
-#   AromaCellPositionFile to superclass AromaCellTabularBinaryFile.
-# 2009-02-16 [HB]
-# Removed argument 'validate' from byChipType() of AromaCellPositionFile.
-# 2009-02-10 [HB]
-# o Added optional validation of number of cells to byChipType().
-# o Static method byChipType() was not declared static.
-# 2008-12-09 [MR]
-# o Created from AromaCellMatchScoresFile.R.
-############################################################################

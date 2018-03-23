@@ -816,32 +816,3 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
 setMethodS3("getArrays", "Explorer", function(this, ...) {
   getNames(this, ...);
 }, protected=TRUE, deprecated=TRUE)
-
-
-
-
-##############################################################################
-# HISTORY:
-# 2014-01-17
-# o CLEANUP: Now the Explorer class utilizes R.rsp::rfile() for compiling
-#   RSP files instead of the to-be-deprecated rspToHtml().
-# 2012-02-06
-# o Added implementation of setup() to Explorer.
-# o Added updateSetupExplorerFile() to Explorer.
-# o Added getVersion() to Explorer.
-# 2009-05-17
-# o Added missing abstract method getArraysOfInput() to Explorer.
-# o Moved the Explorer class and its support files under inst/ to aroma.core.
-# 2008-06-05
-# o Made getMainPath(), addIncludes(), addIndexFile() parallel safe.
-# o Added getParallelSafe() and setParallelSafe().
-# 2007-11-20
-# o Now addIncludes() no longer passes '...' to copyDirectory().
-# 2007-10-11
-# o Now addIncludes() always copies missing files in the includes/ directory.
-# 2007-03-24
-# o BUG FIX: getPath() created the root path before trying to expand
-#   Windows shortcuts.
-# 2007-03-19
-# o Created from ChromosomeExplorer.R.
-##############################################################################

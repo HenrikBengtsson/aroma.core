@@ -226,14 +226,3 @@ setMethodS3("getXAM", "AromaUnitTotalCnBinaryFile", function(this, other, chromo
 
   xam;
 }, protected=TRUE) # getXAM()
-
-
-############################################################################
-# HISTORY:
-# 2012-10-21
-# o Now getAM() accepts values "none", "constant(1)", and "constant(2)"
-#   for argument 'other'.
-# o CLEANUP: Now argument 'other' of getXAM() is validated by getAM().
-# 2009-11-19
-# o Created.
-############################################################################

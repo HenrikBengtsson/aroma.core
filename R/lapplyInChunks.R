@@ -94,15 +94,3 @@ setMethodS3("splitInChunks", "numeric", function(idxs, chunkSize=1, ...) {
   }
   res;
 }) # splitInChunks()
-
-
-############################################################################
-# HISTORY:
-# 2011-03-03
-# o BUG FIX: lapplyInChunks(idxs) for numeric did not correctly handle
-#   the case when length(idxs) == 0, because of a typo.
-# 2007-08-17
-# o Added splitInChunks().
-# 2007-02-12
-# o Created.
-############################################################################

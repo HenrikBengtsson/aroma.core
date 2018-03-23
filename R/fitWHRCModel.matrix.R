@@ -126,18 +126,3 @@ setMethodS3("fitWHRCModel", "matrix", function(y, w=NULL, hasNAs=TRUE, tau=1e-3,
 
   fit;
 }) # fitWHRCModel()
-
-
-############################################################################
-# HISTORY:
-# 2012-08-21
-# o ROBUSTNESS: fitWHRCModel() now calls rcModelWPLM() of preprocessCore
-#   instead of internal .Call(..., PACKAGE="preprocessCore") calls.
-# o CLEANUP: Dropped arguments 'psiCode' and 'psiK' from fitWHRCModel().
-# 2012-08-08
-# o Now fitWHRCModel() allocates numerical NAs (instead of logical ones).
-# o Added argument '.loadDeps' to fitWRMA().
-# o Now R CMD check is no longer complaining about .Call(..., PACKAGE).
-# 2007-10-05
-# o Created.
-############################################################################

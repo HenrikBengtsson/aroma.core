@@ -269,20 +269,3 @@ setMethodS3("segmentByMPCBS", "RawGenomicSignals", function(this, ..., cache=FAL
 
   fit;
 }) # segmentByCBS()
-
-
-############################################################################
-# HISTORY:
-# 2014-02-17
-# o Now unknown user arguments are only dropped if the segmentation method
-#   does not have a formal argument '...'.
-# 2010-03-02
-# o Now segmentByMPCBS() can be used to segment data from a single source.
-#   Added this to the (single-platform) segmentation example.
-# 2010-02-28
-# o Added more sanity checks.
-# 2010-02-18
-# o Added an MPCBS example().
-# 2010-01-02
-# o Created from segmentByCBS.R.
-############################################################################

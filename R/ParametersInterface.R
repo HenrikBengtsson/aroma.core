@@ -151,14 +151,3 @@ setMethodS3("getParametersAsString", "ParametersInterface", function(this, ..., 
 
   res;
 }) # getParametersAsString()
-
-
-############################################################################
-# HISTORY:
-# 2012-11-21
-# o Now getParametersAsString() handles sets of parameters as well.
-# o Added getParameterSets() to ParametersInterface.
-# 2012-11-20
-# o Added Rdoc comments.
-# o Created.
-############################################################################

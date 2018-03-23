@@ -246,31 +246,3 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
 
   invisible(res);
 }) # exportTotalCnRatioSet()
-
-
-############################################################################
-# HISTORY:
-# 2012-08-26
-# o Dropped an "rm(thetaR)", because it sometimes caused a warning on
-#   "In rm(thetaR) : object 'thetaR' not found".
-# 2011-11-19
-# o BUG FIX: exportTotalCnRatioSet() for AromaUnitTotalCnBinarySet tried
-#   to call cat(verbose, x) with length(x) > 1.
-# 2009-09-24
-# o Added more verbose output.
-# 2009-06-13
-# o BUG FIX: exportTotalCnRatioSet() would return a
-#   AromaUnitFracBCnBinarySet.
-# 2009-05-17
-# o BUG FIX: exportTotalCnRatioSet() would return any signal file.
-# 2009-02-22
-# o Updated exportTotalCnRatioSet() to take log2ratio files as well.
-# 2009-02-18
-# o Renamed from getTotalCnRatioSet() to exportTotalCnRatioSet().
-# o Added support for more complex argument 'ref'.
-# 2009-02-16
-# o No longer multiplying by 2.
-# 2009-02-13
-# o TODO: Make use of getAverageFile(), which still does not exist.
-# o Created.
-############################################################################

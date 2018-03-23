@@ -52,17 +52,3 @@ setMethodS3("getDefaultFullName", "AromaMicroarrayDataSet", function(this, paren
 setMethodS3("getChipType", "AromaMicroarrayDataSet", function(this, ...) {
   getChipType(getOneFile(this, ...));
 })
-
-
-############################################################################
-# HISTORY:
-# 2010-01-02
-# o Added getDefaultFullName() for AromaMicroarrayDataSet to override
-#   the new default of GenericDataFileSet in R.filesets v0.7.0.
-# 2009-02-13
-# o Now getChipType() passes on '...'.
-# 2008-05-23
-# o Added nbrOfArrays().
-# 2008-05-09
-# o Created.
-############################################################################

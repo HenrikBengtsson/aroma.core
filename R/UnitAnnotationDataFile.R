@@ -184,23 +184,3 @@ setMethodS3("getAromaUflFile", "UnitAnnotationDataFile", function(this, ..., val
   }
   ufl;
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2011-11-19
-# o Now byChipType() for UnitAnnotationDataFile gives an error
-#   message with more information on which file it failed to locate,
-#   e.g. by specifying filename extension it looked for.
-# o Added default getDefaultExtension() for UnitAnnotationDataFile,
-#   which guesses the filename extension from the class name.
-# 2009-11-20
-# o Now the "abstract" methods of the interface call NextMethod() instead,
-#   which will give an error if nothing is defined.
-# 2009-11-11
-# o Added getAromaUflFile() to UnitAnnotationDataFile.
-# 2009-07-08
-# o Extracted methods from the UnitNamesFile interface class.
-# o Created from UnitNamesFile.R.
-############################################################################

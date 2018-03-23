@@ -162,12 +162,3 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
 
   res;
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2008-04-02
-# o Verified against median polish.
-# o Created.
-############################################################################

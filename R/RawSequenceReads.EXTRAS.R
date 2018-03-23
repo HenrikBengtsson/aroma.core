@@ -95,17 +95,3 @@ setMethodS3("extractRawCopyNumbers", "RawSequenceReads", function(this, ref=NULL
 
   cn;
 }) # extractRawCopyNumbers()
-
-############################################################################
-# HISTORY:
-# 2012-11-17
-# o Now using getChecksum() instead of digest::digest().
-# 2009-11-22
-# o Added argument 'logBase' to extractRawCopyNumbers() of RawSequenceReads.
-# 2009-09-07
-# o BUG FIX: extractRawCopyNumbers() for RawSequenceReads refered to 
-#   to global variables in the code for file caching.
-# 2009-07-06
-# o Added extractRawCopyNumbers() for RawSequenceReads.
-# o Created.
-############################################################################

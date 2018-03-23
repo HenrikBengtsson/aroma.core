@@ -223,21 +223,3 @@ setMethodS3("exportAromaUnitPscnBinarySet", "list", function(dsList, ...) {
   }
   exportAromaUnitPscnBinarySet(dsT=dsList[[1]], dsB=dsList[[2]], ...);
 })
-
-
-############################################################################
-# HISTORY:
-# 2013-12-11
-# o DOCUMENTATION: Added documentation for exportAromaUnitPscnBinarySet().
-# 2013-08-12
-# o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
-#   would throw an error on "unknown argument 'names' to indexOf()".
-# 2012-09-14
-# o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
-#   would throw an error if the files of the exported data set was
-#   ordered in a non-lexicographic order.
-# o Added exportAromaUnitPscnBinarySet() for list.
-# 2012-07-21
-# o Added exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet.
-# o Created.
-############################################################################

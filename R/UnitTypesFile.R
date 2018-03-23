@@ -42,10 +42,3 @@ setMethodS3("getUnitTypes", "UnitTypesFile", abstract=TRUE);
 setMethodS3("nbrOfUnits", "UnitTypesFile", function(this, ...) {
   length(getUnitTypes(this));
 })
-
-
-############################################################################
-# HISTORY:
-# 2009-07-08
-# o Created from UnitTypesFile.R.
-############################################################################

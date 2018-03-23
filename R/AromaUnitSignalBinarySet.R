@@ -75,12 +75,3 @@ setMethodS3("getAromaUgpFile", "AromaUnitSignalBinarySet", function(this, ...) {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # END Interface API?
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-############################################################################
-# HISTORY:
-# 2009-01-05
-# o Renamed from AromaSignalBinarySet to AromaUnitSignalBinarySet.
-# 2008-05-11
-# o Created.
-############################################################################

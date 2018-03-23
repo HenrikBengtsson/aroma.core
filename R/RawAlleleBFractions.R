@@ -28,11 +28,3 @@ setMethodS3("plot", "RawAlleleBFractions", function(x, ..., ylim=c(0,1)+c(-0.2,0
 })
 
 setMethodS3("extractRawAlleleBFractions", "default", abstract=TRUE);
-
-
-
-############################################################################
-# HISTORY:
-# 2009-05-10
-# o Created from RawCopyNumbers.R.
-############################################################################

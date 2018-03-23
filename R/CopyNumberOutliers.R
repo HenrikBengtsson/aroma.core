@@ -76,15 +76,3 @@ setMethodS3("lines", "CopyNumberOutliers", function(x, col="red", lwd=2, xScale=
   yy <- rep(this$mean[o], each=2);
   lines(x=xScale*xx, y=yScale*yy, col=col, lwd=lwd, ...);
 })
-
-
-
-
-############################################################################
-# HISTORY:
-# 2008-05-17
-# o Moved to aroma.core.
-# 2007-08-22
-# o Created.  Need a generic container for holding copy number regions and
-#   to plot them nicely.
-############################################################################

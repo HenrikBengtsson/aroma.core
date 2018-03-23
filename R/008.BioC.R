@@ -30,13 +30,3 @@
     }
   }
 } # .requireBiocPackage()
-
-
-############################################################################
-# HISTORY:
-# 2012-08-03
-# o Added .requireBiocPackage() which basically require() the requested
-#   package, and if not installed, it will first try to install it from
-#   The Bioconductor repository.
-# o Created.
-############################################################################

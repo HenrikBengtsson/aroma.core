@@ -74,12 +74,3 @@ setMethodS3("getCacheKey", "FileCacheKeyInterface", function(this, ...) {
   keys$checksum <- getChecksum(this);
   keys;
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-11-28
-# o Added FileCacheKeyInterface
-# o Created.
-############################################################################

@@ -68,31 +68,3 @@ setMethodS3("extractRawCopyNumbers", "AromaUnitTotalCnBinaryFile", function(this
 
   cn;
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-07-20
-# o CLEANUP: Moved getNumberOfFilesAveraged() to superclass.
-# 2009-11-22
-# o Added argument 'logBase=2' to extractRawCopyNumbers() for 
-#   AromaUnitTotalCnBinaryFile.  Now it is possible to extract either
-#   non-logged or logged CN ratios.
-# 2009-11-20
-# o Added getNumberOfFilesAveraged for of AromaUnitTotalCnBinaryFile.
-# 2009-05-17
-# o Now extractRawCopyNumbers() of AromaUnitTotalCnBinaryFile utilized
-#   extractRawGenomicSignals() of the superclass.
-# 2009-02-17
-# o Added argument 'units' to extractRawCopyNumbers().
-# 2009-02-16
-# o Now extractRawCopyNumbers() also includes the full (sample) name.
-# 2008-06-12
-# o Now extractRawCopyNumbers() adds annotation data to the returned object,
-#   i.e. platform, chipType, and fullname.
-# 2008-05-21
-# o Added extractRawCopyNumbers().
-# 2008-05-11
-# o Created.
-############################################################################

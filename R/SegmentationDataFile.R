@@ -56,12 +56,3 @@ setMethodS3("extractCopyNumberRegions", "SegmentationDataFile", function(this, .
   res$sampleName <- getSampleName(this);
   res;
 }, protected=TRUE);
-
-
-
-
-############################################################################
-# HISTORY:
-# 2010-08-05
-# o Created.
-############################################################################

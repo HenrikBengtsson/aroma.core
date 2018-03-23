@@ -108,18 +108,3 @@ setMethodS3("drawDensity", "RawGenomicSignals", function(this, field=NULL, side=
   d <- density(y, adjust=adjust);
   draw(d, side=side, lwd=lwd, ...);
 })
-
-
-###########################################################################
-# HISTORY:
-# 2012-03-14
-# o Moved all graphics related functions to this file.
-# o Added Argument 'field' to drawDensity() for RawGenomicSignals.
-# 2010-09-12
-# o Added drawDensity() for RawGenomicSignals.
-# 2009-11-22
-# o Now all chromosome plot functions have xScale=1e-6 by default.
-# 2007-08-22
-# o Created.  Need a generic container for holding copy number data and
-#   to plot them nicely.
-###########################################################################

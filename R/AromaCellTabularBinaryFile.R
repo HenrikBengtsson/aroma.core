@@ -94,13 +94,3 @@ setMethodS3("byChipType", "AromaCellTabularBinaryFile",function(static, chipType
 
   res;
 }, static=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2014-06-28
-# o Added byChipType() for AromaCellTabularBinaryFile.
-# 2008-07-09
-# o Created from AromaUnitTabularBinaryFile.R.
-############################################################################

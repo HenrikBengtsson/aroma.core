@@ -37,21 +37,3 @@ setMethodS3("stextLabels", "AromaMicroarrayDataFile", function(this, others=NULL
   # Display it
   stext(side=side, text=text, pos=pos, cex=cex, col=col, ...);
 }, private=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2012-11-16
-# o CLEANUP: Now using getName() instead of deprecated getLabel().
-# 2008-05-17
-# o Moved from AffymetrixFile to AromaMicroarrayDataFile.
-# 2006-07-11
-# o BUG FIX: stextLabel() of AffymetrixFile called getLable() instead of 
-#   getLabel().
-# 2006-09-15
-# o Added stextSize().
-# 2006-08-27
-# o Added stextLabel() and stextLabels(). stext is for "side text", cf. 
-#   mtext for "margin text". stext() is slightly more convenient than mtext
-#   when it comes to different font sizes.
-############################################################################

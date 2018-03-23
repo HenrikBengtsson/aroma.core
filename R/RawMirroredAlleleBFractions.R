@@ -38,12 +38,3 @@ setMethodS3("extractRawMirroredAlleleBFractions", "RawAlleleBFractions", functio
   class(res) <- c("RawMirroredAlleleBFractions", class(res));
   res;
 })
-
-
-
-
-############################################################################
-# HISTORY:
-# 2009-05-17
-# o Created.
-############################################################################

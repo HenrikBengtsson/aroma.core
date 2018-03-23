@@ -22,10 +22,3 @@ setMethodS3("getUnitNamesFile", "AromaUnitTotalCnBinarySet", function(this, ...)
 
   getUnitNamesFile(getOneFile(this), ...);
 })
-
-
-###########################################################################
-# HISTORY:
-# 2009-11-19
-# o Created.
-###########################################################################

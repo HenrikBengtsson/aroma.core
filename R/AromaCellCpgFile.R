@@ -148,20 +148,3 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
 
   NextMethod("allocate", nbrOfRows=nbrOfCells, types="double", sizes=4L, footer=footer);
 }, static=TRUE, protected=TRUE)
-
-
-
-############################################################################
-# HISTORY:
-# 2014-06-28
-# o CLEANUP: Move byChipType() from classes AromaCellCpgFile and
-#   AromaCellPositionFile to superclass AromaCellTabularBinaryFile.
-# o Added argument 'nbrOfCells' to byChipType().
-# o CLEANUP: Dropped non-used argument 'validate' from byChipType().
-# 2010-02-19 [MR]
-# o Added begin/end Rdoc comments so that they are compiled into Rd files.
-# o Added file to SVN repository.
-# o Modified header description, added semicolons.
-# 2008-12-15 [MR]
-# o Created from AromaCellPositionFile.R.
-############################################################################

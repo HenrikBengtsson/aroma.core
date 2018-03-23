@@ -27,12 +27,3 @@ setMethodS3("fixSearchPath", "AromaCore", function(this, ...) {
   # Return the package actually moved
   invisible(res);
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2009-05-13
-# o Now extending the AromaPackage class.
-# o Created from 999.AromaAffymetrix.R.
-############################################################################

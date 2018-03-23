@@ -135,10 +135,3 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
 
   data;
 }, protected=TRUE)
-
-############################################################################
-# HISTORY:
-# 2009-05-10
-# o This method supports all the segmentByNnn() methods.
-# o Created.
-############################################################################

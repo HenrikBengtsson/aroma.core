@@ -95,12 +95,3 @@ setMethodS3("allocate", "AromaUnitPscnBinaryFile", function(static, ..., platfor
 
   res;
 }, static=TRUE, protected=TRUE)
-
-
-############################################################################
-# HISTORY:
-# 2012-07-21
-# o Added allocate().
-# 2012-07-20
-# o Created from AromaUnitTotalCnBinaryFile.R.
-############################################################################

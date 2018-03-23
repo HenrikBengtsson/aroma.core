@@ -36,20 +36,3 @@ setMethodS3("extractRawCopyNumbers", "HaarSeg", function(object, ...) {
   data <- object$data;
   RawCopyNumbers(cn=data$M, x=data$x, chromosome=data$chromosome);
 })
-
-
-##############################################################################
-# HISTORY:
-# 2009-05-14
-# o Moved extractRawCopyNumbers() for profileCGH from aroma.affymetrix.
-# 2009-05-10
-# o Moved to aroma.core v1.0.6. Source file: HaarSegModel.R.
-# 2008-01-26
-# o Reordered constructor arguments.
-# 2008-12-31
-# o Removing non-finite data points before passing to haarSeg().
-# 2008-12-17
-# o Now using the HaarSeg package (put together by HB).
-# 2008-12-16
-# o Created.
-############################################################################## 

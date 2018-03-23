@@ -424,25 +424,3 @@ setMethodS3("segmentByPairedPSCBS", "PairedPSCNData", function(CT, ...) {
   segmentByPairedPSCBS(CT=CT, betaT=data$betaT, betaN=data$betaN,
                    muN=data$muN, chromosome=data$chromosome, x=data$x, ...);
 }) # segmentByPairedPSCBS()
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-23
-# o Added explicit require("PSCBS") to several methods.
-# 2012-03-14
-# o Now the segmentByNnn() methods segments C = 2*CT/CN.
-# 2012-03-11
-# o Added segmentByCBS().
-# o Renamed argument 'mu' to 'muN'.
-# 2012-02-29
-# o Added extractNonPairedPSCNData() for PairedPSCNData.
-# o Added callSegmentationOutliers() and dropSegmentationOutliers()
-#   for PairedPSCNData.
-# o Added segmentByPairedPSCBS() for PairedPSCNData.
-# o Added as.PairedPSCNData().
-# o Added callNaiveGenotypes() for PairedPSCNData.
-# o Added normalizeTumorBoost() for PairedPSCNData.
-# o Created.
-############################################################################

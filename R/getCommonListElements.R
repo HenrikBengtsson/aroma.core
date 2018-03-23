@@ -41,12 +41,3 @@ getCommonListElements <- function(lst, ignoreEmpty=TRUE) {
 
   lst;
 } # getCommonListElements()
-
-
-############################################################################
-# HISTORY:
-# 2007-09-26
-# o BUG FIX: getCommonListElements() would exclude duplicated tags, e.g. -X.
-# 2007-02-16
-# o Created.
-############################################################################

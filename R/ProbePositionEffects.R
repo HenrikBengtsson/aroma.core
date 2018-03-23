@@ -491,29 +491,3 @@ setMethodS3("barSequence", "ProbePositionEffects", function(fit, seq, col=NULL, 
     lines(x=c(x,x), y=c(0,y), col=col[kk], ...);
   }
 }) # barSequence()
-
-
-
-
-
-
-############################################################################
-# HISTORY:
-# 2009-05-16
-# o Now fitProbePositionEffects() for numeric uses Arguments$getNumerics(),
-#   not getDoubles(), where possible.  This will save memory in some cases.
-# 2008-12-03
-# o SPEED UP: Now predict() of ProbePositionEffects is 6-7 times faster.
-# o SPEED UP: All strsplit() are now using fixed=TRUE where possible.
-# 2008-07-28
-# o Added textSequence().
-# 2008-07-11
-# o Renamed getProbePositionEffects() to getEffects().
-# o Updated to work with the new AromaCellSequenceFile encodings.
-# 2008-07-07
-# o Added predict().
-# o Added getProbePositionEffects().
-# o Added na.rm=TRUE to fitProbePositionEffects().
-# 2008-07-05
-# o Created.
-############################################################################

@@ -236,22 +236,3 @@ setMethodS3("segmentByCBS", "NonPairedPSCNData", function(y, ...) {
   data <- as.data.frame(this);
   segmentByCBS(y=data$C, chromosome=data$chromosome, x=data$x, ...);
 }) # segmentByCBS()
-
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-23
-# o Added explicit require("PSCBS") to several methods.
-# 2012-03-11
-# o Added segmentByCBS().
-# 2012-03-10
-# o Now callNaiveGenotypes() for NonPairedPSCNData only calls genotypes
-#   for SNPs.  All other loci, the genotype is set to NA.
-# 2012-02-29
-# o Added callSegmentationOutliers() and dropSegmentationOutliers()
-#   for NonPairedPSCNData.
-# o Added as.NonPairedPSCNData().
-# o Created.
-############################################################################

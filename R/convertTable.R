@@ -73,12 +73,3 @@ setMethodS3("convertTable", "default", function(src, dest=NULL, sep="\t", ..., v
 
   invisible(dest);
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2006-09-15
-# o This methods will probably end up in R.utils at some stage.
-# o Added convertTable().  The different dChip files are ragged rows! :(
-############################################################################

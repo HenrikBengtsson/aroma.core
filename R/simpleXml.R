@@ -144,21 +144,3 @@ setMethodS3("xmlToList", "character", function(xml, ..., drop=TRUE) {
   xml <- unlist(strsplit(xml, split=""));
   parseXml(xml);
 }) # xmlToList()
-
-
-
-############################################################################
-# HISTORY:
-# 2009-01-12
-# o Added argument 'drop' to xmlToList().
-# 2008-05-23
-# o UPDATED: Rewrote internal parseXml() to be a "real" parser.  Hopefully,
-#   it is a bit more generic now.
-# 2008-03-05
-# o BUG FIX: Regular expression pattern 'a-Z' is illegal on (at least) some
-#   locale (where 'A-z' works). The only way to get specify the ASCII
-#   alphabet is to specify all characters explicitly.
-# 2008-02-13
-# o Validation test: identical(tree, xmlToList(listToXml(tree)))
-# o Created to support read/write of footer in AromaTabularBinaryFile.R.
-############################################################################

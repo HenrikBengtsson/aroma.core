@@ -13,21 +13,3 @@ setMethodS3("drawExtraAnnotations", "profileCGH", function(fit, ...) {
     stext(text=text, side=3, pos=0.5, line=-2);
   }
 }, protected=TRUE);
-
-
-############################################################################
-# HISTORY:
-# 2008-04-14
-# o BUG FIX: The default drawExtraAnnotations() returned error <simpleError
-#   in UseMethod("estimateStandardDeviation"): no applicable method for
-#   "estimateStandardDeviation"> causing the sigma estimate for 
-#   non-GladModels to be missing.
-# 2008-03-31
-# o Now the standard deviation across all CNs in a chromosome is calculated
-#   using a robust first-order difference estimator, which will make the 
-#   estimate much less affected by copy-number changes.
-# 2007-09-29
-# o Added default annotations with sd and MAD estimates.
-# 2007-09-04
-# o Created.
-############################################################################

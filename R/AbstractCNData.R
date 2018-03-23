@@ -143,16 +143,3 @@ setMethodS3("findLargeGaps", "AbstractCNData", function(chromosome, ...) {
   data <- as.data.frame(this, ...);
   findLargeGaps(chromosome=data$chromosome, x=data$x, ...);
 }) # findLargeGaps()
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-09
-# o Started to inherit from RawGenomicSignals of aroma.core v2.4.10,
-#   which is now a data.frame.
-# 2012-02-29
-# o Added getLocusData() for AbstractCNData.
-# o Added findLargeGaps() for AbstractCNData.
-# o Created.
-############################################################################

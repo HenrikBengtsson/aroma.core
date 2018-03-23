@@ -122,15 +122,3 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
 
   list(theta=theta, phi=phi);
 }) # smoothWSA()
-
-
-############################################################################
-# HISTORY:
-# 2012-08-08
-# o Now smoothWSA() allocates with numerical NAs (instead of logical ones).
-# 2007-09-26
-# o Added support for (optional) prior weights (either as row weights or
-#   full matrix weights).
-# 2007-09-18
-# o Created from gaussianSmoothing.R.
-############################################################################

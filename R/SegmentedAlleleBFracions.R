@@ -27,11 +27,3 @@ setConstructorS3("SegmentedAlleleBFractions", function(..., states=NULL) {
   this <- setStates(this, states=states);
   this;
 })
-
-############################################################################
-# HISTORY:
-# 2012-03-01
-# o No longer assumes that class provides reference variables.
-# 2009-06-10
-# o Created from new SegmentedCopyNumbers.R.
-############################################################################

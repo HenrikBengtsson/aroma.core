@@ -314,16 +314,3 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
 
   fit;
 }) # segmentByCBS()
-
-
-############################################################################
-# HISTORY:
-# 2014-02-17
-# o Now unknown user arguments are only dropped if the segmentation method
-#   does not have a formal argument '...'.
-# 2010-04-05
-# o Added argument 'seed' to segmentByCBS().
-# o Added Rdoc references to CBS papers.
-# 2009-05-10
-# o Created.
-############################################################################

@@ -81,10 +81,3 @@ setMethodS3("extractPSCNArray", "AromaUnitTotalCnBinarySet", function(dsTCN, dsB
 
   data;
 })
-
-###########################################################################
-# HISTORY:
-# 2011-11-11
-# o Added extractPSCNArray() for AromaUnitTotalCnBinary{File|Set}.
-# o Added extractPSCNMatrix().
-###########################################################################
