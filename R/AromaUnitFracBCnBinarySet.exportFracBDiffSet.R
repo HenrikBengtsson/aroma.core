@@ -117,7 +117,7 @@ setMethodS3("exportFracBDiffSet", "AromaUnitFracBCnBinarySet", function(this, re
     verbose && str(verbose, betaR);
 
     # Sanity check
-    stopifnot(length(betaR) == length(beta));
+    stop_if_not(length(betaR) == length(beta));
 
     dBeta <- beta - betaR;
     verbose && str(verbose, dBeta);

@@ -173,7 +173,7 @@ setMethodS3("exportTotalCnRatioSet", "AromaUnitTotalCnBinarySet", function(this,
     }
 
     # Sanity check
-    stopifnot(length(thetaR) == length(theta));
+    stop_if_not(length(thetaR) == length(theta));
 
     verbose && cat(verbose, "Copy-number ratios:");
     C <- theta / thetaR;

@@ -196,7 +196,7 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   res <- this[subset,,drop=FALSE];
 
   # Sanity check
-  stopifnot(nbrOfLoci(res) == length(subset));
+  stop_if_not(nbrOfLoci(res) == length(subset));
 
   res;
 }, protected=TRUE) # extractSubset()
@@ -211,7 +211,7 @@ setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, chromos
 
   # Argument 'region':
   region <- Arguments$getNumerics(region, length=c(2,2));
-  stopifnot(region[1] <= region[2]);
+  stop_if_not(region[1] <= region[2]);
 
 
   # Subset by chromosome
@@ -281,7 +281,7 @@ setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, chrom
   }
 
   # Assert ordered (start,stop)
-  stopifnot(all(regions[["start"]] <= regions[["stop"]]));
+  stop_if_not(all(regions[["start"]] <= regions[["stop"]]));
 
 
 
@@ -804,7 +804,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   verbose && enter(verbose, "Identifying output states (may drop short regions)");
   dataOut <- as.data.frame(res);
   # Sanity check
-  stopifnot(is.element(field, colnames(dataOut)));
+  stop_if_not(is.element(field, colnames(dataOut)));
 
   byValuesOut <- dataOut[[field]];
   verbose && cat(verbose, "byValuesOut:");
@@ -871,7 +871,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
        print(table(values, useNA="always"));
        print(byValue);
     }
-    stopifnot(all(is.element(gsSS[[field]], byValue)));
+    stop_if_not(all(is.element(gsSS[[field]], byValue)));
     verbose && exit(verbose);
 
     # Nothing to do?
@@ -909,7 +909,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
           values <- gsSS[[field]];
 
           # Sanity check
-          stopifnot(!is.null(values));
+          stop_if_not(!is.null(values));
 
           if (is.element(field, "w")) {
             naValue <- 0;
@@ -960,7 +960,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
     verbose && exit(verbose);
 
     # Sanity check
-    stopifnot(length(idxsOut) == nbrOfLoci(resSS));
+    stop_if_not(length(idxsOut) == nbrOfLoci(resSS));
 
     YsSS <- as.data.frame(resSS)[,fields, drop=FALSE];
     YsSS <- as.matrix(YsSS);

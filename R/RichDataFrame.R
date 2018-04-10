@@ -46,7 +46,7 @@ setMethodS3("print", "RichDataFrame", function(x, ...) {
 setMethodS3("setColumnNamesTranslator", "RichDataFrame", function(this, fcn, ...) {
   # Argument 'fcn':
   if (!is.null(fcn)) {
-    stopifnot(is.function(fcn));
+    stop_if_not(is.function(fcn));
   }
 
   attr(this, ".columnNamesTranslator") <- fcn;
@@ -83,7 +83,7 @@ setMethodS3("setColumnNamesMap", "RichDataFrame", function(this, ...) {
     names[toUpdateIdxs] <- map[names[toUpdateIdxs]];
 
     # Sanity check
-    stopifnot(length(names) == n);
+    stop_if_not(length(names) == n);
 
     names;
   } # fcn()
@@ -191,7 +191,7 @@ setMethodS3("setAttributes", "RichDataFrame", function(this, attrs=NULL, ...) {
   if (is.null(attrs)) {
     return(invisible(this));
   }
-  stopifnot(is.list(attrs));
+  stop_if_not(is.list(attrs));
 
   exclNames <- c("class", "names", "row.names");
   names <- names(attrs);
@@ -222,7 +222,7 @@ setMethodS3("newInstance", "RichDataFrame", function(this, nrow, ...) {
   setAttributes(res, attributes(this));
 
   # Sanity check
-  stopifnot(nrow(res) == nrow);
+  stop_if_not(nrow(res) == nrow);
 
   res;
 }, protected=TRUE) # newInstance()
@@ -523,7 +523,7 @@ setMethodS3("getVirtualColumnFunctions", "RichDataFrame", function(this, transla
     res <- list();
   }
   # Sanity check
-  stopifnot(is.list(res));
+  stop_if_not(is.list(res));
 
   if (translate) {
     names <- names(res);
@@ -547,7 +547,7 @@ setMethodS3("getVirtualColumnFunction", "RichDataFrame", function(this, name, ..
   fcn <- virtuals[[name]];
 
   # Sanity check
-  stopifnot(is.function(fcn));
+  stop_if_not(is.function(fcn));
 
   fcn;
 })
@@ -560,17 +560,17 @@ setMethodS3("setVirtualColumnFunctions", "RichDataFrame", function(this, virtual
     return(invisible(this));
   }
 
-  stopifnot(is.list(virtuals));
+  stop_if_not(is.list(virtuals));
 
   if (length(virtuals) > 0) {
     # Must be named
-    stopifnot(!is.null(names(virtuals)));
+    stop_if_not(!is.null(names(virtuals)));
 
     # Cannot have duplicated names
-    stopifnot(!any(duplicated(names(virtuals))));
+    stop_if_not(!any(duplicated(names(virtuals))));
 
     # Assert non-name clashes between virtual and default columns.
-    stopifnot(all(!is.element(names(virtuals), getColumnNames(this, virtual=FALSE))));
+    stop_if_not(all(!is.element(names(virtuals), getColumnNames(this, virtual=FALSE))));
   }
 
   # Validate content

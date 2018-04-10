@@ -70,7 +70,7 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
     data <- extractMatrix(this, units=units, ...);
     est <- rowFcn(data, na.rm=na.rm);
     # Sanity check
-    stopifnot(length(est) == length(units));
+    stop_if_not(length(est) == length(units));
     est;
   });
   # Not needed anymore
@@ -80,7 +80,7 @@ setMethodS3("calculateAverageColumnAcrossFiles", "GenericTabularFileSet", functi
   verbose && str(verbose, res);
 
   # Sanity check
-  stopifnot(length(res) == nbrOfRows);
+  stop_if_not(length(res) == nbrOfRows);
 
   saveCache(res, key=key, dirs=dirs);
 

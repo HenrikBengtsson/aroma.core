@@ -49,7 +49,7 @@ setMethodS3("hasStrandiness", "AromaUnitPscnBinaryFile", function(this, ...) {
 })
  
 setMethodS3("getDefaultColumnNames", "AromaUnitPscnBinaryFile", function(this, ...) {
- stopifnot(nbrOfColumns(this) == 2L);
+ stop_if_not(nbrOfColumns(this) == 2L);
  c("total", "fracB");
 }, protected=TRUE)
 

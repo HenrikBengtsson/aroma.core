@@ -66,7 +66,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
 
   # Argument 'lim':
   lim <- Arguments$getDoubles(lim, length=c(2,2));
-  stopifnot(lim[1] < lim[2]);
+  stop_if_not(lim[1] < lim[2]);
 
   # Argument 'verbose':
   verbose <- Arguments$getVerbose(verbose);
@@ -108,7 +108,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   verbose && print(verbose, summary(as.vector(x)));
 
   # Sanity check
-  stopifnot(all(0 <= x & x <= 1, na.rm=TRUE));
+  stop_if_not(all(0 <= x & x <= 1, na.rm=TRUE));
   verbose && exit(verbose);
 
 
@@ -125,7 +125,7 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   verbose && print(verbose, summary(as.vector(colorIdx)));
 
   # Sanity check
-  stopifnot(all(1 <= colorIdx & colorIdx <= n, na.rm=TRUE));
+  stop_if_not(all(1 <= colorIdx & colorIdx <= n, na.rm=TRUE));
   verbose && exit(verbose);
 
 
@@ -140,8 +140,8 @@ setMethodS3("colorize", "Image", function(this, palette=gray.colors(256), lim=c(
   z <- paletteRGB[colorIdx,,drop=FALSE];
 
   # Sanity check
-  stopifnot(dim(z)[1] == prod(dim));
-  stopifnot(dim(z)[2] == 3L);
+  stop_if_not(dim(z)[1] == prod(dim));
+  stop_if_not(dim(z)[2] == 3L);
   dim(z) <- c(dim, 3L);
 
   verbose && cat(verbose, "Remapped pixel intensity:");
@@ -205,7 +205,7 @@ setMethodS3("interleave", "Image", function(this, what=c("none", "h", "v", "auto
   dim(z) <- zDim;
 
   # Sanity check
-  stopifnot(ndim == 2 || ndim == 3);
+  stop_if_not(ndim == 2 || ndim == 3);
   if (ndim == 2) {
     dim(z) <- c(zDim, 1L);
   }
@@ -521,8 +521,8 @@ setMethodS3("as.GrayscaleImage", "matrix", function(z, transforms=NULL, interlea
 
   # Create an Image object
   # Sanity check
-  stopifnot(all(z >= 0, na.rm=TRUE));
-  stopifnot(all(z <= 1, na.rm=TRUE));
+  stop_if_not(all(z >= 0, na.rm=TRUE));
+  stop_if_not(all(z <= 1, na.rm=TRUE));
   img <- createImage(z, colorMode="gray", ...);
 
   verbose && cat(verbose, "Create image object:");

@@ -14,8 +14,8 @@ setMethodS3("extractPSCNMatrix", "AromaUnitTotalCnBinaryFile", function(dfTCN, d
   }
 
   dfBAF <- Arguments$getInstanceOf(dfBAF, "AromaUnitFracBCnBinaryFile");
-  stopifnot(nbrOfUnits(dfBAF) == nbrOfUnits);
-  stopifnot(getChipType(dfBAF) == chipType);
+  stop_if_not(nbrOfUnits(dfBAF) == nbrOfUnits);
+  stop_if_not(getChipType(dfBAF) == chipType);
 
   # Argument 'units':
   if (is.null(units)) {
@@ -55,8 +55,8 @@ setMethodS3("extractPSCNArray", "AromaUnitTotalCnBinarySet", function(dsTCN, dsB
   if (identical(dsBAF, "*")) {
   } else {
     dsBAF <- Arguments$getInstanceOf(dsBAF, "AromaUnitFracBCnBinaryFile");
-    stopifnot(length(dsBAF) == length(dsTCN));
-    stopifnot(all(getNames(dsBAF) == getNames(dsTCN)));
+    stop_if_not(length(dsBAF) == length(dsTCN));
+    stop_if_not(all(getNames(dsBAF) == getNames(dsTCN)));
   }
 
   dfBAF <- "*";

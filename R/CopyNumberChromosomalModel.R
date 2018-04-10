@@ -357,7 +357,7 @@ setMethodS3("getReference", "CopyNumberChromosomalModel", function(this, ...) {
   }
 
   # Sanity check
-  stopifnot(is.character(res));
+  stop_if_not(is.character(res));
   res;
 })
 
@@ -536,7 +536,7 @@ setMethodS3("getPairedNames", "CopyNumberChromosomalModel", function(this, ..., 
   # Sanity check
   ns <- sapply(namesList, FUN=length);
   ns <- unique(ns);
-  stopifnot(length(ns) == 1);
+  stop_if_not(length(ns) == 1);
 
   sep <- this$.pairedNameSep;
   if (is.null(sep)) {
@@ -718,7 +718,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       }
 
       # Sanity check
-      stopifnot(!is.null(ref));
+      stop_if_not(!is.null(ref));
 
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -789,7 +789,7 @@ print(ref);
 throw("xxxxxxxxxxxxx");
 
             # Sanity check
-            stopifnot(length(ns) == length(units0));
+            stop_if_not(length(ns) == length(units0));
 
             # Use Gauss' approximation (since mu and sigma are on the
             # intensity scale)

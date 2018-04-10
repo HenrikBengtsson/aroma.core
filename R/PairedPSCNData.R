@@ -156,7 +156,7 @@ setMethodS3("as.PairedPSCNData", "NonPairedPSCNData", function(T, N, ..., verbos
     if (is.null(vT) || is.null(vN)) {
       next;
     }
-    stopifnot(all.equal(vT, vN));
+    stop_if_not(all.equal(vT, vN));
   } # for (key ...)
   verbose && exit(verbose);
 

@@ -91,7 +91,7 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   
     # Get the other theta estimates
     thetaR <- other[units,1, drop=TRUE];
-    stopifnot(identical(length(thetaR), nTheta));
+    stop_if_not(identical(length(thetaR), nTheta));
 
     # Unlog?
     logBase0 <- NULL;
@@ -123,7 +123,7 @@ setMethodS3("getAM", "AromaUnitTotalCnBinaryFile", function(this, other, units=N
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   M <- log(M, base=2);
   A <- log(A, base=2)/2;
-  stopifnot(identical(length(M), nTheta));
+  stop_if_not(identical(length(M), nTheta));
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

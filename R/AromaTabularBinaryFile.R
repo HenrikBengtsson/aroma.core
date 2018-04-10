@@ -404,7 +404,7 @@ setMethodS3("writeRawFooter", "AromaTabularBinaryFile", function(this, raw, con=
   if (isFile) {
     pathname <- getPathname(this);
     # Sanity check
-    stopifnot(isFile(pathname));
+    stop_if_not(isFile(pathname));
     pathname <- Arguments$getWritablePathname(pathname);
     con <- file(pathname, open="r+b");
     verbose && cat(verbose, "Opened file ('r+b') to be close automatically");
@@ -611,7 +611,7 @@ setMethodS3("updateDataColumn", "AromaTabularBinaryFile", function(this, rows=NU
       # Open file
       pathname <- getPathname(this);
       # Sanity check
-      stopifnot(isFile(pathname));
+      stop_if_not(isFile(pathname));
       pathname <- Arguments$getWritablePathname(pathname);
       con <- file(pathname, open="r+b");
       on.exit(close(con));
@@ -778,7 +778,7 @@ setMethodS3("updateData", "AromaTabularBinaryFile", function(this, rows=NULL, co
   # Open file
   pathname <- getPathname(this);
   # Sanity check
-  stopifnot(isFile(pathname));
+  stop_if_not(isFile(pathname));
   pathname <- Arguments$getWritablePathname(pathname);
   con <- file(pathname, open="r+b");
   on.exit(close(con));

@@ -665,7 +665,7 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
   dsOut <- getOutputDataSet0(this, ..., verbose=less(verbose, 10));
   verbose && print(verbose, dsOut);
   # Sanity check
-  stopifnot(!is.null(dsOut))
+  stop_if_not(!is.null(dsOut))
   verbose && exit(verbose);
 
   verbose && enter(verbose, "Map output data set to input data set by fullnames");

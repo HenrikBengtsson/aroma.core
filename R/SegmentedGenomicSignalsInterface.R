@@ -82,7 +82,7 @@ setMethodS3("getStates", "SegmentedGenomicSignalsInterface", function(this, x=NU
   }
 
   # Sanity check
-  stopifnot(length(states) == nbrOfLoci);
+  stop_if_not(length(states) == nbrOfLoci);
 
   states;
 })
@@ -142,7 +142,7 @@ setMethodS3("getVirtualField", "SegmentedGenomicSignalsInterface", function(this
     value <- this[[key]];
   } else {
     fields <- getVirtualLocusFields(this, ...);
-    stopifnot(is.element(key, fields));
+    stop_if_not(is.element(key, fields));
 
     if (key == "state") {
       value <- getStates(this, ...);
@@ -502,7 +502,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
     verbose && exit(verbose);
 
     # Sanity check
-    stopifnot(length(idxsOut) == nbrOfLoci(resSS));
+    stop_if_not(length(idxsOut) == nbrOfLoci(resSS));
 
     ys <- getSignals(res);
     ys[idxsOut] <- getSignals(resSS);

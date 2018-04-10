@@ -91,7 +91,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
   verbose && cat(verbose, "Number of sources: ", nbrOfSources);
 
   # Sanity check
-  stopifnot(nbrOfSources > 0);
+  stop_if_not(nbrOfSources > 0);
 
   platforms <- sapply(dfList, FUN=getPlatform);
   chipTypes <- sapply(dfList, FUN=getChipType);
@@ -135,7 +135,7 @@ setMethodS3("extractMergedRawCopyNumbers", "AromaUnitTotalCnBinaryFileList", fun
     yRef <- getSignals(cnSList[[1]]);
     deltas <- sapply(cnSList, FUN=function(cn) {
       y <- getSignals(cn);
-      stopifnot(length(y) == length(yRef));
+      stop_if_not(length(y) == length(yRef));
       median(y-yRef, na.rm=TRUE);
     });
     verbose && cat(verbose, "Relative shifts:");

@@ -83,7 +83,7 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
   idxs <- pp <- NULL;
 
   # Sanity check
-  stopifnot(length(pos) == ncol(cells));
+  stop_if_not(length(pos) == ncol(cells));
 
   verbose && exit(verbose);
 
@@ -157,7 +157,7 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   verbose && str(verbose, pos);
 
   # Sanity check
-  stopifnot(length(pos) == ncol(cells));
+  stop_if_not(length(pos) == ncol(cells));
 
   verbose && cat(verbose, "Tabulated SNP positions:");
   verbose && print(verbose, table(pos));
@@ -167,7 +167,7 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   verbose && print(verbose, uPos);
 
   # Sanity check
-  stopifnot(length(uPos) > 0);
+  stop_if_not(length(uPos) > 0);
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

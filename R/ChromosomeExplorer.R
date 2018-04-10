@@ -171,7 +171,7 @@ setMethodS3("setArrays", "ChromosomeExplorer", function(this, ...) {
   arrayNames <- getNames(model)[idxs];
 
   # Sanity check
-  stopifnot(!any(duplicated(arrayNames)));
+  stop_if_not(!any(duplicated(arrayNames)));
 
   this$.arrays <- arrayNames;
 })

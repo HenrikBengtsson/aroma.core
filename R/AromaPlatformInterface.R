@@ -348,7 +348,7 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Sanity check
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  stopifnot(isCompatibleWith(this, udf));
+  stop_if_not(isCompatibleWith(this, udf));
 
   udf;
 }, protected=TRUE) # getUnitAnnotationDataFile()

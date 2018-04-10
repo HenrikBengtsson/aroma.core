@@ -84,7 +84,7 @@ setMethodS3("plotTracks", "PairedPSCNData", function(x, tracks=c("tcn", "dh", "t
 
 
   verbose && enter(verbose, "Plotting ", class(this)[1], " tracks");
-  stopifnot(nbrOfChromosomes(this) == 1);
+  stop_if_not(nbrOfChromosomes(this) == 1);
 
   # Extract the locus-level signals (including virtual ones)
   data <- as.data.frame(this);

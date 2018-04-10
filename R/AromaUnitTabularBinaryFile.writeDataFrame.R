@@ -61,7 +61,7 @@ setMethodS3("writeDataFrame", "AromaUnitTabularBinaryFile", function(this, filen
       unitNames <- getUnitNames(unf);
       verbose && str(verbose, unitNames);
       # Sanity check
-      stopifnot(length(unitNames) == nbrOfUnits(df));
+      stop_if_not(length(unitNames) == nbrOfUnits(df));
 
       res$unitName <- unitNames;
       # Not needed anymore
@@ -274,7 +274,7 @@ setMethodS3("writeDataFrame", "AromaUnitTabularBinaryFile", function(this, filen
   if (!is.null(adData)) {
     verbose && enter(verbose, "Insert annotation data");
     # Sanity check
-    stopifnot(nrow(data) == nrow(adData));
+    stop_if_not(nrow(data) == nrow(adData));
     data <- cbind(adData, data);
     verbose && cat(verbose, "Data with annotation data:");
     verbose && str(verbose, data);
