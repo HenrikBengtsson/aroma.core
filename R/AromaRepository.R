@@ -311,7 +311,7 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
   }
 
   # Sanity check
-  stop_if_not(isFile(pathname));
+  .stop_if_not(isFile(pathname));
 
   verbose && exit(verbose);
 

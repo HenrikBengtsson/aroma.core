@@ -51,11 +51,11 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   if (!identical(dsB, "*")) {
     dsB <- Arguments$getInstanceOf(dsB, "AromaUnitFracBCnBinarySet");
     # Sanity check
-    stop_if_not(length(dsB) == length(dsT));
+    .stop_if_not(length(dsB) == length(dsT));
     # Reorder
     dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error");
     # Sanity check
-    stop_if_not(getNames(dsB) ==  getNames(dsT));
+    .stop_if_not(getNames(dsB) ==  getNames(dsT));
   }
 
   # Argument 'tags':
@@ -84,7 +84,7 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error");
     verbose && cat(verbose, "Number of files kept: ", length(dsB));
     # Sanity check
-    stop_if_not(length(dsB) == length(dsT));
+    .stop_if_not(length(dsB) == length(dsT));
     verbose && exit(verbose);
   }
 
@@ -119,9 +119,9 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     name <- getName(dfT);
     verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", ii, name, nbrOfArrays));
     # Sanity check
-    stop_if_not(getName(dfB) == name);
-    stop_if_not(nbrOfUnits(dfT) == nbrOfUnits);
-    stop_if_not(nbrOfUnits(dfB) == nbrOfUnits);
+    .stop_if_not(getName(dfB) == name);
+    .stop_if_not(nbrOfUnits(dfT) == nbrOfUnits);
+    .stop_if_not(nbrOfUnits(dfB) == nbrOfUnits);
 
     # Convert to original scale
     ratioTag <- NULL;
@@ -207,8 +207,8 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   verbose && print(verbose, ds);
 
   # Sanity check
-  stop_if_not(length(ds) == length(dsT));
-  stop_if_not(all(getNames(ds) == getNames(dsT)));
+  .stop_if_not(length(ds) == length(dsT));
+  .stop_if_not(all(getNames(ds) == getNames(dsT)));
 
   verbose && exit(verbose);
 

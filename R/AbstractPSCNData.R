@@ -143,7 +143,7 @@ setMethodS3("callSNPs", "AbstractPSCNData", function(this, method=c("some", "all
   } # for (ff ...)
 
   # Sanity check
-  stop_if_not(all(is.finite(isSNP)));
+  .stop_if_not(all(is.finite(isSNP)));
 
   nbrOfSNPs <- sum(isSNP);
   verbose && printf(verbose, "Number of SNPs: %d (%.4g%% of %d loci)\n", nbrOfSNPs, 100*nbrOfSNPs/nbrOfLoci, nbrOfLoci); 

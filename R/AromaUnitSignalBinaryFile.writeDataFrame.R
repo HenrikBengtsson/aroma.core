@@ -69,7 +69,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
       unitNames <- getUnitNames(unf);
       verbose && str(verbose, unitNames);
       # Sanity check
-      stop_if_not(length(unitNames) == nbrOfUnits);
+      .stop_if_not(length(unitNames) == nbrOfUnits);
 
       res$unitName <- unitNames;
       # Not needed anymore
@@ -316,7 +316,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinaryFile", function(this, filena
   if (!is.null(adData)) {
     verbose && enter(verbose, "Insert annotation data");
     # Sanity check
-    stop_if_not(nrow(data) == nrow(adData));
+    .stop_if_not(nrow(data) == nrow(adData));
     data <- cbind(adData, data);
     verbose && cat(verbose, "Data with annotation data:");
     verbose && str(verbose, data);

@@ -214,9 +214,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     destRows <- round(destRows);
 
     # Sanity check
-    stop_if_not(min(destRows) == 1);
-    stop_if_not(max(destRows) == nrow2);
-    stop_if_not(length(unique(destRows)) == nrow2);
+    .stop_if_not(min(destRows) == 1);
+    .stop_if_not(max(destRows) == nrow2);
+    .stop_if_not(length(unique(destRows)) == nrow2);
 
     # Allocate nrow2-by-ncol image
     dim2 <- dim;
@@ -235,7 +235,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     # Rescale intensities
     counts <- as.integer(table(destRows));
     # Sanity check
-    stop_if_not(length(counts) == nrow2);
+    .stop_if_not(length(counts) == nrow2);
     z2 <- z2 / counts;
 
 
@@ -247,9 +247,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     destCols <- round(destCols);
 
     # Sanity check
-    stop_if_not(min(destCols) == 1);
-    stop_if_not(max(destCols) == ncol2);
-    stop_if_not(length(unique(destCols)) == ncol2);
+    .stop_if_not(min(destCols) == 1);
+    .stop_if_not(max(destCols) == ncol2);
+    .stop_if_not(length(unique(destCols)) == ncol2);
 
     # Allocate nrow2-by-ncol2 image
     dim3 <- dim2;
@@ -268,7 +268,7 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     # Rescale intensities
     counts <- as.integer(table(destCols));
     # Sanity check
-    stop_if_not(length(counts) == ncol2);
+    .stop_if_not(length(counts) == ncol2);
     for (cc in seq_len(ncol2)) {
       z3[,cc,,] <- z3[,cc,,] / counts[cc];
     }
@@ -286,9 +286,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     srcRows <- round(srcRows);
 
     # Sanity check
-    stop_if_not(min(srcRows) == 1);
-    stop_if_not(max(srcRows) == nrow);
-    stop_if_not(length(unique(srcRows)) == nrow);
+    .stop_if_not(min(srcRows) == 1);
+    .stop_if_not(max(srcRows) == nrow);
+    .stop_if_not(length(unique(srcRows)) == nrow);
 
     # Allocate nrow2-by-ncol image
     dim2 <- dim;
@@ -312,9 +312,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
     srcCols <- seq(from=1, to=ncol, length.out=ncol2);
     srcCols <- round(srcCols);
     # Sanity check
-    stop_if_not(min(srcCols) == 1);
-    stop_if_not(max(srcCols) == ncol);
-    stop_if_not(length(unique(srcCols)) == ncol);
+    .stop_if_not(min(srcCols) == 1);
+    .stop_if_not(max(srcCols) == ncol);
+    .stop_if_not(length(unique(srcCols)) == ncol);
 
     # Allocate nrow2-by-ncol2 image
     dim3 <- dim2;
@@ -334,9 +334,9 @@ setMethodS3("rescale", "RasterImage", function(this, scale=1, ...) {
   }
 
   # Sanity check
-  stop_if_not(all(dim(zN) == dimN));
-  stop_if_not(min(zN) >= 0);
-  stop_if_not(max(zN) <= 1);
+  .stop_if_not(all(dim(zN) == dimN));
+  .stop_if_not(min(zN) >= 0);
+  .stop_if_not(max(zN) <= 1);
 
   # Preserve the original number of dimensions
   dimN <- dimN[1:ndim];
@@ -466,8 +466,8 @@ setMethodS3("colorize", "RasterImage", function(this, palette=gray.colors(256), 
   verbose && summary(verbose, z);
 
   # Sanity checks
-  stop_if_not(min(z, na.rm=TRUE) >= 0);
-  stop_if_not(max(z, na.rm=TRUE) <= 1);
+  .stop_if_not(min(z, na.rm=TRUE) >= 0);
+  .stop_if_not(max(z, na.rm=TRUE) <= 1);
 
   verbose && exit(verbose);
 
@@ -543,7 +543,7 @@ setMethodS3("interleave", "RasterImage", function(this, what=c("none", "h", "v",
   dim(z) <- zDim;
 
   # Sanity check
-  stop_if_not(ndim == 2 || ndim == 3);
+  .stop_if_not(ndim == 2 || ndim == 3);
   if (ndim == 2) {
     dim(z) <- c(zDim, 1L);
   }

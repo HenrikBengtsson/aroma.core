@@ -76,7 +76,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
       unitNames <- getUnitNames(unf);
       verbose && str(verbose, unitNames);
       # Sanity check
-      stop_if_not(length(unitNames) == nbrOfUnits);
+      .stop_if_not(length(unitNames) == nbrOfUnits);
 
       res$unitName <- unitNames;
       # Not needed anymore
@@ -407,7 +407,7 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
       verbose && enter(verbose, "Insert annotation data");
       adDataKK <- adData[unitsKK,,drop=FALSE];
       # Sanity check
-      stop_if_not(nrow(dataKK) == nrow(adDataKK));
+      .stop_if_not(nrow(dataKK) == nrow(adDataKK));
 
       # SUBOPTIMAL: Should preallocate 'dataKK' to save memory
       dataKK <- cbind(adDataKK, dataKK);

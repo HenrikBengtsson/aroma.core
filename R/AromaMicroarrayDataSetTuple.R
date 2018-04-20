@@ -146,7 +146,7 @@ setMethodS3("getFullNames", "AromaMicroarrayDataSetTuple", function(this, arrays
     names <- sapply(cfList, FUN=getName);
     names <- names[!is.na(names)];
     # Sanity check
-    stop_if_not(length(names) > 0);
+    .stop_if_not(length(names) > 0);
 
     name <- names[1];
 

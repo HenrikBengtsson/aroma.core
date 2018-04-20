@@ -53,7 +53,7 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
   nbrOfLoci <- length(x);
 
   # Sanity check
-  stop_if_not(length(y) == nbrOfLoci);
+  .stop_if_not(length(y) == nbrOfLoci);
 
   # Identify the locus indices where the regions starts and ends
   dy <- diff(y);
@@ -61,7 +61,7 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
   ends <- c(starts[-1]-1L, nbrOfLoci);
 
   # Sanity check
-  stop_if_not(length(starts) == length(ends));
+  .stop_if_not(length(starts) == length(ends));
 
   counts <- ends - starts + 1L;
 
@@ -69,7 +69,7 @@ setMethodS3("extractCopyNumberRegions", "MPCBS", function(object, ...) {
   means <- y[starts];
 
   # Sanity check
-  stop_if_not(length(means) == length(starts));
+  .stop_if_not(length(means) == length(starts));
 
   # Translate to genomic positions
   starts <- x[starts];

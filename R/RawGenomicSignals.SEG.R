@@ -80,7 +80,7 @@ setMethodS3("extractDataForSegmentation", "RawGenomicSignals", function(this, or
     verbose && cat(verbose, "Signals:");
     verbose && str(verbose, y);
     # Sanity check
-    stop_if_not(is.numeric(y));
+    .stop_if_not(is.numeric(y));
     keep <- which(is.finite(y));
     nbrOfDropped <- nbrOfLoci-length(keep);
     verbose && cat(verbose, "Number of dropped loci: ", nbrOfDropped);

@@ -136,7 +136,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
     if (ncol(xOutRange) != 2L) {
       throw("Argument 'xOutRange' must be a matrix with two columns: ", ncol(xOutRange));
     }
-    stop_if_not(all(xOutRange[,2L] >= xOutRange[,1L]));
+    .stop_if_not(all(xOutRange[,2L] >= xOutRange[,1L]));
   }
 
   # Arguments 'na.rm':
@@ -235,8 +235,8 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   }
 
   # Assert that the bin boundaries [x0,x1) contains the target bin.
-  stop_if_not(all(xOutRange[,1L] <= xOut));
-  stop_if_not(all(xOut <= xOutRange[,2L]));
+  .stop_if_not(all(xOutRange[,1L] <= xOut));
+  .stop_if_not(all(xOut <= xOutRange[,2L]));
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -334,7 +334,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   attr(Ys, "binWidth") <- avgBinWidth;
 
   # Sanity check
-  stop_if_not(nrow(Ys) == nOut);
+  .stop_if_not(nrow(Ys) == nOut);
 
   verbose && exit(verbose);
 

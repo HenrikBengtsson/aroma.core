@@ -14,7 +14,7 @@ setMethodS3("getChromosome", "SegmentationDataFile", function(this, ..., force=F
     chrTag <- gsub("^chr", "", chrTag);
     chromosome <- as.integer(chrTag);
     # Sanity check
-    stop_if_not(is.finite(chromosome));
+    .stop_if_not(is.finite(chromosome));
     this$.chromosome <- chromosome;
   }
 
@@ -34,11 +34,11 @@ setMethodS3("getReferenceName", "SegmentationDataFile", function(this, ..., forc
     tags <- getTags(this, collapse=NULL);
     idx <- grep("^chr", tags, value=FALSE);
     # Sanity check
-    stop_if_not(length(idx) == 1);
+    .stop_if_not(length(idx) == 1);
     tags <- tags[seq(from=idx+1, to=length(tags))];
     referenceName <- paste(tags, collapse=",");
     # Sanity check
-    stop_if_not(nchar(referenceName) > 0);
+    .stop_if_not(nchar(referenceName) > 0);
     this$.referenceName <- referenceName;
   }
 

@@ -176,12 +176,12 @@ setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(
 
   eps <- rfcn(n=n, x=x, mu=mu);
   # Sanity check
-  stop_if_not(length(eps) == nbrOfLoci);
+  .stop_if_not(length(eps) == nbrOfLoci);
 
   y <- mu + eps;
 
   # Sanity check
-  stop_if_not(length(y) == nbrOfLoci);
+  .stop_if_not(length(y) == nbrOfLoci);
 
   chromosome <- this$chromosome[1];
   res <- RawCopyNumbers(x=x, cn=y, chromosome=chromosome);
