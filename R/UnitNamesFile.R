@@ -23,14 +23,14 @@
 # @author
 #*/###########################################################################
 setConstructorS3("UnitNamesFile", function(...) {
-  extend(UnitAnnotationDataFile(...), "UnitNamesFile");
+  extend(UnitAnnotationDataFile(...), "UnitNamesFile")
 })
 
 
-setMethodS3("getUnitNames", "UnitNamesFile", abstract=TRUE);
+setMethodS3("getUnitNames", "UnitNamesFile", abstract=TRUE)
 
 setMethodS3("nbrOfUnits", "UnitNamesFile", function(this, ...) {
-  length(getUnitNames(this));
+  length(getUnitNames(this))
 })
 
 
@@ -69,22 +69,22 @@ setMethodS3("nbrOfUnits", "UnitNamesFile", function(this, ...) {
 setMethodS3("indexOf", "UnitNamesFile", function(this, pattern=NULL, names=NULL, ...) {
   # Arguments 'pattern' & 'names':
   if (!is.null(pattern) && !is.null(names)) {
-    throw("Only one of arguments 'pattern' and 'names' can be specified.");
+    throw("Only one of arguments 'pattern' and 'names' can be specified.")
   }
 
   if (is.null(pattern) && is.null(names)) {
-    throw("Either argument 'names' or 'pattern' must be specified.");
+    throw("Either argument 'names' or 'pattern' must be specified.")
   }
 
   if (!is.null(pattern)) {
     if (length(pattern) != 1) {
-      throw("If specified, argument 'pattern' must be a single string. Did you mean to use argument 'names'?");
+      throw("If specified, argument 'pattern' must be a single string. Did you mean to use argument 'names'?")
     }
-    pattern <- Arguments$getRegularExpression(pattern);
-    idxs <- grep(pattern, getUnitNames(this));
+    pattern <- Arguments$getRegularExpression(pattern)
+    idxs <- grep(pattern, getUnitNames(this))
   } else if (!is.null(names)) {
-    idxs <- match(names, getUnitNames(this));
+    idxs <- match(names, getUnitNames(this))
   }
 
-  idxs;
+  idxs
 })

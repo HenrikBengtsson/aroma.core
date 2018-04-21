@@ -22,7 +22,7 @@
 # @keyword internal
 #*/########################################################################### 
 setConstructorS3("CacheKeyInterface", function(...) {
-  extend(Interface(), "CacheKeyInterface");
+  extend(Interface(), "CacheKeyInterface")
 })
 
 
@@ -65,5 +65,5 @@ setConstructorS3("CacheKeyInterface", function(...) {
 # }
 #*/###########################################################################
 setMethodS3("getCacheKey", "CacheKeyInterface", function(this, ...) {
-  list(className=class(this)[1], ...);
+  list(className=class(this)[1], ...)
 })

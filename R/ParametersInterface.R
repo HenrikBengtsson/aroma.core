@@ -20,7 +20,7 @@
 # @author
 #*/########################################################################### 
 setConstructorS3("ParametersInterface", function(...) {
-  extend(Interface(), "ParametersInterface");
+  extend(Interface(), "ParametersInterface")
 })
 
 
@@ -50,22 +50,22 @@ setConstructorS3("ParametersInterface", function(...) {
 # }
 #*/###########################################################################
 setMethodS3("getParameters", "ParametersInterface", function(this, ...) {
-  list();
+  list()
 })
 
 setMethodS3("getParameterSets", "ParametersInterface", function(this, ...) {
-  paramsList <- getParameters(this, ...);
+  paramsList <- getParameters(this, ...)
 
-  hasSets <- attr(paramsList, "hasSets");
+  hasSets <- attr(paramsList, "hasSets")
 
   # If the 'paramsList' is flat, turn it into an unnamed set of parameters
   if (is.null(hasSets)) {
-    paramsList <- list(paramsList);
-    hasSets <- TRUE;
-    attr(paramsList, "hasSets") <- hasSets;
+    paramsList <- list(paramsList)
+    hasSets <- TRUE
+    attr(paramsList, "hasSets") <- hasSets
   }
 
-  paramsList;  
+  paramsList
 }, protected=TRUE)
 
 
@@ -100,54 +100,54 @@ setMethodS3("getParameterSets", "ParametersInterface", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getParametersAsString", "ParametersInterface", function(this, ..., collapse=c(", ", "; "), drop=TRUE) {
-  paramsList <- getParameterSets(this, ..., drop=FALSE);
-  nbrOfSets <- length(paramsList);
+  paramsList <- getParameterSets(this, ..., drop=FALSE)
+  nbrOfSets <- length(paramsList)
 
   # If more than one set and the first one is not named and is empty,
   # then drop it.  NB: This allows subclasses to override getParameterSets()
   # instead of getParameters().
   if (nbrOfSets > 1L) {
-    keys <- names(paramsList);
+    keys <- names(paramsList)
     # Sanity check
     if (is.null(keys)) {
-      throw("INTERNAL ERROR: Detected non-named parameter sets.");
+      throw("INTERNAL ERROR: Detected non-named parameter sets.")
     }
     # Drop first?
     if (nchar(keys[1L]) == 0L) {
-      paramsList <- paramsList[-1L];
-      nbrOfSets <- length(paramsList);
+      paramsList <- paramsList[-1L]
+      nbrOfSets <- length(paramsList)
     }
   }
 
   # Coerce each set to character strings
-  res <- list();
+  res <- list()
   for (kk in seq_along(paramsList)) {
-    key <- names(paramsList)[kk];
-    params <- paramsList[[kk]];
+    key <- names(paramsList)[kk]
+    params <- paramsList[[kk]]
 
-    s <- trim(capture.output(str(params)))[-1L];
-    s <- gsub("^[$][ ]*", "", s);
-    s <- gsub(" [ ]*", " ", s);
-    s <- gsub("[ ]*:", ":", s);
+    s <- trim(capture.output(str(params)))[-1L]
+    s <- gsub("^[$][ ]*", "", s)
+    s <- gsub(" [ ]*", " ", s)
+    s <- gsub("[ ]*:", ":", s)
 
     if (length(collapse) > 0L) {
-      s <- paste(s, collapse=collapse[1L]);
+      s <- paste(s, collapse=collapse[1L])
     }
 
-    s <- sprintf("{%s}", s);
+    s <- sprintf("{%s}", s)
 
     if (!is.null(key) && nchar(key) > 0L) {
-      s <- sprintf("%s=%s", key, s);
+      s <- sprintf("%s=%s", key, s)
     }
 
-    res[[kk]] <- s;
+    res[[kk]] <- s
   } # for (kk ...)
 
   if (drop && nbrOfSets == 1L) {
-    res <- res[[1L]];
+    res <- res[[1L]]
   } else if (nbrOfSets > 1L && length(collapse) > 1L) {
-    res <- paste(res, collapse=collapse[2L]);
+    res <- paste(res, collapse=collapse[2L])
   }
 
-  res;
+  res
 }) # getParametersAsString()

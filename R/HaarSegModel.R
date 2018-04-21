@@ -41,11 +41,11 @@ setConstructorS3("HaarSegModel", function(cesTuple=NULL, ..., breaksFdrQ=0.0001)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(cesTuple)) {
     # Early error, iff package is not installed
-    requireNamespace("HaarSeg") || throw("Package not loaded: HaarSeg");
+    requireNamespace("HaarSeg") || throw("Package not loaded: HaarSeg")
   }
 
   # Argument 'breaksFdrQ':
-  breaksFdrQ <- Arguments$getDouble(breaksFdrQ, range=c(0,1));
+  breaksFdrQ <- Arguments$getDouble(breaksFdrQ, range=c(0,1))
 
   extend(CopyNumberSegmentationModel(cesTuple=cesTuple, ...), "HaarSegModel",
     .breaksFdrQ = breaksFdrQ
@@ -54,10 +54,10 @@ setConstructorS3("HaarSegModel", function(cesTuple=NULL, ..., breaksFdrQ=0.0001)
 
 
 setMethodS3("getAsteriskTags", "HaarSegModel", function(this, ...) {
-  NextMethod("getAsteriskTags", tag="HAAR");
+  NextMethod("getAsteriskTags", tag="HAAR")
 }, protected=TRUE)
 
 
 setMethodS3("getFitFunction", "HaarSegModel", function(this, ...) {
-  segmentByHaarSeg;
+  segmentByHaarSeg
 }, protected=TRUE)

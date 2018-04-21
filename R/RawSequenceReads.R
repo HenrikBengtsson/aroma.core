@@ -26,14 +26,14 @@ setConstructorS3("RawSequenceReads", function(x=NULL, y=rep(1L, length(x)), ...)
 })
 
 setMethodS3("nbrOfReads", "RawSequenceReads", function(this, ...) {
-  nbrOfLoci(this, ...);
+  nbrOfLoci(this, ...)
 })
 
 setMethodS3("binnedSums", "RawSequenceReads", function(this, ...) {
-  binnedSmoothing(this, ..., FUN=sum);
+  binnedSmoothing(this, ..., FUN=sum)
 })
 
 
 setMethodS3("plot", "RawSequenceReads", function(x, ..., ylim=c(0,10), ylab="Reads") {
-  NextMethod("plot", ylim=ylim, ylab=ylab);
+  NextMethod("plot", ylim=ylim, ylab=ylab)
 })

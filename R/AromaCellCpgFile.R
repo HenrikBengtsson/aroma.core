@@ -25,21 +25,21 @@
 # @author "MR"
 #*/###########################################################################
 setConstructorS3("AromaCellCpgFile", function(...) {
-  extend(AromaCellTabularBinaryFile(...), "AromaCellCpgFile");
+  extend(AromaCellTabularBinaryFile(...), "AromaCellCpgFile")
 })
 
 setMethodS3("getFilenameExtension", "AromaCellCpgFile", function(static, ...) {
-  "acc";
+  "acc"
 }, static=TRUE)
 
 
 setMethodS3("getDefaultExtension", "AromaCellCpgFile", function(static, ...) {
-  "acc";
+  "acc"
 }, static=TRUE)
 
 
 setMethodS3("getDefaultColumnNames", "AromaCellCpgFile", function(this, ...) {
-  c("cpgDensity");
+  c("cpgDensity")
 }, protected=TRUE)
 
 
@@ -48,33 +48,33 @@ setMethodS3("readCpgs", "AromaCellCpgFile", function(this, cells=NULL, drop=FALS
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
-  nbrOfCells <- nbrOfCells(this);
+  nbrOfCells <- nbrOfCells(this)
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
-    nbrOfCells <- length(cells);
+    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells))
+    nbrOfCells <- length(cells)
   }
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Reading match scores");
+  verbose && enter(verbose, "Reading match scores")
 
   # Read data
-  verbose && enter(verbose, "Reading data frame");
-  res <- readDataFrame(this, rows=cells, columns=1, verbose=less(verbose, 5));
-  verbose && exit(verbose);
+  verbose && enter(verbose, "Reading data frame")
+  res <- readDataFrame(this, rows=cells, columns=1, verbose=less(verbose, 5))
+  verbose && exit(verbose)
 
   # Flatten (data frame)
-  dim <- dim(res);
-  res <- unlist(res, use.names=FALSE);
+  dim <- dim(res)
+  res <- unlist(res, use.names=FALSE)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 })
 
 
@@ -83,58 +83,58 @@ setMethodS3("updateCpgs", "AromaCellCpgFile", function(this, cells=NULL, scores,
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'cells':
-  nbrOfCells <- nbrOfCells(this);
+  nbrOfCells <- nbrOfCells(this)
   if (!is.null(cells)) {
-    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells));
-    nbrOfCells <- length(cells);
+    cells <- Arguments$getIndices(cells, range=c(1, nbrOfCells))
+    nbrOfCells <- length(cells)
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Optimize
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Remove duplicated 'cells'
-  keep <- which(!duplicated(cells));
-  cells <- cells[keep];
-  scores <- scores[keep];
+  keep <- which(!duplicated(cells))
+  cells <- cells[keep]
+  scores <- scores[keep]
   # Not needed anymore
-  keep <- NULL;
+  keep <- NULL
 
   # Order by 'cells'
-  srt <- sort(cells, method="quick", index.return=TRUE);
-  o <- srt$ix;
-  cells <- srt$x;
+  srt <- sort(cells, method="quick", index.return=TRUE)
+  o <- srt$ix
+  cells <- srt$x
   # Not needed anymore
-  srt <- NULL;
-  scores <- scores[o];
+  srt <- NULL
+  scores <- scores[o]
   # Not needed anymore
-  o <- NULL;
+  o <- NULL
 
-  lastColumn <- nbrOfColumns(this);
-  this[cells,lastColumn] <- as.integer(scores);
+  lastColumn <- nbrOfColumns(this)
+  this[cells,lastColumn] <- as.integer(scores)
 })
 
 
 setMethodS3("isMissing", "AromaCellCpgFile", function(this, ...) {
-  res <- readCpgs(this, ..., positions=1, drop=TRUE);
-  res <- (res == 0);
-  res;
+  res <- readCpgs(this, ..., positions=1, drop=TRUE)
+  res <- (res == 0)
+  res
 }, protected=TRUE)
 
 
 setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, platform, chipType, footer=list()) {
   # Argument 'nbrOfCells':
-  nbrOfCells <- Arguments$getInteger(nbrOfCells, range=c(1, 1000e6));
+  nbrOfCells <- Arguments$getInteger(nbrOfCells, range=c(1, 1000e6))
 
   # Argument 'platform':
-  platform <- Arguments$getCharacter(platform);
+  platform <- Arguments$getCharacter(platform)
 
   # Argument 'chipType':
-  chipType <- Arguments$getCharacter(chipType);
+  chipType <- Arguments$getCharacter(chipType)
 
   # Argument 'footer':
   if (is.null(footer)) {
   } else if (!is.list(footer)) {
-    throw("Argument 'footer' must be NULL or a list: ", class(footer)[1]);
+    throw("Argument 'footer' must be NULL or a list: ", class(footer)[1])
   }
 
   footer <- c(
@@ -144,7 +144,7 @@ setMethodS3("allocate", "AromaCellCpgFile", function(static, ..., nbrOfCells, pl
       chipType=chipType
     ),
     footer
-  );
+  )
 
-  NextMethod("allocate", nbrOfRows=nbrOfCells, types="double", sizes=4L, footer=footer);
+  NextMethod("allocate", nbrOfRows=nbrOfCells, types="double", sizes=4L, footer=footer)
 }, static=TRUE, protected=TRUE)

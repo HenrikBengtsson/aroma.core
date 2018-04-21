@@ -38,22 +38,22 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitFracBCnBinarySet", function(...) {
-  extend(AromaUnitSignalBinarySet(...), "AromaUnitFracBCnBinarySet");
+  extend(AromaUnitSignalBinarySet(...), "AromaUnitFracBCnBinarySet")
 })
 
 
 setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData", "rawCnData", "cnData", "smoothCnData"), pattern=".*,(frac|freq)B[.]asb$") {
   suppressWarnings({
     path <- findByName(static, name=name, tags=tags, chipType=chipType, 
-                                           ..., paths=paths, mustExist=TRUE);
+                                           ..., paths=paths, mustExist=TRUE)
   })
 
   suppressWarnings({
-    byPath(static, path=path, ..., pattern=pattern);
+    byPath(static, path=path, ..., pattern=pattern)
   })
 }, static=TRUE) 
 
 
 setMethodS3("writeDataFrame", "AromaUnitFracBCnBinarySet", function(this, filename=sprintf("%s,fracB.txt", getFullName(this)), ...) {
-  NextMethod("writeDataFrame", filename=filename);
+  NextMethod("writeDataFrame", filename=filename)
 })

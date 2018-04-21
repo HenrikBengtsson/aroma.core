@@ -1,21 +1,21 @@
 library <- function(...) {
-  res <- withVisible(base::library(...));
-  callHooks("base::library:onLoad");
-  value <- res$value;
+  res <- withVisible(base::library(...))
+  callHooks("base::library:onLoad")
+  value <- res$value
   if (res$visible) {
-    return(value);
+    return(value)
   } else {
-    return(invisible(value));
+    return(invisible(value))
   }
 } # library()
 
 require <- function(...) {
-  res <- withVisible(base::require(...));
-  callHooks("base::library:onLoad");
-  value <- res$value;
+  res <- withVisible(base::require(...))
+  callHooks("base::library:onLoad")
+  value <- res$value
   if (res$visible) {
-    return(value);
+    return(value)
   } else {
-    return(invisible(value));
+    return(invisible(value))
   }
 } # library()

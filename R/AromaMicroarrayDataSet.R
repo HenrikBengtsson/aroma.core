@@ -24,31 +24,31 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaMicroarrayDataSet", function(files=NULL, ...) {
-  extend(GenericDataFileSet(files=files, ...), "AromaMicroarrayDataSet");
+  extend(GenericDataFileSet(files=files, ...), "AromaMicroarrayDataSet")
 })
 
 
 setMethodS3("validate", "AromaMicroarrayDataSet", function(this, ...) {
-  chipTypes <- lapply(this, FUN=getChipType);
-  chipTypes <- unique(chipTypes);
+  chipTypes <- lapply(this, FUN=getChipType)
+  chipTypes <- unique(chipTypes)
   if (length(chipTypes) > 1L) {
-    throw("The located ", class(this)[1L], " contains files with different chip types: ", paste(chipTypes, collapse=", "));
+    throw("The located ", class(this)[1L], " contains files with different chip types: ", paste(chipTypes, collapse=", "))
   }
 
-  NextMethod("validate");
+  NextMethod("validate")
 }, protected=TRUE)
 
 
 setMethodS3("getPlatform", "AromaMicroarrayDataSet", function(this, ...) {
-  getPlatform(getOneFile(this, ...));
+  getPlatform(getOneFile(this, ...))
 })
 
 
 setMethodS3("getDefaultFullName", "AromaMicroarrayDataSet", function(this, parent=1L, ...) {
-  NextMethod("getDefaultFullName", parent=parent);
+  NextMethod("getDefaultFullName", parent=parent)
 }, protected=TRUE)
 
 
 setMethodS3("getChipType", "AromaMicroarrayDataSet", function(this, ...) {
-  getChipType(getOneFile(this, ...));
+  getChipType(getOneFile(this, ...))
 })

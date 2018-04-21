@@ -28,29 +28,29 @@
 #*/########################################################################### 
 setConstructorS3("AromaUnitPscnBinaryFile", function(...) {
   extend(AromaUnitSignalBinaryFile(...), c("AromaUnitPscnBinaryFile", uses("CopyNumberDataFile"))
-  );
+  )
 })
 
 
 setMethodS3("hasTotalCopyNumberRatios", "AromaUnitPscnBinaryFile", function(this, ...) {
-  hasTag(this, "ratio");
+  hasTag(this, "ratio")
 })
 
 
 setMethodS3("hasAlleleBFractions", "AromaUnitPscnBinaryFile", function(this, ...) {
   # By definition, always TRUE
-  TRUE;
+  TRUE
 })
 
 setMethodS3("hasStrandiness", "AromaUnitPscnBinaryFile", function(this, ...) {
   # For now always FALSE, due to how the (super)classes are defined.
   # /HB 2009-11-19
-  FALSE;
+  FALSE
 })
  
 setMethodS3("getDefaultColumnNames", "AromaUnitPscnBinaryFile", function(this, ...) {
- .stop_if_not(nbrOfColumns(this) == 2L);
- c("total", "fracB");
+ .stop_if_not(nbrOfColumns(this) == 2L)
+ c("total", "fracB")
 }, protected=TRUE)
 
 
@@ -60,28 +60,28 @@ setMethodS3("extractRawCopyNumbers", "AromaUnitPscnBinaryFile", function(this, .
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'logBase':
   if (!is.null(logBase)) {
-    logBase <- Arguments$getDouble(logBase, range=c(1, 10));
+    logBase <- Arguments$getDouble(logBase, range=c(1, 10))
   }
 
   # Total CN signals are always stored on the original scale in column #1.
-  cn <- extractRawGenomicSignals(this, column=1L, ..., clazz=clazz);
+  cn <- extractRawGenomicSignals(this, column=1L, ..., clazz=clazz)
 
   # Convert to the correct logarithmic base
-  cn <- extractRawCopyNumbers(cn, logBase=logBase);
+  cn <- extractRawCopyNumbers(cn, logBase=logBase)
 
-  cn;
+  cn
 })
 
 
 setMethodS3("allocate", "AromaUnitPscnBinaryFile", function(static, ..., platform, chipType, types=c("double", "double"), sizes=c(4L, 4L), signed=c(TRUE, TRUE), footer=list()) {
   # Argument 'platform':
-  platform <- Arguments$getCharacter(platform, length=c(1,1));
+  platform <- Arguments$getCharacter(platform, length=c(1,1))
 
   # Argument 'chipType':
-  chipType <- Arguments$getCharacter(chipType, length=c(1,1));
+  chipType <- Arguments$getCharacter(chipType, length=c(1,1))
 
   # Create tabular binary file
-  res <- NextMethod("allocate", generic="allocate", types=types, sizes=sizes, signeds=signed);
+  res <- NextMethod("allocate", generic="allocate", types=types, sizes=sizes, signeds=signed)
 
 
   # Write attributes to footer
@@ -89,9 +89,9 @@ setMethodS3("allocate", "AromaUnitPscnBinaryFile", function(static, ..., platfor
     createdOn=format(Sys.time(), "%Y%m%d %H:%M:%S", usetz=TRUE),
     platform=platform, 
     chipType=chipType
-  );
-  footer <- c(attrs, footer);
-  writeFooter(res, footer);
+  )
+  footer <- c(attrs, footer)
+  writeFooter(res, footer)
 
-  res;
+  res
 }, static=TRUE, protected=TRUE)

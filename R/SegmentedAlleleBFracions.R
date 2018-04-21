@@ -23,7 +23,7 @@
 #*/########################################################################### 
 setConstructorS3("SegmentedAlleleBFractions", function(..., states=NULL) {
   this <- extend(RawAlleleBFractions(...), c("SegmentedAlleleBFractions", 
-                                   uses("SegmentedGenomicSignalsInterface")));
-  this <- setStates(this, states=states);
-  this;
+                                   uses("SegmentedGenomicSignalsInterface")))
+  this <- setStates(this, states=states)
+  this
 })

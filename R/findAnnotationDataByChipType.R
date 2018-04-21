@@ -20,5 +20,5 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("findAnnotationDataByChipType", "default", function(chipType, pattern=chipType, ...) {
-  findAnnotationData(name=chipType, pattern=pattern, set="chipTypes", ...);
+  findAnnotationData(name=chipType, pattern=pattern, set="chipTypes", ...)
 }, protected=TRUE)

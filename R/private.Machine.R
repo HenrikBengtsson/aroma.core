@@ -1,1 +1,1 @@
-.Machine$float.eps <- sqrt(.Machine$double.eps);
+.Machine$float.eps <- sqrt(.Machine$double.eps)
