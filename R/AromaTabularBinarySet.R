@@ -24,10 +24,10 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaTabularBinarySet", function(files=NULL, ...) {
-  extend(GenericTabularFileSet(files=files, ...), "AromaTabularBinarySet");
+  extend(GenericTabularFileSet(files=files, ...), "AromaTabularBinarySet")
 })
 
 
 setMethodS3("getDefaultFullName", "AromaTabularBinarySet", function(this, parent=1L, ...) {
-  NextMethod("getDefaultFullName", parent=parent);
+  NextMethod("getDefaultFullName", parent=parent)
 }, protected=TRUE)

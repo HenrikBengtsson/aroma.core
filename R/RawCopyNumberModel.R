@@ -23,13 +23,13 @@
 # @author
 #*/###########################################################################
 setConstructorS3("RawCopyNumberModel", function(...) {
-  extend(CopyNumberChromosomalModel(...), "RawCopyNumberModel");
+  extend(CopyNumberChromosomalModel(...), "RawCopyNumberModel")
 })
 
 setMethodS3("getAsteriskTags", "RawCopyNumberModel", function(this, ...) {
-  "";
+  ""
 }, protected=TRUE)
 
 setMethodS3("getSetTag", "RawCopyNumberModel", function(this, ...) {
-  "raw";
+  "raw"
 }, protected=TRUE)

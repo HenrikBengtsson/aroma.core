@@ -14,45 +14,45 @@ setMethodS3("getAromaFullNameTranslatorSet", "character", function(dataSet, ...,
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Arguments 'dataSet':
-  dataSet <- Arguments$getCharacter(dataSet);
+  dataSet <- Arguments$getCharacter(dataSet)
 
   # Arguments 'chipType':
   if (!is.null(dataSet)) {
-    chipType <- Arguments$getCharacter(chipType);
+    chipType <- Arguments$getCharacter(chipType)
   }
 
   # Arguments 'paths':
-  paths <- Arguments$getCharacters(paths);
+  paths <- Arguments$getCharacters(paths)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Locating fullname TabularTextFileSet:s");
-  verbose && cat(verbose, "Data set: ", dataSet);
-  verbose && cat(verbose, "Chip type: ", chipType);
+  verbose && enter(verbose, "Locating fullname TabularTextFileSet:s")
+  verbose && cat(verbose, "Data set: ", dataSet)
+  verbose && cat(verbose, "Chip type: ", chipType)
 
-  subdirs <- c(chipType, ".");
+  subdirs <- c(chipType, ".")
   res <- getFullNameTranslatorSet(dataSet, ..., subdirs=subdirs, 
-                                    paths=paths, verbose=less(verbose, 5));
-  verbose && print(verbose, res);
+                                    paths=paths, verbose=less(verbose, 5))
+  verbose && print(verbose, res)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 }, protected=TRUE) # getAromaFullNameTranslatorSet()
 
 
 setMethodS3("getAromaFullNameTranslatorSet", "AromaMicroarrayDataSet", function(this, ...) {
-  getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...);
+  getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...)
 }, protected=TRUE)
 
 setMethodS3("getAromaFullNameTranslatorSet", "AromaUnitSignalBinarySet", function(this, ...) {
-  getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...);
+  getAromaFullNameTranslatorSet(getFullName(this), tags=NULL, chipType=getChipType(this, fullname=FALSE), ...)
 }, protected=TRUE)
 
 
@@ -64,44 +64,44 @@ setMethodS3("getFullNameTranslatorSet", "character", function(dataSet, ..., firs
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Arguments 'dataSet':
-  dataSet <- Arguments$getCharacter(dataSet);
+  dataSet <- Arguments$getCharacter(dataSet)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Locating fullname TabularTextFileSet:s");
-  verbose && cat(verbose, "Data set: ", dataSet);
+  verbose && enter(verbose, "Locating fullname TabularTextFileSet:s")
+  verbose && cat(verbose, "Data set: ", dataSet)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Find all existing search paths
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   paths <- GenericDataFileSet$findByName(dataSet, ..., firstOnly=firstOnly,
-                                mustExist=FALSE, verbose=less(verbose, 5));
+                                mustExist=FALSE, verbose=less(verbose, 5))
 
-  verbose && cat(verbose, "Existing search paths:");
-  verbose && print(verbose, paths);
+  verbose && cat(verbose, "Existing search paths:")
+  verbose && print(verbose, paths)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Scan for existing fullname translator files
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Allocate empty result
-  res <- TabularTextFileSet();
+  res <- TabularTextFileSet()
 
   for (path in paths) {
-    ds <- TabularTextFileSet$byPath(path, pattern=",fullnames[.]txt$");
-    append(res, ds);
+    ds <- TabularTextFileSet$byPath(path, pattern=",fullnames[.]txt$")
+    append(res, ds)
   } # for (path ...)
 
-  verbose && print(verbose, res);
+  verbose && print(verbose, res)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 }, protected=TRUE) # getFullNameTranslatorSet()
 
 
@@ -113,31 +113,31 @@ setMethodS3("getFullNameTranslatorSet", "GenericDataFileSet", function(this, sub
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Arguments 'dirs':
-  subdirs <- Arguments$getCharacters(subdirs);
+  subdirs <- Arguments$getCharacters(subdirs)
 
   # Arguments 'paths':
-  paths <- Arguments$getCharacters(paths);
+  paths <- Arguments$getCharacters(paths)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Locating fullname TabularTextFileSet:s");
-  dataSet <- getFullName(this);
-  verbose && cat(verbose, "Argument 'dataSet': ", dataSet);
-  verbose && cat(verbose, "Argument 'subdirs': ");
-  verbose && print(verbose, subdirs);
-  verbose && cat(verbose, "Argument 'paths':");
-  verbose && print(verbose, paths);
+  verbose && enter(verbose, "Locating fullname TabularTextFileSet:s")
+  dataSet <- getFullName(this)
+  verbose && cat(verbose, "Argument 'dataSet': ", dataSet)
+  verbose && cat(verbose, "Argument 'subdirs': ")
+  verbose && print(verbose, subdirs)
+  verbose && cat(verbose, "Argument 'paths':")
+  verbose && print(verbose, paths)
 
   res <- getFullNameTranslatorSet(dataSet, subdirs=subdirs, paths=paths,
-                                           ..., verbose=less(verbose, 1));
+                                           ..., verbose=less(verbose, 1))
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 }, protected=TRUE)

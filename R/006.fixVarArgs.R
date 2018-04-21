@@ -1,23 +1,23 @@
 # Added '...' to some base functions. These will later be
 # turned into default functions by setMethodS3().
 
-# USED TO DO: colSums <- appendVarArgs(colSums);
-colSums <- function(...) UseMethod("colSums");
+# USED TO DO: colSums <- appendVarArgs(colSums)
+colSums <- function(...) UseMethod("colSums")
 setMethodS3("colSums", "default", function(...) {
-  base::colSums(...);
+  base::colSums(...)
 })
 
-# USED TO DO: colMeans <- appendVarArgs(colMeans);
-colMeans <- function(...) UseMethod("colMeans");
+# USED TO DO: colMeans <- appendVarArgs(colMeans)
+colMeans <- function(...) UseMethod("colMeans")
 setMethodS3("colMeans", "default", function(...) {
-  base::colMeans(...);
+  base::colMeans(...)
 })
 
-write <- appendVarArgs(write);
+write <- appendVarArgs(write)
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Add generic process().
 # NB: process() is defined in R.rsp (>= 0.9.1)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-setGenericS3("process", overwrite=TRUE);
+setGenericS3("process", overwrite=TRUE)

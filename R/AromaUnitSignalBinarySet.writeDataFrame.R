@@ -7,7 +7,7 @@
 # \description{
 #   @get "title" with or without file header comments.
 #
-#  \emph{We do neither recommend nor encourage the usage of this method;
+#  \emph{We do neither recommend nor encourage the usage of this method
 #   it is only available due to popular demand}.
 #   For more details, see below.
 # }
@@ -55,410 +55,410 @@ setMethodS3("writeDataFrame", "AromaUnitSignalBinarySet", function(this, filenam
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getAnnotationData <- function(df, columns, ...) {
-    res <- list();
+    res <- list()
 
-    verbose && enter(verbose, "Reading annotation data");
+    verbose && enter(verbose, "Reading annotation data")
 
     # Unit genome positions
-    verbose && enter(verbose, "Unit genome positions");
-    ugp <- getAromaUgpFile(df);
-    verbose && cat(verbose, "Unit genome position (UGP) file:");
-    verbose && print(verbose, ugp);
-    verbose && exit(verbose);
-    nbrOfUnits <- nbrOfUnits(ugp);
+    verbose && enter(verbose, "Unit genome positions")
+    ugp <- getAromaUgpFile(df)
+    verbose && cat(verbose, "Unit genome position (UGP) file:")
+    verbose && print(verbose, ugp)
+    verbose && exit(verbose)
+    nbrOfUnits <- nbrOfUnits(ugp)
 
     # Add unit names?
     if (is.element("unitName", columns)) {
-      verbose && enter(verbose, "Unit names");
-      unf <- getUnitNamesFile(ugp);
-      verbose && cat(verbose, "Filename: ", getFilename(unf));
+      verbose && enter(verbose, "Unit names")
+      unf <- getUnitNamesFile(ugp)
+      verbose && cat(verbose, "Filename: ", getFilename(unf))
 
-      unitNames <- getUnitNames(unf);
-      verbose && str(verbose, unitNames);
+      unitNames <- getUnitNames(unf)
+      verbose && str(verbose, unitNames)
       # Sanity check
-      .stop_if_not(length(unitNames) == nbrOfUnits);
+      .stop_if_not(length(unitNames) == nbrOfUnits)
 
-      res$unitName <- unitNames;
+      res$unitName <- unitNames
       # Not needed anymore
-      unitNames <- NULL;
+      unitNames <- NULL
 
-      verbose && exit(verbose);
+      verbose && exit(verbose)
     }
 
     if (is.element("chromosome", columns)) {
-      res$chromosome <- ugp[,1, drop=TRUE];
+      res$chromosome <- ugp[,1, drop=TRUE]
     }
 
     if (is.element("position", columns)) {
-      res$position <- ugp[,2, drop=TRUE];
+      res$position <- ugp[,2, drop=TRUE]
     }
 
     # Coerce to data frame
-    res <- as.data.frame(res, stringsAsFactors=FALSE);
+    res <- as.data.frame(res, stringsAsFactors=FALSE)
 
-    verbose && cat(verbose, "Annotation data:");
-    verbose && str(verbose, res);
+    verbose && cat(verbose, "Annotation data:")
+    verbose && str(verbose, res)
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
 
-    res;
+    res
   } # getAnnotationData()
 
-  knownAnnotationColumnNames <- c("unitName", "chromosome", "position");
+  knownAnnotationColumnNames <- c("unitName", "chromosome", "position")
 
 
   getColumnTypes <- function(this, ...) {
     # Infer column types and column names
-    header <- readHeader(this);
-    columnTypes <- header$dataHeader$types;
-    columnTypes;
+    header <- readHeader(this)
+    columnTypes <- header$dataHeader$types
+    columnTypes
   } # getColumnTypes()
 
 
-  dfFirst <- getOneFile(this, mustExist=TRUE);
-  fields <- getColumnNames(dfFirst);
-  ugp <- getAromaUgpFile(dfFirst);
+  dfFirst <- getOneFile(this, mustExist=TRUE)
+  fields <- getColumnNames(dfFirst)
+  ugp <- getAromaUgpFile(dfFirst)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'units':
-  maxNbrOfUnits <- nbrOfUnits(ugp);
+  maxNbrOfUnits <- nbrOfUnits(ugp)
   if (is.null(units)) {
-    units <- seq_len(maxNbrOfUnits);
+    units <- seq_len(maxNbrOfUnits)
   } else {
-    units <- Arguments$getIndices(units, max=maxNbrOfUnits);
+    units <- Arguments$getIndices(units, max=maxNbrOfUnits)
   }
 
   # Argument 'columns':
-  columns <- Arguments$getCharacters(columns);
+  columns <- Arguments$getCharacters(columns)
 
   # Expand asterisk columns
-  idxs <- which(columns == "*");
+  idxs <- which(columns == "*")
   if (length(idxs) > 0) {
-    columns[idxs] <- paste(fields, collapse="\t");
-    columns <- strsplit(columns, split="\t", fixed=TRUE);
-    columns <- unlist(columns, use.names=FALSE);
+    columns[idxs] <- paste(fields, collapse="\t")
+    columns <- strsplit(columns, split="\t", fixed=TRUE)
+    columns <- unlist(columns, use.names=FALSE)
   }
 
   # Check for unknown column names
-  knownColumnNames <- c(knownAnnotationColumnNames, fields);
-  unknown <- setdiff(columns, knownColumnNames);
+  knownColumnNames <- c(knownAnnotationColumnNames, fields)
+  unknown <- setdiff(columns, knownColumnNames)
   if (length(unknown) > 0) {
-    unknown <- paste(unknown, collapse=", ");
-    throw("Argument 'columns' contains unknown column names: ", unknown);
+    unknown <- paste(unknown, collapse=", ")
+    throw("Argument 'columns' contains unknown column names: ", unknown)
   }
 
   # Argument 'overwrite':
-  overwrite <- Arguments$getLogical(overwrite);
+  overwrite <- Arguments$getLogical(overwrite)
 
   # Argument 'filename' & 'path':
   pathname <- Arguments$getWritablePathname(filename, path=path,
-                                                  mustNotExist=!overwrite);
+                                                  mustNotExist=!overwrite)
 
   # Argument 'addHeader':
-  addHeader <- Arguments$getLogical(addHeader);
+  addHeader <- Arguments$getLogical(addHeader)
 
   # Argument 'createdBy':
   if (is.null(createdBy)) {
-    pkg <- Package("aroma.core");
-    createdBy <- sprintf("%s v%s", getName(pkg), getVersion(pkg));
+    pkg <- Package("aroma.core")
+    createdBy <- sprintf("%s v%s", getName(pkg), getVersion(pkg))
   } else {
-    createdBy <- Arguments$getCharacter(createdBy);
+    createdBy <- Arguments$getCharacter(createdBy)
   }
 
   # Argument 'sep':
-  sep <- Arguments$getCharacter(sep);
+  sep <- Arguments$getCharacter(sep)
 
   # Argument 'nbrOfDecimals':
-  nbrOfDecimals <- Arguments$getInteger(nbrOfDecimals, range=c(0,32));
+  nbrOfDecimals <- Arguments$getInteger(nbrOfDecimals, range=c(0,32))
 
   # Argument 'ram':
-  ram <- Arguments$getDouble(ram, range=c(1e-3,999));
+  ram <- Arguments$getDouble(ram, range=c(1e-3,999))
 
   # Argument 'columnNamesPrefix':
-  columnNamesPrefix <- match.arg(columnNamesPrefix);
+  columnNamesPrefix <- match.arg(columnNamesPrefix)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Writing data frame");
+  verbose && enter(verbose, "Writing data frame")
 
-  verbose && cat(verbose, "Data set to be exported:");
-  verbose && print(verbose, this);
+  verbose && cat(verbose, "Data set to be exported:")
+  verbose && print(verbose, this)
 
-  verbose && cat(verbose, "Destination pathname: ", pathname);
+  verbose && cat(verbose, "Destination pathname: ", pathname)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get annotation data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Add annotation data columns?
-  adColumnNames <- intersect(knownAnnotationColumnNames, columns);
+  adColumnNames <- intersect(knownAnnotationColumnNames, columns)
   if (length(adColumnNames) > 0) {
     adData <- getAnnotationData(this, columns=adColumnNames,
-                                                 verbose=less(verbose, 5));
+                                                 verbose=less(verbose, 5))
   } else {
-    adData <- NULL;
+    adData <- NULL
   }
   # Not needed anymore
-  adColumnNames <- NULL;
+  adColumnNames <- NULL
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Generate file header
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  nbrOfFiles <- length(this);
-  nbrOfUnits <- length(units);
-  nbrOfColumnsPerFile <- nbrOfColumns(dfFirst);
-  nbrOfColumns <- nbrOfFiles*nbrOfColumnsPerFile;
+  nbrOfFiles <- length(this)
+  nbrOfUnits <- length(units)
+  nbrOfColumnsPerFile <- nbrOfColumns(dfFirst)
+  nbrOfColumns <- nbrOfFiles*nbrOfColumnsPerFile
 
-  hdr <- NULL;
+  hdr <- NULL
   if (addHeader) {
-    verbose && enter(verbose, "Generating file header");
-    hdr <- c(hdr, sprintf("name: %s", getName(this)));
-    hdr <- c(hdr, sprintf("tags: %s", getTags(this, collapse=",")));
-    hdr <- c(hdr, sprintf("fullName: %s", getFullName(this)));
+    verbose && enter(verbose, "Generating file header")
+    hdr <- c(hdr, sprintf("name: %s", getName(this)))
+    hdr <- c(hdr, sprintf("tags: %s", getTags(this, collapse=",")))
+    hdr <- c(hdr, sprintf("fullName: %s", getFullName(this)))
 
-    hdr <- c(hdr, sprintf("nbrOfFiles: %s", nbrOfFiles));
-    hdr <- c(hdr, sprintf("srcFiles: %s", paste(sapply(this, getFilename), collapse="\t")));
-    hdr <- c(hdr, sprintf("srcChecksums: %s", paste(sapply(this, getChecksum), collapse="\t")));
-    hdr <- c(hdr, sprintf("names: %s", paste(getNames(this), collapse="\t")));
-    hdr <- c(hdr, sprintf("tags: %s", paste(sapply(this, getTags, collapse=","), collapse="\t")));
-    hdr <- c(hdr, sprintf("fullNames: %s", paste(getFullNames(this), collapse="\t")));
+    hdr <- c(hdr, sprintf("nbrOfFiles: %s", nbrOfFiles))
+    hdr <- c(hdr, sprintf("srcFiles: %s", paste(sapply(this, getFilename), collapse="\t")))
+    hdr <- c(hdr, sprintf("srcChecksums: %s", paste(sapply(this, getChecksum), collapse="\t")))
+    hdr <- c(hdr, sprintf("names: %s", paste(getNames(this), collapse="\t")))
+    hdr <- c(hdr, sprintf("tags: %s", paste(sapply(this, getTags, collapse=","), collapse="\t")))
+    hdr <- c(hdr, sprintf("fullNames: %s", paste(getFullNames(this), collapse="\t")))
 
-    hdr <- c(hdr, sprintf("platform: %s", getPlatform(this)));
-    hdr <- c(hdr, sprintf("chipType: %s", getChipType(this)));
-    hdr <- c(hdr, sprintf("nbrOfUnits: %s", nbrOfUnits));
+    hdr <- c(hdr, sprintf("platform: %s", getPlatform(this)))
+    hdr <- c(hdr, sprintf("chipType: %s", getChipType(this)))
+    hdr <- c(hdr, sprintf("nbrOfUnits: %s", nbrOfUnits))
 
-    createdOn <- format(Sys.time(), "%Y-%m-%d %H:%M:%S", usetz=TRUE);
-    hdr <- c(hdr, sprintf("createdOn: %s", createdOn));
-    hdr <- c(hdr, sprintf("createdBy: %s", createdBy));
+    createdOn <- format(Sys.time(), "%Y-%m-%d %H:%M:%S", usetz=TRUE)
+    hdr <- c(hdr, sprintf("createdOn: %s", createdOn))
+    hdr <- c(hdr, sprintf("createdBy: %s", createdBy))
 
 
     # Data column types
-    columnTypes <- getColumnTypes(dfFirst);
-    columnTypes <- rep(columnTypes, times=nbrOfFiles);
+    columnTypes <- getColumnTypes(dfFirst)
+    columnTypes <- rep(columnTypes, times=nbrOfFiles)
 
     # Sanity check
     columnTypes <- Arguments$getCharacters(columnTypes,
-                                      length=rep(nbrOfColumns, 2));
+                                      length=rep(nbrOfColumns, 2))
 
     # Annotation data column types
-    adColumnTypes <- unname(sapply(adData, FUN=mode));
+    adColumnTypes <- unname(sapply(adData, FUN=mode))
 
     # All column types
-    allColumnTypes <- c(adColumnTypes, columnTypes);
-    allColumnTypesStr <- paste(allColumnTypes, collapse="\t");
-    hdr <- c(hdr, sprintf("columnTypes: %s", allColumnTypesStr));
+    allColumnTypes <- c(adColumnTypes, columnTypes)
+    allColumnTypesStr <- paste(allColumnTypes, collapse="\t")
+    hdr <- c(hdr, sprintf("columnTypes: %s", allColumnTypesStr))
 
 
     # Data column names
-    prefixes <- NULL;
+    prefixes <- NULL
     if (columnNamesPrefix == "names") {
-      prefixes <- rep(getNames(this), each=nbrOfColumnsPerFile);
+      prefixes <- rep(getNames(this), each=nbrOfColumnsPerFile)
     } else if (columnNamesPrefix == "fullnames") {
-      prefixes <- rep(getFullNames(this), each=nbrOfColumnsPerFile);
+      prefixes <- rep(getFullNames(this), each=nbrOfColumnsPerFile)
     }
 
     if (is.null(prefixes)) {
-      columnNames <- rep(fields, times=nbrOfFiles);
+      columnNames <- rep(fields, times=nbrOfFiles)
     } else {
       if (nbrOfColumnsPerFile == 1 && fields[1] == "1") {
-        columnNames <- prefixes;
+        columnNames <- prefixes
       } else {
-        columnNames <- paste(prefixes, columnNames, sep=",");
+        columnNames <- paste(prefixes, columnNames, sep=",")
       }
     }
 
     # Sanity check
     columnNames <- Arguments$getCharacters(columnNames,
-                                      length=rep(nbrOfColumns, 2));
+                                      length=rep(nbrOfColumns, 2))
 
     # Annotation data column names
-    adColumnNames <- colnames(adData);
+    adColumnNames <- colnames(adData)
 
     # All column names
-    allColumnNames <- c(adColumnNames, columnNames);
-    allColumnNamesStr <- paste(allColumnNames, collapse="\t");
-    hdr <- c(hdr, sprintf("columnNames: %s", allColumnNamesStr));
+    allColumnNames <- c(adColumnNames, columnNames)
+    allColumnNamesStr <- paste(allColumnNames, collapse="\t")
+    hdr <- c(hdr, sprintf("columnNames: %s", allColumnNamesStr))
     # Not needed anymore
-    allColumnNamesStr <- NULL;
+    allColumnNamesStr <- NULL
 
     # Turn into file comments
-    hdr <- paste("# ", hdr, sep="");
-    verbose && cat(verbose, hdr, sep="\n");
+    hdr <- paste("# ", hdr, sep="")
+    verbose && cat(verbose, hdr, sep="\n")
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } # if (addHeader)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Write to file
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Writing data set");
+  verbose && enter(verbose, "Writing data set")
 
   # Overwrite?
   if (overwrite && isFile(pathname)) {
     # TODO: Added a backup/restore feature in case new writing fails.
-    file.remove(pathname);
-    verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).");
+    file.remove(pathname)
+    verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).")
   }
 
   # Write to a temporary file
-  pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
+  pathnameT <- pushTemporaryFile(pathname, verbose=verbose)
 
   if (!is.null(hdr)) {
-    verbose && enter(verbose, "Writing file header");
-    cat(file=pathnameT, hdr, sep="\n", append=FALSE);
-    verbose && exit(verbose);
+    verbose && enter(verbose, "Writing file header")
+    cat(file=pathnameT, hdr, sep="\n", append=FALSE)
+    verbose && exit(verbose)
   }
 
 
-  verbose && enter(verbose, "Writing data section");
+  verbose && enter(verbose, "Writing data section")
   quoteColumnNamesIfNeeded <- function(x, quote="\"") {
-    idxs <-grep("#", x);
-    x[idxs] <- sprintf("%s%s%s", quote, x[idxs], quote);
-    x;
+    idxs <-grep("#", x)
+    x[idxs] <- sprintf("%s%s%s", quote, x[idxs], quote)
+    x
   } # quoteColumnNamesIfNeeded()
-  allColumnNames <- quoteColumnNamesIfNeeded(allColumnNames);
-  allColumnNamesStr <- paste(allColumnNames, collapse=sep);
-  cat(file=pathnameT, allColumnNamesStr, sep="\n", append=TRUE);
+  allColumnNames <- quoteColumnNamesIfNeeded(allColumnNames)
+  allColumnNamesStr <- paste(allColumnNames, collapse=sep)
+  cat(file=pathnameT, allColumnNamesStr, sep="\n", append=TRUE)
 
   # Write in chunks of rows (of constant size)
-  chunkSize <- ram * 1e6;
-  nbrOfUnitsPerChunk <- chunkSize / nbrOfColumns;
-  nbrOfChunks <- ceiling(nbrOfUnits / nbrOfUnitsPerChunk);
+  chunkSize <- ram * 1e6
+  nbrOfUnitsPerChunk <- chunkSize / nbrOfColumns
+  nbrOfChunks <- ceiling(nbrOfUnits / nbrOfUnitsPerChunk)
 
-  verbose && cat(verbose, "Number of units per chunk: ", nbrOfUnitsPerChunk);
-  verbose && cat(verbose, "Number of chunks: ", nbrOfChunks);
+  verbose && cat(verbose, "Number of units per chunk: ", nbrOfUnitsPerChunk)
+  verbose && cat(verbose, "Number of chunks: ", nbrOfChunks)
 
-  unitsLeft <- units;
-  idxsHead <- seq_len(nbrOfUnitsPerChunk);
+  unitsLeft <- units
+  idxsHead <- seq_len(nbrOfUnitsPerChunk)
 
-  verbose && cat(verbose, "Units:");
-  verbose && str(verbose, unitsLeft);
+  verbose && cat(verbose, "Units:")
+  verbose && str(verbose, unitsLeft)
 
   for (kk in seq_len(nbrOfChunks)) {
-    verbose && enter(verbose, sprintf("Chunk #%d of %d", kk, nbrOfChunks));
+    verbose && enter(verbose, sprintf("Chunk #%d of %d", kk, nbrOfChunks))
 
     if (nbrOfUnitsPerChunk > length(unitsLeft)) {
-      idxsHead <- seq_len(length(unitsLeft));
+      idxsHead <- seq_len(length(unitsLeft))
     }
-    unitsKK <- unitsLeft[idxsHead];
+    unitsKK <- unitsLeft[idxsHead]
 
-    verbose && cat(verbose, "Units:");
-    verbose && str(verbose, unitsKK);
+    verbose && cat(verbose, "Units:")
+    verbose && str(verbose, unitsKK)
 
-    verbose && enter(verbose, "Extracting signals");
-    dataKK <- NULL;
+    verbose && enter(verbose, "Extracting signals")
+    dataKK <- NULL
     for (ii in seq_len(nbrOfFiles)) {
-      df <- this[[ii]];
-      verbose && enter(verbose, sprintf("File #%d ('%s') of %d", ii, getName(df), nbrOfFiles));
-      dataII <- df[unitsKK,,drop=FALSE];
+      df <- this[[ii]]
+      verbose && enter(verbose, sprintf("File #%d ('%s') of %d", ii, getName(df), nbrOfFiles))
+      dataII <- df[unitsKK,,drop=FALSE]
 
       # For each data column
       for (cc in seq_len(nbrOfColumnsPerFile)) {
-        values <- dataII[,cc, drop=TRUE];
+        values <- dataII[,cc, drop=TRUE]
 
         # Exporting all missing values as "NA" (not NaN).
-        values[is.na(values)] <- NA;
-        verbose && cat(verbose, "Signals:");
-        verbose && str(verbose, values);
+        values[is.na(values)] <- NA
+        verbose && cat(verbose, "Signals:")
+        verbose && str(verbose, values)
 
         # Sanity check: Don't allow infinite values
         if (any(is.infinite(values))) {
-          throw("Detected infinite values: ", sum(is.infinite(values)));
+          throw("Detected infinite values: ", sum(is.infinite(values)))
         }
 
         # Round off results?
         if (is.double(values) && nbrOfDecimals < Inf) {
-          verbose && cat(verbose, "Number of decimals: ", nbrOfDecimals);
-          fmtstr <- sprintf("%%.%df", nbrOfDecimals);
-          values <- sprintf(fmtstr, values);
+          verbose && cat(verbose, "Number of decimals: ", nbrOfDecimals)
+          fmtstr <- sprintf("%%.%df", nbrOfDecimals)
+          values <- sprintf(fmtstr, values)
         }
 
-        dataII[,cc] <- values;
+        dataII[,cc] <- values
         # Not needed anymore
-        values <- NULL;
+        values <- NULL
       } # for (cc ...)
 
       if (ii == 1) {
-        dataKK <- dataII;
+        dataKK <- dataII
       } else {
-        dataKK <- cbind(dataKK, dataII);
+        dataKK <- cbind(dataKK, dataII)
       }
 
       # Not needed anymore
-      dataII <- df <- NULL;
-      verbose && exit(verbose);
+      dataII <- df <- NULL
+      verbose && exit(verbose)
     } # for (ii ...)
-    verbose && str(verbose, dataKK);
-    verbose && exit(verbose);
+    verbose && str(verbose, dataKK)
+    verbose && exit(verbose)
 
-    verbose && enter(verbose, "Formatting signals");
+    verbose && enter(verbose, "Formatting signals")
 
     if (!is.null(adData)) {
-      verbose && enter(verbose, "Insert annotation data");
-      adDataKK <- adData[unitsKK,,drop=FALSE];
+      verbose && enter(verbose, "Insert annotation data")
+      adDataKK <- adData[unitsKK,,drop=FALSE]
       # Sanity check
-      .stop_if_not(nrow(dataKK) == nrow(adDataKK));
+      .stop_if_not(nrow(dataKK) == nrow(adDataKK))
 
       # SUBOPTIMAL: Should preallocate 'dataKK' to save memory
-      dataKK <- cbind(adDataKK, dataKK);
+      dataKK <- cbind(adDataKK, dataKK)
 
-      verbose && cat(verbose, "Data with annotation data:");
-      verbose && str(verbose, dataKK);
+      verbose && cat(verbose, "Data with annotation data:")
+      verbose && str(verbose, dataKK)
       # Not needed anymore
-      adDataKK <- NULL;
-      verbose && exit(verbose);
+      adDataKK <- NULL
+      verbose && exit(verbose)
     }
 
-    verbose && str(verbose, dataKK);
-    verbose && exit(verbose);
+    verbose && str(verbose, dataKK)
+    verbose && exit(verbose)
 
-    verbose && enter(verbose, "Writing signals");
+    verbose && enter(verbose, "Writing signals")
     write.table(file=pathnameT, dataKK, sep=sep, quote=FALSE, row.names=FALSE,
-                                            col.names=FALSE, append=TRUE);
+                                            col.names=FALSE, append=TRUE)
     # Not needed anymore
-    dataKK <- NULL;
-    verbose && exit(verbose);
+    dataKK <- NULL
+    verbose && exit(verbose)
 
-    gc <- gc();
-    verbose && print(verbose, gc);
+    gc <- gc()
+    verbose && print(verbose, gc)
 
-    fileSize <- file.info(pathnameT)$size;
+    fileSize <- file.info(pathnameT)$size
     verbose && printf(verbose, "Current file size: %s\n",
                       hsize(fileSize, digits = 2L, standard = "IEC"))
 
     # Next chunk
-    unitsLeft <- unitsLeft[-idxsHead];
+    unitsLeft <- unitsLeft[-idxsHead]
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } # for (kk ...)
   # Not needed anymore
-  adData <- NULL;
+  adData <- NULL
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
   # Renaming temporary file
-  pathname <- popTemporaryFile(pathnameT, verbose=verbose);
+  pathname <- popTemporaryFile(pathnameT, verbose=verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
 
-  verbose && enter(verbose, "Loading output data file");
-  res <- TabularTextFile(pathname, sep=sep);
-  verbose && print(verbose, res);
-  verbose && exit(verbose);
+  verbose && enter(verbose, "Loading output data file")
+  res <- TabularTextFile(pathname, sep=sep)
+  verbose && print(verbose, res)
+  verbose && exit(verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
   # Return results
-  res;
+  res
 }) # writeDataFrame()

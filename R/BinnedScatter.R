@@ -36,9 +36,9 @@ setConstructorS3("BinnedScatter", function(data=NULL, density=NULL, map=NULL, pa
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(data)) {
     # Argument 'data':
-    dim <- dim(data);
+    dim <- dim(data)
     if (dim[2] != 2) {
-      throw("Argument 'data' must be a two-column matrix: ", dim[2]);
+      throw("Argument 'data' must be a two-column matrix: ", dim[2])
     }
   }
 
@@ -48,49 +48,49 @@ setConstructorS3("BinnedScatter", function(data=NULL, density=NULL, map=NULL, pa
     density=density,
     map=map,
     params=params
-  ), "BinnedScatter");
+  ), "BinnedScatter")
 })
 
 
 setMethodS3("reorder", "BinnedScatter", function(x, orderBy="density", decreasing=FALSE, ...) {
   # To please R CMD check
-  object <- x;
+  object <- x
 
-  o <- order(object[[orderBy]], decreasing=decreasing);
-  object$data <- object$data[o,,drop=FALSE];
-  object$density <- object$density[o];
-  params <- object$params;
-  params$orderBy <- orderBy;
-  params$decreasing <- decreasing;
-  object$params <- params;
+  o <- order(object[[orderBy]], decreasing=decreasing)
+  object$data <- object$data[o,,drop=FALSE]
+  object$density <- object$density[o]
+  params <- object$params
+  params$orderBy <- orderBy
+  params$decreasing <- decreasing
+  object$params <- params
 
-  object;
+  object
 })
 
 
 setMethodS3("points", "BinnedScatter", function(x, ...) {
   # To please R CMD check
-  object <- x;
+  object <- x
 
-  points(object$data, ...);
+  points(object$data, ...)
 })
 
 
 setMethodS3("plot", "BinnedScatter", function(x, ...) {
   # To please R CMD check
-  object <- x;
+  object <- x
 
-  plot(object$data, ...);
+  plot(object$data, ...)
 })
 
 
 setMethodS3("subset", "BinnedScatter", function(x, subset, ...) {
   # To please R CMD check
-  object <- x;
+  object <- x
 
-  object$data <- object$data[subset,,drop=FALSE];
-  object$density <- object$density[subset];
-  object;
+  object$data <- object$data[subset,,drop=FALSE]
+  object$density <- object$density[subset]
+  object
 })
 
 
@@ -99,23 +99,23 @@ setMethodS3("subsample", "BinnedScatter", function(object, size=NULL, ...) {
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   weightFcn <- function(object, ...) {
-    w <- 1/object$density;
+    w <- 1/object$density
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  n <- dim(object$data)[1];
+  n <- dim(object$data)[1]
 
   # Argument 'size':
   if (is.null(size)) {
-    size <- n;
+    size <- n
   } else {
-    size <- Arguments$getNumeric(size, range=c(0, n));
+    size <- Arguments$getNumeric(size, range=c(0, n))
     if (size < 1) {
-      size <- round(size*n);
+      size <- round(size*n)
       if (size > n)
-        size <- n;
+        size <- n
     }
   }
 
@@ -123,21 +123,21 @@ setMethodS3("subsample", "BinnedScatter", function(object, size=NULL, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calculate sample weights
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  w <- weightFcn(object);
+  w <- weightFcn(object)
 
   # Standarize weights
-  w <- w / sum(w, na.rm=TRUE);
+  w <- w / sum(w, na.rm=TRUE)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Randomized sampling according to weights
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  subset <- resample(1:length(w), size=size, prob=w, replace=FALSE);
+  subset <- resample(1:length(w), size=size, prob=w, replace=FALSE)
   # Not needed anymore
-  w <- NULL;
-  res <- subset(object, subset=subset, ...);
+  w <- NULL
+  res <- subset(object, subset=subset, ...)
 
-  res;
+  res
 }) # subsample()
 
 
@@ -146,14 +146,14 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'x':
-  dim <- dim(x);
+  dim <- dim(x)
   if (dim[2] != 2) {
-    throw("Argument 'x' must be a two-column matrix: ", dim[2]);
+    throw("Argument 'x' must be a two-column matrix: ", dim[2])
   }
 
   # Argument 'orderBy':
   if (!is.null(orderBy)) {
-    orderBy <- match.arg(orderBy, c("density"));
+    orderBy <- match.arg(orderBy, c("density"))
   }
 
 
@@ -161,42 +161,42 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
   # Identify density estimator
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Used to be a workaround since it used to be in 'geneplotter'.
-  ns <- getNamespace("grDevices");
-  calcDensity <- get(".smoothScatterCalcDensity", mode="function", envir=ns);
+  ns <- getNamespace("grDevices")
+  calcDensity <- get(".smoothScatterCalcDensity", mode="function", envir=ns)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimate the (x,y) density
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimate density only from finite data points
-  ok <- which(is.finite(x[,1]) & is.finite(x[,2]));
-  x <- x[ok,,drop=FALSE];
+  ok <- which(is.finite(x[,1]) & is.finite(x[,2]))
+  x <- x[ok,,drop=FALSE]
   # Not needed anymore
-  ok <- NULL;
-  map <- calcDensity(x, nbin=nbin);
+  ok <- NULL
+  map <- calcDensity(x, nbin=nbin)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Map each data point to a bin
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  xm <- map$x1;
-  ym <- map$x2;
+  xm <- map$x1
+  ym <- map$x2
 
-  nx <- length(xm);
-  ny <- length(ym);
-  dx <- x[,1]-xm[1];
-  dy <- x[,2]-ym[1];
-  w <- xm[nx] - xm[1];
-  h <- ym[ny] - ym[1];
-  ixm <- round(dx/w * (nx - 1));
-  iym <- round(dy/h * (ny - 1));
-  binIdx <- (1 + iym*nx + ixm);
+  nx <- length(xm)
+  ny <- length(ym)
+  dx <- x[,1]-xm[1]
+  dy <- x[,2]-ym[1]
+  w <- xm[nx] - xm[1]
+  h <- ym[ny] - ym[1]
+  ixm <- round(dx/w * (nx - 1))
+  iym <- round(dy/h * (ny - 1))
+  binIdx <- (1 + iym*nx + ixm)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get the density at each data point
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  dens <- map$fhat;
-  idens <- dens[binIdx];
+  dens <- map$fhat
+  idens <- dens[binIdx]
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -207,12 +207,12 @@ setMethodS3("binScatter", "matrix", function(x, nbin=128, orderBy="density", dec
     density=idens,
     map=map,
     params=list(nbin=nbin)
-  );
+  )
 
   # Reorder data?
   if (!is.null(orderBy)) {
-    res <- reorder(res, orderBy=orderBy, decreasing=decreasing);
+    res <- reorder(res, orderBy=orderBy, decreasing=decreasing)
   }
 
-  res;
+  res
 }) # binScatter()

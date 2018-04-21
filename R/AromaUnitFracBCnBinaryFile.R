@@ -23,10 +23,10 @@
 #*/########################################################################### 
 setConstructorS3("AromaUnitFracBCnBinaryFile", function(...) {
   extend(AromaUnitSignalBinaryFile(...), "AromaUnitFracBCnBinaryFile"
-  );
+  )
 })
 
 
 setMethodS3("extractRawAlleleBFractions", "AromaUnitFracBCnBinaryFile", function(this, ..., clazz=RawAlleleBFractions) {
-  extractRawGenomicSignals(this, ..., clazz=clazz);
+  extractRawGenomicSignals(this, ..., clazz=clazz)
 })

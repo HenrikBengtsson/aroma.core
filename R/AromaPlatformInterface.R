@@ -23,7 +23,7 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaPlatformInterface", function(...) {
-  extend(Interface(), "AromaPlatformInterface");
+  extend(Interface(), "AromaPlatformInterface")
 })
 
 
@@ -53,7 +53,7 @@ setConstructorS3("AromaPlatformInterface", function(...) {
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("getPlatform", "AromaPlatformInterface", abstract=TRUE);
+setMethodS3("getPlatform", "AromaPlatformInterface", abstract=TRUE)
 
 
 ###########################################################################/**
@@ -81,7 +81,7 @@ setMethodS3("getPlatform", "AromaPlatformInterface", abstract=TRUE);
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("getChipType", "AromaPlatformInterface", abstract=TRUE);
+setMethodS3("getChipType", "AromaPlatformInterface", abstract=TRUE)
 
 
 
@@ -113,15 +113,15 @@ setMethodS3("getChipType", "AromaPlatformInterface", abstract=TRUE);
 # }
 #*/###########################################################################
 setMethodS3("getAromaPlatform", "AromaPlatformInterface", function(this, ..., force=FALSE) {
-  ap <- this$.ap;
+  ap <- this$.ap
 
   if (force || is.null(ap)) {
-    platform <- getPlatform(this, ...);
-    ap <- AromaPlatform$byName(platform, ...);
-    this$.ap <- ap;
+    platform <- getPlatform(this, ...)
+    ap <- AromaPlatform$byName(platform, ...)
+    this$.ap <- ap
   }
 
-  ap;
+  ap
 })
 
 
@@ -156,17 +156,17 @@ setMethodS3("getAromaPlatform", "AromaPlatformInterface", function(this, ..., fo
 setMethodS3("isCompatibleWith", "AromaPlatformInterface", function(this, udf, ...) {
   # Argument 'udf':
   if (getPlatform(this) != getPlatform(udf))
-    return(FALSE);
+    return(FALSE)
   if (getChipType(this, fullname=FALSE) != getChipType(udf, fullname=FALSE))
-    return(FALSE);
+    return(FALSE)
 
   # Compare nbrOfUnits only if there is a nbrOfUnits() method for 'this'.
   tryCatch({
     if (nbrOfUnits(this) != nbrOfUnits(udf))
-      return(FALSE);
-  }, error = function(ex) {});
+      return(FALSE)
+  }, error = function(ex) {})
 
-  TRUE;
+  TRUE
 }, protected=TRUE)
 
 
@@ -210,162 +210,162 @@ setMethodS3("getUnitAnnotationDataFile", "AromaPlatformInterface", function(this
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'className':
-  className <- Arguments$getCharacter(className);
-  clazz <- Class$forName(className);
+  className <- Arguments$getCharacter(className)
+  clazz <- Class$forName(className)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
   # Get the chip type
-  platform <- getPlatform(this);
-  chipType <- getChipType(this, fullname=FALSE);
-  chipTypeF <- getChipType(this);
+  platform <- getPlatform(this)
+  chipType <- getChipType(this, fullname=FALSE)
+  chipTypeF <- getChipType(this)
 
   # Compare nbrOfUnits?
-  nbrOfUnits <- NULL;
+  nbrOfUnits <- NULL
   tryCatch({
-    nbrOfUnits <- nbrOfUnits(this);
-  }, error = function(ex) {});
+    nbrOfUnits <- nbrOfUnits(this)
+  }, error = function(ex) {})
 
-  key <- className;
-  udfList <- this$.udfList;
-  if (!is.list(udfList)) udfList <- list();
-  udf <- udfList[[key]];
+  key <- className
+  udfList <- this$.udfList
+  if (!is.list(udfList)) udfList <- list()
+  udf <- udfList[[key]]
   if (force || is.null(udf)) {
-    verbose && enter(verbose, "Locating a ", className);
-    verbose && cat(verbose, "Platform: ", platform);
-    verbose && cat(verbose, "Chip type (fullname): ", chipTypeF);
-    verbose && cat(verbose, "Chip type: ", chipType);
-    verbose && cat(verbose, "Number of units: ", nbrOfUnits);
+    verbose && enter(verbose, "Locating a ", className)
+    verbose && cat(verbose, "Platform: ", platform)
+    verbose && cat(verbose, "Chip type (fullname): ", chipTypeF)
+    verbose && cat(verbose, "Chip type: ", chipType)
+    verbose && cat(verbose, "Number of units: ", nbrOfUnits)
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # AD HOC: Load aroma.affymetrix package, if needed and installed.
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if (platform == "Affymetrix") {
       if (is.element(className, c("UnitNamesFile"))) {
-        pkgName <- "aroma.affymetrix";
+        pkgName <- "aroma.affymetrix"
         if (isPackageInstalled(pkgName)) {
-          require(pkgName, character.only=TRUE) || throw("Package not loaded: aroma.affymetrix");
+          require(pkgName, character.only=TRUE) || throw("Package not loaded: aroma.affymetrix")
         }
       }
     }
 
-    udf <- NULL;
+    udf <- NULL
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Alt 1
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    verbose && enter(verbose, "Alt #1: Using an AromaPlatform object");
+    verbose && enter(verbose, "Alt #1: Using an AromaPlatform object")
 
-    verbose && enter(verbose, "Locating AromaPlatform object");
-    aPlatform <- NULL;
+    verbose && enter(verbose, "Locating AromaPlatform object")
+    aPlatform <- NULL
     tryCatch({
-      aPlatform <- getAromaPlatform(this);
-      verbose && print(verbose, aPlatform);
+      aPlatform <- getAromaPlatform(this)
+      verbose && print(verbose, aPlatform)
     }, error=function(ex) {
-#      warning("Could not find the AromaPlatform for this ", class(this)[1], " object: ", ex$message);
-    });
-    verbose && exit(verbose);
+#      warning("Could not find the AromaPlatform for this ", class(this)[1], " object: ", ex$message)
+    })
+    verbose && exit(verbose)
 
     if (!is.null(aPlatform)) {
-      verbose && enter(verbose, "Searching for ", className);
+      verbose && enter(verbose, "Searching for ", className)
 
       # Locate get<ClassName>(), e.g. getAromaUgpFile().
-      fcnName <- sprintf("get%s", className);
+      fcnName <- sprintf("get%s", className)
       if (!exists(fcnName, mode="function")) {
-        throw(sprintf("No function %s() available: %s", fcnName, className));
+        throw(sprintf("No function %s() available: %s", fcnName, className))
       }
-      FCN <- get(fcnName, mode="function");
+      FCN <- get(fcnName, mode="function")
 
       tryCatch({
         udf <- FCN(aPlatform, chipType=chipTypeF,
-                        nbrOfUnits=nbrOfUnits, verbose=less(verbose,10));
+                        nbrOfUnits=nbrOfUnits, verbose=less(verbose,10))
         if (!isCompatibleWith(this, udf)) {
-          udf <- NULL;
+          udf <- NULL
         }
       }, error=function(ex) {
         verbose && cat(verbose, "Could not locate ", className, ": ",
-                                                             ex$message);
-      });
+                                                             ex$message)
+      })
       if (!is.null(udf)) {
-        verbose && cat(verbose, "Found a matching ", className, ":");
-        verbose && print(verbose, udf);
+        verbose && cat(verbose, "Found a matching ", className, ":")
+        verbose && print(verbose, udf)
       }
-      verbose && exit(verbose);
+      verbose && exit(verbose)
     }
-    verbose && exit(verbose);
+    verbose && exit(verbose)
 
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Alt 2
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if (is.null(udf)) {
-      verbose && enter(verbose, "Alt #2: Using known subclasses of ", className);
+      verbose && enter(verbose, "Alt #2: Using known subclasses of ", className)
       # Scan for known subclasses
-      classNames <- getKnownSubclasses(clazz);
-      verbose && cat(verbose, "Known ", className, " subclasses (including itself):");
-      classNames <- c(classNames, getName(clazz));
+      classNames <- getKnownSubclasses(clazz)
+      verbose && cat(verbose, "Known ", className, " subclasses (including itself):")
+      classNames <- c(classNames, getName(clazz))
 
       for (kk in seq_along(classNames)) {
-        className <- classNames[kk];
-        verbose && enter(verbose, sprintf("Search #%d of %d using %s$byChipType())", kk, length(classNames), className));
-        clazz <- Class$forName(className);
+        className <- classNames[kk]
+        verbose && enter(verbose, sprintf("Search #%d of %d using %s$byChipType())", kk, length(classNames), className))
+        clazz <- Class$forName(className)
         tryCatch({
           udf <- clazz$byChipType(chipType, nbrOfUnits=nbrOfUnits, ...,
-                                               verbose=less(verbose,10));
+                                               verbose=less(verbose,10))
           if (!isCompatibleWith(this, udf)) {
-            udf <- NULL;
+            udf <- NULL
           }
-        }, error = function(ex) {});
+        }, error = function(ex) {})
         if (!is.null(udf)) {
-          verbose && cat(verbose, "Found a matching ", className, ":");
-          verbose && print(verbose, udf);
-          verbose && exit(verbose);
-          break;
+          verbose && cat(verbose, "Found a matching ", className, ":")
+          verbose && print(verbose, udf)
+          verbose && exit(verbose)
+          break
         }
-        verbose && exit(verbose);
+        verbose && exit(verbose)
       } # for (kk ...)
-      verbose && exit(verbose);
+      verbose && exit(verbose)
     } # if (is.null(udf))
 
 
     if (is.null(udf)) {
-      throw("Failed to locate a ", className, " for this chip type: ", chipType);
+      throw("Failed to locate a ", className, " for this chip type: ", chipType)
     }
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
 
-    udfList[[key]] <- udf;
-    this$.udfList <- udfList;
+    udfList[[key]] <- udf
+    this$.udfList <- udfList
 
   } # if (force || is.null(udf))
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Sanity check
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  .stop_if_not(isCompatibleWith(this, udf));
+  .stop_if_not(isCompatibleWith(this, udf))
 
-  udf;
+  udf
 }, protected=TRUE) # getUnitAnnotationDataFile()
 
 
 setMethodS3("getUnitNamesFile", "AromaPlatformInterface", function(this, ...) {
-  getUnitAnnotationDataFile(this, className="UnitNamesFile", ...);
+  getUnitAnnotationDataFile(this, className="UnitNamesFile", ...)
 })
 
 setMethodS3("getUnitTypesFile", "AromaPlatformInterface", function(this, ...) {
-  getUnitAnnotationDataFile(this, className="UnitTypesFile", ...);
+  getUnitAnnotationDataFile(this, className="UnitTypesFile", ...)
 })
 
 setMethodS3("getAromaUgpFile", "AromaPlatformInterface", function(this, ...) {
-  getUnitAnnotationDataFile(this, className="AromaUgpFile", ...);
+  getUnitAnnotationDataFile(this, className="AromaUgpFile", ...)
 })
 
 setMethodS3("getAromaUflFile", "AromaPlatformInterface", function(this, ...) {
-  getUnitAnnotationDataFile(this, className="AromaUflFile", ...);
+  getUnitAnnotationDataFile(this, className="AromaUflFile", ...)
 })

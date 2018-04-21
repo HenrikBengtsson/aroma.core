@@ -31,18 +31,18 @@
 setConstructorS3("AromaMicroarrayDataFile", function(...) {
   extend(GenericDataFile(...), c("AromaMicroarrayDataFile", 
                                                uses("FileCacheKeyInterface"))
-  );
+  )
 }, abstract=TRUE)
 
 
-setMethodS3("getPlatform", "AromaMicroarrayDataFile", abstract=TRUE);
+setMethodS3("getPlatform", "AromaMicroarrayDataFile", abstract=TRUE)
 
 
-setMethodS3("getChipType", "AromaMicroarrayDataFile", abstract=TRUE);
+setMethodS3("getChipType", "AromaMicroarrayDataFile", abstract=TRUE)
 
  
 setMethodS3("isAverageFile", "AromaMicroarrayDataFile", function(this, ...) {
-  name <- getName(this);
-  res <- (regexpr("^[.]average-", name) != -1);
-  res;
+  name <- getName(this)
+  res <- (regexpr("^[.]average-", name) != -1)
+  res
 })

@@ -3,31 +3,31 @@ getCommonListElements <- function(lst, ignoreEmpty=TRUE) {
   # 1. Scan list for common elements
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Vector to store common elements
-  common <- c();
-  n <- length(lst);
-  first <- TRUE;
+  common <- c()
+  n <- length(lst)
+  first <- TRUE
   for (kk in seq_len(n)) {
-    value <- lst[[kk]];
+    value <- lst[[kk]]
 
     # Ignoring empty list elements or not?
     if (is.null(value)) {
       if (ignoreEmpty)
-        next;
+        next
 
       # We know for sure that the rest will be empty too
-      common <- c();
-      break;
+      common <- c()
+      break
     }
 
     if (first) {
-      common <- value;
-      first <- FALSE;
+      common <- value
+      first <- FALSE
     } else {
-      common <- intersect(common, value);
+      common <- intersect(common, value)
 
       # Done?
       if (length(common) == 0)
-        break;
+        break
     }
   } # for (kk ...)
 
@@ -35,9 +35,9 @@ getCommonListElements <- function(lst, ignoreEmpty=TRUE) {
   # 2. Keep only common elements
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   lst <- lapply(lst, FUN=function(ss) {
-    keep <- (ss %in% common);
-    ss[keep];
-  });
+    keep <- (ss %in% common)
+    ss[keep]
+  })
 
-  lst;
+  lst
 } # getCommonListElements()

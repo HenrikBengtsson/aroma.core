@@ -45,12 +45,12 @@ setConstructorS3("CbsModel", function(cesTuple=NULL, ..., seed=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(cesTuple)) {
     # Early error, iff package is not available
-    requireNamespace("DNAcopy") || throw("Package not loaded: DNAcopy");
+    requireNamespace("DNAcopy") || throw("Package not loaded: DNAcopy")
   }
 
   # Argument 'seed':
   if (!is.null(seed)) {
-    seed <- Arguments$getInteger(seed);
+    seed <- Arguments$getInteger(seed)
   }
 
   extend(CopyNumberSegmentationModel(cesTuple=cesTuple, ...), "CbsModel",
@@ -59,24 +59,24 @@ setConstructorS3("CbsModel", function(cesTuple=NULL, ..., seed=NULL) {
 })
 
 setMethodS3("getRandomSeed", "CbsModel", function(this, ...) {
-  this$.seed;
+  this$.seed
 }, protected=TRUE)
 
 setMethodS3("setRandomSeed", "CbsModel", function(this, seed, ...) {
   # Argument 'seed':
   if (!is.null(seed)) {
-    seed <- Arguments$getInteger(seed);
+    seed <- Arguments$getInteger(seed)
   }
 
-  this$.seed <- seed;
-  invisible(this);
+  this$.seed <- seed
+  invisible(this)
 }, protected=TRUE)
 
 
 setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
-  defaultSeed <- getRandomSeed(this);
+  defaultSeed <- getRandomSeed(this)
   fitFcn <- function(..., seed=defaultSeed) {
-    segmentByCBS(..., seed=seed);
+    segmentByCBS(..., seed=seed)
   }
-  fitFcn;
+  fitFcn
 }, protected=TRUE)

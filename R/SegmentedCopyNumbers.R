@@ -25,7 +25,7 @@
 #*/########################################################################### 
 setConstructorS3("SegmentedCopyNumbers", function(..., states=NULL) {
   this <- extend(RawCopyNumbers(...), c("SegmentedCopyNumbers", 
-                                   uses("SegmentedGenomicSignalsInterface")));
-  this <- setStates(this, states=states);
-  this;
+                                   uses("SegmentedGenomicSignalsInterface")))
+  this <- setStates(this, states=states)
+  this
 })

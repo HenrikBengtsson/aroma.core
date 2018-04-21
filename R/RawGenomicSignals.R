@@ -33,144 +33,144 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'y':
-  object <- NULL;
+  object <- NULL
   if (!is.null(y)) {
     if (inherits(y, "RawGenomicSignals")) {
-      object <- y;
-      y <- getSignals(object);
-      x <- object$x;
-      w <- object$w;
-      chromosome <- object$chromosome;
-      name <- getName(object);
+      object <- y
+      y <- getSignals(object)
+      x <- object$x
+      w <- object$w
+      chromosome <- object$chromosome
+      name <- getName(object)
     }
 
     if (!is.vector(y)) {
-      throw("Argument 'y' must be a vector: ", mode(y)[1]);
+      throw("Argument 'y' must be a vector: ", mode(y)[1])
     }
 
     if (!is.numeric(y)) {
-      throw("Argument 'y' must be a numeric: ", class(y)[1]);
+      throw("Argument 'y' must be a numeric: ", class(y)[1])
     }
   }
-  n <- length(y);
+  n <- length(y)
 
   # Argument 'chromosome':
   if (is.null(chromosome)) {
-    chromosome <- as.integer(NA);
+    chromosome <- as.integer(NA)
   }
   if (length(chromosome) == 1) {
-    chromosome <- rep(chromosome, times=n);
+    chromosome <- rep(chromosome, times=n)
   }
-  chromosome <- Arguments$getIntegers(chromosome, range=c(0,Inf), length=c(n,n), disallow=c("NaN", "Inf"));
+  chromosome <- Arguments$getIntegers(chromosome, range=c(0,Inf), length=c(n,n), disallow=c("NaN", "Inf"))
 
   # Argument 'x':
   if (!is.null(x)) {
-    x <- Arguments$getNumerics(x, length=c(n,n));
+    x <- Arguments$getNumerics(x, length=c(n,n))
   }
 
   # Argument 'w':
   if (!is.null(w)) {
-    w <- Arguments$getNumerics(w, range=c(0,Inf), length=c(n,n));
+    w <- Arguments$getNumerics(w, range=c(0,Inf), length=c(n,n))
   }
 
   # Arguments '...':
-  args <- list(...);
+  args <- list(...)
   if (length(args) > 0) {
-    argsStr <- paste(names(args), collapse=", ");
-    throw("Unknown arguments: ", argsStr);
+    argsStr <- paste(names(args), collapse=", ")
+    throw("Unknown arguments: ", argsStr)
   }
 
   # Setup data frame with optional fields
-  data <- RichDataFrame(chromosome=chromosome, .name=name);
-  data$x <- x;  # optional
-  data$y <- y;
-  data$w <- w;  # optional
+  data <- RichDataFrame(chromosome=chromosome, .name=name)
+  data$x <- x # optional
+  data$y <- y
+  data$w <- w # optional
 
-  this <- extend(data, "RawGenomicSignals");
+  this <- extend(data, "RawGenomicSignals")
 
   # Append other locus fields?
   if (!is.null(object)) {
-    fields <- setdiff(colnames(object), colnames(this));
+    fields <- setdiff(colnames(object), colnames(this))
     for (field in fields) {
-      this[[field]] <- object[[field]];
+      this[[field]] <- object[[field]]
     }
   }
 
-  this;
+  this
 })
 
 
 setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
-  this <- x;
+  this <- x
 
-  s <- getGenericSummary(this);
-  chrs <- getChromosomes(this);
-  nbrOfChrs <- length(chrs);
-  s <- c(s, sprintf("Chromosomes: %s [%d]", seqToHumanReadable(chrs), nbrOfChrs));
-  n <- nbrOfLoci(this);
-  s <- c(s, sprintf("Number of loci: %d", n));
+  s <- getGenericSummary(this)
+  chrs <- getChromosomes(this)
+  nbrOfChrs <- length(chrs)
+  s <- c(s, sprintf("Chromosomes: %s [%d]", seqToHumanReadable(chrs), nbrOfChrs))
+  n <- nbrOfLoci(this)
+  s <- c(s, sprintf("Number of loci: %d", n))
   if (nbrOfChrs == 1) {
-    xRange <- xRange(this);
-    s <- c(s, sprintf("Position range: [%g,%g]", xRange[1], xRange[2]));
-    dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA);
-    s <- c(s, sprintf("Mean distance between loci: %g", dAvg));
+    xRange <- xRange(this)
+    s <- c(s, sprintf("Position range: [%g,%g]", xRange[1], xRange[2]))
+    dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA)
+    s <- c(s, sprintf("Mean distance between loci: %g", dAvg))
   }
 
-  s;
+  s
 }, protected=TRUE)
 
 
 
 setMethodS3("print", "RawGenomicSignals", function(x, ...) {
-  print(as.character(x));
+  print(as.character(x))
 }, protected=TRUE)
 
 
 setMethodS3("getSignalColumnNames", "RawGenomicSignals", function(this, translate=TRUE, ...) {
-  names <- "y";
+  names <- "y"
   if (translate) {
-    names <- translateColumnNames(this, names);
+    names <- translateColumnNames(this, names)
   }
-  names;
+  names
 }, protected=TRUE)
 
 setMethodS3("getSignalColumnName", "RawGenomicSignals", function(this, ...) {
-  getSignalColumnNames(this, ...)[1L];
+  getSignalColumnNames(this, ...)[1L]
 }, protected=TRUE)
 
 
 setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {
   if (!na.rm) {
-    return(nrow(this));
+    return(nrow(this))
   }
 
-  y <- getSignals(this, ...);
-  y <- y[is.finite(y)];
-  length(y);
+  y <- getSignals(this, ...)
+  y <- y[is.finite(y)]
+  length(y)
 })
 
 
 setMethodS3("getChromosomes", "RawGenomicSignals", function(this, ...) {
-  chrs <- this$chromosome;
+  chrs <- this$chromosome
   if (is.null(chrs)) {
-    chrs <- as.integer(NA);
+    chrs <- as.integer(NA)
   }
-  chrs <- as.integer(chrs);
-  chrs <- unique(chrs);
-  chrs <- sort(chrs);
-  chrs;
+  chrs <- as.integer(chrs)
+  chrs <- unique(chrs)
+  chrs <- sort(chrs)
+  chrs
 })
 
 setMethodS3("nbrOfChromosomes", "RawGenomicSignals", function(this, ...) {
-  chrs <- getChromosomes(this, ...);
-  length(chrs);
+  chrs <- getChromosomes(this, ...)
+  length(chrs)
 })
 
 
 setMethodS3("assertOneChromosome", "RawGenomicSignals", function(this, ...) {
   if (nbrOfChromosomes(this) > 1) {
-    throw(sprintf("Cannot perform operation. %s has more than one chromosome: %s", class(this)[1], nbrOfChromosomes(this)));
+    throw(sprintf("Cannot perform operation. %s has more than one chromosome: %s", class(this)[1], nbrOfChromosomes(this)))
   }
 }, protected=TRUE)
 
@@ -185,20 +185,20 @@ setMethodS3("extractSubset", "RawGenomicSignals", function(this, subset, ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'subset':
-  n <- nbrOfLoci(this);
+  n <- nbrOfLoci(this)
   if (is.logical(subset)) {
-    subset <- Arguments$getLogicals(subset, length=c(n,n));
-    subset <- which(subset);
+    subset <- Arguments$getLogicals(subset, length=c(n,n))
+    subset <- which(subset)
   } else {
-    subset <- Arguments$getIndices(subset, max=n);
+    subset <- Arguments$getIndices(subset, max=n)
   }
 
-  res <- this[subset,,drop=FALSE];
+  res <- this[subset,,drop=FALSE]
 
   # Sanity check
-  .stop_if_not(nbrOfLoci(res) == length(subset));
+  .stop_if_not(nbrOfLoci(res) == length(subset))
 
-  res;
+  res
 }, protected=TRUE) # extractSubset()
 
 
@@ -210,24 +210,24 @@ setMethodS3("extractRegion", "RawGenomicSignals", function(this, region, chromos
   # Argument 'chromosome':
 
   # Argument 'region':
-  region <- Arguments$getNumerics(region, length=c(2,2));
-  .stop_if_not(region[1] <= region[2]);
+  region <- Arguments$getNumerics(region, length=c(2,2))
+  .stop_if_not(region[1] <= region[2])
 
 
   # Subset by chromosome
   if (!is.null(chromosome)) {
-    rgs <- extractChromosome(this, chromosome=chromosome);
+    rgs <- extractChromosome(this, chromosome=chromosome)
   } else {
-    rgs <- this;
+    rgs <- this
   }
 
   # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(rgs);
+  assertOneChromosome(rgs)
 
-  x <- getPositions(rgs);
-  keep <- which(region[1] <= x & x <= region[2]);
+  x <- getPositions(rgs)
+  keep <- which(region[1] <= x & x <= region[2])
 
-  extractSubset(rgs, keep);
+  extractSubset(rgs, keep)
 }, protected=TRUE) # extractRegion()
 
 
@@ -237,105 +237,105 @@ setMethodS3("extractRegions", "RawGenomicSignals", function(this, regions, chrom
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'regions':
-  cl <- class(regions)[1];
+  cl <- class(regions)[1]
   if (inherits(regions, "CopyNumberRegions")) {
-    regions <- as.data.frame(regions);
-    regions <- regions[,c("chromosome", "start", "stop")];
+    regions <- as.data.frame(regions)
+    regions <- regions[,c("chromosome", "start", "stop")]
   } else if (is.matrix(regions)) {
-    regions <- as.data.frame(regions);
+    regions <- as.data.frame(regions)
   }
   if (!is.data.frame(regions)) {
-    throw("Argument 'regions' is neither a CopyNumberRegions object, a data.frame, nor a matrix: ", cl);
+    throw("Argument 'regions' is neither a CopyNumberRegions object, a data.frame, nor a matrix: ", cl)
   }
 
   # Argument 'chromosomes':
   if (is.null(chromosomes) && !is.element("chromosome", colnames(regions))) {
     # Backward compatibility only
     # This is a single-chromosome method. Assert that is the case.
-    assertOneChromosome(this);
-    chromosomes <- getChromosomes(this);
-    chromosomes <- rep(chromosomes, times=nrow(regions));
+    assertOneChromosome(this)
+    chromosomes <- getChromosomes(this)
+    chromosomes <- rep(chromosomes, times=nrow(regions))
   }
 
   # Argument 'regions' (again):
   if (!is.null(chromosomes)) {
     if (is.element("chromosome", names(regions))) {
-      throw("Argument 'chromosomes' must not be specified when argument 'regions' already specifies chromosomes: ", hpaste(colnames(regions)));
+      throw("Argument 'chromosomes' must not be specified when argument 'regions' already specifies chromosomes: ", hpaste(colnames(regions)))
     }
-    regions <- cbind(data.frame(chromosome=chromosomes), regions);
-    chromosomes <- NULL; # Not needed anymore
+    regions <- cbind(data.frame(chromosome=chromosomes), regions)
+    chromosomes <- NULL # Not needed anymore
   }
 
-  reqs <- c("chromosome", "start", "stop");
-  missing <- reqs[!is.element(reqs, colnames(regions))];
+  reqs <- c("chromosome", "start", "stop")
+  missing <- reqs[!is.element(reqs, colnames(regions))]
   if (length(missing)) {
-    throw("Missing fields in argument 'regions': ", hpaste(missing));
+    throw("Missing fields in argument 'regions': ", hpaste(missing))
   }
 
   # Extract fields of interest
-  regions <- regions[,reqs];
+  regions <- regions[,reqs]
 
   # Assert the fields are numeric
   for (key in colnames(regions)) {
-    regions[[key]] <- Arguments$getNumerics(regions[[key]], .name=key);
+    regions[[key]] <- Arguments$getNumerics(regions[[key]], .name=key)
   }
 
   # Assert ordered (start,stop)
-  .stop_if_not(all(regions[["start"]] <= regions[["stop"]]));
+  .stop_if_not(all(regions[["start"]] <= regions[["stop"]]))
 
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # For each chromosome
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  chromosome <- this$chromosome;
-  x <- getPositions(this);
-  keep <- rep(FALSE, times=length(x));
+  chromosome <- this$chromosome
+  x <- getPositions(this)
+  keep <- rep(FALSE, times=length(x))
   for (rr in seq_len(nrow(regions))) {
-    region <- unlist(regions[rr,], use.names=TRUE);
-    chr <- region["chromosome"];
-    start <- region["start"];
-    stop <- region["stop"];
-    keepRR <- (chromosome == chr & start <= x & x <= stop);
-    keep <- keep | keepRR;
+    region <- unlist(regions[rr,], use.names=TRUE)
+    chr <- region["chromosome"]
+    start <- region["start"]
+    stop <- region["stop"]
+    keepRR <- (chromosome == chr & start <= x & x <= stop)
+    keep <- keep | keepRR
   } # for (rr ...)
 
-  keep <- which(keep);
+  keep <- which(keep)
 
-  extractSubset(this, keep);
+  extractSubset(this, keep)
 }, protected=TRUE) # extractRegions()
 
 
 setMethodS3("extractChromosomes", "RawGenomicSignals", function(this, chromosomes=NULL, ...) {
   # Argument 'chromosomes':
   if (!is.null(chromosomes)) {
-    chromosomes <- Arguments$getChromosomes(chromosomes);
-    chromosomes <- unique(chromosomes);
-    chromosomes <- sort(chromosomes);
+    chromosomes <- Arguments$getChromosomes(chromosomes)
+    chromosomes <- unique(chromosomes)
+    chromosomes <- sort(chromosomes)
   }
 
   # Nothing todo?
   if (is.null(chromosomes)) {
-    return(this);
+    return(this)
   }
 
-  keep <- is.element(this$chromosome, chromosomes);
-  keep <- which(keep);
+  keep <- is.element(this$chromosome, chromosomes)
+  keep <- which(keep)
 
-  extractSubset(this, keep);
+  extractSubset(this, keep)
 }, protected=TRUE) # extractChromosomes()
 
 
 setMethodS3("extractChromosome", "RawGenomicSignals", function(this, chromosome, ...) {
   # Argument 'chromosome':
-  chromosome <- Arguments$getChromosome(chromosome);
+  chromosome <- Arguments$getChromosome(chromosome)
 
-  extractChromosomes(this, chromosomes=chromosome, ...);
+  extractChromosomes(this, chromosomes=chromosome, ...)
 }, protected=TRUE) # extractChromosome()
 
 
 
-setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE, protected=TRUE);
+setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE, protected=TRUE)
 
 
 
@@ -343,86 +343,86 @@ setMethodS3("extractRawGenomicSignals", "default", abstract=TRUE, protected=TRUE
 
 setMethodS3("getPositions", "RawGenomicSignals", function(this, ...) {
   # This is a single-chromosome method. Assert that is the case.
-  assertOneChromosome(this);
+  assertOneChromosome(this)
 
-  x <- this$x;
+  x <- this$x
   if (is.null(x)) {
-    x <- seq_len(nbrOfLoci(this));
+    x <- seq_len(nbrOfLoci(this))
   }
-  x;
+  x
 })
 
 
 setMethodS3("getChromosome", "RawGenomicSignals", function(this, ...) {
   # This is a single-chromosome method. Assert that is the case.
-  assertOneChromosome(this);
+  assertOneChromosome(this)
 
-  chr <- this$chromosome;
+  chr <- this$chromosome
   if (is.null(chr)) {
-    chr <- as.integer(NA);
+    chr <- as.integer(NA)
   }
-  chr <- as.integer(chr);
-  chr;
+  chr <- as.integer(chr)
+  chr
 })
 
 
 setMethodS3("getSignals", "RawGenomicSignals", function(this, field=NULL, ...) {
   # Argument 'field':
   if (is.null(field)) {
-    field <- getSignalColumnName(this);
+    field <- getSignalColumnName(this)
   } else {
-    field <- Arguments$getCharacter(field);
+    field <- Arguments$getCharacter(field)
   }
 
-  name <- field;
+  name <- field
 
   # Sanity check
   if (!hasColumn(this, name, ...)) {
-    throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))));
+    throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))))
   }
 
-  this[[name]];
+  this[[name]]
 })
 
 
 setMethodS3("setSignals", "RawGenomicSignals", function(this, values, ...) {
-  name <- getSignalColumnName(this, ...);
+  name <- getSignalColumnName(this, ...)
   # Sanity check
   if (!hasColumn(this, name, ...)) {
-    throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))));
+    throw(sprintf("Cannot get signals. No such column: %s not in (%s)", name, hpaste(getColumnNames(this, ...))))
   }
-  this[[name]] <- values;
-  invisible(this);
+  this[[name]] <- values
+  invisible(this)
 })
 
 
 setMethodS3("setWeights", "RawGenomicSignals", function(this, weights, ...) {
   # Argument 'weights':
-  n <- nbrOfLoci(this);
-  weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf));
-  this$w <- weights;
-  invisible(this);
+  n <- nbrOfLoci(this)
+  weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf))
+  this$w <- weights
+  invisible(this)
 })
 
 setMethodS3("getWeights", "RawGenomicSignals", function(this, ...) {
-  this$w;
+  this$w
 })
 
 setMethodS3("hasWeights", "RawGenomicSignals", function(this, ...) {
-  (!is.null(getWeights(this, ...)));
+  (!is.null(getWeights(this, ...)))
 })
 
 
 setMethodS3("as.data.frame", "RawGenomicSignals", function(x, ..., sort=FALSE) {
   # To please R CMD check
-  this <- x;
+  this <- x
 
   # Sort along genome?
   if (sort) {
-    this <- sort(this, ...);
+    this <- sort(this, ...)
   }
 
-  NextMethod("as.data.frame");
+  NextMethod("as.data.frame")
 })
 
 
@@ -430,48 +430,48 @@ setMethodS3("getDefaultLocusFields", "RawGenomicSignals", function(this, transla
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # "Default" fields
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  data <- this;
+  data <- this
   if (translate) {
-    data <- as.data.frame(data, virtual=FALSE);
+    data <- as.data.frame(data, virtual=FALSE)
   }
-  defFields <- colnames(data);
+  defFields <- colnames(data)
 
-  defFields;
+  defFields
 }, protected=TRUE) # getDefaultLocusFields()
 
 
 
 setMethodS3("getLocusFields", "RawGenomicSignals", function(this, ...) {
-  fields <- c(getDefaultLocusFields(this, ...), getVirtualColumnNames(this, ...));
-  fields <- unique(fields);
-  fields;
+  fields <- c(getDefaultLocusFields(this, ...), getVirtualColumnNames(this, ...))
+  fields <- unique(fields)
+  fields
 }, protected=TRUE) # getLocusFields()
 
 
 setMethodS3("sort", "RawGenomicSignals", function(x, ...) {
   # To please R CMD check
-  this <- x;
+  this <- x
 
   # Order by (chromosome, x)
-  o <- order(this$chromosome, getPositions(this));
-  this[o,, drop=FALSE];
+  o <- order(this$chromosome, getPositions(this))
+  this[o,, drop=FALSE]
 })
 
 
 setMethodS3("getXY", "RawGenomicSignals", function(this,  ...) {
   # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
-  data <- getCXY(this, ...);
-  data <- data[,c("x","y"), drop=FALSE];
-  data;
+  assertOneChromosome(this)
+  data <- getCXY(this, ...)
+  data <- data[,c("x","y"), drop=FALSE]
+  data
 }, protected=TRUE)
 
 
 setMethodS3("getCXY", "RawGenomicSignals", function(this, ...) {
-  data <- as.data.frame(this, ...);
-  fields <- c("chromosome", "x", "y");
-  data <- data[,fields,drop=FALSE];
-  data;
+  data <- as.data.frame(this, ...)
+  fields <- c("chromosome", "x", "y")
+  data <- data[,fields,drop=FALSE]
+  data
 }, protected=TRUE)
 
 
@@ -481,198 +481,198 @@ setMethodS3("getCXY", "RawGenomicSignals", function(this, ...) {
 
 setMethodS3("kernelSmoothing", "RawGenomicSignals", function(this, xOut=NULL, ..., verbose=FALSE) {
   # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
+  assertOneChromosome(this)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'xOut':
   if (!is.null(xOut)) {
-    xOut <- Arguments$getNumerics(xOut);
+    xOut <- Arguments$getNumerics(xOut)
   }
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Smoothing data set");
-  x <- getPositions(this);
-  y <- getSignals(this);
+  verbose && enter(verbose, "Smoothing data set")
+  x <- getPositions(this)
+  y <- getSignals(this)
 
   if (is.null(xOut)) {
-    xOut <- x;
+    xOut <- x
   }
 
-  verbose && cat(verbose, "xOut:");
-  verbose && str(verbose, xOut);
+  verbose && cat(verbose, "xOut:")
+  verbose && str(verbose, xOut)
 
-  verbose && enter(verbose, "Kernel smoothing");
-  verbose && cat(verbose, "Arguments:");
-  args <- list(y=y, x=x, xOut=xOut, ...);
-  verbose && str(verbose, args);
-  ys <- kernelSmoothing(y=y, x=x, xOut=xOut, ...);
-  verbose && str(verbose, ys);
-  verbose && exit(verbose);
+  verbose && enter(verbose, "Kernel smoothing")
+  verbose && cat(verbose, "Arguments:")
+  args <- list(y=y, x=x, xOut=xOut, ...)
+  verbose && str(verbose, args)
+  ys <- kernelSmoothing(y=y, x=x, xOut=xOut, ...)
+  verbose && str(verbose, ys)
+  verbose && exit(verbose)
 
 
-  verbose && enter(verbose, "Creating result object");
+  verbose && enter(verbose, "Creating result object")
   # Allocate the correct size
-  res <- newInstance(this, nrow=length(xOut));
+  res <- newInstance(this, nrow=length(xOut))
 
-  res$x <- xOut;
-  res <- setSignals(res, ys);
-  verbose && exit(verbose);
+  res$x <- xOut
+  res <- setSignals(res, ys)
+  verbose && exit(verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 }) # kernelSmoothing()
 
 
 setMethodS3("gaussianSmoothing", "RawGenomicSignals", function(this, sd=10e3, ...) {
-  kernelSmoothing(this, kernel="gaussian", h=sd, ...);
+  kernelSmoothing(this, kernel="gaussian", h=sd, ...)
 })
 
 
 
 setMethodS3("binnedSmoothing", "RawGenomicSignals", function(this, fields=NULL, ..., weights=getWeights(this), byCount=FALSE, verbose=FALSE) {
   # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
+  assertOneChromosome(this)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  n <- nbrOfLoci(this);
+  n <- nbrOfLoci(this)
   # Argument 'weights':
   if (!is.null(weights)) {
-    weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf));
+    weights <- Arguments$getNumerics(weights, length=c(n,n), range=c(0,Inf))
   }
 
   # Argument 'fields':
   if (is.null(fields)) {
-    fields <- getSignalColumnName(this);
+    fields <- getSignalColumnName(this)
   } else {
-    fields <- Arguments$getCharacters(fields);
-    unknown <- fields[!hasColumns(this, fields)];
+    fields <- Arguments$getCharacters(fields)
+    unknown <- fields[!hasColumns(this, fields)]
     if (length(unknown) > 0) {
-      throw("No such field(s): ", hpaste(unknown));
+      throw("No such field(s): ", hpaste(unknown))
     }
   }
 
   # Argument 'byCount':
-  byCount <- Arguments$getLogical(byCount);
+  byCount <- Arguments$getLogical(byCount)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Smoothing data set");
-  verbose && cat(verbose, "Smoothing fields: ", paste(fields, collapse=", "));
-  dataY <- as.data.frame(this);
-  dataY <- dataY[,fields,drop=FALSE];
-  dataY <- as.matrix(dataY);
-  verbose && str(verbose, dataY);
+  verbose && enter(verbose, "Smoothing data set")
+  verbose && cat(verbose, "Smoothing fields: ", paste(fields, collapse=", "))
+  dataY <- as.data.frame(this)
+  dataY <- dataY[,fields,drop=FALSE]
+  dataY <- as.matrix(dataY)
+  verbose && str(verbose, dataY)
 
-  verbose && cat(verbose, "Genomic positions:");
-  x <- getPositions(this);
-  verbose && str(verbose, x);
-  xRange <- range(x, na.rm=TRUE);
+  verbose && cat(verbose, "Genomic positions:")
+  x <- getPositions(this)
+  verbose && str(verbose, x)
+  xRange <- range(x, na.rm=TRUE)
   verbose && printf(verbose, "Range of positions: [%.0f,%.0f]\n",
-                                           xRange[1], xRange[2]);
+                                           xRange[1], xRange[2])
 
 
-  wOut <- NULL;
+  wOut <- NULL
 
   if (byCount) {
-    verbose && enter(verbose, "Binned smoothing (by count)");
+    verbose && enter(verbose, "Binned smoothing (by count)")
     # Smoothing y and x (and w).
-    Y <- cbind(dataY, x=x, w=weights);
-    verbose && summary(verbose, Y);
-    xRank <- seq_len(nrow(Y));
-    verbose && cat(verbose, "Positions (ranks):");
-    verbose && str(verbose, xRank);
-    verbose && cat(verbose, "Arguments:");
-    args <- list(Y=Y, x=xRank, w=weights, ...);
-    verbose && str(verbose, args);
+    Y <- cbind(dataY, x=x, w=weights)
+    verbose && summary(verbose, Y)
+    xRank <- seq_len(nrow(Y))
+    verbose && cat(verbose, "Positions (ranks):")
+    verbose && str(verbose, xRank)
+    verbose && cat(verbose, "Arguments:")
+    args <- list(Y=Y, x=xRank, w=weights, ...)
+    verbose && str(verbose, args)
 
-    Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, ..., verbose=less(verbose, 10));
-    verbose && str(verbose, Ys);
-    verbose && summary(verbose, Ys);
+    Ys <- colBinnedSmoothing(Y=Y, x=xRank, w=weights, ..., verbose=less(verbose, 10))
+    verbose && str(verbose, Ys)
+    verbose && summary(verbose, Ys)
 
-    xOut <- attr(Ys, "xOut");
-    verbose && str(verbose, xOut);
+    xOut <- attr(Ys, "xOut")
+    verbose && str(verbose, xOut)
 
     # The smoothed x:s, which becomes the new target positions
-    xOut <- Ys[,"x", drop=TRUE];
-    verbose && str(verbose, xOut);
+    xOut <- Ys[,"x", drop=TRUE]
+    verbose && str(verbose, xOut)
 
     # Smoothed weights
     if (!is.null(weights)) {
-      wOut <- Ys[,"w", drop=TRUE];
-      wOut[is.na(wOut)] <- 0;
-      verbose && str(verbose, wOut);
+      wOut <- Ys[,"w", drop=TRUE]
+      wOut[is.na(wOut)] <- 0
+      verbose && str(verbose, wOut)
     }
 
     # The smoothed y:s
-    Ys <- Ys[,fields, drop=FALSE];
-    verbose && str(verbose, Ys);
+    Ys <- Ys[,fields, drop=FALSE]
+    verbose && str(verbose, Ys)
 
     # Not needed anymore
-    xRank <- Y <- NULL;
-    verbose && exit(verbose);
+    xRank <- Y <- NULL
+    verbose && exit(verbose)
   } else {
-    verbose && enter(verbose, "Binned smoothing (by position)");
+    verbose && enter(verbose, "Binned smoothing (by position)")
     # Smoothing y (and w).
-    Y <- cbind(dataY, w=weights);
-    verbose && summary(verbose, Y);
-    verbose && cat(verbose, "Arguments:");
-    args <- list(Y=Y, x=x, w=weights, ...);
-    verbose && str(verbose, args);
+    Y <- cbind(dataY, w=weights)
+    verbose && summary(verbose, Y)
+    verbose && cat(verbose, "Arguments:")
+    args <- list(Y=Y, x=x, w=weights, ...)
+    verbose && str(verbose, args)
 
-    Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, ..., verbose=less(verbose, 10));
-    verbose && str(verbose, Ys);
-    verbose && summary(verbose, Ys);
+    Ys <- colBinnedSmoothing(Y=Y, x=x, w=weights, ..., verbose=less(verbose, 10))
+    verbose && str(verbose, Ys)
+    verbose && summary(verbose, Ys)
 
-    xOut <- attr(Ys, "xOut");
-    verbose && str(verbose, xOut);
+    xOut <- attr(Ys, "xOut")
+    verbose && str(verbose, xOut)
 
     # Smoothed weights
     if (!is.null(weights)) {
-      wOut <- Ys[,"w", drop=TRUE];
-      wOut[is.na(wOut)] <- 0;
-      verbose && str(verbose, wOut);
+      wOut <- Ys[,"w", drop=TRUE]
+      wOut[is.na(wOut)] <- 0
+      verbose && str(verbose, wOut)
     }
 
     # The smoothed y:s
-    Ys <- Ys[,fields, drop=FALSE];
-    verbose && str(verbose, Ys);
+    Ys <- Ys[,fields, drop=FALSE]
+    verbose && str(verbose, Ys)
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } # if (byCount)
 
-  verbose && enter(verbose, "Creating result object");
+  verbose && enter(verbose, "Creating result object")
   # Allocate the correct size
-  res <- newInstance(this, nrow=length(xOut));
+  res <- newInstance(this, nrow=length(xOut))
 
-  res$x <- xOut;
-  res$w <- wOut;
+  res$x <- xOut
+  res$w <- wOut
   for (ff in fields) {
-    res[[ff]] <- Ys[,ff,drop=TRUE];
+    res[[ff]] <- Ys[,ff,drop=TRUE]
   }
-  verbose && print(verbose, summary(res));
-  verbose && exit(verbose);
+  verbose && print(verbose, summary(res))
+  verbose && exit(verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 }) # binnedSmoothing()
 
 
@@ -684,303 +684,303 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'field':
-  field <- Arguments$getCharacter(field);
+  field <- Arguments$getCharacter(field)
   if (!hasColumn(this, field)) {
-    throw("Unknown field: ", field);
+    throw("Unknown field: ", field)
   }
 
   # Argument 'fields':
   if (is.null(fields)) {
-    fields <- getSignalColumnName(this);
+    fields <- getSignalColumnName(this)
   } else {
-    fields <- Arguments$getCharacters(fields);
-    unknown <- fields[!hasColumns(this, fields)];
+    fields <- Arguments$getCharacters(fields)
+    unknown <- fields[!hasColumns(this, fields)]
     if (length(unknown) > 0) {
-      throw("No such field(s): ", hpaste(unknown));
+      throw("No such field(s): ", hpaste(unknown))
     }
   }
 
-  x <- getPositions(this);
+  x <- getPositions(this)
   # Argument 'from' & 'to':
   if (is.null(from)) {
-    from <- min(x, na.rm=TRUE);
+    from <- min(x, na.rm=TRUE)
   } else {
-    from <- Arguments$getInteger(from);
+    from <- Arguments$getInteger(from)
   }
   if (is.null(to)) {
-    to <- max(x, na.rm=TRUE);
+    to <- max(x, na.rm=TRUE)
   } else {
-    to <- Arguments$getInteger(to, range=c(from, Inf));
+    to <- Arguments$getInteger(to, range=c(from, Inf))
   }
 
   # Arguments 'by' & 'length.out':
   if (is.null(by) & is.null(length.out)) {
-    throw("Either argument 'by' or 'length.out' needs to be given.");
+    throw("Either argument 'by' or 'length.out' needs to be given.")
   }
   if (!is.null(by)) {
-    by <- Arguments$getNumeric(by, range=c(0,to-from));
+    by <- Arguments$getNumeric(by, range=c(0,to-from))
   }
   if (!is.null(length.out)) {
-    length.out <- Arguments$getInteger(length.out, range=c(1,Inf));
+    length.out <- Arguments$getInteger(length.out, range=c(1,Inf))
   }
 
   # Argument 'byCount':
-  byCount <- Arguments$getLogical(byCount);
+  byCount <- Arguments$getLogical(byCount)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Binning data set");
-  verbose && cat(verbose, "Smoothing fields: ", paste(fields, collapse=", "));
-  verbose && cat(verbose, "Stratifying by field: ", field);
+  verbose && enter(verbose, "Binning data set")
+  verbose && cat(verbose, "Smoothing fields: ", paste(fields, collapse=", "))
+  verbose && cat(verbose, "Stratifying by field: ", field)
 
-  data <- as.data.frame(this);
-  byValues <- data[[field]];
-  setOfValues <- sort(unique(byValues), na.last=TRUE);
-  verbose && cat(verbose, "Set of stratification values: ", hpaste(setOfValues));
+  data <- as.data.frame(this)
+  byValues <- data[[field]]
+  setOfValues <- sort(unique(byValues), na.last=TRUE)
+  verbose && cat(verbose, "Set of stratification values: ", hpaste(setOfValues))
 
   # Sanity check
   if (length(setOfValues) > 0.1*length(byValues)) {
-    throw("Detected ridicolously large number of possible values in field '%s': (%s) [%d]", field, hpaste(setOfValues), length(setOfValues));
+    throw("Detected ridicolously large number of possible values in field '%s': (%s) [%d]", field, hpaste(setOfValues), length(setOfValues))
   }
 
-  verbose && cat(verbose, "by: ", by);
-  verbose && cat(verbose, "length.out: ", length.out);
-  verbose && cat(verbose, "byCount: ", byCount);
+  verbose && cat(verbose, "by: ", by)
+  verbose && cat(verbose, "length.out: ", length.out)
+  verbose && cat(verbose, "byCount: ", byCount)
 
-  verbose && enter(verbose, "Find target positions");
+  verbose && enter(verbose, "Find target positions")
 
   if (byCount) {
-    verbose && enter(verbose, "By count");
-    res <- sort(this);
+    verbose && enter(verbose, "By count")
+    res <- sort(this)
     resOut <- binnedSmoothing(res, fields="x",
                               by=by, length.out=length.out, byCount=TRUE,
-                              verbose=less(verbose, 5));
-    xOut <- resOut$x;
+                              verbose=less(verbose, 5))
+    xOut <- resOut$x
     # Not needed anymore
-    resOut <- NULL;
-    verbose && exit(verbose);
+    resOut <- NULL
+    verbose && exit(verbose)
   } else {
-    verbose && enter(verbose, "By position");
+    verbose && enter(verbose, "By position")
     # Target 'x':
     if (!is.null(by)) {
-      xOut <- seq(from=from, to=to, by=by);
+      xOut <- seq(from=from, to=to, by=by)
     } else {
-      xOut <- seq(from=from, to=to, length.out=length.out);
+      xOut <- seq(from=from, to=to, length.out=length.out)
     }
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } # if (byCount)
 
-  verbose && cat(verbose, "xOut:");
-  verbose && str(verbose, xOut);
+  verbose && cat(verbose, "xOut:")
+  verbose && str(verbose, xOut)
   # Sanity check
-  xOut <- Arguments$getNumerics(xOut);
-  verbose && exit(verbose);
+  xOut <- Arguments$getNumerics(xOut)
+  verbose && exit(verbose)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Allocate result set
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Allocating result set");
+  verbose && enter(verbose, "Allocating result set")
   # Allocate results of the correct size
-  res <- newInstance(this, nrow=length(xOut));
+  res <- newInstance(this, nrow=length(xOut))
 
   # Target 'x' and 'y':
-  res$x <- xOut;
+  res$x <- xOut
 
-  naValue <- as.double(NA);
-  Ys <- matrix(naValue, nrow=length(xOut), ncol=length(fields));
-  colnames(Ys) <- fields;
+  naValue <- as.double(NA)
+  Ys <- matrix(naValue, nrow=length(xOut), ncol=length(fields))
+  colnames(Ys) <- fields
   for (ff in fields) {
-    res[[ff]] <- Ys[,ff,drop=TRUE];
+    res[[ff]] <- Ys[,ff,drop=TRUE]
   }
-  verbose && print(verbose, res);
-  verbose && exit(verbose);
+  verbose && print(verbose, res)
+  verbose && exit(verbose)
 
-  verbose && enter(verbose, "Identifying output states (may drop short regions)");
-  dataOut <- as.data.frame(res);
+  verbose && enter(verbose, "Identifying output states (may drop short regions)")
+  dataOut <- as.data.frame(res)
   # Sanity check
-  .stop_if_not(is.element(field, colnames(dataOut)));
+  .stop_if_not(is.element(field, colnames(dataOut)))
 
-  byValuesOut <- dataOut[[field]];
-  verbose && cat(verbose, "byValuesOut:");
-  verbose && str(verbose, byValuesOut);
-  setOfValuesOut <- sort(unique(byValuesOut), na.last=TRUE);
-  verbose && printf(verbose, "Unique output '%s' values:\n", field);
-  verbose && str(verbose, setOfValuesOut);
-  verbose && exit(verbose);
+  byValuesOut <- dataOut[[field]]
+  verbose && cat(verbose, "byValuesOut:")
+  verbose && str(verbose, byValuesOut)
+  setOfValuesOut <- sort(unique(byValuesOut), na.last=TRUE)
+  verbose && printf(verbose, "Unique output '%s' values:\n", field)
+  verbose && str(verbose, setOfValuesOut)
+  verbose && exit(verbose)
 
-  verbose && enter(verbose, "Setting up source signals");
+  verbose && enter(verbose, "Setting up source signals")
   if (byCount) {
     # Adding ordering along genome
-    gs <- sort(this);
-    gs$xOrder <- seq_len(nbrOfLoci(gs));
+    gs <- sort(this)
+    gs$xOrder <- seq_len(nbrOfLoci(gs))
   } else {
-    gs <- this;
+    gs <- this
   }
-  verbose && print(verbose, gs);
-  verbose && exit(verbose);
+  verbose && print(verbose, gs)
+  verbose && exit(verbose)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Binning (target) stratified by field
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   for (ss in seq_along(setOfValuesOut)) {
-    byValue <- setOfValuesOut[ss];
+    byValue <- setOfValuesOut[ss]
     verbose && enter(verbose, sprintf("Value #%d (%s == '%s') of %d",
-                                        ss, field, byValue, length(setOfValuesOut)));
+                                        ss, field, byValue, length(setOfValuesOut)))
 
-    verbose && cat(verbose, "By value: ", byValue);
+    verbose && cat(verbose, "By value: ", byValue)
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Identify target loci with this byValue
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    verbose && enter(verbose, "Extracting subset of (target) loci for this value");
-    idxsOut <- which(is.element(byValuesOut, byValue));
-    resSS <- extractSubset(res, idxsOut, verbose=less(verbose,50));
-    verbose && print(verbose, resSS);
-    xOutSS <- getPositions(resSS);
-    verbose && str(verbose, xOutSS);
-    verbose && exit(verbose);
+    verbose && enter(verbose, "Extracting subset of (target) loci for this value")
+    idxsOut <- which(is.element(byValuesOut, byValue))
+    resSS <- extractSubset(res, idxsOut, verbose=less(verbose,50))
+    verbose && print(verbose, resSS)
+    xOutSS <- getPositions(resSS)
+    verbose && str(verbose, xOutSS)
+    verbose && exit(verbose)
     # Nothing to do? [Should actually never happen!]
-    nbrOfBins <- nbrOfLoci(resSS);
+    nbrOfBins <- nbrOfLoci(resSS)
     # Not needed anymore
-    resSS <- NULL;
+    resSS <- NULL
     if (nbrOfBins == 0) {
-      verbose && cat(verbose, "No bins. Skipping byValue.");
-      verbose && exit(verbose);
-      next;
+      verbose && cat(verbose, "No bins. Skipping byValue.")
+      verbose && exit(verbose)
+      next
     }
 
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Identifying source loci with this byValue
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    verbose && enter(verbose, "Extracting subset of (source) loci with this signal value");
-    byValues <- gs[[field]];
-    idxsSS <- which(is.element(byValues, byValue));
-    gsSS <- extractSubset(gs, idxsSS);
-    verbose && print(verbose, gsSS);
+    verbose && enter(verbose, "Extracting subset of (source) loci with this signal value")
+    byValues <- gs[[field]]
+    idxsSS <- which(is.element(byValues, byValue))
+    gsSS <- extractSubset(gs, idxsSS)
+    verbose && print(verbose, gsSS)
     # Sanity check
     if (!all(is.element(gsSS[[field]], byValue))) {
-       values <- gsSS[[field]];
-       print(table(values, useNA="always"));
-       print(byValue);
+       values <- gsSS[[field]]
+       print(table(values, useNA="always"))
+       print(byValue)
     }
-    .stop_if_not(all(is.element(gsSS[[field]], byValue)));
-    verbose && exit(verbose);
+    .stop_if_not(all(is.element(gsSS[[field]], byValue)))
+    verbose && exit(verbose)
 
     # Nothing to do?
     if (nbrOfLoci(gsSS) == 0) {
-      verbose && cat(verbose, "No extracted loci. Skipping byValue.");
-      verbose && exit(verbose);
-      next;
+      verbose && cat(verbose, "No extracted loci. Skipping byValue.")
+      verbose && exit(verbose)
+      next
     }
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Extending bins to equal count sizes?
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if (byCount) {
-      verbose && enter(verbose, "Extending bins to have equal number of loci");
-      verbose && cat(verbose, "xOrder:");
-      verbose && str(verbose, gsSS$xOrder);
-      nbrOfLociToAdd <- (gsSS$xOrder[1] %% by) - 1;
-      verbose && cat(verbose, "Number of loci to add: ", nbrOfLociToAdd);
-      gsSS$xOrder <- NULL;
+      verbose && enter(verbose, "Extending bins to have equal number of loci")
+      verbose && cat(verbose, "xOrder:")
+      verbose && str(verbose, gsSS$xOrder)
+      nbrOfLociToAdd <- (gsSS$xOrder[1] %% by) - 1
+      verbose && cat(verbose, "Number of loci to add: ", nbrOfLociToAdd)
+      gsSS$xOrder <- NULL
 
       if (nbrOfLociToAdd > 0) {
-        verbose && enter(verbose, sprintf("Appending %d extra loci", nbrOfLociToAdd));
+        verbose && enter(verbose, sprintf("Appending %d extra loci", nbrOfLociToAdd))
 
         # Allocate the correct size
-        nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd;
-        gsSS2 <- newInstance(gsSS, nrow=nbrOfLoci2);
+        nbrOfLoci2 <- nbrOfLoci(gsSS) + nbrOfLociToAdd
+        gsSS2 <- newInstance(gsSS, nrow=nbrOfLoci2)
 
-        fieldsT <- getColumnNames(gsSS, virtual=FALSE, translate=TRUE);
-        verbose && cat(verbose, "Fields:");
-        verbose && print(verbose, fieldsT);
+        fieldsT <- getColumnNames(gsSS, virtual=FALSE, translate=TRUE)
+        verbose && cat(verbose, "Fields:")
+        verbose && print(verbose, fieldsT)
 
         for (ff in seq_along(fieldsT)) {
-          field <- fieldsT[ff];
-          verbose && enter(verbose, sprintf("Field #%d ('%s') of %d", ff, field, length(fieldsT)));
-          values <- gsSS[[field]];
+          field <- fieldsT[ff]
+          verbose && enter(verbose, sprintf("Field #%d ('%s') of %d", ff, field, length(fieldsT)))
+          values <- gsSS[[field]]
 
           # Sanity check
-          .stop_if_not(!is.null(values));
+          .stop_if_not(!is.null(values))
 
           if (is.element(field, "w")) {
-            naValue <- 0;
+            naValue <- 0
           } else if (is.element(field, "x")) {
-            naValue <- 0;
+            naValue <- 0
           } else {
-            naValue <- NA;
+            naValue <- NA
           }
-          storage.mode(naValue) <- storage.mode(values);
-          naValues <- rep(naValue, times=nbrOfLociToAdd);
-          values <- c(naValues, values);
-          gsSS2[[field]] <- values;
+          storage.mode(naValue) <- storage.mode(values)
+          naValues <- rep(naValue, times=nbrOfLociToAdd)
+          values <- c(naValues, values)
+          gsSS2[[field]] <- values
 
-          verbose && exit(verbose);
+          verbose && exit(verbose)
         } # for (ff ...)
-        gsSS <- gsSS2;
+        gsSS <- gsSS2
         # Not needed anymore
-        gsSS2 <- NULL;
-        verbose && exit(verbose);
+        gsSS2 <- NULL
+        verbose && exit(verbose)
       } # if (nbrOfLociToAdd > 0)
-      verbose && exit(verbose);
+      verbose && exit(verbose)
     } # if (byCount)
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Bin loci of this byValue towards target loci (of the same byValue)
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    verbose && enter(verbose, "Binned smoothing of temporary object");
+    verbose && enter(verbose, "Binned smoothing of temporary object")
     if (byCount) {
-      xOutSSRank <- seq(from=(1+by)/2, by=by, length.out=nbrOfBins);
-      verbose && cat(verbose, "Arguments:");
-      args <- list(gsSS, xOut=xOutSSRank, by=by, byCount=byCount, ...);
-      verbose && str(verbose, args);
+      xOutSSRank <- seq(from=(1+by)/2, by=by, length.out=nbrOfBins)
+      verbose && cat(verbose, "Arguments:")
+      args <- list(gsSS, xOut=xOutSSRank, by=by, byCount=byCount, ...)
+      verbose && str(verbose, args)
       resSS <- binnedSmoothing(gsSS, fields=fields,
                                xOut=xOutSSRank, by=by, byCount=byCount,
-                               ..., verbose=less(verbose,5));
-      resSS$x <- xOutSS;
+                               ..., verbose=less(verbose,5))
+      resSS$x <- xOutSS
     } else {
-      verbose && cat(verbose, "Arguments:");
-      args <- list(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...);
-      verbose && str(verbose, args);
+      verbose && cat(verbose, "Arguments:")
+      args <- list(gsSS, xOut=xOutSS, by=by, byCount=byCount, ...)
+      verbose && str(verbose, args)
       resSS <- binnedSmoothing(gsSS, fields=fields,
                                xOut=xOutSS, by=by, byCount=byCount,
-                               ..., verbose=less(verbose,5));
+                               ..., verbose=less(verbose,5))
     } # if (byCount)
     # Not needed anymore
-    gsSS <- args <- NULL;
-    verbose && print(verbose, resSS);
-    verbose && exit(verbose);
+    gsSS <- args <- NULL
+    verbose && print(verbose, resSS)
+    verbose && exit(verbose)
 
     # Sanity check
-    .stop_if_not(length(idxsOut) == nbrOfLoci(resSS));
+    .stop_if_not(length(idxsOut) == nbrOfLoci(resSS))
 
-    YsSS <- as.data.frame(resSS)[,fields, drop=FALSE];
-    YsSS <- as.matrix(YsSS);
-    Ys[idxsOut,fields] <- YsSS;
+    YsSS <- as.data.frame(resSS)[,fields, drop=FALSE]
+    YsSS <- as.matrix(YsSS)
+    Ys[idxsOut,fields] <- YsSS
     # Not needed anymore
-    resSS <- YsSS <- NULL;
+    resSS <- YsSS <- NULL
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } # for (ss ...)
 
   # Update 'res':
   for (ff in fields) {
-    res[[ff]] <- Ys[,ff,drop=TRUE];
+    res[[ff]] <- Ys[,ff,drop=TRUE]
   }
-  verbose && print(verbose, res);
-  verbose && print(verbose, summary(res));
+  verbose && print(verbose, res)
+  verbose && print(verbose, summary(res))
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  res;
+  res
 }, protected=TRUE) # binnedSmoothingByField()
 
 
@@ -1030,137 +1030,137 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, fie
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'method':
-  method <- match.arg(method);
+  method <- match.arg(method)
 
   # Argument 'field':
   if (is.null(field)) {
-    field <- getSignalColumnName(this);
+    field <- getSignalColumnName(this)
   } else {
-    field <- Arguments$getCharacter(field);
+    field <- Arguments$getCharacter(field)
   }
 
   # Argument 'estimator':
-  estimator <- match.arg(estimator);
+  estimator <- match.arg(estimator)
 
-  n <- nbrOfLoci(this);
+  n <- nbrOfLoci(this)
 
   # Nothing todo?
   if (n <= 1) {
-    return(as.double(NA));
+    return(as.double(NA))
   }
 
   # Argument 'weights':
   if (!is.null(weights)) {
-    weights <- Arguments$getNumerics(weights, range=c(0,Inf), length=c(n,n));
+    weights <- Arguments$getNumerics(weights, range=c(0,Inf), length=c(n,n))
   }
 
   # Get the estimator function
   if (!is.null(weights)) {
-    estimator <- sprintf("weighted %s", estimator);
-    estimator <- toCamelCase(estimator);
+    estimator <- sprintf("weighted %s", estimator)
+    estimator <- toCamelCase(estimator)
   }
-  estimatorFcn <- get(estimator, mode="function");
+  estimatorFcn <- get(estimator, mode="function")
 
 
   if (method == "diff") {
     # Sort along genome
-    rgs <- sort(this);
-    y <- rgs[[field]];
+    rgs <- sort(this)
+    y <- rgs[[field]]
 
     # Insert NAs ("dividers") between chromosomes?
     if (nbrOfChromosomes(this) > 1) {
-      chrs <- rgs$chromosome;
-      dchrs <- diff(chrs);
-      ats <- which(is.finite(dchrs) & dchrs > 0);
-      y <- insert(y, ats=ats);  # R.utils::insert()
+      chrs <- rgs$chromosome
+      dchrs <- diff(chrs)
+      ats <- which(is.finite(dchrs) & dchrs > 0)
+      y <- insert(y, ats=ats) # R.utils::insert()
       if (!is.null(weights)) {
-        weights <- insert(weights, ats=ats);
+        weights <- insert(weights, ats=ats)
       }
       # Not needed anymore
-      chrs <- dchrs <- ats <- NULL;
+      chrs <- dchrs <- ats <- NULL
     }
     # Not needed anymore
-    rgs <- NULL;
+    rgs <- NULL
 
-    y <- diff(y);
+    y <- diff(y)
 
     # Weighted estimator?
     if (!is.null(weights)) {
       # Calculate weights per pair
-      weights <- (weights[1:(n-1)]+weights[2:n])/2;
-      sigma <- estimatorFcn(y, w=weights, na.rm=na.rm)/sqrt(2);
+      weights <- (weights[1:(n-1)]+weights[2:n])/2
+      sigma <- estimatorFcn(y, w=weights, na.rm=na.rm)/sqrt(2)
     } else {
-      sigma <- estimatorFcn(y, na.rm=na.rm)/sqrt(2);
+      sigma <- estimatorFcn(y, na.rm=na.rm)/sqrt(2)
     }
   } else if (method == "direct") {
-    y <- this[[field]];
+    y <- this[[field]]
     if (!is.null(weights)) {
-      sigma <- estimatorFcn(y, w=weights, na.rm=na.rm);
+      sigma <- estimatorFcn(y, w=weights, na.rm=na.rm)
     } else {
-      sigma <- estimatorFcn(y, na.rm=na.rm);
+      sigma <- estimatorFcn(y, na.rm=na.rm)
     }
   }
 
-  sigma;
+  sigma
 })
 
 
 
 setMethodS3("xSeq", "RawGenomicSignals", function(this, from=1, to=xMax(this), by=100e3, ...) {
   # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
+  assertOneChromosome(this)
 
-  seq(from=from, to=to, by=by);
+  seq(from=from, to=to, by=by)
 })
 
 setMethodS3("xRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
   # This is a single-chromosome method. Assert that's the case.
-  assertOneChromosome(this);
+  assertOneChromosome(this)
 
-  x <- getPositions(this);
-  range(x, na.rm=na.rm);
+  x <- getPositions(this)
+  range(x, na.rm=na.rm)
 })
 
 setMethodS3("xMin", "RawGenomicSignals", function(this, ...) {
-  xRange(this, ...)[1];
+  xRange(this, ...)[1]
 })
 
 setMethodS3("xMax", "RawGenomicSignals", function(this, ...) {
-  xRange(this, ...)[2];
+  xRange(this, ...)[2]
 })
 
 setMethodS3("yRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
-  y <- getSignals(this, ...);
-  range(y, na.rm=na.rm);
+  y <- getSignals(this, ...)
+  range(y, na.rm=na.rm)
 })
 
 setMethodS3("yMin", "RawGenomicSignals", function(this, ...) {
-  yRange(this, ...)[1];
+  yRange(this, ...)[1]
 })
 
 setMethodS3("yMax", "RawGenomicSignals", function(this, ...) {
-  yRange(this, ...)[2];
+  yRange(this, ...)[2]
 })
 
 
 setMethodS3("signalRange", "RawGenomicSignals", function(this, na.rm=TRUE, ...) {
-  y <- getSignals(this, ...);
-  range(y, na.rm=na.rm);
+  y <- getSignals(this, ...)
+  range(y, na.rm=na.rm)
 })
 
 setMethodS3("setSigma", "RawGenomicSignals", function(this, sigma, ...) {
-  sigma <- Arguments$getNumeric(sigma, range=c(0,Inf), disallow=NULL);
-  this <- setBasicField(this, ".sigma", sigma);
-  invisible(this);
+  sigma <- Arguments$getNumeric(sigma, range=c(0,Inf), disallow=NULL)
+  this <- setBasicField(this, ".sigma", sigma)
+  invisible(this)
 })
 
 setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
-  sigma <- getBasicField(this, ".sigma");
+  sigma <- getBasicField(this, ".sigma")
   if (is.null(sigma)) {
-    sigma <- estimateStandardDeviation(this, ...);
-    this <- setSigma(this, sigma);
+    sigma <- estimateStandardDeviation(this, ...)
+    this <- setSigma(this, sigma)
   }
-  sigma;
+  sigma
 })
 
 
@@ -1172,18 +1172,18 @@ setMethodS3("getSigma", "RawGenomicSignals", function(this, ..., force=FALSE) {
 # methods work regardless of RawGenomicSignals extending BasicObject
 # or Object (the original implementation).
 setMethodS3("clone", "RawGenomicSignals", function(this, ...) {
-  this;
+  this
 }, protected=TRUE)
 
 setMethodS3("clearCache", "RawGenomicSignals", function(this, ...) {
-  this;
+  this
 }, protected=TRUE)
 
 setMethodS3("getBasicField", "RawGenomicSignals", function(this, key, ...) {
-  attr(this, key);
+  attr(this, key)
 }, protected=TRUE)
 
 setMethodS3("setBasicField", "RawGenomicSignals", function(this, key, value, ...) {
-  attr(this, key) <- value;
-  invisible(this);
+  attr(this, key) <- value
+  invisible(this)
 }, protected=TRUE)

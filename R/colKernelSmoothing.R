@@ -68,13 +68,13 @@ setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Argument 'Y'
-  n <- nrow(Y);
-  k <- ncol(Y);
+  n <- nrow(Y)
+  k <- ncol(Y)
   
   # Argument 'x'
   if (length(x) != n) {
     throw("Argument 'x' has different number of values than rows in 'Y': ", 
-                                                     length(x), " != ", n);
+                                                     length(x), " != ", n)
   }
 
   # Argument 'w'
@@ -82,54 +82,54 @@ setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   } else {
     if (length(w) != n) {
       throw("Argument 'w' has different number of values that rows in 'Y': ", 
-                                                       length(w), " != ", n);
+                                                       length(w), " != ", n)
     }
   }
 
   # Argument 'xOut'
   if (is.null(xOut)) {
-    xOut <- x;
+    xOut <- x
   } else {
-    xOut <- Arguments$getNumerics(xOut);
+    xOut <- Arguments$getNumerics(xOut)
   }
-  nOut <- length(xOut);
+  nOut <- length(xOut)
 
   # Argument 'kernel'
   if (is.character(kernel)) {
-    kernel <- match.arg(kernel);
+    kernel <- match.arg(kernel)
     if (kernel == "gaussian") {
-      # wKernel <- dnorm(xDiff[keep], mean=0, sd=sd);
+      # wKernel <- dnorm(xDiff[keep], mean=0, sd=sd)
       kernel <- function(x, h) {
-        dnorm(x, mean=0, sd=h);
+        dnorm(x, mean=0, sd=h)
       }
     } else if (kernel == "uniform") {
       kernel <- function(x, h) {
-        w <- rep(0, times=length(x));
-        w[-h/2 <= x & x < h/2] <- 1;
-        w;
+        w <- rep(0, times=length(x))
+        w[-h/2 <= x & x < h/2] <- 1
+        w
       }
     }
   }
   if (is.function(kernel)) {
   } else {
     throw("Argument 'kernel' must be either a string or a function: ", 
-                                                              mode(kernel));
+                                                              mode(kernel))
   }
 
   # Arguments 'h':
-  h <- Arguments$getNumeric(h, range=c(0,Inf));
+  h <- Arguments$getNumeric(h, range=c(0,Inf))
 
   # Arguments 'censorH':
-  censorH <- Arguments$getNumeric(censorH, range=c(0,Inf));
+  censorH <- Arguments$getNumeric(censorH, range=c(0,Inf))
 
   # Arguments 'robust':
-  robust <- Arguments$getLogical(robust);
+  robust <- Arguments$getLogical(robust)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
@@ -139,86 +139,86 @@ setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   if (robust) {
     # Exclude NAs?
-    naRm <- ifelse(na.rm, TRUE, NA);
+    naRm <- ifelse(na.rm, TRUE, NA)
   }
 
-  censorThreshold <- censorH * h;
-  isCensored <- (censorThreshold < Inf);
+  censorThreshold <- censorH * h
+  isCensored <- (censorThreshold < Inf)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Smoothing
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Allocate vector of smoothed signals
-  naValue <- as.double(NA);
-  Ys <- matrix(naValue, nrow=nOut, ncol=k);
-  colnames(Ys) <- colnames(Y);
+  naValue <- as.double(NA)
+  Ys <- matrix(naValue, nrow=nOut, ncol=k)
+  colnames(Ys) <- colnames(Y)
 
-  verbose && enter(verbose, "Estimating signals at given locations");
+  verbose && enter(verbose, "Estimating signals at given locations")
 
-  verbose && cat(verbose, "Output locations:");
-  verbose && str(verbose, xOut);
+  verbose && cat(verbose, "Output locations:")
+  verbose && str(verbose, xOut)
 
   # At each position in 'xOut', calculate the weighted average 
   # using the kernel.
   for (kk in seq_len(nOut)) {
     if (kk %% 100 == 0)
-      verbose && cat(verbose, kk);
+      verbose && cat(verbose, kk)
 
     # Weights centered around x[kk]
-    xDiff <- (x-xOut[kk]);
+    xDiff <- (x-xOut[kk])
     if (isCensored) {
-      keep <- which(abs(xDiff) <= censorThreshold);
+      keep <- which(abs(xDiff) <= censorThreshold)
       # Nothing to do?
       if (length(keep) == 0) {
-        next;
+        next
       }
-      xDiff2 <- xDiff[keep];
-      Y2 <- Y[keep,,drop=FALSE];
-      w2 <- w[keep];
+      xDiff2 <- xDiff[keep]
+      Y2 <- Y[keep,,drop=FALSE]
+      w2 <- w[keep]
     } else {
-      xDiff2 <- xDiff;
-      Y2 <- Y;
-      w2 <- w;
+      xDiff2 <- xDiff
+      Y2 <- Y
+      w2 <- w
     }
 
     # Kernel weights...
-    wKernel <- kernel(xDiff2, h=h);
+    wKernel <- kernel(xDiff2, h=h)
 
     if (!is.null(w2)) {
       # ...with prior weights?
-      wKernel <- w2 * wKernel;
+      wKernel <- w2 * wKernel
     }
 
     if (robust) {
-      value <- colWeightedMedians(Y2, w=wKernel, na.rm=naRm);
+      value <- colWeightedMedians(Y2, w=wKernel, na.rm=naRm)
     } else {
-      value <- colWeightedMeans(Y2, w=wKernel, na.rm=na.rm);
+      value <- colWeightedMeans(Y2, w=wKernel, na.rm=na.rm)
     }
 
     # Fix: Smoothing over a window with all missing values give zeros, not NA.
-    idxs <- which(value == 0);
+    idxs <- which(value == 0)
     if (length(idxs) > 0) {
       # Are these real zeros or missing values?
-      Y2 <- Y2[idxs,,drop=FALSE];
-      Y2 <- !is.na(Y2);
-      idxsNA <- idxs[colSums(Y2) == 0];    
-      value[idxsNA] <- NA;
+      Y2 <- Y2[idxs,,drop=FALSE]
+      Y2 <- !is.na(Y2)
+      idxsNA <- idxs[colSums(Y2) == 0]
+      value[idxsNA] <- NA
     }
 
-#    verbose && str(verbose, value);
-    Ys[kk,] <- value;
+#    verbose && str(verbose, value)
+    Ys[kk,] <- value
   } # for (kk ...)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  Ys;
+  Ys
 }) # colKernelSmoothing()
 
 
 
 setMethodS3("kernelSmoothing", "numeric", function(y, ...) {
-  y <- colKernelSmoothing(as.matrix(y), ...);
-  dim(y) <- NULL;
-  y;
+  y <- colKernelSmoothing(as.matrix(y), ...)
+  dim(y) <- NULL
+  y
 })

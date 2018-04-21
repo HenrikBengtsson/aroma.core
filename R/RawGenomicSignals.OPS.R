@@ -1,111 +1,111 @@
 setMethodS3("subtractBy", "RawGenomicSignals", function(this, ...) {
-  applyBinaryOperator(this, ..., FUN=get("-", mode="function"));
+  applyBinaryOperator(this, ..., FUN=get("-", mode="function"))
 })
 
 setMethodS3("addBy", "RawGenomicSignals", function(this, ...) {
-  applyBinaryOperator(this, ..., FUN=get("+", mode="function"));
+  applyBinaryOperator(this, ..., FUN=get("+", mode="function"))
 })
 
 setMethodS3("divideBy", "RawGenomicSignals", function(this, ...) {
-  applyBinaryOperator(this, ..., FUN=get("/", mode="function"));
+  applyBinaryOperator(this, ..., FUN=get("/", mode="function"))
 })
 
 setMethodS3("multiplyBy", "RawGenomicSignals", function(this, ...) {
-  applyBinaryOperator(this, ..., FUN=get("*", mode="function"));
+  applyBinaryOperator(this, ..., FUN=get("*", mode="function"))
 })
 
 
 setMethodS3("applyBinaryOperator", "RawGenomicSignals", function(this, other, fields=NULL, FUN, ..., sort=FALSE) {
   # Argument 'other':
-  other <- Arguments$getInstanceOf(other, class(this)[1]);
+  other <- Arguments$getInstanceOf(other, class(this)[1])
 
   # Argument 'fields':
   if (is.null(fields)) {
-    fields <- getColumnNames(this);
+    fields <- getColumnNames(this)
   }
 
   # Argument 'FUN':
   if (!is.function(FUN)) {
-    throw("Argument 'FUN' is not a function: ", mode(FUN)[1]);
+    throw("Argument 'FUN' is not a function: ", mode(FUN)[1])
   }
  
 
-  nbrOfLoci <- nbrOfLoci(this);
+  nbrOfLoci <- nbrOfLoci(this)
   if (nbrOfLoci(other) != nbrOfLoci) {
-    throw("The number of loci in argument 'other' does not match the number of loci in this object: ", nbrOfLoci(other), " != ", nbrOfLoci);
+    throw("The number of loci in argument 'other' does not match the number of loci in this object: ", nbrOfLoci(other), " != ", nbrOfLoci)
   }
 
-  fieldsOther <- getColumnNames(other);
-  fields <- intersect(fields, fieldsOther);
+  fieldsOther <- getColumnNames(other)
+  fields <- intersect(fields, fieldsOther)
 
-  res <- this;
+  res <- this
 
   # Sort by genomic position?
   if (sort) {
     # sort() returns a sorted clone():d object. /HB 2012-03-01
-    res <- sort(res);
-    other <- sort(other);
+    res <- sort(res)
+    other <- sort(other)
   }
 
   # Has genomic locations?
   if (is.element("x", fields)) {
     # Assert that positions are the same
     if (!all.equal(this$x, other$x)) {
-      throw("Cannot subtract argument 'other' from this object, because their genomic locations do not match.");
+      throw("Cannot subtract argument 'other' from this object, because their genomic locations do not match.")
     }
 
     # Keep positions
-    fields <- setdiff(fields, "x");
+    fields <- setdiff(fields, "x")
   }
 
 
   for (field in fields) {
-    delta <- FUN(res[[field]], other[[field]]);
-    res[[field]] <- delta;
+    delta <- FUN(res[[field]], other[[field]])
+    res[[field]] <- delta
   }
 
-  res;  
+  res
 }, protected=TRUE)
 
 
 
 setMethodS3("+", "RawGenomicSignals", function(e1, e2) {
   # To please R CMD check 
-  this <- e1;
-  other <- e2;
+  this <- e1
+  other <- e2
 
-  addBy(this, other);
-}, appendVarArgs=FALSE, validators=NULL);
+  addBy(this, other)
+}, appendVarArgs=FALSE, validators=NULL)
 
 setMethodS3("-", "RawGenomicSignals", function(e1, e2) {
   # To please R CMD check 
-  this <- e1;
-  other <- e2;
+  this <- e1
+  other <- e2
 
-  subtractBy(this, other);
-}, appendVarArgs=FALSE, validators=NULL);
+  subtractBy(this, other)
+}, appendVarArgs=FALSE, validators=NULL)
 
 setMethodS3("*", "RawGenomicSignals", function(e1, e2) {
   # To please R CMD check 
-  this <- e1;
-  value <- e2;
+  this <- e1
+  value <- e2
 
   # Swap 'this' and 'value'?
   if (inherits(value, "RawGenomicSignals")) {
-    tmp <- this;
-    this <- value;
-    value <- tmp;
+    tmp <- this
+    this <- value
+    value <- tmp
   }
 
-  value <- Arguments$getDouble(value);
+  value <- Arguments$getDouble(value)
 
-  fields <- getColumnNames(this, translate=FALSE);
-  fields <- setdiff(fields, "x");
+  fields <- getColumnNames(this, translate=FALSE)
+  fields <- setdiff(fields, "x")
 
-  res <- clone(this);
+  res <- clone(this)
   for (field in fields) {
-    res[[field]] <- value * res[[field]];
+    res[[field]] <- value * res[[field]]
   } 
 
-  res;
-}, appendVarArgs=FALSE, validators=NULL);
+  res
+}, appendVarArgs=FALSE, validators=NULL)
