@@ -1,3 +1,9 @@
+isEnvVarTRUE <- function(name) {
+  value <- toupper(Sys.getenv(name))
+  if (value == "yes") value <- "TRUE"
+  isTRUE(as.logical(value))
+}
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Simulating copy-number data
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -37,7 +43,8 @@ if (require("DNAcopy")) {
   legend <- c(legend, red="CBS")
 }
 
-if (require("GLAD") && packageVersion("GLAD") != "9.9.9") {
+if (require("GLAD") && packageVersion("GLAD") != "9.9.9" &&
+    !isEnvVarTRUE("_R_S3_METHOD_LOOKUP_BASEENV_AFTER_GLOBALENV_")) {
   fit <- segmentByGLAD(cn)
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)

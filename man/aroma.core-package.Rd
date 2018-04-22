@@ -15,7 +15,7 @@
 
 
  \description{
-   Core methods and classes used by higher-level aroma.* packages         part of the Aroma Project, e.g. aroma.affymetrix and aroma.cn.
+   Core methods and classes used by higher-level 'aroma.*' packages         part of the Aroma Project, e.g. 'aroma.affymetrix' and 'aroma.cn'.
 
    This package is a support package for \pkg{aroma.affymetrix}.
    This package should be considered to be in an alpha or beta phase.

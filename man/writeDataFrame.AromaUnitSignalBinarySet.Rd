@@ -17,7 +17,7 @@
 \description{
   Writes the data set as a tab-delimited text file with or without file header comments.
 
- \emph{We do neither recommend nor encourage the usage of this method;
+ \emph{We do neither recommend nor encourage the usage of this method -
   it is only available due to popular demand}.
   For more details, see below.
 }
