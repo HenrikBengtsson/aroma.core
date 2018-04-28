@@ -277,9 +277,6 @@ S3method("updateTargetStrands", "AromaCellSequenceFile")
 S3method("nbrOfCells", "AromaCellTabularBinaryFile")
 S3method("byChipType", "AromaCellTabularBinaryFile")
 
-# AromaCore
-###S3method("fixSearchPath", "AromaCore")
-
 # AromaGenomeTextFile
 S3method("byGenome", "AromaGenomeTextFile")
 S3method("findByGenome", "AromaGenomeTextFile")

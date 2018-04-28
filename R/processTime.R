@@ -42,39 +42,32 @@
 #*/###########################################################################
 setMethodS3("processTime", "default", function(since=NULL, units=c("seconds", "milliseconds", "minutes", "hours", "days"), fmtstr=NULL, ...) {
   if (!exists("proc.time", mode="function"))
-    return(rep(as.double(NA), times=5L));
+    return(rep(as.double(NA), times=5L))
 
-  units <- match.arg(units);
+  units <- match.arg(units)
 
-  time <- proc.time();
+  time <- proc.time()
 
   if (!is.null(since))
-    time <- time - since;
+    time <- time - since
 
   if (units != "seconds") {
     if (units == "milliseconds") {
-      time <- 1000 * time;
+      time <- 1000 * time
     } else if (units == "minutes") {
-      time <- time / 60;
+      time <- time / 60
     } else if (units == "hours") {
-      time <- time / 3600;
+      time <- time / 3600
     } else if (units == "days") {
-      time <- time / (86400);
+      time <- time / (86400)
     }
   }
 
   if (!is.null(fmtstr)) {
-    time <- sprintf(fmtstr, time);
+    time <- sprintf(fmtstr, time)
   }
 
-  names(time) <- c("user", "system", "total", "userChilds", "systemChilds");
+  names(time) <- c("user", "system", "total", "userChilds", "systemChilds")
 
-  time;
-}, private=TRUE); # processTime()
-
-
-############################################################################
-# HISTORY:
-# 2006-03-09
-# o Created.
-############################################################################
+  time
+}, private=TRUE) # processTime()

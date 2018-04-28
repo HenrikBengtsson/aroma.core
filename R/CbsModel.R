@@ -45,12 +45,12 @@ setConstructorS3("CbsModel", function(cesTuple=NULL, ..., seed=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(cesTuple)) {
     # Early error, iff package is not available
-    requireNamespace("DNAcopy") || throw("Package not loaded: DNAcopy");
+    requireNamespace("DNAcopy") || throw("Package not loaded: DNAcopy")
   }
 
   # Argument 'seed':
   if (!is.null(seed)) {
-    seed <- Arguments$getInteger(seed);
+    seed <- Arguments$getInteger(seed)
   }
 
   extend(CopyNumberSegmentationModel(cesTuple=cesTuple, ...), "CbsModel",
@@ -59,42 +59,24 @@ setConstructorS3("CbsModel", function(cesTuple=NULL, ..., seed=NULL) {
 })
 
 setMethodS3("getRandomSeed", "CbsModel", function(this, ...) {
-  this$.seed;
+  this$.seed
 }, protected=TRUE)
 
 setMethodS3("setRandomSeed", "CbsModel", function(this, seed, ...) {
   # Argument 'seed':
   if (!is.null(seed)) {
-    seed <- Arguments$getInteger(seed);
+    seed <- Arguments$getInteger(seed)
   }
 
-  this$.seed <- seed;
-  invisible(this);
+  this$.seed <- seed
+  invisible(this)
 }, protected=TRUE)
 
 
 setMethodS3("getFitFunction", "CbsModel", function(this, ...) {
-  defaultSeed <- getRandomSeed(this);
+  defaultSeed <- getRandomSeed(this)
   fitFcn <- function(..., seed=defaultSeed) {
-    segmentByCBS(..., seed=seed);
+    segmentByCBS(..., seed=seed)
   }
-  fitFcn;
+  fitFcn
 }, protected=TRUE)
-
-
-##############################################################################
-# HISTORY:
-# 2010-04-12
-# o BUG FIX: getFitFunction() of CbsModel would return a function that
-#   would give "Error in segmentByCBS.RawGenomicSignals(..., seed = seed):
-#   formal argument "seed" matched by multiple actual arguments".
-# 2010-04-06
-# o Added argument 'seed' to CbsModel, which will, if specified, set the
-#   random seed (temporarily) each time (per sample and chromosome) before
-#   calling the segmentation method.
-# o Added protected set- and getRandomSeed().
-# 2009-05-16
-# o Added getFitFunction().  Removed fitOne().
-# 2007-08-20
-# o Created from GladModel.R.
-##############################################################################

@@ -39,12 +39,12 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
   if (!is.null(cesTuple)) {
     # Coerce, if needed
     if (!inherits(cesTuple, "AromaMicroarrayDataSetTuple")) {
-      cesTuple <- as.AromaMicroarrayDataSetTuple(cesTuple);
+      cesTuple <- as.AromaMicroarrayDataSetTuple(cesTuple)
     }
   }
 
   # Argument 'tags':
-  tags <- Arguments$getTags(tags, collapse=NULL);
+  tags <- Arguments$getTags(tags, collapse=NULL)
 
   this <- extend(Object(), "ChromosomalModel",
     .alias = NULL,
@@ -52,108 +52,108 @@ setConstructorS3("ChromosomalModel", function(cesTuple=NULL, tags="*", genome="H
     .chromosomes = NULL,
     .tags = tags,
     .genome = genome
-  );
+  )
 
   # Validate?
   if (!is.null(this$.cesTuple)) {
     # Assert that a genome annotation file exists
-    gf <- getGenomeFile(this);
-    this <- setChromosomes(this, chromosomes);
+    gf <- getGenomeFile(this)
+    this <- setChromosomes(this, chromosomes)
   }
 
-  this;
+  this
 }, abstract=TRUE)
 
 
 setMethodS3("as.character", "ChromosomalModel", function(x, ...) {
   # To please R CMD check
-  this <- x;
+  this <- x
 
-  s <- sprintf("%s:", class(this)[1]);
-  s <- c(s, paste("Name:", getName(this)));
-  s <- c(s, paste("Tags:", getTags(this, collapse=",")));
-  s <- c(s, paste("Chip type (virtual):", getChipType(this)));
-  s <- c(s, sprintf("Path: %s", getPath(this)));
-  tuple <- getSetTuple(this);
-  chipTypes <- getChipTypes(tuple);
-  nbrOfChipTypes <- length(chipTypes);
-  s <- c(s, sprintf("Number of chip types: %d", nbrOfChipTypes));
-  s <- c(s, sprintf("Chip types: %d", paste(chipTypes, collapse=", ")));
+  s <- sprintf("%s:", class(this)[1])
+  s <- c(s, paste("Name:", getName(this)))
+  s <- c(s, paste("Tags:", getTags(this, collapse=",")))
+  s <- c(s, paste("Chip type (virtual):", getChipType(this)))
+  s <- c(s, sprintf("Path: %s", getPath(this)))
+  tuple <- getSetTuple(this)
+  chipTypes <- getChipTypes(tuple)
+  nbrOfChipTypes <- length(chipTypes)
+  s <- c(s, sprintf("Number of chip types: %d", nbrOfChipTypes))
+  s <- c(s, sprintf("Chip types: %d", paste(chipTypes, collapse=", ")))
 
-  s <- c(s, "List of data sets:");
-  s <- c(s, as.character(tuple));
+  s <- c(s, "List of data sets:")
+  s <- c(s, as.character(tuple))
 
-  GenericSummary(s);
+  GenericSummary(s)
 }, protected=TRUE)
 
 
 setMethodS3("getRootPath", "ChromosomalModel", function(this, ...) {
-  tag <- getAsteriskTags(this)[1];
-  sprintf("%sData", tolower(tag));
+  tag <- getAsteriskTags(this)[1]
+  sprintf("%sData", tolower(tag))
 }, protected=TRUE)
 
 
 setMethodS3("getParentPath", "ChromosomalModel", function(this, ...) {
   # Root path
-  rootPath <- getRootPath(this);
+  rootPath <- getRootPath(this)
 
   # Full name
-  fullname <- getFullName(this);
+  fullname <- getFullName(this)
 
   # The full path
-  path <- filePath(rootPath, fullname);
-  path <- Arguments$getWritablePath(path);
+  path <- filePath(rootPath, fullname)
+  path <- Arguments$getWritablePath(path)
 
-  path;
+  path
 }, protected=TRUE)
 
 
 setMethodS3("getPath", "ChromosomalModel", function(this, ...) {
-  path <- getParentPath(this, ...);
+  path <- getParentPath(this, ...)
 
   # Chip type
-  chipType <- getChipType(this);
+  chipType <- getChipType(this)
 
   # The full path
-  path <- filePath(path, chipType);
-  path <- Arguments$getWritablePath(path);
+  path <- filePath(path, chipType)
+  path <- Arguments$getWritablePath(path)
 
-  path;
+  path
 })
 
 setMethodS3("getReportPath", "ChromosomalModel", function(this, ...) {
-  rootPath <- "reports";
+  rootPath <- "reports"
 
   # Data set name
-  name <- getName(this);
+  name <- getName(this)
 
   # Data set tags
-  tags <- getTags(this, collapse=",");
+  tags <- getTags(this, collapse=",")
 
   # Get chip type
-  chipType <- getChipType(this);
+  chipType <- getChipType(this)
 
   # Image set
-  set <- getSetTag(this);
+  set <- getSetTag(this)
 
   # The report path
-  path <- filePath(rootPath, name, tags, chipType, set);
-  path <- Arguments$getWritablePath(path);
+  path <- filePath(rootPath, name, tags, chipType, set)
+  path <- Arguments$getWritablePath(path)
 
-  path;
+  path
 }, protected=TRUE)
 
 
 
 setMethodS3("getSetTuple", "ChromosomalModel", function(this, ...) {
-  this$.cesTuple;
+  this$.cesTuple
 }, protected=TRUE)
 
 
 
 setMethodS3("getSets", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getSets(tuple);
+  tuple <- getSetTuple(this)
+  getSets(tuple)
 })
 
 
@@ -183,8 +183,8 @@ setMethodS3("getSets", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("nbrOfChipTypes", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  nbrOfChipTypes(tuple, ...);
+  tuple <- getSetTuple(this)
+  nbrOfChipTypes(tuple, ...)
 })
 
 
@@ -194,26 +194,26 @@ setMethodS3("getListOfUnitNamesFiles", "ChromosomalModel", function(this, ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Retrieving unit names files");
+  verbose && enter(verbose, "Retrieving unit names files")
 
-  tuple <- getSetTuple(this);
+  tuple <- getSetTuple(this)
 
   tryCatch({
-    unfList <- getListOfUnitNamesFiles(tuple, ...);
+    unfList <- getListOfUnitNamesFiles(tuple, ...)
   }, error = function(ex) {
-    msg <- sprintf("Failed to located unit-names files for one of the chip types (%s). The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message);
-    throw(msg);
-  });
+    msg <- sprintf("Failed to located unit-names files for one of the chip types (%s). The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message)
+    throw(msg)
+  })
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  unfList;
+  unfList
 }, private=TRUE)
 
 
@@ -222,45 +222,45 @@ setMethodS3("getListOfAromaUgpFiles", "ChromosomalModel", function(this, ..., ve
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Retrieving list of UGP files");
+  verbose && enter(verbose, "Retrieving list of UGP files")
 
-  tuple <- getSetTuple(this);
-#  unfList <- getListOfUnitNamesFiles(this);
+  tuple <- getSetTuple(this)
+#  unfList <- getListOfUnitNamesFiles(this)
 
-  ugpList <- NULL;
+  ugpList <- NULL
   tryCatch({
-    verbose && enter(verbose, "Retrieving UGP files from unit names files");
-#    ugpList <- lapply(unfList, FUN=getAromaUgpFile, verbose=less(verbose));
+    verbose && enter(verbose, "Retrieving UGP files from unit names files")
+#    ugpList <- lapply(unfList, FUN=getAromaUgpFile, verbose=less(verbose))
 #   TODO: Why not do this?  /HB 2010-01-12
-    ugpList <- lapply(tuple, FUN=getAromaUgpFile, verbose=less(verbose));
-    verbose && exit(verbose);
+    ugpList <- lapply(tuple, FUN=getAromaUgpFile, verbose=less(verbose))
+    verbose && exit(verbose)
   }, error = function(ex) {
-    msg <- sprintf("Failed to located UGP files for one of the chip types (%s). Please note that DChip GenomeInformation files are no longer supported.  The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message);
-    throw(msg);
-  });
+    msg <- sprintf("Failed to located UGP files for one of the chip types (%s). Please note that DChip GenomeInformation files are no longer supported.  The error message was: %s", paste(getChipTypes(this), collapse=", "), ex$message)
+    throw(msg)
+  })
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  ugpList;
+  ugpList
 }, protected=TRUE)
 
 
 setMethodS3("getListOfUnitTypesFiles", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getListOfUnitTypesFiles(tuple, ...);
+  tuple <- getSetTuple(this)
+  getListOfUnitTypesFiles(tuple, ...)
 }, private=TRUE)
 
 
 
 setMethodS3("getChipTypes", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getChipTypes(tuple, ...);
+  tuple <- getSetTuple(this)
+  getChipTypes(tuple, ...)
 })
 
 
@@ -290,7 +290,7 @@ setMethodS3("getChipTypes", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getChipType", "ChromosomalModel", function(this, ...) {
-  getChipTypes(this, merge=TRUE, ...);
+  getChipTypes(this, merge=TRUE, ...)
 })
 
 
@@ -321,14 +321,14 @@ setMethodS3("getChipType", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getNames", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getNames(tuple, ...);
+  tuple <- getSetTuple(this)
+  getNames(tuple, ...)
 })
 
 
 setMethodS3("getFullNames", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getFullNames(tuple, ...);
+  tuple <- getSetTuple(this)
+  getFullNames(tuple, ...)
 })
 
 
@@ -365,8 +365,8 @@ setMethodS3("getFullNames", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getTableOfArrays", "ChromosomalModel", function(this, ...) {
-  tuple <- getSetTuple(this);
-  getTableOfArrays(tuple, ...);
+  tuple <- getSetTuple(this)
+  getTableOfArrays(tuple, ...)
 }, protected=TRUE, deprecated=TRUE)
 
 
@@ -375,21 +375,21 @@ setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ..., on
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'onMissing':
-  onMissing <- match.arg(onMissing);
+  onMissing <- match.arg(onMissing)
 
 
   # If 'patterns' is numeric, then...
   if (is.numeric(patterns)) {
-    names <- getNames(this);
-    n <- length(names);
-    res <- Arguments$getIndices(patterns, max=n);
-    names(res) <- names[res];
-    return(res);
+    names <- getNames(this)
+    n <- length(names)
+    res <- Arguments$getIndices(patterns, max=n)
+    names(res) <- names[res]
+    return(res)
   }
 
   # ...otherwise, reuse indexOf() for GenericDataFileSet in R.filesets.
   indexOf.GenericDataFileSet(this, patterns=patterns, ...,
-                                                         onMissing=onMissing);
+                                                         onMissing=onMissing)
 })
 
 
@@ -421,82 +421,82 @@ setMethodS3("indexOf", "ChromosomalModel", function(this, patterns=NULL, ..., on
 # }
 #*/###########################################################################
 setMethodS3("nbrOfArrays", "ChromosomalModel", function(this, ...) {
-  length(getNames(this, ...));
+  length(getNames(this, ...))
 })
 
 
 setMethodS3("getName", "ChromosomalModel", function(this, collapse="+", ...) {
-  name <- getAlias(this);
+  name <- getAlias(this)
 
   if (is.null(name)) {
-    tuple <- getSetTuple(this);
-    name <- getName(tuple, ...);
+    tuple <- getSetTuple(this)
+    name <- getName(tuple, ...)
   }
 
-  name;
+  name
 })
 
 
 setMethodS3("getAsteriskTags", "ChromosomalModel", function(this, collapse=NULL, ...) {
   # Create a default asterisk tags for any class by extracting all
   # capital letters and pasting them together, e.g. AbcDefGhi => ADG.
-  name <- class(this)[1];
+  name <- class(this)[1]
 
   # Remove any 'Model' suffixes
-  name <- gsub("Model$", "", name);
+  name <- gsub("Model$", "", name)
 
-  name <- capitalize(name);
+  name <- capitalize(name)
 
   # Vectorize
-  name <- strsplit(name, split="")[[1]];
+  name <- strsplit(name, split="")[[1]]
 
   # Identify upper case
-  name <- name[(toupper(name) == name)];
+  name <- name[(toupper(name) == name)]
 
   # Paste
-  name <- paste(name, collapse="");
+  name <- paste(name, collapse="")
 
-  tag <- name;
+  tag <- name
 }, protected=TRUE)
 
 
 
 
 setMethodS3("getTags", "ChromosomalModel", function(this, collapse=NULL, ...) {
-  tuple <- getSetTuple(this);
-  tags <- getTags(tuple, collapse=collapse, ...);
+  tuple <- getSetTuple(this)
+  tags <- getTags(tuple, collapse=collapse, ...)
 
   # Add model tags
-  tags <- c(tags, this$.tags);
+  tags <- c(tags, this$.tags)
 
   # In case this$.tags is not already split
-  tags <- strsplit(tags, split=",", fixed=TRUE);
-  tags <- unlist(tags);
+  tags <- strsplit(tags, split=",", fixed=TRUE)
+  tags <- unlist(tags)
 
   # Update default tags
-  asteriskTags <- getAsteriskTags(this, collapse=",");
+  asteriskTags <- getAsteriskTags(this, collapse=",")
   if (length(asteriskTags) == 0)
-    asteriskTags <- "";
-  tags[tags == "*"] <- asteriskTags;
+    asteriskTags <- ""
+  tags[tags == "*"] <- asteriskTags
 
-  tags <- Arguments$getTags(tags, collapse=NULL);
+  tags <- Arguments$getTags(tags, collapse=NULL)
 
   # Get unique tags
-  tags <- locallyUnique(tags);
+  tags <- locallyUnique(tags)
 
   # Collapsed or split?
-  tags <- Arguments$getTags(tags, collapse=collapse);
+  tags <- Arguments$getTags(tags, collapse=collapse)
 
-  tags;
+  tags
 })
 
 
 setMethodS3("getFullName", "ChromosomalModel", function(this, ...) {
-  name <- getName(this);
-  tags <- getTags(this);
-  fullname <- paste(c(name, tags), collapse=",");
-  fullname <- gsub("[,]$", "", fullname);
-  fullname;
+  name <- getName(this)
+  tags <- getTags(this)
+  fullname <- paste(c(name, tags), collapse=",")
+  fullname <- gsub("[,]$", "", fullname)
+  fullname
 })
 
 
@@ -528,41 +528,41 @@ setMethodS3("getFullName", "ChromosomalModel", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getChromosomes", "ChromosomalModel", function(this, ...) {
-  chromosomes <- this$.chromosomes;
+  chromosomes <- this$.chromosomes
   if (!is.null(chromosomes)) {
-    return(chromosomes);
+    return(chromosomes)
   }
 
   # The default is to process all available chromosomes
-  ugpList <- getListOfAromaUgpFiles(this);
-  chromosomes <- lapply(ugpList, FUN=getChromosomes);
-  chromosomes <- unlist(chromosomes, use.names=TRUE);
-  chromosomes <- sort(unique(chromosomes));
+  ugpList <- getListOfAromaUgpFiles(this)
+  chromosomes <- lapply(ugpList, FUN=getChromosomes)
+  chromosomes <- unlist(chromosomes, use.names=TRUE)
+  chromosomes <- sort(unique(chromosomes))
 
-  chromosomes;
+  chromosomes
 })
 
 setMethodS3("setChromosomes", "ChromosomalModel", function(this, chromosomes=NULL, ...) {
   # Argument 'chromosomes':
   if (!is.null(chromosomes)) {
-    chromosomes <- Arguments$getVector(chromosomes);
-    chromosomes <- sort(unique(chromosomes));
+    chromosomes <- Arguments$getVector(chromosomes)
+    chromosomes <- sort(unique(chromosomes))
 
     # All available chromosomes
-    ugpList <- getListOfAromaUgpFiles(this);
-    chromosomesA <- lapply(ugpList, FUN=getChromosomes);
-    chromosomesA <- unlist(chromosomesA, use.names=TRUE);
-    chromosomesA <- sort(unique(chromosomesA));
+    ugpList <- getListOfAromaUgpFiles(this)
+    chromosomesA <- lapply(ugpList, FUN=getChromosomes)
+    chromosomesA <- unlist(chromosomesA, use.names=TRUE)
+    chromosomesA <- sort(unique(chromosomesA))
 
-    unknown <- setdiff(chromosomes, chromosomesA);
+    unknown <- setdiff(chromosomes, chromosomesA)
     if (length(unknown) > 0L) {
-      throw(sprintf("Unknown chromosomes detected: %s [%d]", hpaste(unknown), length(unknown)));
+      throw(sprintf("Unknown chromosomes detected: %s [%d]", hpaste(unknown), length(unknown)))
     }
   }
 
-  this$.chromosomes <- chromosomes;
+  this$.chromosomes <- chromosomes
 
-  invisible(this);
+  invisible(this)
 })
 
 
@@ -571,12 +571,12 @@ setMethodS3("setChromosomes", "ChromosomalModel", function(this, chromosomes=NUL
 
 
 setMethodS3("getGenome", "ChromosomalModel", function(this, ...) {
-  this$.genome;
+  this$.genome
 })
 
 
 setMethodS3("getGenomeFile", "ChromosomalModel", function(...) {
-  getAromaGenomeTextFile(...);
+  getAromaGenomeTextFile(...)
 }, protected=TRUE)
 
 
@@ -585,23 +585,23 @@ setMethodS3("getAromaGenomeTextFile", "ChromosomalModel", function(this, genome=
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'genome':
-  genome <- Arguments$getCharacter(genome);
+  genome <- Arguments$getCharacter(genome)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Locating genome annotation file");
-  verbose && cat(verbose, "Genome name: ", genome);
+  verbose && enter(verbose, "Locating genome annotation file")
+  verbose && cat(verbose, "Genome name: ", genome)
 
-  gf <- AromaGenomeTextFile$byGenome(genome, ..., verbose=verbose);
-  verbose && print(verbose, gf);
-  verbose && exit(verbose);
+  gf <- AromaGenomeTextFile$byGenome(genome, ..., verbose=verbose)
+  verbose && print(verbose, gf)
+  verbose && exit(verbose)
 
-  gf;
+  gf
 }, protected=TRUE)  # getAromaGenomeTextFile()
 
 
@@ -610,30 +610,30 @@ setMethodS3("setGenome", "ChromosomalModel", function(this, genome, tags=NULL, .
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'genome':
-  genome <- Arguments$getCharacter(genome, length=c(1,1));
+  genome <- Arguments$getCharacter(genome, length=c(1,1))
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  oldGenome <- this$.genome;
+  oldGenome <- this$.genome
 
-  fullname <- paste(c(genome, tags), collapse=",");
-  verbose && cat(verbose, "Fullname: ", fullname);
+  fullname <- paste(c(genome, tags), collapse=",")
+  verbose && cat(verbose, "Fullname: ", fullname)
 
   # Verify that there is an existing genome file
   tryCatch({
-    this$.genome <- fullname;
-    gf <- getGenomeFile(this, verbose=less(verbose, 10));
+    this$.genome <- fullname
+    gf <- getGenomeFile(this, verbose=less(verbose, 10))
   }, error = function(ex) {
-    this$.genome <- oldGenome;
-    throw(ex$message);
+    this$.genome <- oldGenome
+    throw(ex$message)
   })
 
-  invisible(oldGenome);
+  invisible(oldGenome)
 })
 
 
@@ -643,49 +643,49 @@ setMethodS3("getGenomeData", "ChromosomalModel", function(this, ..., verbose=FAL
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Reading genome chromosome annotation file");
+  verbose && enter(verbose, "Reading genome chromosome annotation file")
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get genome annotation data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Retrieving genome annotation file");
-  gf <- getGenomeFile(this, verbose=less(verbose, 10));
-  verbose && exit(verbose);
+  verbose && enter(verbose, "Retrieving genome annotation file")
+  gf <- getGenomeFile(this, verbose=less(verbose, 10))
+  verbose && exit(verbose)
 
-  verbose && enter(verbose, "Reading data file");
-  pathname <- getPathname(gf);
-  verbose && cat(verbose, "Pathname: ", pathname);
+  verbose && enter(verbose, "Reading data file")
+  pathname <- getPathname(gf)
+  verbose && cat(verbose, "Pathname: ", pathname)
   data <- readTable(pathname, header=TRUE,
-                            colClasses=c(nbrOfBases="integer"), row.names=1);
-  verbose && exit(verbose);
+                            colClasses=c(nbrOfBases="integer"), row.names=1)
+  verbose && exit(verbose)
 
-  verbose && enter(verbose, "Translating chromosome names");
-  chromosomes <- row.names(data);
-  map <- c("X"=23, "Y"=24, "Z"=25);
+  verbose && enter(verbose, "Translating chromosome names")
+  chromosomes <- row.names(data)
+  map <- c("X"=23, "Y"=24, "Z"=25)
   for (kk in seq_along(map)) {
-    chromosomes <- gsub(names(map)[kk], map[kk], chromosomes, fixed=TRUE);
+    chromosomes <- gsub(names(map)[kk], map[kk], chromosomes, fixed=TRUE)
   }
-  row.names(data) <- chromosomes;
-  verbose && exit(verbose);
+  row.names(data) <- chromosomes
+  verbose && exit(verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  data;
+  data
 }, protected=TRUE)
 
 
-setMethodS3("fit", "ChromosomalModel", abstract=TRUE);
+setMethodS3("fit", "ChromosomalModel", abstract=TRUE)
 
 
 setMethodS3("getSetTag", "ChromosomalModel", function(this, ...) {
-  tolower(getAsteriskTags(this)[1]);
+  tolower(getAsteriskTags(this)[1])
 }, private=TRUE)
 
 
@@ -694,115 +694,62 @@ setMethodS3("getOutputSet", "ChromosomalModel", function(this, ..., verbose=FALS
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Retrieving output set");
+  verbose && enter(verbose, "Retrieving output set")
 
-  verbose && enter(verbose, "Scanning output path");
+  verbose && enter(verbose, "Scanning output path")
   # Locate all
-  path <- getPath(this);
-  verbose && cat(verbose, "Path: ", path);
-  fs <- GenericDataFileSet$byPath(path, ...);
-  verbose && cat(verbose, "Number of matching files located: ", length(fs));
-  verbose && exit(verbose);
+  path <- getPath(this)
+  verbose && cat(verbose, "Path: ", path)
+  fs <- GenericDataFileSet$byPath(path, ...)
+  verbose && cat(verbose, "Number of matching files located: ", length(fs))
+  verbose && exit(verbose)
 
-  verbose && enter(verbose, "Keep those with fullnames matching the input data set");
-  fullnames <- getFullNames(fs);
-  verbose && cat(verbose, "Full names of *all* files found:");
-  verbose && str(verbose, fullnames);
+  verbose && enter(verbose, "Keep those with fullnames matching the input data set")
+  fullnames <- getFullNames(fs)
+  verbose && cat(verbose, "Full names of *all* files found:")
+  verbose && str(verbose, fullnames)
 
   # Drop extranous files
-  keepFullnames <- getFullNames(this);
-  verbose && cat(verbose, "Full names to be kept:");
-  verbose && str(verbose, keepFullnames);
+  keepFullnames <- getFullNames(this)
+  verbose && cat(verbose, "Full names to be kept:")
+  verbose && str(verbose, keepFullnames)
 
-  patterns <- sprintf("^%s", fullnames);
-  keep <- rep(FALSE, times=length(fullnames));
+  patterns <- sprintf("^%s", fullnames)
+  keep <- rep(FALSE, times=length(fullnames))
   for (pattern in patterns) {
-    keep <- keep | (regexpr(pattern, fullnames) != -1);
+    keep <- keep | (regexpr(pattern, fullnames) != -1)
   }
 
   if (any(!keep)) {
-    verbose && enter(verbose, "Extract subset of files");
-    keep <- which(keep);
-    verbose && cat(verbose, "Keeping indices:");
-    verbose && str(verbose, keep);
-    fs <- extract(fs, keep);
-    verbose && exit(verbose);
+    verbose && enter(verbose, "Extract subset of files")
+    keep <- which(keep)
+    verbose && cat(verbose, "Keeping indices:")
+    verbose && str(verbose, keep)
+    fs <- extract(fs, keep)
+    verbose && exit(verbose)
   }
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  verbose && print(verbose, fs);
+  verbose && print(verbose, fs)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  fs;
+  fs
 }, private=TRUE)
 
 
 setMethodS3("getAlias", "ChromosomalModel", function(this, ...) {
-  this$.alias;
+  this$.alias
 }, protected=TRUE)
 
 
 setMethodS3("getArrays", "ChromosomalModel", function(this, ...) {
-  getNames(this, ...);
+  getNames(this, ...)
 }, protected=TRUE, deprecated=TRUE)
-
-
-
-##############################################################################
-# HISTORY:
-# 2013-10-03
-# o Added argument 'chromosomes' to ChromosomalModel() and setChromosomes()
-#   for the same class.  If not specified, the default is as before to infer
-#   the set of chromosomes from the UGP files.
-# 2011-03-03
-# o Now getAromaGenomeTextFile() for ChromosomalModel utilizes byGenome()
-#   for AromaGenomeTextFile to locate and return the AromaGenomeTextFile.
-# o getGenomeFile() calls getAromaGenomeTextFile().
-# 2011-02-28
-# o UNDO: getArrays() was needed.
-# 2011-02-19
-# o CLEANUP: Removed getChipEffectFiles(), getListOfChipEffectSets(),
-#   getArrays(), getAlias(), and setAlias() for ChromosomalModel.
-# 2010-07-06
-# o BUG FIX: indexOf() for ChromosomalModel would return NA if a search
-#   pattern contained parenthesis '(' and ')'.  There was a similar issue
-#   in indexOf() for GenericDataFileSet/List in R.filesets, which was
-#   solved in R.filesets 0.8.3.  Now indexOf() for ChromosomalModel
-#   utilizes ditto for GenericDataFileSet for its solution.
-# 2010-03-02
-# BUG FIX: Forgot argument 'verbose' of getOutputSet() of ChromosomalModel.
-# 2010-02-19
-# o Updated getGenomeFile() for ChromosomalModel such that it can be used
-#   to locate other types of genome annotation files as well, files that
-#   may be optional (without giving an error).
-# 2010-02-18
-# o Added getOutputSet() for ChromosomalModel.
-# 2010-01-13
-# o getListOfAromaUgpFiles() for ChromosomalModel no longer goes via
-#   getListOfUnitNamesFiles().  This opens up the possibility to work with
-#   data files without unit names files, e.g. smoothed CN data.
-# 2009-11-18
-# o CLEAN UP: Removed all Affymetrix specific classes/methods.
-# 2009-11-16
-# o CLEAN UP: The ChromosomalModel no longer checks 'combineAlleles'.
-# o Now getChromosomes() of ChromosomalModel locates UGP files.
-#   DChip GenomeInformation files are no longer supported for this.
-# 2009-07-08
-# o Added getListOfUnitTypesFiles() for ChromosomalModel.
-# 2009-01-26
-# o Removed get[]ListOfCdfs() from ChromosomalModel.
-# o Removed deprectated get[]ListOfChipEffects() from ChromosomalModel.
-# o Added getListOfAromaUgpFiles() to ChromosomalModel.
-# o Added getListOfUnitNamesFiles() to ChromosomalModel.
-# 2007-09-25
-# o Extracted ChromosomalModel from CopyNumberSegmentationModel.  For
-#   previous HISTORY, see that class.
-##############################################################################

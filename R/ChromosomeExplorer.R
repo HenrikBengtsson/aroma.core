@@ -44,14 +44,14 @@ setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ...) 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'model':
   if (!is.null(model)) {
-    model <- Arguments$getInstanceOf(model, "CopyNumberChromosomalModel");
+    model <- Arguments$getInstanceOf(model, "CopyNumberChromosomalModel")
   }
 
   # Argument 'zooms':
   if (is.null(zooms)) {
-    zooms <- 2^(0:7);
+    zooms <- 2^(0:7)
   } else {
-    zooms <- Arguments$getDoubles(zooms, range=c(0, Inf));
+    zooms <- Arguments$getDoubles(zooms, range=c(0, Inf))
   }
 
 
@@ -66,23 +66,23 @@ setConstructorS3("ChromosomeExplorer", function(model=NULL, zooms=2^(0:6), ...) 
 
 setMethodS3("as.character", "ChromosomeExplorer", function(x, ...) {
   # To please R CMD check
-  this <- x;
+  this <- x
 
-  s <- sprintf("%s:", class(this)[1]);
-  s <- c(s, sprintf("Name: %s", getName(this)));
-  s <- c(s, sprintf("Tags: %s", paste(getTags(this), collapse=",")));
-  s <- c(s, sprintf("Number of arrays: %d", nbrOfArrays(this)));
-  s <- c(s, sprintf("Path: %s", getPath(this)));
+  s <- sprintf("%s:", class(this)[1])
+  s <- c(s, sprintf("Name: %s", getName(this)))
+  s <- c(s, sprintf("Tags: %s", paste(getTags(this), collapse=",")))
+  s <- c(s, sprintf("Number of arrays: %d", nbrOfArrays(this)))
+  s <- c(s, sprintf("Path: %s", getPath(this)))
 
-  GenericSummary(s);
+  GenericSummary(s)
 }, protected=TRUE)
 
 
 setMethodS3("setCytoband", "ChromosomeExplorer", function(this, status=TRUE, ...) {
   # Argument 'status':
-  status <- Arguments$getLogical(status);
+  status <- Arguments$getLogical(status)
 
-  this$.plotCytoband <- status;
+  this$.plotCytoband <- status
 })
 
 
@@ -112,28 +112,28 @@ setMethodS3("setCytoband", "ChromosomeExplorer", function(this, status=TRUE, ...
 # }
 #*/###########################################################################
 setMethodS3("getModel", "ChromosomeExplorer", function(this, ...) {
-  this$.model;
+  this$.model
 })
 
 setMethodS3("getNames", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  getNames(model, ...);
+  model <- getModel(this)
+  getNames(model, ...)
 })
 
 setMethodS3("getFullNames", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  getFullNames(model, ...);
+  model <- getModel(this)
+  getFullNames(model, ...)
 })
 
 setMethodS3("indexOf", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  indexOf(model, ...);
+  model <- getModel(this)
+  indexOf(model, ...)
 })
 
 
 
 setMethodS3("getArraysOfInput", "ChromosomeExplorer", function(this, ...) {
-  getNames(this, ...);
+  getNames(this, ...)
 }, protected=TRUE)
 
 
@@ -164,45 +164,45 @@ setMethodS3("getArraysOfInput", "ChromosomeExplorer", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("setArrays", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  idxs <- indexOf(model, ...);
+  model <- getModel(this)
+  idxs <- indexOf(model, ...)
 
   # Get the names of the arrays
-  arrayNames <- getNames(model)[idxs];
+  arrayNames <- getNames(model)[idxs]
 
   # Sanity check
-  stopifnot(!any(duplicated(arrayNames)));
+  .stop_if_not(!any(duplicated(arrayNames)))
 
-  this$.arrays <- arrayNames;
+  this$.arrays <- arrayNames
 })
 
 setMethodS3("getNameOfInput", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  getName(model, ...);
+  model <- getModel(this)
+  getName(model, ...)
 }, protected=TRUE)
 
 
 setMethodS3("getTagsOfInput", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  getTags(model);
+  model <- getModel(this)
+  getTags(model)
 }, protected=TRUE)
 
 
 setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
-  mainPath <- getMainPath(this);
+  mainPath <- getMainPath(this)
 
   # Chip type
-  model <- getModel(this);
-  chipType <- getChipType(model);
+  model <- getModel(this)
+  chipType <- getChipType(model)
 
   # Image set
-  set <- getSetTag(model);
+  set <- getSetTag(model)
 
   # The full path
-  path <- filePath(mainPath, chipType, set);
-  path <- Arguments$getWritablePath(path);
+  path <- filePath(mainPath, chipType, set)
+  path <- Arguments$getWritablePath(path)
 
-  path;
+  path
 })
 
 
@@ -232,82 +232,82 @@ setMethodS3("getPath", "ChromosomeExplorer", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getChromosomes", "ChromosomeExplorer", function(this, ...) {
-  model <- getModel(this);
-  getChromosomes(model);
+  model <- getModel(this)
+  getChromosomes(model)
 })
 
 
 setMethodS3("getChromosomeLabels", "ChromosomeExplorer", function(this, ...) {
-  chrs <- getChromosomes(this);
+  chrs <- getChromosomes(this)
 
   # Sanity check
-  chrs <- Arguments$getIntegers(chrs);
+  chrs <- Arguments$getIntegers(chrs)
 
-  chrsL <- character(length=max(chrs, na.rm=TRUE));
-  chrsL[chrs] <- sprintf("%02d", chrs);
+  chrsL <- character(length=max(chrs, na.rm=TRUE))
+  chrsL[chrs] <- sprintf("%02d", chrs)
 
   if (length(chrsL) >= 23) {
-    chrsL[23] <- "X";
+    chrsL[23] <- "X"
   }
   if (length(chrsL) >= 24) {
-    chrsL[24] <- "Y";
+    chrsL[24] <- "Y"
   }
   if (length(chrsL) >= 25) {
-    chrsL[25] <- "M";
+    chrsL[25] <- "M"
   }
 
-  chrsL;
+  chrsL
 }, protected=TRUE)
 
 
 setMethodS3("getZooms", "ChromosomeExplorer", function(this, ...) {
-  zooms <- this$.zooms;
+  zooms <- this$.zooms
   if (is.null(zooms))
-    zooms <- 2^(0:7);
-  zooms <- as.integer(zooms);
-  zooms;
+    zooms <- 2^(0:7)
+  zooms <- as.integer(zooms)
+  zooms
 })
 
 
 setMethodS3("setZooms", "ChromosomeExplorer", function(this, zooms=NULL, ...) {
   # Argument 'zooms':
   if (is.null(zooms)) {
-    zooms <- 2^(0:7);
+    zooms <- 2^(0:7)
   } else {
-    zooms <- Arguments$getIntegers(zooms, range=c(1, Inf));
+    zooms <- Arguments$getIntegers(zooms, range=c(1, Inf))
   }
-  zooms <- unique(zooms);
-  zooms <- as.integer(zooms);
-  this$.zooms <- zooms;
-  invisible(this);
+  zooms <- unique(zooms)
+  zooms <- as.integer(zooms)
+  this$.zooms <- zooms
+  invisible(this)
 })
 
 setMethodS3("getSampleLabels", "ChromosomeExplorer", function(this, ...) {
-  labels <- getNames(this, ...);
-  labels;
+  labels <- getNames(this, ...)
+  labels
 }, protected=TRUE)
 
 
 setMethodS3("writeGraphs", "ChromosomeExplorer", function(x, arrays=NULL, ...) {
   # To please R CMD check.
-  this <- x;
+  this <- x
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  arrays <- indexOf(this, arrays);
+  arrays <- indexOf(this, arrays)
 
   # Get the model
-  model <- getModel(this);
+  model <- getModel(this)
 
-  path <- getPath(this);
-  path <- Arguments$getWritablePath(path);
+  path <- getPath(this)
+  path <- Arguments$getWritablePath(path)
 
-  plotband <- this$.plotCytoband;  # Plot cytoband?
-  plot(model, path=path, imageFormat="png", plotband=plotband, arrays=arrays, ...);
+  plotband <- this$.plotCytoband # Plot cytoband?
+  plot(model, path=path, imageFormat="png", plotband=plotband, arrays=arrays, ...)
 
-  invisible(path);
+  invisible(path)
 }, private=TRUE)
 
 
@@ -317,47 +317,47 @@ setMethodS3("writeRegions", "ChromosomeExplorer", function(this, arrays=NULL, nb
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  arrays <- indexOf(this, arrays);
+  arrays <- indexOf(this, arrays)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  model <- getModel(this);
+  model <- getModel(this)
 
   # Not supported?
   if (!inherits(model, "CopyNumberSegmentationModel"))
-    return(NULL);
+    return(NULL)
 
-  verbose && enter(verbose, "Writing CN regions");
+  verbose && enter(verbose, "Writing CN regions")
 
-  path <- getPath(this);
-  path <- Arguments$getWritablePath(path);
+  path <- getPath(this)
+  path <- Arguments$getWritablePath(path)
 
-  dest <- filePath(path, "regions.xls");
-  dest <- Arguments$getWritablePathname(dest);
+  dest <- filePath(path, "regions.xls")
+  dest <- Arguments$getWritablePathname(dest)
 
 
   # Extract and write regions
-  pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose));
-  res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE);
+  pathname <- writeRegions(model, arrays=arrays, nbrOfSnps=nbrOfSnps, smoothing=smoothing, ..., skip=FALSE, verbose=less(verbose))
+  res <- copyFile(pathname, dest, overwrite=TRUE, copy.mode=FALSE)
   if (!res)
-    dest <- NULL;
+    dest <- NULL
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  invisible(dest);
+  invisible(dest)
 }, private=TRUE)
 
 
 
 
 setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename="ChromosomeExplorer.html", ...) {
-  NextMethod("addIndexFile", filename=filename);
+  NextMethod("addIndexFile", filename=filename)
 }, protected=TRUE)
 
 
@@ -389,123 +389,123 @@ setMethodS3("addIndexFile", "ChromosomeExplorer", function(this, filename="Chrom
 # }
 #*/###########################################################################
 setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ..., verbose=FALSE) {
-  pkg <- "R.rsp";
-  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
+  pkg <- "R.rsp"
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  path <- getPath(this);
-  parentPath <- getParent(path);
-  parent2Path <- getParent(parentPath);
-  parent3Path <- getParent(parent2Path);
+  path <- getPath(this)
+  parentPath <- getParent(path)
+  parent2Path <- getParent(parentPath)
+  parent3Path <- getParent(parent2Path)
 
-  srcPath <- getTemplatePath(this);
-  pathT <- file.path(srcPath, "rsp", "ChromosomeExplorer");
-  filenameT <- "setupExplorer.js.rsp";
-  pathname <- filePath(pathT, filenameT);
+  srcPath <- getTemplatePath(this)
+  pathT <- file.path(srcPath, "rsp", "ChromosomeExplorer")
+  filenameT <- "setupExplorer.js.rsp"
+  pathname <- filePath(pathT, filenameT)
 
-  verbose && enter(verbose, "Compiling ", basename(pathname));
-  verbose && cat(verbose, "Source: ", pathname);
-  outFile <- gsub("[.]rsp$", "", basename(pathname));
-  outPath <- parent2Path;
-  outPath <- Arguments$getWritablePath(outPath);
-  verbose && cat(verbose, "Output path: ", outPath);
+  verbose && enter(verbose, "Compiling ", basename(pathname))
+  verbose && cat(verbose, "Source: ", pathname)
+  outFile <- gsub("[.]rsp$", "", basename(pathname))
+  outPath <- parent2Path
+  outPath <- Arguments$getWritablePath(outPath)
+  verbose && cat(verbose, "Output path: ", outPath)
 
-  verbose && enter(verbose, "Scanning directories for available chip types");
+  verbose && enter(verbose, "Scanning directories for available chip types")
   # Find all directories matching these
-  dirs <- list.files(path=parent2Path, full.names=TRUE);
-  dirs <- dirs[sapply(dirs, FUN=isDirectory)];
+  dirs <- list.files(path=parent2Path, full.names=TRUE)
+  dirs <- dirs[sapply(dirs, FUN=isDirectory)]
 
   # Get possible chip types
-  model <- getModel(this);
-  chipTypes <- c(getChipType(model), getChipTypes(model));
-  chipTypes <- intersect(chipTypes, basename(dirs));
+  model <- getModel(this)
+  chipTypes <- c(getChipType(model), getChipTypes(model))
+  chipTypes <- intersect(chipTypes, basename(dirs))
   verbose && cat(verbose, "Detected chip types: ",
-                                           paste(chipTypes, collapse=", "));
-  verbose && exit(verbose);
+                                           paste(chipTypes, collapse=", "))
+  verbose && exit(verbose)
 
   # Get available zooms
-  verbose && enter(verbose, "Scanning image files for available zooms");
-  pattern <- ".*,x([0-9][0-9]*)[.]png$";
-  zooms <- list.files(path=path, pattern=pattern);
-  zooms <- gsub(pattern, "\\1", zooms);
-  zooms <- gsub("^0*", "", zooms);
+  verbose && enter(verbose, "Scanning image files for available zooms")
+  pattern <- ".*,x([0-9][0-9]*)[.]png$"
+  zooms <- list.files(path=path, pattern=pattern)
+  zooms <- gsub(pattern, "\\1", zooms)
+  zooms <- gsub("^0*", "", zooms)
   if (length(zooms) == 0) {
     # Default zooms
-    zooms <- getZooms(this);
+    zooms <- getZooms(this)
   }
-  zooms <- unique(zooms);
-  zooms <- as.integer(zooms);
-  zooms <- sort(zooms);
-  verbose && cat(verbose, "Detected (or default) zooms: ", paste(zooms, collapse=", "));
-  verbose && exit(verbose);
+  zooms <- unique(zooms)
+  zooms <- as.integer(zooms)
+  zooms <- sort(zooms)
+  verbose && cat(verbose, "Detected (or default) zooms: ", paste(zooms, collapse=", "))
+  verbose && exit(verbose)
 
   # Get available subdirectories
-  verbose && enter(verbose, "Scanning directory for subdirectories");
-  subdirs <- list.files(path=parentPath, full.names=TRUE);
+  verbose && enter(verbose, "Scanning directory for subdirectories")
+  subdirs <- list.files(path=parentPath, full.names=TRUE)
   # Keep only directories
-  subdirs <- subdirs[sapply(subdirs, FUN=isDirectory)];
+  subdirs <- subdirs[sapply(subdirs, FUN=isDirectory)]
 
-  isChrLayer <- (regexpr(",chrLayer", subdirs) != -1);
-  isSampleLayer <- (regexpr(",sampleLayer", subdirs) != -1);
-  isLayer <- (isChrLayer | isSampleLayer);
-  hasLayers <- any(isLayer);
+  isChrLayer <- (regexpr(",chrLayer", subdirs) != -1)
+  isSampleLayer <- (regexpr(",sampleLayer", subdirs) != -1)
+  isLayer <- (isChrLayer | isSampleLayer)
+  hasLayers <- any(isLayer)
 
   # Remove anything that is a layer
-  sets <- basename(subdirs)[!isLayer];
+  sets <- basename(subdirs)[!isLayer]
 
   if (length(sets) == 0) {
-    sets <- c("glad", "cbs");
-    warning("No 'set' directories detected. Using defauls: ", paste(sets, collapse=", "));
+    sets <- c("glad", "cbs")
+    warning("No 'set' directories detected. Using defauls: ", paste(sets, collapse=", "))
   } else {
-    sets <- basename(sets);
+    sets <- basename(sets)
   }
-  sets <- sort(unique(sets));
-  verbose && cat(verbose, "Detected (or default) sets: ", paste(sets, collapse=", "));
-  verbose && exit(verbose);
+  sets <- sort(unique(sets))
+  verbose && cat(verbose, "Detected (or default) sets: ", paste(sets, collapse=", "))
+  verbose && exit(verbose)
 
   if (hasLayers) {
-    sets <- c("-LAYERS-", sets);
+    sets <- c("-LAYERS-", sets)
   }
 
-  chrLayers <- gsub(",chrLayer", "", basename(subdirs)[isChrLayer]);
-  sampleLayers <- gsub(",sampleLayer", "", basename(subdirs)[isSampleLayer]);
+  chrLayers <- gsub(",chrLayer", "", basename(subdirs)[isChrLayer])
+  sampleLayers <- gsub(",sampleLayer", "", basename(subdirs)[isSampleLayer])
 
   # Compile RSP file
-  verbose && enter(verbose, "Compiling RSP");
-  env <- new.env();
-  env$chromosomeLabels <- getChromosomeLabels(this);
-  env$chipTypes <- chipTypes;
-  env$samples <- getFullNames(this, ...);
-  env$sampleLabels <- getNames(this);
-  env$zooms <- zooms;
-  env$sets <- sets;
-  env$chrLayers <- chrLayers;
-  env$sampleLayers <- sampleLayers;
-  verbose && print(verbose, ll(envir=env));
+  verbose && enter(verbose, "Compiling RSP")
+  env <- new.env()
+  env$chromosomeLabels <- getChromosomeLabels(this)
+  env$chipTypes <- chipTypes
+  env$samples <- getFullNames(this, ...)
+  env$sampleLabels <- getNames(this)
+  env$zooms <- zooms
+  env$sets <- sets
+  env$chrLayers <- chrLayers
+  env$sampleLayers <- sampleLayers
+  verbose && print(verbose, ll(envir=env))
 
-  verbose && cat(verbose, "Sample names:");
-  verbose && print(verbose, env$sampleLabels);
+  verbose && cat(verbose, "Sample names:")
+  verbose && print(verbose, env$sampleLabels)
 
-  verbose && cat(verbose, "Full sample names:");
-  verbose && print(verbose, env$samples);
+  verbose && cat(verbose, "Full sample names:")
+  verbose && print(verbose, env$samples)
 
-  js <- rfile(pathname, workdir=outPath, envir=env, postprocess=FALSE);
+  js <- rfile(pathname, workdir=outPath, envir=env, postprocess=FALSE)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  invisible(js);
+  invisible(js)
 }, protected=TRUE) # updateSetupExplorerFile()
 
 
@@ -545,160 +545,70 @@ setMethodS3("process", "ChromosomeExplorer", function(this, arrays=NULL, chromos
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'arrays':
-  arrays <- indexOf(this, arrays);
+  arrays <- indexOf(this, arrays)
 
   # Argument 'chromosomes':
-  allChromosomes <- getChromosomes(this);
+  allChromosomes <- getChromosomes(this)
   if (is.null(chromosomes)) {
-    chromosomes <- allChromosomes;
+    chromosomes <- allChromosomes
   }
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Generating ChromosomeExplorer report");
+  verbose && enter(verbose, "Generating ChromosomeExplorer report")
 
   # Setup HTML, CSS, Javascript files first
-  setup(this, ..., verbose=less(verbose));
+  setup(this, ..., verbose=less(verbose))
 
-  model <- getModel(this);
+  model <- getModel(this)
 
   # Generate layers?
   if (layers) {
-    verbose && enter(verbose, "Generating image layers");
+    verbose && enter(verbose, "Generating image layers")
 
     # 1. Non-sample specific layers
-    verbose && enter(verbose, "Non-sample specific layers");
-    writeAxesLayers(this, chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose));
-    writeGridHorizontalLayers(this, chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose));
-    writeCytobandLayers(this, chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose));
-    verbose && exit(verbose);
+    verbose && enter(verbose, "Non-sample specific layers")
+    writeAxesLayers(this, chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose))
+    writeGridHorizontalLayers(this, chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose))
+    writeCytobandLayers(this, chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose))
+    verbose && exit(verbose)
 
     # 2. Sample specific layers
-    verbose && enter(verbose, "Sample-specific layers");
+    verbose && enter(verbose, "Sample-specific layers")
     writeRawCopyNumberLayers(this, arrays=arrays, chromosomes=chromosomes,
-                                     zooms=zooms, ..., verbose=less(verbose));
+                                     zooms=zooms, ..., verbose=less(verbose))
 
     if (inherits(model, "CopyNumberSegmentationModel")) {
       writeCopyNumberRegionLayers(this, arrays=arrays,
-           chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose));
+           chromosomes=chromosomes, zooms=zooms, ..., verbose=less(verbose))
     }
-    verbose && exit(verbose);
+    verbose && exit(verbose)
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } else {
     # Generate bitmap images
     writeGraphs(this, arrays=arrays, chromosomes=chromosomes,
-                                   zooms=zooms, ..., verbose=less(verbose));
+                                   zooms=zooms, ..., verbose=less(verbose))
   }
 
   # Update samples.js
-  updateSetupExplorerFile(this, ..., verbose=less(verbose));
+  updateSetupExplorerFile(this, ..., verbose=less(verbose))
 
   # Write regions file
   if (inherits(model, "CopyNumberSegmentationModel")) {
-    writeRegions(this, arrays=arrays, chromosomes=chromosomes, ..., verbose=less(verbose));
+    writeRegions(this, arrays=arrays, chromosomes=chromosomes, ..., verbose=less(verbose))
   }
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 })
 
 
 setMethodS3("display", "ChromosomeExplorer", function(this, filename="ChromosomeExplorer.html", ...) {
-  NextMethod("display", filename=filename);
+  NextMethod("display", filename=filename)
 })
-
-
-
-##############################################################################
-# HISTORY:
-# 2012-10-18
-# o CLEANUP: Drop all usage of 'version' in ChromosomeExplorer.
-# 2012-03-06
-# o Dropped setup() for ChromosomeExplorer, because now Explorer has one.
-# o Renamed updateSamplesFile() to updateSetupExplorerFile().
-# o Now ChromosomeExplorer() passes argument 'version' to Explorer().
-# 2012-02-01
-# o Now getChromosomeLabels() returns "01", "02", ..., instead of
-#   "1", "2", ..., which makes it easier to use Webcuts.
-# 2011-03-14
-# o Now updateSamplesFile() passes down 'chromosomeLabels' too.
-# o Added getChromosomeLabels() for ChromosomeExplorer.
-# 2009-12-30
-# o CLEAN UP: Now ChromosomeExplorer is unaware of the data set tuple in
-#   the model.  Instead all queries goes to the model.
-# o CLEAN UP: Removed getSetTuple() from ChromosomeExplorer.
-# 2009-12-25
-# o Added getSampleLabels() to ChromosomeExplorer.
-# o Now getNames() of ChromosomeExplorer is based on the getNames()
-#   output, and no longer on getArrays().
-# o BUG FIX: translateFullNames() of ChromosomeExplorer would translate the
-#   full names, but return the original ones.
-# 2009-12-22
-# o BUG FIX: getFullNames() of ChromosomeExplorer reported: Error in
-#   UseMethod("translateFullNames") : no applicable method for
-#   'translateFullNames' applied to an object of class "character".
-# 2009-05-19
-# o Now testing for file permissions for creat-/writ-/updating files/dirs.
-# 2008-12-13
-# o Added argument 'zooms' to the constructor of ChromosomeExplorer.
-#   Added methods get- and setZooms().
-# 2008-06-05
-# o Made updateSamplesFile(), writeAxesLayers(), writeGridHorizontalLayers(),
-#   writeCytobandLayers(), writeRegions(), setup(), process() parallel safe.
-# 2008-05-08
-# o Now one can pass argument 'aliased=TRUE' to process() which causes the
-#   ChromosomeExplorer and coupled CopyNumberSegmentationModel to return
-#   tags that inferred from aliased full names.
-# o Now updateSamplesFile() of ChromosomeExplorer passes arguments '...'
-#   to getFullNames().
-# o Now getFullNames() of ChromosomeExplorer passes arguments '...' along.
-# 2007-10-17
-# o Now the  accepts CopyNumberChromosomalModel:s.ChromosomeExplorer
-# o Added support for specifying the output version (at least for now).
-# 2007-10-10
-# o Added support for layers.  This should be backward compatible.
-# 2007-10-09
-# o Now process() writes cytoband/*.png layer images.
-# o Added writeCytobandLayers() etc.
-# 2007-09-30
-# o Now the main HTML file for ChromosomeExplorer is ChromosomeExplorer.html,
-#   which is in analogue to how the ArrayExplorer works.  This HTML now
-#   loads to a different Javascript file with a different name so that already
-#   existing index.html ChromosomeExplorer files will still work.
-# 2007-09-04
-# o Now ChromosomeExplorer recognizes CopyNumberSegmentationModel:s.
-# 2007-05-08
-# o Added default zoom levels to updateSamplesFile() for ChromosomeExplorer.
-#   This is applies the first time process() is called.
-# 2007-03-19
-# o Now ChromosomeExplorer extends Explorer.
-# 2007-02-06
-# o Now templates are in reports/templates/ and includes in reports/includes/.
-# o Updated the path to <rootPath>/<dataSetName>/<tags>/<chipType>/<set>/.
-# 2007-01-17
-# o Now all 'arrays' arguments can contain array names.
-# o Added getArrays() and setArrays() in order to focus on a subset of the
-#   arrays in the model.
-# 2007-01-16
-# o Added getAlias() and setAlias(), and updated getName() accordingly.
-#   This makes it easy to change the name of output set for subsets of
-#   arrays.
-# 2007-01-15
-# o Added some more Rdoc comments.
-# 2007-01-10
-# o BUG FIX: setup() would only add index.html if includes/ were missing.
-# 2007-01-08
-# o Added display().
-# 2007-01-07
-# o TODO: The region filter for writeRegions() is hardwired for now.
-# o Update to include regions.xls file on the CE output page too.
-# o Now all HTML, CSS, and Javascript files are created too.
-# 2007-01-04
-# o Created.
-##############################################################################

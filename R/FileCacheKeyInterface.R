@@ -22,7 +22,7 @@
 # @keyword internal
 #*/########################################################################### 
 setConstructorS3("FileCacheKeyInterface", function(...) {
-  extend(CacheKeyInterface(), "FileCacheKeyInterface");
+  extend(CacheKeyInterface(), "FileCacheKeyInterface")
 })
 
 
@@ -68,18 +68,9 @@ setConstructorS3("FileCacheKeyInterface", function(...) {
 # }
 #*/###########################################################################
 setMethodS3("getCacheKey", "FileCacheKeyInterface", function(this, ...) {
-  keys <- NextMethod("getCacheKey");
-  keys$filename <- getFilename(this);
-  keys$filesize <- getFileSize(this);
-  keys$checksum <- getChecksum(this);
-  keys;
+  keys <- NextMethod("getCacheKey")
+  keys$filename <- getFilename(this)
+  keys$filesize <- getFileSize(this)
+  keys$checksum <- getChecksum(this)
+  keys
 })
-
-
-
-############################################################################
-# HISTORY:
-# 2012-11-28
-# o Added FileCacheKeyInterface
-# o Created.
-############################################################################

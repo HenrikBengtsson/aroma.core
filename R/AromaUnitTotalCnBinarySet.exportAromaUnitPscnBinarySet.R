@@ -45,115 +45,115 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'dsT':
-  dsT <- Arguments$getInstanceOf(dsT, "AromaUnitTotalCnBinarySet");
+  dsT <- Arguments$getInstanceOf(dsT, "AromaUnitTotalCnBinarySet")
 
   # Argument 'dsB':
   if (!identical(dsB, "*")) {
-    dsB <- Arguments$getInstanceOf(dsB, "AromaUnitFracBCnBinarySet");
+    dsB <- Arguments$getInstanceOf(dsB, "AromaUnitFracBCnBinarySet")
     # Sanity check
-    stopifnot(length(dsB) == length(dsT));
+    .stop_if_not(length(dsB) == length(dsT))
     # Reorder
-    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error");
+    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error")
     # Sanity check
-    stopifnot(getNames(dsB) ==  getNames(dsT));
+    .stop_if_not(getNames(dsB) ==  getNames(dsT))
   }
 
   # Argument 'tags':
-  tags <- Arguments$getTags(tags, collapse=NULL);
+  tags <- Arguments$getTags(tags, collapse=NULL)
 
   # Argument 'rootPath':
-  rootPath <- Arguments$getWritablePath(rootPath);
+  rootPath <- Arguments$getWritablePath(rootPath)
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  clazz <- AromaUnitPscnBinaryFile;
+  clazz <- AromaUnitPscnBinaryFile
 
-  verbose && enter(verbose, "Exporting to AromaUnitPscnBinarySet");
+  verbose && enter(verbose, "Exporting to AromaUnitPscnBinarySet")
   if (identical(dsB, "*")) {
-    verbose && enter(verbose, "Locating AromaUnitFracBCnBinarySet");
-    path <- getPath(dsT);
-    verbose && cat(verbose, "Path: ", path);
-    pattern <- ",fracB[.]asb$";
-    dsB <- AromaUnitFracBCnBinarySet$byPath(path, pattern=pattern);
-    verbose && cat(verbose, "Number of files: ", length(dsB));
-    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error");
-    verbose && cat(verbose, "Number of files kept: ", length(dsB));
+    verbose && enter(verbose, "Locating AromaUnitFracBCnBinarySet")
+    path <- getPath(dsT)
+    verbose && cat(verbose, "Path: ", path)
+    pattern <- ",fracB[.]asb$"
+    dsB <- AromaUnitFracBCnBinarySet$byPath(path, pattern=pattern)
+    verbose && cat(verbose, "Number of files: ", length(dsB))
+    dsB <- extract(dsB, indexOf(dsB, getNames(dsT)), onDuplicates="error")
+    verbose && cat(verbose, "Number of files kept: ", length(dsB))
     # Sanity check
-    stopifnot(length(dsB) == length(dsT));
-    verbose && exit(verbose);
+    .stop_if_not(length(dsB) == length(dsT))
+    verbose && exit(verbose)
   }
 
-  verbose && cat(verbose, "Root path: ", rootPath);
+  verbose && cat(verbose, "Root path: ", rootPath)
   if (any(dataSet == "*")) {
-    default <- getName(dsT, collapse=",");
-    dataSet[dataSet == "*"] <- default;
+    default <- getName(dsT, collapse=",")
+    dataSet[dataSet == "*"] <- default
   }
   if (any(tags == "*")) {
-    default <- getTags(dsT, collapse=",");
-    tags[tags == "*"] <- default;
+    default <- getTags(dsT, collapse=",")
+    tags[tags == "*"] <- default
   }
-  dataSetF <- fullname(dataSet, tags=tags);
-  verbose && cat(verbose, "Output data set: ", dataSetF);
+  dataSetF <- fullname(dataSet, tags=tags)
+  verbose && cat(verbose, "Output data set: ", dataSetF)
 
-  chipType <- getChipType(dsT, fullname=FALSE);
-  verbose && cat(verbose, "Output chip type: ", chipType);
+  chipType <- getChipType(dsT, fullname=FALSE)
+  verbose && cat(verbose, "Output chip type: ", chipType)
 
-  path <- filePath(rootPath, dataSetF, chipType);
-  path <- Arguments$getWritablePath(path);
-  verbose && cat(verbose, "Output path: ", path);
+  path <- filePath(rootPath, dataSetF, chipType)
+  path <- Arguments$getWritablePath(path)
+  verbose && cat(verbose, "Output path: ", path)
 
-  nbrOfArrays <- length(dsT);
-  verbose && cat(verbose, "Number of arrays: ", nbrOfArrays);
-  ugp <- getAromaUgpFile(dsT);
-  verbose && cat(verbose, "Chip type: ", getChipType(ugp));
-  nbrOfUnits <- nbrOfUnits(ugp);
+  nbrOfArrays <- length(dsT)
+  verbose && cat(verbose, "Number of arrays: ", nbrOfArrays)
+  ugp <- getAromaUgpFile(dsT)
+  verbose && cat(verbose, "Chip type: ", getChipType(ugp))
+  nbrOfUnits <- nbrOfUnits(ugp)
 
   for (ii in seq_len(nbrOfArrays)) {
-    dfT <- dsT[[ii]];
-    dfB <- dsB[[ii]];
-    name <- getName(dfT);
-    verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", ii, name, nbrOfArrays));
+    dfT <- dsT[[ii]]
+    dfB <- dsB[[ii]]
+    name <- getName(dfT)
+    verbose && enter(verbose, sprintf("Array #%d ('%s') of %d", ii, name, nbrOfArrays))
     # Sanity check
-    stopifnot(getName(dfB) == name);
-    stopifnot(nbrOfUnits(dfT) == nbrOfUnits);
-    stopifnot(nbrOfUnits(dfB) == nbrOfUnits);
+    .stop_if_not(getName(dfB) == name)
+    .stop_if_not(nbrOfUnits(dfT) == nbrOfUnits)
+    .stop_if_not(nbrOfUnits(dfB) == nbrOfUnits)
 
     # Convert to original scale
-    ratioTag <- NULL;
-    logBase <- NULL;
+    ratioTag <- NULL
+    logBase <- NULL
     if (hasTag(dfT, "log2ratio")) {
-      logBase <- 2;
-      ratioTag <- "ratio";
+      logBase <- 2
+      ratioTag <- "ratio"
     } else if (hasTag(dfT, "log10ratio")) {
-      logBase <- 10;
-      ratioTag <- "ratio";
+      logBase <- 10
+      ratioTag <- "ratio"
     } else if (hasTag(dfT, "logRatio")) {
-      logBase <- 10;
-      ratioTag <- "ratio";
+      logBase <- 10
+      ratioTag <- "ratio"
     }
 
-    tagsT <- intersect(getTags(dfT), getTags(dfB));
-    tagsT <- c(tagsT, ratioTag);
-    fullname <- fullname(name, tags=tagsT);
-    filename <- sprintf("%s,pscn.asb", fullname);
+    tagsT <- intersect(getTags(dfT), getTags(dfB))
+    tagsT <- c(tagsT, ratioTag)
+    fullname <- fullname(name, tags=tagsT)
+    filename <- sprintf("%s,pscn.asb", fullname)
     pathname <- Arguments$getWritablePathname(filename, path=path,
-                                           mustNotExist=(!overwrite && !skip));
-    verbose && cat(verbose, "Pathname: ", pathname);
+                                           mustNotExist=(!overwrite && !skip))
+    verbose && cat(verbose, "Pathname: ", pathname)
 
     if (isFile(pathname)) {
       if (skip) {
-        df <- newInstance(clazz, pathname);
+        df <- newInstance(clazz, pathname)
         # TODO: We might retrieve an incompatible file.  Validate!
-        verbose && cat(verbose, "Already exported. Skipping.");
-        verbose && exit(verbose);
-        next;
+        verbose && cat(verbose, "Already exported. Skipping.")
+        verbose && exit(verbose)
+        next
       } else if (!overwrite) {
-        throw("Cannot allocate/create file. File already exists: ", pathname);
+        throw("Cannot allocate/create file. File already exists: ", pathname)
       }
     }
 
@@ -163,81 +163,63 @@ setMethodS3("exportAromaUnitPscnBinarySet", "AromaUnitTotalCnBinarySet", functio
     # Overwrite?
     if (overwrite && isFile(pathname)) {
       # TODO: Added a backup/restore feature in case new writing fails.
-      file.remove(pathname);
-      verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).");
+      file.remove(pathname)
+      verbose && cat(verbose, "Removed pre-existing file (overwrite=TRUE).")
     }
 
-    pathnameT <- pushTemporaryFile(pathname, verbose=verbose);
+    pathnameT <- pushTemporaryFile(pathname, verbose=verbose)
 
     # Read (total,fracB) data
-    verbose && enter(verbose, "Reading (total,fracB) data");
-    dataT <- extractMatrix(dfT, drop=TRUE);
-    dataB <- extractMatrix(dfB, drop=TRUE);
+    verbose && enter(verbose, "Reading (total,fracB) data")
+    dataT <- extractMatrix(dfT, drop=TRUE)
+    dataB <- extractMatrix(dfB, drop=TRUE)
     if (!is.null(logBase)) {
-      dataT <- logBase^dataT;
+      dataT <- logBase^dataT
     }
-    verbose && exit(verbose);
+    verbose && exit(verbose)
 
     # Allocate
-    df <- clazz$allocateFromUnitAnnotationDataFile(ugp, filename=pathnameT);
+    df <- clazz$allocateFromUnitAnnotationDataFile(ugp, filename=pathnameT)
 
     # Populate
-    df[,1L] <- dataT;
-    df[,2L] <- dataB;
+    df[,1L] <- dataT
+    df[,2L] <- dataB
 
     # Not needed anymore
-    dataT <- dataB <- NULL;
+    dataT <- dataB <- NULL
 
     # Write footer
-##    writeFooter(df, footer);
+##    writeFooter(df, footer)
 
     # Rename temporary file
-    pathname <- popTemporaryFile(pathnameT, verbose=verbose);
+    pathname <- popTemporaryFile(pathnameT, verbose=verbose)
 
     # Object to be returned
-    df <- newInstance(clazz, pathname);
+    df <- newInstance(clazz, pathname)
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   } # for (ii ...)
 
-  verbose && cat(verbose, "Exported data set:");
-  pattern <- ",pscn[.]asb$";
-  ds <- AromaUnitPscnBinarySet$byPath(path, pattern=pattern);
-  ds <- extract(ds, getNames(dsT), onDuplicates="error");
-  verbose && print(verbose, ds);
+  verbose && cat(verbose, "Exported data set:")
+  pattern <- ",pscn[.]asb$"
+  ds <- AromaUnitPscnBinarySet$byPath(path, pattern=pattern)
+  ds <- extract(ds, getNames(dsT), onDuplicates="error")
+  verbose && print(verbose, ds)
 
   # Sanity check
-  stopifnot(length(ds) == length(dsT));
-  stopifnot(all(getNames(ds) == getNames(dsT)));
+  .stop_if_not(length(ds) == length(dsT))
+  .stop_if_not(all(getNames(ds) == getNames(dsT)))
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  ds;
+  ds
 })
 
 
 setMethodS3("exportAromaUnitPscnBinarySet", "list", function(dsList, ...) {
   # Argument 'dsList':
   if (length(dsList) != 2L) {
-    throw("Argument 'dsList' does not have two elements: ", length(dsList));
+    throw("Argument 'dsList' does not have two elements: ", length(dsList))
   }
-  exportAromaUnitPscnBinarySet(dsT=dsList[[1]], dsB=dsList[[2]], ...);
+  exportAromaUnitPscnBinarySet(dsT=dsList[[1]], dsB=dsList[[2]], ...)
 })
-
-
-############################################################################
-# HISTORY:
-# 2013-12-11
-# o DOCUMENTATION: Added documentation for exportAromaUnitPscnBinarySet().
-# 2013-08-12
-# o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
-#   would throw an error on "unknown argument 'names' to indexOf()".
-# 2012-09-14
-# o BUG FIX: exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet
-#   would throw an error if the files of the exported data set was
-#   ordered in a non-lexicographic order.
-# o Added exportAromaUnitPscnBinarySet() for list.
-# 2012-07-21
-# o Added exportAromaUnitPscnBinarySet() for AromaUnitTotalCnBinarySet.
-# o Created.
-############################################################################

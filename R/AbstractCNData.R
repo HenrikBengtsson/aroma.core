@@ -37,122 +37,109 @@ setConstructorS3("AbstractCNData", function(chromosome=NULL, x=NULL, y=NULL, ...
   if (!is.null(chromosome)) {
     # Argument 'chromosome':
     if (is.data.frame(chromosome)) {
-      data <- chromosome;
-      chromosome <- data$chromosome;
-      x <- data$x;
-      y <- data$y;
+      data <- chromosome
+      chromosome <- data$chromosome
+      x <- data$x
+      y <- data$y
     }
 
     # Any extra locus signals?
-    args <- list(...);
-    keep <- !sapply(args, FUN=is.null);
-    args <- args[keep];
+    args <- list(...)
+    keep <- !sapply(args, FUN=is.null)
+    args <- args[keep]
 
     if (is.null(y)) {
-      y <- args$y;
-      args$y <- NULL;
+      y <- args$y
+      args$y <- NULL
     }
   } else {
-    args <- NULL;
+    args <- NULL
   }
 
-# str(list(chromosome=chromosome, x=x, cn=cn));
+# str(list(chromosome=chromosome, x=x, cn=cn))
 
 
-##  cat("AbstractCNData...\n");
+##  cat("AbstractCNData...\n")
 
-  this <- extend(RawGenomicSignals(chromosome=chromosome, x=x, y=y, name=name), "AbstractCNData");
+  this <- extend(RawGenomicSignals(chromosome=chromosome, x=x, y=y, name=name), "AbstractCNData")
 
-  this <- setVirtualColumnFunctions(this, .virtuals);
+  this <- setVirtualColumnFunctions(this, .virtuals)
 
-## print(class(this));
+## print(class(this))
 
   if (length(args) > 0) {
-    class <- class(this);
+    class <- class(this)
     for (key in names(args)) {
-      values <- args[[key]];
-      this[[key]] <- values;
+      values <- args[[key]]
+      this[[key]] <- values
     }
-    class(this) <- class;
+    class(this) <- class
   }
-##print(class(this));
+##print(class(this))
 
 
-##print(head(as.data.frame(this)));
-##  cat("AbstractCNData...done\n");
+##print(head(as.data.frame(this)))
+##  cat("AbstractCNData...done\n")
 
-  this;
+  this
 })
 
 
 setMethodS3("getPlatform", "AbstractCNData", function(this, ...) {
-  attr(this, "platform");
+  attr(this, "platform")
 })
 
 
 
 setMethodS3("setPlatform", "AbstractCNData", function(this, platform, ...) {
-  platform <- Arguments$getCharacter(platform);
-  attr(this, "platform") <- platform;
-  invisible(this);
+  platform <- Arguments$getCharacter(platform)
+  attr(this, "platform") <- platform
+  invisible(this)
 })
 
 
 setMethodS3("getChipType", "AbstractCNData", function(this, fullname=TRUE, ...) {
-  chipType <- attr(this, "chipType");
+  chipType <- attr(this, "chipType")
   if (!fullname) {
-    chipType <- gsub(",.*", "", chipType);
+    chipType <- gsub(",.*", "", chipType)
   }
-  chipType;
+  chipType
 })
 
 setMethodS3("setChipType", "AbstractCNData", function(this, chipType, ...) {
-  chipType <- Arguments$getCharacter(chipType);
-  attr(this, "chipType") <- chipType;
-  invisible(this);
+  chipType <- Arguments$getCharacter(chipType)
+  attr(this, "chipType") <- chipType
+  invisible(this)
 })
 
 
 setMethodS3("getLocusData", "AbstractCNData", function(this, ...) {
-  as.data.frame(this);
+  as.data.frame(this)
 })
 
 
 
 setMethodS3("hasKnownPositions", "AbstractCNData", function(this, ...) {
-  data <- as.data.frame(this, ...);
-  ok <- (!is.na(data$chromosome) & !is.na(data$x));
-  ok;
+  data <- as.data.frame(this, ...)
+  ok <- (!is.na(data$chromosome) & !is.na(data$x))
+  ok
 }, protected=TRUE)
 
 
 
 setMethodS3("orderAlongGenome", "AbstractCNData", function(this, ...) {
-  sort(this, ...);
+  sort(this, ...)
 }, protected=TRUE)
 
 
 
 setMethodS3("findLargeGaps", "AbstractCNData", function(chromosome, ...) {
-  pkg <- "PSCBS";
-  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
+  pkg <- "PSCBS"
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg)
 
   # To please R CMD check
-  this <- chromosome;
+  this <- chromosome
 
-  data <- as.data.frame(this, ...);
-  findLargeGaps(chromosome=data$chromosome, x=data$x, ...);
+  data <- as.data.frame(this, ...)
+  findLargeGaps(chromosome=data$chromosome, x=data$x, ...)
 }) # findLargeGaps()
-
-
-
-############################################################################
-# HISTORY:
-# 2012-03-09
-# o Started to inherit from RawGenomicSignals of aroma.core v2.4.10,
-#   which is now a data.frame.
-# 2012-02-29
-# o Added getLocusData() for AbstractCNData.
-# o Added findLargeGaps() for AbstractCNData.
-# o Created.
-############################################################################

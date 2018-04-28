@@ -23,23 +23,23 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitSignalBinarySet", function(...) {
-  extend(AromaTabularBinarySet(...), "AromaUnitSignalBinarySet");
+  extend(AromaTabularBinarySet(...), "AromaUnitSignalBinarySet")
 })
 
 
 setMethodS3("findByName", "AromaUnitSignalBinarySet", function(static, ..., chipType=NULL) {
-  NextMethod("findByName", subdirs=chipType);
+  NextMethod("findByName", subdirs=chipType)
 }, static=TRUE, protected=TRUE)
 
 
 setMethodS3("byName", "AromaUnitSignalBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=NULL, pattern="[.]asb$") {
   suppressWarnings({
     path <- findByName(static, name=name, tags=tags, chipType=chipType,
-                                           ..., paths=paths, mustExist=TRUE);
+                                           ..., paths=paths, mustExist=TRUE)
   })
 
   suppressWarnings({
-    byPath(static, path=path, ..., pattern=pattern);
+    byPath(static, path=path, ..., pattern=pattern)
   })
 }, static=TRUE)
 
@@ -49,38 +49,29 @@ setMethodS3("byName", "AromaUnitSignalBinarySet", function(static, name, tags=NU
 # BEGIN Interface API?
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("validate", "AromaUnitSignalBinarySet", function(this, ...) {
-  chipTypes <- lapply(this, FUN=getChipType);
-  chipTypes <- unique(chipTypes);
+  chipTypes <- lapply(this, FUN=getChipType)
+  chipTypes <- unique(chipTypes)
   if (length(chipTypes) > 1) {
-    throw("The located ", class(this)[1], " contains files with different chip types: ", paste(chipTypes, collapse=", "));
+    throw("The located ", class(this)[1], " contains files with different chip types: ", paste(chipTypes, collapse=", "))
   }
 
-  NextMethod("validate");
+  NextMethod("validate")
 }, protected=TRUE)
 
 
 setMethodS3("getPlatform", "AromaUnitSignalBinarySet", function(this, ...) {
-  getPlatform(getOneFile(this), ...);
+  getPlatform(getOneFile(this), ...)
 })
 
 
 setMethodS3("getChipType", "AromaUnitSignalBinarySet", function(this, ...) {
-  getChipType(getOneFile(this), ...);
+  getChipType(getOneFile(this), ...)
 })
 
 setMethodS3("getAromaUgpFile", "AromaUnitSignalBinarySet", function(this, ...) {
-  getAromaUgpFile(getOneFile(this), ...);
+  getAromaUgpFile(getOneFile(this), ...)
 })
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # END Interface API?
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-############################################################################
-# HISTORY:
-# 2009-01-05
-# o Renamed from AromaSignalBinarySet to AromaUnitSignalBinarySet.
-# 2008-05-11
-# o Created.
-############################################################################

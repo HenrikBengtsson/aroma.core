@@ -50,10 +50,10 @@ setConstructorS3("Explorer", function(tags="*", version="0", ...) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'tags':
-  tags <- Arguments$getTags(tags, collapse=NULL);
+  tags <- Arguments$getTags(tags, collapse=NULL)
 
   # Argument 'version':
-  version <- Arguments$getCharacter(version);
+  version <- Arguments$getCharacter(version)
 
   extend(Object(), "Explorer",
     .version = version,
@@ -68,24 +68,24 @@ setConstructorS3("Explorer", function(tags="*", version="0", ...) {
 
 setMethodS3("as.character", "Explorer", function(x, ...) {
   # To please R CMD check
-  this <- x;
+  this <- x
 
-  s <- sprintf("%s:", class(this)[1]);
-  s <- c(s, sprintf("Version: %s", getVersion(this)));
-  s <- c(s, sprintf("Name: %s", getName(this)));
-  s <- c(s, sprintf("Tags: %s", getTags(this, collapse=",")));
-  s <- c(s, sprintf("Main path: %s", getMainPath(this)));
+  s <- sprintf("%s:", class(this)[1])
+  s <- c(s, sprintf("Version: %s", getVersion(this)))
+  s <- c(s, sprintf("Name: %s", getName(this)))
+  s <- c(s, sprintf("Tags: %s", getTags(this, collapse=",")))
+  s <- c(s, sprintf("Main path: %s", getMainPath(this)))
 
-  GenericSummary(s);
+  GenericSummary(s)
 }, protected=TRUE)
 
 
 setMethodS3("getVersion", "Explorer", function(this, ...) {
-  this$.version;
+  this$.version
 })
 
 
-setMethodS3("getArraysOfInput", "Explorer", abstract=TRUE, protected=TRUE);
+setMethodS3("getArraysOfInput", "Explorer", abstract=TRUE, protected=TRUE)
 
 
 ###########################################################################/**
@@ -114,16 +114,16 @@ setMethodS3("getArraysOfInput", "Explorer", abstract=TRUE, protected=TRUE);
 # }
 #*/###########################################################################
 setMethodS3("getNames", "Explorer", function(this, ...) {
-  names <- this$.arrays;
+  names <- this$.arrays
 
   if (is.null(names)) {
-    names <- getArraysOfInput(this);
+    names <- getArraysOfInput(this)
   }
 
   # Sanity check
-  names <- Arguments$getCharacters(names);
+  names <- Arguments$getCharacters(names)
 
-  names;
+  names
 })
 
 
@@ -154,7 +154,7 @@ setMethodS3("getNames", "Explorer", function(this, ...) {
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("setArrays", "Explorer", abstract=TRUE);
+setMethodS3("setArrays", "Explorer", abstract=TRUE)
 
 
 
@@ -184,7 +184,7 @@ setMethodS3("setArrays", "Explorer", abstract=TRUE);
 # }
 #*/###########################################################################
 setMethodS3("nbrOfArrays", "Explorer", function(this, ...) {
-  length(getNames(this));
+  length(getNames(this))
 })
 
 
@@ -217,7 +217,7 @@ setMethodS3("nbrOfArrays", "Explorer", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getAlias", "Explorer", function(this, ...) {
-  this$.alias;
+  this$.alias
 }, protected=TRUE)
 
 
@@ -257,17 +257,17 @@ setMethodS3("getAlias", "Explorer", function(this, ...) {
 setMethodS3("setAlias", "Explorer", function(this, alias=NULL, ...) {
   # Argument 'alias':
   if (!is.null(alias)) {
-    alias <- Arguments$getFilename(alias);  # Valid filename?
+    alias <- Arguments$getFilename(alias) # Valid filename?
 
     # Assert that no commas are used.
     if (regexpr("[,]", alias) != -1) {
-      throw("Output-set aliases (names) must not contain commas: ", alias);
+      throw("Output-set aliases (names) must not contain commas: ", alias)
     }
   }
 
-  this$.alias <- alias;
+  this$.alias <- alias
 
-  invisible(this);
+  invisible(this)
 }, protected=TRUE)
 
 
@@ -302,11 +302,11 @@ setMethodS3("setAlias", "Explorer", function(this, alias=NULL, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getName", "Explorer", function(this, ...) {
-  name <- getAlias(this);
+  name <- getAlias(this)
   if (is.null(name)) {
-    name <- getNameOfInput(this);
+    name <- getNameOfInput(this)
   }
-  name;
+  name
 })
 
 
@@ -337,80 +337,80 @@ setMethodS3("getName", "Explorer", function(this, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getTags", "Explorer", function(this, collapse=NULL, ...) {
-  tags <- getTagsOfInput(this, ...);
+  tags <- getTagsOfInput(this, ...)
 
-  tags <- c(tags, this$.tags);
+  tags <- c(tags, this$.tags)
 
   # In case this$.tags is not already split
-  tags <- strsplit(tags, split=",", fixed=TRUE);
-  tags <- unlist(tags);
+  tags <- strsplit(tags, split=",", fixed=TRUE)
+  tags <- unlist(tags)
 
-  tags <- locallyUnique(tags);
+  tags <- locallyUnique(tags)
 
   # Update asterisk tags
-  tags[tags == "*"] <- getAsteriskTags(this, collapse=",");
+  tags[tags == "*"] <- getAsteriskTags(this, collapse=",")
 
-  tags <- Arguments$getTags(tags, collapse=NULL);
+  tags <- Arguments$getTags(tags, collapse=NULL)
 
-  tags <- locallyUnique(tags);
+  tags <- locallyUnique(tags)
 
   # Collapsed or split?
-  tags <- Arguments$getTags(tags, collapse=collapse);
+  tags <- Arguments$getTags(tags, collapse=collapse)
 
-  tags;
+  tags
 })
 
 setMethodS3("getAsteriskTags", "Explorer", function(this, ...) {
-  "";
+  ""
 }, protected=TRUE)
 
 
 setMethodS3("getTagsOfInput", "Explorer", function(this, ...) {
-  "";
+  ""
 }, protected=TRUE)
 
-setMethodS3("getNameOfInput", "Explorer", abstract=TRUE, protected=TRUE);
+setMethodS3("getNameOfInput", "Explorer", abstract=TRUE, protected=TRUE)
 
 
 
 setMethodS3("getFullName", "Explorer", function(this, ...) {
-  name <- getName(this);
-  tags <- getTags(this);
-  fullname <- paste(c(name, tags), collapse=",");
-  fullname <- gsub("[,]$", "", fullname);
-  fullname;
+  name <- getName(this)
+  tags <- getTags(this)
+  fullname <- paste(c(name, tags), collapse=",")
+  fullname <- gsub("[,]$", "", fullname)
+  fullname
 })
 
 
 
 # tags <- "100K,CEU,testSet,ACC,-X,+300,RMA,A+B,w,FLN,SRMA,gauss,b=50000"
-# Example: setReportPathPattern(ce, "^(.*),(SRMA,.*)(,CNC|)$");
+# Example: setReportPathPattern(ce, "^(.*),(SRMA,.*)(,CNC|)$")
 
 setMethodS3("setReportPathPattern", "Explorer", function(this, pattern, ...) {
   # Argument 'pattern':
-  pattern <- Arguments$getRegularExpression(pattern);
-  this$.reportPathPattern <- pattern;
+  pattern <- Arguments$getRegularExpression(pattern)
+  this$.reportPathPattern <- pattern
 }, protected=TRUE)
 
 
 setMethodS3("getReportPathPattern", "Explorer", function(this, ...) {
-	this$.reportPathPattern;
+	this$.reportPathPattern
 }, protected=TRUE)
 
 setMethodS3("splitByReportPathPattern", "Explorer", function(this, tags, ...) {
   # Argument 'tags':
-  tags <- Arguments$getTags(tags, collapse=",");
+  tags <- Arguments$getTags(tags, collapse=",")
 
   # Get subname and sampleLayerPrefix
-	pattern <- getReportPathPattern(this);
-  res <- list();
+	pattern <- getReportPathPattern(this)
+  res <- list()
   if (is.null(pattern) || regexpr(pattern, tags) == -1) {
-    res$subname <- tags;
+    res$subname <- tags
   } else {
-    res$subname <- gsub(pattern, "\\1", tags);
-    res$sampleLayerPrefix <- gsub(pattern, "\\2", tags);
+    res$subname <- gsub(pattern, "\\1", tags)
+    res$sampleLayerPrefix <- gsub(pattern, "\\2", tags)
   }
-  res;
+  res
 }, protected=TRUE)
 
 
@@ -442,45 +442,45 @@ setMethodS3("splitByReportPathPattern", "Explorer", function(this, tags, ...) {
 # }
 #*/###########################################################################
 setMethodS3("getRootPath", "Explorer", function(this, ...) {
-  "reports";
+  "reports"
 })
 
 
 setMethodS3("setSubname", "Explorer", function(this, value, ...) {
-  oldValue <- this$.subname;
-  this$.subname <- value;
-  invisible(oldValue);
+  oldValue <- this$.subname
+  this$.subname <- value
+  invisible(oldValue)
 }, protected=TRUE)
 
 
 setMethodS3("getSubname", "Explorer", function(this, ...) {
   # Preset?
-  subname <- this$.subname;
+  subname <- this$.subname
   if (!is.null(subname))
-    return(subname);
+    return(subname)
 
   # Infer from tags
-  tags <- getTags(this, collapse=",");
+  tags <- getTags(this, collapse=",")
   if (length(tags) == 0 || nchar(tags) == 0) {
-    tags <- "raw";  # Default
+    tags <- "raw" # Default
   }
 
-  subname <- splitByReportPathPattern(this, tags)$subname;
+  subname <- splitByReportPathPattern(this, tags)$subname
   if (is.null(subname))
-    throw("ERROR: No subname could be inferred from tags: ", tags);
+    throw("ERROR: No subname could be inferred from tags: ", tags)
 
-  subname;
+  subname
 }, protected=TRUE)
 
 
 setMethodS3("getSampleLayerPrefix", "Explorer", function(this, ...) {
   # Infer from tags
-  tags <- getTags(this, collapse=",");
+  tags <- getTags(this, collapse=",")
   if (length(tags) == 0 || nchar(tags) == 0) {
-    tags <- "raw";  # Default
+    tags <- "raw" # Default
   }
-  prefix <- splitByReportPathPattern(this, tags)$sampleLayerPrefix;
-  prefix;
+  prefix <- splitByReportPathPattern(this, tags)$sampleLayerPrefix
+  prefix
 }, protected=TRUE)
 
 
@@ -489,19 +489,19 @@ setMethodS3("getMainPath", "Explorer", function(this, ...) {
   # Create the (sub-)directory tree for the data set
 
   # Root path
-  rootPath <- getRootPath(this);
+  rootPath <- getRootPath(this)
 
   # Name
-  name <- getName(this);
+  name <- getName(this)
 
   # Subname
-  subname <- getSubname(this);
+  subname <- getSubname(this)
 
   # The full path
-  path <- filePath(rootPath, name, subname);
-  path <- Arguments$getWritablePath(path);
+  path <- filePath(rootPath, name, subname)
+  path <- Arguments$getWritablePath(path)
 
-  path;
+  path
 }, protected=TRUE)
 
 
@@ -535,7 +535,7 @@ setMethodS3("getMainPath", "Explorer", function(this, ...) {
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("getPath", "Explorer", abstract=TRUE);
+setMethodS3("getPath", "Explorer", abstract=TRUE)
 
 
 setMethodS3("getTemplatePath", "Explorer", function(this, ..., verbose=FALSE) {
@@ -543,23 +543,23 @@ setMethodS3("getTemplatePath", "Explorer", function(this, ..., verbose=FALSE) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Locating template files for ChromosomeExplorer");
+  verbose && enter(verbose, "Locating template files for ChromosomeExplorer")
   # Search for template files
-  rootPath <- getRootPath(this);
-  path <- filePath(rootPath, "templates");
-  path <- Arguments$getReadablePath(path, mustExist=FALSE);
+  rootPath <- getRootPath(this)
+  path <- filePath(rootPath, "templates")
+  path <- Arguments$getReadablePath(path, mustExist=FALSE)
   if (!isDirectory(path)) {
-    path <- system.file("reports", "templates", package="aroma.core");
+    path <- system.file("reports", "templates", package="aroma.core")
   }
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  path;
+  path
 }, protected=TRUE)
 
 
@@ -568,18 +568,18 @@ setMethodS3("getIncludePath", "Explorer", function(this, ..., verbose=FALSE) {
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Locating include files for ChromosomeExplorer");
+  verbose && enter(verbose, "Locating include files for ChromosomeExplorer")
   # Search for include files
-  path <- system.file("reports", "includes", package="aroma.core");
-  verbose && exit(verbose);
+  path <- system.file("reports", "includes", package="aroma.core")
+  verbose && exit(verbose)
 
-  path;
+  path
 }, protected=TRUE)
 
 
@@ -588,25 +588,25 @@ setMethodS3("addIncludes", "Explorer", function(this, ..., force=FALSE, verbose=
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  verbose && enter(verbose, "Setting up ", class(this)[1], " report files");
+  verbose && enter(verbose, "Setting up ", class(this)[1], " report files")
 
-  destPath <- filePath(getRootPath(this), "includes");
-  verbose && enter(verbose, "Copying template files");
-  srcPath <- getIncludePath(this);
-  verbose && cat(verbose, "Source path: ", srcPath);
-  verbose && cat(verbose, "Destination path: ", destPath);
+  destPath <- filePath(getRootPath(this), "includes")
+  verbose && enter(verbose, "Copying template files")
+  srcPath <- getIncludePath(this)
+  verbose && cat(verbose, "Source path: ", srcPath)
+  verbose && cat(verbose, "Destination path: ", destPath)
 
   pathnames <- copyDirectory(from=srcPath, to=destPath, copy.mode=FALSE,
-                             recursive=TRUE, overwrite=force);
-  verbose && exit(verbose);
+                             recursive=TRUE, overwrite=force)
+  verbose && exit(verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 }, protected=TRUE)
 
 
@@ -617,90 +617,90 @@ setMethodS3("addIndexFile", "Explorer", function(this, filename=sprintf("%s.html
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
-  srcPath <- getTemplatePath(this);
-  srcPathname <- filePath(srcPath, "html", class(this)[1], filename);
-  outPathname <- filePath(getMainPath(this), filename);
+  srcPath <- getTemplatePath(this)
+  srcPathname <- filePath(srcPath, "html", class(this)[1], filename)
+  outPathname <- filePath(getMainPath(this), filename)
 
   if (force || !isFile(outPathname)) {
-    verbose && enter(verbose, "Copying ", filename);
-    verbose && cat(verbose, "Source pathname: ", srcPathname);
-    verbose && cat(verbose, "Destination pathname: ", outPathname);
+    verbose && enter(verbose, "Copying ", filename)
+    verbose && cat(verbose, "Source pathname: ", srcPathname)
+    verbose && cat(verbose, "Destination pathname: ", outPathname)
     if (!isFile(srcPathname))
-      throw("File not found: ", srcPathname);
+      throw("File not found: ", srcPathname)
 
-    copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE);
+    copyFile(srcPathname, outPathname, overwrite=TRUE, copy.mode=FALSE)
 
-    verbose && exit(verbose);
+    verbose && exit(verbose)
   }
 }, protected=TRUE)
 
 
 
 setMethodS3("updateSetupExplorerFile", "Explorer", function(this, data, ..., verbose=FALSE) {
-  pkg <- "R.rsp";
-  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg);
+  pkg <- "R.rsp"
+  require(pkg, character.only=TRUE) || throw("Package not loaded: ", pkg)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'data':
-  data <- Arguments$getInstanceOf(data, "environment");
+  data <- Arguments$getInstanceOf(data, "environment")
 
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  outFile <- "setupExplorer.js";
+  outFile <- "setupExplorer.js"
 
-  verbose && enter(verbose, "Updating ", outFile);
+  verbose && enter(verbose, "Updating ", outFile)
 
   # Get RSP-embedded source file
-  mainPath <- getMainPath(this);
-  setTuple <- getSetTuple(this);
-  filename <- sprintf("%s.rsp", outFile);
-  srcPath <- getTemplatePath(this);
-  pathname <- filePath(srcPath, "rsp", class(this)[1], filename);
-  verbose && cat(verbose, "Source: ", pathname);
+  mainPath <- getMainPath(this)
+  setTuple <- getSetTuple(this)
+  filename <- sprintf("%s.rsp", outFile)
+  srcPath <- getTemplatePath(this)
+  pathname <- filePath(srcPath, "rsp", class(this)[1], filename)
+  verbose && cat(verbose, "Source: ", pathname)
 
   # Output destination
-  outPath <- mainPath;
-  verbose && cat(verbose, "Output path: ", outPath);
-  outPath <- Arguments$getWritablePath(outPath);
+  outPath <- mainPath
+  verbose && cat(verbose, "Output path: ", outPath)
+  outPath <- Arguments$getWritablePath(outPath)
 
   # Input data
-  verbose && cat(verbose, "Input data:");
-  verbose && str(verbose, as.list(data));
+  verbose && cat(verbose, "Input data:")
+  verbose && str(verbose, as.list(data))
 
-  verbose && enter(verbose, "Compiling RSP");
-  js <- rfile(pathname, workdir=outPath, envir=data, postprocess=FALSE);
-  verbose && exit(verbose);
+  verbose && enter(verbose, "Compiling RSP")
+  js <- rfile(pathname, workdir=outPath, envir=data, postprocess=FALSE)
+  verbose && exit(verbose)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  invisible(js);
+  invisible(js)
 }, protected=TRUE) # updateSetupExplorerFile()
 
 
 
 setMethodS3("setup", "Explorer", function(this, ..., force=FALSE) {
   # Setup includes/
-  addIncludes(this, ..., force=force);
+  addIncludes(this, ..., force=force)
 
   # Setup HTML explorer page
-  addIndexFile(this, ..., force=force);
+  addIndexFile(this, ..., force=force)
 
   # Update Javascript files
-  updateSetupExplorerFile(this, ...);
+  updateSetupExplorerFile(this, ...)
 }, protected=TRUE)
 
 
@@ -733,7 +733,7 @@ setMethodS3("setup", "Explorer", function(this, ..., force=FALSE) {
 #   @seeclass
 # }
 #*/###########################################################################
-setMethodS3("process", "Explorer", abstract=TRUE);
+setMethodS3("process", "Explorer", abstract=TRUE)
 
 
 ###########################################################################/**
@@ -767,27 +767,27 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'verbose':
-  verbose <- Arguments$getVerbose(verbose);
+  verbose <- Arguments$getVerbose(verbose)
   if (verbose) {
-    pushState(verbose);
-    on.exit(popState(verbose));
+    pushState(verbose)
+    on.exit(popState(verbose))
   }
 
 
-  verbose && enter(verbose, "Opening ", class(this)[1]);
+  verbose && enter(verbose, "Opening ", class(this)[1])
 
   # The path to the explorer HTML document
-  path <- getMainPath(this);
-  pathname <- Arguments$getReadablePathname(filename, path=path, sbsolute=TRUE, mustExist=FALSE);
+  path <- getMainPath(this)
+  pathname <- Arguments$getReadablePathname(filename, path=path, sbsolute=TRUE, mustExist=FALSE)
 
   # Just in case, is setup needed?
   if (!isFile(pathname)) {
-    setup(this, verbose=less(verbose));
+    setup(this, verbose=less(verbose))
     if (!isFile(pathname))
-      throw("Cannot open ", class(this)[1], ". No such file: ", pathname);
+      throw("Cannot open ", class(this)[1], ". No such file: ", pathname)
   }
 
-  verbose && cat(verbose, "Pathname: ", pathname);
+  verbose && cat(verbose, "Pathname: ", pathname)
 
   # WORKAROUND: browseURL('foo/bar.html', browser=NULL), which in turn
   # calls shell.exec('foo/bar.html'), does not work on Windows, because
@@ -796,52 +796,23 @@ setMethodS3("display", "Explorer", function(this, filename=sprintf("%s.html", cl
   # of the file, this works around this issue.
   # Borrowed from R.rsp. /HB 2014-09-19
   if (isFile(pathname)) {
-    path <- dirname(pathname);
-    pathname <- basename(pathname);
-    opwd <- getwd();
-    on.exit(setwd(opwd));
-    setwd(path);
+    path <- dirname(pathname)
+    pathname <- basename(pathname)
+    opwd <- getwd()
+    on.exit(setwd(opwd))
+    setwd(path)
   }
 
-  res <- browseURL(pathname, ...);
+  res <- browseURL(pathname, ...)
 
-  verbose && exit(verbose);
+  verbose && exit(verbose)
 
-  invisible(res);
+  invisible(res)
 })
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # DEPRECATED
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setMethodS3("getArrays", "Explorer", function(this, ...) {
-  getNames(this, ...);
+  getNames(this, ...)
 }, protected=TRUE, deprecated=TRUE)
-
-
-
-
-##############################################################################
-# HISTORY:
-# 2014-01-17
-# o CLEANUP: Now the Explorer class utilizes R.rsp::rfile() for compiling
-#   RSP files instead of the to-be-deprecated rspToHtml().
-# 2012-02-06
-# o Added implementation of setup() to Explorer.
-# o Added updateSetupExplorerFile() to Explorer.
-# o Added getVersion() to Explorer.
-# 2009-05-17
-# o Added missing abstract method getArraysOfInput() to Explorer.
-# o Moved the Explorer class and its support files under inst/ to aroma.core.
-# 2008-06-05
-# o Made getMainPath(), addIncludes(), addIndexFile() parallel safe.
-# o Added getParallelSafe() and setParallelSafe().
-# 2007-11-20
-# o Now addIncludes() no longer passes '...' to copyDirectory().
-# 2007-10-11
-# o Now addIncludes() always copies missing files in the includes/ directory.
-# 2007-03-24
-# o BUG FIX: getPath() created the root path before trying to expand
-#   Windows shortcuts.
-# 2007-03-19
-# o Created from ChromosomeExplorer.R.
-##############################################################################

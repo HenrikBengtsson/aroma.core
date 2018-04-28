@@ -38,42 +38,22 @@
 # @author
 #*/###########################################################################
 setConstructorS3("AromaUnitFracBCnBinarySet", function(...) {
-  extend(AromaUnitSignalBinarySet(...), "AromaUnitFracBCnBinarySet");
+  extend(AromaUnitSignalBinarySet(...), "AromaUnitFracBCnBinarySet")
 })
 
 
 setMethodS3("byName", "AromaUnitFracBCnBinarySet", function(static, name, tags=NULL, ..., chipType=NULL, paths=c("totalAndFracBData", "rawCnData", "cnData", "smoothCnData"), pattern=".*,(frac|freq)B[.]asb$") {
   suppressWarnings({
     path <- findByName(static, name=name, tags=tags, chipType=chipType, 
-                                           ..., paths=paths, mustExist=TRUE);
+                                           ..., paths=paths, mustExist=TRUE)
   })
 
   suppressWarnings({
-    byPath(static, path=path, ..., pattern=pattern);
+    byPath(static, path=path, ..., pattern=pattern)
   })
 }, static=TRUE) 
 
 
 setMethodS3("writeDataFrame", "AromaUnitFracBCnBinarySet", function(this, filename=sprintf("%s,fracB.txt", getFullName(this)), ...) {
-  NextMethod("writeDataFrame", filename=filename);
+  NextMethod("writeDataFrame", filename=filename)
 })
-
-
-############################################################################
-# HISTORY:
-# 2010-07-20
-# o Added writeDataFrame() for AromaUnitFracBCnBinarySet to get the
-#   correct filename extension.
-# 2009-12-23
-# o Added argument 'pattern' to byName() AromaUnitFracBCnBinarySet.
-# 2009-08-31
-# o Added totalAndFracBData/ to the search path of byName() of 
-#   AromaUnit(FracB|Total)CnBinarySet.
-# 2009-02-09
-# o Now byName() of AromaUnit(FracB|Total)CnBinarySet searches rawCnData/
-#   then cnData/.
-# 2009-01-03
-# o Renamed from freqB to fracB, because it is a fraction, not a frequency.
-# 2008-05-11
-# o Created.
-############################################################################

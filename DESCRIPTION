@@ -1,5 +1,5 @@
 Package: aroma.core
-Version: 3.1.1
+Version: 3.1.2
 Depends:
   R (>= 3.1.2),
   R.utils (>= 2.5.0),
@@ -43,15 +43,15 @@ SuggestsNote:
 Additional_repositories:
   http://r-forge.r-project.org,
   https://henrikbengtsson.github.io/drat
-Date: 2017-09-12
+Date: 2018-04-23
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                  email="henrikb@braju.com"),
   person("Mark", "Robinson", role="ctb"),
   person("Ken", "Simpson", role="ctb"))
-Description: Core methods and classes used by higher-level aroma.* packages
-        part of the Aroma Project, e.g. aroma.affymetrix and aroma.cn.
+Description: Core methods and classes used by higher-level 'aroma.*' packages
+        part of the Aroma Project, e.g. 'aroma.affymetrix' and 'aroma.cn'.
 License: LGPL (>= 2.1)
 URL: https://github.com/HenrikBengtsson/aroma.core, http://www.aroma-project.org/
 BugReports: https://github.com/HenrikBengtsson/aroma.core/issues

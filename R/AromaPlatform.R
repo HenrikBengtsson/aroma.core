@@ -67,16 +67,3 @@ setMethodS3("getUnitTypesFile", "AromaPlatform", abstract=TRUE)
 setMethodS3("getAromaUgpFile", "AromaPlatform", function(static, ...) {
   AromaUgpFile$byName(...)
 }, static=TRUE)
-
-
-
-
-############################################################################
-# HISTORY:
-# 2014-06-24
-# o Added equals() and as.character() for AromaPlatform.
-# 2009-07-08
-# o Added getUnitTypesFile() for AromaPlatform.
-# 2008-05-18
-# o Created.
-############################################################################

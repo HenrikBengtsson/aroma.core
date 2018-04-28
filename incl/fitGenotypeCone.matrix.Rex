@@ -1,11 +1,13 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Fit genotype cone based on available methods (==packages)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-flavors <- c("sfit", "expectile")
+flavors <- c("expectile", "sfit")
+## The 'expectile' package does not do proper S3 registration
+if (getRversion() >= "3.6.0") flavors <- setdiff(flavors, "expectile")
 keep <- sapply(flavors, FUN=require, character.only=TRUE)
 flavors <- flavors[keep]
 cat("Available fitting flavors:", paste(flavors, collapse=", "), "\n")
-hasSfit <- is.element("sfit", flavors);
+hasSfit <- is.element("sfit", flavors)
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
