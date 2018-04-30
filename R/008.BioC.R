@@ -18,15 +18,15 @@
 
       # To please R CMD check
       biocLite <- NULL; rm(list="biocLite")
-      source("http://www.bioconductor.org/biocLite.R")
+      source("https://www.bioconductor.org/biocLite.R")
       biocLite(package)
       # Assert that the package can be successfully loaded
       res <- requireX(package, character.only=TRUE)
       if (!res) {
-        throw("Package 'affxparser' could not be loaded. Please install it from Bioconductor, cf. http://www.bioconductor.org/")
+        throw("Package 'affxparser' could not be loaded. Please install it from Bioconductor, cf. https://www.bioconductor.org/")
       }
     } else {
-      warning("Package '", package, "' could not be loaded. Without it ", neededBy, " will not work. Please install it from Bioconductor, cf. http://www.bioconductor.org/")
+      warning("Package '", package, "' could not be loaded. Without it ", neededBy, " will not work. Please install it from Bioconductor, cf. https://www.bioconductor.org/")
     }
   }
 } # .requireBiocPackage()
