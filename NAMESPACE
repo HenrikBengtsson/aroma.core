@@ -121,7 +121,7 @@ importFrom("R.utils", "dataFrame")
 importFrom("R.utils", "draw")
 importFrom("R.utils", "enter")
 importFrom("R.utils", "exit")
-importFrom("R.utils", "extract") ## Multi-sources: R.utils, R.filesets
+importFrom("R.filesets", "extract") ## Multi-sources: R.utils, R.filesets
 importFrom("R.utils", "filePath")
 importFrom("R.utils", "findFiles")
 importFrom("R.utils", "getAbsolutePath")
