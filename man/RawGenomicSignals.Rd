@@ -61,7 +61,7 @@ RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=0L, name=NULL, ...)
  \tab \code{binnedSmoothing} \tab  -\cr
  \tab \code{divideBy} \tab  -\cr
  \tab \code{drawDensity} \tab  -\cr
- \tab \code{estimateStandardDeviation} \tab  -\cr
+ \tab \code{\link[aroma.core:estimateStandardDeviation.RawGenomicSignals]{estimateStandardDeviation}} \tab Estimates the standard deviation of the raw Ys.\cr
  \tab \code{gaussianSmoothing} \tab  -\cr
  \tab \code{getChromosome} \tab  -\cr
  \tab \code{getChromosomes} \tab  -\cr
@@ -79,10 +79,10 @@ RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=0L, name=NULL, ...)
  \tab \code{nbrOfLoci} \tab  -\cr
  \tab \code{plot} \tab  -\cr
  \tab \code{points} \tab  -\cr
- \tab \code{segmentByCBS} \tab  -\cr
- \tab \code{segmentByGLAD} \tab  -\cr
- \tab \code{segmentByHaarSeg} \tab  -\cr
- \tab \code{segmentByMPCBS} \tab  -\cr
+ \tab \code{\link[aroma.core:segmentByCBS.RawGenomicSignals]{segmentByCBS}} \tab Segment copy numbers using the CBS method.\cr
+ \tab \code{\link[aroma.core:segmentByGLAD.RawGenomicSignals]{segmentByGLAD}} \tab Segment copy numbers using the GLAD method.\cr
+ \tab \code{\link[aroma.core:segmentByHaarSeg.RawGenomicSignals]{segmentByHaarSeg}} \tab Segment copy numbers using the HaarSeg method.\cr
+ \tab \code{\link[aroma.core:segmentByMPCBS.RawGenomicSignals]{segmentByMPCBS}} \tab Segment copy numbers using the multi-platform CBS (mpCBS) method.\cr
  \tab \code{setSigma} \tab  -\cr
  \tab \code{setSignals} \tab  -\cr
  \tab \code{setWeights} \tab  -\cr
@@ -105,7 +105,7 @@ RawGenomicSignals(y=NULL, x=NULL, w=NULL, chromosome=0L, name=NULL, ...)
 $, $<-, [, [[, [[<-, as.data.frame, as.list, dim, dropVirtualColumn, getColumnNames, getColumnNamesTranslator, getFullName, getName, getTags, getVirtualColumn, getVirtualColumnFunction, getVirtualColumnNames, hasColumn, hasColumns, hasVirtualColumn, hasVirtualColumns, length, names, newInstance, print, rbind, setAttributes, setColumnNamesMap, setColumnNamesTranslator, setName, setTags, setVirtualColumn, subset, translateColumnNames
 
  \bold{Methods inherited from data.frame}:\cr
-$<-,data.frame-method, $<-, Math, Ops,nonStructure,vector-method, Ops,structure,vector-method, Ops,vector,nonStructure-method, Ops,vector,structure-method, Ops, Summary, [, [<-,data.frame-method, [<-, [[, [[<-,data.frame-method, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, attachLocally, by, callSegmentationOutliers, cbind, coerce,ANY,list-method, coerce,oldClass,S3-method, dim, dimnames, dimnames<-, dropSegmentationOutliers, droplevels, duplicated, edit, findLargeGaps, format, formula, head, initialize,oldClass-method, is.na, merge, na.exclude, na.omit, plot, plotDensity, print, prompt, rbind, row.names, row.names<-, rowsum, segmentByCBS, segmentByPairedPSCBS, show,oldClass-method, slotsFromS3,data.frame-method, split, split<-, stack, str, subset, summary, t, tail, transform, type.convert, unique, unstack, unwrap, within, wrap, writeDataFrame
+$<-,data.frame-method, $<-, Math, Ops,nonStructure,vector-method, Ops,structure,vector-method, Ops,vector,nonStructure-method, Ops,vector,structure-method, Ops, Summary, [, [<-,data.frame-method, [<-, [[, [[<-,data.frame-method, [[<-, aggregate, anyDuplicated, as.NonPairedPSCNData, as.PairedPSCNData, as.data.frame, as.list, as.matrix, attachLocally, by, callSegmentationOutliers, cbind, coerce,ANY,list-method, coerce,oldClass,S3-method, dim, dimnames, dimnames<-, dropSegmentationOutliers, droplevels, duplicated, edit, findLargeGaps, format, formula, head, initialize,oldClass-method, is.na, merge, na.exclude, na.omit, plot, print, prompt, rbind, row.names, row.names<-, rowsum, segmentByCBS, segmentByPairedPSCBS, show,oldClass-method, slotsFromS3,data.frame-method, split, split<-, stack, str, subset, summary, t, tail, transform, type.convert, unique, unstack, unwrap, within, wrap, writeDataFrame
 
 
 }

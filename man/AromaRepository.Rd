@@ -38,7 +38,7 @@ AromaRepository(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...)
 }
 
 \arguments{
-  \item{urlPath}{The URL to the Aroma reposity.}
+  \item{urlPath}{The URL to the Aroma repository.}
   \item{verbose}{The \code{\link[R.utils]{Verbose}} to be used during processing.}
   \item{...}{Not used.}
 }

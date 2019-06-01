@@ -35,7 +35,7 @@ BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
 }
 
 \arguments{
-  \item{data}{A Nx2 @numaric \code{\link[base]{matrix}}.}
+  \item{data}{A Nx2 \code{\link[base]{numeric}} \code{\link[base]{matrix}}.}
   \item{density}{...}
   \item{map}{...}
   \item{params}{A \code{\link[base]{list}} of parameters.}

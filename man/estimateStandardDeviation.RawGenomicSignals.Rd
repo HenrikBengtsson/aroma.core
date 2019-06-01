@@ -27,7 +27,7 @@
 \arguments{
   \item{field}{A \code{\link[base]{character}} specifying the field to estimate.}
   \item{method}{If \code{"diff"}, the estimate is based on the first-order
-    contigous differences of raw Ys. If \code{"direct"}, it is based
+    contiguous differences of raw Ys. If \code{"direct"}, it is based
     directly on the raw Ys.}
   \item{estimator}{If \code{"mad"}, the robust \code{\link[stats]{mad}} estimator
     is used.  If \code{"sd"}, the \code{\link[stats]{sd}} estimator is used.}
