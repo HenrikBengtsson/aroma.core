@@ -24,7 +24,7 @@
 #
 # @author
 #*/###########################################################################
-setConstructorS3("AromaRepository", function(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...) {
+setConstructorS3("AromaRepository", function(urlPath="https://www.aroma-project.org/data", verbose=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
