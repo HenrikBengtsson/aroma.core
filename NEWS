@@ -5,9 +5,9 @@ Version: 3.1.3-9000 [2019-05-31]
 
 BUG FIXES:
 
- * findByChipType () for AromaMicroarrayTabularBinaryFile and
-   TextUnitNamesFile would only recognize Windows Shortcut Links with a
-   filename extension in lower case (*.lnk) but not in upper case (*.LNK).
+ * findByChipType() for AromaMicroarrayTabularBinaryFile and TextUnitNamesFile
+   would only recognize Windows Shortcut Links with a filename extension in
+   lower case (*.lnk) but not in upper case (*.LNK).
 
 
 Version: 3.1.3 [2018-04-30]
