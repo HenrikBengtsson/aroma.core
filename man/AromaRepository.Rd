@@ -34,7 +34,7 @@ extends \link[R.oo]{Object}\cr
 }
 
 \usage{
-AromaRepository(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...)
+AromaRepository(urlPath="https://www.aroma-project.org/data", verbose=FALSE, ...)
 }
 
 \arguments{
