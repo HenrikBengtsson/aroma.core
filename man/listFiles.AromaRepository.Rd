@@ -26,7 +26,7 @@
   \item{path}{The relative path to be listed.}
   \item{orderBy}{A \code{\link[base]{character}} specifying how the returns files should be ordered.}
   \item{...}{Additional arguments passed to \code{\link[R.utils]{downloadFile}}.}
-  \item{force}{If @FTRUE, cached results are redownloaded, otherwise not.}
+  \item{force}{If \code{\link[base:logical]{TRUE}}, cached results are redownloaded, otherwise not.}
 }
 
 \value{

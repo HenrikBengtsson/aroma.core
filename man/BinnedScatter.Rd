@@ -35,7 +35,7 @@ BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
 }
 
 \arguments{
-  \item{data}{A Nx2 @numaric \code{\link[base]{matrix}}.}
+  \item{data}{A Nx2 \code{\link[base]{numeric}} \code{\link[base]{matrix}}.}
   \item{density}{...}
   \item{map}{...}
   \item{params}{A \code{\link[base]{list}} of parameters.}
@@ -54,7 +54,7 @@ BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
 
 
  \bold{Methods inherited from list}:\cr
-all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, callHooks, exportAromaUnitPscnBinarySet, listToXml, mergeBoxplotStats, relist, within
+Ops,nonStructure,vector-method, Ops,structure,vector-method, Ops,vector,nonStructure-method, Ops,vector,structure-method, all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, callHooks, coerce,ANY,list-method, exportAromaUnitPscnBinarySet, listToXml, mergeBoxplotStats, relist, type.convert, within
 
 
 }

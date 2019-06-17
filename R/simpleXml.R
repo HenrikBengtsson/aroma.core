@@ -3,7 +3,7 @@ setMethodS3("listToXml", "list", function(tree, indentStep=" ", collapse="\t", .
 ##     chipType = "GenomeWideSNP_6",
 ##     createdOn = "2008-02-13",
 ##     source = list(
-##       url = "http://www.affymetrix.com/",
+##       url = "https://www.affymetrix.com/",
 ##       files = ""
 ##     ),
 ##     creator = list(

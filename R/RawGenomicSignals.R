@@ -1002,7 +1002,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
 # \arguments{
 #   \item{field}{A @character specifying the field to estimate.}
 #   \item{method}{If \code{"diff"}, the estimate is based on the first-order
-#     contigous differences of raw Ys. If \code{"direct"}, it is based
+#     contiguous differences of raw Ys. If \code{"direct"}, it is based
 #     directly on the raw Ys.}
 #   \item{estimator}{If \code{"mad"}, the robust @see "stats::mad" estimator
 #     is used.  If \code{"sd"}, the @see "stats::sd" estimator is used.}

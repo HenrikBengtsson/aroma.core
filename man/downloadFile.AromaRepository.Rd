@@ -11,10 +11,10 @@
 \alias{AromaRepository.downloadFile}
 \alias{downloadFile,AromaRepository-method}
 
-\title{Download a particular file from the reposity}
+\title{Download a particular file from the repository}
 
 \description{
- Download a particular file from the reposity by its relative pathname.
+ Download a particular file from the repository by its relative pathname.
 }
 
 \usage{

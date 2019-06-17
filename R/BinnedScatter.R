@@ -10,7 +10,7 @@
 # @synopsis
 #
 # \arguments{
-#   \item{data}{A Nx2 @numaric @matrix.}
+#   \item{data}{A Nx2 @numeric @matrix.}
 #   \item{density}{...}
 #   \item{map}{...}
 #   \item{params}{A @list of parameters.}

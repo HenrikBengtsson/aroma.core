@@ -25,7 +25,7 @@
 \arguments{
   \item{chipType}{The chip type of the file to be downloaded.}
   \item{tags}{Optional tags of the file to be downloaded.}
-  \item{suffix}{The filename suffix (including any preceeding period) of
+  \item{suffix}{The filename suffix (including any preceding period) of
      the file to be downloaded.}
   \item{ext}{The filename extension.}
   \item{...}{Additional arguments passed to \code{\link[aroma.core:downloadFile.AromaRepository]{*downloadFile}()}.}

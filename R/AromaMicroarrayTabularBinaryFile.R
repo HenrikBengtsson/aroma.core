@@ -179,7 +179,7 @@ setMethodS3("findByChipType", "AromaMicroarrayTabularBinaryFile", function(stati
   # If not found, look for Windows shortcuts
   if (is.null(pathname)) {
     # Search for a Windows shortcut
-    pattern <- sprintf("^%s.*[.]%s[.]lnk$", chipType, ext)
+    pattern <- sprintf("^%s.*[.]%s[.](lnk|LNK)$", chipType, ext)
     args$pattern <- pattern
     pathname <- do.call(findAnnotationDataByChipType, args=args)
     if (!is.null(pathname)) {

@@ -13,7 +13,7 @@
 # @synopsis
 #
 # \arguments{
-#   \item{urlPath}{The URL to the Aroma reposity.}
+#   \item{urlPath}{The URL to the Aroma repository.}
 #   \item{verbose}{The @see "R.utils::Verbose" to be used during processing.}
 #   \item{...}{Not used.}
 # }
@@ -24,7 +24,7 @@
 #
 # @author
 #*/###########################################################################
-setConstructorS3("AromaRepository", function(urlPath="http://www.aroma-project.org/data", verbose=FALSE, ...) {
+setConstructorS3("AromaRepository", function(urlPath="https://www.aroma-project.org/data", verbose=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -81,7 +81,7 @@ setMethodS3("clearCache", "AromaRepository", function(this, ...) {
 #   \item{path}{The relative path to be listed.}
 #   \item{orderBy}{A @character specifying how the returns files should be ordered.}
 #   \item{...}{Additional arguments passed to @see "R.utils::downloadFile".}
-#   \item{force}{If @FTRUE, cached results are redownloaded, otherwise not.}
+#   \item{force}{If @TRUE, cached results are redownloaded, otherwise not.}
 # }
 #
 # \value{
@@ -189,7 +189,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
 ###########################################################################/**
 # @RdocMethod downloadFile
 #
-# @title "Download a particular file from the reposity"
+# @title "Download a particular file from the repository"
 #
 # \description{
 #  @get "title" by its relative pathname.
@@ -424,7 +424,7 @@ setMethodS3("findAnnotationDataByChipType", "AromaRepository", function(this, ch
 # \arguments{
 #   \item{chipType}{The chip type of the file to be downloaded.}
 #   \item{tags}{Optional tags of the file to be downloaded.}
-#   \item{suffix}{The filename suffix (including any preceeding period) of
+#   \item{suffix}{The filename suffix (including any preceding period) of
 #      the file to be downloaded.}
 #   \item{ext}{The filename extension.}
 #   \item{...}{Additional arguments passed to @seemethod "downloadFile".}

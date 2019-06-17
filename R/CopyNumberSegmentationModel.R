@@ -467,7 +467,7 @@ setMethodS3("getRegions", "CopyNumberSegmentationModel", function(this, ..., url
         start <- as.double(start)
         stop <- as.double(stop)
       })
-      uri <- "http://genome.ucsc.edu/cgi-bin/hgTracks?clade=vertebrate"
+      uri <- "https://genome.ucsc.edu/cgi-bin/hgTracks?clade=vertebrate"
       sprintf("%s&org=%s&db=%s&position=chr%s%%3A%.0f-%.0f", uri, organism, hgVersion, chromosome, start, stop)
     }
   }
