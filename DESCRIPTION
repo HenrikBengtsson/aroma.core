@@ -11,7 +11,7 @@ Imports:
   stats,
   utils,
   R.methodsS3 (>= 1.7.1),
-  R.oo (>= 1.22.0),
+  R.oo (>= 1.23.0),
   R.cache (>= 0.13.0),
   R.rsp (>= 0.43.1),
   matrixStats (>= 0.55.0),
