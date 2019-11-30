@@ -43,7 +43,6 @@ SuggestsNote:
 Additional_repositories:
   https://r-forge.r-project.org,
   https://henrikbengtsson.github.io/drat
-Date: 2019-06-17
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),

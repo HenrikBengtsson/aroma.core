@@ -128,7 +128,10 @@ setMethodS3("plotRawCNs", "profileCGH", function(fit, chromosome=NULL, unit=0, x
   # Load data
   # To please R CMD check on R v2.6.0
   cytoband <- NULL; rm(list="cytoband")
-  data("cytoband", envir=sys.frame(sys.nframe())) # Package 'GLAD'
+  # WORKAROUND: Avoid bug PR#17663
+  # (https://bugs.r-project.org/bugzilla/show_bug.cgi?id=17663)
+  envir <- sys.frame(sys.nframe())
+  data("cytoband", envir=envir) # Package 'GLAD'
   genomeInfo <- aggregate(cytoband$End, list(Chromosome=cytoband$Chromosome,
                           ChrNumeric=cytoband$ChrNumeric), max, na.rm=TRUE)
   names(genomeInfo) <- c("Chromosome", "ChrNumeric", "Length")
