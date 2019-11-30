@@ -8,7 +8,10 @@ MISCELLANEOUS:
  * WORKAROUND: Package fails 'R CMD check' with _R_CHECK_LENGTH_1_LOGIC2_=true
    due PR#17663 (https://bugs.r-project.org/bugzilla/show_bug.cgi?id=17663).
    A simple code tweak avoids this us hitting this bug.
-   
+
+ * WORKAROUND: There's a _R_CHECK_LENGTH_1_LOGIC2_ bug in mpcbs::mpcbs.mbic().
+   Until fixed, we need to disable this check while testing segmentByMPCBS().
+
 
 Version: 3.2.0 [2019-06-17]
 
