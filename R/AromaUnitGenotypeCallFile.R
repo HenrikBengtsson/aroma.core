@@ -44,7 +44,7 @@ setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., dro
   # Not needed anymore
   calls <- NULL
 
-  naValue <- as.logical(NA)
+  naValue <- NA
   res <- array(naValue, dim=dim[-2])
   res[,1] <- (counts == 1)
   # Not needed anymore

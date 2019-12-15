@@ -332,7 +332,7 @@ setMethodS3("readSequences", "AromaCellSequenceFile", function(this, ..., verbos
   res <- res[idxs,,drop=FALSE]
 
   # Allocate return vector with missing values set
-  naValue <- as.character(NA)
+  naValue <- NA_character_
   seqs <- rep(naValue, times=nbrOfCells)
   seqs[idxs] <- "" # Redo non-missing
   verbose && str(verbose, seqs)

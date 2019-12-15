@@ -173,7 +173,7 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read probe sequences
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  naValue <- as.character(NA)
+  naValue <- NA_character_
   seqs <- rep(naValue, times=length(cells))
   dim(seqs) <- dim(cells)
   for (pp in seq_along(uPos)) {
