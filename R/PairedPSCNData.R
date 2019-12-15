@@ -391,7 +391,7 @@ setMethodS3("dropSegmentationOutliers", "PairedPSCNData", function(CT, ...) {
   isOutlier <- callSegmentationOutliers(this, ...)
 
   if (any(isOutlier)) {
-    naValue <- as.double(NA)
+    naValue <- NA_real_
     C <- getSignals(this)
     C[isOutlier] <- naValue
     this <- setSignals(this, C)

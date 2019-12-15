@@ -715,7 +715,7 @@ setMethodS3("countBases", "AromaCellSequenceFile", function(this, bases=c("A", "
     naValue <- as.raw(255)
   } else {
     zeroValue <- 0L
-    naValue <- as.integer(NA)
+    naValue <- NA_integer_
   }
 
   # Tabular nucleotides

@@ -69,7 +69,7 @@ setMethodS3("extractPSCNArray", "AromaUnitTotalCnBinarySet", function(dsTCN, dsB
     }
     dataII <- extractPSCNArray(dfTCN, dfBAF, ..., drop=FALSE, verbose=verbose)
     if (is.null(data)) {
-      naValue <- as.double(NA)
+      naValue <- NA_real_
       dim <- dim(dataII)
       dimnames <- dimnames(dataII)
       dim[3] <- nbrOfArrays

@@ -150,7 +150,7 @@ setMethodS3("colKernelSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   # Smoothing
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Allocate vector of smoothed signals
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   Ys <- matrix(naValue, nrow=nOut, ncol=k)
   colnames(Ys) <- colnames(Y)
 

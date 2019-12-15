@@ -61,7 +61,7 @@ setMethodS3("smoothWRMA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, s
 
   # Allocate vector of smoothed signals
   theta <- matrix(NA_real_, nrow=K, ncol=I)
-  phi <- rep(NA, K)
+  phi <- rep(NA_real_, times=K)
 
   # At each position, calculate the weighed average using a
   # Gaussian kernel.

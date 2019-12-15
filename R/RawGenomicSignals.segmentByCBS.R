@@ -281,7 +281,7 @@ setMethodS3("segmentByCBS", "RawGenomicSignals", function(this, ..., seed=NULL, 
   cnr <- cnrData <- NULL
   x <- data$x
   y <- data$y
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   sigmas <- rep(naValue, times=nbrOfRegions)
   for (kk in seq_len(nbrOfRegions)) {
     keep <- which(regions[kk,1] < x & x <= regions[kk,2])
