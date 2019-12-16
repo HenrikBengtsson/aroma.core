@@ -33,6 +33,7 @@ importFrom("matrixStats", "colWeightedMedians")
 importFrom("matrixStats", "rowCollapse")
 importFrom("matrixStats", "rowMads")
 importFrom("matrixStats", "rowSds")
+importFrom("matrixStats", "rowSums2")
 importFrom("matrixStats", "colMedians")
 importFrom("matrixStats", "rowMedians")
 importFrom("R.filesets", "append") ## Multi-sources: R.filesets, PSCBS, base
