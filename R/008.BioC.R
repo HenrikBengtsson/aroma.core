@@ -23,7 +23,7 @@
       # Assert that the package can be successfully loaded
       res <- requireX(package, character.only=TRUE)
       if (!res) {
-        throw("Package 'affxparser' could not be loaded. Please install it from Bioconductor, cf. https://www.bioconductor.org/")
+        throw(sprintf("Package %s could not be loaded. Please install it from Bioconductor, cf. https://www.bioconductor.org/", sQuote(package)))
       }
     } else {
       warning("Package '", package, "' could not be loaded. Without it ", neededBy, " will not work. Please install it from Bioconductor, cf. https://www.bioconductor.org/")
