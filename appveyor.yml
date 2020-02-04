@@ -10,7 +10,7 @@
 #----------------------------------------------------------------
 environment:
   _R_CHECK_FORCE_SUGGESTS_: false
-  BIOC_USE_DEVEL: false
+  BIOC_USE_DEVEL: FALSE
   
   matrix:
 #  - R_VERSION: devel
