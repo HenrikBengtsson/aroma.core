@@ -2,12 +2,12 @@
 
 <details>
 
-* Version: 3.1.1
+* Version: 3.2.0
 * Source code: https://github.com/cran/aroma.affymetrix
-* URL: http://www.aroma-project.org/, https://github.com/HenrikBengtsson/aroma.affymetrix
+* URL: https://www.aroma-project.org/, https://github.com/HenrikBengtsson/aroma.affymetrix
 * BugReports: https://github.com/HenrikBengtsson/aroma.affymetrix/issues
-* Date/Publication: 2018-04-16 18:53:05 UTC
-* Number of recursive dependencies: 74
+* Date/Publication: 2019-06-23 06:00:14 UTC
+* Number of recursive dependencies: 75
 
 Run `revdep_details(,"aroma.affymetrix")` for more info
 
