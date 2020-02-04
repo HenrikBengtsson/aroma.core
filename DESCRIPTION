@@ -1,12 +1,12 @@
 Package: aroma.core
-Version: 3.2.1
+Version: 3.2.1-9000
 Depends:
   R (>= 3.2.1),
-  R.utils (>= 2.9.0),
+  R.utils (>= 2.9.2),
   R.filesets (>= 2.13.0),
-  R.devices (>= 2.16.0)
+  R.devices (>= 2.16.1)
 DependsNote:
-  BioC (>= 3.0)
+  BioC (>= 3.2)
 Imports:
   stats,
   utils,
