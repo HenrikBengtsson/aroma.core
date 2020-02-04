@@ -48,7 +48,7 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
 
   # Argument 'x':
   if (is.null(x)) {
-    x <- array(as.integer(NA), dim=c(dim, 2))
+    x <- array(NA_integer_, dim=c(dim, 2))
     for (dd in 1:2) {
       t <- matrix(seq_len(dim[dd]), nrow=dim[1], ncol=dim[2],
                                                              byrow=(dd == 2))
@@ -95,7 +95,7 @@ setMethodS3("matrixBlockPolish", "matrix", function(z, x=NULL, blockSizes=c(1,1)
     names(effects) <- c("rows", "columns")
     for (dd in 1:2) {
       nbrOfBlocks <- nrow(ranges[[dd]])
-      effects[[dd]] <- matrix(as.double(NA), nrow=nbrOfBlocks, ncol=maxBlockSizes[dd]*dim[-dd])
+      effects[[dd]] <- matrix(NA_real_, nrow=nbrOfBlocks, ncol=maxBlockSizes[dd]*dim[-dd])
     }
   }
 

@@ -94,7 +94,15 @@ if (require("DNAcopy")) {
 
 
 if (require("mpcbs")) {
-  fit <- segmentByMPCBS(cn)
+  fit <- local({
+    ## WORKAROUND: There's a _R_CHECK_LENGTH_1_LOGIC2_ bug in
+    ## mpcbs::mpcbs.mbic().  Until fixed, we need to disable this check
+    ## while calling segmentByMPCBS().
+    ovalue <- Sys.getenv("_R_CHECK_LENGTH_1_LOGIC2_")
+    on.exit(Sys.setenv("_R_CHECK_LENGTH_1_LOGIC2_"=ovalue))
+    ovalue <- Sys.setenv("_R_CHECK_LENGTH_1_LOGIC2_"="warn,verbose")
+    segmentByMPCBS(cn)
+  })
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)
   drawLevels(cnr, col="white", lwd=6)

@@ -14,7 +14,6 @@
 #   \item{density}{...}
 #   \item{map}{...}
 #   \item{params}{A @list of parameters.}
-#   \item{...}{Not used.}
 # }
 #
 # \section{Fields and Methods}{

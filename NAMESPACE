@@ -2,11 +2,11 @@
 # IMPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 importFrom("R.methodsS3", "setMethodS3")
-importFrom("R.methodsS3", "throw")
 importFrom("R.methodsS3", "appendVarArgs")
 importFrom("R.methodsS3", "isGenericS3")
 importFrom("R.oo", "setConstructorS3")
 importFrom("R.oo", "extend")
+importFrom("R.oo", "throw")
 importFrom("R.oo", "uses")
 
 ## Importing Class:es
@@ -33,6 +33,7 @@ importFrom("matrixStats", "colWeightedMedians")
 importFrom("matrixStats", "rowCollapse")
 importFrom("matrixStats", "rowMads")
 importFrom("matrixStats", "rowSds")
+importFrom("matrixStats", "rowSums2")
 importFrom("matrixStats", "colMedians")
 importFrom("matrixStats", "rowMedians")
 importFrom("R.filesets", "append") ## Multi-sources: R.filesets, PSCBS, base

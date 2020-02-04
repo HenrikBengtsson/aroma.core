@@ -79,7 +79,7 @@ setMethodS3("extractMatrix", "AromaUnitCallFile", function(this, ...) {
   # Missing values
   valueForNA <- as.integer(2^nbrOfBits-1)
   isNA <- which(data == valueForNA)
-  naValue <- as.integer(NA)
+  naValue <- NA_integer_
   data[isNA] <- naValue
 
   # Not called
@@ -97,7 +97,7 @@ setMethodS3("extractCallArray", "AromaUnitCallFile", function(this, units=NULL, 
   nbrOfBits <- 8*hdr$sizes[1]
 
   valueForNA <- as.integer(2^nbrOfBits-1)
-  naValue <- as.integer(NA)
+  naValue <- NA_integer_
 
   valueForNC <- as.integer(2^nbrOfBits-2)
   nanValue <- as.double(NaN)

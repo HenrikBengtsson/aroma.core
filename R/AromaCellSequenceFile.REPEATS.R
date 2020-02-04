@@ -66,7 +66,7 @@ setMethodS3("getMaxLengthRepeats", "AromaCellSequenceFile", function(this, cells
 
   verbose && enter(verbose, "Missing probes sequences")
   nok <- isMissing(this, cells=cells)
-  naValue <- as.integer(NA)
+  naValue <- NA_integer_
   startPosition[nok] <- naValue
   maxRepeatLength[nok] <- naValue
 

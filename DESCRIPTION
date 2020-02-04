@@ -1,24 +1,25 @@
 Package: aroma.core
-Version: 3.2.0
+Version: 3.2.1
 Depends:
-  R (>= 3.2.0),
-  R.utils (>= 2.6.0),
-  R.filesets (>= 2.12.1),
-  R.devices (>= 2.15.1)
+  R (>= 3.2.1),
+  R.utils (>= 2.9.0),
+  R.filesets (>= 2.13.0),
+  R.devices (>= 2.16.0)
 DependsNote:
   BioC (>= 3.0)
 Imports:
   stats,
   utils,
   R.methodsS3 (>= 1.7.1),
-  R.oo (>= 1.22.0),
-  R.cache (>= 0.13.0),
-  R.rsp (>= 0.42.0),
-  matrixStats (>= 0.53.1),
+  R.oo (>= 1.23.0),
+  R.cache (>= 0.14.0),
+  R.rsp (>= 0.43.2),
+  matrixStats (>= 0.55.0),
   RColorBrewer (>= 1.1-2),
-  PSCBS (>= 0.63.0),
+  PSCBS (>= 0.65.0),
   listenv,
-  future
+  future,
+  BiocManager
 Suggests:
   KernSmooth,
   png (>= 0.1-7),
@@ -43,7 +44,6 @@ SuggestsNote:
 Additional_repositories:
   https://r-forge.r-project.org,
   https://henrikbengtsson.github.io/drat
-Date: 2019-05-31
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),

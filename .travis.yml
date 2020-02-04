@@ -19,10 +19,13 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
  
 before_install:
-  - Rscript -e 'c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())'
-  - export _R_CHECK_TIMINGS_=0
+  - Rscript --version
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("HenrikBengtsson/fake-GLAD")'
+
+before_script:
+  - R --vanilla -e "sessionInfo()" -e "capabilities()" -e "sapply(c(physical_cores = FALSE, logical_cores = TRUE), parallel::detectCores)" -e "if (require(RhpcBLASctl, quietly=TRUE)) utils::str(list(get_num_procs = get_num_procs(), get_num_cores = get_num_cores(), blas_get_num_procs = blas_get_num_procs(), omp_get_num_procs = omp_get_num_procs(), omp_get_max_threads = omp_get_max_threads()))"
+  - export _R_CHECK_TIMINGS_=0
 
 matrix:
   include:
@@ -37,8 +40,8 @@ matrix:
         - _R_S3_METHOD_LOOKUP_BASEENV_AFTER_GLOBALENV_=true
         - _R_S3_METHOD_LOOKUP_USE_TOPENV_AS_DEFENV_=true
         - _R_CHECK_CONNECTIONS_LEFT_OPEN_=true
-        - _R_CHECK_LENGTH_1_CONDITION_=verbose
-        - _R_CHECK_LENGTH_1_LOGIC2_=verbose
+        - _R_CHECK_LENGTH_1_CONDITION_=true
+        - _R_CHECK_LENGTH_1_LOGIC2_=true
         - _R_CLASS_MATRIX_ARRAY_=true
     - os: osx
       r: oldrel

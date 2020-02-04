@@ -56,7 +56,7 @@ setConstructorS3("RawGenomicSignals", function(y=NULL, x=NULL, w=NULL, chromosom
 
   # Argument 'chromosome':
   if (is.null(chromosome)) {
-    chromosome <- as.integer(NA)
+    chromosome <- NA_integer_
   }
   if (length(chromosome) == 1) {
     chromosome <- rep(chromosome, times=n)
@@ -113,7 +113,7 @@ setMethodS3("as.character", "RawGenomicSignals", function(x, ...) {
   if (nbrOfChrs == 1) {
     xRange <- xRange(this)
     s <- c(s, sprintf("Position range: [%g,%g]", xRange[1], xRange[2]))
-    dAvg <- if (n >= 2) diff(xRange)/(n-1) else as.double(NA)
+    dAvg <- if (n >= 2) diff(xRange)/(n-1) else NA_real_
     s <- c(s, sprintf("Mean distance between loci: %g", dAvg))
   }
 
@@ -154,7 +154,7 @@ setMethodS3("nbrOfLoci", "RawGenomicSignals", function(this, na.rm=FALSE, ...) {
 setMethodS3("getChromosomes", "RawGenomicSignals", function(this, ...) {
   chrs <- this$chromosome
   if (is.null(chrs)) {
-    chrs <- as.integer(NA)
+    chrs <- NA_integer_
   }
   chrs <- as.integer(chrs)
   chrs <- unique(chrs)
@@ -359,7 +359,7 @@ setMethodS3("getChromosome", "RawGenomicSignals", function(this, ...) {
 
   chr <- this$chromosome
   if (is.null(chr)) {
-    chr <- as.integer(NA)
+    chr <- NA_integer_
   }
   chr <- as.integer(chr)
   chr
@@ -792,7 +792,7 @@ setMethodS3("binnedSmoothingByField", "RawGenomicSignals", function(this, field,
   # Target 'x' and 'y':
   res$x <- xOut
 
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   Ys <- matrix(naValue, nrow=length(xOut), ncol=length(fields))
   colnames(Ys) <- fields
   for (ff in fields) {
@@ -1046,7 +1046,7 @@ setMethodS3("estimateStandardDeviation", "RawGenomicSignals", function(this, fie
 
   # Nothing todo?
   if (n <= 1) {
-    return(as.double(NA))
+    return(NA_real_)
   }
 
   # Argument 'weights':

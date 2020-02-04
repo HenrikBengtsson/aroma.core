@@ -39,7 +39,6 @@ BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
   \item{density}{...}
   \item{map}{...}
   \item{params}{A \code{\link[base]{list}} of parameters.}
-  \item{...}{Not used.}
 }
 
 \section{Fields and Methods}{

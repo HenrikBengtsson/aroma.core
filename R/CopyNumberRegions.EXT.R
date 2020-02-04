@@ -5,7 +5,7 @@ setMethodS3("getValueAt", "CopyNumberRegions", function(this, field, at, ...) {
   if (length(idx) == 1) {
     res <- values[idx]
   } else {
-    res <- as.double(NA)
+    res <- NA_real_
   }
   res
 }, protected=TRUE)
@@ -161,7 +161,7 @@ setMethodS3("simulateRawCopyNumbers", "CopyNumberRegions", function(this, x=seq(
 
   # Allocate result
   nbrOfLoci <- length(x)
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   mu <- rep(naValue, times=nbrOfLoci)
 
   data <- as.data.frame(this)

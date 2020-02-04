@@ -219,7 +219,7 @@ setMethodS3("kernelSmoothingByState", "SegmentedGenomicSignalsInterface", functi
   verbose && cat(verbose, "xOut:")
   verbose && str(verbose, xOut)
 
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   yOut <- rep(naValue, length(xOut))
 
   y <- getSignals(this)
@@ -367,7 +367,7 @@ setMethodS3("binnedSmoothingByState", "SegmentedGenomicSignalsInterface", functi
 
   # Target 'x' and 'y':
   res$x <- xOut
-  ys <- rep(as.double(NA), times=length(xOut))
+  ys <- rep(NA_real_, times=length(xOut))
   res <- setSignals(res, ys)
   # Not needed anymore
   ys <- NULL

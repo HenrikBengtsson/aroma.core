@@ -199,7 +199,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
       pathnameT <- pushTemporaryFile(pathname, verbose=verbose)
 
       res <- df$allocateFromUnitAnnotationDataFile(udf=ugp, filename=pathnameT, verbose=less(verbose))
-      naValue <- as.double(NA)
+      naValue <- NA_real_
       res[,1L] <- naValue
       res[,2L] <- naValue
 
@@ -271,7 +271,7 @@ setMethodS3("getAverageFile", "AromaUnitPscnBinarySet", function(this, name=NULL
   # arrays at once.  In order to this efficiently, we do this in chunks
 
   arrays <- seq_len(nbrOfArrays)
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   lapplyInChunks(indices, function(idxs, ...) {
     verbose && enter(verbose, "Processing chunk")
     verbose && str(verbose, "Indices in chunk:")

@@ -44,7 +44,7 @@ setMethodS3("isHomozygous", "AromaUnitGenotypeCallFile", function(this, ..., dro
   # Not needed anymore
   calls <- NULL
 
-  naValue <- as.logical(NA)
+  naValue <- NA
   res <- array(naValue, dim=dim[-2])
   res[,1] <- (counts == 1)
   # Not needed anymore
@@ -179,7 +179,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
     verbose && enter(verbose, "Encodes genotypes")
     verbose && cat(verbose, "Map: ", encoding)
     if (encoding == "oligo") {
-      naValue <- as.integer(NA)
+      naValue <- NA_integer_
       calls <- rep(naValue, times=length(res))
       # Genotype map according to 'oligo'
       calls[res == "AA"] <- as.integer(1)
@@ -191,7 +191,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       # Not needed anymore
       calls <- NULL
     } else if (encoding == "birdseed") {
-      naValue <- as.integer(NA)
+      naValue <- NA_integer_
       calls <- rep(naValue, times=length(res))
       # Genotype map according to 'birdseed'
       calls[res == "AA"] <- as.integer(0)
@@ -203,7 +203,7 @@ setMethodS3("extractGenotypeMatrix", "AromaUnitGenotypeCallFile", function(this,
       # Not needed anymore
       calls <- NULL
     } else if (encoding == "fracB") {
-      naValue <- as.double(NA)
+      naValue <- NA_real_
       calls <- rep(naValue, times=length(res))
       # Genotype map according to 'fracB'
       calls[res == "AA"] <- 0
@@ -349,7 +349,7 @@ setMethodS3("updateGenotypes", "AromaUnitGenotypeCallFile", function(this, units
 
 
   verbose && enter(verbose, "Translating {NA,NC,(|-),A,B,AA,AB,BB,AAA,AAB,...} to (C_A,C_B)")
-  naValue <- as.integer(NA)
+  naValue <- NA_integer_
   values <- matrix(naValue, nrow=nbrOfUnits, ncol=2)
 
   # NoCalls

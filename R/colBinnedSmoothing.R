@@ -223,7 +223,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
     xOutMidLast <- xOutMid[nOut-1L] + (xOut[nOut] - xOut[nOut-1L])
     xOutMid <- c(xOutMidFirst, xOutMid, xOutMidLast)
 
-    naValue <- as.double(NA)
+    naValue <- NA_real_
     xOutRange <- matrix(naValue, nrow=nOut, ncol=2)
     xOutRange[,1L] <- xOutMid[-length(xOutMid)]
     xOutRange[,2L] <- xOutMid[-1L]
@@ -243,7 +243,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
   # Smoothing in bins
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Allocate vector of smoothed signals
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   Ys <- matrix(naValue, nrow=nOut, ncol=k)
   colnames(Ys) <- colnames(Y)
 
@@ -308,7 +308,7 @@ setMethodS3("colBinnedSmoothing", "matrix", function(Y, x=seq_len(nrow(Y)), w=NU
       YBin <- YBin[idxs,,drop=FALSE]
       YBin <- !is.na(YBin)
       idxsNA <- idxs[colSums(YBin) == 0]
-      value[idxsNA] <- as.double(NA)
+      value[idxsNA] <- NA_real_
     }
 
 #    verbose && str(verbose, value)

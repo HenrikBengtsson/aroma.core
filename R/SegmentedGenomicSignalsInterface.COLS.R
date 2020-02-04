@@ -36,7 +36,7 @@ setMethodS3("setStateColorMap", "SegmentedGenomicSignalsInterface", function(thi
 setMethodS3("getStateColors", "SegmentedGenomicSignalsInterface", function(this, na.rm=FALSE, ...) {
   colorMap <- getStateColorMap(this)
   if (na.rm) {
-    colorMap["NA"] <- as.character(NA)
+    colorMap["NA"] <- NA_character_
   }
   hasDefColor <- is.element("*", names(colorMap))
   if (hasDefColor) {

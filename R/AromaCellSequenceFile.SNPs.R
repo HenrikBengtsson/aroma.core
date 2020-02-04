@@ -73,7 +73,7 @@ setMethodS3("getSnpPositions", "AromaCellSequenceFile", function(this, cells, ..
   seqs <- NULL
 
   # Identify the *last* difference
-  naValue <- as.integer(NA)
+  naValue <- NA_integer_
   pos <- rep(naValue, times=ncol(cells))
   for (pp in seq_len(probeLength)) {
     idxs <- which(seqsA[,pp] != seqsB[,pp])
@@ -173,7 +173,7 @@ setMethodS3("getSnpNucleotides", "AromaCellSequenceFile", function(this, cells, 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Read probe sequences
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  naValue <- as.character(NA)
+  naValue <- NA_character_
   seqs <- rep(naValue, times=length(cells))
   dim(seqs) <- dim(cells)
   for (pp in seq_along(uPos)) {

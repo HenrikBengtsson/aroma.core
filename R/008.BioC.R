@@ -14,16 +14,14 @@
   if (!res) {
     if (interactive()) {
       # Trick 'R CMD check' to not generate NOTEs.
-      catX("Package '", package, "' is not available or could not be loaded. Will now try to install it from Bioconductor (requires working internet connection):\n")
+      catX("Package '", package, "' is not available or could not be loaded. Will now try to install it from Bioconductor (requires a working internet connection):\n")
 
-      # To please R CMD check
-      biocLite <- NULL; rm(list="biocLite")
-      source("https://www.bioconductor.org/biocLite.R")
-      biocLite(package)
+      BiocManager::install(package)
+      
       # Assert that the package can be successfully loaded
       res <- requireX(package, character.only=TRUE)
       if (!res) {
-        throw("Package 'affxparser' could not be loaded. Please install it from Bioconductor, cf. https://www.bioconductor.org/")
+        throw(sprintf("Package %s could not be loaded. Please install it from Bioconductor, cf. https://www.bioconductor.org/", sQuote(package)))
       }
     } else {
       warning("Package '", package, "' could not be loaded. Without it ", neededBy, " will not work. Please install it from Bioconductor, cf. https://www.bioconductor.org/")

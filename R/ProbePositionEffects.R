@@ -190,7 +190,7 @@ setMethodS3("getEffects", "ProbePositionEffects", function(fit, intercept=FALSE,
     rho <- rho[,1:F]
     colnames(rho) <- factors
   } else {
-    rho <- rho - rowSums(rho[,1:F])/(F+1)
+    rho <- rho - rowSums2(rho, cols = 1:F)/(F+1)
     colnames(rho) <- names(map)[-1]
   }
 

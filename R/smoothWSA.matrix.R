@@ -61,7 +61,7 @@ setMethodS3("smoothWSA", "matrix", function(Y, x, w=NULL, kernel=gaussKernel, sd
   }
 
   # Allocate vector of smoothed signals
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   theta <- matrix(naValue, nrow=K, ncol=I)
   phi <- rep(naValue, times=K)
 

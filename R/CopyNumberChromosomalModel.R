@@ -764,7 +764,7 @@ setMethodS3("getRawCnData", "CopyNumberChromosomalModel", function(this, ceList,
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       if (estimateSd) {
         # By default, the estimates are missing
-        naValue <- as.double(NA)
+        naValue <- NA_real_
         sdTheta <- sdM <- rep(naValue, times=length(units0))
 
         if (!is.character(ref)) {
@@ -1137,7 +1137,7 @@ setMethodS3("estimateSds", "CopyNumberChromosomalModel", function(this, arrays=s
 
   nbrOfChromosomes <- length(chromosomes)
 
-  naValue <- as.double(NA)
+  naValue <- NA_real_
   res <- matrix(naValue, nrow=nbrOfChromosomes, ncol=length(arrays))
   colnames(res) <- getNames(this)[arrays]
   rownames(res) <- chromosomes
