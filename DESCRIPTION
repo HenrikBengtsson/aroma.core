@@ -1,7 +1,7 @@
 Package: aroma.core
 Version: 3.2.0-9000
 Depends:
-  R (>= 3.2.0),
+  R (>= 3.2.1),
   R.utils (>= 2.9.0),
   R.filesets (>= 2.13.0),
   R.devices (>= 2.16.0)
@@ -18,7 +18,8 @@ Imports:
   RColorBrewer (>= 1.1-2),
   PSCBS (>= 0.65.0),
   listenv,
-  future
+  future,
+  BiocManager
 Suggests:
   KernSmooth,
   png (>= 0.1-7),
