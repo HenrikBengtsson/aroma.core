@@ -1,9 +1,12 @@
 Package: aroma.core
 ===================
 
-Version: 3.2.1-9000 [2020-02-04]
+Version: 3.2.1-9000 [2020-10-23]
 
- * ...
+BUG FIXES:
+
+ * Argument 'pattern' for findByGenome() for AromaGenomeTextFile has an
+   sprintf() mistake causing it to produce a warning in R (>= 4.1.0).
 
 
 Version: 3.2.1 [2020-02-03]
