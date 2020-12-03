@@ -9,6 +9,7 @@ DependsNote:
   BioC (>= 3.2)
 Imports:
   stats,
+  tools,
   utils,
   R.methodsS3 (>= 1.7.1),
   R.oo (>= 1.23.0),

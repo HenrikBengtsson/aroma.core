@@ -113,6 +113,7 @@ importFrom("R.oo", "Package")
 importFrom("R.oo", "startupMessage")
 importFrom("R.oo", "trim")
 importFrom("R.rsp", "rfile")
+importFrom("R.rsp", "process")
 importFrom("R.utils", "callHooks")
 importFrom("R.utils", "capitalize")
 importFrom("R.utils", "cat") ## Multi-sources: R.utils, base
@@ -134,6 +135,7 @@ importFrom("R.utils", "hpaste")
 importFrom("R.utils", "insert")
 importFrom("R.utils", "isDirectory")
 importFrom("R.utils", "isFile") ## Multi-sources: R.utils, R.filesets
+importFrom("R.utils", "isGzipped")
 importFrom("R.utils", "isPackageInstalled")
 importFrom("R.utils", "isPackageLoaded")
 importFrom("R.utils", "isZero")
@@ -158,6 +160,7 @@ importFrom("R.utils", "loadAnywhere")
 importFrom("R.utils", "stext")
 importFrom("R.utils", "toCamelCase")
 importFrom("R.utils", "use")
+importFrom("tools", "file_path_sans_ext")
 importFrom("utils", "browseURL")
 importFrom("utils", "capture.output")
 importFrom("utils", "data")
@@ -206,6 +209,10 @@ export(.Machine)
 # Export all public methods, that is, those without a preceeding dot
 # in their names.
 exportPattern("^[^\\.]")
+
+
+# Re-export
+export("process")  ## from R.rsp
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -1,9 +1,15 @@
 Package: aroma.core
 ===================
 
-Version: 3.2.1-9000 [2020-10-23]
+Version: 3.2.1-9000 [2020-12-02]
 
+NEW FEATURES:
+
+ * downloadFile() for AromaRepository is now smarter about *.gz files.
+ 
 BUG FIXES:
+
+ * Re-export S3 generic process() from R.rsp.
 
  * Argument 'pattern' for findByGenome() for AromaGenomeTextFile has an
    sprintf() mistake causing it to produce a warning in R (>= 4.1.0).

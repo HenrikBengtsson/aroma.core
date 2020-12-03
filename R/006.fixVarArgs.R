@@ -14,10 +14,3 @@ setMethodS3("colMeans", "default", function(...) {
 })
 
 write <- appendVarArgs(write)
-
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Add generic process().
-# NB: process() is defined in R.rsp (>= 0.9.1)
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-setGenericS3("process", overwrite=TRUE)
