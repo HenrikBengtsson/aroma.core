@@ -3,7 +3,7 @@ Version: 3.2.1-9000
 Depends:
   R (>= 3.2.1),
   R.utils (>= 2.10.1),
-  R.filesets (>= 2.13.0),
+  R.filesets (>= 2.14.0),
   R.devices (>= 2.16.1)
 DependsNote:
   BioC (>= 3.2)
