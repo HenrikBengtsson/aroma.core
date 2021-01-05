@@ -32,7 +32,7 @@
 #
 # \references{
 #   [1] Ben-Yaacov E. and Eldar YC. \emph{A fast and flexible method for the segmentation of aCGH data}, Bioinformatics, 2008.
-#   \url{http://www.ee.technion.ac.il/Sites/People/YoninaEldar/Info/software/HaarSeg.htm}
+#   \url{https://webee.technion.ac.il/Sites/People/YoninaEldar/software_det1.php}
 # }
 #*/###########################################################################
 setConstructorS3("HaarSegModel", function(cesTuple=NULL, ..., breaksFdrQ=0.0001) {

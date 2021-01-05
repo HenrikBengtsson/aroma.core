@@ -122,7 +122,7 @@ setMethodS3("listFiles", "AromaRepository", function(this, path=NULL, full=TRUE,
 
   verbose && enter(verbose, "Listing files")
 
-  verbose && cat(verbose, "URL to download: ", urlPath)
+  verbose && cat(verbose, "URL path for downloading: ", urlPath)
 
   dirs <- c("aroma.core", "AromaRepository", as.character(Sys.Date()))
   key <- list(method="downloadListFiles", class=class(this), urlPath=urlPath, full=full, orderBy=orderBy)
@@ -274,7 +274,13 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
 #  verbose && print(verbose, pathnames)
 
   # Is the file available for download?
-  if (!any(is.element(c(pathname, pathnameD), pathnames))) {
+  if (is.element(pathnameD, pathnames)) {
+  } else if (is.element(pathname, pathnames)) {
+    pathnameD <- pathname
+    pathnameDL <- Arguments$getWritablePathname(pathnameD,
+                                      mustNotExist=!skip & !overwrite)
+    gzipped <- FALSE
+  } else {
     msg <- paste("File not available for download: ", pathnameD, sep="")
     verbose && cat(verbose, msg)
     warning(msg)
@@ -311,7 +317,10 @@ setMethodS3("downloadFile", "AromaRepository", function(this, filename, path=NUL
   }
 
   # Sanity check
-  .stop_if_not(isFile(pathname))
+  .stop_if_not(
+    isFile(pathname) ||
+    (gzipped && isFile(file_path_sans_ext(pathname)))
+  )
 
   verbose && exit(verbose)
 

@@ -82,7 +82,7 @@ setMethodS3("readDataFrame", "AromaGenomeTextFile", function(this, ..., colClass
 
 
 
-setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags=NULL, pattern=sprintf("^%s,chromosomes(|,.*)*[.]txt$", genome, paste(tags, collapse=",")), paths=NULL, ..., verbose=FALSE) {
+setMethodS3("findByGenome", "AromaGenomeTextFile", function(static, genome, tags=NULL, pattern="^%s,chromosomes(|,.*)*[.]txt$", paths=NULL, ..., verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
