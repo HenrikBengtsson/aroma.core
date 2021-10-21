@@ -33,6 +33,7 @@ jobs:
       _R_CHECK_MATRIX_DATA_: true
       ## Suggested 'HaarSeg' fail to install on macOS due to C99 errors
       _R_CHECK_SUGGESTS_ONLY_: ${{ matrix.config.os != 'macOS-latest' }}
+      _R_CHECK_FORCE_SUGGESTS_: ${{ matrix.config.os != 'macOS-latest' }}
       ## Specific to futures
       R_FUTURE_RNG_ONMISUSE: error
 
