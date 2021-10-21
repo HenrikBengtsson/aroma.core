@@ -102,7 +102,10 @@ jobs:
         shell: Rscript {0}
 
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", if (.Platform$OS.type == "windows" && getRversion() >= "4.2.0") "--no-multiarch"), error_on = "warning", check_dir = "check")
+        run: |
+          ## HaarSeg fail to build on macOS due to C99 syntax errors
+          if (Sys.info()[["sysname"]] == "Darwin") Sys.setenv("_R_CHECK_SUGGESTS_ONLY_" = "false")
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", if (.Platform$OS.type == "windows" && getRversion() >= "4.2.0") "--no-multiarch"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
