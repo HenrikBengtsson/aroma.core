@@ -103,9 +103,8 @@ jobs:
 
       - name: Check
         run: |
-          ## HaarSeg fail to build on macOS due to C99 syntax errors
-          if (Sys.info()[["sysname"]] == "Darwin") Sys.setenv("_R_CHECK_SUGGESTS_ONLY_" = "false")
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", if (.Platform$OS.type == "windows" && getRversion() >= "4.2.0") "--no-multiarch"), error_on = "warning", check_dir = "check")
+          ## Suggested 'HaarSeg' fail to install on macOS due to C99 syntax errors
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", if (.Platform$OS.type == "windows" && getRversion() >= "4.2.0") "--no-multiarch"), env=if (Sys.info()[["sysname"]] == "Darwin") c("_R_CHECK_SUGGESTS_ONLY_"="false"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
