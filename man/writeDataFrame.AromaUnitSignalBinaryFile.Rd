@@ -41,7 +41,6 @@
    file header comment. If \code{\link[base]{NULL}}, the package version will be written.}
  \item{nbrOfDecimals}{An \code{\link[base]{integer}} specifying the number of decimals
    for floating point columns.}
- \item{sep}{A \code{\link[base]{character}} string specifying the column separator}.
  \item{columnNamesPrefix}{A \code{\link[base]{character}} string specifying what type
    of prefix should be used for column names.}
  \item{overwrite}{If \code{\link[base:logical]{TRUE}}, an existing destination file will be
