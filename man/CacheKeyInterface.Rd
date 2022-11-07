@@ -41,7 +41,7 @@ CacheKeyInterface(...)
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{\link[aroma.core:getCacheKey.CacheKeyInterface]{getCacheKey}} \tab Gets a list of cache key items.\cr
+ \tab \code{getCacheKey} \tab  -\cr
 }
 
 

@@ -43,17 +43,17 @@ Explorer(tags="*", version="0", ...)
 \section{Fields and Methods}{
  \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{\link[aroma.core:display.Explorer]{display}} \tab Displays the explorer in the default browser.\cr
+ \tab \code{display} \tab  -\cr
  \tab \code{getFullName} \tab  -\cr
- \tab \code{\link[aroma.core:getName.Explorer]{getName}} \tab Gets the name of the explorer.\cr
- \tab \code{\link[aroma.core:getNames.Explorer]{getNames}} \tab Gets the names of the input samples.\cr
- \tab \code{\link[aroma.core:getPath.Explorer]{getPath}} \tab Gets the path of the output directory.\cr
- \tab \code{\link[aroma.core:getRootPath.Explorer]{getRootPath}} \tab Gets the root path of the output directory.\cr
- \tab \code{\link[aroma.core:getTags.Explorer]{getTags}} \tab Gets the tags of the explorer.\cr
+ \tab \code{getName} \tab  -\cr
+ \tab \code{getNames} \tab  -\cr
+ \tab \code{getPath} \tab  -\cr
+ \tab \code{getRootPath} \tab  -\cr
+ \tab \code{getTags} \tab  -\cr
  \tab \code{getVersion} \tab  -\cr
- \tab \code{\link[aroma.core:nbrOfArrays.Explorer]{nbrOfArrays}} \tab Gets the total number of arrays.\cr
- \tab \code{\link[aroma.core:process.Explorer]{process}} \tab Generates image files, scripts and dynamic pages for the explorer.\cr
- \tab \code{\link[aroma.core:setArrays.Explorer]{setArrays}} \tab Sets the arrays.\cr
+ \tab \code{nbrOfArrays} \tab  -\cr
+ \tab \code{process} \tab  -\cr
+ \tab \code{setArrays} \tab  -\cr
 }
 
 

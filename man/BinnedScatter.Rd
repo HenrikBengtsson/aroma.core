@@ -53,7 +53,7 @@ BinnedScatter(data=NULL, density=NULL, map=NULL, params=NULL)
 
 
  \bold{Methods inherited from list}:\cr
-Ops,nonStructure,vector-method, Ops,structure,vector-method, Ops,vector,nonStructure-method, Ops,vector,structure-method, all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, callHooks, coerce,ANY,list-method, exportAromaUnitPscnBinarySet, listToXml, mergeBoxplotStats, relist, type.convert, within
+Ops,nonStructure,vector-method, Ops,structure,vector-method, Ops,vector,nonStructure-method, Ops,vector,structure-method, all.equal, as.CopyNumberDataSetTuple, as.data.frame, attachLocally, averageQuantile, callHooks, coerce,ANY,list-method, exportAromaUnitPscnBinarySet, listToXml, mergeBoxplotStats, normalizeAverage, normalizeDifferencesToAverage, normalizeQuantileRank, normalizeQuantileSpline, plotDensity, relist, type.convert, within
 
 
 }

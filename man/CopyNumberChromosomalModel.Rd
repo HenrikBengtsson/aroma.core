@@ -61,8 +61,8 @@ CopyNumberChromosomalModel(cesTuple=NULL, refTuple=NULL, calculateRatios=TRUE, t
 \section{Fields and Methods}{
  \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{\link[aroma.core:extractRawCopyNumbers.CopyNumberChromosomalModel]{extractRawCopyNumbers}} \tab Extracts relative copy numbers.\cr
- \tab \code{\link[aroma.core:fit.CopyNumberChromosomalModel]{fit}} \tab Fits the model.\cr
+ \tab \code{extractRawCopyNumbers} \tab  -\cr
+ \tab \code{fit} \tab  -\cr
  \tab \code{getChromosomeLength} \tab  -\cr
  \tab \code{getNames} \tab  -\cr
  \tab \code{getReference} \tab  -\cr

@@ -52,7 +52,7 @@ AromaRepository(urlPath="https://www.aroma-project.org/data", verbose=FALSE, ...
  \tab \code{downloadACS} \tab  -\cr
  \tab \code{downloadAll} \tab  -\cr
  \tab \code{downloadCDF} \tab  -\cr
- \tab \code{\link[aroma.core:downloadChipTypeFile.AromaRepository]{downloadChipTypeFile}} \tab Download a particular chip type annotation file.\cr
+ \tab \code{downloadChipTypeFile} \tab  -\cr
  \tab \code{downloadProbeSeqsTXT} \tab  -\cr
  \tab \code{downloadTXT} \tab  -\cr
  \tab \code{downloadUFL} \tab  -\cr

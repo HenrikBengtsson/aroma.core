@@ -51,15 +51,15 @@ AromaTransform(dataSet=NULL, tags="*", ..., .reqSetClass="AromaMicroarrayDataSet
 \section{Fields and Methods}{
  \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{\link[aroma.core:getFullName.AromaTransform]{getFullName}} \tab Gets the full name of the output data set.\cr
- \tab \code{\link[aroma.core:getInputDataSet.AromaTransform]{getInputDataSet}} \tab Gets the input data set.\cr
- \tab \code{\link[aroma.core:getName.AromaTransform]{getName}} \tab Gets the name of the output data set.\cr
- \tab \code{\link[aroma.core:getOutputDataSet.AromaTransform]{getOutputDataSet}} \tab Gets the transformed data set.\cr
- \tab \code{\link[aroma.core:getPath.AromaTransform]{getPath}} \tab Gets the path of the output directory.\cr
- \tab \code{\link[aroma.core:getRootPath.AromaTransform]{getRootPath}} \tab Gets the root path of the output directory.\cr
- \tab \code{\link[aroma.core:getTags.AromaTransform]{getTags}} \tab Gets the tags of the output data set.\cr
- \tab \code{\link[aroma.core:isDone.AromaTransform]{isDone}} \tab Checks if the data set is processed or not.\cr
- \tab \code{\link[aroma.core:process.AromaTransform]{process}} \tab Processes the data set.\cr
+ \tab \code{getFullName} \tab  -\cr
+ \tab \code{getInputDataSet} \tab  -\cr
+ \tab \code{getName} \tab  -\cr
+ \tab \code{getOutputDataSet} \tab  -\cr
+ \tab \code{getPath} \tab  -\cr
+ \tab \code{getRootPath} \tab  -\cr
+ \tab \code{getTags} \tab  -\cr
+ \tab \code{isDone} \tab  -\cr
+ \tab \code{process} \tab  -\cr
  \tab \code{setTags} \tab  -\cr
 }
 

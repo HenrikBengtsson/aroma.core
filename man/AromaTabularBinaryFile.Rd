@@ -66,10 +66,10 @@ AromaTabularBinaryFile(...)
  \tab \code{nbrOfColumns} \tab  -\cr
  \tab \code{nbrOfRows} \tab  -\cr
  \tab \code{readColumns} \tab  -\cr
- \tab \code{\link[aroma.core:readFooter.AromaTabularBinaryFile]{readFooter}} \tab Reads the file footer in XML format into a named nested list.\cr
+ \tab \code{readFooter} \tab  -\cr
  \tab \code{subset} \tab  -\cr
  \tab \code{summary} \tab  -\cr
- \tab \code{\link[aroma.core:writeFooter.AromaTabularBinaryFile]{writeFooter}} \tab Writes a named nested list to the file footer in XML format.\cr
+ \tab \code{writeFooter} \tab  -\cr
 }
 
 
