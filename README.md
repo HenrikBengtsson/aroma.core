@@ -21,7 +21,7 @@ install.packages("aroma.core")
 To install the _optional_ dependency **sfit**, use:
 
 ```r
-install.packages("sfit", repos = "https://henrikbengtsson.github.io/drat")
+install.packages("sfit", repos = "https://henrikbengtsson.r-universe.dev")
 ```
 
 To install the very-rarely needed _optional_ dependencies **expectile**, **mpcbs**, and **HaarSeg**, use:

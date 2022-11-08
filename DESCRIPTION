@@ -1,5 +1,5 @@
 Package: aroma.core
-Version: 3.2.2-9002
+Version: 3.2.2-9003
 Depends:
   R (>= 3.2.1),
   R.utils (>= 2.10.1),
@@ -44,7 +44,7 @@ SuggestsNote:
   sfit
 Additional_repositories:
   https://r-forge.r-project.org,
-  https://henrikbengtsson.github.io/drat
+  https://henrikbengtsson.r-universe.dev
 Title: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
