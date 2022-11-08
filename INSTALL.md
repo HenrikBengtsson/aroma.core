@@ -18,7 +18,8 @@ install.packages("sfit", repos = "https://henrikbengtsson.r-universe.dev")
 To install the very-rarely needed _optional_ dependencies **expectile**, **mpcbs**, and **HaarSeg**, use:
 
 ```r
-install.packages(c("expectile", "mpcbs"), repos = "https://r-forge.r-project.org")
+install.packages("expectile", repos = "https://henrikbengtsson.r-universe.dev")
+install.packages("mpcbs", repos = "https://r-forge.r-project.org")
 install.packages("HaarSeg", repos = "https://r-forge.r-project.org", INSTALL_opts = "--no-test-load")
 ```
 
