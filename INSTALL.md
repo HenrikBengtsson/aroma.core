@@ -15,7 +15,7 @@ To install the _optional_ dependency **sfit**, use:
 install.packages("sfit", repos = "https://henrikbengtsson.r-universe.dev")
 ```
 
-To install the very-rarely needed _optional_ dependencies **expectile**, **mpcbs**, and **HaarSeg**, use:
+This will install the package from source.  Similarly, to install the rarely needed _optional_ dependencies **expectile**, **mpcbs**, and **HaarSeg**, use:
 
 ```r
 install.packages("expectile", repos = "https://henrikbengtsson.r-universe.dev")
@@ -29,7 +29,7 @@ install.packages("HaarSeg", repos = "https://r-forge.r-project.org", INSTALL_opt
 To install the pre-release version that is available in Git branch `develop` on GitHub, use:
 
 ```r
-remotes::install_github("HenrikBengtsson/aroma.core", ref="develop")
+remotes::install_github("HenrikBengtsson/aroma.core", ref = "develop")
 ```
 
-This will install the package from source.  
+This will install the package from source.
