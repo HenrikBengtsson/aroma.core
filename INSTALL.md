@@ -9,6 +9,20 @@ BiocManager::install(c("aroma.light", "DNAcopy"))
 install.packages("aroma.core")
 ```
 
+To install the _optional_ dependency **sfit**, use:
+
+```r
+install.packages("sfit", repos = "https://henrikbengtsson.github.io/drat")
+```
+
+To install the very-rarely needed _optional_ dependencies **expectile**, **mpcbs**, and **HaarSeg**, use:
+
+```r
+install.packages(c("expectile", "mpcbs"), repos = "https://r-forge.r-project.org")
+install.packages("HaarSeg", repos = "https://r-forge.r-project.org", INSTALL_opts = "--no-test-load")
+```
+
+
 ### Pre-release version
  
 To install the pre-release version that is available in Git branch `develop` on GitHub, use:
