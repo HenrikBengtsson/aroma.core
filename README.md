@@ -1,7 +1,7 @@
-
-
 <div id="badges"><!-- pkgdown markup -->
-<a href="https://CRAN.R-project.org/web/checks/check_results_aroma.core.html"><img border="0" src="https://www.r-pkg.org/badges/version/aroma.core" alt="CRAN check status"/></a> <a href="https://github.com/HenrikBengtsson/aroma.core/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/HenrikBengtsson/aroma.core/actions/workflows/R-CMD-check.yaml/badge.svg?branch=develop" alt="R CMD check status"/></a>     <a href="https://app.codecov.io/gh/HenrikBengtsson/aroma.core"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/aroma.core/branch/develop/graph/badge.svg" alt="Coverage Status"/></a> 
+<a href="https://CRAN.R-project.org/web/checks/check_results_aroma.core.html"><img border="0" src="https://www.r-pkg.org/badges/version/aroma.core" alt="CRAN check status"/></a>
+<a href="https://github.com/HenrikBengtsson/aroma.core/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/HenrikBengtsson/aroma.core/actions/workflows/R-CMD-check.yaml/badge.svg?branch=develop" alt="R CMD check status"/></a>
+a href="https://app.codecov.io/gh/HenrikBengtsson/aroma.core"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/aroma.core/branch/develop/graph/badge.svg" alt="Coverage Status"/></a> 
 </div>
 
 # aroma.core: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework 
@@ -30,9 +30,3 @@ This will install the package from source.
 
 
 <!-- pkgdown-drop-below -->
-
-
-## Contributing
-
-To contribute to this package, please see [CONTRIBUTING.md](CONTRIBUTING.md).
-
