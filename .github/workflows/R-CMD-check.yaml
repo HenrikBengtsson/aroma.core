@@ -86,7 +86,8 @@ jobs:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
           remotes::install_deps(dependencies = TRUE)
-          install.packages(".", repos = NULL, type = "source")  ## self vignette engine
+          install.packages(c("sfit", "expectile", "HaarSeg"), repos = "https://henrikbengtsson.r-universe.dev")
+          install.packages("mpcbs", repos = "https://r-forge.r-project.org")
         shell: Rscript {0}
 
       - name: Install 'rcmdcheck'
