@@ -29,7 +29,7 @@ This will install the package from source.  Similarly, to install the rarely nee
 ```r
 install.packages("expectile", repos = "https://henrikbengtsson.r-universe.dev")
 install.packages("HaarSeg", repos = "https://henrikbengtsson.r-universe.dev")
-install.packages("mpcbs", repos = "https://r-forge.r-project.org")
+install.packages("mpcbs", repos = c("https://r-forge.r-project.org", getOption("repos")))
 ```
 
 
