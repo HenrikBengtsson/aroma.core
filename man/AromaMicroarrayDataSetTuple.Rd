@@ -52,7 +52,7 @@ AromaMicroarrayDataSetTuple(..., .setClass="AromaMicroarrayDataSet")
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
- \tab \code{nbrOfChipTypes} \tab  -\cr
+ \tab \code{\link[aroma.core:nbrOfChipTypes.AromaMicroarrayDataSetTuple]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr
 }
 
 

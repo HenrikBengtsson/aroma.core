@@ -49,20 +49,20 @@ ChromosomalModel(cesTuple=NULL, tags="*", genome="Human", chromosomes=NULL, ...)
  \bold{Methods:}\cr
 \tabular{rll}{
  \tab \code{fit} \tab  -\cr
- \tab \code{getChipType} \tab  -\cr
+ \tab \code{\link[aroma.core:getChipType.ChromosomalModel]{getChipType}} \tab Gets a label for all chip types merged.\cr
  \tab \code{getChipTypes} \tab  -\cr
- \tab \code{getChromosomes} \tab  -\cr
+ \tab \code{\link[aroma.core:getChromosomes.ChromosomalModel]{getChromosomes}} \tab Gets the chromosomes to be processed.\cr
  \tab \code{getFullName} \tab  -\cr
  \tab \code{getFullNames} \tab  -\cr
  \tab \code{getGenome} \tab  -\cr
  \tab \code{getName} \tab  -\cr
- \tab \code{getNames} \tab  -\cr
+ \tab \code{\link[aroma.core:getNames.ChromosomalModel]{getNames}} \tab Gets the names of the arrays.\cr
  \tab \code{getPath} \tab  -\cr
  \tab \code{getSets} \tab  -\cr
  \tab \code{getTags} \tab  -\cr
  \tab \code{indexOf} \tab  -\cr
- \tab \code{nbrOfArrays} \tab  -\cr
- \tab \code{nbrOfChipTypes} \tab  -\cr
+ \tab \code{\link[aroma.core:nbrOfArrays.ChromosomalModel]{nbrOfArrays}} \tab Gets the number of arrays.\cr
+ \tab \code{\link[aroma.core:nbrOfChipTypes.ChromosomalModel]{nbrOfChipTypes}} \tab Gets the number of chip types.\cr
  \tab \code{setChromosomes} \tab  -\cr
  \tab \code{setGenome} \tab  -\cr
 }

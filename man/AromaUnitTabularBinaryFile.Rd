@@ -69,7 +69,7 @@ AromaUnitTabularBinaryFile(...)
 \tabular{rll}{
  \tab \code{byChipType} \tab  -\cr
  \tab \code{nbrOfUnits} \tab  -\cr
- \tab \code{writeDataFrame} \tab  -\cr
+ \tab \code{\link[aroma.core:writeDataFrame.AromaUnitTabularBinaryFile]{writeDataFrame}} \tab Writes the data file as a tab-delimited text file.\cr
 }
 
 
