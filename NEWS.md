@@ -1,4 +1,4 @@
-# aroma.core 3.2.2-9001 [2022-11-07]
+# Version (development version)
 
 ### Documentation
 
@@ -10,8 +10,16 @@
 
  * Removed defunct method `whatDataType()`.
 
+ * The `segmentByMPCBS()` method does not work in R (>= 4.2.0).  This
+   is because the **mpcbs** package has `_R_CHECK_LENGTH_1_CONDITION_`
+   and`_R_CHECK_LENGTH_1_LOGIC2_` bugs, which give errors in R (>=
+   4.2.0).  The **mpcbs** package is a legacy package that is no
+   longer maintained.  Because of this, it is likely that
+   `segmentByMPCBS()` and support for MPCBS segmentation will
+   eventually be dropped from **aroma.core**.
 
-# aroma.core 3.2.2 [2021-01-02]
+
+# Version 3.2.2 [2021-01-02]
 
 ### New Features
 
@@ -28,7 +36,7 @@
    4.1.0).
 
 
-# aroma.core 3.2.1 [2020-02-03]
+# Version 3.2.1 [2020-02-03]
 
 ### Significant Changes
 
@@ -48,7 +56,7 @@
    while testing `segmentByMPCBS()`.
 
 
-# aroma.core 3.2.0 [2019-06-17]
+# Version 3.2.0 [2019-06-17]
 
 ### Bug Fixes
 
@@ -58,7 +66,7 @@
    (`*.LNK`).
 
 
-# aroma.core 3.1.3 [2018-04-30]
+# Version 3.1.3 [2018-04-30]
 
 ### Bug Fixes
 
@@ -67,7 +75,7 @@
    with R-devel (>= 3.6.0).
 
 
-# aroma.core 3.1.2 [2018-04-23]
+# Version 3.1.2 [2018-04-23]
 
 ### Workaround
 
@@ -77,7 +85,7 @@
    function.
 
 
-# aroma.core 3.1.1 [2017-09-12]
+# Version 3.1.1 [2017-09-12]
 
 ### Bug Fixes
 
@@ -86,7 +94,7 @@
    `sequential`.
 
 
-# aroma.core 3.1.0 [2017-03-22]
+# Version 3.1.0 [2017-03-22]
 
 ### New Features
 
@@ -126,7 +134,7 @@
  * Removed previously defunct `apply()` for SampleAnnotationFile.
 
 
-# aroma.core 3.0.0 [2016-01-05]
+# Version 3.0.0 [2016-01-05]
 
 ### Significant Changes
 
@@ -163,7 +171,7 @@
  * Drop defunct methods.
 
 
-# aroma.core 2.14.0 [2015-10-20]
+# Version 2.14.0 [2015-10-20]
 
 ### Significant Changes
 
@@ -198,7 +206,7 @@
    `patch()`.
 
 
-# aroma.core 2.13.1 [2015-05-25]
+# Version 2.13.1 [2015-05-25]
 
 ### Significant Changes
 
@@ -238,7 +246,7 @@
    `Error in setSignals(res, dh) : object 'res' not found`.
 
 
-# aroma.core 2.13.0 [2015-01-07]
+# Version 2.13.0 [2015-01-07]
 
 ### New Release
 
@@ -255,7 +263,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.12.8 [2014-09-19]
+# Version 2.12.8 [2014-09-19]
 
 ### Bug Fixes
 
@@ -264,7 +272,7 @@
    reporting on this.
 
 
-# aroma.core 2.12.7 [2014-09-04]
+# Version 2.12.7 [2014-09-04]
 
 ### Software Quality
 
@@ -278,7 +286,7 @@
  * Bumped package dependencies.
 
 
-# aroma.core 2.12.6 [2014-08-27]
+# Version 2.12.6 [2014-08-27]
 
 ### Significant Changes
 
@@ -303,7 +311,7 @@
    AromaUnitSignalBinaryFile would give an error.
 
 
-# aroma.core 2.12.5 [2014-06-28]
+# Version 2.12.5 [2014-06-28]
 
 ### New Features
 
@@ -330,7 +338,7 @@
  * Dropped `getAromaUgpFile()` for AromaUnitSignalBinaryFile.
 
 
-# aroma.core 2.12.4 [2014-06-09]
+# Version 2.12.4 [2014-06-09]
 
 ### Significant Changes
 
@@ -347,14 +355,14 @@
  * Bumped package dependencies.
 
 
-# aroma.core 2.12.3 [2014-05-02]
+# Version 2.12.3 [2014-05-02]
 
 ### Refactorization
 
  * Now using `ds[[idx]]` instead of `getFile(ds, idx)` where possible.
 
 
-# aroma.core 2.12.2 [2014-04-26]
+# Version 2.12.2 [2014-04-26]
 
 ### Performance
 
@@ -362,7 +370,7 @@
    repetive `<fcn>()` calls; the `::` operator is fairly expensive.
 
 
-# aroma.core 2.12.1 [2014-03-04]
+# Version 2.12.1 [2014-03-04]
 
 ### Software Quality
 
@@ -370,7 +378,7 @@
    NAMESPACE for R (< 3.1.0).  Used to be R (< 3.0.2).
 
 
-# aroma.core 2.12.0 [2014-03-01]
+# Version 2.12.0 [2014-03-01]
 
 ### New Release
 
@@ -387,7 +395,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.11.7 [2014-02-28]
+# Version 2.11.7 [2014-02-28]
 
 ### Significant Changes
 
@@ -409,7 +417,7 @@
  * Removed defunct methods.
 
 
-# aroma.core 2.11.6 [2014-02-17]
+# Version 2.11.6 [2014-02-17]
 
 ### Bug Fixes
 
@@ -417,7 +425,7 @@
    Hans-Ulrich Klein at University of Munster for reporting on this.
 
 
-# aroma.core 2.11.5 [2014-02-03]
+# Version 2.11.5 [2014-02-03]
 
 ### Bug Fixes
 
@@ -427,7 +435,7 @@
    cases.
 
 
-# aroma.core 2.11.4 [2014-01-17]
+# Version 2.11.4 [2014-01-17]
 
 ### Refactorization
 
@@ -435,7 +443,7 @@
    files instead of the to-be-deprecated `rspToHtml()`.
 
 
-# aroma.core 2.11.3 [2014-01-16]
+# Version 2.11.3 [2014-01-16]
 
 ### Bug Fixes
 
@@ -444,7 +452,7 @@
    rows.
 
 
-# aroma.core 2.11.2 [2013-12-11]
+# Version 2.11.2 [2013-12-11]
 
 ### New Features
 
@@ -457,7 +465,7 @@
  * Added documentation for `exportAromaUnitPscnBinarySet()`.
 
 
-# aroma.core 2.11.1 [2013-11-15]
+# Version 2.11.1 [2013-11-15]
 
 ### New Features
 
@@ -466,7 +474,7 @@
    dropped in a future version, but is for now supported as well.
 
 
-# aroma.core 2.11.0 [2013-10-16]
+# Version 2.11.0 [2013-10-16]
 
 ### Significant Changes
 
@@ -486,7 +494,7 @@
    there is always `colStats()`.
 
 
-# aroma.core 2.10.6 [2013-10-07]
+# Version 2.10.6 [2013-10-07]
 
 ### Refactorization
 
@@ -498,7 +506,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.10.5 [2013-10-03]
+# Version 2.10.5 [2013-10-03]
 
 ### New Features
 
@@ -515,7 +523,7 @@
    argument `maxNAFraction` when setting up the model.
 
 
-# aroma.core 2.10.4 [2013-09-28]
+# Version 2.10.4 [2013-09-28]
 
 ### Refactorization
 
@@ -525,7 +533,7 @@
  * Now only importing only what is needed from the **R.utils** package.
 
 
-# aroma.core 2.10.3 [2013-09-20]
+# Version 2.10.3 [2013-09-20]
 
 ### Refactorization
 
@@ -537,7 +545,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.10.2 [2013-09-11]
+# Version 2.10.2 [2013-09-11]
 
 ### Refactorization
 
@@ -547,7 +555,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.10.1 [2013-08-12]
+# Version 2.10.1 [2013-08-12]
 
 ### Bug Fixes
 
@@ -555,7 +563,7 @@
    would throw an error on `unknown argument 'names' to indexOf()`.
 
 
-# aroma.core 2.10.0 [2013-08-03]
+# Version 2.10.0 [2013-08-03]
 
 ### New Release
 
@@ -572,7 +580,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.9.7 [2013-07-20]
+# Version 2.9.7 [2013-07-20]
 
 ### Refactorization
 
@@ -583,14 +591,14 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.9.6 [2013-06-01]
+# Version 2.9.6 [2013-06-01]
 
 ### New Features
 
  * Added `findFilesTodo()` for AromaTransform.
 
 
-# aroma.core 2.9.5 [2013-05-30]
+# Version 2.9.5 [2013-05-30]
 
 ### New Features
 
@@ -606,14 +614,14 @@
  * Now `help("doCBS")` documents all `doCBS()` methods.
 
 
-# aroma.core 2.9.4 [2013-05-25]
+# Version 2.9.4 [2013-05-25]
 
 ### Performance
 
  * SPEEDUP: Replaced all `rm()` calls with NULL assignments.
 
 
-# aroma.core 2.9.3 [2013-05-22]
+# Version 2.9.3 [2013-05-22]
 
 ### Refactorization
 
@@ -621,7 +629,7 @@
    `R.filesets::digest2()` with identical results.
 
 
-# aroma.core 2.9.2 [2013-05-22]
+# Version 2.9.2 [2013-05-22]
 
 ### Bug Fixes
 
@@ -632,7 +640,7 @@
    University of Alberta for reporting on this.
 
 
-# aroma.core 2.9.1 [2013-05-20]
+# Version 2.9.1 [2013-05-20]
 
 ### Refactorization
 
@@ -641,7 +649,7 @@
  * CRAN POLICY: Now all Rd example lines are at most 100 characters long.
 
 
-# aroma.core 2.9.0 [2013-04-23]
+# Version 2.9.0 [2013-04-23]
 
 ### New Release
 
@@ -655,7 +663,7 @@
  * Package passes all redundancy tests.
 
 
-# aroma.core 2.8.7 [2013-04-22]
+# Version 2.8.7 [2013-04-22]
 
 ### Refactorization
 
@@ -664,28 +672,28 @@
  * Package no longer depends on R.cache (only imports it).
 
 
-# aroma.core 2.8.6 [2013-04-21]
+# Version 2.8.6 [2013-04-21]
 
 ### Deprecated and Defunct
 
  * Made is(Homo|Hetero)`zygote()` and `getPhysicalPositions()` defunct.
 
 
-# aroma.core 2.8.5 [2013-04-08]
+# Version 2.8.5 [2013-04-08]
 
 ### Refactorization
 
  * Updated package dependencies.
 
 
-# aroma.core 2.8.4 [2013-03-28]
+# Version 2.8.4 [2013-03-28]
 
 ### New Features
 
  * Added the `sqrtsign()` transform.  This makes it possible to plot log2 PLM residuals (in **aroma.affymetrix**) on a blue-to-red scale using `setColorMaps(.., "log2,sqrtsigned,bluewhitered")` where bluewhitered <- `colorRampPalette(c("blue", "white", "red"))`.
 
 
-# aroma.core 2.8.3 [2013-03-23]
+# Version 2.8.3 [2013-03-23]
 
 ### Refactorization
 
@@ -694,7 +702,7 @@
  * Added an Authors@R field to DESCRIPTION.
 
 
-# aroma.core 2.8.2 [2013-03-05]
+# Version 2.8.2 [2013-03-05]
 
 ### Refactorization
 
@@ -706,7 +714,7 @@
  * Updated the help usage section for all static methods.
 
 
-# aroma.core 2.8.1 [2013-01-03]
+# Version 2.8.1 [2013-01-03]
 
 ### Refactorization
 
@@ -718,7 +726,7 @@
  * Deprecated `nbrOfArrays()` for AromaMicroarrayDataSet and AromaUnitTotalCnBinarySet.
 
 
-# aroma.core 2.8.0 [2012-12-21]
+# Version 2.8.0 [2012-12-21]
 
 ### New Release
 
@@ -732,7 +740,7 @@
  * Package passes all redundancy tests.
 
 
-# aroma.core 2.7.6 [2012-12-20]
+# Version 2.7.6 [2012-12-20]
 
 ### Refactorization
 
@@ -743,28 +751,28 @@
  * Now using argument `colClasses` (was 'colClassPatterns') for all readDataFrame():s.
 
 
-# aroma.core 2.7.5 [2012-12-06]
+# Version 2.7.5 [2012-12-06]
 
 ### Refactorization
 
  * ROBUSTNESS: Utilizing new `getOneFile()` internally.
 
 
-# aroma.core 2.7.4 [2012-12-04]
+# Version 2.7.4 [2012-12-04]
 
 ### Refactorization
 
  * CLEANUP: Dropped inst/reports/templates/html/archive/, inst/reports/templates/rsp/archive/ and inst/archive/, which all contained old/legacy Explorer versions.
 
 
-# aroma.core 2.7.3 [2012-11-29]
+# Version 2.7.3 [2012-11-29]
 
 ### Significant Changes
 
  * Renamed `lapply()` for AromaTabularBinaryFile to `colApply()`.
 
 
-# aroma.core 2.7.2 [2012-11-28]
+# Version 2.7.2 [2012-11-28]
 
 ### Refactorization
 
@@ -773,7 +781,7 @@
  * Added CacheKeyInterface and FileCacheKeyInterface.
 
 
-# aroma.core 2.7.1 [2012-11-26]
+# Version 2.7.1 [2012-11-26]
 
 ### Significant Changes
 
@@ -785,7 +793,7 @@
  * `getRam()` and `setRam()` for AromaSettings did not use 'memory/ram'.
 
 
-# aroma.core 2.7.0 [2012-11-24]
+# Version 2.7.0 [2012-11-24]
 
 ### New Release
 
@@ -804,7 +812,7 @@
  * Bumped up package dependencies.
 
 
-# aroma.core 2.6.16 [2012-11-21]
+# Version 2.6.16 [2012-11-21]
 
 ### New Features
 
@@ -813,7 +821,7 @@
  * Added `getParameterSets()` to ParametersInterface.
 
 
-# aroma.core 2.6.15 [2012-11-21]
+# Version 2.6.15 [2012-11-21]
 
 ### New Features
 
@@ -825,7 +833,7 @@
  * Hiding more internal methods from the help indices.
 
 
-# aroma.core 2.6.14 [2012-11-18]
+# Version 2.6.14 [2012-11-18]
 
 ### Refactorization
 
@@ -838,7 +846,7 @@
  * Now using `getName()` instead of deprecated `getLabel()`.
 
 
-# aroma.core 2.6.13 [2012-11-13]
+# Version 2.6.13 [2012-11-13]
 
 ### Refactorization
 
@@ -847,14 +855,14 @@
  * The RSP template for ChromosomeExplorer's setupExplorer.js had a duplicated entry.
 
 
-# aroma.core 2.6.12 [2012-11-12]
+# Version 2.6.12 [2012-11-12]
 
 ### Refactorization
 
  * Now `seq_along(x)` instead of `seq(along=x)` everywhere.  Similarly, `seq(ds)` where `ds` is GenericDataFileSet is now replaced by `seq_along(ds)`. Likewise, `seq_len(x)` replaces `seq(length=x)`, and `length(ds)` replaces `nbrOfFiles(ds)`.
 
 
-# aroma.core 2.6.11 [2012-11-08]
+# Version 2.6.11 [2012-11-08]
 
 ### Significant Changes
 
@@ -866,28 +874,28 @@
  * CRAN POLICY: Made a few of the examples faster. Also made some of the system tests faster.
 
 
-# aroma.core 2.6.10 [2012-11-05]
+# Version 2.6.10 [2012-11-05]
 
 ### Refactorization
 
  * CLEANUP: Replaced all `whichVector()` with `which()`, because the latter is now the fastest again.
 
 
-# aroma.core 2.6.9 [2012-10-31]
+# Version 2.6.9 [2012-10-31]
 
 ### New Features
 
  * Added argument `units` to `readDataFrame()` for AromaUnitChromosomeTabularBinaryFile.
 
 
-# aroma.core 2.6.8 [2012-10-29]
+# Version 2.6.8 [2012-10-29]
 
 ### Refactorization
 
  * Now using Arguments$get(Read|Writ)`ablePath()` instead of `filePath(..., expandLinks="any")`.
 
 
-# aroma.core 2.6.7 [2012-10-21]
+# Version 2.6.7 [2012-10-21]
 
 ### New Features
 
@@ -906,7 +914,7 @@
  * Scrolling in the ChromosomeExplorer by dragging navigator bar was broken.
 
 
-# aroma.core 2.6.6 [2012-10-18]
+# Version 2.6.6 [2012-10-18]
 
 ### Significant Changes
 
@@ -920,21 +928,21 @@
  * A few errors in the Javascript of ArrayExplorer has been corrected. It also does a better job of inferring the height of the displayed spatial image. Thanks Laurent Malvert (ID Business Solutions Ltd; IDBS) for the report, troubleshooting and suggestions on this.
 
 
-# aroma.core 2.6.5 [2012-10-17]
+# Version 2.6.5 [2012-10-17]
 
 ### Refactorization
 
  * ROBUSTNESS: Now all static Object methods that calls "next" methods, utilizes `NextMethod()`, which became possible with R.oo v1.10.0.
 
 
-# aroma.core 2.6.4 [2012-10-16]
+# Version 2.6.4 [2012-10-16]
 
 ### Bug Fixes
 
  * ROBUSTNESS/BUG FIX: No longer passing '...' to `NextMethod()`, cf. R-devel thread 'Do *not* pass '...' to `NextMethod()` - it'll do it for you; missing documentation, a bug or just me?' on Oct 16, 2012.
 
 
-# aroma.core 2.6.3 [2012-10-14]
+# Version 2.6.3 [2012-10-14]
 
 ### Refactorization
 
@@ -946,14 +954,14 @@
  * CLEANUP: Removed several defunct/obsolete methods and made deprecated methods defunct/obsolete.
 
 
-# aroma.core 2.6.2 [2012-10-11]
+# Version 2.6.2 [2012-10-11]
 
 ### Refactorization
 
  * Now aroma.core imports R.methodsS3 and R.oo.  This solves issues such as `trim()` being overridden by ditto from the IRanges package, iff loaded.
 
 
-# aroma.core 2.6.1 [2012-09-14]
+# Version 2.6.1 [2012-09-14]
 
 ### New Features
 
@@ -965,7 +973,7 @@
  * `exportAromaUnitPscnBinarySet()` for AromaUnitTotalCnBinarySet would throw an error if the files of the exported data set was ordered in a non-lexicographic order.
 
 
-# aroma.core 2.6.0 [2012-09-05]
+# Version 2.6.0 [2012-09-05]
 
 ### New Release
 
@@ -977,35 +985,35 @@
  * The package passes all redundancy tests.
 
 
-# aroma.core 2.5.14 [2012-09-04]
+# Version 2.5.14 [2012-09-04]
 
 ### New Features
 
  * Added `downloadUGC()` for AromaRepository.
 
 
-# aroma.core 2.5.13 [2012-09-02]
+# Version 2.5.13 [2012-09-02]
 
 ### Bug Fixes
 
  * `interleave()` for Image and RasterImage could generate error 'Error in if (`abs(vRatio)` > abs(hRatio)) { : missing value where TRUE/FALSE needed' if odd/even cell intensity columns (rows) contained all NAs.
 
 
-# aroma.core 2.5.12 [2012-08-31]
+# Version 2.5.12 [2012-08-31]
 
 ### Software Quality
 
  * Now `downloadCDF()` for AromaRepository downloads CDFs regardless of *.cdf and *.CDF.
 
 
-# aroma.core 2.5.11 [2012-08-29]
+# Version 2.5.11 [2012-08-29]
 
 ### New Features
 
  * ROBUSTNESS: Added argument `escape` to `findAnnotationData()`, which causes such symbols that exist in argument `pattern` to be automatically be escaped.
 
 
-# aroma.core 2.5.10 [2012-08-26]
+# Version 2.5.10 [2012-08-26]
 
 ### Documentation
 
@@ -1019,14 +1027,14 @@
  * `colBinnedSmoothing(..., xOut=xOut)` could generate bins at the ends that did not contain the outer most `xOut` values.
 
 
-# aroma.core 2.5.9 [2012-08-22]
+# Version 2.5.9 [2012-08-22]
 
 ### Refactorization
 
  * Improved the AromaRepository class.
 
 
-# aroma.core 2.5.8 [2012-08-21]
+# Version 2.5.8 [2012-08-21]
 
 ### Refactorization
 
@@ -1035,14 +1043,14 @@
  * ROBUSTNESS: `fitWRMA()` and `fitWHRCModel()` now call `rcModelWPLM()` of preprocessCore instead of `.Call(..., PACKAGE="preprocessCore")`. Doing so will somewhat slow down the speed, because `rcModelWPLM()` introduces some non-needed validation of the arguments. This caused their arguments `psiCode` and `psiK` to be dropped.
 
 
-# aroma.core 2.5.7 [2012-08-08]
+# Version 2.5.7 [2012-08-08]
 
 ### Refactorization
 
  * ROBUSTNESS: Added `preprocessCore` as a suggested package, because some of the internal functions rely on that package.  This was never an issue, because those functions were called by wrapper functions in **aroma.affymetrix** that assert that the package is indeed loaded.
 
 
-# aroma.core 2.5.6 [2012-07-21]
+# Version 2.5.6 [2012-07-21]
 
 ### New Features
 
@@ -1053,28 +1061,28 @@
  * Added `getNumberOfFilesAveraged()` to AromaUnitSignalBinaryFile. Formerly only for AromaUnitTotalCnBinaryFile.
 
 
-# aroma.core 2.5.5 [2012-07-17]
+# Version 2.5.5 [2012-07-17]
 
 ### Refactorization
 
  * Updated package dependencies.
 
 
-# aroma.core 2.5.4 [2012-07-10]
+# Version 2.5.4 [2012-07-10]
 
 ### Refactorization
 
  * Now package imports R.devices, because it uses some of its device drivers that previously were in **R.utils**.
 
 
-# aroma.core 2.5.3 [2012-06-18]
+# Version 2.5.3 [2012-06-18]
 
 ### Bug Fix
 
  * Fixed a typo in an error message generated by `byChipType()` for several annotation data file classes.
 
 
-# aroma.core 2.5.2 [2012-05-30]
+# Version 2.5.2 [2012-05-30]
 
 ### New Features
 
@@ -1086,7 +1094,7 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.5.1 [2012-04-16]
+# Version 2.5.1 [2012-04-16]
 
 ### Refactorization
 
@@ -1097,7 +1105,7 @@
  * CLEANUP: Package no longer "Suggests" affxparser.  It was needed because of the `findFiles()` function, which has been added to **R.utils** v1.13.1.
 
 
-# aroma.core 2.5.0 [2012-03-25]
+# Version 2.5.0 [2012-03-25]
 
 ### New Release
 
@@ -1109,7 +1117,7 @@
  * The package passes all redundancy tests.
 
 
-# aroma.core 2.4.13 [2012-03-23]
+# Version 2.4.13 [2012-03-23]
 
 ### New Features
 
@@ -1128,7 +1136,7 @@
  * "["() for RichDataFrame would loose the class attribute, unless argument `drop` was FALSE.
 
 
-# aroma.core 2.4.12 [2012-03-15]
+# Version 2.4.12 [2012-03-15]
 
 ### New Features
 
@@ -1147,7 +1155,7 @@
  * Dropped deprecated files from the reports/includes/js/ directory installed by ArrayExplorer and ChromosomeExplorer.
 
 
-# aroma.core 2.4.11 [2012-03-12]
+# Version 2.4.11 [2012-03-12]
 
 ### New Features
 
@@ -1160,14 +1168,14 @@
  * Added argument `sort` to `as.data.frame()` for RawGenomicSignals.
 
 
-# aroma.core 2.4.10 [2012-03-06]
+# Version 2.4.10 [2012-03-06]
 
 ### Significant Changes
 
  * GENERALIZATION: The new ArrayExplorer v3.4 will work with most commonly used web browsers including Mozilla Firefox, Google Chrome, Microsoft Internet Explorer, Apple Safari, and Opera.
 
 
-# aroma.core 2.4.9 [2012-03-06]
+# Version 2.4.9 [2012-03-06]
 
 ### Significant Changes
 
@@ -1181,9 +1189,9 @@
  * `write()` for RasterImage would write truncated intensities, because we forgot to rescale [0,65535] to [0,1] intensities.
 
 
-# aroma.core 2.4.8 [2012-03-02]
+# Version 2.4.8 [2012-03-02]
 
-# aroma.core 2.4.7 [2012-03-01]
+# Version 2.4.7 [2012-03-01]
 
 ### Software Quality
 
@@ -1199,7 +1207,7 @@
  * Preparing for supporting multiple-chromosome RawGenomicSignals.
 
 
-# aroma.core 2.4.6 [2012-02-04]
+# Version 2.4.6 [2012-02-04]
 
 ### Significant Changes
 
@@ -1218,7 +1226,7 @@
  * Argument `x` of `colBinnedSmoothing()` would default to the incorrect number of loci.
 
 
-# aroma.core 2.4.5 [2012-02-03]
+# Version 2.4.5 [2012-02-03]
 
 ### Significant Changes
 
@@ -1230,14 +1238,14 @@
  * Forgot to include require.js in v2.4.4, which is needed by the ChromosomeExplorer v3.3.
 
 
-# aroma.core 2.4.4 [2012-02-01]
+# Version 2.4.4 [2012-02-01]
 
 ### Significant Changes
 
  * GENERALIZATION: The new ChromosomeExplorer v3.3 will work with most commonly used web browsers including Mozilla Firefox, Google Chrome, Microsoft Internet Explorer, Apple Safari and Opera.  This far it has been tested with the following browsers: Firefox v3.6/v9.01/v10.0, Chrome v17.0, IE v7.x/v9.0, and Safari 5. NOTE: To update an existing ChromosomeExplorer report, call `setup(ce, force=TRUE)` where `ce` is your ChromosomeExplorer object. Thanks to Keith Ching at ConsultChing for the initial troubleshooting [http://consultching.com/root/?p=64] leading me on the right track on how update ChromosomeExplorer.
 
 
-# aroma.core 2.4.3 [2012-01-17]
+# Version 2.4.3 [2012-01-17]
 
 ### Software Quality
 
@@ -1254,7 +1262,7 @@
  * SPEEDUP: Now `findPngDevice()` memoizes the results throughout the current session.
 
 
-# aroma.core 2.4.2 [2012-01-14]
+# Version 2.4.2 [2012-01-14]
 
 ### Significant Changes
 
@@ -1266,7 +1274,7 @@
  * `drawCytoband()` for ChromosomalModel failed to locate the genome annotation data file containing cytoband information, e.g. Human,cytobands,<tags>.txt. Thanks to Kai Wang at Pfizer for reporting on this.
 
 
-# aroma.core 2.4.1 [2012-01-12]
+# Version 2.4.1 [2012-01-12]
 
 ### Significant Changes
 
@@ -1278,7 +1286,7 @@
  * CLEANUP: Dropped internal patch of base::`serialize()`, because it was only applied to R (< 2.12.0) anyway and this package now requires R (>= 2.12.0).
 
 
-# aroma.core 2.4.0 [2012-01-11]
+# Version 2.4.0 [2012-01-11]
 
 ### Refactorization
 
@@ -1287,14 +1295,14 @@
  * Updated package dependencies.
 
 
-# aroma.core 2.3.7 [2011-12-22]
+# Version 2.3.7 [2011-12-22]
 
 ### Bug Fixes
 
  * The overridden `library()` would always return an `invisible()` object, even if base::`library()` wouldn't.  This caused plain `library()` to not list installed packaged.  Thanks Venkat Seshan at MSKCC for reporting on this.
 
 
-# aroma.core 2.3.6 [2011-12-15]
+# Version 2.3.6 [2011-12-15]
 
 ### New Features
 
@@ -1303,7 +1311,7 @@
  * Added argument `units` to `writeDateFrame()` for AromaUnitSignalBinarySet to make it possible to write any subset of units and in any order, e.g. genome order.
 
 
-# aroma.core 2.3.5 [2011-12-11]
+# Version 2.3.5 [2011-12-11]
 
 ### New Features
 
@@ -1312,7 +1320,7 @@
  * Added `plotCoverageMap()` for AromaUgpFile.
 
 
-# aroma.core 2.3.4 [2011-11-19]
+# Version 2.3.4 [2011-11-19]
 
 ### New Features
 
@@ -1331,49 +1339,49 @@
  * `exportTotalCnRatioSet()` for AromaUnitTotalCnBinarySet and `exportFracBDiffSet()` for AromaUnitTotalCnBinarySet tried to call `cat(verbose, x)` with `length(x)` > 1.
 
 
-# aroma.core 2.3.3 [2011-11-17]
+# Version 2.3.3 [2011-11-17]
 
 ### New Features
 
  * Added trial version of AromaUcscGenomeTextFile.
 
 
-# aroma.core 2.3.2 [2011-11-14]
+# Version 2.3.2 [2011-11-14]
 
 ### Bug Fixes
 
  * `process()` of ChromosomeExplorer would throw "Error in `file(file,  ifelse(append, "a", "w"))` : [...] cannot open file '/ [...] (new Array(': No such file or directory".  Importing the R.rsp namespace in the aroma.core namespace solved this. Thanks Qian Liu for reporting on this.
 
 
-# aroma.core 2.3.1 [2011-11-11]
+# Version 2.3.1 [2011-11-11]
 
 ### New Features
 
  * Added `extractPSCNArray()` for AromaUnitTotalCnBinary{File|Set}.
 
 
-# aroma.core 2.3.0 [2011-10-28]
+# Version 2.3.0 [2011-10-28]
 
 ### Software Quality
 
  * Added a namespace to the package, which will be more or less a requirement starting with R v2.14.0.
 
 
-# aroma.core 2.2.2 [2011-09-29]
+# Version 2.2.2 [2011-09-29]
 
 ### New Features
 
  * Added alpha version of the AromaRepository class.
 
 
-# aroma.core 2.2.1 [2011-09-24]
+# Version 2.2.1 [2011-09-24]
 
 ### Bug Fixes
 
  * `readHeader()`, `readRawFooter()` and `writeRawFooter()` of AromaTabularBinaryFile would try to read non-signed 4-byte integers, which is not supported and would instead be read as signed integers. From R v2.13.1 this would generated warnings.
 
 
-# aroma.core 2.2.0 [2011-09-01]
+# Version 2.2.0 [2011-09-01]
 
 ### New Release
 
@@ -1385,63 +1393,63 @@
  * The package passes all redundancy tests.
 
 
-# aroma.core 2.1.5 [2011-08-30]
+# Version 2.1.5 [2011-08-30]
 
 ### Bug Fixes
 
  * After introducing a sanity check in aroma.core v2.1.2 (2011-05-11), `getSnpPositions()` of AromaCellSequenceFile would throw "Error: `length(pos)` == `ncol(cells)` is not TRUE".  However, it was not until aroma.core v2.1.3 (2011-08-01) was release that some people got problem with this.  It turns out that the sanity check catches an error in how `getSnpPositions()` of AromaCellSequenceFile allocates the result vector, a bug that has been there for a very long time. Luckily, this bug has had no effect on the results for anyone. Thanks to David Goode (Stanford) and Irina Ostrovnaya (MSKCC) for reporting on this.
 
 
-# aroma.core 2.1.4 [2011-08-02]
+# Version 2.1.4 [2011-08-02]
 
 ### Bug Fixes
 
  * The aroma.core v2.1.3 tar ball uploaded to CRAN mistakenly contained a NAMESPACE file, which shouldn't have been there.
 
 
-# aroma.core 2.1.3 [2011-07-27]
+# Version 2.1.3 [2011-07-27]
 
 ### Refactorization
 
  * WORKAROUND: In order for the package to work with the most recent version of R devel, which automatically add namespaces to packages who do not have one, we explicitly have specify that this package should use `cat()` and `getOption()` of **R.utils** (instead of 'base').
 
 
-# aroma.core 2.1.2 [2011-07-24]
+# Version 2.1.2 [2011-07-24]
 
 ### Refactorization
 
  * Bumped up the package dependencies, especially since R will soon (in practice) require namespaces for all packages.
 
 
-# aroma.core 2.1.1 [2011-05-10]
+# Version 2.1.1 [2011-05-10]
 
 ### Software Quality
 
  * ROBUSTNESS: Added more sanity checks and more verbose output to `getSnpNucleotides()` for AromaCellSequenceFile.
 
 
-# aroma.core 2.1.0 [2011-04-08]
+# Version 2.1.0 [2011-04-08]
 
 ### New Release
 
  * No updates.  Submitted to CRAN.
 
 
-# aroma.core 2.0.8 [2011-04-03]
+# Version 2.0.8 [2011-04-03]
 
 ### Refactorization
 
  * CLEANUP: Utilizing `hpaste()` internally wherever applicable.
 
 
-# aroma.core 2.0.7 [2011-03-28]
+# Version 2.0.7 [2011-03-28]
 
 ### Bug Fixes
 
  * `allocateFromUnitAnnotationDataFile()` for AromaUnitTabularBinaryFile would include chip type tags in the path, e.g. annotationData/chipTypes/GenomeWidesSNP_6,Full.
 
 
-# aroma.core 2.0.6 [2011-03-14]
+# Version 2.0.6 [2011-03-14]
 
 ### New Features
 
@@ -1450,14 +1458,14 @@
  * Added `getChromosomeLabels()` for ChromosomeExplorer.
 
 
-# aroma.core 2.0.5 [2011-03-04]
+# Version 2.0.5 [2011-03-04]
 
 ### Bug Fixes
 
  * `lapplyInChunks(idxs)` for numeric did not correctly handle the case when `length(idxs)` == 0, because of a typo.
 
 
-# aroma.core 2.0.4 [2011-03-03]
+# Version 2.0.4 [2011-03-03]
 
 ### Significant Changes
 
@@ -1480,7 +1488,7 @@
  * ROBUSTNESS: Added a return contract/sanity check asserting that `getUnitsOnChromosomes()` for AromaUnitChromosomeTabularBinaryFile truly returns valid `unit` indices.  Thanks to Emilie Sohier, France for reporting on a problem related to this.
 
 
-# aroma.core 2.0.3 [2011-03-02]
+# Version 2.0.3 [2011-03-02]
 
 ### Significant Changes
 
@@ -1507,14 +1515,14 @@
  * `createImage()` for matrix would not return the first possible image created (when testing different image classes) but instead continue trying to create image for all possible classes.  For instance, this meant that although you had the `EBImage` package installed, but not the `png` package, it would still in the end try to (also) use `png` package.  If writing PNG images to file, say via ArrayExplorer, this would result in "Error in  `loadNamespace(name)` : there is no package called 'png'".  Thanks Richard Beyer at University of Washington for reporting on this.
 
 
-# aroma.core 2.0.2 [2011-02-19]
+# Version 2.0.2 [2011-02-19]
 
 ### Significant Changes
 
  * GENERALIZATION: Extended the default root paths of `findAnnotationData()` to be annotationData/ and annotationData,<tags>/
 
 
-# aroma.core 2.0.1 [2011-02-19]
+# Version 2.0.1 [2011-02-19]
 
 ### Refactorization
 
@@ -1528,7 +1536,7 @@
  * Removed several deprecated methods.
 
 
-# aroma.core 2.0.0 [2011-02-16]
+# Version 2.0.0 [2011-02-16]
 
 ### New Release
 
@@ -1537,7 +1545,7 @@
  * No updates.
 
 
-# aroma.core 1.9.4 [2011-02-07]
+# Version 1.9.4 [2011-02-07]
 
 ### Software Quality
 
@@ -1549,7 +1557,7 @@
  * Now `fit()` for CopyNumberSegmentationModel passes down argument `maxNAFraction` to the internal sanity test as it used to do before aroma.core v1.3.4 (November 2009).
 
 
-# aroma.core 1.9.3 [2011-02-01]
+# Version 1.9.3 [2011-02-01]
 
 ### New Features
 
@@ -1575,35 +1583,35 @@
  * Removed deprecated internal `rgbTransform()` for Image.
 
 
-# aroma.core 1.9.2 [2011-01-30]
+# Version 1.9.2 [2011-01-30]
 
 ### Performance
 
  * SPEEDUP: The memoization/caching mechanisms should now be faster on Windows, because `digest()` uses the faster `serialize()` of R v2.12.0.  The earlier version was orders of magnitude slower on Windows, which we have been patching in the aroma framework since v0.9.3.4.  That patch wrote to file, which was slower than the recent fix.  This Windows-only patch is no longer needed, and hence neither applied, on R v2.12.0 and beyond.
 
 
-# aroma.core 1.9.1 [2011-01-14]
+# Version 1.9.1 [2011-01-14]
 
 ### Significant Changes
 
  * Added argument `flavor` to `segmentByGLAD()` for RawGenomicSignals, which makes it possible to specify whether `daglad()` or `glad()` of the GLAD package will be used.  The `flavor` argument can also be passed as for instance `GladModel(..., flavor="daglad")`.
 
 
-# aroma.core 1.9.0 [2011-01-10]
+# Version 1.9.0 [2011-01-10]
 
 ### New Release
 
  * No updates.  Submitted to CRAN.
 
 
-# aroma.core 1.8.3 [2010-12-27]
+# Version 1.8.3 [2010-12-27]
 
 ### New Features
 
  * Added genome annotation file Mouse,chromosomes.txt to `system.file("annotationData/genomes/Mouse", `package="aroma`.core")`.
 
 
-# aroma.core 1.8.2 [2010-12-07]
+# Version 1.8.2 [2010-12-07]
 
 ### Software Quality
 
@@ -1612,7 +1620,7 @@
  * Added `requireWithMemory()`.
 
 
-# aroma.core 1.8.1 [2010-12-02]
+# Version 1.8.1 [2010-12-02]
 
 ### Bug Fixes
 
@@ -1621,7 +1629,7 @@
  * `drawCytoband2()` would throw an error if argument `cytoband` was an empty data frame, which could happen if there is no cytoband annotation data for the requested chromosome.  Now it returns quietly.
 
 
-# aroma.core 1.8.0 [2010-11-07]
+# Version 1.8.0 [2010-11-07]
 
 ### New Release
 
@@ -1633,7 +1641,7 @@
  * CLEANUP: Dropped non-used Javascript toolkit code that was intended to be used for a future version of ChromosomeExplorer.
 
 
-# aroma.core 1.7.6 [2010-11-06]
+# Version 1.7.6 [2010-11-06]
 
 ### Refactorization
 
@@ -1646,7 +1654,7 @@
  * CLEANUP: Package no longer need to "suggest" geneplotter.
 
 
-# aroma.core 1.7.5 [2010-10-25]
+# Version 1.7.5 [2010-10-25]
 
 ### New Features
 
@@ -1655,14 +1663,14 @@
  * Now optional arguments '...' to CopyNumberChromosomalModel are recorded.
 
 
-# aroma.core 1.7.4 [2010-10-13]
+# Version 1.7.4 [2010-10-13]
 
 ### Software Quality
 
  * ROBUSTNESS/BUG FIX: The internal `drawCytoband2()` used to annotate chromosomal plots with cytobands tries to utilize GLAD package, if available.  However, even when GLAD is installed it may still be broken due to missing dynamic libraries, e.g. 'Error in `library.dynam(lib, package, package.lib)` : DLL `GLAD` not found: maybe not installed for this architecture?'.  We now avoid this too.
 
 
-# aroma.core 1.7.3 [2010-09-12]
+# Version 1.7.3 [2010-09-12]
 
 ### New Features
 
@@ -1677,7 +1685,7 @@
  * Added basic support for operators +, - and * to RawGenomicSignals.
 
 
-# aroma.core 1.7.2 [2010-08-22]
+# Version 1.7.2 [2010-08-22]
 
 ### New Features
 
@@ -1691,7 +1699,7 @@
  * annotationData/genomes/Human/Human,chromosomes.txt had an extra TAB on the ChrM row.
 
 
-# aroma.core 1.7.1 [2010-08-06]
+# Version 1.7.1 [2010-08-06]
 
 ### New Features
 
@@ -1700,28 +1708,28 @@
  * Added more utility methods for CopyNumberRegions.
 
 
-# aroma.core 1.7.0 [2010-07-26]
+# Version 1.7.0 [2010-07-26]
 
 ### New Release
 
  * Committed to CRAN. No updates.
 
 
-# aroma.core 1.6.8 [2010-07-24]
+# Version 1.6.8 [2010-07-24]
 
 ### New Features
 
  * Added several methods for CopyNumberRegions, e.g. `xRange()`, `prune()`, `simulateRawCopyNumbers()`, "+"(), "-"() and "*"().
 
 
-# aroma.core 1.6.7 [2010-07-20]
+# Version 1.6.7 [2010-07-20]
 
 ### Bug Fixes
 
  * Added `writeDataFrame()` for AromaUnitTotalCnBinarySet and AromaUnitFracBCnBinarySet to get the correct filename extension. Thanks Nicolas Vergne at the Curie Institute for reporting this.
 
 
-# aroma.core 1.6.6 [2010-07-19]
+# Version 1.6.6 [2010-07-19]
 
 ### New Features
 
@@ -1732,35 +1740,35 @@
  * Added `extractRegions()` for RawGenomicSignals.
 
 
-# aroma.core 1.6.5 [2010-07-08]
+# Version 1.6.5 [2010-07-08]
 
 ### Bug Fixes
 
  * `writeDateFrame()` for AromaUnitSignalBinarySet would write the same data chunk over and over.
 
 
-# aroma.core 1.6.4 [2010-07-06]
+# Version 1.6.4 [2010-07-06]
 
 ### Bug Fixes
 
  * `indexOf()` for ChromosomalModel would return NA if a search pattern contained parenthesis '(' and ')'.  There was a similar issue in `indexOf()` for GenericDataFileSet/List in **R.filesets**, which was solved in **R.filesets** 0.8.3. Now `indexOf()` for ChromosomalModel utilizes ditto for GenericDataFileSet for its solution.
 
 
-# aroma.core 1.6.3 [2010-06-22]
+# Version 1.6.3 [2010-06-22]
 
 ### Bug Fixes
 
  * `as.GrayscaleImage(..., transforms=NULL)` for `matrix` would throw "Exception: Argument `transforms` contains a non-function: NULL".
 
 
-# aroma.core 1.6.2 [2010-06-02]
+# Version 1.6.2 [2010-06-02]
 
 ### Bug Fixes
 
  * `updateDataColumn()` of AromaTabularBinaryFile would censor *signed integers* incorrectly; it should censor at/to [-(n+1),n], but did it at [-n,(n+1)] ("two's complement").  This caused it to write too large values as n+1, which then would be read as -(n+1), e.g. writing 130 would be censored to 128 (should be 127), which then would be read as -128. Added more detailed information on how many values were censored. Thanks Robert Ivanek for report on this.
 
 
-# aroma.core 1.6.1 [2010-05-27]
+# Version 1.6.1 [2010-05-27]
 
 ### New Features
 
@@ -1771,7 +1779,7 @@
  * Added `doCBS()` for CopyNumberDataSetTuple:s.
 
 
-# aroma.core 1.6.0 [2010-05-14]
+# Version 1.6.0 [2010-05-14]
 
 ### New Release
 
@@ -1783,14 +1791,14 @@
  * Package passes R CMD check on R v2.11.0 and v2.12.0 devel.
 
 
-# aroma.core 1.5.8 [2010-05-13]
+# Version 1.5.8 [2010-05-13]
 
 ### Significant Changes
 
  * Now argument `path` of all `writeDataFrame()` methods defaults to <rootPath>,txt/<dataSet>/<chipType>/.
 
 
-# aroma.core 1.5.7 [2010-04-27]
+# Version 1.5.7 [2010-04-27]
 
 ### New Features
 
@@ -1801,21 +1809,21 @@
  * AD HOC: Now `getUnitAnnotationDataFile()` of AromaPlatformInterface load **aroma.affymetrix** if needed and if installed.
 
 
-# aroma.core 1.5.6 [2010-04-22]
+# Version 1.5.6 [2010-04-22]
 
 ### New Features
 
  * Added `writeDataFrame()` for AromaUnitSignalBinary{File|Set}.
 
 
-# aroma.core 1.5.5 [2010-04-12]
+# Version 1.5.5 [2010-04-12]
 
 ### Bug Fixes
 
  * `getFitFunction()` of CbsModel would return a function that would give "Error in segmentByCBS.RawGenomicSignals(..., `seed =` seed): formal argument "seed" matched by multiple actual arguments".
 
 
-# aroma.core 1.5.4 [2010-04-06]
+# Version 1.5.4 [2010-04-06]
 
 ### New Features
 
@@ -1824,21 +1832,21 @@
  * Added argument `seed` to CbsModel, which will, if specified, set the random seed (temporarily) each time (per sample and chromosome) before calling the segmentation method.
 
 
-# aroma.core 1.5.3 [2010-04-05]
+# Version 1.5.3 [2010-04-05]
 
 ### New Features
 
  * Added argument `seed` to `segmentByCBS()` for RawGenomicSignals.
 
 
-# aroma.core 1.5.2 [2010-03-29]
+# Version 1.5.2 [2010-03-29]
 
 ### Refactorization
 
  * ROBUSTNESS: Increased the requirements of support packages.
 
 
-# aroma.core 1.5.1 [2010-03-02]
+# Version 1.5.1 [2010-03-02]
 
 ### Significant Changes
 
@@ -1857,7 +1865,7 @@
  * Forgot argument `verbose` of `getOutputSet()` of ChromosomalModel.
 
 
-# aroma.core 1.5.0 [2010-02-22]
+# Version 1.5.0 [2010-02-22]
 
 ### New Release
 
@@ -1873,7 +1881,7 @@
  * Package passes all redundancy tests.
 
 
-# aroma.core 1.4.7 [2010-02-21]
+# Version 1.4.7 [2010-02-21]
 
 ### New Features
 
@@ -1885,7 +1893,7 @@
  * Added Rd help for AromaCellPositionFile class.
 
 
-# aroma.core 1.4.6 [2010-02-19]
+# Version 1.4.6 [2010-02-19]
 
 ### New Features
 
@@ -1909,7 +1917,7 @@
  * SIMPLIFICATION: Now it is possible to plot cytobands without having to install the GLAD package.
 
 
-# aroma.core 1.4.5 [2010-02-10]
+# Version 1.4.5 [2010-02-10]
 
 ### Software Quality
 
@@ -1921,7 +1929,7 @@
  * CLEANUP: Removed debug `print()` statements in `isCompatibleWith()`.
 
 
-# aroma.core 1.4.4 [2010-02-03]
+# Version 1.4.4 [2010-02-03]
 
 ### Significant Changes
 
@@ -1933,7 +1941,7 @@
  * Package passes R CMD check and all redundancy tests.
 
 
-# aroma.core 1.4.3 [2010-01-25]
+# Version 1.4.3 [2010-01-25]
 
 ### Software Quality
 
@@ -1945,7 +1953,7 @@
  * CLEANUP: Using new Arguments$`getTags()` where ever possible.
 
 
-# aroma.core 1.4.2 [2010-01-13]
+# Version 1.4.2 [2010-01-13]
 
 ### New Features
 
@@ -1961,14 +1969,14 @@
  * Now `getUnitNamesFile()` for AromaPlatformInterface utilizes the generic `getUnitAnnotationDataFile()` method.
 
 
-# aroma.core 1.4.1 [2010-01-06]
+# Version 1.4.1 [2010-01-06]
 
 ### New Features
 
  * Added argument `defaults` to `allocate()` of AromaTabularBinaryFile.
 
 
-# aroma.core 1.4.0 [2010-01-04]
+# Version 1.4.0 [2010-01-04]
 
 ### New Features
 
@@ -1985,7 +1993,7 @@
  * Added `getDefaultFullName()` for AromaMicroarrayDataSet and AromaTabularBinarySet in order to override (parent=1) the new default of GenericDataFileSet in **R.filesets** v0.7.0, which would return the chip type (parent=0) as the name.
 
 
-# aroma.core 1.3.8 [2010-01-02]
+# Version 1.3.8 [2010-01-02]
 
 ### New Features
 
@@ -1997,7 +2005,7 @@
  * CLEAN UP: Moved all GenericSummary code to **R.utils**.
 
 
-# aroma.core 1.3.7 [2010-01-01]
+# Version 1.3.7 [2010-01-01]
 
 ### New Features
 
@@ -2027,21 +2035,21 @@
  * `getFullNames()` of ChromosomeExplorer reported: Error in `UseMethod("translateFullNames")` : no applicable method for `translateFullNames` applied to an object of class "character".
 
 
-# aroma.core 1.3.6 [2009-12-08]
+# Version 1.3.6 [2009-12-08]
 
 ### Bug Fixes
 
  * `extractMatrix()` of AromaUnitCallFile did not recognize NoCalls.
 
 
-# aroma.core 1.3.5 [2009-12-02]
+# Version 1.3.5 [2009-12-02]
 
 ### Bug Fixes
 
  * `extractRawCopyNumbers()` for RawCopyNumbers would give an error if the internal logBase was NULL.
 
 
-# aroma.core 1.3.4 [2009-11-24]
+# Version 1.3.4 [2009-11-24]
 
 ### Significant Changes
 
@@ -2062,7 +2070,7 @@
  * Moved several method for `profileCGH` objects to aroma.core from **aroma.affymetrix**.
 
 
-# aroma.core 1.3.3 [2009-11-19]
+# Version 1.3.3 [2009-11-19]
 
 ### New Features
 
@@ -2082,7 +2090,7 @@
  * GENERALIZATION: Moved all (generalized) ChromosomalModel, CopyNumberChromosomalModel, and CopyNumberSegmentationModel from **aroma.affymetrix** to here.
 
 
-# aroma.core 1.3.2 [2009-11-12]
+# Version 1.3.2 [2009-11-12]
 
 ### New Features
 
@@ -2101,14 +2109,14 @@
  * `importFrom(ufl, dat, ...)` where `ufl` was an AromaUflFile and `dat` a GenericTabularFile gave an error reporting that `importFromGenericTabularFile()` is abstract/not defined for AromaUflFile:s. Thanks Paolo Guarnieri for reporting this.
 
 
-# aroma.core 1.3.1 [2009-11-03]
+# Version 1.3.1 [2009-11-03]
 
 ### Documentation
 
  * Replaced Rd cross references to sfit and HaarSeg packages with plain text in order to meet the CRAN requirements that all Rd links must exist on the CRAN servers.
 
 
-# aroma.core 1.3.0 [2009-11-01]
+# Version 1.3.0 [2009-11-01]
 
 ### New Release
 
@@ -2122,14 +2130,14 @@
  * Package passes R CMD check on R v2.10.0 and all redundancy tests.
 
 
-# aroma.core 1.2.3 [2009-10-25]
+# Version 1.2.3 [2009-10-25]
 
 ### New Features
 
  * Added `getExtensionPattern()` to most GenericDataFile classes.
 
 
-# aroma.core 1.2.2 [2009-10-16]
+# Version 1.2.2 [2009-10-16]
 
 ### New Features
 
@@ -2141,7 +2149,7 @@
  * Stricter dependencies.
 
 
-# aroma.core 1.2.1 [2009-10-02]
+# Version 1.2.1 [2009-10-02]
 
 ### Refactorization
 
@@ -2150,7 +2158,7 @@
  * CLEAN UP: Move the Interface class to the R.oo package.
 
 
-# aroma.core 1.2.0 [2009-09-09]
+# Version 1.2.0 [2009-09-09]
 
 ### New Release
 
@@ -2167,14 +2175,14 @@
  * Fixed broken/missing Rd links.
 
 
-# aroma.core 1.1.7 [2009-09-07]
+# Version 1.1.7 [2009-09-07]
 
 ### Significant Changes
 
  * Now `getUnitsOnChromosomes()` for AromaUnitChromosomeTabularBinaryFile returns a vector by default (unlist=TRUE).
 
 
-# aroma.core 1.1.6 [2009-09-07]
+# Version 1.1.6 [2009-09-07]
 
 ### New Features
 
@@ -2188,14 +2196,14 @@
  * BUG FIX/WORKAROUND: `smoothScatter()`, which is used in for instance **aroma.affymetrix**, is in the graphics package from R v2.9.0.  It was previously in geneplotter v1.2.4 and `before(!)`. The code imported it from geneplotter would therefore give an error of a missing function with geneplotter v1.2.5.  We are now assuming R v2.9.0 by default, but if not available, but geneplotter v1.2.4 or earlier is, geneplotter is loaded. If neither are available, a dummy `smoothScatter()` is setup reporting an error.
 
 
-# aroma.core 1.1.5 [2009-08-29]
+# Version 1.1.5 [2009-08-29]
 
 ### Significant Changes
 
  * Added totalAndFracBData/ to the search path of `byName()` for AromaUnit(FracB|Total)CnBinarySet.
 
 
-# aroma.core 1.1.4 [2009-07-22]
+# Version 1.1.4 [2009-07-22]
 
 ### New Features
 
@@ -2208,7 +2216,7 @@
  * Now `uses()` for Interface takes multiple Interface:s.
 
 
-# aroma.core 1.1.3 [2009-07-03]
+# Version 1.1.3 [2009-07-03]
 
 ### New Features
 
@@ -2221,7 +2229,7 @@
  * Added get-, `setStateColorMap()`, and `getStateColors()` for class SegmentedGenomicSignalsInterface.
 
 
-# aroma.core 1.1.2 [2009-06-14]
+# Version 1.1.2 [2009-06-14]
 
 ### New Release
 
@@ -2245,7 +2253,7 @@
  * `exportTotalCnRatioSet()` would return a AromaUnitFracBCnBinarySet.
 
 
-# aroma.core 1.1.1 [2009-06-10]
+# Version 1.1.1 [2009-06-10]
 
 ### Significant Changes
 
@@ -2273,7 +2281,7 @@
  * `getOutputDataSet()` of AromaTransform failed to identify the output files if (and only if) a filename translator was applied to the input data set.
 
 
-# aroma.core 1.1.0 [2009-05-29]
+# Version 1.1.0 [2009-05-29]
 
 ### New Release
 
@@ -2287,14 +2295,14 @@
  * Package passes R CMD check on R v2.9.0 and all redundancy tests.
 
 
-# aroma.core 1.0.8 [2009-05-25]
+# Version 1.0.8 [2009-05-25]
 
 ### New Features
 
  * GENERALIZATION: The AromaTransforms class was generalized further to handle cases where the number of output files does not map one to one to the input files.
 
 
-# aroma.core 1.0.7 [2009-05-18]
+# Version 1.0.7 [2009-05-18]
 
 ### New Features
 
@@ -2337,7 +2345,7 @@
  * `extractMergedRawCopyNumbers(..., unshift=TRUE)` would estimate the relative shifts between platforms using smoothed CNs over the genomic region defined by the first data set.  Now it is done over the region defined by the union of all data sets.  The impact of this bug should be neglectable or zero.
 
 
-# aroma.core 1.0.6 [2009-05-14]
+# Version 1.0.6 [2009-05-14]
 
 ### Significant Changes
 
@@ -2377,7 +2385,7 @@
  * `extractSubset()` of RawGenomicSignals did not recognize all locus fields.
 
 
-# aroma.core 1.0.5 [2009-05-10]
+# Version 1.0.5 [2009-05-10]
 
 ### Significant Changes
 
@@ -2417,7 +2425,7 @@
  * `as.character()` of GenericDataFileSet would throw an error if the data set was empty, because then there was no path.
 
 
-# aroma.core 1.0.4 [2009-04-07]
+# Version 1.0.4 [2009-04-07]
 
 ### Bug Fixes
 
@@ -2428,14 +2436,14 @@
  * When passing a single data points to `colBinnedSmoothing()`, it would throw the exception: "Range of argument `by` is out of range [0,0]: [<by>,<by>]".
 
 
-# aroma.core 1.0.3 [2009-03-23]
+# Version 1.0.3 [2009-03-23]
 
 ### New Features
 
  * Added the TextUnitNamesFile class.
 
 
-# aroma.core 1.0.2 [2009-02-26]
+# Version 1.0.2 [2009-02-26]
 
 ### New Features
 
@@ -2461,7 +2469,7 @@
  * Now `getChecksum()` of GenericDataFile caches results unless the file has been modified since last time.
 
 
-# aroma.core 1.0.1 [2009-02-12]
+# Version 1.0.1 [2009-02-12]
 
 ### Significant Changes
 
@@ -2498,7 +2506,7 @@
  * ROBUSTNESS: Now `findAnnotationData()` always returns pathnames ordered by the length of their fullnames. Before this was only done if '`firstOnly=TRUE'`.
 
 
-# aroma.core 1.0.0 [2009-01-12]
+# Version 1.0.0 [2009-01-12]
 
 ### New Features
 
@@ -2516,7 +2524,7 @@
  * `getAttributes()` for GenericDataFile:s would give an error if there were no attributes.
 
 
-# aroma.core 0.9.6 [2008-12-04]
+# Version 0.9.6 [2008-12-04]
 
 ### New Features
 
@@ -2535,42 +2543,42 @@
  * CLEAN UP: `readDataFrame()` of AromaTabularBinaryFile would forget to close the connection if verbose output was activated.  When R later would close such connections, a warning would be generated.
 
 
-# aroma.core 0.9.5 [2008-10-17]
+# Version 0.9.5 [2008-10-17]
 
 ### Software Quality
 
  * Package passes R CMD check on R v2.7.2 and R v2.8.0rc.
 
 
-# aroma.core 0.9.4.5 [2008-10-16]
+# Version 0.9.4.5 [2008-10-16]
 
 ### Bug Fixes
 
  * Tried to turn a function passed to `as.GrayscaleImage()` in argument `transforms` to a list using `as.list()` and not `list()`.
 
 
-# aroma.core 0.9.4.4 [2008-09-18]
+# Version 0.9.4.4 [2008-09-18]
 
 ### New Features
 
  * Added argument `skip` to `writeChecksum()` of GenericDataFile.
 
 
-# aroma.core 0.9.4.3 [2008-09-03]
+# Version 0.9.4.3 [2008-09-03]
 
 ### New Features
 
  * Added `getSnpPositions()`, `getSnpShifts()`, `getSnpNucleotides()` and `groupBySnpNucleotides()` to AromaCellSequenceFile.
 
 
-# aroma.core 0.9.4.2 [2008-08-31]
+# Version 0.9.4.2 [2008-08-31]
 
 ### New Features
 
  * Update `fitGenotypeCone()` to support both flavors `sfit` (old) and `expectile` (new).
 
 
-# aroma.core 0.9.4.1 [2008-08-12]
+# Version 0.9.4.1 [2008-08-12]
 
 ### New Features
 
@@ -2589,7 +2597,7 @@
  * `readSequences()` for AromaCellSequenceFile translated raw values to incorrect nucleotides.
 
 
-# aroma.core 0.9.4 [2008-08-02]
+# Version 0.9.4 [2008-08-02]
 
 ### New Release
 
@@ -2601,7 +2609,7 @@
  * Package passes R CMD check on R v2.7.1 and R v2.8.0 devel on WinXP.
 
 
-# aroma.core 0.9.3.4 [2008-07-24]
+# Version 0.9.3.4 [2008-07-24]
 
 ### New Features
 
@@ -2617,7 +2625,7 @@
  * SPEEDUP: Replaced all `which()` with faster `whichVector()`.
 
 
-# aroma.core 0.9.3.3 [2008-07-21]
+# Version 0.9.3.3 [2008-07-21]
 
 ### Significant Changes
 
@@ -2638,7 +2646,7 @@
  * Now `findByName()` assert that the data set name is not empty.
 
 
-# aroma.core 0.9.3.2 [2008-07-16]
+# Version 0.9.3.2 [2008-07-16]
 
 ### New Features
 
@@ -2649,7 +2657,7 @@
  * ALPHA: Added private ProbePositionEffects et al.
 
 
-# aroma.core 0.9.3.1 [2008-07-12]
+# Version 0.9.3.1 [2008-07-12]
 
 ### New Features
 
@@ -2669,21 +2677,21 @@
  * SPEEDUP: Now all AromaTabularBinaryFile:s, such as AromaUgpFile, read data much faster after two modifications to readDataFrame(): (i) rownames are no longer generate, if not asked for explicitly, and (ii) garbage collection is no longer done after each column.
 
 
-# aroma.core 0.9.3 [2008-06-08]
+# Version 0.9.3 [2008-06-08]
 
 ### Software Quality
 
  * Package passes R CMD check on R v2.7.0 patched.
 
 
-# aroma.core 0.9.2.6 [2008-06-07]
+# Version 0.9.2.6 [2008-06-07]
 
 ### Significant Changes
 
  * Update filename pattern for `getOutputFiles()` of AromaTransform.
 
 
-# aroma.core 0.9.2.5 [2008-05-25]
+# Version 0.9.2.5 [2008-05-25]
 
 ### New Features
 
@@ -2694,7 +2702,7 @@
  * Now private `xmlToList()` handles more complex XML strings.
 
 
-# aroma.core 0.9.2.4 [2008-05-22]
+# Version 0.9.2.4 [2008-05-22]
 
 ### New Features
 
@@ -2705,7 +2713,7 @@
  * Added argument `xOut` to `gaussianSmoothing()` in order to specify at what loci the smoothed signals should be calculated.
 
 
-# aroma.core 0.9.2.3 [2008-05-21]
+# Version 0.9.2.3 [2008-05-21]
 
 ### New Features
 
@@ -2751,7 +2759,7 @@
  * BUG FIX: `findAnnotationDataByChipType(`chipType="GenomeWideSNP_6"`, pattern="^GenomeWideSNP_6.*[.]ugp$")` would find file 'GenomeWideSNP_6,Full,na24.ugp' before 'GenomeWideSNP_6,na24.ugp'. Now we return the one with the shortest full name.
 
 
-# aroma.core 0.9.2 [2008-05-10]
+# Version 0.9.2 [2008-05-10]
 
 ### Significant Changes
 
