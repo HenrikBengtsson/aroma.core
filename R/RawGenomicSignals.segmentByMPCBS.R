@@ -6,6 +6,11 @@
 #
 # \description{
 #  @get "title" of the \pkg{mpcbs} package.
+#
+#  \emph{WARNING: The \pkg{mpcbs} package is an old package that is no
+#  longer maintained. It also has `_R_CHECK_LENGTH_1_CONDITION_` and
+#  `_R_CHECK_LENGTH_1_LOGIC2_` bugs, which give errors in R (>= 4.2.0).
+#  This means that `segmentByMPCBS()` does not work in R (>= 4.2.0).}
 # }
 #
 # @synopsis
