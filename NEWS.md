@@ -1,4 +1,4 @@
-# aroma.core 3.2.2-9001 [2022-11-07]
+# aroma.core 3.3.0 [2022-11-10]
 
 ### Documentation
 

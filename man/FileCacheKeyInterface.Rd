@@ -43,7 +43,7 @@ FileCacheKeyInterface(...)
  \section{Fields and Methods}{
   \bold{Methods:}\cr
 \tabular{rll}{
- \tab \code{getCacheKey} \tab  -\cr
+ \tab \code{\link[aroma.core:getCacheKey.FileCacheKeyInterface]{getCacheKey}} \tab Gets a list of cache key items.\cr
 }
 
 
