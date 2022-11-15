@@ -16,6 +16,11 @@
 
 \description{
  Segment copy numbers using the multi-platform CBS (mpCBS) method of the \pkg{mpcbs} package.
+
+ \emph{WARNING: The \pkg{mpcbs} package is an old package that is no
+ longer maintained. It also has `_R_CHECK_LENGTH_1_CONDITION_` and
+ `_R_CHECK_LENGTH_1_LOGIC2_` bugs, which give errors in R (>= 4.2.0).
+ This means that `segmentByMPCBS()` does not work in R (>= 4.2.0).}
 }
 
 \usage{
@@ -93,16 +98,11 @@ if (require("DNAcopy")) {
 }
 
 
-if (require("mpcbs")) {
-  fit <- local({
-    ## WORKAROUND: There's a _R_CHECK_LENGTH_1_LOGIC2_ bug in
-    ## mpcbs::mpcbs.mbic().  Until fixed, we need to disable this check
-    ## while calling segmentByMPCBS().
-    ovalue <- Sys.getenv("_R_CHECK_LENGTH_1_LOGIC2_")
-    on.exit(Sys.setenv("_R_CHECK_LENGTH_1_LOGIC2_"=ovalue))
-    ovalue <- Sys.setenv("_R_CHECK_LENGTH_1_LOGIC2_"="warn,verbose")
-    segmentByMPCBS(cn)
-  })
+## WORKAROUND: There's a _R_CHECK_LENGTH_1_LOGIC2_ bug in
+## mpcbs::mpcbs.mbic().  Until fixed, if ever, we cannot
+## call segmentByMPCBS() here. /HB 2022-11-10
+if (isTRUE(Sys.getenv("R_CHECK_FULL")) && require("mpcbs")) {
+  fit <- segmentByMPCBS(cn)
   cnr <- extractCopyNumberRegions(fit)
   print(cnr)
   drawLevels(cnr, col="white", lwd=6)
