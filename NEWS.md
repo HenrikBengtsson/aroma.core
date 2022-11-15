@@ -1,5 +1,10 @@
 # Version (development version)
 
+ * ...
+
+
+# Version 3.3.0 [2022-11-11]
+
 ### Documentation
 
  * Drop duplicated arguments from help for `writeDataFrame()` of
