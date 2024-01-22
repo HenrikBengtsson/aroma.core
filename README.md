@@ -1,47 +1,26 @@
+
+
 <div id="badges"><!-- pkgdown markup -->
-<a href="https://CRAN.R-project.org/web/checks/check_results_aroma.core.html"><img border="0" src="https://www.r-pkg.org/badges/version/aroma.core" alt="CRAN check status"/></a>
-<a href="https://github.com/HenrikBengtsson/aroma.core/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/HenrikBengtsson/aroma.core/actions/workflows/R-CMD-check.yaml/badge.svg?branch=develop" alt="R CMD check status"/></a>
-<a href="https://app.codecov.io/gh/HenrikBengtsson/aroma.core"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/aroma.core/branch/develop/graph/badge.svg" alt="Coverage Status"/></a> 
+<a href="https://CRAN.R-project.org/web/checks/check_results_aroma.core.html"><img border="0" src="https://www.r-pkg.org/badges/version/aroma.core" alt="CRAN check status"/></a> <a href="https://github.com/HenrikBengtsson/aroma.core/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/HenrikBengtsson/aroma.core/actions/workflows/R-CMD-check.yaml/badge.svg?branch=develop" alt="R CMD check status"/></a>     <a href="https://app.codecov.io/gh/HenrikBengtsson/aroma.core"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/aroma.core/branch/develop/graph/badge.svg" alt="Coverage Status"/></a> 
 </div>
 
 # aroma.core: Core Methods and Classes Used by 'aroma.*' Packages Part of the Aroma Framework 
 
 
 ## Installation
-
-This R package is available on [CRAN](https://cran.r-project.org/package=aroma.core) and can be installed in R as:
-
+R package aroma.core is available on [CRAN](https://cran.r-project.org/package=aroma.core) and can be installed in R as:
 ```r
-# install.packages("BiocManager")
-BiocManager::install(c("aroma.light", "DNAcopy"))
-
 install.packages("aroma.core")
-```
-
-To install the _optional_ dependency **sfit**, use:
-
-```r
-install.packages("sfit", repos = "https://henrikbengtsson.r-universe.dev")
-```
-
-This will install the package from source.  Similarly, to install the rarely needed _optional_ dependencies **expectile**, **HaarSeg**, and **mpcbs**, use:
-
-```r
-install.packages("expectile", repos = "https://henrikbengtsson.r-universe.dev")
-install.packages("HaarSeg", repos = "https://henrikbengtsson.r-universe.dev")
-install.packages("mpcbs", repos = c("https://r-forge.r-project.org", getOption("repos")))
 ```
 
 
 ### Pre-release version
- 
+
 To install the pre-release version that is available in Git branch `develop` on GitHub, use:
-
 ```r
-remotes::install_github("HenrikBengtsson/aroma.core", ref = "develop")
+remotes::install_github("HenrikBengtsson/aroma.core", ref="develop")
 ```
-
-This will install the package from source.
-
+This will install the package from source.  
 
 <!-- pkgdown-drop-below -->
+
