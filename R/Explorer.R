@@ -139,8 +139,6 @@ setMethodS3("getNames", "Explorer", function(this, ...) {
 # @synopsis
 #
 # \arguments{
-#   \item{arrays}{A @character (or @integer) @vector of arrays to be
-#      considered. If @NULL, all arrays of the data set are considered.}
 #   \item{...}{Not used.}
 # }
 #
@@ -517,7 +515,6 @@ setMethodS3("getMainPath", "Explorer", function(this, ...) {
 # @synopsis
 #
 # \arguments{
-#   \item{create}{If @TRUE, the path is created, otherwise not.}
 #   \item{...}{Not used.}
 # }
 #
@@ -717,10 +714,7 @@ setMethodS3("setup", "Explorer", function(this, ..., force=FALSE) {
 # @synopsis
 #
 # \arguments{
-#   \item{arrays}{A @vector of arrays specifying which arrays to
-#    be considered.  If @NULL, all are processed.}
 #   \item{...}{Not used.}
-#   \item{verbose}{A @logical or @see "R.utils::Verbose".}
 # }
 #
 # \value{

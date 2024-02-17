@@ -22,7 +22,6 @@
 }
 
 \arguments{
-  \item{create}{If \code{\link[base:logical]{TRUE}}, the path is created, otherwise not.}
   \item{...}{Not used.}
 }
 

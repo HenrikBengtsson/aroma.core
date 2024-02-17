@@ -2,7 +2,7 @@
 
 ## Documentation
 
- * Fix a few minor help-page issues.
+ * Fix minor help-page issues.
 
 
 # Version 3.3.0 [2022-11-11]
