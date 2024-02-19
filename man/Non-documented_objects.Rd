@@ -11,6 +11,7 @@
 \title{Non-documented objects}
 
 
+\alias{.Machine}
 % Other missing docs
 \alias{#}
 \alias{DEFUNCT}
