@@ -1,5 +1,5 @@
 Package: aroma.core
-Version: 3.3.0-9003
+Version: 3.3.0-9004
 Depends:
   R (>= 3.2.1),
   R.utils (>= 2.10.1),

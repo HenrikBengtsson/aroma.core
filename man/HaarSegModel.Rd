@@ -79,6 +79,6 @@ $, $<-, [[, [[<-, as.character, attach, attachLocally, clearCache, clearLookupCa
 
 \references{
   [1] Ben-Yaacov E. and Eldar YC. \emph{A fast and flexible method for the segmentation of aCGH data}, Bioinformatics, 2008.
-  \url{https://webee.technion.ac.il/Sites/People/YoninaEldar/software_det1.php}
+  \url{https://www.weizmann.ac.il/math/yonina/software-hardware/software/haarseg-fast-and-flexible-microarray-segmentation}
 }
 \keyword{classes}
