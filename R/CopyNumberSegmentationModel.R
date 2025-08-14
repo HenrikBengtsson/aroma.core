@@ -97,7 +97,7 @@ setMethodS3("getFitFunction", "CopyNumberSegmentationModel", abstract=TRUE, prot
 # \arguments{
 #   \item{arrays}{A @vector of array indices specifying which arrays to
 #    be considered.  If @NULL, all are processed.}
-#   \item{chromosome}{A @vector of chromosomes indices specifying which
+#   \item{chromosomes}{A @vector of chromosomes indices specifying which
 #     chromosomes to be considered.  If @NULL, all are processed.}
 #   \item{force}{If @FALSE, the model will not be fitted again if it was
 #     already fitted.}

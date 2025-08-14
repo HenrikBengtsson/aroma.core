@@ -25,7 +25,7 @@
 \arguments{
   \item{arrays}{A \code{\link[base]{vector}} of array indices specifying which arrays to
    be considered.  If \code{\link[base]{NULL}}, all are processed.}
-  \item{chromosome}{A \code{\link[base]{vector}} of chromosomes indices specifying which
+  \item{chromosomes}{A \code{\link[base]{vector}} of chromosomes indices specifying which
     chromosomes to be considered.  If \code{\link[base]{NULL}}, all are processed.}
   \item{force}{If \code{\link[base:logical]{FALSE}}, the model will not be fitted again if it was
     already fitted.}

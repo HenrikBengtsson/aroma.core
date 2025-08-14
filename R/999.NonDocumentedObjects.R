@@ -1,6 +1,7 @@
 ###########################################################################/**
 # @RdocDocumentation "Non-documented objects"
 #
+# @alias .Machine
 # % Other missing docs
 # @eval "t <- readLines('../incl/999.missingdocs.txt'); t <- trim(unlist(strsplit(t, split=' '))); t <- t[nchar(t) > 0]; t2 <- gsub('\\[', '\\\\[', t); t <- unique(t); t <- sprintf('\\alias{%s}', t); paste(t, collapse='\n')"
 #

@@ -524,7 +524,7 @@ setMethodS3("updateSetupExplorerFile", "ChromosomeExplorer", function(this, ...,
 # \arguments{
 #   \item{arrays}{A @vector of arrays specifying which arrays to
 #    be considered.  If @NULL, all are processed.}
-#   \item{chromosome}{A @vector of chromosomes specifying which
+#   \item{chromosomes}{A @vector of chromosomes specifying which
 #     chromosomes to be considered.  If @NULL, all are processed.}
 #   \item{...}{Not used.}
 #   \item{verbose}{A @logical or @see "R.utils::Verbose".}

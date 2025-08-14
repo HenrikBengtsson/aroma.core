@@ -60,7 +60,7 @@
    Returns a \code{\link[base]{numeric}} KxI \code{\link[base]{matrix}} (or a \code{\link[base]{vector}} of length K) where
    K is the total number of bins.
    The following attributes are also returned:
-   \itemize{
+   \describe{
     \item{\code{xOut}}{The center locations of each bin.}
     \item{\code{xOutRange}}{The bin boundaries.}
     \item{\code{count}}{The number of data points within each bin

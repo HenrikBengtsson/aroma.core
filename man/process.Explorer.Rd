@@ -22,10 +22,7 @@
 }
 
 \arguments{
-  \item{arrays}{A \code{\link[base]{vector}} of arrays specifying which arrays to
-   be considered.  If \code{\link[base]{NULL}}, all are processed.}
   \item{...}{Not used.}
-  \item{verbose}{A \code{\link[base]{logical}} or \code{\link[R.utils]{Verbose}}.}
 }
 
 \value{

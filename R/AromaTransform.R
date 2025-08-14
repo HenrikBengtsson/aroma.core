@@ -737,9 +737,6 @@ setMethodS3("getOutputDataSet", "AromaTransform", function(this, onMissing=c("dr
 #
 # \arguments{
 #   \item{...}{Not used.}
-#   \item{force}{If @TRUE, data already processed is re-processed,
-#       otherwise not.}
-#   \item{verbose}{See @see "R.utils::Verbose".}
 # }
 #
 # \value{
