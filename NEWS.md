@@ -1,6 +1,8 @@
 # Version (development version)
 
- * ...
+## Documentation
+
+ * Add missing package anchors for a few Rd links.
  
 
 # Version 3.3.1 [2024-02-18]
