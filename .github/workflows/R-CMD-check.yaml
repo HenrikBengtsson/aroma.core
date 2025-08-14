@@ -59,19 +59,14 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+          extra-repositories: |
+            https://henrikbengtsson.r-universe.dev
+            https://r-forge.r-project.org
           
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
           needs: check
-
-      - name: Install R package dependencies
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          # install.packages(c("sfit", "expectile", "HaarSeg"), repos = "https://henrikbengtsson.r-universe.dev")
-          # install.packages("mpcbs", repos = c("https://r-forge.r-project.org", getOption("repos")))
-        shell: Rscript {0}
 
       - name: Session info
         run: |
