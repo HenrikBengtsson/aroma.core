@@ -1,3 +1,10 @@
+# Version 3.3.2 [2025-08-18]
+
+## Documentation
+
+ * Add missing package anchors for a few Rd links.
+ 
+
 # Version 3.3.1 [2024-02-18]
 
 ## Documentation

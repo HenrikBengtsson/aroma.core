@@ -29,7 +29,7 @@
 # }
 #
 # \value{
-#  Returns the written data set as a @see "TabularTextFileSet" object.
+#  Returns the written data set as a @see "R.filesets::TabularTextFileSet" object.
 # }
 #
 # \section{Warning}{

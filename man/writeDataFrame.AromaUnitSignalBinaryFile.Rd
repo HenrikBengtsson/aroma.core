@@ -49,7 +49,7 @@
 }
 
 \value{
- Returns the write data file as a \code{\link{TabularTextFile}} object.
+ Returns the write data file as a \code{\link[R.filesets]{TabularTextFile}} object.
 }
 
 \author{Henrik Bengtsson}

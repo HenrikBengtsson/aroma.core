@@ -33,7 +33,7 @@
 # }
 #
 # \value{
-#  Returns the write data file as a @see "TabularTextFile" object.
+#  Returns the write data file as a @see "R.filesets::TabularTextFile" object.
 # }
 #
 # @author

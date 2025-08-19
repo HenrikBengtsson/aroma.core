@@ -45,7 +45,7 @@
 }
 
 \value{
- Returns the written data set as a \code{\link{TabularTextFileSet}} object.
+ Returns the written data set as a \code{\link[R.filesets]{TabularTextFileSet}} object.
 }
 
 \section{Warning}{
